@@ -12,7 +12,7 @@ Model ID: `claude-fable-5-1`
 
 Context window: 1M tokens · Max output: 128K tokens · Input pricing: $10 / MTok · Output pricing: $50 / MTok
 
-[Announcement](https://www.anthropic.com/claude/fable/5-1) · [What’s new](https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1) · [Migration guide](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide)
+[Announcement](https://www.anthropic.com/claude-fable-and-mythos-5-1) · [What’s new](https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1) · [Migration guide](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide)
 
 ## Overview
 

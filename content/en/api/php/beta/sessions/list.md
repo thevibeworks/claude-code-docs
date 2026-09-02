@@ -14,7 +14,7 @@ List Sessions
 
 - `agentVersion?:optional int`
 
-  Filter by agent version. Only applies when agent_id is also set.
+  Filter by agent version. Only applies when `agent_id` is also set.
 
 - `createdAtGt?:optional \Datetime`
 
@@ -46,11 +46,11 @@ List Sessions
 
 - `memoryStoreID?:optional string`
 
-  Filter sessions whose resources contain a memory_store with this memory store ID.
+  Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
 - `order?:optional Order`
 
-  Sort direction for results, ordered by created_at. Defaults to desc (newest first).
+  Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
 - `page?:optional string`
 
@@ -92,7 +92,7 @@ List Sessions
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 

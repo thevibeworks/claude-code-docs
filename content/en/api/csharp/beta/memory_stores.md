@@ -114,6 +114,12 @@ Create a memory store
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryStore:`
@@ -307,6 +313,12 @@ List memory stores
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryStore:`
@@ -484,6 +496,12 @@ Retrieve a memory store
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -675,6 +693,12 @@ Update a memory store
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryStore:`
@@ -849,6 +873,12 @@ Delete a memory store
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaManagedAgentsDeletedMemoryStore:`
@@ -984,6 +1014,12 @@ Archive a memory store
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -1137,7 +1173,7 @@ Create a memory
 
   - `required string path`
 
-    Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
+    Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive.
 
     minLength: 2, maxLength: 1024
 
@@ -1230,6 +1266,12 @@ Create a memory
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -1439,6 +1481,12 @@ List memories
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaManagedAgentsMemoryListItem: union`
@@ -1647,6 +1695,12 @@ Retrieve a memory
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaManagedAgentsMemory:`
@@ -1758,7 +1812,7 @@ Update a memory
 
   - `string? path`
 
-    Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
+    Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
     minLength: 2, maxLength: 1024
 
@@ -1851,6 +1905,12 @@ Update a memory
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -2043,6 +2103,12 @@ Delete a memory
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedMemory:`
@@ -2227,6 +2293,12 @@ List memory versions
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -2500,6 +2572,12 @@ Retrieve a memory version
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
@@ -2761,6 +2839,12 @@ Redact a memory version
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 

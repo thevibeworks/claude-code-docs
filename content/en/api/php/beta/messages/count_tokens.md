@@ -211,7 +211,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageTokensCount = $client->beta->messages->countTokens(
-  messages: [['content' => 'Hello, world', 'role' => 'user']],
+  messages: [
+    [
+      'content' => 'Hello, world',
+      'role' => 'user',
+      'clearAt' => 'next_user_message',
+      'outputConfig' => ['effort' => 'low'],
+    ],
+  ],
   model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   contextManagement: [
@@ -259,7 +266,13 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       ],
     ],
   ],
-  thinking: ['type' => 'adaptive', 'display' => 'summarized'],
+  thinking: [
+    'type' => 'adaptive',
+    'blockBinding' => [
+      'prefixMismatchBehavior' => BetaThinkingPrefixMismatchBehavior::ERROR
+    ],
+    'display' => 'summarized',
+  ],
   toolChoice: ['type' => 'auto', 'disableParallelToolUse' => true],
   tools: [
     [

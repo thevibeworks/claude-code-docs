@@ -103,7 +103,7 @@ List Session Resources
 
 - `--page: optional string`
 
-  Query param: Opaque cursor from a previous response's next_page field.
+  Query param: Opaque cursor from a previous response's `next_page` field.
 
 - `--beta: optional array of AnthropicBeta`
 

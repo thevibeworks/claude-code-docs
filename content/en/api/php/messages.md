@@ -1382,8 +1382,6 @@ var_dump($messageTokensCount);
 
   - `"browser_toolset_20260801" type`
 
-  - `?list<AllowedCaller> allowedCallers`
-
   - `?CacheControlEphemeral cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -2269,8 +2267,6 @@ var_dump($messageTokensCount);
 - `ComputerToolset20260801`
 
   - `"computer_toolset_20260801" type`
-
-  - `?list<AllowedCaller> allowedCallers`
 
   - `?CacheControlEphemeral cacheControl`
 
@@ -3306,8 +3302,6 @@ var_dump($messageTokensCount);
 
     - `"browser_toolset_20260801" type`
 
-    - `?list<AllowedCaller> allowedCallers`
-
     - `?CacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -3350,8 +3344,6 @@ var_dump($messageTokensCount);
   - `ComputerToolset20260801`
 
     - `"computer_toolset_20260801" type`
-
-    - `?list<AllowedCaller> allowedCallers`
 
     - `?CacheControlEphemeral cacheControl`
 
@@ -3886,6 +3878,14 @@ var_dump($messageTokensCount);
 ### Model
 
 - `Model`
+
+  - `"claude-fable-5-1"`
+
+    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+  - `"claude-mythos-5-1"`
+
+    Our most capable model for cybersecurity and biology research, available through trusted access programs
 
   - `"claude-sonnet-5"`
 
@@ -5378,8 +5378,6 @@ var_dump($messageTokensCount);
 
     - `"browser_toolset_20260801" type`
 
-    - `?list<AllowedCaller> allowedCallers`
-
     - `?CacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -5422,8 +5420,6 @@ var_dump($messageTokensCount);
   - `ComputerToolset20260801`
 
     - `"computer_toolset_20260801" type`
-
-    - `?list<AllowedCaller> allowedCallers`
 
     - `?CacheControlEphemeral cacheControl`
 

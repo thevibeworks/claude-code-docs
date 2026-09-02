@@ -1437,16 +1437,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `JsonElement Type constant`
 
-      - `IReadOnlyList<BrowserToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
-
       - `CacheControlEphemeral? CacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1878,16 +1868,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       via `configs.zoom.enabled`.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<ComputerToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `CacheControlEphemeral? CacheControl`
 
@@ -3446,6 +3426,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `ClaudeSonnet5`
 

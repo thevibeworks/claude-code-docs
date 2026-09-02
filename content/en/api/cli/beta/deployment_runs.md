@@ -36,11 +36,11 @@ List Deployment Runs
 
 - `--deployment-id: optional string`
 
-  Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent deployment_id returns 200 with empty data.
+  Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
 
 - `--has-error: optional boolean`
 
-  Query param: Filter: true for runs with non-null error, false for runs with non-null session_id. Omit for all.
+  Query param: Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
 - `--limit: optional number`
 
@@ -50,7 +50,7 @@ List Deployment Runs
 
 - `--page: optional string`
 
-  Query param: Opaque pagination cursor. Pass next_page from the previous response. Invalid or expired cursors return 400.
+  Query param: Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
 - `--trigger-type: optional "schedule" or "manual"`
 
@@ -64,7 +64,7 @@ List Deployment Runs
 
 - `BetaManagedAgentsListDeploymentRunsData: object`
 
-  Paginated list of deployment runs. Sorted by created_at descending (most recent first).
+  Paginated list of deployment runs. Sorted by `created_at` descending (most recent first).
 
   - `data: array of BetaManagedAgentsDeploymentRun`
 
@@ -262,7 +262,7 @@ List Deployment Runs
 
     - `session_id: string`
 
-      Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+      Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
     - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 
@@ -545,7 +545,7 @@ Get Deployment Run
 
   - `session_id: string`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 
@@ -816,7 +816,7 @@ ant beta:deployment-runs retrieve \
 
   - `session_id: string`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 

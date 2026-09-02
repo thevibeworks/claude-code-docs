@@ -214,6 +214,12 @@ Create a new environment with the specified configuration.
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ## Returns
 
 - `class BetaEnvironment:`

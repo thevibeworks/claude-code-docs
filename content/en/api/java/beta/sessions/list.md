@@ -16,7 +16,7 @@ List Sessions
 
   - `Optional<Long> agentVersion`
 
-    Filter by agent version. Only applies when agent_id is also set.
+    Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
@@ -60,11 +60,11 @@ List Sessions
 
   - `Optional<String> memoryStoreId`
 
-    Filter sessions whose resources contain a memory_store with this memory store ID.
+    Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
   - `Optional<Order> order`
 
-    Sort direction for results, ordered by created_at. Defaults to desc (newest first).
+    Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
     - `ASC("asc")`
 
@@ -172,6 +172,12 @@ List Sessions
 
     - `CE_USER_MANAGEMENT_2026_07_13("ce-user-management-2026-07-13")`
 
+    - `MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
 ## Returns
 
 - `class BetaManagedAgentsSession:`
@@ -205,6 +211,10 @@ List Sessions
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
@@ -752,7 +762,7 @@ List Sessions
 
   - `List<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
     - `Optional<LocalDateTime> completedAt`
 
@@ -766,7 +776,7 @@ List Sessions
 
     - `Optional<String> explanation`
 
-      Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
     - `long iteration`
 
@@ -894,7 +904,7 @@ List Sessions
 
     - `Optional<Double> activeSeconds`
 
-      Cumulative time in seconds the session spent in running status. Excludes idle time.
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 

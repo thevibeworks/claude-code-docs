@@ -154,6 +154,12 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `const AnthropicBetaCEUserManagement2026_07_13 AnthropicBeta = "ce-user-management-2026-07-13"`
 
+      - `const AnthropicBetaMidConversationOutputConfig2026_07_01 AnthropicBeta = "mid-conversation-output-config-2026-07-01"`
+
+      - `const AnthropicBetaThinkingBindingControls2026_08_01 AnthropicBeta = "thinking-binding-controls-2026-08-01"`
+
+      - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
+
   - `Temperature param.Field[float64] Optional`
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
@@ -215,6 +221,14 @@ Future models and features will not be compatible with Text Completions. See our
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
@@ -316,7 +330,7 @@ func main() {
 	)
 	completion, err := client.Completions.New(context.TODO(), anthropic.CompletionNewParams{
 		MaxTokensToSample: 256,
-		Model:             anthropic.ModelClaudeSonnet5,
+		Model:             anthropic.ModelClaudeFable5_1,
 		Prompt:            "\n\nHuman: Hello, world!\n\nAssistant:",
 	})
 	if err != nil {
@@ -365,6 +379,14 @@ func main() {
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 

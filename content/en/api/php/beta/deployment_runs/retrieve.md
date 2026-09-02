@@ -40,7 +40,7 @@ Get Deployment Run
 
   - `?string sessionID`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `BetaManagedAgentsTriggerContext triggerContext`
 

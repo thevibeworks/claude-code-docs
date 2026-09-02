@@ -1302,6 +1302,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `ClaudeFable5_1`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `ClaudeMythos5_1`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
+
               - `ClaudeSonnet5`
 
                 High-performance model for coding and agents
@@ -1379,6 +1387,36 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `Assistant`
 
       - `System`
+
+    - `ClearAt? ClearAt`
+
+      How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+      - `NextUserMessage`
+
+      - `Never`
+
+    - `BetaSystemMessageOutputConfig? OutputConfig`
+
+      Per-message output configuration on a role:"system" input message.
+
+      Fields here apply per-turn; `format` remains top-level only. An
+      empty `{}` is accepted on a message that carries content; a message
+      with neither content nor output_config fields is rejected.
+
+      - `Effort? Effort`
+
+        All possible effort levels.
+
+        - `Low`
+
+        - `Medium`
+
+        - `High`
+
+        - `Xhigh`
+
+        - `Max`
 
   - `required Model model`
 
@@ -1916,16 +1954,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       from its schema.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<BetaBrowserToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2552,16 +2580,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       via `configs.zoom.enabled`.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<BetaComputerToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3561,6 +3579,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -4440,6 +4464,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_1`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `ClaudeMythos5_1`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
+
           - `ClaudeSonnet5`
 
             High-performance model for coding and agents
@@ -5131,6 +5163,58 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Fast`
 
+  - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `required string Path`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `required Reason Reason`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `ModelBindingMismatch`
+
+      - `PrefixBindingMismatch`
+
+      - `OrganizationBindingMismatch`
+
+      - `EndUserBindingMismatch`
+
+    - `JsonElement Type constant`
+
+      Always `thinking_dropped` for this entry type.
+
 - `class BetaRawMessageStreamEvent: union`
 
   - `class BetaRawMessageStartEvent:`
@@ -5244,6 +5328,50 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `required BetaServerToolUsage? ServerToolUse`
 
         The number of server tool requests.
+
+    - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `required string Path`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `required Reason Reason`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `JsonElement Type constant`
+
+        Always `thinking_dropped` for this entry type.
 
   - `class BetaRawMessageStopEvent:`
 
@@ -5397,6 +5525,8 @@ MessageCreateParams parameters = new()
         {
             Content = "Hello, world",
             Role = Role.User,
+            ClearAt = ClearAt.NextUserMessage,
+            OutputConfig = new() { Effort = Effort.Low },
         },
     ],
     Model = Model.ClaudeOpus5,
@@ -5491,7 +5621,7 @@ Console.WriteLine(betaMessage);
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5",
+        "model": "claude-fable-5-1",
         "output_tokens": 0,
         "type": "message"
       }
@@ -5506,7 +5636,14 @@ Console.WriteLine(betaMessage);
     },
     "service_tier": "standard",
     "speed": "standard"
-  }
+  },
+  "input_transformations": [
+    {
+      "path": "path",
+      "reason": "model_binding_mismatch",
+      "type": "thinking_dropped"
+    }
+  ]
 }
 ```
 
@@ -6800,6 +6937,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `ClaudeFable5_1`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `ClaudeMythos5_1`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
+
               - `ClaudeSonnet5`
 
                 High-performance model for coding and agents
@@ -6877,6 +7022,36 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `Assistant`
 
       - `System`
+
+    - `ClearAt? ClearAt`
+
+      How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+      - `NextUserMessage`
+
+      - `Never`
+
+    - `BetaSystemMessageOutputConfig? OutputConfig`
+
+      Per-message output configuration on a role:"system" input message.
+
+      Fields here apply per-turn; `format` remains top-level only. An
+      empty `{}` is accepted on a message that carries content; a message
+      with neither content nor output_config fields is rejected.
+
+      - `Effort? Effort`
+
+        All possible effort levels.
+
+        - `Low`
+
+        - `Medium`
+
+        - `High`
+
+        - `Xhigh`
+
+        - `Max`
 
   - `required Model model`
 
@@ -7290,16 +7465,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       from its schema.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<BetaBrowserToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `BetaCacheControlEphemeral? CacheControl`
 
@@ -7926,16 +8091,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<BetaComputerToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `BetaCacheControlEphemeral? CacheControl`
 
@@ -8935,6 +9090,12 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -8974,6 +9135,8 @@ MessageCountTokensParams parameters = new()
         {
             Content = "Hello, world",
             Role = Role.User,
+            ClearAt = ClearAt.NextUserMessage,
+            OutputConfig = new() { Effort = Effort.Low },
         },
     ],
     Model = Model.ClaudeOpus5,
@@ -9042,6 +9205,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `ClaudeSonnet5`
 
@@ -9170,6 +9341,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `ClaudeSonnet5`
 
@@ -10489,16 +10668,6 @@ Console.WriteLine(betaMessageTokensCount);
   from its schema.
 
   - `JsonElement Type constant`
-
-  - `IReadOnlyList<BetaBrowserToolset20260801AllowedCaller> AllowedCallers`
-
-    - `Direct`
-
-    - `CodeExecution20250825`
-
-    - `CodeExecution20260120`
-
-    - `CodeExecution20260521`
 
   - `BetaCacheControlEphemeral? CacheControl`
 
@@ -12853,16 +13022,6 @@ Console.WriteLine(betaMessageTokensCount);
 
   - `JsonElement Type constant`
 
-  - `IReadOnlyList<BetaComputerToolset20260801AllowedCaller> AllowedCallers`
-
-    - `Direct`
-
-    - `CodeExecution20250825`
-
-    - `CodeExecution20260120`
-
-    - `CodeExecution20260521`
-
   - `BetaCacheControlEphemeral? CacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -14272,6 +14431,14 @@ Console.WriteLine(betaMessageTokensCount);
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeFable5_1`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `ClaudeMythos5_1`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
+
         - `ClaudeSonnet5`
 
           High-performance model for coding and agents
@@ -15591,6 +15758,14 @@ Console.WriteLine(betaMessageTokensCount);
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeFable5_1`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `ClaudeMythos5_1`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
+
         - `ClaudeSonnet5`
 
           High-performance model for coding and agents
@@ -16415,6 +16590,14 @@ Console.WriteLine(betaMessageTokensCount);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeFable5_1`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `ClaudeMythos5_1`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
+
       - `ClaudeSonnet5`
 
         High-performance model for coding and agents
@@ -16538,6 +16721,14 @@ Console.WriteLine(betaMessageTokensCount);
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeFable5_1`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `ClaudeMythos5_1`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `ClaudeSonnet5`
 
@@ -16776,6 +16967,14 @@ Console.WriteLine(betaMessageTokensCount);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
+
     - `ClaudeSonnet5`
 
       High-performance model for coding and agents
@@ -16847,6 +17046,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `ClaudeSonnet5`
 
@@ -16959,6 +17166,14 @@ Console.WriteLine(betaMessageTokensCount);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
+
     - `ClaudeSonnet5`
 
       High-performance model for coding and agents
@@ -17045,6 +17260,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `ClaudeSonnet5`
 
@@ -17178,6 +17401,24 @@ Console.WriteLine(betaMessageTokensCount);
 
       - `JsonElement Type constant`
 
+      - `BetaThinkingBlockBinding? BlockBinding`
+
+        Controls for block binding: what happens when a thinking block this
+        request sends back fails the conversation check. Every field is optional;
+        an empty object means every default.
+
+        - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+          What happens when a thinking block in `messages` fails the conversation
+          check: it was created in a different conversation, or the messages before
+          it have changed since. `"error"` (the default) fails the request with a
+          400 error. `"drop_block"` removes the failing blocks and the request
+          proceeds; the model no longer sees the dropped reasoning.
+
+          - `Error`
+
+          - `DropBlock`
+
       - `Display? Display`
 
         Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -17195,6 +17436,12 @@ Console.WriteLine(betaMessageTokensCount);
     - `class BetaThinkingConfigAdaptive:`
 
       - `JsonElement Type constant`
+
+      - `BetaThinkingBlockBinding? BlockBinding`
+
+        Controls for block binding: what happens when a thinking block this
+        request sends back fails the conversation check. Every field is optional;
+        an empty object means every default.
 
       - `Display? Display`
 
@@ -17251,6 +17498,14 @@ Console.WriteLine(betaMessageTokensCount);
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeFable5_1`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `ClaudeMythos5_1`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `ClaudeSonnet5`
 
@@ -17384,6 +17639,24 @@ Console.WriteLine(betaMessageTokensCount);
 
         - `JsonElement Type constant`
 
+        - `BetaThinkingBlockBinding? BlockBinding`
+
+          Controls for block binding: what happens when a thinking block this
+          request sends back fails the conversation check. Every field is optional;
+          an empty object means every default.
+
+          - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+            What happens when a thinking block in `messages` fails the conversation
+            check: it was created in a different conversation, or the messages before
+            it have changed since. `"error"` (the default) fails the request with a
+            400 error. `"drop_block"` removes the failing blocks and the request
+            proceeds; the model no longer sees the dropped reasoning.
+
+            - `Error`
+
+            - `DropBlock`
+
         - `Display? Display`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -17401,6 +17674,12 @@ Console.WriteLine(betaMessageTokensCount);
       - `class BetaThinkingConfigAdaptive:`
 
         - `JsonElement Type constant`
+
+        - `BetaThinkingBlockBinding? BlockBinding`
+
+          Controls for block binding: what happens when a thinking block this
+          request sends back fails the conversation check. Every field is optional;
+          an empty object means every default.
 
         - `Display? Display`
 
@@ -18918,6 +19197,14 @@ Console.WriteLine(betaMessageTokensCount);
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_1`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `ClaudeMythos5_1`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
+
           - `ClaudeSonnet5`
 
             High-performance model for coding and agents
@@ -19609,6 +19896,58 @@ Console.WriteLine(betaMessageTokensCount);
 
       - `Fast`
 
+  - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `required string Path`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `required Reason Reason`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `ModelBindingMismatch`
+
+      - `PrefixBindingMismatch`
+
+      - `OrganizationBindingMismatch`
+
+      - `EndUserBindingMismatch`
+
+    - `JsonElement Type constant`
+
+      Always `thinking_dropped` for this entry type.
+
 ### Beta Message Delta Usage
 
 - `class BetaMessageDeltaUsage:`
@@ -19754,6 +20093,14 @@ Console.WriteLine(betaMessageTokensCount);
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_1`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `ClaudeMythos5_1`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `ClaudeSonnet5`
 
@@ -20037,6 +20384,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_1`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `ClaudeMythos5_1`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `ClaudeSonnet5`
 
@@ -21335,6 +21690,14 @@ Console.WriteLine(betaMessageTokensCount);
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `ClaudeFable5_1`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `ClaudeMythos5_1`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
+
             - `ClaudeSonnet5`
 
               High-performance model for coding and agents
@@ -21412,6 +21775,36 @@ Console.WriteLine(betaMessageTokensCount);
     - `Assistant`
 
     - `System`
+
+  - `ClearAt? ClearAt`
+
+    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+    - `NextUserMessage`
+
+    - `Never`
+
+  - `BetaSystemMessageOutputConfig? OutputConfig`
+
+    Per-message output configuration on a role:"system" input message.
+
+    Fields here apply per-turn; `format` remains top-level only. An
+    empty `{}` is accepted on a message that carries content; a message
+    with neither content nor output_config fields is rejected.
+
+    - `Effort? Effort`
+
+      All possible effort levels.
+
+      - `Low`
+
+      - `Medium`
+
+      - `High`
+
+      - `Xhigh`
+
+      - `Max`
 
 ### Beta Message Tokens Count
 
@@ -22624,6 +23017,14 @@ Console.WriteLine(betaMessageTokensCount);
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_1`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `ClaudeMythos5_1`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
+
           - `ClaudeSonnet5`
 
             High-performance model for coding and agents
@@ -23081,6 +23482,14 @@ Console.WriteLine(betaMessageTokensCount);
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_1`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `ClaudeMythos5_1`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
+
           - `ClaudeSonnet5`
 
             High-performance model for coding and agents
@@ -23317,6 +23726,58 @@ Console.WriteLine(betaMessageTokensCount);
         The number of web search tool requests.
 
         minimum: 0
+
+  - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `required string Path`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `required Reason Reason`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `ModelBindingMismatch`
+
+      - `PrefixBindingMismatch`
+
+      - `OrganizationBindingMismatch`
+
+      - `EndUserBindingMismatch`
+
+    - `JsonElement Type constant`
+
+      Always `thinking_dropped` for this entry type.
 
 ### Beta Raw Message Start Event
 
@@ -24151,6 +24612,14 @@ Console.WriteLine(betaMessageTokensCount);
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `ClaudeFable5_1`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `ClaudeMythos5_1`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
+
             - `ClaudeSonnet5`
 
               High-performance model for coding and agents
@@ -24841,6 +25310,58 @@ Console.WriteLine(betaMessageTokensCount);
         - `Standard`
 
         - `Fast`
+
+    - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `required string Path`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `required Reason Reason`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+        - `ModelBindingMismatch`
+
+        - `PrefixBindingMismatch`
+
+        - `OrganizationBindingMismatch`
+
+        - `EndUserBindingMismatch`
+
+      - `JsonElement Type constant`
+
+        Always `thinking_dropped` for this entry type.
 
   - `JsonElement Type constant`
 
@@ -25685,6 +26206,14 @@ Console.WriteLine(betaMessageTokensCount);
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `ClaudeFable5_1`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `ClaudeMythos5_1`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
+
               - `ClaudeSonnet5`
 
                 High-performance model for coding and agents
@@ -26376,6 +26905,58 @@ Console.WriteLine(betaMessageTokensCount);
 
           - `Fast`
 
+      - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+        Changes the API made to the request's input before showing it to the model:
+        one entry per change, in request order. Today the only entry type is
+        `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+        block from the request's `messages` that was removed from the prompt instead
+        of being shown to the model because it failed a binding check. More entry
+        types may be added over time; ignore types you do not recognize.
+
+        Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+        every such response from a model that supports extended thinking, as `[]`
+        when nothing was changed; without the beta, blocks are removed all the same
+        but nothing is reported. Removed blocks contribute nothing to
+        `usage.input_tokens`. When streaming, the array is final in `message_start`;
+        the final `message_delta` event carries it only when a server-side model
+        fallback happened mid-stream, in which case it holds the serving model's
+        entries and replaces the one in `message_start`.
+
+        - `required string Path`
+
+          Where the removed block was in your request, as `messages.{i}.content.{j}`:
+          `i` indexes the `messages` array you sent and `j` that message's `content`
+          array — the same form error messages use.
+
+        - `required Reason Reason`
+
+          Which binding check removed the block: `model_binding_mismatch` — it was
+          created by a model whose reasoning the requested model may not read;
+          `prefix_binding_mismatch` — the conversation before it differs from the
+          conversation it was created in (the rest of that turn's consecutive thinking
+          blocks are removed with it, each with this reason);
+          `organization_binding_mismatch` — it was created under a different
+          organization (an Anthropic organization, AWS account or Google Cloud project)
+          and this organization is not one of its additional organizations;
+          `end_user_binding_mismatch` — it was created for a different end user, or
+          was removed by the consumer-organization binding. A block that would fail
+          several checks reports one reason, in this order of precedence:
+          `organization_binding_mismatch`, `end_user_binding_mismatch`,
+          `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+          - `ModelBindingMismatch`
+
+          - `PrefixBindingMismatch`
+
+          - `OrganizationBindingMismatch`
+
+          - `EndUserBindingMismatch`
+
+        - `JsonElement Type constant`
+
+          Always `thinking_dropped` for this entry type.
+
     - `JsonElement Type constant`
 
   - `class BetaRawMessageDeltaEvent:`
@@ -26483,6 +27064,50 @@ Console.WriteLine(betaMessageTokensCount);
       - `required BetaServerToolUsage? ServerToolUse`
 
         The number of server tool requests.
+
+    - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `required string Path`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `required Reason Reason`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `JsonElement Type constant`
+
+        Always `thinking_dropped` for this entry type.
 
   - `class BetaRawMessageStopEvent:`
 
@@ -27743,6 +28368,30 @@ Console.WriteLine(betaMessageTokensCount);
 
   - `ModelContextWindowExceeded`
 
+### Beta System Message Output Config
+
+- `class BetaSystemMessageOutputConfig:`
+
+  Per-message output configuration on a role:"system" input message.
+
+  Fields here apply per-turn; `format` remains top-level only. An
+  empty `{}` is accepted on a message that carries content; a message
+  with neither content nor output_config fields is rejected.
+
+  - `Effort? Effort`
+
+    All possible effort levels.
+
+    - `Low`
+
+    - `Medium`
+
+    - `High`
+
+    - `Xhigh`
+
+    - `Max`
+
 ### Beta Text Block
 
 - `class BetaTextBlock:`
@@ -28595,6 +29244,26 @@ Console.WriteLine(betaMessageTokensCount);
 
   - `JsonElement Type constant`
 
+### Beta Thinking Block Binding
+
+- `class BetaThinkingBlockBinding:`
+
+  Controls for block binding: what happens when a thinking block this
+  request sends back fails the conversation check. Every field is optional;
+  an empty object means every default.
+
+  - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+    What happens when a thinking block in `messages` fails the conversation
+    check: it was created in a different conversation, or the messages before
+    it have changed since. `"error"` (the default) fails the request with a
+    400 error. `"drop_block"` removes the failing blocks and the request
+    proceeds; the model no longer sees the dropped reasoning.
+
+    - `Error`
+
+    - `DropBlock`
+
 ### Beta Thinking Block Param
 
 - `class BetaThinkingBlockParam:`
@@ -28616,6 +29285,24 @@ Console.WriteLine(betaMessageTokensCount);
 - `class BetaThinkingConfigAdaptive:`
 
   - `JsonElement Type constant`
+
+  - `BetaThinkingBlockBinding? BlockBinding`
+
+    Controls for block binding: what happens when a thinking block this
+    request sends back fails the conversation check. Every field is optional;
+    an empty object means every default.
+
+    - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+      What happens when a thinking block in `messages` fails the conversation
+      check: it was created in a different conversation, or the messages before
+      it have changed since. `"error"` (the default) fails the request with a
+      400 error. `"drop_block"` removes the failing blocks and the request
+      proceeds; the model no longer sees the dropped reasoning.
+
+      - `Error`
+
+      - `DropBlock`
 
   - `Display? Display`
 
@@ -28648,6 +29335,24 @@ Console.WriteLine(betaMessageTokensCount);
     minimum: 1024
 
   - `JsonElement Type constant`
+
+  - `BetaThinkingBlockBinding? BlockBinding`
+
+    Controls for block binding: what happens when a thinking block this
+    request sends back fails the conversation check. Every field is optional;
+    an empty object means every default.
+
+    - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+      What happens when a thinking block in `messages` fails the conversation
+      check: it was created in a different conversation, or the messages before
+      it have changed since. `"error"` (the default) fails the request with a
+      400 error. `"drop_block"` removes the failing blocks and the request
+      proceeds; the model no longer sees the dropped reasoning.
+
+      - `Error`
+
+      - `DropBlock`
 
   - `Display? Display`
 
@@ -28683,6 +29388,24 @@ Console.WriteLine(betaMessageTokensCount);
 
     - `JsonElement Type constant`
 
+    - `BetaThinkingBlockBinding? BlockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
+
+      - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+        What happens when a thinking block in `messages` fails the conversation
+        check: it was created in a different conversation, or the messages before
+        it have changed since. `"error"` (the default) fails the request with a
+        400 error. `"drop_block"` removes the failing blocks and the request
+        proceeds; the model no longer sees the dropped reasoning.
+
+        - `Error`
+
+        - `DropBlock`
+
     - `Display? Display`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -28700,6 +29423,12 @@ Console.WriteLine(betaMessageTokensCount);
   - `class BetaThinkingConfigAdaptive:`
 
     - `JsonElement Type constant`
+
+    - `BetaThinkingBlockBinding? BlockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
 
     - `Display? Display`
 
@@ -28724,6 +29453,58 @@ Console.WriteLine(betaMessageTokensCount);
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
   - `JsonElement Type constant`
+
+### Beta Thinking Dropped Input Transformation
+
+- `class BetaThinkingDroppedInputTransformation:`
+
+  - `required string Path`
+
+    Where the removed block was in your request, as `messages.{i}.content.{j}`:
+    `i` indexes the `messages` array you sent and `j` that message's `content`
+    array — the same form error messages use.
+
+  - `required Reason Reason`
+
+    Which binding check removed the block: `model_binding_mismatch` — it was
+    created by a model whose reasoning the requested model may not read;
+    `prefix_binding_mismatch` — the conversation before it differs from the
+    conversation it was created in (the rest of that turn's consecutive thinking
+    blocks are removed with it, each with this reason);
+    `organization_binding_mismatch` — it was created under a different
+    organization (an Anthropic organization, AWS account or Google Cloud project)
+    and this organization is not one of its additional organizations;
+    `end_user_binding_mismatch` — it was created for a different end user, or
+    was removed by the consumer-organization binding. A block that would fail
+    several checks reports one reason, in this order of precedence:
+    `organization_binding_mismatch`, `end_user_binding_mismatch`,
+    `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+    - `ModelBindingMismatch`
+
+    - `PrefixBindingMismatch`
+
+    - `OrganizationBindingMismatch`
+
+    - `EndUserBindingMismatch`
+
+  - `JsonElement Type constant`
+
+    Always `thinking_dropped` for this entry type.
+
+### Beta Thinking Prefix Mismatch Behavior
+
+- `enum BetaThinkingPrefixMismatchBehavior:`
+
+  What happens when a thinking block in `messages` fails the conversation
+  check: it was created in a different conversation, or the messages before
+  it have changed since. `"error"` (the default) fails the request with a
+  400 error. `"drop_block"` removes the failing blocks and the request
+  proceeds; the model no longer sees the dropped reasoning.
+
+  - `Error`
+
+  - `DropBlock`
 
 ### Beta Thinking Turns
 
@@ -30634,16 +31415,6 @@ Console.WriteLine(betaMessageTokensCount);
 
     - `JsonElement Type constant`
 
-    - `IReadOnlyList<BetaBrowserToolset20260801AllowedCaller> AllowedCallers`
-
-      - `Direct`
-
-      - `CodeExecution20250825`
-
-      - `CodeExecution20260120`
-
-      - `CodeExecution20260521`
-
     - `BetaCacheControlEphemeral? CacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -31269,16 +32040,6 @@ Console.WriteLine(betaMessageTokensCount);
     via `configs.zoom.enabled`.
 
     - `JsonElement Type constant`
-
-    - `IReadOnlyList<BetaComputerToolset20260801AllowedCaller> AllowedCallers`
-
-      - `Direct`
-
-      - `CodeExecution20250825`
-
-      - `CodeExecution20260120`
-
-      - `CodeExecution20260521`
 
     - `BetaCacheControlEphemeral? CacheControl`
 
@@ -32041,6 +32802,14 @@ Console.WriteLine(betaMessageTokensCount);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeFable5_1`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `ClaudeMythos5_1`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
+
       - `ClaudeSonnet5`
 
         High-performance model for coding and agents
@@ -32564,6 +33333,14 @@ Console.WriteLine(betaMessageTokensCount);
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_1`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `ClaudeMythos5_1`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `ClaudeSonnet5`
 
@@ -35964,6 +36741,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `ClaudeFable5_1`
+
+                    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                  - `ClaudeMythos5_1`
+
+                    Our most capable model for cybersecurity and biology research, available through trusted access programs
+
                   - `ClaudeSonnet5`
 
                     High-performance model for coding and agents
@@ -36041,6 +36826,36 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `Assistant`
 
           - `System`
+
+        - `ClearAt? ClearAt`
+
+          How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+          - `NextUserMessage`
+
+          - `Never`
+
+        - `BetaSystemMessageOutputConfig? OutputConfig`
+
+          Per-message output configuration on a role:"system" input message.
+
+          Fields here apply per-turn; `format` remains top-level only. An
+          empty `{}` is accepted on a message that carries content; a message
+          with neither content nor output_config fields is rejected.
+
+          - `Effort? Effort`
+
+            All possible effort levels.
+
+            - `Low`
+
+            - `Medium`
+
+            - `High`
+
+            - `Xhigh`
+
+            - `Max`
 
       - `required Model Model`
 
@@ -36344,6 +37159,24 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `JsonElement Type constant`
 
+              - `BetaThinkingBlockBinding? BlockBinding`
+
+                Controls for block binding: what happens when a thinking block this
+                request sends back fails the conversation check. Every field is optional;
+                an empty object means every default.
+
+                - `BetaThinkingPrefixMismatchBehavior? PrefixMismatchBehavior`
+
+                  What happens when a thinking block in `messages` fails the conversation
+                  check: it was created in a different conversation, or the messages before
+                  it have changed since. `"error"` (the default) fails the request with a
+                  400 error. `"drop_block"` removes the failing blocks and the request
+                  proceeds; the model no longer sees the dropped reasoning.
+
+                  - `Error`
+
+                  - `DropBlock`
+
               - `Display? Display`
 
                 Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -36361,6 +37194,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `class BetaThinkingConfigAdaptive:`
 
               - `JsonElement Type constant`
+
+              - `BetaThinkingBlockBinding? BlockBinding`
+
+                Controls for block binding: what happens when a thinking block this
+                request sends back fails the conversation check. Every field is optional;
+                an empty object means every default.
 
               - `Display? Display`
 
@@ -36862,16 +37701,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           from its schema.
 
           - `JsonElement Type constant`
-
-          - `IReadOnlyList<BetaBrowserToolset20260801AllowedCaller> AllowedCallers`
-
-            - `Direct`
-
-            - `CodeExecution20250825`
-
-            - `CodeExecution20260120`
-
-            - `CodeExecution20260521`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -37498,16 +38327,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           via `configs.zoom.enabled`.
 
           - `JsonElement Type constant`
-
-          - `IReadOnlyList<BetaComputerToolset20260801AllowedCaller> AllowedCallers`
-
-            - `Direct`
-
-            - `CodeExecution20250825`
-
-            - `CodeExecution20260120`
-
-            - `CodeExecution20260521`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -38551,6 +39370,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -38672,6 +39497,8 @@ BatchCreateParams parameters = new()
                     {
                         Content = "Hello, world",
                         Role = Role.User,
+                        ClearAt = ClearAt.NextUserMessage,
+                        OutputConfig = new() { Effort = Effort.Low },
                     },
                 ],
                 Model = Model.ClaudeOpus5,
@@ -38788,7 +39615,11 @@ BatchCreateParams parameters = new()
                 Temperature = 1,
                 Thinking = new BetaThinkingConfigAdaptive()
                 {
-                    Display = Display.Summarized
+                    BlockBinding = new()
+                    {
+                        PrefixMismatchBehavior = BetaThinkingPrefixMismatchBehavior.Error,
+                    },
+                    Display = Display.Summarized,
                 },
                 ToolChoice = new BetaToolChoiceAuto()
                 {
@@ -38968,6 +39799,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -39216,6 +40053,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaMessageBatch:`
@@ -39462,6 +40305,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaMessageBatch:`
@@ -39699,6 +40548,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaDeletedMessageBatch:`
@@ -39837,6 +40692,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -40687,6 +41548,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                - `ClaudeFable5_1`
+
+                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                - `ClaudeMythos5_1`
+
+                  Our most capable model for cybersecurity and biology research, available through trusted access programs
+
                 - `ClaudeSonnet5`
 
                   High-performance model for coding and agents
@@ -41377,6 +42246,58 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `Standard`
 
             - `Fast`
+
+        - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+
+          Changes the API made to the request's input before showing it to the model:
+          one entry per change, in request order. Today the only entry type is
+          `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+          block from the request's `messages` that was removed from the prompt instead
+          of being shown to the model because it failed a binding check. More entry
+          types may be added over time; ignore types you do not recognize.
+
+          Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+          every such response from a model that supports extended thinking, as `[]`
+          when nothing was changed; without the beta, blocks are removed all the same
+          but nothing is reported. Removed blocks contribute nothing to
+          `usage.input_tokens`. When streaming, the array is final in `message_start`;
+          the final `message_delta` event carries it only when a server-side model
+          fallback happened mid-stream, in which case it holds the serving model's
+          entries and replaces the one in `message_start`.
+
+          - `required string Path`
+
+            Where the removed block was in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
+
+          - `required Reason Reason`
+
+            Which binding check removed the block: `model_binding_mismatch` — it was
+            created by a model whose reasoning the requested model may not read;
+            `prefix_binding_mismatch` — the conversation before it differs from the
+            conversation it was created in (the rest of that turn's consecutive thinking
+            blocks are removed with it, each with this reason);
+            `organization_binding_mismatch` — it was created under a different
+            organization (an Anthropic organization, AWS account or Google Cloud project)
+            and this organization is not one of its additional organizations;
+            `end_user_binding_mismatch` — it was created for a different end user, or
+            was removed by the consumer-organization binding. A block that would fail
+            several checks reports one reason, in this order of precedence:
+            `organization_binding_mismatch`, `end_user_binding_mismatch`,
+            `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+            - `ModelBindingMismatch`
+
+            - `PrefixBindingMismatch`
+
+            - `OrganizationBindingMismatch`
+
+            - `EndUserBindingMismatch`
+
+          - `JsonElement Type constant`
+
+            Always `thinking_dropped` for this entry type.
 
       - `JsonElement Type constant`
 

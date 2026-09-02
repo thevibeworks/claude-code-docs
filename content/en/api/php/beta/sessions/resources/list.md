@@ -16,7 +16,7 @@ List Session Resources
 
 - `page?:optional string`
 
-  Opaque cursor from a previous response's next_page field.
+  Opaque cursor from a previous response's `next_page` field.
 
 - `betas?:optional list<AnthropicBeta>`
 

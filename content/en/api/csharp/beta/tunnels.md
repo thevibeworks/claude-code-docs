@@ -106,6 +106,12 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaTunnel:`
@@ -264,6 +270,12 @@ Fetches a tunnel by ID.
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -434,6 +446,12 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaTunnel:`
@@ -600,6 +618,12 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaTunnel:`
@@ -759,6 +783,12 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaTunnelToken:`
@@ -904,6 +934,12 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -1103,6 +1139,12 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
@@ -1276,6 +1318,12 @@ Fetches a tunnel certificate by ID.
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -1461,6 +1509,12 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
@@ -1637,6 +1691,12 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 

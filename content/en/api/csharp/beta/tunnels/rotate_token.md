@@ -108,6 +108,12 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ## Returns
 
 - `class BetaTunnelToken:`

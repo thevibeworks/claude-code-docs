@@ -95,7 +95,14 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       'customID' => 'my-custom-id-1',
       'params' => [
         'maxTokens' => 1024,
-        'messages' => [['content' => 'Hello, world', 'role' => 'user']],
+        'messages' => [
+          [
+            'content' => 'Hello, world',
+            'role' => 'user',
+            'clearAt' => 'next_user_message',
+            'outputConfig' => ['effort' => 'low'],
+          ],
+        ],
         'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'container' => [
@@ -164,7 +171,13 @@ $betaMessageBatch = $client->beta->messages->batches->create(
           ],
         ],
         'temperature' => 1,
-        'thinking' => ['type' => 'adaptive', 'display' => 'summarized'],
+        'thinking' => [
+          'type' => 'adaptive',
+          'blockBinding' => [
+            'prefixMismatchBehavior' => BetaThinkingPrefixMismatchBehavior::ERROR,
+          ],
+          'display' => 'summarized',
+        ],
         'toolChoice' => ['type' => 'auto', 'disableParallelToolUse' => true],
         'tools' => [
           [

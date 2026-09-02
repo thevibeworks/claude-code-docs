@@ -38,11 +38,11 @@ List Deployment Runs
 
   - `string deploymentID`
 
-    Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent deployment_id returns 200 with empty data.
+    Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
 
   - `bool hasError`
 
-    Query param: Filter: true for runs with non-null error, false for runs with non-null session_id. Omit for all.
+    Query param: Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
   - `int limit`
 
@@ -52,7 +52,7 @@ List Deployment Runs
 
   - `string page`
 
-    Query param: Opaque pagination cursor. Pass next_page from the previous response. Invalid or expired cursors return 400.
+    Query param: Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
   - `BetaManagedAgentsTriggerType triggerType`
 
@@ -143,6 +143,12 @@ List Deployment Runs
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -342,7 +348,7 @@ List Deployment Runs
 
   - `required string? SessionID`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `required BetaManagedAgentsTriggerContext TriggerContext`
 
@@ -512,6 +518,12 @@ Get Deployment Run
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaManagedAgentsDeploymentRun:`
@@ -710,7 +722,7 @@ Get Deployment Run
 
   - `required string? SessionID`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `required BetaManagedAgentsTriggerContext TriggerContext`
 
@@ -986,7 +998,7 @@ Console.WriteLine(betaManagedAgentsDeploymentRun);
 
   - `required string? SessionID`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `required BetaManagedAgentsTriggerContext TriggerContext`
 

@@ -1433,16 +1433,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Type BrowserToolset20260801`
 
-      - `AllowedCallers []string Optional`
-
-        - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
-
-        - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-        - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-        - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
-
       - `CacheControl CacheControlEphemeral Optional`
 
         Create a cache control breakpoint at this content block.
@@ -1874,16 +1864,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       via `configs.zoom.enabled`.
 
       - `Type ComputerToolset20260801`
-
-      - `AllowedCallers []string Optional`
-
-        - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
-
-        - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-        - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-        - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral Optional`
 
@@ -3532,6 +3512,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
@@ -5476,16 +5464,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `Type BrowserToolset20260801`
 
-      - `AllowedCallers []string Optional`
-
-        - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
-
-        - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-        - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-        - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
-
       - `CacheControl CacheControlEphemeral Optional`
 
         Create a cache control breakpoint at this content block.
@@ -5917,16 +5895,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `Type ComputerToolset20260801`
-
-      - `AllowedCallers []string Optional`
-
-        - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
-
-        - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-        - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-        - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral Optional`
 
@@ -7858,16 +7826,6 @@ func main() {
   from its schema.
 
   - `Type BrowserToolset20260801`
-
-  - `AllowedCallers []string Optional`
-
-    - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
-
-    - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-    - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-    - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
 
   - `CacheControl CacheControlEphemeral Optional`
 
@@ -9950,16 +9908,6 @@ func main() {
   via `configs.zoom.enabled`.
 
   - `Type ComputerToolset20260801`
-
-  - `AllowedCallers []string Optional`
-
-    - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
-
-    - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-    - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-    - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
   - `CacheControl CacheControlEphemeral Optional`
 
@@ -14029,6 +13977,14 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
+
       - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
         High-performance model for coding and agents
@@ -14541,16 +14497,6 @@ func main() {
 
     - `Type BrowserToolset20260801`
 
-    - `AllowedCallers []string Optional`
-
-      - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
-
-      - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-      - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-      - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
-
     - `CacheControl CacheControlEphemeral Optional`
 
       Create a cache control breakpoint at this content block.
@@ -14982,16 +14928,6 @@ func main() {
     via `configs.zoom.enabled`.
 
     - `Type ComputerToolset20260801`
-
-    - `AllowedCallers []string Optional`
-
-      - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
-
-      - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-      - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-      - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral Optional`
 
@@ -16942,6 +16878,14 @@ func main() {
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
@@ -19103,6 +19047,14 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
+
         - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
           High-performance model for coding and agents
@@ -20159,6 +20111,14 @@ func main() {
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
@@ -23607,16 +23567,6 @@ func main() {
 
     - `Type BrowserToolset20260801`
 
-    - `AllowedCallers []string Optional`
-
-      - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
-
-      - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-      - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-      - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
-
     - `CacheControl CacheControlEphemeral Optional`
 
       Create a cache control breakpoint at this content block.
@@ -24048,16 +23998,6 @@ func main() {
     via `configs.zoom.enabled`.
 
     - `Type ComputerToolset20260801`
-
-    - `AllowedCallers []string Optional`
-
-      - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
-
-      - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-      - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-      - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral Optional`
 
@@ -28069,6 +28009,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
+
           - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
             High-performance model for coding and agents
@@ -28656,16 +28604,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type BrowserToolset20260801`
 
-          - `AllowedCallers []string Optional`
-
-            - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
-
-            - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-            - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-            - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
-
           - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
@@ -29097,16 +29035,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           via `configs.zoom.enabled`.
 
           - `Type ComputerToolset20260801`
-
-          - `AllowedCallers []string Optional`
-
-            - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
-
-            - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-            - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-            - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeral Optional`
 
@@ -31578,6 +31506,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
 
             - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 

@@ -6,17 +6,17 @@
     "url": "https://github.com/anthropics/claude-code/issues"
   },
   "dist": {
-    "shasum": "5aa17a093a628f0030c691ed0e11bb50e3228c59",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.257.tgz",
+    "shasum": "55f84789ed34ca70702c043e7bcba88dde2daea3",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.258.tgz",
     "fileCount": 7,
-    "integrity": "sha512-JzpBQDzbEV+IKV9lIs/SSRIdHGrAmQXhNScoz9PZgdjnatrVnbsBXRDrF26qBBBph38pA/39d+BhDpf+7RwkwA==",
+    "integrity": "sha512-Zis1AYrHuCcK4V1tXJUkzJdklFsTvvqIcj7gk4K8lyEeJOW99ZoQH/E+WxugMqDEO7xncYZ41gydxlkSTmj/2Q==",
     "signatures": [
       {
-        "sig": "MEQCIHOcCgoMX4Ds0XgCi/OD5s6ijdV004Z6vx3w+SIIL/QJAiBH3KI0Cdpk5z3KqatswyLK2NX1/6GWM/wWF7anSUHCQA==",
+        "sig": "MEYCIQDHKfEMp5qZHiYAKTIVptL8Qrji2bA1DTz7a2omsoGDzwIhAMrJpR4xaWQuwhZMpUvYXhXR1d01BQzTHg8Wn2V+mNuo",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       },
       {
-        "sig": "MEYCIQDtojse50LvZnlUBRv1VJrE2DV6hgbzhjnUE22HOnG0mAIhAKF3/FYAFeSkvyAw202tPUUIp3nzWvEWnP1RJOAj+JEo",
+        "sig": "MEUCIQC1LpiecOt5YKSQzZ5mlCuSLnE/V3XXR78rhp1IFFEsQQIgKL/mDy5icSObVUTc3I/X9wKwHfJhYdJW8U1d1+ez51I=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
@@ -24,7 +24,7 @@
   },
   "name": "@anthropic-ai/claude-code",
   "type": "module",
-  "_from": "file:staged-npm/anthropic-ai-claude-code-2.1.257.tgz",
+  "_from": "file:staged-npm/anthropic-ai-claude-code-2.1.258.tgz",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
@@ -42,8 +42,8 @@
     "email": "wolffiex@anthropic.com"
   },
   "homepage": "https://github.com/anthropics/claude-code",
-  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/staged-npm/anthropic-ai-claude-code-2.1.257.tgz",
-  "_integrity": "sha512-JzpBQDzbEV+IKV9lIs/SSRIdHGrAmQXhNScoz9PZgdjnatrVnbsBXRDrF26qBBBph38pA/39d+BhDpf+7RwkwA==",
+  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/staged-npm/anthropic-ai-claude-code-2.1.258.tgz",
+  "_integrity": "sha512-Zis1AYrHuCcK4V1tXJUkzJdklFsTvvqIcj7gk4K8lyEeJOW99ZoQH/E+WxugMqDEO7xncYZ41gydxlkSTmj/2Q==",
   "_npmVersion": "11.17.0",
   "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
   "directories": {},
@@ -106,19 +106,19 @@
   "_hasShrinkwrap": false,
   "readmeFilename": "README.md",
   "optionalDependencies": {
-    "@anthropic-ai/claude-code-linux-x64": "2.1.257",
-    "@anthropic-ai/claude-code-win32-x64": "2.1.257",
-    "@anthropic-ai/claude-code-darwin-x64": "2.1.257",
-    "@anthropic-ai/claude-code-linux-arm64": "2.1.257",
-    "@anthropic-ai/claude-code-win32-arm64": "2.1.257",
-    "@anthropic-ai/claude-code-darwin-arm64": "2.1.257",
-    "@anthropic-ai/claude-code-linux-x64-musl": "2.1.257",
-    "@anthropic-ai/claude-code-linux-arm64-musl": "2.1.257"
+    "@anthropic-ai/claude-code-linux-x64": "2.1.258",
+    "@anthropic-ai/claude-code-win32-x64": "2.1.258",
+    "@anthropic-ai/claude-code-darwin-x64": "2.1.258",
+    "@anthropic-ai/claude-code-linux-arm64": "2.1.258",
+    "@anthropic-ai/claude-code-win32-arm64": "2.1.258",
+    "@anthropic-ai/claude-code-darwin-arm64": "2.1.258",
+    "@anthropic-ai/claude-code-linux-x64-musl": "2.1.258",
+    "@anthropic-ai/claude-code-linux-arm64-musl": "2.1.258"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.257_1788282933131_0.21241328211950372",
+    "tmp": "tmp/claude-code_2.1.258_1788301507359_0.8783635964535186",
     "host": "s3://npm-registry-packages-npm-production"
   },
-  "_id": "@anthropic-ai/claude-code@2.1.257",
-  "version": "2.1.257"
+  "_id": "@anthropic-ai/claude-code@2.1.258",
+  "version": "2.1.258"
 }

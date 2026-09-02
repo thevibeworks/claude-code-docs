@@ -1395,16 +1395,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `JsonElement Type constant`
 
-      - `IReadOnlyList<BrowserToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
-
       - `CacheControlEphemeral? CacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1836,16 +1826,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<ComputerToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `CacheControlEphemeral? CacheControl`
 

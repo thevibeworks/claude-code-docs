@@ -100,6 +100,12 @@ Run Deployment Now
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ## Returns
 
 - `class BetaManagedAgentsDeploymentRun:`
@@ -298,7 +304,7 @@ Run Deployment Now
 
   - `required string? SessionID`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `required BetaManagedAgentsTriggerContext TriggerContext`
 
