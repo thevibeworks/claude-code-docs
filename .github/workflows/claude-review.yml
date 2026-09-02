@@ -181,3 +181,35 @@ jobs:
             Remember: You're not here to write essays. You're here to make quick decisions and go back to sleep.
 
             [>be me >eternally tired repo bouncer >why am i even awake]
+
+      # anthropics/claude-code-action reports success even when Claude's own
+      # result is an error. 2026-09-02 05:15: "is_error": true after 11 s,
+      # the shared OAuth token at its spending cap; the run went green and
+      # PR #1237 sat unreviewed with nothing to show for it. A review that
+      # did not happen is a failure, and below it pages like one, the same
+      # way the fetch workflow does.
+      - name: Fail if the review errored
+        if: steps.claude-review.outcome == 'success' && steps.claude-review.outputs.execution_file != ''
+        run: |
+          f="${{ steps.claude-review.outputs.execution_file }}"
+          if grep -Eq '"is_error":\s*true' "$f"; then
+            echo "::error::Claude returned is_error=true; the review did not happen"
+            grep -Eo '"result":\s*"[^"]{0,300}' "$f" | tail -1 || true
+            exit 1
+          fi
+          echo "review completed (is_error absent)"
+
+      - name: Alert on failure
+        if: failure()
+        env:
+          BARK_SERVER: ${{ secrets.BARK_SERVER }}
+          BARK_DEVICES: ${{ secrets.BARK_DEVICES }}
+        run: |
+          [ -n "${BARK_SERVER:-}" ] && [ -n "${BARK_DEVICES:-}" ] || exit 0
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          IFS=',' read -ra DEVICES <<< "$BARK_DEVICES"
+          for dev in "${DEVICES[@]}"; do
+            jq -n --arg k "$dev" --arg u "$RUN_URL" \
+              '{device_key:$k, title:"🚨 docs review failed", body:"PR left unreviewed", url:$u, group:"Claude YOLO"}' \
+            | curl -sS -X POST "$BARK_SERVER/push" -H 'Content-Type: application/json' -d @- || true
+          done
