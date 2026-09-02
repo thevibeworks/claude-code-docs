@@ -4,7 +4,7 @@ The Web Search connector gives Claude the ability to search the public internet 
 
 For questions about web search in commercial Claude, see **[Enabling and using web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256120763/7652c6c669446113eae75f3c5977/9c74d57e-aaa2-4f1c-bfe4-2b9b87fd41ab?expires=1788327900&amp;signature=03313b1c1b3a10fd5bc03ad64be665f20dbb2b40f0bbee2a0dcec625e444c552&amp;req=diIiEMh8nYZZWvMW1HO4zQvFLLpQj8PxM%2Fw5SJgC29FAI2J2AJBUSZqAxVui%0A5ln3YsdFJs6nch1LOfE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256120763/7652c6c669446113eae75f3c5977/9c74d57e-aaa2-4f1c-bfe4-2b9b87fd41ab?expires=1788362100&amp;signature=76520eeae2f3015125e1b10ab702cec9512b369e45b35f8af5b38215949c78ca&amp;req=diIiEMh8nYZZWvMW1HO4zQvFLLpQi8b5M%2Fw5SJgC29G2Dh6JRlBJWYle%2B%2FkJ%0Ax4vh5fOurFBgCXRhyxo%3D%0A)
 
 ## How Web Search differs for Claude for Government
 
