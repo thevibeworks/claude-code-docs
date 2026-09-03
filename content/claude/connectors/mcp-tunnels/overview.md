@@ -7,7 +7,7 @@
 > Connect Claude to MCP servers inside your private network without opening inbound firewall ports or exposing the servers to the internet. How MCP tunnels work, what you deploy, network and plan requirements, and the security model.
 
 <Note>
-  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, contact your Anthropic account team. The preview is provided as-is, without uptime, support, or continuity commitments, and it depends on a third-party network provider (Cloudflare) that makes no availability commitment for the underlying transport. Anthropic may modify or discontinue MCP tunnels at any time.
+  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team. The preview is provided as-is, without uptime, support, or continuity commitments, and it depends on a third-party network provider (Cloudflare) that makes no availability commitment for the underlying transport. Anthropic may modify or discontinue MCP tunnels at any time.
 </Note>
 
 MCP tunnels connect Claude to [Model Context Protocol (MCP)](/docs/connectors/building/mcp) servers that run inside your private network. You run a small tunnel stack on a host in your network, the stack opens an outbound-only connection to Anthropic, and Claude sends MCP requests to your servers over that connection. Your firewall needs no inbound rules and your MCP servers need no public endpoint. Members of your organization use the tunneled servers as [custom connectors](/docs/connectors/custom/remote-mcp) in Claude, the same way they use any other remote MCP server.
@@ -39,7 +39,7 @@ Hostnames under `tunnel.anthropic.com` accept connections only from Claude. You 
 
 ## What you need
 
-* A claude.ai organization on the Enterprise plan with MCP tunnels enabled. Contact your Anthropic account team to request access.
+* A claude.ai organization on the Enterprise plan with MCP tunnels enabled. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
 * The Owner or Primary Owner role in that organization, to create the API key the tunnel setup uses and to add the tunneled servers as connectors.
 * A place to run the tunnel stack inside your network: a Kubernetes cluster (deployed with Helm) or a Linux host with Docker and Docker Compose. One stack serves one tunnel, and you can run replicas of it on several hosts for availability.
 * One or more MCP servers that speak the Streamable HTTP transport and are reachable from that cluster or host.

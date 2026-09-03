@@ -7,7 +7,7 @@
 > Create a Tunnels API key in claude.ai, deploy the MCP tunnel stack with Helm or Docker Compose, verify the connection, add tunneled MCP servers as custom connectors, rotate the tunnel token and certificates, and remove a tunnel.
 
 <Note>
-  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, contact your Anthropic account team.
+  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
 </Note>
 
 This page covers the full setup of an MCP tunnel for a claude.ai Enterprise organization, from creating the API key that provisioning uses to members calling a tunneled MCP server from Claude. You need the Owner or Primary Owner role in claude.ai, and someone who can deploy containers to a Kubernetes cluster or a Docker host inside your network. Read [MCP tunnels](/docs/connectors/mcp-tunnels/overview) first if the tunnel stack, the tunnel domain, and routes are unfamiliar.

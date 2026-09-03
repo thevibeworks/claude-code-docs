@@ -2,7 +2,7 @@
 
 Skill and plugin scanning automatically checks third-party skills and plugins for malicious content when someone uploads or edits them, before they can run in your organization. This article explains what scanning checks for, how to turn it on, and what the results mean.
 
-Skill and plugin scanning is available in beta on Enterprise plans in Claude, Claude Cowork, and Enterprise plugin marketplaces.
+Skill and plugin scanning is available on Enterprise plans in Claude, Claude Cowork, and Enterprise plugin marketplaces.
 
 ## What skill and plugin scanning does
 
@@ -12,7 +12,7 @@ Scanning runs in the background, and most scans finish in about one to two minut
 
 ## What gets scanned
 
-Scanning applies to third-party skills and plugins that a member or owner uploads or installs. This includes standalone skills, plugins, and the skills bundled inside a plugin.
+Scanning applies to third-party skills and plugins that a member or owner uploads. This includes standalone skills, plugins, and the skills bundled inside a plugin.
 
 Scanning doesn't apply to:
 

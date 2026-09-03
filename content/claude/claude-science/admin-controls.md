@@ -68,6 +68,14 @@ Skills are instructions, sometimes with helper code, that Claude loads when a ta
 
 When the switch is off, members can't add new skills of their own or publish them, and the app notes that custom skills are disabled by your admin. Skills a member added earlier still work and can still be edited, and Featured skills aren't affected. Custom skills are how members teach Claude their own workflows and analysis pipelines, so Anthropic recommends leaving this switch on.
 
+### Organization skills
+
+Add skills for everyone in your organization in claude.ai, under **Organization settings** > **Skills** > **Organization skills**. Upload each skill as a .zip file. Members see it in the Claude Science app under **Settings** > **Skills**, in the **Organization** section. Organization skills go to every member. To update a skill, upload a new version in claude.ai.
+
+To let members manage their own skills, host them in a GitHub repository. Put one `skills/<name>/SKILL.md` folder per skill in the repository and share the link. Members import them in the Claude Science app under **Settings** > **Skills** > **Add skill** > **Import from GitHub**. Claude Science records the commit each skill came from. **Check for updates** flags skills that are behind the repository's latest commit; each member chooses when to import again. Private repositories work after a member adds a GitHub token in the Claude Science app under **Settings** > **Credentials**.
+
+To stop members from adding their own skills, turn off the **Allow custom skills** switch on the **Organization settings** > **Claude Science** page (see [Custom skills](#custom-skills)).
+
 ### Network allowlist
 
 When Claude runs code for a member, that code can reach only the domains on the analysis sandbox's network allowlist: the package hosts, the scientific databases behind the Featured connectors, and hosts the member approved. See [Sandbox](/docs/claude-science/core-concepts#sandbox) and the domain tables in [Network requirements](/docs/claude-science/network-requirements#analysis-sandbox-domains).

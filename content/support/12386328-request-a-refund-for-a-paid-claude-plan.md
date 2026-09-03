@@ -57,6 +57,14 @@ If you have an active subscription purchased on **[Claude for Android](https://s
 
 If you're requesting a refund for an inactive subscription, you'll need to **[contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** with the email address associated with your Google Play account or your GPA order number (found on your Google Play receipt, formatted GPA.xxxx-xxxx-xxxx-xxxxx) to further review the charge and refund eligibility.
 
+### I upgraded from Pro or Max to Team—when do I get my refund?
+
+When you upgrade to a Team plan from a Pro or Max plan, your individual subscription is cancelled automatically and a prorated refund is issued for the unused portion of your billing period. You don't need to request the refund manually as it's handled as part of the upgrade. Refunds usually appear immediately, but they can take a few days after your Team payment clears. Any prepaid usage credits on your individual account are refunded.
+
+If you signed up for Pro or Max through the Apple App Store, you can't upgrade to Team in place. **[Cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the Team upgrade. App Store subscription refunds need to be requested through Apple directly, as described above.
+
+For full upgrade details, see **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_830eec632d)**.
+
 ## How do I request a refund when I'm disputing the payment?
 
 Our Support team cannot process refunds during pending disputes, as the disputed funds are pulled back immediately. You can choose to either continue working with your bank until the dispute is resolved, or to withdraw the bank dispute, which will allow us to process a refund.

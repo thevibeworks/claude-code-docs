@@ -127,7 +127,7 @@ To remove a skill from your organization, locate it in the **Organization skills
 
 ---
 
-## Scan skills and plugins for malicious content (beta)
+## Scan skills and plugins for malicious content
 
 On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is off by default, and it applies only to new uploads and edits, so skills and plugins already in your organization keep working.
 

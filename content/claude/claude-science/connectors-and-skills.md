@@ -50,3 +50,5 @@ The databases behind Featured connectors are on the network allowlist in groups 
 Claude loads a skill automatically when the work calls for it. Type **/** in the composer to open the skill picker and insert one explicitly. On Team and Enterprise plans, your organization can turn individual Featured skills off; a skill it has off stays listed, grayed, and Claude doesn't load it.
 
 **Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](/docs/claude-science/admin-controls#custom-skills)).
+
+Your admin can also add skills for everyone in your organization from claude.ai. See [Organization skills](/docs/claude-science/admin-controls#organization-skills).

@@ -18,7 +18,7 @@ Your organization's billing address determines where your invoices are sent. You
 
 If you want to use a name other than the one tied to your payment method, an organization Owner should check the "Use a different name on invoices" box when adding or updating your payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1788448500&amp;signature=c6ffd9f328f30bc84641bddc0cd690f50c72044ab826d402d08ea10c8733cbda&amp;req=dSklFMh6mINaWvMW1HO4zRZTxFLFv8PWKAqLF4ERnlULEx1TiWhgPI%2FSP0j7%0A1oMBtUzXR8Hzqfr0sQg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1788609600&amp;signature=bb92e2c9bfc5773ca8d12dda2c370a9d4156f200362e51df285433ec168748f1&amp;req=dSklFMh6mINaWvMW3nq%2BgVr9wWuEUdr%2FMNXEXNYt8DVfOAOnpsu3CbouPKVv%0AuHJgENXiauVGU3qK2Yc1EUcJomQ%3D%0A)
 
 ## When will I be billed?
 
@@ -51,3 +51,11 @@ Please click on the message icon in the bottom right of our Help Center to conta
 ## My Team plan access is no longer active and I want to resubscribe.
 
 An organization owner can resubscribe for Team plan access by navigating to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
+
+## What happens to my Pro or Max subscription when I upgrade to Team?
+
+When you upgrade from Pro or Max to Team in place, your individual subscription is cancelled automatically and a prorated refund is issued for the unused portion of your billing period. Any prepaid usage credits on your individual account are refunded. Refunds usually appear immediately, but they can take a few days after your Team payment clears.
+
+If you signed up for Pro or Max through the Apple App Store, in-place upgrades work differently. For more information, refer to **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_5d142d3f45)**.
+
+If you'd rather keep your personal subscription active, check the opt-out box (**Keep your personal account separate**)  in the team-creation flow when you upgrade.

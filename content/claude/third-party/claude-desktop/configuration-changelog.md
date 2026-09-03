@@ -653,7 +653,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
   ```
 </Update>
 
-<Update label="v1.10628.0" description="2026-06-03">
+<Update label="v1.10628.0" description="2026-06-02">
   <div className="cfg-keys">
     | MDM key                                         | Type      | Description                        |
     | ----------------------------------------------- | --------- | ---------------------------------- |
@@ -691,7 +691,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
   ```
 </Update>
 
-<Update label="v1.9659.0" description="2026-06-02">
+<Update label="v1.9659.0" description="2026-05-27">
   <div className="cfg-keys">
     | MDM key            | Type      | Description      |
     | ------------------ | --------- | ---------------- |
@@ -709,7 +709,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
   ```
 </Update>
 
-<Update label="v1.9255.0" description="2026-05-27">
+<Update label="v1.9255.0" description="2026-05-26">
   <div className="cfg-keys">
     | MDM key                    | Type     | Description                    |
     | -------------------------- | -------- | ------------------------------ |
@@ -735,7 +735,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
   ```
 </Update>
 
-<Update label="v1.8555.0" description="2026-05-25">
+<Update label="v1.8555.0" description="2026-05-21">
   <div className="cfg-keys">
     | MDM key                   | Type   | Description     |
     | ------------------------- | ------ | --------------- |
@@ -782,7 +782,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
   ```
 </Update>
 
-<Update label="v1.7196.0" description="2026-05-16">
+<Update label="v1.7196.0" description="2026-05-12">
   <div className="cfg-keys">
     | MDM key  | Type     | Description         |
     | -------- | -------- | ------------------- |
@@ -820,7 +820,7 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
   ```
 </Update>
 
-<Update label="v1.6259.0" description="2026-05-06">
+<Update label="v1.6259.0" description="2026-05-05">
   <div className="cfg-keys">
     | MDM key                        | Type     | Description        |
     | ------------------------------ | -------- | ------------------ |
