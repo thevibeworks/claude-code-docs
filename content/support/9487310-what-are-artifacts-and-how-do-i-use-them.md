@@ -1,12 +1,12 @@
 # What are artifacts and how do I use them?
 
-Accessing artifacts in the sidebar and Claude-powered artifacts are supported on Free, Pro, Max, Team, and Enterprise plans. Artifacts are available in Claude Code on Team and Enterprise plans.
+Accessing artifacts in the sidebar and Claude-powered artifacts are supported on Free, Pro, Max, Team, and Enterprise plans. Artifacts are available in Claude Code on Team and Enterprise plans, and in Claude Cowork on Pro, Max, Team, and Enterprise plans.
 
 Artifacts allow you to turn ideas into shareable apps, tools, or content—build tools, visualizations, and experiences by simply describing what you need. Claude can share substantial, standalone content with you in a dedicated window separate from the main conversation. This makes it easy to work with significant pieces of content that you may want to modify, build upon, or reference later.
 
 **Important:** We no longer support artifacts without **Code execution and file creation** enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** (Team, Enterprise).
 
-Artifacts are available in Claude, Claude Desktop, and Claude Code. This article focuses on Claude and Claude Desktop. To learn how to create, update, and share artifacts in Claude Code, see the **[artifacts documentation on Claude Code Docs](https://code.claude.com/docs/en/artifacts)**.
+Artifacts are available in Claude, Claude Desktop, Claude Cowork, and Claude Code. This article focuses on Claude and Claude Desktop. For artifacts you create in Cowork, see **[Use artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**. To learn how to create, update, and share artifacts in Claude Code, see the **[artifacts documentation on Claude Code Docs](https://code.claude.com/docs/en/artifacts)**.
 
 ---
 

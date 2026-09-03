@@ -287,7 +287,7 @@ Future models and features will not be compatible with Text Completions. See our
     * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
     * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
 
-  - `JsonValue type constant`
+  - `JsonValue type = "completion"`
 
     Object type.
 

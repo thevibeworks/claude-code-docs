@@ -22,59 +22,59 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -88,59 +88,59 @@ Create Agent
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `ClaudeFable5_1`
+        - `ClaudeFable5_1("claude-fable-5-1")`
 
           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-        - `ClaudeSonnet5`
+        - `ClaudeSonnet5("claude-sonnet-5")`
 
           High-performance model for coding and agents
 
-        - `ClaudeFable5`
+        - `ClaudeFable5("claude-fable-5")`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
 
-        - `ClaudeOpus5`
+        - `ClaudeOpus5("claude-opus-5")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_8`
+        - `ClaudeOpus4_8("claude-opus-4-8")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_7`
+        - `ClaudeOpus4_7("claude-opus-4-7")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_6`
+        - `ClaudeOpus4_6("claude-opus-4-6")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeSonnet4_6`
+        - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
           Best combination of speed and intelligence
 
-        - `ClaudeHaiku4_5`
+        - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
           Fastest model with near-frontier intelligence
 
-        - `ClaudeHaiku4_5_20251001`
+        - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
           Fastest model with near-frontier intelligence
 
-        - `ClaudeOpus4_5`
+        - `ClaudeOpus4_5("claude-opus-4-5")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_5_20251101`
+        - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeSonnet4_5`
+        - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
           High-performance model for agents and coding
 
-        - `ClaudeSonnet4_5_20250929`
+        - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
           High-performance model for agents and coding
 
@@ -152,15 +152,15 @@ Create Agent
 
           How hard Claude works on each turn. Higher levels favor reasoning depth over latency. Not all models accept every level; invalid combinations are rejected at create time.
 
-          - `Low`
+          - `Low("low")`
 
-          - `Medium`
+          - `Medium("medium")`
 
-          - `High`
+          - `High("high")`
 
-          - `Xhigh`
+          - `Xhigh("xhigh")`
 
-          - `Max`
+          - `Max("max")`
 
         - `class BetaManagedAgentsEffortLow:`
 
@@ -200,9 +200,9 @@ Create Agent
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `Standard`
+        - `Standard("standard")`
 
-        - `Fast`
+        - `Fast("fast")`
 
   - `required string name`
 
@@ -306,7 +306,7 @@ Create Agent
 
           Configuration override for the bash tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
             Must be "bash".
 
@@ -336,7 +336,7 @@ Create Agent
 
           Configuration override for the edit tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
             Must be "edit".
 
@@ -362,7 +362,7 @@ Create Agent
 
           Configuration override for the read tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
             Must be "read".
 
@@ -388,7 +388,7 @@ Create Agent
 
           Configuration override for the write tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
             Must be "write".
 
@@ -414,7 +414,7 @@ Create Agent
 
           Configuration override for the glob tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
             Must be "glob".
 
@@ -440,7 +440,7 @@ Create Agent
 
           Configuration override for the grep tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
             Must be "grep".
 
@@ -466,7 +466,7 @@ Create Agent
 
           Configuration override for the web_fetch tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
             Must be "web_fetch".
 
@@ -506,7 +506,7 @@ Create Agent
 
           Configuration override for the web_search tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
             Must be "web_search".
 
@@ -540,7 +540,7 @@ Create Agent
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -658,7 +658,7 @@ Create Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -676,93 +676,93 @@ Create Agent
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -806,59 +806,59 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -904,9 +904,9 @@ Create Agent
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -978,7 +978,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -996,7 +996,7 @@ Create Agent
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -1004,7 +1004,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1018,7 +1018,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -1026,7 +1026,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1040,7 +1040,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -1048,7 +1048,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1062,7 +1062,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -1070,7 +1070,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1084,7 +1084,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -1092,7 +1092,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1106,7 +1106,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -1114,7 +1114,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1128,7 +1128,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1144,7 +1144,7 @@ Create Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1158,7 +1158,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1168,7 +1168,7 @@ Create Agent
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -1266,7 +1266,7 @@ Create Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -1423,93 +1423,93 @@ List Agents
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -1553,59 +1553,59 @@ List Agents
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -1651,9 +1651,9 @@ List Agents
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -1725,7 +1725,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1743,7 +1743,7 @@ List Agents
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -1751,7 +1751,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1765,7 +1765,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -1773,7 +1773,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1787,7 +1787,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -1795,7 +1795,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1809,7 +1809,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -1817,7 +1817,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1831,7 +1831,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -1839,7 +1839,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1853,7 +1853,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -1861,7 +1861,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1875,7 +1875,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1891,7 +1891,7 @@ List Agents
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -1905,7 +1905,7 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1915,7 +1915,7 @@ List Agents
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -2013,7 +2013,7 @@ List Agents
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -2157,93 +2157,93 @@ Get Agent
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -2287,59 +2287,59 @@ Get Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -2385,9 +2385,9 @@ Get Agent
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -2459,7 +2459,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2477,7 +2477,7 @@ Get Agent
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -2485,7 +2485,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2499,7 +2499,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -2507,7 +2507,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2521,7 +2521,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -2529,7 +2529,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2543,7 +2543,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -2551,7 +2551,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2565,7 +2565,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -2573,7 +2573,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2587,7 +2587,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -2595,7 +2595,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2609,7 +2609,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -2625,7 +2625,7 @@ Get Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -2639,7 +2639,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -2649,7 +2649,7 @@ Get Agent
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -2747,7 +2747,7 @@ Get Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -2915,59 +2915,59 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -2981,59 +2981,59 @@ Update Agent
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `ClaudeFable5_1`
+        - `ClaudeFable5_1("claude-fable-5-1")`
 
           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-        - `ClaudeSonnet5`
+        - `ClaudeSonnet5("claude-sonnet-5")`
 
           High-performance model for coding and agents
 
-        - `ClaudeFable5`
+        - `ClaudeFable5("claude-fable-5")`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
 
-        - `ClaudeOpus5`
+        - `ClaudeOpus5("claude-opus-5")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_8`
+        - `ClaudeOpus4_8("claude-opus-4-8")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_7`
+        - `ClaudeOpus4_7("claude-opus-4-7")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_6`
+        - `ClaudeOpus4_6("claude-opus-4-6")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeSonnet4_6`
+        - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
           Best combination of speed and intelligence
 
-        - `ClaudeHaiku4_5`
+        - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
           Fastest model with near-frontier intelligence
 
-        - `ClaudeHaiku4_5_20251001`
+        - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
           Fastest model with near-frontier intelligence
 
-        - `ClaudeOpus4_5`
+        - `ClaudeOpus4_5("claude-opus-4-5")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeOpus4_5_20251101`
+        - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
           Powerful intelligence for long-running agents and coding
 
-        - `ClaudeSonnet4_5`
+        - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
           High-performance model for agents and coding
 
-        - `ClaudeSonnet4_5_20250929`
+        - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
           High-performance model for agents and coding
 
@@ -3045,15 +3045,15 @@ Update Agent
 
           How hard Claude works on each turn. Higher levels favor reasoning depth over latency. Not all models accept every level; invalid combinations are rejected at create time.
 
-          - `Low`
+          - `Low("low")`
 
-          - `Medium`
+          - `Medium("medium")`
 
-          - `High`
+          - `High("high")`
 
-          - `Xhigh`
+          - `Xhigh("xhigh")`
 
-          - `Max`
+          - `Max("max")`
 
         - `class BetaManagedAgentsEffortLow:`
 
@@ -3093,9 +3093,9 @@ Update Agent
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `Standard`
+        - `Standard("standard")`
 
-        - `Fast`
+        - `Fast("fast")`
 
   - `BetaManagedAgentsMultiagentParams? multiagent`
 
@@ -3171,7 +3171,7 @@ Update Agent
 
           Configuration override for the bash tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
             Must be "bash".
 
@@ -3201,7 +3201,7 @@ Update Agent
 
           Configuration override for the edit tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
             Must be "edit".
 
@@ -3227,7 +3227,7 @@ Update Agent
 
           Configuration override for the read tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
             Must be "read".
 
@@ -3253,7 +3253,7 @@ Update Agent
 
           Configuration override for the write tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
             Must be "write".
 
@@ -3279,7 +3279,7 @@ Update Agent
 
           Configuration override for the glob tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
             Must be "glob".
 
@@ -3305,7 +3305,7 @@ Update Agent
 
           Configuration override for the grep tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
             Must be "grep".
 
@@ -3331,7 +3331,7 @@ Update Agent
 
           Configuration override for the web_fetch tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
             Must be "web_fetch".
 
@@ -3371,7 +3371,7 @@ Update Agent
 
           Configuration override for the web_search tool.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
             Must be "web_search".
 
@@ -3405,7 +3405,7 @@ Update Agent
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -3523,7 +3523,7 @@ Update Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -3547,93 +3547,93 @@ Update Agent
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -3677,59 +3677,59 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -3775,9 +3775,9 @@ Update Agent
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -3849,7 +3849,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3867,7 +3867,7 @@ Update Agent
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -3875,7 +3875,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3889,7 +3889,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -3897,7 +3897,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3911,7 +3911,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -3919,7 +3919,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3933,7 +3933,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -3941,7 +3941,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3955,7 +3955,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -3963,7 +3963,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3977,7 +3977,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -3985,7 +3985,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -3999,7 +3999,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4015,7 +4015,7 @@ Update Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4029,7 +4029,7 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4039,7 +4039,7 @@ Update Agent
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -4137,7 +4137,7 @@ Update Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -4271,93 +4271,93 @@ Archive Agent
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -4401,59 +4401,59 @@ Archive Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -4499,9 +4499,9 @@ Archive Agent
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -4573,7 +4573,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4591,7 +4591,7 @@ Archive Agent
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -4599,7 +4599,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4613,7 +4613,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -4621,7 +4621,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4635,7 +4635,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -4643,7 +4643,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4657,7 +4657,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -4665,7 +4665,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4679,7 +4679,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -4687,7 +4687,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4701,7 +4701,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -4709,7 +4709,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4723,7 +4723,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4739,7 +4739,7 @@ Archive Agent
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -4753,7 +4753,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4763,7 +4763,7 @@ Archive Agent
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -4861,7 +4861,7 @@ Archive Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -5031,59 +5031,59 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -5129,9 +5129,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -5203,7 +5203,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5221,7 +5221,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -5229,7 +5229,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5243,7 +5243,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -5251,7 +5251,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5265,7 +5265,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -5273,7 +5273,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5287,7 +5287,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -5295,7 +5295,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5309,7 +5309,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -5317,7 +5317,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5331,7 +5331,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -5339,7 +5339,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5353,7 +5353,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -5369,7 +5369,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -5383,7 +5383,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -5393,7 +5393,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -5491,7 +5491,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -5541,7 +5541,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "bash"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5559,7 +5559,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         - `required Type Type`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "bash"`
 
   - `class BetaManagedAgentsEditToolConfig:`
 
@@ -5567,7 +5567,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "edit"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5581,7 +5581,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "edit"`
 
   - `class BetaManagedAgentsReadToolConfig:`
 
@@ -5589,7 +5589,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "read"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5603,7 +5603,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "read"`
 
   - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -5611,7 +5611,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "write"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5625,7 +5625,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "write"`
 
   - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -5633,7 +5633,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "glob"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5647,7 +5647,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "glob"`
 
   - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -5655,7 +5655,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "grep"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5669,7 +5669,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "grep"`
 
   - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -5677,7 +5677,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "web_fetch"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5691,7 +5691,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "web_fetch"`
 
     - `IReadOnlyList<string> AllowedDomains`
 
@@ -5707,7 +5707,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `required bool Enabled`
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "web_search"`
 
     - `required PermissionPolicy PermissionPolicy`
 
@@ -5721,7 +5721,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "web_search"`
 
     - `IReadOnlyList<string> AllowedDomains`
 
@@ -5731,7 +5731,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Approximate user location for search result localization.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "approximate"`
 
         Location precision. Only "approximate" is supported.
 
@@ -5767,7 +5767,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the bash tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "bash"`
 
       Must be "bash".
 
@@ -5797,7 +5797,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the edit tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "edit"`
 
       Must be "edit".
 
@@ -5823,7 +5823,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the read tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "read"`
 
       Must be "read".
 
@@ -5849,7 +5849,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the write tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "write"`
 
       Must be "write".
 
@@ -5875,7 +5875,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the glob tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "glob"`
 
       Must be "glob".
 
@@ -5901,7 +5901,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the grep tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "grep"`
 
       Must be "grep".
 
@@ -5927,7 +5927,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the web_fetch tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "web_fetch"`
 
       Must be "web_fetch".
 
@@ -5967,7 +5967,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the web_search tool.
 
-    - `JsonElement Name constant`
+    - `JsonElement Name = "web_search"`
 
       Must be "web_search".
 
@@ -6001,7 +6001,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Approximate user location for search result localization.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "approximate"`
 
         Location precision. Only "approximate" is supported.
 
@@ -6089,7 +6089,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "bash"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6107,7 +6107,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required Type Type`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "bash"`
 
     - `class BetaManagedAgentsEditToolConfig:`
 
@@ -6115,7 +6115,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "edit"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6129,7 +6129,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "edit"`
 
     - `class BetaManagedAgentsReadToolConfig:`
 
@@ -6137,7 +6137,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "read"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6151,7 +6151,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "read"`
 
     - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -6159,7 +6159,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "write"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6173,7 +6173,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "write"`
 
     - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -6181,7 +6181,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "glob"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6195,7 +6195,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "glob"`
 
     - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -6203,7 +6203,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "grep"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6217,7 +6217,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "grep"`
 
     - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -6225,7 +6225,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "web_fetch"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6239,7 +6239,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "web_fetch"`
 
       - `IReadOnlyList<string> AllowedDomains`
 
@@ -6255,7 +6255,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required bool Enabled`
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "web_search"`
 
       - `required PermissionPolicy PermissionPolicy`
 
@@ -6269,7 +6269,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "web_search"`
 
       - `IReadOnlyList<string> AllowedDomains`
 
@@ -6279,7 +6279,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Approximate user location for search result localization.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "approximate"`
 
           Location precision. Only "approximate" is supported.
 
@@ -6426,7 +6426,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the bash tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "bash"`
 
         Must be "bash".
 
@@ -6456,7 +6456,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the edit tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "edit"`
 
         Must be "edit".
 
@@ -6482,7 +6482,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the read tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "read"`
 
         Must be "read".
 
@@ -6508,7 +6508,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the write tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "write"`
 
         Must be "write".
 
@@ -6534,7 +6534,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the glob tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "glob"`
 
         Must be "glob".
 
@@ -6560,7 +6560,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the grep tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "grep"`
 
         Must be "grep".
 
@@ -6586,7 +6586,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the web_fetch tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "web_fetch"`
 
         Must be "web_fetch".
 
@@ -6626,7 +6626,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the web_search tool.
 
-      - `JsonElement Name constant`
+      - `JsonElement Name = "web_search"`
 
         Must be "web_search".
 
@@ -6660,7 +6660,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Approximate user location for search result localization.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "approximate"`
 
           Location precision. Only "approximate" is supported.
 
@@ -6797,7 +6797,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "bash"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -6815,7 +6815,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "bash"`
 
 ### Beta Managed Agents Bash Tool Config Params
 
@@ -6823,7 +6823,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the bash tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "bash"`
 
     Must be "bash".
 
@@ -6893,7 +6893,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     JSON Schema for custom tool input parameters.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "object"`
 
     - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -6909,7 +6909,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   JSON Schema for custom tool input parameters.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "object"`
 
   - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -6931,7 +6931,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     JSON Schema for custom tool input parameters.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "object"`
 
     - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -6953,7 +6953,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "edit"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -6971,7 +6971,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "edit"`
 
 ### Beta Managed Agents Edit Tool Config Params
 
@@ -6979,7 +6979,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the edit tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "edit"`
 
     Must be "edit".
 
@@ -7053,7 +7053,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "glob"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -7071,7 +7071,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "glob"`
 
 ### Beta Managed Agents Glob Tool Config Params
 
@@ -7079,7 +7079,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the glob tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "glob"`
 
     Must be "glob".
 
@@ -7113,7 +7113,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "grep"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -7131,7 +7131,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "grep"`
 
 ### Beta Managed Agents Grep Tool Config Params
 
@@ -7139,7 +7139,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the grep tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "grep"`
 
     Must be "grep".
 
@@ -7409,59 +7409,59 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `ClaudeFable5_1`
+    - `ClaudeFable5_1("claude-fable-5-1")`
 
       Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-    - `ClaudeSonnet5`
+    - `ClaudeSonnet5("claude-sonnet-5")`
 
       High-performance model for coding and agents
 
-    - `ClaudeFable5`
+    - `ClaudeFable5("claude-fable-5")`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
 
-    - `ClaudeOpus5`
+    - `ClaudeOpus5("claude-opus-5")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_8`
+    - `ClaudeOpus4_8("claude-opus-4-8")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_7`
+    - `ClaudeOpus4_7("claude-opus-4-7")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_6`
+    - `ClaudeOpus4_6("claude-opus-4-6")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeSonnet4_6`
+    - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
       Best combination of speed and intelligence
 
-    - `ClaudeHaiku4_5`
+    - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
       Fastest model with near-frontier intelligence
 
-    - `ClaudeHaiku4_5_20251001`
+    - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
       Fastest model with near-frontier intelligence
 
-    - `ClaudeOpus4_5`
+    - `ClaudeOpus4_5("claude-opus-4-5")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_5_20251101`
+    - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeSonnet4_5`
+    - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
       High-performance model for agents and coding
 
-    - `ClaudeSonnet4_5_20250929`
+    - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
       High-performance model for agents and coding
 
@@ -7507,9 +7507,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-    - `Standard`
+    - `Standard("standard")`
 
-    - `Fast`
+    - `Fast("fast")`
 
 ### Beta Managed Agents Model Config Params
 
@@ -7523,59 +7523,59 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `ClaudeFable5_1`
+    - `ClaudeFable5_1("claude-fable-5-1")`
 
       Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-    - `ClaudeSonnet5`
+    - `ClaudeSonnet5("claude-sonnet-5")`
 
       High-performance model for coding and agents
 
-    - `ClaudeFable5`
+    - `ClaudeFable5("claude-fable-5")`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
 
-    - `ClaudeOpus5`
+    - `ClaudeOpus5("claude-opus-5")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_8`
+    - `ClaudeOpus4_8("claude-opus-4-8")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_7`
+    - `ClaudeOpus4_7("claude-opus-4-7")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_6`
+    - `ClaudeOpus4_6("claude-opus-4-6")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeSonnet4_6`
+    - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
       Best combination of speed and intelligence
 
-    - `ClaudeHaiku4_5`
+    - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
       Fastest model with near-frontier intelligence
 
-    - `ClaudeHaiku4_5_20251001`
+    - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
       Fastest model with near-frontier intelligence
 
-    - `ClaudeOpus4_5`
+    - `ClaudeOpus4_5("claude-opus-4-5")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeOpus4_5_20251101`
+    - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
       Powerful intelligence for long-running agents and coding
 
-    - `ClaudeSonnet4_5`
+    - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
       High-performance model for agents and coding
 
-    - `ClaudeSonnet4_5_20250929`
+    - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
       High-performance model for agents and coding
 
@@ -7587,15 +7587,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       How hard Claude works on each turn. Higher levels favor reasoning depth over latency. Not all models accept every level; invalid combinations are rejected at create time.
 
-      - `Low`
+      - `Low("low")`
 
-      - `Medium`
+      - `Medium("medium")`
 
-      - `High`
+      - `High("high")`
 
-      - `Xhigh`
+      - `Xhigh("xhigh")`
 
-      - `Max`
+      - `Max("max")`
 
     - `class BetaManagedAgentsEffortLow:`
 
@@ -7635,9 +7635,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-    - `Standard`
+    - `Standard("standard")`
 
-    - `Fast`
+    - `Fast("fast")`
 
 ### Beta Managed Agents Multiagent Coordinator
 
@@ -7739,7 +7739,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "read"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -7757,7 +7757,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "read"`
 
 ### Beta Managed Agents Read Tool Config Params
 
@@ -7765,7 +7765,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the read tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "read"`
 
     Must be "read".
 
@@ -7819,59 +7819,59 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -7917,9 +7917,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required string Name`
 
@@ -7959,7 +7959,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -7977,7 +7977,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -7985,7 +7985,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -7999,7 +7999,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -8007,7 +8007,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8021,7 +8021,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -8029,7 +8029,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8043,7 +8043,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -8051,7 +8051,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8065,7 +8065,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -8073,7 +8073,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8087,7 +8087,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -8095,7 +8095,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8109,7 +8109,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -8125,7 +8125,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8139,7 +8139,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -8149,7 +8149,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -8247,7 +8247,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -8331,7 +8331,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Approximate user location for search result localization.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "approximate"`
 
     Location precision. Only "approximate" is supported.
 
@@ -8365,7 +8365,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "web_fetch"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -8383,7 +8383,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "web_fetch"`
 
   - `IReadOnlyList<string> AllowedDomains`
 
@@ -8399,7 +8399,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the web_fetch tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "web_fetch"`
 
     Must be "web_fetch".
 
@@ -8447,7 +8447,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "web_search"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -8465,7 +8465,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "web_search"`
 
   - `IReadOnlyList<string> AllowedDomains`
 
@@ -8475,7 +8475,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Approximate user location for search result localization.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "approximate"`
 
       Location precision. Only "approximate" is supported.
 
@@ -8507,7 +8507,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the web_search tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "web_search"`
 
     Must be "web_search".
 
@@ -8545,7 +8545,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Approximate user location for search result localization.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "approximate"`
 
       Location precision. Only "approximate" is supported.
 
@@ -8579,7 +8579,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required bool Enabled`
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "write"`
 
   - `required PermissionPolicy PermissionPolicy`
 
@@ -8597,7 +8597,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "write"`
 
 ### Beta Managed Agents Write Tool Config Params
 
@@ -8605,7 +8605,7 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the write tool.
 
-  - `JsonElement Name constant`
+  - `JsonElement Name = "write"`
 
     Must be "write".
 
@@ -8663,93 +8663,93 @@ List Agent Versions
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 #### Returns
 
@@ -8793,59 +8793,59 @@ List Agent Versions
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `ClaudeFable5_1`
+      - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      - `ClaudeSonnet5`
+      - `ClaudeSonnet5("claude-sonnet-5")`
 
         High-performance model for coding and agents
 
-      - `ClaudeFable5`
+      - `ClaudeFable5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
-      - `ClaudeOpus5`
+      - `ClaudeOpus5("claude-opus-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_8`
+      - `ClaudeOpus4_8("claude-opus-4-8")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_7`
+      - `ClaudeOpus4_7("claude-opus-4-7")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_6`
+      - `ClaudeOpus4_6("claude-opus-4-6")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_6`
+      - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
         Best combination of speed and intelligence
 
-      - `ClaudeHaiku4_5`
+      - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeHaiku4_5_20251001`
+      - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
         Fastest model with near-frontier intelligence
 
-      - `ClaudeOpus4_5`
+      - `ClaudeOpus4_5("claude-opus-4-5")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeOpus4_5_20251101`
+      - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
         Powerful intelligence for long-running agents and coding
 
-      - `ClaudeSonnet4_5`
+      - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
         High-performance model for agents and coding
 
-      - `ClaudeSonnet4_5_20250929`
+      - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
 
@@ -8891,9 +8891,9 @@ List Agent Versions
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-      - `Standard`
+      - `Standard("standard")`
 
-      - `Fast`
+      - `Fast("fast")`
 
   - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -8965,7 +8965,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -8983,7 +8983,7 @@ List Agent Versions
 
               - `required Type Type`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -8991,7 +8991,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "edit"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9005,7 +9005,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -9013,7 +9013,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "read"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9027,7 +9027,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -9035,7 +9035,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "write"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9049,7 +9049,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -9057,7 +9057,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "glob"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9071,7 +9071,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -9079,7 +9079,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "grep"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9093,7 +9093,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -9101,7 +9101,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9115,7 +9115,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -9131,7 +9131,7 @@ List Agent Versions
 
           - `required bool Enabled`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -9145,7 +9145,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search"`
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -9155,7 +9155,7 @@ List Agent Versions
 
             Approximate user location for search result localization.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -9253,7 +9253,7 @@ List Agent Versions
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "object"`
 
         - `IReadOnlyDictionary<string, JsonElement>? Properties`
 

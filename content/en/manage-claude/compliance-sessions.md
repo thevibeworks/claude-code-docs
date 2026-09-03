@@ -44,7 +44,7 @@ Anthropic recommends the Compliance API for retrieving session content. The foll
 | Infrastructure                                            | Anthropic-hosted                                                                                                                                                               | Anthropic-hosted                                                                                                                                                               | You run the collector and storage                                                                             |
 | ID prefix                                                 | `clls_`                                                                                                                                                                        | `cse_`                                                                                                                                                                         | N/A                                                                                                           |
 | `product_surface` values                                  | `cowork`, `claude_code`, `claude_science`, and values beginning with `office_agents`                                                                                           | `cowork_remote`                                                                                                                                                                | N/A                                                                                                           |
-| Retention                                                 | 6 years by default, or your organization's custom conversation retention period when a finite one is set; held by Anthropic                                                    | 6 years, held by Anthropic                                                                                                                                                     | Your infrastructure, your policies                                                                            |
+| Retention                                                 | 6 years by default, or your organization's custom conversation retention period when a finite one is set; held by Anthropic                                                    | 6 years, unless a user deletes the session sooner; held by Anthropic                                                                                                           | Your infrastructure, your policies                                                                            |
 | User prompts and assistant responses                      | Yes                                                                                                                                                                            | Yes                                                                                                                                                                            | Yes, subject to content-capture settings                                                                      |
 | Tool inputs                                               | Truncated to 10,000 bytes per input by default; up to about 1 MiB on request                                                                                                   | Truncated to 10,000 bytes per input by default; up to about 1 MiB on request                                                                                                   | Truncated summaries                                                                                           |
 | Tool result content                                       | Each text entry truncated to 10,000 bytes by default; up to about 1 MiB on request                                                                                             | Each text entry truncated to 10,000 bytes by default; up to about 1 MiB on request                                                                                             | Metadata such as size and success; Claude Code can also capture content with an optional, size-capped setting |
@@ -60,7 +60,7 @@ The Compliance API exposes local sessions through three endpoints: `GET /v1/comp
 
 For local sessions, Anthropic records each conversation server-side as its requests reach the Claude API; nothing is installed on the device, and nothing is collected beyond the requests the client already sends to the Claude API. Local session transcripts show what Claude was asked to do and what it returned, not what happened on the device. File and network activity is visible only through the tool calls and tool results in the transcript, so activity that never reaches the API (for example, local files the session never sent) is not captured.
 
-In organizations that use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek), local session transcripts are encrypted under your key and returned as usual. While your key cannot be used (for example, because you disabled or revoked it, or because it cannot be reached), the messages endpoint returns [503 Service Unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable) for the affected pages instead of transcript content. Those messages are never reported as `not_captured` (see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript)). Listing sessions and retrieving session metadata are not affected.
+In organizations that use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek), local session transcripts are encrypted under your customer-managed key and returned as usual. While that key cannot be used (for example, because you disabled or revoked it, or because it cannot be reached), the messages endpoint returns [503 Service Unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable) for the affected pages instead of transcript content. Those messages are never reported as `not_captured` (see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript)). Listing sessions and retrieving session metadata are not affected.
 
 The list endpoint returns session metadata, with no transcript content, for every linked organization your key can read. Unlike the remote session list, it has no organization or user filters: bound the results in time with the `created_at.gte` and `created_at.lt` parameters. Both take RFC 3339 timestamps with a required UTC offset, and when both are supplied, `created_at.lt` must be strictly after `created_at.gte` or the request returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request). A third time filter, `updated_at.gte`, bounds by last activity instead of first: it returns sessions whose last inference call is at or after the given time and combines with the `created_at` filters without changing the ordering or pagination. Use it to poll for sessions active since a previous pass, as described later in this section. New sessions and messages appear in results after a short processing delay, typically within minutes; a session that is missing immediately after it starts is not necessarily uncaptured. The following request lists sessions created since a given date.
 
@@ -68,6 +68,7 @@ The list endpoint returns session metadata, with no transcript content, for ever
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/apps/sessions/local" \
   --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  --header "anthropic-version: 2023-06-01" \
   --data-urlencode "created_at.gte=2026-07-01T00:00:00Z" \
   --data-urlencode "limit=100"
 ```
@@ -143,7 +144,8 @@ session_id="clls_01HxKpLmNoPqRsTuVwXyZaBc"
 
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/apps/sessions/local/$session_id/messages" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -287,6 +289,7 @@ The list endpoint defaults to organization-wide scope: leave off `organization_i
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/apps/sessions/remote" \
   --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  --header "anthropic-version: 2023-06-01" \
   --data-urlencode "created_at.gte=2026-06-01T00:00:00Z" \
   --data-urlencode "limit=100"
 ```
@@ -352,7 +355,8 @@ session_id="cse_01WpQrStUvXyZaBcDeFgHjK6"
 
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/apps/sessions/remote/$session_id/messages" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -418,7 +422,7 @@ The messages endpoint returns [404 Not Found](https://platform.claude.com/docs/e
 
 ## Retention and deletion
 
-The session endpoints are read-only; local and remote sessions cannot be deleted through the Compliance API. Local session transcripts are retained for 6 years by default, or your organization's custom conversation retention period when a finite one is set, as described under [Sessions on users' machines](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions). Remote session transcripts are retained for 6 years. To learn how these periods sit alongside Anthropic's other retention arrangements, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+The session endpoints are read-only; local and remote sessions cannot be deleted through the Compliance API. Local session transcripts are retained for 6 years by default, or your organization's custom conversation retention period when a finite one is set, as described under [Sessions on users' machines](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions). Remote session transcripts are retained for 6 years, unless a user deletes the session sooner. The remote session endpoints no longer return a session once a user deletes it, and its transcript is not recoverable through the Compliance API. To learn how these periods sit alongside Anthropic's other retention arrangements, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ## Next steps
 

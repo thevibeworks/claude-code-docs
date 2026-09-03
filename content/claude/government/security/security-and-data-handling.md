@@ -82,7 +82,7 @@ The desktop application and the sandbox honor the operating system's proxy setti
   </Accordion>
 
   <Accordion title="Can all traffic route through a single proxy?">
-    Yes. Both the desktop application and the sandbox honor the operating system's proxy settings, including PAC URLs, and route all outbound traffic through your proxy. TLS inspection at your proxy should work; validate this in your environment before rollout. See [Proxy support](/docs/third-party/claude-desktop/telemetry#proxy-support) for details. Web search requests pass through your proxy to the Claude for Government service, and the service's onward call to the search provider originates from inside the FedRAMP High boundary.
+    Yes. Both the desktop application and the sandbox honor the operating system's proxy settings, including PAC URLs, and route all outbound traffic through your proxy. TLS inspection at your proxy should work; validate this in your environment before rollout. See [Network proxy](/docs/third-party/claude-desktop/network-proxy) for details. Web search requests pass through your proxy to the Claude for Government service, and the service's onward call to the search provider originates from inside the FedRAMP High boundary.
   </Accordion>
 </AccordionGroup>
 

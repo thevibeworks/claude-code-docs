@@ -50,7 +50,7 @@ You can trigger a manual sync from two places in your admin settings.
 
 2. Click "Check for updates" under **SCIM sync**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312613548/44cd5970ee3c3b2c7f8dcd592d71/image+%2824%29.png?expires=1788362100&amp;signature=df8e090e1a95cd9e10f3cc64c60c991243a34ddce0d8fd733c685482f5121203&amp;req=diMmFM9%2FnoRbUfMW1HO4zW4gbD2uM8%2B1rgfl7PnOiun4AmQzfphDYGO6Xs5A%0AZeai%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312613548/44cd5970ee3c3b2c7f8dcd592d71/image+%2824%29.png?expires=1788480000&amp;signature=336a90538df8d7169d4491b8ef02a8fe0fd773451f94c486ee498a62fb0246cd&amp;req=diMmFM9%2FnoRbUfMW3nq%2Bgagh6LSURafFbvb4knc3ZiQ%2BbW3p5SXrt%2BKA03Tg%0ANxyCVWZS08HDIk08JNw8anOYwMc%3D%0A)
 
 3. Select whether to sync members, groups, or both.
 
@@ -62,7 +62,7 @@ You can trigger a manual sync from two places in your admin settings.
 
 3. Select whether to sync members, groups, or both:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312608119/e4b0ef4f309f3c4eac8311a6ef47/image.png?expires=1788362100&amp;signature=4ac55a48db468ef4fe6389159aa6ba1f5688803b54563289b25c44793aaf97b4&amp;req=diMmFM9%2BlYBeUPMW1HO4zX%2F4frLzzTke43OpyTHzM9ScBoRvu%2BAnTisnZcU9%0AeV2v%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312608119/e4b0ef4f309f3c4eac8311a6ef47/image.png?expires=1788480000&amp;signature=ba20594ec660087e34d5c26115016d3c129a6d8c92f790a209730e61a9e4677c&amp;req=diMmFM9%2BlYBeUPMW3nq%2BgVEwMWRqbCV%2B13%2FyLxrNCaT01kqQzq%2BvjDbmMZRa%0Abo3KsrZyatCUnzBsTmsRkIqfvQw%3D%0A)
 
 **Note:** If you trigger a manual sync while background changes are processing, your organization takes the most recent change for each member or group. If multiple changes are queued for the same member or group, you may need to resync again to make sure everything applies correctly.
 
@@ -104,4 +104,4 @@ Before you trigger a manual resync, keep these in mind:
 
 - **Resyncing cascades to child organizations.** If you have multiple organizations with SCIM provisioning under the same **parent organization**, resyncing one triggers resyncing in the others. This includes sandbox organizations sharing the same parent.
 
-- **Incomplete group mappings remove members from the organization.** When enabling group mapping for SCIM, finish assigning all groups before saving. Any member not included in a role group mapping is removed from the organization. If you enable seat tier mapping, any member not in a seat tier group mapping is also removed.
+- **Incomplete role mappings remove members from the organization.** When enabling group mapping for SCIM, finish assigning all groups before saving. Any member not included in a role group mapping is removed from the organization. Seat tier mappings work differently: a member who isn’t in any seat tier group isn’t removed. Existing members keep their current seat type, and newly provisioned members receive the highest seat type that still has an unassigned purchased seat, then the next seat type down, and are added with no seat if none is available.

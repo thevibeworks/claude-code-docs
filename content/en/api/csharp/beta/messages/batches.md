@@ -111,13 +111,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "ephemeral"`
 
                 - `Ttl Ttl`
 
@@ -130,9 +130,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-                  - `Ttl5m`
+                  - `Ttl5m("5m")`
 
-                  - `Ttl1h`
+                  - `Ttl1h("1h")`
 
               - `IReadOnlyList<BetaTextCitationParam>? Citations`
 
@@ -154,7 +154,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "char_location"`
 
                 - `class BetaCitationPageLocationParam:`
 
@@ -174,7 +174,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "page_location"`
 
                 - `class BetaCitationContentBlockLocationParam:`
 
@@ -204,7 +204,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "content_block_location"`
 
                 - `class BetaCitationWebSearchResultLocationParam:`
 
@@ -216,7 +216,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 512, minLength: 1
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "web_search_result_location"`
 
                   - `required string Url`
 
@@ -254,7 +254,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string? Title`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "search_result_location"`
 
             - `class BetaImageBlockParam:`
 
@@ -268,19 +268,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required MediaType MediaType`
 
-                    - `ImageJpeg`
+                    - `ImageJpeg("image/jpeg")`
 
-                    - `ImagePng`
+                    - `ImagePng("image/png")`
 
-                    - `ImageGif`
+                    - `ImageGif("image/gif")`
 
-                    - `ImageWebP`
+                    - `ImageWebP("image/webp")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "base64"`
 
                 - `class BetaUrlImageSource:`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "url"`
 
                   - `required string Url`
 
@@ -288,9 +288,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "file"`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "image"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -304,9 +304,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
-                  - `Downsize`
+                  - `Downsize("downsize")`
 
-                  - `Error`
+                  - `Error("error")`
 
             - `class BetaRequestDocumentBlock:`
 
@@ -318,17 +318,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     format: byte
 
-                  - `JsonElement MediaType constant`
+                  - `JsonElement MediaType = "application/pdf"`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "base64"`
 
                 - `class BetaPlainTextSource:`
 
                   - `required string Data`
 
-                  - `JsonElement MediaType constant`
+                  - `JsonElement MediaType = "text/plain"`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text"`
 
                 - `class BetaContentBlockSource:`
 
@@ -342,11 +342,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `class BetaImageBlockParam:`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "content"`
 
                 - `class BetaUrlPdfSource:`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "url"`
 
                   - `required string Url`
 
@@ -354,9 +354,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "file"`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "document"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -382,7 +382,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minLength: 1
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text"`
 
                 - `BetaCacheControlEphemeral? CacheControl`
 
@@ -394,7 +394,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `required string Title`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "search_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -414,7 +414,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "thinking"`
 
             - `class BetaRedactedThinkingBlockParam:`
 
@@ -422,7 +422,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "redacted_thinking"`
 
             - `class BetaToolUseBlockParam:`
 
@@ -436,7 +436,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 200, minLength: 1
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_use"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -450,7 +450,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool invocation directly from the model.
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "direct"`
 
                 - `class BetaServerToolCaller:`
 
@@ -460,7 +460,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_20250825"`
 
                 - `class BetaServerToolCaller20260120:`
 
@@ -468,7 +468,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_20260120"`
 
               - `string? ToolsetName`
 
@@ -482,7 +482,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^[a-zA-Z0-9_-]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -510,7 +510,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "tool_reference"`
 
                     - `BetaCacheControlEphemeral? CacheControl`
 
@@ -554,7 +554,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "browser_state"`
 
                     - `BetaCacheControlEphemeral? CacheControl`
 
@@ -582,7 +582,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonElement Type constant`
+                        - `JsonElement Type = "tab_opened"`
 
                       - `class BetaBrowserStateChangeDownloadStarted:`
 
@@ -594,7 +594,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonElement Type constant`
+                        - `JsonElement Type = "download_started"`
 
                         - `required string Url`
 
@@ -615,7 +615,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonElement Type constant`
+                        - `JsonElement Type = "download_completed"`
 
                         - `required string Url`
 
@@ -645,7 +645,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonElement Type constant`
+                        - `JsonElement Type = "download_failed"`
 
                         - `required string Url`
 
@@ -677,23 +677,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `required Name Name`
 
-                - `Advisor`
+                - `Advisor("advisor")`
 
-                - `WebSearch`
+                - `WebSearch("web_search")`
 
-                - `WebFetch`
+                - `WebFetch("web_fetch")`
 
-                - `CodeExecution`
+                - `CodeExecution("code_execution")`
 
-                - `BashCodeExecution`
+                - `BashCodeExecution("bash_code_execution")`
 
-                - `TextEditorCodeExecution`
+                - `TextEditorCodeExecution("text_editor_code_execution")`
 
-                - `ToolSearchToolRegex`
+                - `ToolSearchToolRegex("tool_search_tool_regex")`
 
-                - `ToolSearchToolBm25`
+                - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "server_tool_use"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -723,7 +723,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string Title`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "web_search_result"`
 
                   - `required string Url`
 
@@ -733,25 +733,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required BetaWebSearchToolResultErrorCode ErrorCode`
 
-                    - `InvalidToolInput`
+                    - `InvalidToolInput("invalid_tool_input")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                    - `MaxUsesExceeded`
+                    - `MaxUsesExceeded("max_uses_exceeded")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `QueryTooLong`
+                    - `QueryTooLong("query_too_long")`
 
-                    - `RequestTooLarge`
+                    - `RequestTooLarge("request_too_large")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "web_search_tool_result_error"`
 
               - `required string ToolUseID`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_search_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -779,31 +779,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required BetaWebFetchToolResultErrorCode ErrorCode`
 
-                    - `InvalidToolInput`
+                    - `InvalidToolInput("invalid_tool_input")`
 
-                    - `UrlTooLong`
+                    - `UrlTooLong("url_too_long")`
 
-                    - `UrlNotAllowed`
+                    - `UrlNotAllowed("url_not_allowed")`
 
-                    - `UrlNotInPriorContext`
+                    - `UrlNotInPriorContext("url_not_in_prior_context")`
 
-                    - `UrlNotAccessible`
+                    - `UrlNotAccessible("url_not_accessible")`
 
-                    - `UnsupportedContentType`
+                    - `UnsupportedContentType("unsupported_content_type")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `MaxUsesExceeded`
+                    - `MaxUsesExceeded("max_uses_exceeded")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "web_fetch_tool_result_error"`
 
                 - `class BetaWebFetchBlockParam:`
 
                   - `required BetaRequestDocumentBlock Content`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "web_fetch_result"`
 
                   - `required string Url`
 
@@ -817,7 +817,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_fetch_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -845,27 +845,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required ErrorCode ErrorCode`
 
-                    - `MaxUsesExceeded`
+                    - `MaxUsesExceeded("max_uses_exceeded")`
 
-                    - `PromptTooLong`
+                    - `PromptTooLong("prompt_too_long")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `Overloaded`
+                    - `Overloaded("overloaded")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                    - `ExecutionTimeExceeded`
+                    - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                    - `ModelNotFound`
+                    - `ModelNotFound("model_not_found")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "advisor_tool_result_error"`
 
                 - `class BetaAdvisorResultBlockParam:`
 
                   - `required string Text`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "advisor_result"`
 
                   - `string? StopReason`
 
@@ -875,7 +875,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Opaque blob produced by a prior response; must be round-tripped verbatim.
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "advisor_redacted_result"`
 
                   - `string? StopReason`
 
@@ -883,7 +883,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "advisor_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -899,15 +899,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required BetaCodeExecutionToolResultErrorCode ErrorCode`
 
-                    - `InvalidToolInput`
+                    - `InvalidToolInput("invalid_tool_input")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `ExecutionTimeExceeded`
+                    - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_tool_result_error"`
 
                 - `class BetaCodeExecutionResultBlockParam:`
 
@@ -915,7 +915,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `required string FileID`
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "code_execution_output"`
 
                   - `required long ReturnCode`
 
@@ -923,7 +923,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string Stdout`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_result"`
 
                 - `class BetaEncryptedCodeExecutionResultBlockParam:`
 
@@ -933,7 +933,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `required string FileID`
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "code_execution_output"`
 
                   - `required string EncryptedStdout`
 
@@ -941,13 +941,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string Stderr`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "encrypted_code_execution_result"`
 
               - `required string ToolUseID`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -961,17 +961,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required ErrorCode ErrorCode`
 
-                    - `InvalidToolInput`
+                    - `InvalidToolInput("invalid_tool_input")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `ExecutionTimeExceeded`
+                    - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                    - `OutputFileTooLarge`
+                    - `OutputFileTooLarge("output_file_too_large")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
                 - `class BetaBashCodeExecutionResultBlockParam:`
 
@@ -979,7 +979,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `required string FileID`
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "bash_code_execution_output"`
 
                   - `required long ReturnCode`
 
@@ -987,13 +987,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string Stdout`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "bash_code_execution_result"`
 
               - `required string ToolUseID`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "bash_code_execution_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1007,17 +1007,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required ErrorCode ErrorCode`
 
-                    - `InvalidToolInput`
+                    - `InvalidToolInput("invalid_tool_input")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `ExecutionTimeExceeded`
+                    - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                    - `FileNotFound`
+                    - `FileNotFound("file_not_found")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
                   - `string? ErrorMessage`
 
@@ -1027,13 +1027,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required FileType FileType`
 
-                    - `Text`
+                    - `Text("text")`
 
-                    - `Image`
+                    - `Image("image")`
 
-                    - `Pdf`
+                    - `Pdf("pdf")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text_editor_code_execution_view_result"`
 
                   - `long? NumLines`
 
@@ -1045,11 +1045,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required bool IsFileUpdate`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text_editor_code_execution_create_result"`
 
                 - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
                   - `IReadOnlyList<string>? Lines`
 
@@ -1065,7 +1065,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1079,15 +1079,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required ErrorCode ErrorCode`
 
-                    - `InvalidToolInput`
+                    - `InvalidToolInput("invalid_tool_input")`
 
-                    - `Unavailable`
+                    - `Unavailable("unavailable")`
 
-                    - `TooManyRequests`
+                    - `TooManyRequests("too_many_requests")`
 
-                    - `ExecutionTimeExceeded`
+                    - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "tool_search_tool_result_error"`
 
                   - `string? ErrorMessage`
 
@@ -1099,19 +1099,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "tool_reference"`
 
                     - `BetaCacheControlEphemeral? CacheControl`
 
                       Create a cache control breakpoint at this content block.
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "tool_search_tool_search_result"`
 
               - `required string ToolUseID`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_search_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1131,7 +1131,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The name of the MCP server
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "mcp_tool_use"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1143,7 +1143,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^[a-zA-Z0-9_-]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "mcp_tool_result"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1159,7 +1159,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minLength: 1
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text"`
 
                   - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1176,7 +1176,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `required string FileID`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "container_upload"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1192,7 +1192,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               When content is None, the block represents a failed compaction. The server
               treats these as no-ops. Empty string content is not allowed.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "compaction"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1232,7 +1232,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "tool_reference"`
 
                 - `class BetaToolChangeMcpToolReference:`
 
@@ -1243,7 +1243,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string ServerName`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "mcp_tool_reference"`
 
                 - `class BetaToolChangeMcpToolsetReference:`
 
@@ -1251,9 +1251,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string ServerName`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "mcp_toolset_reference"`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_addition"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1290,7 +1290,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Reference to every tool in the named MCP server's toolset.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_removal"`
 
               - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1322,71 +1322,71 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                  - `ClaudeFable5_1`
+                  - `ClaudeFable5_1("claude-fable-5-1")`
 
                     Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-                  - `ClaudeMythos5_1`
+                  - `ClaudeMythos5_1("claude-mythos-5-1")`
 
                     Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-                  - `ClaudeSonnet5`
+                  - `ClaudeSonnet5("claude-sonnet-5")`
 
                     High-performance model for coding and agents
 
-                  - `ClaudeFable5`
+                  - `ClaudeFable5("claude-fable-5")`
 
                     Next generation of intelligence for the hardest knowledge work and coding problems
 
-                  - `ClaudeMythos5`
+                  - `ClaudeMythos5("claude-mythos-5")`
 
                     Most capable model for cybersecurity and biology research
 
-                  - `ClaudeOpus5`
+                  - `ClaudeOpus5("claude-opus-5")`
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `ClaudeOpus4_8`
+                  - `ClaudeOpus4_8("claude-opus-4-8")`
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `ClaudeOpus4_7`
+                  - `ClaudeOpus4_7("claude-opus-4-7")`
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `ClaudeMythosPreview`
+                  - `ClaudeMythosPreview("claude-mythos-preview")`
 
                     New class of intelligence, strongest in coding and cybersecurity
 
-                  - `ClaudeOpus4_6`
+                  - `ClaudeOpus4_6("claude-opus-4-6")`
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `ClaudeSonnet4_6`
+                  - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
                     Best combination of speed and intelligence
 
-                  - `ClaudeHaiku4_5`
+                  - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
                     Fastest model with near-frontier intelligence
 
-                  - `ClaudeHaiku4_5_20251001`
+                  - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
                     Fastest model with near-frontier intelligence
 
-                  - `ClaudeOpus4_5`
+                  - `ClaudeOpus4_5("claude-opus-4-5")`
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `ClaudeOpus4_5_20251101`
+                  - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `ClaudeSonnet4_5`
+                  - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
                     High-performance model for agents and coding
 
-                  - `ClaudeSonnet4_5_20250929`
+                  - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
                     High-performance model for agents and coding
 
@@ -1394,7 +1394,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Identifies one hop of a fallback transition.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "fallback"`
 
               - `JsonElement Trigger`
 
@@ -1402,19 +1402,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `required Role Role`
 
-          - `User`
+          - `User("user")`
 
-          - `Assistant`
+          - `Assistant("assistant")`
 
-          - `System`
+          - `System("system")`
 
         - `ClearAt? ClearAt`
 
           How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
 
-          - `NextUserMessage`
+          - `NextUserMessage("next_user_message")`
 
-          - `Never`
+          - `Never("never")`
 
         - `BetaSystemMessageOutputConfig? OutputConfig`
 
@@ -1428,15 +1428,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             All possible effort levels.
 
-            - `Low`
+            - `Low("low")`
 
-            - `Medium`
+            - `Medium("medium")`
 
-            - `High`
+            - `High("high")`
 
-            - `Xhigh`
+            - `Xhigh("xhigh")`
 
-            - `Max`
+            - `Max("max")`
 
       - `required Model Model`
 
@@ -1476,9 +1476,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-              - `Anthropic`
+              - `Anthropic("anthropic")`
 
-              - `Custom`
+              - `Custom("custom")`
 
             - `string Version`
 
@@ -1502,13 +1502,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaClearToolUses20250919Edit:`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "clear_tool_uses_20250919"`
 
             - `BetaInputTokensClearAtLeast? ClearAtLeast`
 
               Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "input_tokens"`
 
               - `required long Value`
 
@@ -1530,7 +1530,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Number of tool uses to retain in the conversation
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_uses"`
 
               - `required long Value`
 
@@ -1542,7 +1542,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaInputTokensTrigger:`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "input_tokens"`
 
                 - `required long Value`
 
@@ -1550,7 +1550,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaToolUsesTrigger:`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "tool_uses"`
 
                 - `required long Value`
 
@@ -1558,7 +1558,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaClearThinking20251015Edit:`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "clear_thinking_20251015"`
 
             - `Keep Keep`
 
@@ -1566,7 +1566,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaThinkingTurns:`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "thinking_turns"`
 
                 - `required long Value`
 
@@ -1574,7 +1574,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaAllThinkingTurns:`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "all"`
 
               - `class All:`
 
@@ -1582,7 +1582,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Automatically compact older context when reaching the configured trigger threshold.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "compact_20260112"`
 
             - `string? Instructions`
 
@@ -1652,9 +1652,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             How a failing token affects the retry. `strict` (the default, and the bare-string behavior): a failing redemption is a 400 and the retry is not served. `best_effort`: the retry is served either way — a token-layer failure no longer rejects the request; the retry proceeds at normal price and the outcome is reported on the response's `usage.fallback_credit`. Two failures stay hard in both modes: a malformed token, and combining `fallback_credit_token` with `fallbacks`.
 
-            - `Strict`
+            - `Strict("strict")`
 
-            - `BestEffort`
+            - `BestEffort("best_effort")`
 
       - `BetaFallbacksParam? Fallbacks`
 
@@ -1676,15 +1676,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               All possible effort levels.
 
-              - `Low`
+              - `Low("low")`
 
-              - `Medium`
+              - `Medium("medium")`
 
-              - `High`
+              - `High("high")`
 
-              - `Xhigh`
+              - `Xhigh("xhigh")`
 
-              - `Max`
+              - `Max("max")`
 
             - `BetaJsonOutputFormat? Format`
 
@@ -1694,7 +1694,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The JSON schema of the format
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "json_schema"`
 
             - `BetaTokenTaskBudget? TaskBudget`
 
@@ -1706,7 +1706,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 1024
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tokens"`
 
                 The budget type. Currently only 'tokens' is supported.
 
@@ -1720,9 +1720,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-            - `Standard`
+            - `Standard("standard")`
 
-            - `Fast`
+            - `Fast("fast")`
 
           - `Thinking? Thinking`
 
@@ -1738,7 +1738,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 1024
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "enabled"`
 
               - `BetaThinkingBlockBinding? BlockBinding`
 
@@ -1754,27 +1754,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   400 error. `"drop_block"` removes the failing blocks and the request
                   proceeds; the model no longer sees the dropped reasoning.
 
-                  - `Error`
+                  - `Error("error")`
 
-                  - `DropBlock`
+                  - `DropBlock("drop_block")`
 
               - `Display? Display`
 
                 Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
-                - `Summarized`
+                - `Summarized("summarized")`
 
-                - `Omitted`
+                - `Omitted("omitted")`
 
-                - `Updates`
+                - `Updates("updates")`
 
             - `class BetaThinkingConfigDisabled:`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "disabled"`
 
             - `class BetaThinkingConfigAdaptive:`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "adaptive"`
 
               - `BetaThinkingBlockBinding? BlockBinding`
 
@@ -1786,11 +1786,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
-                - `Summarized`
+                - `Summarized("summarized")`
 
-                - `Omitted`
+                - `Omitted("omitted")`
 
-                - `Updates`
+                - `Updates("updates")`
 
         - `JsonElement`
 
@@ -1806,7 +1806,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `required string Name`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "url"`
 
         - `required string Url`
 
@@ -1840,17 +1840,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
-        - `Auto`
+        - `Auto("auto")`
 
-        - `StandardOnly`
+        - `StandardOnly("standard_only")`
 
       - `Speed? Speed`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `Standard`
+        - `Standard("standard")`
 
-        - `Fast`
+        - `Fast("fast")`
 
       - `IReadOnlyList<string> StopSequences`
 
@@ -1880,7 +1880,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minLength: 1
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text"`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -1910,7 +1910,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will automatically decide whether to use tools.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "auto"`
 
           - `bool DisableParallelToolUse`
 
@@ -1922,7 +1922,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will use any available tools.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "any"`
 
           - `bool DisableParallelToolUse`
 
@@ -1938,7 +1938,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The name of the tool to use.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "tool"`
 
           - `bool DisableParallelToolUse`
 
@@ -1950,7 +1950,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will not be allowed to use tools.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "none"`
 
       - `IReadOnlyList<BetaToolUnion> Tools`
 
@@ -2024,7 +2024,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "object"`
 
             - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -2040,13 +2040,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2076,23 +2076,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolBash20241022:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash_20241022"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2110,23 +2110,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolBash20250124:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "bash"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash_20250124"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2144,23 +2144,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaCodeExecutionTool20250522:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "code_execution_20250522"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2176,23 +2176,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaCodeExecutionTool20250825:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "code_execution_20250825"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2210,23 +2210,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "code_execution_20260120"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2244,23 +2244,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "code_execution_20260521"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2281,7 +2281,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           the family's tool with any members disabled via `configs` removed
           from its schema.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "browser_toolset_20260801"`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2682,23 +2682,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "computer"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "computer_20241022"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2722,23 +2722,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaMemoryTool20250818:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "memory"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "memory_20250818"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2768,23 +2768,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "computer"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "computer_20250124"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2808,23 +2808,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20241022:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "str_replace_editor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text_editor_20241022"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2854,23 +2854,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "computer"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "computer_20251124"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2907,7 +2907,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           `type`, `configs`, and `cache_control`; zoom is controlled
           via `configs.zoom.enabled`.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "computer_toolset_20260801"`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3128,23 +3128,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20250124:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "str_replace_editor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text_editor_20250124"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3162,23 +3162,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20250429:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "str_replace_based_edit_tool"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text_editor_20250429"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3196,23 +3196,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20250728:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "str_replace_based_edit_tool"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text_editor_20250728"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3236,23 +3236,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebSearchTool20250305:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search_20250305"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3284,7 +3284,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "approximate"`
 
             - `string? City`
 
@@ -3312,23 +3312,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebFetchTool20250910:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch_20250910"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3368,23 +3368,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebSearchTool20260209:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search_20260209"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3418,23 +3418,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebFetchTool20260209:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch_20260209"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3476,23 +3476,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch_20260309"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3536,23 +3536,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebSearchTool20260318:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search_20260318"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3580,9 +3580,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
-            - `Full`
+            - `Full("full")`
 
-            - `Excluded`
+            - `Excluded("excluded")`
 
           - `bool Strict`
 
@@ -3594,23 +3594,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebFetchTool20260318:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch_20260318"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `IReadOnlyList<string>? AllowedDomains`
 
@@ -3648,9 +3648,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
-            - `Full`
+            - `Full("full")`
 
-            - `Excluded`
+            - `Excluded("excluded")`
 
           - `bool Strict`
 
@@ -3668,23 +3668,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "advisor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "advisor_20260301"`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3716,7 +3716,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolSearchToolBm25_20251119:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "tool_search_tool_bm25"`
 
             Name of the tool.
 
@@ -3724,19 +3724,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `required Type Type`
 
-            - `ToolSearchToolBm25_20251119`
+            - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
-            - `ToolSearchToolBm25`
+            - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3752,7 +3752,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolSearchToolRegex20251119:`
 
-          - `JsonElement Name constant`
+          - `JsonElement Name = "tool_search_tool_regex"`
 
             Name of the tool.
 
@@ -3760,19 +3760,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `required Type Type`
 
-            - `ToolSearchToolRegex20251119`
+            - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
-            - `ToolSearchToolRegex`
+            - `ToolSearchToolRegex("tool_search_tool_regex")`
 
           - `IReadOnlyList<AllowedCaller> AllowedCallers`
 
-            - `Direct`
+            - `Direct("direct")`
 
-            - `CodeExecution20250825`
+            - `CodeExecution20250825("code_execution_20250825")`
 
-            - `CodeExecution20260120`
+            - `CodeExecution20260120("code_execution_20260120")`
 
-            - `CodeExecution20260521`
+            - `CodeExecution20260521("code_execution_20260521")`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3799,7 +3799,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             maxLength: 255, minLength: 1
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "mcp_toolset"`
 
           - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3869,93 +3869,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
   - `string userProfileID`
 
@@ -4007,11 +4007,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing status of the Message Batch.
 
-    - `InProgress`
+    - `InProgress("in_progress")`
 
-    - `Canceling`
+    - `Canceling("canceling")`
 
-    - `Ended`
+    - `Ended("ended")`
 
   - `required BetaMessageBatchRequestCounts RequestCounts`
 
@@ -4053,7 +4053,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch"`
 
     Object type.
 
@@ -4299,93 +4299,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -4433,11 +4433,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing status of the Message Batch.
 
-    - `InProgress`
+    - `InProgress("in_progress")`
 
-    - `Canceling`
+    - `Canceling("canceling")`
 
-    - `Ended`
+    - `Ended("ended")`
 
   - `required BetaMessageBatchRequestCounts RequestCounts`
 
@@ -4479,7 +4479,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch"`
 
     Object type.
 
@@ -4552,93 +4552,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -4686,11 +4686,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing status of the Message Batch.
 
-    - `InProgress`
+    - `InProgress("in_progress")`
 
-    - `Canceling`
+    - `Canceling("canceling")`
 
-    - `Ended`
+    - `Ended("ended")`
 
   - `required BetaMessageBatchRequestCounts RequestCounts`
 
@@ -4732,7 +4732,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch"`
 
     Object type.
 
@@ -4804,93 +4804,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -4938,11 +4938,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing status of the Message Batch.
 
-    - `InProgress`
+    - `InProgress("in_progress")`
 
-    - `Canceling`
+    - `Canceling("canceling")`
 
-    - `Ended`
+    - `Ended("ended")`
 
   - `required BetaMessageBatchRequestCounts RequestCounts`
 
@@ -4984,7 +4984,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch"`
 
     Object type.
 
@@ -5047,93 +5047,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -5143,7 +5143,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the Message Batch.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch_deleted"`
 
     Deleted object type.
 
@@ -5192,93 +5192,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
-    - `PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
 
-    - `ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
 
-    - `ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
 
-    - `Pdfs2024_09_25`
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
 
-    - `TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
 
-    - `TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
 
-    - `Output128k2025_02_19`
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
 
-    - `FilesApi2025_04_14`
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
 
-    - `McpClient2025_04_04`
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
 
-    - `McpClient2025_11_20`
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
 
-    - `DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
 
-    - `InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
 
-    - `CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
 
-    - `ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
 
-    - `Context1m2025_08_07`
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
 
-    - `ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
 
-    - `ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
 
-    - `Skills2025_10_02`
+    - `Skills2025_10_02("skills-2025-10-02")`
 
-    - `FastMode2026_02_01`
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
 
-    - `Output300k2026_03_24`
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
 
-    - `UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
 
-    - `UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
-    - `AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
-    - `ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
 
-    - `CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
 
-    - `Dreaming2026_04_21`
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
 
-    - `ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
 
-    - `ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
 
-    - `ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
 
-    - `FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
 
-    - `FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
 
-    - `AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
 
-    - `MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-    - `Compact2026_01_12`
+    - `Compact2026_01_12("compact-2026-01-12")`
 
-    - `ComputerUse2025_11_24`
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
 
-    - `McpTunnels2026_06_22`
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
 
-    - `StructuredOutputs2025_11_13`
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
 
-    - `TaskBudgets2026_03_13`
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
 
-    - `ThinkingDisplayUpdates2026_08_18`
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
 
-    - `CEUserManagement2026_07_13`
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
 
-    - `MidConversationOutputConfig2026_07_01`
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
 
-    - `ThinkingBindingControls2026_08_01`
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
 
-    - `MidConversationSystemClearAt2026_08_21`
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
 ### Returns
 
@@ -5336,9 +5336,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-              - `Anthropic`
+              - `Anthropic("anthropic")`
 
-              - `Custom`
+              - `Custom("custom")`
 
             - `required string Version`
 
@@ -5401,7 +5401,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "char_location"`
 
               - `class BetaCitationPageLocation:`
 
@@ -5421,7 +5421,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "page_location"`
 
               - `class BetaCitationContentBlockLocation:`
 
@@ -5451,7 +5451,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "content_block_location"`
 
               - `class BetaCitationsWebSearchResultLocation:`
 
@@ -5463,7 +5463,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_search_result_location"`
 
                 - `required string Url`
 
@@ -5499,13 +5499,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? Title`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "search_result_location"`
 
             - `required string Text`
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text"`
 
           - `class BetaThinkingBlock:`
 
@@ -5521,7 +5521,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "thinking"`
 
           - `class BetaRedactedThinkingBlock:`
 
@@ -5533,7 +5533,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "redacted_thinking"`
 
           - `class BetaToolUseBlock:`
 
@@ -5547,7 +5547,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 1
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tool_use"`
 
             - `Caller Caller`
 
@@ -5557,7 +5557,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation directly from the model.
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "direct"`
 
               - `class BetaServerToolCaller:`
 
@@ -5567,7 +5567,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_20250825"`
 
               - `class BetaServerToolCaller20260120:`
 
@@ -5575,7 +5575,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_20260120"`
 
             - `string? ToolsetName`
 
@@ -5593,23 +5593,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required Name Name`
 
-              - `Advisor`
+              - `Advisor("advisor")`
 
-              - `WebSearch`
+              - `WebSearch("web_search")`
 
-              - `WebFetch`
+              - `WebFetch("web_fetch")`
 
-              - `CodeExecution`
+              - `CodeExecution("code_execution")`
 
-              - `BashCodeExecution`
+              - `BashCodeExecution("bash_code_execution")`
 
-              - `TextEditorCodeExecution`
+              - `TextEditorCodeExecution("text_editor_code_execution")`
 
-              - `ToolSearchToolRegex`
+              - `ToolSearchToolRegex("tool_search_tool_regex")`
 
-              - `ToolSearchToolBm25`
+              - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "server_tool_use"`
 
             - `Caller Caller`
 
@@ -5633,19 +5633,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required BetaWebSearchToolResultErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `MaxUsesExceeded`
+                  - `MaxUsesExceeded("max_uses_exceeded")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `QueryTooLong`
+                  - `QueryTooLong("query_too_long")`
 
-                  - `RequestTooLarge`
+                  - `RequestTooLarge("request_too_large")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_search_tool_result_error"`
 
               - `IReadOnlyList<BetaWebSearchResultBlock>`
 
@@ -5655,7 +5655,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Title`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_search_result"`
 
                 - `required string Url`
 
@@ -5663,7 +5663,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_search_tool_result"`
 
             - `Caller Caller`
 
@@ -5687,25 +5687,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required BetaWebFetchToolResultErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `UrlTooLong`
+                  - `UrlTooLong("url_too_long")`
 
-                  - `UrlNotAllowed`
+                  - `UrlNotAllowed("url_not_allowed")`
 
-                  - `UrlNotInPriorContext`
+                  - `UrlNotInPriorContext("url_not_in_prior_context")`
 
-                  - `UrlNotAccessible`
+                  - `UrlNotAccessible("url_not_accessible")`
 
-                  - `UnsupportedContentType`
+                  - `UnsupportedContentType("unsupported_content_type")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `MaxUsesExceeded`
+                  - `MaxUsesExceeded("max_uses_exceeded")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_fetch_tool_result_error"`
 
               - `class BetaWebFetchBlock:`
 
@@ -5725,29 +5725,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         format: byte
 
-                      - `JsonElement MediaType constant`
+                      - `JsonElement MediaType = "application/pdf"`
 
-                      - `JsonElement Type constant`
+                      - `JsonElement Type = "base64"`
 
                     - `class BetaPlainTextSource:`
 
                       - `required string Data`
 
-                      - `JsonElement MediaType constant`
+                      - `JsonElement MediaType = "text/plain"`
 
-                      - `JsonElement Type constant`
+                      - `JsonElement Type = "text"`
 
                   - `required string? Title`
 
                     The title of the document
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "document"`
 
                 - `required string? RetrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_fetch_result"`
 
                 - `required string Url`
 
@@ -5757,7 +5757,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_fetch_tool_result"`
 
             - `Caller Caller`
 
@@ -5781,21 +5781,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required ErrorCode ErrorCode`
 
-                  - `MaxUsesExceeded`
+                  - `MaxUsesExceeded("max_uses_exceeded")`
 
-                  - `PromptTooLong`
+                  - `PromptTooLong("prompt_too_long")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `Overloaded`
+                  - `Overloaded("overloaded")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `ModelNotFound`
+                  - `ModelNotFound("model_not_found")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "advisor_tool_result_error"`
 
               - `class BetaAdvisorResultBlock:`
 
@@ -5805,7 +5805,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Text`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "advisor_result"`
 
               - `class BetaAdvisorRedactedResultBlock:`
 
@@ -5817,13 +5817,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "advisor_redacted_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "advisor_tool_result"`
 
           - `class BetaCodeExecutionToolResultBlock:`
 
@@ -5835,15 +5835,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required BetaCodeExecutionToolResultErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_tool_result_error"`
 
               - `class BetaCodeExecutionResultBlock:`
 
@@ -5851,7 +5851,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_output"`
 
                 - `required long ReturnCode`
 
@@ -5859,7 +5859,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Stdout`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_result"`
 
               - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -5869,7 +5869,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_output"`
 
                 - `required string EncryptedStdout`
 
@@ -5877,13 +5877,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Stderr`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "encrypted_code_execution_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "code_execution_tool_result"`
 
           - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -5893,17 +5893,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required ErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `OutputFileTooLarge`
+                  - `OutputFileTooLarge("output_file_too_large")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
               - `class BetaBashCodeExecutionResultBlock:`
 
@@ -5911,7 +5911,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "bash_code_execution_output"`
 
                 - `required long ReturnCode`
 
@@ -5919,13 +5919,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Stdout`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "bash_code_execution_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "bash_code_execution_tool_result"`
 
           - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -5935,19 +5935,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required ErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `FileNotFound`
+                  - `FileNotFound("file_not_found")`
 
                 - `required string? ErrorMessage`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
               - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -5955,11 +5955,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required FileType FileType`
 
-                  - `Text`
+                  - `Text("text")`
 
-                  - `Image`
+                  - `Image("image")`
 
-                  - `Pdf`
+                  - `Pdf("pdf")`
 
                 - `required long? NumLines`
 
@@ -5967,13 +5967,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required long? TotalLines`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_view_result"`
 
               - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
                 - `required bool IsFileUpdate`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_create_result"`
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -5987,13 +5987,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required long? OldStart`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
           - `class BetaToolSearchToolResultBlock:`
 
@@ -6003,17 +6003,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required ErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
                 - `required string? ErrorMessage`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "tool_search_tool_result_error"`
 
               - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -6023,15 +6023,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "tool_reference"`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "tool_search_tool_search_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tool_search_tool_result"`
 
           - `class BetaMcpToolUseBlock:`
 
@@ -6049,7 +6049,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "mcp_tool_use"`
 
           - `class BetaMcpToolResultBlock:`
 
@@ -6069,7 +6069,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 5000000, minLength: 0
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text"`
 
             - `required bool IsError`
 
@@ -6077,7 +6077,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "mcp_tool_result"`
 
           - `class BetaContainerUploadBlock:`
 
@@ -6085,7 +6085,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required string FileID`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "container_upload"`
 
           - `class BetaCompactionBlock:`
 
@@ -6103,7 +6103,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "compaction"`
 
           - `class BetaFallbackBlock:`
 
@@ -6129,71 +6129,71 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `ClaudeFable5_1`
+                - `ClaudeFable5_1("claude-fable-5-1")`
 
                   Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-                - `ClaudeMythos5_1`
+                - `ClaudeMythos5_1("claude-mythos-5-1")`
 
                   Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-                - `ClaudeSonnet5`
+                - `ClaudeSonnet5("claude-sonnet-5")`
 
                   High-performance model for coding and agents
 
-                - `ClaudeFable5`
+                - `ClaudeFable5("claude-fable-5")`
 
                   Next generation of intelligence for the hardest knowledge work and coding problems
 
-                - `ClaudeMythos5`
+                - `ClaudeMythos5("claude-mythos-5")`
 
                   Most capable model for cybersecurity and biology research
 
-                - `ClaudeOpus5`
+                - `ClaudeOpus5("claude-opus-5")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeOpus4_8`
+                - `ClaudeOpus4_8("claude-opus-4-8")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeOpus4_7`
+                - `ClaudeOpus4_7("claude-opus-4-7")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeMythosPreview`
+                - `ClaudeMythosPreview("claude-mythos-preview")`
 
                   New class of intelligence, strongest in coding and cybersecurity
 
-                - `ClaudeOpus4_6`
+                - `ClaudeOpus4_6("claude-opus-4-6")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeSonnet4_6`
+                - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
                   Best combination of speed and intelligence
 
-                - `ClaudeHaiku4_5`
+                - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
                   Fastest model with near-frontier intelligence
 
-                - `ClaudeHaiku4_5_20251001`
+                - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
                   Fastest model with near-frontier intelligence
 
-                - `ClaudeOpus4_5`
+                - `ClaudeOpus4_5("claude-opus-4-5")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeOpus4_5_20251101`
+                - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeSonnet4_5`
+                - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
                   High-performance model for agents and coding
 
-                - `ClaudeSonnet4_5_20250929`
+                - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
                   High-performance model for agents and coding
 
@@ -6209,29 +6209,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The policy category that triggered a refusal.
 
-                - `Cyber`
+                - `Cyber("cyber")`
 
                   The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-                - `Bio`
+                - `Bio("bio")`
 
                   The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-                - `FrontierLlm`
+                - `FrontierLlm("frontier_llm")`
 
                   The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-                - `ReasoningExtraction`
+                - `ReasoningExtraction("reasoning_extraction")`
 
                   The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-                - `GeneralHarms`
+                - `GeneralHarms("general_harms")`
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "refusal"`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "fallback"`
 
         - `required BetaContextManagementResponse? ContextManagement`
 
@@ -6257,7 +6257,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "clear_tool_uses_20250919"`
 
                 The type of context management edit applied.
 
@@ -6275,7 +6275,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "clear_thinking_20251015"`
 
                 The type of context management edit applied.
 
@@ -6294,7 +6294,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "model_changed"`
 
             - `class BetaCacheMissSystemChanged:`
 
@@ -6302,7 +6302,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "system_changed"`
 
             - `class BetaCacheMissToolsChanged:`
 
@@ -6310,7 +6310,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tools_changed"`
 
             - `class BetaCacheMissMessagesChanged:`
 
@@ -6318,15 +6318,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "messages_changed"`
 
             - `class BetaCacheMissPreviousMessageNotFound:`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "previous_message_not_found"`
 
             - `class BetaCacheMissUnavailable:`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "unavailable"`
 
         - `required Model Model`
 
@@ -6334,7 +6334,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `JsonElement Role constant`
+        - `JsonElement Role = "assistant"`
 
           Conversational role of the generated message.
 
@@ -6348,23 +6348,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The policy category that triggered a refusal.
 
-            - `Cyber`
+            - `Cyber("cyber")`
 
               The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-            - `Bio`
+            - `Bio("bio")`
 
               The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-            - `FrontierLlm`
+            - `FrontierLlm("frontier_llm")`
 
               The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-            - `ReasoningExtraction`
+            - `ReasoningExtraction("reasoning_extraction")`
 
               The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-            - `GeneralHarms`
+            - `GeneralHarms("general_harms")`
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
@@ -6423,7 +6423,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "refusal"`
 
         - `required BetaStopReason? StopReason`
 
@@ -6441,21 +6441,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
-          - `EndTurn`
+          - `EndTurn("end_turn")`
 
-          - `MaxTokens`
+          - `MaxTokens("max_tokens")`
 
-          - `StopSequence`
+          - `StopSequence("stop_sequence")`
 
-          - `ToolUse`
+          - `ToolUse("tool_use")`
 
-          - `PauseTurn`
+          - `PauseTurn("pause_turn")`
 
-          - `Compaction`
+          - `Compaction("compaction")`
 
-          - `Refusal`
+          - `Refusal("refusal")`
 
-          - `ModelContextWindowExceeded`
+          - `ModelContextWindowExceeded("model_context_window_exceeded")`
 
         - `required string? StopSequence`
 
@@ -6463,7 +6463,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This value will be a non-null string if one of your custom stop sequences was generated.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "message"`
 
           Object type.
 
@@ -6527,7 +6527,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "redeemed"`
 
               - `class BetaFallbackCreditNotApplied:`
 
@@ -6540,31 +6540,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   A closed enum; additions to the redemption-check vocabulary arrive as
                   deliberate schema updates.
 
-                  - `BodyMismatch`
+                  - `BodyMismatch("body_mismatch")`
 
-                  - `ContinuationExcluded`
+                  - `ContinuationExcluded("continuation_excluded")`
 
-                  - `ContinuationOnly`
+                  - `ContinuationOnly("continuation_only")`
 
-                  - `Expired`
+                  - `Expired("expired")`
 
-                  - `InvalidTargetModel`
+                  - `InvalidTargetModel("invalid_target_model")`
 
-                  - `NotEnabled`
+                  - `NotEnabled("not_enabled")`
 
-                  - `RepriceUnavailable`
+                  - `RepriceUnavailable("reprice_unavailable")`
 
-                  - `TemporarilyUnavailable`
+                  - `TemporarilyUnavailable("temporarily_unavailable")`
 
-                  - `VariantFieldsPresent`
+                  - `VariantFieldsPresent("variant_fields_present")`
 
-                  - `WrongOrganization`
+                  - `WrongOrganization("wrong_organization")`
 
-                  - `WrongPlatform`
+                  - `WrongPlatform("wrong_platform")`
 
-                  - `WrongWorkspace`
+                  - `WrongWorkspace("wrong_workspace")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "not_applied"`
 
                 - `IReadOnlyList<string>? RemoveToRedeem`
 
@@ -6637,7 +6637,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "message"`
 
                 Usage for a sampling iteration
 
@@ -6673,7 +6673,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "compaction"`
 
                 Usage for a compaction iteration
 
@@ -6715,7 +6715,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "advisor_message"`
 
                 Usage for an advisor sub-inference iteration
 
@@ -6762,7 +6762,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "fallback_message"`
 
                 Usage for the fallback-model attempt that served the response
 
@@ -6814,19 +6814,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If the request used the priority, standard, or batch tier.
 
-            - `Standard`
+            - `Standard("standard")`
 
-            - `Priority`
+            - `Priority("priority")`
 
-            - `Batch`
+            - `Batch("batch")`
 
           - `required Speed? Speed`
 
             Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-            - `Standard`
+            - `Standard("standard")`
 
-            - `Fast`
+            - `Fast("fast")`
 
         - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
 
@@ -6868,19 +6868,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             `organization_binding_mismatch`, `end_user_binding_mismatch`,
             `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-            - `ModelBindingMismatch`
+            - `ModelBindingMismatch("model_binding_mismatch")`
 
-            - `PrefixBindingMismatch`
+            - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-            - `OrganizationBindingMismatch`
+            - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-            - `EndUserBindingMismatch`
+            - `EndUserBindingMismatch("end_user_binding_mismatch")`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "thinking_dropped"`
 
             Always `thinking_dropped` for this entry type.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "succeeded"`
 
     - `class BetaMessageBatchErroredResult:`
 
@@ -6892,69 +6892,69 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "invalid_request_error"`
 
           - `class BetaAuthenticationError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "authentication_error"`
 
           - `class BetaBillingError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "billing_error"`
 
           - `class BetaPermissionError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "permission_error"`
 
           - `class BetaNotFoundError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "not_found_error"`
 
           - `class BetaRateLimitError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "rate_limit_error"`
 
           - `class BetaGatewayTimeoutError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "timeout_error"`
 
           - `class BetaApiError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "api_error"`
 
           - `class BetaOverloadedError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "overloaded_error"`
 
         - `required string? RequestID`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "error"`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "errored"`
 
     - `class BetaMessageBatchCanceledResult:`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "canceled"`
 
     - `class BetaMessageBatchExpiredResult:`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "expired"`
 
 ### Example
 
@@ -6977,7 +6977,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
     ID of the Message Batch.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch_deleted"`
 
     Deleted object type.
 
@@ -7029,11 +7029,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
     Processing status of the Message Batch.
 
-    - `InProgress`
+    - `InProgress("in_progress")`
 
-    - `Canceling`
+    - `Canceling("canceling")`
 
-    - `Ended`
+    - `Ended("ended")`
 
   - `required BetaMessageBatchRequestCounts RequestCounts`
 
@@ -7075,7 +7075,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "message_batch"`
 
     Object type.
 
@@ -7085,7 +7085,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
 - `class BetaMessageBatchCanceledResult:`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "canceled"`
 
 ### Beta Message Batch Errored Result
 
@@ -7099,67 +7099,67 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "invalid_request_error"`
 
       - `class BetaAuthenticationError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "authentication_error"`
 
       - `class BetaBillingError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "billing_error"`
 
       - `class BetaPermissionError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "permission_error"`
 
       - `class BetaNotFoundError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "not_found_error"`
 
       - `class BetaRateLimitError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "rate_limit_error"`
 
       - `class BetaGatewayTimeoutError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "timeout_error"`
 
       - `class BetaApiError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "api_error"`
 
       - `class BetaOverloadedError:`
 
         - `required string Message`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "overloaded_error"`
 
     - `required string? RequestID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "error"`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "errored"`
 
 ### Beta Message Batch Expired Result
 
 - `class BetaMessageBatchExpiredResult:`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "expired"`
 
 ### Beta Message Batch Individual Response
 
@@ -7217,9 +7217,9 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-              - `Anthropic`
+              - `Anthropic("anthropic")`
 
-              - `Custom`
+              - `Custom("custom")`
 
             - `required string Version`
 
@@ -7282,7 +7282,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   minimum: 0
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "char_location"`
 
               - `class BetaCitationPageLocation:`
 
@@ -7302,7 +7302,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   minimum: 1
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "page_location"`
 
               - `class BetaCitationContentBlockLocation:`
 
@@ -7332,7 +7332,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   minimum: 0
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "content_block_location"`
 
               - `class BetaCitationsWebSearchResultLocation:`
 
@@ -7344,7 +7344,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   maxLength: 512
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_search_result_location"`
 
                 - `required string Url`
 
@@ -7380,13 +7380,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string? Title`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "search_result_location"`
 
             - `required string Text`
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text"`
 
           - `class BetaThinkingBlock:`
 
@@ -7402,7 +7402,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The text of Claude's thinking process for this block.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "thinking"`
 
           - `class BetaRedactedThinkingBlock:`
 
@@ -7414,7 +7414,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "redacted_thinking"`
 
           - `class BetaToolUseBlock:`
 
@@ -7428,7 +7428,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minLength: 1
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tool_use"`
 
             - `Caller Caller`
 
@@ -7438,7 +7438,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Tool invocation directly from the model.
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "direct"`
 
               - `class BetaServerToolCaller:`
 
@@ -7448,7 +7448,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_20250825"`
 
               - `class BetaServerToolCaller20260120:`
 
@@ -7456,7 +7456,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_20260120"`
 
             - `string? ToolsetName`
 
@@ -7474,23 +7474,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required Name Name`
 
-              - `Advisor`
+              - `Advisor("advisor")`
 
-              - `WebSearch`
+              - `WebSearch("web_search")`
 
-              - `WebFetch`
+              - `WebFetch("web_fetch")`
 
-              - `CodeExecution`
+              - `CodeExecution("code_execution")`
 
-              - `BashCodeExecution`
+              - `BashCodeExecution("bash_code_execution")`
 
-              - `TextEditorCodeExecution`
+              - `TextEditorCodeExecution("text_editor_code_execution")`
 
-              - `ToolSearchToolRegex`
+              - `ToolSearchToolRegex("tool_search_tool_regex")`
 
-              - `ToolSearchToolBm25`
+              - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "server_tool_use"`
 
             - `Caller Caller`
 
@@ -7514,19 +7514,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required BetaWebSearchToolResultErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `MaxUsesExceeded`
+                  - `MaxUsesExceeded("max_uses_exceeded")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `QueryTooLong`
+                  - `QueryTooLong("query_too_long")`
 
-                  - `RequestTooLarge`
+                  - `RequestTooLarge("request_too_large")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_search_tool_result_error"`
 
               - `IReadOnlyList<BetaWebSearchResultBlock>`
 
@@ -7536,7 +7536,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Title`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_search_result"`
 
                 - `required string Url`
 
@@ -7544,7 +7544,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_search_tool_result"`
 
             - `Caller Caller`
 
@@ -7568,25 +7568,25 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required BetaWebFetchToolResultErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `UrlTooLong`
+                  - `UrlTooLong("url_too_long")`
 
-                  - `UrlNotAllowed`
+                  - `UrlNotAllowed("url_not_allowed")`
 
-                  - `UrlNotInPriorContext`
+                  - `UrlNotInPriorContext("url_not_in_prior_context")`
 
-                  - `UrlNotAccessible`
+                  - `UrlNotAccessible("url_not_accessible")`
 
-                  - `UnsupportedContentType`
+                  - `UnsupportedContentType("unsupported_content_type")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `MaxUsesExceeded`
+                  - `MaxUsesExceeded("max_uses_exceeded")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_fetch_tool_result_error"`
 
               - `class BetaWebFetchBlock:`
 
@@ -7606,29 +7606,29 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                         format: byte
 
-                      - `JsonElement MediaType constant`
+                      - `JsonElement MediaType = "application/pdf"`
 
-                      - `JsonElement Type constant`
+                      - `JsonElement Type = "base64"`
 
                     - `class BetaPlainTextSource:`
 
                       - `required string Data`
 
-                      - `JsonElement MediaType constant`
+                      - `JsonElement MediaType = "text/plain"`
 
-                      - `JsonElement Type constant`
+                      - `JsonElement Type = "text"`
 
                   - `required string? Title`
 
                     The title of the document
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "document"`
 
                 - `required string? RetrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "web_fetch_result"`
 
                 - `required string Url`
 
@@ -7638,7 +7638,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_fetch_tool_result"`
 
             - `Caller Caller`
 
@@ -7662,21 +7662,21 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required ErrorCode ErrorCode`
 
-                  - `MaxUsesExceeded`
+                  - `MaxUsesExceeded("max_uses_exceeded")`
 
-                  - `PromptTooLong`
+                  - `PromptTooLong("prompt_too_long")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `Overloaded`
+                  - `Overloaded("overloaded")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `ModelNotFound`
+                  - `ModelNotFound("model_not_found")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "advisor_tool_result_error"`
 
               - `class BetaAdvisorResultBlock:`
 
@@ -7686,7 +7686,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Text`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "advisor_result"`
 
               - `class BetaAdvisorRedactedResultBlock:`
 
@@ -7698,13 +7698,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "advisor_redacted_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "advisor_tool_result"`
 
           - `class BetaCodeExecutionToolResultBlock:`
 
@@ -7716,15 +7716,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required BetaCodeExecutionToolResultErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_tool_result_error"`
 
               - `class BetaCodeExecutionResultBlock:`
 
@@ -7732,7 +7732,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_output"`
 
                 - `required long ReturnCode`
 
@@ -7740,7 +7740,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Stdout`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_result"`
 
               - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -7750,7 +7750,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "code_execution_output"`
 
                 - `required string EncryptedStdout`
 
@@ -7758,13 +7758,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Stderr`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "encrypted_code_execution_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "code_execution_tool_result"`
 
           - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -7774,17 +7774,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required ErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `OutputFileTooLarge`
+                  - `OutputFileTooLarge("output_file_too_large")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
               - `class BetaBashCodeExecutionResultBlock:`
 
@@ -7792,7 +7792,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `required string FileID`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "bash_code_execution_output"`
 
                 - `required long ReturnCode`
 
@@ -7800,13 +7800,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Stdout`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "bash_code_execution_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "bash_code_execution_tool_result"`
 
           - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -7816,19 +7816,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required ErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                  - `FileNotFound`
+                  - `FileNotFound("file_not_found")`
 
                 - `required string? ErrorMessage`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
               - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -7836,11 +7836,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required FileType FileType`
 
-                  - `Text`
+                  - `Text("text")`
 
-                  - `Image`
+                  - `Image("image")`
 
-                  - `Pdf`
+                  - `Pdf("pdf")`
 
                 - `required long? NumLines`
 
@@ -7848,13 +7848,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required long? TotalLines`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_view_result"`
 
               - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
                 - `required bool IsFileUpdate`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_create_result"`
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -7868,13 +7868,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required long? OldStart`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
           - `class BetaToolSearchToolResultBlock:`
 
@@ -7884,17 +7884,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required ErrorCode ErrorCode`
 
-                  - `InvalidToolInput`
+                  - `InvalidToolInput("invalid_tool_input")`
 
-                  - `Unavailable`
+                  - `Unavailable("unavailable")`
 
-                  - `TooManyRequests`
+                  - `TooManyRequests("too_many_requests")`
 
-                  - `ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded("execution_time_exceeded")`
 
                 - `required string? ErrorMessage`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "tool_search_tool_result_error"`
 
               - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -7904,15 +7904,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "tool_reference"`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "tool_search_tool_search_result"`
 
             - `required string ToolUseID`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tool_search_tool_result"`
 
           - `class BetaMcpToolUseBlock:`
 
@@ -7930,7 +7930,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The name of the MCP server
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "mcp_tool_use"`
 
           - `class BetaMcpToolResultBlock:`
 
@@ -7950,7 +7950,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   maxLength: 5000000, minLength: 0
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "text"`
 
             - `required bool IsError`
 
@@ -7958,7 +7958,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "mcp_tool_result"`
 
           - `class BetaContainerUploadBlock:`
 
@@ -7966,7 +7966,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string FileID`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "container_upload"`
 
           - `class BetaCompactionBlock:`
 
@@ -7984,7 +7984,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "compaction"`
 
           - `class BetaFallbackBlock:`
 
@@ -8010,71 +8010,71 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `ClaudeFable5_1`
+                - `ClaudeFable5_1("claude-fable-5-1")`
 
                   Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-                - `ClaudeMythos5_1`
+                - `ClaudeMythos5_1("claude-mythos-5-1")`
 
                   Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-                - `ClaudeSonnet5`
+                - `ClaudeSonnet5("claude-sonnet-5")`
 
                   High-performance model for coding and agents
 
-                - `ClaudeFable5`
+                - `ClaudeFable5("claude-fable-5")`
 
                   Next generation of intelligence for the hardest knowledge work and coding problems
 
-                - `ClaudeMythos5`
+                - `ClaudeMythos5("claude-mythos-5")`
 
                   Most capable model for cybersecurity and biology research
 
-                - `ClaudeOpus5`
+                - `ClaudeOpus5("claude-opus-5")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeOpus4_8`
+                - `ClaudeOpus4_8("claude-opus-4-8")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeOpus4_7`
+                - `ClaudeOpus4_7("claude-opus-4-7")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeMythosPreview`
+                - `ClaudeMythosPreview("claude-mythos-preview")`
 
                   New class of intelligence, strongest in coding and cybersecurity
 
-                - `ClaudeOpus4_6`
+                - `ClaudeOpus4_6("claude-opus-4-6")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeSonnet4_6`
+                - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
                   Best combination of speed and intelligence
 
-                - `ClaudeHaiku4_5`
+                - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
                   Fastest model with near-frontier intelligence
 
-                - `ClaudeHaiku4_5_20251001`
+                - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
                   Fastest model with near-frontier intelligence
 
-                - `ClaudeOpus4_5`
+                - `ClaudeOpus4_5("claude-opus-4-5")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeOpus4_5_20251101`
+                - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
                   Powerful intelligence for long-running agents and coding
 
-                - `ClaudeSonnet4_5`
+                - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
                   High-performance model for agents and coding
 
-                - `ClaudeSonnet4_5_20250929`
+                - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
                   High-performance model for agents and coding
 
@@ -8090,29 +8090,29 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 The policy category that triggered a refusal.
 
-                - `Cyber`
+                - `Cyber("cyber")`
 
                   The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-                - `Bio`
+                - `Bio("bio")`
 
                   The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-                - `FrontierLlm`
+                - `FrontierLlm("frontier_llm")`
 
                   The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-                - `ReasoningExtraction`
+                - `ReasoningExtraction("reasoning_extraction")`
 
                   The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-                - `GeneralHarms`
+                - `GeneralHarms("general_harms")`
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "refusal"`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "fallback"`
 
         - `required BetaContextManagementResponse? ContextManagement`
 
@@ -8138,7 +8138,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "clear_tool_uses_20250919"`
 
                 The type of context management edit applied.
 
@@ -8156,7 +8156,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "clear_thinking_20251015"`
 
                 The type of context management edit applied.
 
@@ -8175,7 +8175,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "model_changed"`
 
             - `class BetaCacheMissSystemChanged:`
 
@@ -8183,7 +8183,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "system_changed"`
 
             - `class BetaCacheMissToolsChanged:`
 
@@ -8191,7 +8191,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tools_changed"`
 
             - `class BetaCacheMissMessagesChanged:`
 
@@ -8199,15 +8199,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "messages_changed"`
 
             - `class BetaCacheMissPreviousMessageNotFound:`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "previous_message_not_found"`
 
             - `class BetaCacheMissUnavailable:`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "unavailable"`
 
         - `required Model Model`
 
@@ -8215,7 +8215,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `JsonElement Role constant`
+        - `JsonElement Role = "assistant"`
 
           Conversational role of the generated message.
 
@@ -8229,23 +8229,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The policy category that triggered a refusal.
 
-            - `Cyber`
+            - `Cyber("cyber")`
 
               The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-            - `Bio`
+            - `Bio("bio")`
 
               The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-            - `FrontierLlm`
+            - `FrontierLlm("frontier_llm")`
 
               The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-            - `ReasoningExtraction`
+            - `ReasoningExtraction("reasoning_extraction")`
 
               The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-            - `GeneralHarms`
+            - `GeneralHarms("general_harms")`
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
@@ -8304,7 +8304,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "refusal"`
 
         - `required BetaStopReason? StopReason`
 
@@ -8322,21 +8322,21 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
-          - `EndTurn`
+          - `EndTurn("end_turn")`
 
-          - `MaxTokens`
+          - `MaxTokens("max_tokens")`
 
-          - `StopSequence`
+          - `StopSequence("stop_sequence")`
 
-          - `ToolUse`
+          - `ToolUse("tool_use")`
 
-          - `PauseTurn`
+          - `PauseTurn("pause_turn")`
 
-          - `Compaction`
+          - `Compaction("compaction")`
 
-          - `Refusal`
+          - `Refusal("refusal")`
 
-          - `ModelContextWindowExceeded`
+          - `ModelContextWindowExceeded("model_context_window_exceeded")`
 
         - `required string? StopSequence`
 
@@ -8344,7 +8344,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           This value will be a non-null string if one of your custom stop sequences was generated.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "message"`
 
           Object type.
 
@@ -8408,7 +8408,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "redeemed"`
 
               - `class BetaFallbackCreditNotApplied:`
 
@@ -8421,31 +8421,31 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
                   A closed enum; additions to the redemption-check vocabulary arrive as
                   deliberate schema updates.
 
-                  - `BodyMismatch`
+                  - `BodyMismatch("body_mismatch")`
 
-                  - `ContinuationExcluded`
+                  - `ContinuationExcluded("continuation_excluded")`
 
-                  - `ContinuationOnly`
+                  - `ContinuationOnly("continuation_only")`
 
-                  - `Expired`
+                  - `Expired("expired")`
 
-                  - `InvalidTargetModel`
+                  - `InvalidTargetModel("invalid_target_model")`
 
-                  - `NotEnabled`
+                  - `NotEnabled("not_enabled")`
 
-                  - `RepriceUnavailable`
+                  - `RepriceUnavailable("reprice_unavailable")`
 
-                  - `TemporarilyUnavailable`
+                  - `TemporarilyUnavailable("temporarily_unavailable")`
 
-                  - `VariantFieldsPresent`
+                  - `VariantFieldsPresent("variant_fields_present")`
 
-                  - `WrongOrganization`
+                  - `WrongOrganization("wrong_organization")`
 
-                  - `WrongPlatform`
+                  - `WrongPlatform("wrong_platform")`
 
-                  - `WrongWorkspace`
+                  - `WrongWorkspace("wrong_workspace")`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "not_applied"`
 
                 - `IReadOnlyList<string>? RemoveToRedeem`
 
@@ -8518,7 +8518,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "message"`
 
                 Usage for a sampling iteration
 
@@ -8554,7 +8554,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "compaction"`
 
                 Usage for a compaction iteration
 
@@ -8596,7 +8596,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "advisor_message"`
 
                 Usage for an advisor sub-inference iteration
 
@@ -8643,7 +8643,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "fallback_message"`
 
                 Usage for the fallback-model attempt that served the response
 
@@ -8695,19 +8695,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             If the request used the priority, standard, or batch tier.
 
-            - `Standard`
+            - `Standard("standard")`
 
-            - `Priority`
+            - `Priority("priority")`
 
-            - `Batch`
+            - `Batch("batch")`
 
           - `required Speed? Speed`
 
             Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-            - `Standard`
+            - `Standard("standard")`
 
-            - `Fast`
+            - `Fast("fast")`
 
         - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
 
@@ -8749,19 +8749,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
             `organization_binding_mismatch`, `end_user_binding_mismatch`,
             `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-            - `ModelBindingMismatch`
+            - `ModelBindingMismatch("model_binding_mismatch")`
 
-            - `PrefixBindingMismatch`
+            - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-            - `OrganizationBindingMismatch`
+            - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-            - `EndUserBindingMismatch`
+            - `EndUserBindingMismatch("end_user_binding_mismatch")`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "thinking_dropped"`
 
             Always `thinking_dropped` for this entry type.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "succeeded"`
 
     - `class BetaMessageBatchErroredResult:`
 
@@ -8773,69 +8773,69 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "invalid_request_error"`
 
           - `class BetaAuthenticationError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "authentication_error"`
 
           - `class BetaBillingError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "billing_error"`
 
           - `class BetaPermissionError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "permission_error"`
 
           - `class BetaNotFoundError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "not_found_error"`
 
           - `class BetaRateLimitError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "rate_limit_error"`
 
           - `class BetaGatewayTimeoutError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "timeout_error"`
 
           - `class BetaApiError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "api_error"`
 
           - `class BetaOverloadedError:`
 
             - `required string Message`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "overloaded_error"`
 
         - `required string? RequestID`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "error"`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "errored"`
 
     - `class BetaMessageBatchCanceledResult:`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "canceled"`
 
     - `class BetaMessageBatchExpiredResult:`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "expired"`
 
 ### Beta Message Batch Request Counts
 
@@ -8915,9 +8915,9 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-            - `Anthropic`
+            - `Anthropic("anthropic")`
 
-            - `Custom`
+            - `Custom("custom")`
 
           - `required string Version`
 
@@ -8980,7 +8980,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "char_location"`
 
             - `class BetaCitationPageLocation:`
 
@@ -9000,7 +9000,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 1
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "page_location"`
 
             - `class BetaCitationContentBlockLocation:`
 
@@ -9030,7 +9030,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "content_block_location"`
 
             - `class BetaCitationsWebSearchResultLocation:`
 
@@ -9042,7 +9042,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 maxLength: 512
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_search_result_location"`
 
               - `required string Url`
 
@@ -9078,13 +9078,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string? Title`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "search_result_location"`
 
           - `required string Text`
 
             maxLength: 5000000, minLength: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text"`
 
         - `class BetaThinkingBlock:`
 
@@ -9100,7 +9100,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The text of Claude's thinking process for this block.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "thinking"`
 
         - `class BetaRedactedThinkingBlock:`
 
@@ -9112,7 +9112,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "redacted_thinking"`
 
         - `class BetaToolUseBlock:`
 
@@ -9126,7 +9126,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minLength: 1
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "tool_use"`
 
           - `Caller Caller`
 
@@ -9136,7 +9136,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Tool invocation directly from the model.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "direct"`
 
             - `class BetaServerToolCaller:`
 
@@ -9146,7 +9146,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_20250825"`
 
             - `class BetaServerToolCaller20260120:`
 
@@ -9154,7 +9154,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_20260120"`
 
           - `string? ToolsetName`
 
@@ -9172,23 +9172,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `required Name Name`
 
-            - `Advisor`
+            - `Advisor("advisor")`
 
-            - `WebSearch`
+            - `WebSearch("web_search")`
 
-            - `WebFetch`
+            - `WebFetch("web_fetch")`
 
-            - `CodeExecution`
+            - `CodeExecution("code_execution")`
 
-            - `BashCodeExecution`
+            - `BashCodeExecution("bash_code_execution")`
 
-            - `TextEditorCodeExecution`
+            - `TextEditorCodeExecution("text_editor_code_execution")`
 
-            - `ToolSearchToolRegex`
+            - `ToolSearchToolRegex("tool_search_tool_regex")`
 
-            - `ToolSearchToolBm25`
+            - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "server_tool_use"`
 
           - `Caller Caller`
 
@@ -9212,19 +9212,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required BetaWebSearchToolResultErrorCode ErrorCode`
 
-                - `InvalidToolInput`
+                - `InvalidToolInput("invalid_tool_input")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-                - `MaxUsesExceeded`
+                - `MaxUsesExceeded("max_uses_exceeded")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `QueryTooLong`
+                - `QueryTooLong("query_too_long")`
 
-                - `RequestTooLarge`
+                - `RequestTooLarge("request_too_large")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_search_tool_result_error"`
 
             - `IReadOnlyList<BetaWebSearchResultBlock>`
 
@@ -9234,7 +9234,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Title`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_search_result"`
 
               - `required string Url`
 
@@ -9242,7 +9242,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_search_tool_result"`
 
           - `Caller Caller`
 
@@ -9266,25 +9266,25 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required BetaWebFetchToolResultErrorCode ErrorCode`
 
-                - `InvalidToolInput`
+                - `InvalidToolInput("invalid_tool_input")`
 
-                - `UrlTooLong`
+                - `UrlTooLong("url_too_long")`
 
-                - `UrlNotAllowed`
+                - `UrlNotAllowed("url_not_allowed")`
 
-                - `UrlNotInPriorContext`
+                - `UrlNotInPriorContext("url_not_in_prior_context")`
 
-                - `UrlNotAccessible`
+                - `UrlNotAccessible("url_not_accessible")`
 
-                - `UnsupportedContentType`
+                - `UnsupportedContentType("unsupported_content_type")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `MaxUsesExceeded`
+                - `MaxUsesExceeded("max_uses_exceeded")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_fetch_tool_result_error"`
 
             - `class BetaWebFetchBlock:`
 
@@ -9304,29 +9304,29 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                       format: byte
 
-                    - `JsonElement MediaType constant`
+                    - `JsonElement MediaType = "application/pdf"`
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "base64"`
 
                   - `class BetaPlainTextSource:`
 
                     - `required string Data`
 
-                    - `JsonElement MediaType constant`
+                    - `JsonElement MediaType = "text/plain"`
 
-                    - `JsonElement Type constant`
+                    - `JsonElement Type = "text"`
 
                 - `required string? Title`
 
                   The title of the document
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "document"`
 
               - `required string? RetrievedAt`
 
                 ISO 8601 timestamp when the content was retrieved
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "web_fetch_result"`
 
               - `required string Url`
 
@@ -9336,7 +9336,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "web_fetch_tool_result"`
 
           - `Caller Caller`
 
@@ -9360,21 +9360,21 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required ErrorCode ErrorCode`
 
-                - `MaxUsesExceeded`
+                - `MaxUsesExceeded("max_uses_exceeded")`
 
-                - `PromptTooLong`
+                - `PromptTooLong("prompt_too_long")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `Overloaded`
+                - `Overloaded("overloaded")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-                - `ExecutionTimeExceeded`
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `ModelNotFound`
+                - `ModelNotFound("model_not_found")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "advisor_tool_result_error"`
 
             - `class BetaAdvisorResultBlock:`
 
@@ -9384,7 +9384,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Text`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "advisor_result"`
 
             - `class BetaAdvisorRedactedResultBlock:`
 
@@ -9396,13 +9396,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "advisor_redacted_result"`
 
           - `required string ToolUseID`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "advisor_tool_result"`
 
         - `class BetaCodeExecutionToolResultBlock:`
 
@@ -9414,15 +9414,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required BetaCodeExecutionToolResultErrorCode ErrorCode`
 
-                - `InvalidToolInput`
+                - `InvalidToolInput("invalid_tool_input")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `ExecutionTimeExceeded`
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_tool_result_error"`
 
             - `class BetaCodeExecutionResultBlock:`
 
@@ -9430,7 +9430,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string FileID`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_output"`
 
               - `required long ReturnCode`
 
@@ -9438,7 +9438,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Stdout`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_result"`
 
             - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -9448,7 +9448,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string FileID`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "code_execution_output"`
 
               - `required string EncryptedStdout`
 
@@ -9456,13 +9456,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Stderr`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "encrypted_code_execution_result"`
 
           - `required string ToolUseID`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "code_execution_tool_result"`
 
         - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -9472,17 +9472,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required ErrorCode ErrorCode`
 
-                - `InvalidToolInput`
+                - `InvalidToolInput("invalid_tool_input")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `ExecutionTimeExceeded`
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `OutputFileTooLarge`
+                - `OutputFileTooLarge("output_file_too_large")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
             - `class BetaBashCodeExecutionResultBlock:`
 
@@ -9490,7 +9490,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string FileID`
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "bash_code_execution_output"`
 
               - `required long ReturnCode`
 
@@ -9498,13 +9498,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Stdout`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "bash_code_execution_result"`
 
           - `required string ToolUseID`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "bash_code_execution_tool_result"`
 
         - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -9514,19 +9514,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required ErrorCode ErrorCode`
 
-                - `InvalidToolInput`
+                - `InvalidToolInput("invalid_tool_input")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `ExecutionTimeExceeded`
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `FileNotFound`
+                - `FileNotFound("file_not_found")`
 
               - `required string? ErrorMessage`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
             - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -9534,11 +9534,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required FileType FileType`
 
-                - `Text`
+                - `Text("text")`
 
-                - `Image`
+                - `Image("image")`
 
-                - `Pdf`
+                - `Pdf("pdf")`
 
               - `required long? NumLines`
 
@@ -9546,13 +9546,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required long? TotalLines`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text_editor_code_execution_view_result"`
 
             - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
               - `required bool IsFileUpdate`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text_editor_code_execution_create_result"`
 
             - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -9566,13 +9566,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required long? OldStart`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
           - `required string ToolUseID`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
         - `class BetaToolSearchToolResultBlock:`
 
@@ -9582,17 +9582,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required ErrorCode ErrorCode`
 
-                - `InvalidToolInput`
+                - `InvalidToolInput("invalid_tool_input")`
 
-                - `Unavailable`
+                - `Unavailable("unavailable")`
 
-                - `TooManyRequests`
+                - `TooManyRequests("too_many_requests")`
 
-                - `ExecutionTimeExceeded`
+                - `ExecutionTimeExceeded("execution_time_exceeded")`
 
               - `required string? ErrorMessage`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_search_tool_result_error"`
 
             - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -9602,15 +9602,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonElement Type constant`
+                - `JsonElement Type = "tool_reference"`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_search_tool_search_result"`
 
           - `required string ToolUseID`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "tool_search_tool_result"`
 
         - `class BetaMcpToolUseBlock:`
 
@@ -9628,7 +9628,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The name of the MCP server
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "mcp_tool_use"`
 
         - `class BetaMcpToolResultBlock:`
 
@@ -9648,7 +9648,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 maxLength: 5000000, minLength: 0
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "text"`
 
           - `required bool IsError`
 
@@ -9656,7 +9656,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "mcp_tool_result"`
 
         - `class BetaContainerUploadBlock:`
 
@@ -9664,7 +9664,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `required string FileID`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "container_upload"`
 
         - `class BetaCompactionBlock:`
 
@@ -9682,7 +9682,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "compaction"`
 
         - `class BetaFallbackBlock:`
 
@@ -9708,71 +9708,71 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              - `ClaudeFable5_1`
+              - `ClaudeFable5_1("claude-fable-5-1")`
 
                 Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-              - `ClaudeMythos5_1`
+              - `ClaudeMythos5_1("claude-mythos-5-1")`
 
                 Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-              - `ClaudeSonnet5`
+              - `ClaudeSonnet5("claude-sonnet-5")`
 
                 High-performance model for coding and agents
 
-              - `ClaudeFable5`
+              - `ClaudeFable5("claude-fable-5")`
 
                 Next generation of intelligence for the hardest knowledge work and coding problems
 
-              - `ClaudeMythos5`
+              - `ClaudeMythos5("claude-mythos-5")`
 
                 Most capable model for cybersecurity and biology research
 
-              - `ClaudeOpus5`
+              - `ClaudeOpus5("claude-opus-5")`
 
                 Powerful intelligence for long-running agents and coding
 
-              - `ClaudeOpus4_8`
+              - `ClaudeOpus4_8("claude-opus-4-8")`
 
                 Powerful intelligence for long-running agents and coding
 
-              - `ClaudeOpus4_7`
+              - `ClaudeOpus4_7("claude-opus-4-7")`
 
                 Powerful intelligence for long-running agents and coding
 
-              - `ClaudeMythosPreview`
+              - `ClaudeMythosPreview("claude-mythos-preview")`
 
                 New class of intelligence, strongest in coding and cybersecurity
 
-              - `ClaudeOpus4_6`
+              - `ClaudeOpus4_6("claude-opus-4-6")`
 
                 Powerful intelligence for long-running agents and coding
 
-              - `ClaudeSonnet4_6`
+              - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
                 Best combination of speed and intelligence
 
-              - `ClaudeHaiku4_5`
+              - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
                 Fastest model with near-frontier intelligence
 
-              - `ClaudeHaiku4_5_20251001`
+              - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
                 Fastest model with near-frontier intelligence
 
-              - `ClaudeOpus4_5`
+              - `ClaudeOpus4_5("claude-opus-4-5")`
 
                 Powerful intelligence for long-running agents and coding
 
-              - `ClaudeOpus4_5_20251101`
+              - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
                 Powerful intelligence for long-running agents and coding
 
-              - `ClaudeSonnet4_5`
+              - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
                 High-performance model for agents and coding
 
-              - `ClaudeSonnet4_5_20250929`
+              - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
                 High-performance model for agents and coding
 
@@ -9788,29 +9788,29 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The policy category that triggered a refusal.
 
-              - `Cyber`
+              - `Cyber("cyber")`
 
                 The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-              - `Bio`
+              - `Bio("bio")`
 
                 The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-              - `FrontierLlm`
+              - `FrontierLlm("frontier_llm")`
 
                 The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-              - `ReasoningExtraction`
+              - `ReasoningExtraction("reasoning_extraction")`
 
                 The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-              - `GeneralHarms`
+              - `GeneralHarms("general_harms")`
 
                 The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "refusal"`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "fallback"`
 
       - `required BetaContextManagementResponse? ContextManagement`
 
@@ -9836,7 +9836,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "clear_tool_uses_20250919"`
 
               The type of context management edit applied.
 
@@ -9854,7 +9854,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "clear_thinking_20251015"`
 
               The type of context management edit applied.
 
@@ -9873,7 +9873,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "model_changed"`
 
           - `class BetaCacheMissSystemChanged:`
 
@@ -9881,7 +9881,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "system_changed"`
 
           - `class BetaCacheMissToolsChanged:`
 
@@ -9889,7 +9889,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tools_changed"`
 
           - `class BetaCacheMissMessagesChanged:`
 
@@ -9897,15 +9897,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "messages_changed"`
 
           - `class BetaCacheMissPreviousMessageNotFound:`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "previous_message_not_found"`
 
           - `class BetaCacheMissUnavailable:`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "unavailable"`
 
       - `required Model Model`
 
@@ -9913,7 +9913,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `JsonElement Role constant`
+      - `JsonElement Role = "assistant"`
 
         Conversational role of the generated message.
 
@@ -9927,23 +9927,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The policy category that triggered a refusal.
 
-          - `Cyber`
+          - `Cyber("cyber")`
 
             The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-          - `Bio`
+          - `Bio("bio")`
 
             The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-          - `FrontierLlm`
+          - `FrontierLlm("frontier_llm")`
 
             The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-          - `ReasoningExtraction`
+          - `ReasoningExtraction("reasoning_extraction")`
 
             The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-          - `GeneralHarms`
+          - `GeneralHarms("general_harms")`
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
@@ -10002,7 +10002,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "refusal"`
 
       - `required BetaStopReason? StopReason`
 
@@ -10020,21 +10020,21 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
-        - `EndTurn`
+        - `EndTurn("end_turn")`
 
-        - `MaxTokens`
+        - `MaxTokens("max_tokens")`
 
-        - `StopSequence`
+        - `StopSequence("stop_sequence")`
 
-        - `ToolUse`
+        - `ToolUse("tool_use")`
 
-        - `PauseTurn`
+        - `PauseTurn("pause_turn")`
 
-        - `Compaction`
+        - `Compaction("compaction")`
 
-        - `Refusal`
+        - `Refusal("refusal")`
 
-        - `ModelContextWindowExceeded`
+        - `ModelContextWindowExceeded("model_context_window_exceeded")`
 
       - `required string? StopSequence`
 
@@ -10042,7 +10042,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         This value will be a non-null string if one of your custom stop sequences was generated.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "message"`
 
         Object type.
 
@@ -10106,7 +10106,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
               The reprice was applied: the retry is billed as if the conversation
               had been on the retry model all along.
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "redeemed"`
 
             - `class BetaFallbackCreditNotApplied:`
 
@@ -10119,31 +10119,31 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
                 A closed enum; additions to the redemption-check vocabulary arrive as
                 deliberate schema updates.
 
-                - `BodyMismatch`
+                - `BodyMismatch("body_mismatch")`
 
-                - `ContinuationExcluded`
+                - `ContinuationExcluded("continuation_excluded")`
 
-                - `ContinuationOnly`
+                - `ContinuationOnly("continuation_only")`
 
-                - `Expired`
+                - `Expired("expired")`
 
-                - `InvalidTargetModel`
+                - `InvalidTargetModel("invalid_target_model")`
 
-                - `NotEnabled`
+                - `NotEnabled("not_enabled")`
 
-                - `RepriceUnavailable`
+                - `RepriceUnavailable("reprice_unavailable")`
 
-                - `TemporarilyUnavailable`
+                - `TemporarilyUnavailable("temporarily_unavailable")`
 
-                - `VariantFieldsPresent`
+                - `VariantFieldsPresent("variant_fields_present")`
 
-                - `WrongOrganization`
+                - `WrongOrganization("wrong_organization")`
 
-                - `WrongPlatform`
+                - `WrongPlatform("wrong_platform")`
 
-                - `WrongWorkspace`
+                - `WrongWorkspace("wrong_workspace")`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "not_applied"`
 
               - `IReadOnlyList<string>? RemoveToRedeem`
 
@@ -10216,7 +10216,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "message"`
 
               Usage for a sampling iteration
 
@@ -10252,7 +10252,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "compaction"`
 
               Usage for a compaction iteration
 
@@ -10294,7 +10294,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "advisor_message"`
 
               Usage for an advisor sub-inference iteration
 
@@ -10341,7 +10341,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "fallback_message"`
 
               Usage for the fallback-model attempt that served the response
 
@@ -10393,19 +10393,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           If the request used the priority, standard, or batch tier.
 
-          - `Standard`
+          - `Standard("standard")`
 
-          - `Priority`
+          - `Priority("priority")`
 
-          - `Batch`
+          - `Batch("batch")`
 
         - `required Speed? Speed`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-          - `Standard`
+          - `Standard("standard")`
 
-          - `Fast`
+          - `Fast("fast")`
 
       - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
 
@@ -10447,19 +10447,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
           `organization_binding_mismatch`, `end_user_binding_mismatch`,
           `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-          - `ModelBindingMismatch`
+          - `ModelBindingMismatch("model_binding_mismatch")`
 
-          - `PrefixBindingMismatch`
+          - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-          - `OrganizationBindingMismatch`
+          - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-          - `EndUserBindingMismatch`
+          - `EndUserBindingMismatch("end_user_binding_mismatch")`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "thinking_dropped"`
 
           Always `thinking_dropped` for this entry type.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "succeeded"`
 
   - `class BetaMessageBatchErroredResult:`
 
@@ -10471,69 +10471,69 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "invalid_request_error"`
 
         - `class BetaAuthenticationError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "authentication_error"`
 
         - `class BetaBillingError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "billing_error"`
 
         - `class BetaPermissionError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "permission_error"`
 
         - `class BetaNotFoundError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "not_found_error"`
 
         - `class BetaRateLimitError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "rate_limit_error"`
 
         - `class BetaGatewayTimeoutError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "timeout_error"`
 
         - `class BetaApiError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "api_error"`
 
         - `class BetaOverloadedError:`
 
           - `required string Message`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "overloaded_error"`
 
       - `required string? RequestID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "error"`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "errored"`
 
   - `class BetaMessageBatchCanceledResult:`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "canceled"`
 
   - `class BetaMessageBatchExpiredResult:`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "expired"`
 
 ### Beta Message Batch Succeeded Result
 
@@ -10575,9 +10575,9 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-          - `Anthropic`
+          - `Anthropic("anthropic")`
 
-          - `Custom`
+          - `Custom("custom")`
 
         - `required string Version`
 
@@ -10640,7 +10640,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "char_location"`
 
           - `class BetaCitationPageLocation:`
 
@@ -10660,7 +10660,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 1
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "page_location"`
 
           - `class BetaCitationContentBlockLocation:`
 
@@ -10690,7 +10690,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "content_block_location"`
 
           - `class BetaCitationsWebSearchResultLocation:`
 
@@ -10702,7 +10702,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               maxLength: 512
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_search_result_location"`
 
             - `required string Url`
 
@@ -10738,13 +10738,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string? Title`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "search_result_location"`
 
         - `required string Text`
 
           maxLength: 5000000, minLength: 0
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "text"`
 
       - `class BetaThinkingBlock:`
 
@@ -10760,7 +10760,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The text of Claude's thinking process for this block.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "thinking"`
 
       - `class BetaRedactedThinkingBlock:`
 
@@ -10772,7 +10772,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "redacted_thinking"`
 
       - `class BetaToolUseBlock:`
 
@@ -10786,7 +10786,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           minLength: 1
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "tool_use"`
 
         - `Caller Caller`
 
@@ -10796,7 +10796,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Tool invocation directly from the model.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "direct"`
 
           - `class BetaServerToolCaller:`
 
@@ -10806,7 +10806,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "code_execution_20250825"`
 
           - `class BetaServerToolCaller20260120:`
 
@@ -10814,7 +10814,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "code_execution_20260120"`
 
         - `string? ToolsetName`
 
@@ -10832,23 +10832,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `required Name Name`
 
-          - `Advisor`
+          - `Advisor("advisor")`
 
-          - `WebSearch`
+          - `WebSearch("web_search")`
 
-          - `WebFetch`
+          - `WebFetch("web_fetch")`
 
-          - `CodeExecution`
+          - `CodeExecution("code_execution")`
 
-          - `BashCodeExecution`
+          - `BashCodeExecution("bash_code_execution")`
 
-          - `TextEditorCodeExecution`
+          - `TextEditorCodeExecution("text_editor_code_execution")`
 
-          - `ToolSearchToolRegex`
+          - `ToolSearchToolRegex("tool_search_tool_regex")`
 
-          - `ToolSearchToolBm25`
+          - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "server_tool_use"`
 
         - `Caller Caller`
 
@@ -10872,19 +10872,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required BetaWebSearchToolResultErrorCode ErrorCode`
 
-              - `InvalidToolInput`
+              - `InvalidToolInput("invalid_tool_input")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-              - `MaxUsesExceeded`
+              - `MaxUsesExceeded("max_uses_exceeded")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `QueryTooLong`
+              - `QueryTooLong("query_too_long")`
 
-              - `RequestTooLarge`
+              - `RequestTooLarge("request_too_large")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_search_tool_result_error"`
 
           - `IReadOnlyList<BetaWebSearchResultBlock>`
 
@@ -10894,7 +10894,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Title`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_search_result"`
 
             - `required string Url`
 
@@ -10902,7 +10902,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "web_search_tool_result"`
 
         - `Caller Caller`
 
@@ -10926,25 +10926,25 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required BetaWebFetchToolResultErrorCode ErrorCode`
 
-              - `InvalidToolInput`
+              - `InvalidToolInput("invalid_tool_input")`
 
-              - `UrlTooLong`
+              - `UrlTooLong("url_too_long")`
 
-              - `UrlNotAllowed`
+              - `UrlNotAllowed("url_not_allowed")`
 
-              - `UrlNotInPriorContext`
+              - `UrlNotInPriorContext("url_not_in_prior_context")`
 
-              - `UrlNotAccessible`
+              - `UrlNotAccessible("url_not_accessible")`
 
-              - `UnsupportedContentType`
+              - `UnsupportedContentType("unsupported_content_type")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `MaxUsesExceeded`
+              - `MaxUsesExceeded("max_uses_exceeded")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_fetch_tool_result_error"`
 
           - `class BetaWebFetchBlock:`
 
@@ -10964,29 +10964,29 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                     format: byte
 
-                  - `JsonElement MediaType constant`
+                  - `JsonElement MediaType = "application/pdf"`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "base64"`
 
                 - `class BetaPlainTextSource:`
 
                   - `required string Data`
 
-                  - `JsonElement MediaType constant`
+                  - `JsonElement MediaType = "text/plain"`
 
-                  - `JsonElement Type constant`
+                  - `JsonElement Type = "text"`
 
               - `required string? Title`
 
                 The title of the document
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "document"`
 
             - `required string? RetrievedAt`
 
               ISO 8601 timestamp when the content was retrieved
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "web_fetch_result"`
 
             - `required string Url`
 
@@ -10996,7 +10996,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "web_fetch_tool_result"`
 
         - `Caller Caller`
 
@@ -11020,21 +11020,21 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required ErrorCode ErrorCode`
 
-              - `MaxUsesExceeded`
+              - `MaxUsesExceeded("max_uses_exceeded")`
 
-              - `PromptTooLong`
+              - `PromptTooLong("prompt_too_long")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `Overloaded`
+              - `Overloaded("overloaded")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-              - `ExecutionTimeExceeded`
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `ModelNotFound`
+              - `ModelNotFound("model_not_found")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "advisor_tool_result_error"`
 
           - `class BetaAdvisorResultBlock:`
 
@@ -11044,7 +11044,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Text`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "advisor_result"`
 
           - `class BetaAdvisorRedactedResultBlock:`
 
@@ -11056,13 +11056,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "advisor_redacted_result"`
 
         - `required string ToolUseID`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "advisor_tool_result"`
 
       - `class BetaCodeExecutionToolResultBlock:`
 
@@ -11074,15 +11074,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required BetaCodeExecutionToolResultErrorCode ErrorCode`
 
-              - `InvalidToolInput`
+              - `InvalidToolInput("invalid_tool_input")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `ExecutionTimeExceeded`
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "code_execution_tool_result_error"`
 
           - `class BetaCodeExecutionResultBlock:`
 
@@ -11090,7 +11090,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string FileID`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_output"`
 
             - `required long ReturnCode`
 
@@ -11098,7 +11098,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Stdout`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "code_execution_result"`
 
           - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -11108,7 +11108,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string FileID`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "code_execution_output"`
 
             - `required string EncryptedStdout`
 
@@ -11116,13 +11116,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Stderr`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "encrypted_code_execution_result"`
 
         - `required string ToolUseID`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "code_execution_tool_result"`
 
       - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -11132,17 +11132,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required ErrorCode ErrorCode`
 
-              - `InvalidToolInput`
+              - `InvalidToolInput("invalid_tool_input")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `ExecutionTimeExceeded`
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `OutputFileTooLarge`
+              - `OutputFileTooLarge("output_file_too_large")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
           - `class BetaBashCodeExecutionResultBlock:`
 
@@ -11150,7 +11150,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string FileID`
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "bash_code_execution_output"`
 
             - `required long ReturnCode`
 
@@ -11158,13 +11158,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Stdout`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "bash_code_execution_result"`
 
         - `required string ToolUseID`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "bash_code_execution_tool_result"`
 
       - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -11174,19 +11174,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required ErrorCode ErrorCode`
 
-              - `InvalidToolInput`
+              - `InvalidToolInput("invalid_tool_input")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `ExecutionTimeExceeded`
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `FileNotFound`
+              - `FileNotFound("file_not_found")`
 
             - `required string? ErrorMessage`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
           - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -11194,11 +11194,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required FileType FileType`
 
-              - `Text`
+              - `Text("text")`
 
-              - `Image`
+              - `Image("image")`
 
-              - `Pdf`
+              - `Pdf("pdf")`
 
             - `required long? NumLines`
 
@@ -11206,13 +11206,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required long? TotalLines`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text_editor_code_execution_view_result"`
 
           - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
             - `required bool IsFileUpdate`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text_editor_code_execution_create_result"`
 
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -11226,13 +11226,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required long? OldStart`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
         - `required string ToolUseID`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
       - `class BetaToolSearchToolResultBlock:`
 
@@ -11242,17 +11242,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required ErrorCode ErrorCode`
 
-              - `InvalidToolInput`
+              - `InvalidToolInput("invalid_tool_input")`
 
-              - `Unavailable`
+              - `Unavailable("unavailable")`
 
-              - `TooManyRequests`
+              - `TooManyRequests("too_many_requests")`
 
-              - `ExecutionTimeExceeded`
+              - `ExecutionTimeExceeded("execution_time_exceeded")`
 
             - `required string? ErrorMessage`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tool_search_tool_result_error"`
 
           - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -11262,15 +11262,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `JsonElement Type constant`
+              - `JsonElement Type = "tool_reference"`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "tool_search_tool_search_result"`
 
         - `required string ToolUseID`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "tool_search_tool_result"`
 
       - `class BetaMcpToolUseBlock:`
 
@@ -11288,7 +11288,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The name of the MCP server
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "mcp_tool_use"`
 
       - `class BetaMcpToolResultBlock:`
 
@@ -11308,7 +11308,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "text"`
 
         - `required bool IsError`
 
@@ -11316,7 +11316,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "mcp_tool_result"`
 
       - `class BetaContainerUploadBlock:`
 
@@ -11324,7 +11324,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `required string FileID`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "container_upload"`
 
       - `class BetaCompactionBlock:`
 
@@ -11342,7 +11342,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "compaction"`
 
       - `class BetaFallbackBlock:`
 
@@ -11368,71 +11368,71 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `ClaudeFable5_1`
+            - `ClaudeFable5_1("claude-fable-5-1")`
 
               Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-            - `ClaudeMythos5_1`
+            - `ClaudeMythos5_1("claude-mythos-5-1")`
 
               Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-            - `ClaudeSonnet5`
+            - `ClaudeSonnet5("claude-sonnet-5")`
 
               High-performance model for coding and agents
 
-            - `ClaudeFable5`
+            - `ClaudeFable5("claude-fable-5")`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
-            - `ClaudeMythos5`
+            - `ClaudeMythos5("claude-mythos-5")`
 
               Most capable model for cybersecurity and biology research
 
-            - `ClaudeOpus5`
+            - `ClaudeOpus5("claude-opus-5")`
 
               Powerful intelligence for long-running agents and coding
 
-            - `ClaudeOpus4_8`
+            - `ClaudeOpus4_8("claude-opus-4-8")`
 
               Powerful intelligence for long-running agents and coding
 
-            - `ClaudeOpus4_7`
+            - `ClaudeOpus4_7("claude-opus-4-7")`
 
               Powerful intelligence for long-running agents and coding
 
-            - `ClaudeMythosPreview`
+            - `ClaudeMythosPreview("claude-mythos-preview")`
 
               New class of intelligence, strongest in coding and cybersecurity
 
-            - `ClaudeOpus4_6`
+            - `ClaudeOpus4_6("claude-opus-4-6")`
 
               Powerful intelligence for long-running agents and coding
 
-            - `ClaudeSonnet4_6`
+            - `ClaudeSonnet4_6("claude-sonnet-4-6")`
 
               Best combination of speed and intelligence
 
-            - `ClaudeHaiku4_5`
+            - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
               Fastest model with near-frontier intelligence
 
-            - `ClaudeHaiku4_5_20251001`
+            - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
               Fastest model with near-frontier intelligence
 
-            - `ClaudeOpus4_5`
+            - `ClaudeOpus4_5("claude-opus-4-5")`
 
               Powerful intelligence for long-running agents and coding
 
-            - `ClaudeOpus4_5_20251101`
+            - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
 
               Powerful intelligence for long-running agents and coding
 
-            - `ClaudeSonnet4_5`
+            - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 
               High-performance model for agents and coding
 
-            - `ClaudeSonnet4_5_20250929`
+            - `ClaudeSonnet4_5_20250929("claude-sonnet-4-5-20250929")`
 
               High-performance model for agents and coding
 
@@ -11448,29 +11448,29 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The policy category that triggered a refusal.
 
-            - `Cyber`
+            - `Cyber("cyber")`
 
               The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-            - `Bio`
+            - `Bio("bio")`
 
               The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-            - `FrontierLlm`
+            - `FrontierLlm("frontier_llm")`
 
               The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-            - `ReasoningExtraction`
+            - `ReasoningExtraction("reasoning_extraction")`
 
               The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-            - `GeneralHarms`
+            - `GeneralHarms("general_harms")`
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "refusal"`
 
-        - `JsonElement Type constant`
+        - `JsonElement Type = "fallback"`
 
     - `required BetaContextManagementResponse? ContextManagement`
 
@@ -11496,7 +11496,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "clear_tool_uses_20250919"`
 
             The type of context management edit applied.
 
@@ -11514,7 +11514,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "clear_thinking_20251015"`
 
             The type of context management edit applied.
 
@@ -11533,7 +11533,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "model_changed"`
 
         - `class BetaCacheMissSystemChanged:`
 
@@ -11541,7 +11541,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "system_changed"`
 
         - `class BetaCacheMissToolsChanged:`
 
@@ -11549,7 +11549,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "tools_changed"`
 
         - `class BetaCacheMissMessagesChanged:`
 
@@ -11557,15 +11557,15 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "messages_changed"`
 
         - `class BetaCacheMissPreviousMessageNotFound:`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "previous_message_not_found"`
 
         - `class BetaCacheMissUnavailable:`
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "unavailable"`
 
     - `required Model Model`
 
@@ -11573,7 +11573,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `JsonElement Role constant`
+    - `JsonElement Role = "assistant"`
 
       Conversational role of the generated message.
 
@@ -11587,23 +11587,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         The policy category that triggered a refusal.
 
-        - `Cyber`
+        - `Cyber("cyber")`
 
           The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-        - `Bio`
+        - `Bio("bio")`
 
           The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-        - `FrontierLlm`
+        - `FrontierLlm("frontier_llm")`
 
           The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-        - `ReasoningExtraction`
+        - `ReasoningExtraction("reasoning_extraction")`
 
           The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-        - `GeneralHarms`
+        - `GeneralHarms("general_harms")`
 
           The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
@@ -11662,7 +11662,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "refusal"`
 
     - `required BetaStopReason? StopReason`
 
@@ -11680,21 +11680,21 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
       In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
-      - `EndTurn`
+      - `EndTurn("end_turn")`
 
-      - `MaxTokens`
+      - `MaxTokens("max_tokens")`
 
-      - `StopSequence`
+      - `StopSequence("stop_sequence")`
 
-      - `ToolUse`
+      - `ToolUse("tool_use")`
 
-      - `PauseTurn`
+      - `PauseTurn("pause_turn")`
 
-      - `Compaction`
+      - `Compaction("compaction")`
 
-      - `Refusal`
+      - `Refusal("refusal")`
 
-      - `ModelContextWindowExceeded`
+      - `ModelContextWindowExceeded("model_context_window_exceeded")`
 
     - `required string? StopSequence`
 
@@ -11702,7 +11702,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
       This value will be a non-null string if one of your custom stop sequences was generated.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "message"`
 
       Object type.
 
@@ -11766,7 +11766,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
             The reprice was applied: the retry is billed as if the conversation
             had been on the retry model all along.
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "redeemed"`
 
           - `class BetaFallbackCreditNotApplied:`
 
@@ -11779,31 +11779,31 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
               A closed enum; additions to the redemption-check vocabulary arrive as
               deliberate schema updates.
 
-              - `BodyMismatch`
+              - `BodyMismatch("body_mismatch")`
 
-              - `ContinuationExcluded`
+              - `ContinuationExcluded("continuation_excluded")`
 
-              - `ContinuationOnly`
+              - `ContinuationOnly("continuation_only")`
 
-              - `Expired`
+              - `Expired("expired")`
 
-              - `InvalidTargetModel`
+              - `InvalidTargetModel("invalid_target_model")`
 
-              - `NotEnabled`
+              - `NotEnabled("not_enabled")`
 
-              - `RepriceUnavailable`
+              - `RepriceUnavailable("reprice_unavailable")`
 
-              - `TemporarilyUnavailable`
+              - `TemporarilyUnavailable("temporarily_unavailable")`
 
-              - `VariantFieldsPresent`
+              - `VariantFieldsPresent("variant_fields_present")`
 
-              - `WrongOrganization`
+              - `WrongOrganization("wrong_organization")`
 
-              - `WrongPlatform`
+              - `WrongPlatform("wrong_platform")`
 
-              - `WrongWorkspace`
+              - `WrongWorkspace("wrong_workspace")`
 
-            - `JsonElement Type constant`
+            - `JsonElement Type = "not_applied"`
 
             - `IReadOnlyList<string>? RemoveToRedeem`
 
@@ -11876,7 +11876,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "message"`
 
             Usage for a sampling iteration
 
@@ -11912,7 +11912,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "compaction"`
 
             Usage for a compaction iteration
 
@@ -11954,7 +11954,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "advisor_message"`
 
             Usage for an advisor sub-inference iteration
 
@@ -12001,7 +12001,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-          - `JsonElement Type constant`
+          - `JsonElement Type = "fallback_message"`
 
             Usage for the fallback-model attempt that served the response
 
@@ -12053,19 +12053,19 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         If the request used the priority, standard, or batch tier.
 
-        - `Standard`
+        - `Standard("standard")`
 
-        - `Priority`
+        - `Priority("priority")`
 
-        - `Batch`
+        - `Batch("batch")`
 
       - `required Speed? Speed`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `Standard`
+        - `Standard("standard")`
 
-        - `Fast`
+        - `Fast("fast")`
 
     - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
 
@@ -12107,16 +12107,16 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
         `organization_binding_mismatch`, `end_user_binding_mismatch`,
         `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-        - `ModelBindingMismatch`
+        - `ModelBindingMismatch("model_binding_mismatch")`
 
-        - `PrefixBindingMismatch`
+        - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-        - `OrganizationBindingMismatch`
+        - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-        - `EndUserBindingMismatch`
+        - `EndUserBindingMismatch("end_user_binding_mismatch")`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "thinking_dropped"`
 
         Always `thinking_dropped` for this entry type.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "succeeded"`

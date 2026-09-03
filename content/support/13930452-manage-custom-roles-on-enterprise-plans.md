@@ -10,6 +10,8 @@ Custom roles work alongside groups. The typical workflow is: create custom roles
 
 **Note:** Custom roles only affect members whose role is set to “Custom.” Members with the User, Admin, or Owner roles get their permissions from those roles directly, not from custom roles.
 
+**Note:** With SCIM directory sync and group mappings enabled, each member’s role is owned by the sync. A member whose role was set to “Custom” before group mappings were enabled reverts to their mapped role on the next full sync unless they’re in an IdP group mapped to “Custom.” See **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans#h_05cb172230)**.
+
 ---
 
 ## How feature access works
@@ -192,7 +194,7 @@ There are seven admin permission areas:
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Identity & Access    | SSO and SAML configuration, verified domains, domain memberships, IP allowlist, session settings, group definitions, role definitions, and provisioning settings | Edit SSO, manage domains, edit the IP allowlist, edit session settings, create and edit groups and roles, and configure provisioning |
 | Billing              | Plan details, seat counts, invoices, billing addresses, and usage spend                                                                                          | Change seats, update payment methods, edit billing addresses, and configure spend limits and extra usage                             |
-| Analytics            | Usage analytics, Claude Code analytics, and feature adoption metrics                                                                                             | Not available                                                                                                                        |
+| Analytics            | Usage analytics, Claude Code analytics, feature adoption metrics, and surveys (create and view)                                                                  | Not available                                                                                                                        |
 | Privacy              | Data retention settings, export configuration, sharing settings, geolocation settings, US-only inference setting, and encryption-key status                      | Edit retention periods, run data exports, change sharing settings, and configure geolocation, US-only inference, and encryption      |
 | User Management      | Not available                                                                                                                                                    | Invite members, change member roles, remove members, and manage pending invitations                                                  |
 | Libraries            | Not available                                                                                                                                                    | Add, edit, and remove organization-shared skills, plugins, and connectors. Also includes directory management.                       |

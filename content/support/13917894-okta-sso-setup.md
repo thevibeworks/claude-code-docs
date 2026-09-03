@@ -38,6 +38,8 @@ Start the SSO setup flow there and keep it open alongside the Okta Admin console
 
 2. Under **Attribute Statements**, add an attribute named email with value user.email.
 
+  1. If you use group mappings (JIT or SCIM provisioning with **Enable group mappings** turned on), also add a Group Attribute Statement named "groups" with a filter that includes every Okta group you map to a Claude role or seat type. Without it, sign-ins arrive with no group information: users can’t be assigned a mapped role, and under JIT with group mappings, a user whose sign-in includes no mapped group is removed from the organization at their next login. See **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
+
 3. Download the **Identity Provider metadata** XML and upload it in the WorkOS setup flow when prompted.
 
 ## Step 3 — Enable SCIM provisioning

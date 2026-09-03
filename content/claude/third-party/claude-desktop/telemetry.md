@@ -66,7 +66,7 @@ For collector authentication headers, extra resource attributes, and the log lev
 
 Set [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoint) to the base address of your collector's OTLP/HTTP receiver, for example `https://otel-collector.example.com:4318`. The app appends the OpenTelemetry request paths itself (`/v1/logs`, `/v1/metrics`, and `/v1/traces` when [traces](#traces-beta) are enabled), so enter the address without those suffixes. A path prefix in front of them, such as `https://observability.example.com/otlp`, is kept.
 
-The receiver must implement the OpenTelemetry protocol (OTLP) over HTTP in both its protobuf and JSON encodings, as an OpenTelemetry Collector does by default. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and set `otlpEndpoint` to the collector's address. Each device opens its own connection to the collector, so the collector must present a TLS certificate the operating system trusts. See [Proxy support](#proxy-support) if a TLS-intercepting proxy sits in between.
+The receiver must implement the OpenTelemetry protocol (OTLP) over HTTP in both its protobuf and JSON encodings, as an OpenTelemetry Collector does by default. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and set `otlpEndpoint` to the collector's address. Each device opens its own connection to the collector, so the collector must present a TLS certificate the operating system trusts. See [TLS-intercepting proxies](/docs/third-party/claude-desktop/network-proxy#tls-intercepting-proxies) if a TLS-intercepting proxy sits in between.
 
 [`otlpHeaders`](/docs/third-party/claude-desktop/configuration#otlpheaders) is a JSON object that maps each header name to its value, for example `{"Authorization":"Bearer <token>","X-Tenant":"agency"}`. As with the other object-typed keys described under [Value types](/docs/third-party/claude-desktop/configuration#value-types), write it as a JSON string.
 
@@ -273,24 +273,4 @@ See the [Locked down profile](/docs/third-party/claude-desktop/configuration#rec
 
 ## Proxy support
 
-The Cowork sandbox honors the host operating system's proxy configuration, including PAC (proxy auto-configuration) files. If the device routes HTTPS through a corporate proxy, the sandbox will too, with no additional configuration required.
-
-### TLS-intercepting proxies on macOS
-
-If your proxy performs TLS interception, it presents its own certificate authority. Claude configures its CLI processes to trust the macOS System keychain in addition to the bundled CA roots, so a corporate CA installed there normally works without extra setup.
-
-If inference or tool requests still fail certificate verification, the CA was likely added with policy-restricted trust: certificates installed via `security add-trusted-cert -p ssl …` are trusted by Safari and Chrome but are not picked up by the CLI runtime's keychain reader. Re-add the CA with full root trust (omit `-p`):
-
-```bash theme={null}
-sudo security add-trusted-cert -d -r trustRoot \
-  -k /Library/Keychains/System.keychain /path/to/corp-ca.pem
-```
-
-If the certificate is MDM-managed and you cannot change how it is installed, set `NODE_EXTRA_CA_CERTS` as a fallback, then quit and relaunch Claude:
-
-```bash theme={null}
-security find-certificate -a -p /Library/Keychains/System.keychain > ~/corp-ca.pem
-launchctl setenv NODE_EXTRA_CA_CERTS "$HOME/corp-ca.pem"
-```
-
-`launchctl setenv` makes the variable visible to apps launched from Finder or the Dock (shell-profile exports only reach terminal sessions). It applies until the next reboot; to make it permanent, run the command from a LaunchAgent at login.
+Claude Desktop and the Claude Code engine it runs follow the operating system's proxy settings by default, including PAC files, and on macOS and Windows so does the Cowork sandbox. You can also pin a specific proxy for all three from managed configuration. See [Network proxy](/docs/third-party/claude-desktop/network-proxy) for the default behavior, the pinned-proxy keys, the traffic that bypasses the proxy, and [TLS-intercepting proxies](/docs/third-party/claude-desktop/network-proxy#tls-intercepting-proxies).

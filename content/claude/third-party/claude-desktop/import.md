@@ -34,7 +34,7 @@ In Claude Desktop, go to **Settings → Import & export** and click **Import…*
   <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-wizard-start.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=526562f1c9c0abd66e9b56d0328808db" alt="Claude Desktop settings with Import and export selected and the Import from Claude wizard open on step 1, showing Sign in to claude.ai and Choose file buttons." width="1920" height="1440" data-path="images/third-party/import/import-wizard-start.png" />
 </Frame>
 
-The wizard has three steps: **Chats** (your claude.ai export), **Cowork & Code** (local sessions on this machine), and **Review**. Skip any step you don't need.
+The wizard has three steps: **Chats** (your claude.ai export), **Cowork & Code** (local sessions on this machine), and **Review**. Skip any step you don't need. A fourth step, **Duplicates**, appears after the import only when an imported project has the same name as one you already have. See [If a project already exists](#if-a-project-already-exists).
 
 ## Step 1: claude.ai chats and projects
 
@@ -100,9 +100,22 @@ The **Review** step summarizes what will be added. Click **Import** to copy ever
   <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-review.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=c7939485c7185afbf1ef7518a94db2d6" alt="Import from Claude wizard step 3 showing a claude.ai export summary of 7 chats and 1 project alongside 5 local Cowork and Code sessions, with an Import button." width="1920" height="1440" data-path="images/third-party/import/import-review.png" />
 </Frame>
 
-<Frame caption="Import complete. Imported chats appear in the sidebar and imported projects appear as Spaces.">
-  <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-success.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=c878c70886ff9a0fd2b3d046bf916375" alt="Import from Claude wizard success screen reading Imported 12 sessions and 1 Space, with a note that re-running import will not create duplicates." width="1920" height="1440" data-path="images/third-party/import/import-success.png" />
+<Frame caption="Import complete. Imported chats appear in the sidebar and imported projects appear on the Projects page.">
+  <img src="https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-success.png?fit=max&auto=format&n=XDpDaIQ3J0Amhn8h&q=85&s=f0a01a38e52d841b66c4215f9cda2db4" alt="Import from Claude wizard success screen showing a checkmark and the number of sessions imported, with a note that re-running import will not create duplicates." width="1920" height="1440" data-path="images/third-party/import/import-success.png" />
 </Frame>
+
+## If a project already exists
+
+When an imported project has the same name as a project already in Claude Desktop, the wizard adds a **Duplicates** step after the import finishes. This happens, for example, when you set up **Northwind** on this machine and then bring over history from another machine that also has a Northwind project. The step lists each match with two choices.
+
+<Frame caption="The Duplicates step, listing imported projects that match ones you already have.">
+  <img src="https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-duplicates.png?fit=max&auto=format&n=XDpDaIQ3J0Amhn8h&q=85&s=798f75d5a508ebcb7082373b5cf95d84" alt="Import from Claude wizard step 4, Duplicates, headed These projects already exist, listing five Northwind projects each with Merge into existing and Keep separate buttons and a Continue button." width="1920" height="1440" data-path="images/third-party/import/import-duplicates.png" />
+</Frame>
+
+* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source land in the existing project as well.
+* **Keep separate** leaves both projects in place. The imported one keeps a numbered name, such as **Northwind (1)**, and Claude Desktop stops offering to merge it.
+
+The **Projects** page offers the same two choices, in a row under the duplicate project's card and at the top of the duplicate project's own page. Decide there if your history was brought over automatically when you signed in, so you never saw the wizard, or if you closed the wizard before choosing.
 
 ## Continue an imported conversation
 
@@ -119,7 +132,7 @@ When your administrator also sets `exportEnabled` to `true` under `claudeAiImpor
 ## What is and isn't included
 
 * **Your data only.** An export contains your own conversations, projects, and memory. Other workspace members' content is not included.
-* **Chats and projects come over.** Each imported project becomes a Space. If the project has custom instructions, Claude Desktop shows them in the Space for you to review and accept before they take effect.
+* **Chats and projects come over.** Each imported project appears on the **Projects** page. If the project has custom instructions, Claude Desktop shows them in the project for you to review and accept before they take effect.
 * **Project knowledge files and conversation attachments do not.** A member's own export never includes the contents of files uploaded to a project's knowledge or attached to a conversation. This is a security policy on claude.ai, and it applies to both the **Sign in to claude.ai** and **Choose a downloaded file** paths. Imported chats keep the messages that referenced an attachment, but not the file itself. The only export that includes file contents is an organization-level export, which only a workspace owner can request.
 * **One-time copy.** Imported history does not stay in sync with claude.ai. Run the import again to pick up newer conversations; existing imports are matched and skipped, so you won't get duplicates.
 * **Download links expire.** The email link from claude.ai is valid for 24 hours. Request a new export if it lapses.

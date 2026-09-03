@@ -14,6 +14,10 @@ Text responses can only go so far. Sometimes users need to interact with data, n
 just read about it. MCP Apps let servers return interactive HTML interfaces (data
 visualizations, forms, dashboards) that render directly in the chat.
 
+<Frame caption="Excalidraw MCP App, running in Claude">
+  <img src="https://mintcdn.com/mcp/jbEkS7m9mV8aY_kB/images/apps/excalidraw.gif?s=c783b088f3c687e4dd4cf05c0d20f325" alt="An Excalidraw MCP App drawing a sequence diagram inside a Claude conversation" width="620" height="510" data-path="images/apps/excalidraw.gif" />
+</Frame>
+
 ## Why not just build a web app?
 
 You could build a standalone web app and send users a link. However, MCP Apps

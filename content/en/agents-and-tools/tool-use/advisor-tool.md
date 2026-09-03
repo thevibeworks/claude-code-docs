@@ -31,7 +31,7 @@ sequenceDiagram
 
 The advisor fits these configurations:
 
-* **You currently use Sonnet on complex tasks:** Add a higher-tier advisor. Opus keeps total cost similar or lower; Claude Fable 5 maximizes the quality lift.
+* **You currently use Sonnet on complex tasks:** Add a higher-tier advisor. Opus keeps total cost similar or lower; Claude Fable 5.1 maximizes the quality lift.
 * **You currently use Haiku and want a step up in intelligence:** Add an Opus or Fable advisor. Expect higher cost than Haiku alone, but lower than switching the executor to a larger model.
 
 Results are task-dependent. Evaluate on your own workload.

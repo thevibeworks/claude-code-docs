@@ -1790,7 +1790,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "bash"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1808,7 +1808,7 @@ List Events
 
                         - `Type type`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "bash"`
 
                   - `class BetaManagedAgentsEditToolConfig:`
 
@@ -1816,7 +1816,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "edit"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1830,7 +1830,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "edit"`
 
                   - `class BetaManagedAgentsReadToolConfig:`
 
@@ -1838,7 +1838,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "read"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1852,7 +1852,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "read"`
 
                   - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -1860,7 +1860,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "write"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1874,7 +1874,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "write"`
 
                   - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -1882,7 +1882,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "glob"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1896,7 +1896,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "glob"`
 
                   - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -1904,7 +1904,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "grep"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1918,7 +1918,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "grep"`
 
                   - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -1926,7 +1926,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_fetch"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1940,7 +1940,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_fetch"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -1956,7 +1956,7 @@ List Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_search"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -1970,7 +1970,7 @@ List Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_search"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -1980,7 +1980,7 @@ List Events
 
                       Approximate user location for search result localization.
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "approximate"`
 
                         Location precision. Only "approximate" is supported.
 
@@ -2078,7 +2078,7 @@ List Events
 
                   JSON Schema for custom tool input parameters.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "object"`
 
                   - `Optional<Properties> properties`
 

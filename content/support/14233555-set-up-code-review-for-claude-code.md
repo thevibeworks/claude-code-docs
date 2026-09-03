@@ -152,7 +152,7 @@ If you’ve installed the Claude GitHub App but your repositories don’t appear
 
 1. Confirm the Claude GitHub App has access to the repositories you expect. Go to your GitHub organization’s settings, find the Claude GitHub App under **Installed GitHub Apps**, and check whether it has access to all repositories or only selected ones.
 
-2. If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), make sure the Claude GitHub OAuth App is authorized at the enterprise level. EMU enterprises can restrict which OAuth apps are approved, and the Claude app must be explicitly allowed.
+2. If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), authorize Claude while you're signed in with your managed account and have an active SSO session. There's no separate enterprise-level approval step.
 
 3. Try disconnecting and reconnecting your GitHub account in Claude. Go to **[Customize > Connectors](https://claude.ai/customize/connectors)**, disconnect GitHub, and connect it again. Which repositories the App can access is managed on GitHub's side, covered in step 1.
 

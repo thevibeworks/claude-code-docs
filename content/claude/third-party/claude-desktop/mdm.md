@@ -51,7 +51,7 @@ The window is organized into sections in the left sidebar. Work through them in 
 | **Source**              | The bootstrap keys, if you are using the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) delivery model instead of a full MDM profile<br />Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key         |
 
 <Note>
-  When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only the update keys](#update-keys-and-managed-precedence) leave the window editable.
+  When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only the update keys or the network proxy keys](#update-keys-and-managed-precedence) leave the window editable.
 </Note>
 
 ## 2. Export the profile
@@ -133,11 +133,13 @@ Push the exported configuration through your MDM. The app reads from these locat
   </Tab>
 </Tabs>
 
-When a managed source sets any key other than the update keys, the managed configuration owns the device: it takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
+When a managed source sets any key other than the update keys or the network proxy keys, the managed configuration owns the device: it takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
 ### Update keys and managed precedence
 
 The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, and `updateViaUpdatesHost` are treated specially, so you can set an update policy from MDM without managing the whole configuration. When a managed source sets only these keys (any of them), the device keeps its locally authored configuration and the configuration window stays editable. The update keys themselves are still enforced as a group: all of them are resolved from the managed source alone, so a locally set value for any of them is ignored even if the profile sets only one.
+
+The network proxy keys `egressProxyUrl` and `egressProxyPacUrl` belong to the same group and follow the same rule. See [Network proxy](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration).
 
 If the managed profile sets any other recognized key, the normal rule above applies and the whole configuration is managed.
 

@@ -307,7 +307,7 @@ Return `200 OK` with `Content-Type: application/json` and a JSON object whose ke
 The full set of bootstrap-settable keys is published as a machine-readable JSON Schema, generated from the same source as the [configuration reference](/docs/third-party/claude-desktop/configuration) and updated with each release:
 
 * [`/third-party/claude-desktop/schemas/bootstrap-config-v2.schema.json`](/docs/third-party/claude-desktop/schemas/bootstrap-config-v2.schema.json) (recommended): nested response format with a discriminated `inference` object.
-* [`/third-party/claude-desktop/schemas/bootstrap-config-v1.schema.json`](/docs/third-party/claude-desktop/schemas/bootstrap-config-v1.schema.json): flat key format, kept for configurations authored before the v2 cutover. The app accepts either format.
+* [`/third-party/claude-desktop/schemas/bootstrap-config-v1.schema.json`](/docs/third-party/claude-desktop/schemas/bootstrap-config-v1.schema.json): flat format, with the managed-configuration key names at the top level as in the example above and in the [configuration reference](/docs/third-party/claude-desktop/configuration). The app accepts either format.
 
 Reference the schema with `"$schema"` in your response template, or with `# yaml-language-server: $schema=…` in YAML, for autocomplete and validation.
 

@@ -11,7 +11,7 @@ For per-user and time-bucketed usage and cost *reporting*, see [Analytics APIs](
 <Check>
   **Scoped Admin API key required**
 
-  These endpoints require an Admin API key with the `read:spend_limits` scope (for `GET` endpoints) or the `write:spend_limits` scope (for `POST` and `DELETE` endpoints). See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) for where your primary owner creates one and which scopes to select. Pass the key in the `x-api-key` header on every request.
+  These endpoints require an Admin API key with the `read:spend_limits` scope (for `GET` endpoints) or the `write:spend_limits` scope (for `POST` and `DELETE` endpoints). See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) for where your primary owner creates one and which scopes to select. Pass the key in the `x-api-key` header on every request, together with the [`anthropic-version`](https://platform.claude.com/docs/en/api/versioning) header.
 </Check>
 
 <Note>
@@ -40,7 +40,8 @@ List every member's effective monthly spend limit and period-to-date spend:
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/spend_limits/effective?limit=20" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ## Key concepts
@@ -81,6 +82,10 @@ Approving with `POST /v1/organizations/spend_limit_increase_requests/{id}/approv
 
 By default, Anthropic emails the member when their request is approved or denied. Pass `suppress_notification: true` on approve or deny to suppress that email (for example, when your own system notifies the member).
 
+## Versioning
+
+Send the `anthropic-version` header on every request; see [API versions](https://platform.claude.com/docs/en/api/versioning) for the available versions.
+
 ## Rate limiting
 
 All eight endpoints share a single per-organization limit of **60 requests per minute**. Requests over the limit return **429 Too Many Requests**.
@@ -113,7 +118,8 @@ For complete parameter details and response schemas, see [List effective spend l
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/spend_limits/effective?limit=20" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ```json
@@ -148,7 +154,8 @@ For complete parameter details and response schemas, see [Retrieve a spend limit
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/spend_limits/spl_01AbCdEfGhIjKlMnOpQrSt" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ### Set a per-user override
@@ -161,6 +168,7 @@ For complete parameter details and response schemas, see [Create a spend limit](
 curl --request POST "https://api.anthropic.com/v1/organizations/spend_limits" \
   --header "content-type: application/json" \
   --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01" \
   --data '{"scope": {"type": "user", "user_id": "user_01AbCdEfGh"}, "amount": "75000"}'
 ```
 
@@ -185,7 +193,8 @@ For complete parameter details and response schemas, see [Delete a spend limit](
 
 ```bash cURL
 curl --request DELETE "https://api.anthropic.com/v1/organizations/spend_limits/spl_01RsTuVwXyZaBcDeFgHiJk" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ## Spend limit increase requests
@@ -198,7 +207,8 @@ For complete parameter details and response schemas, see [List spend limit incre
 
 ```bash cURL
 curl --globoff "https://api.anthropic.com/v1/organizations/spend_limit_increase_requests?status[]=pending&limit=50" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 Each pending request carries a live `spend_summary` showing the requester's current effective spend limit and period-to-date spend, enough to decide without a separate lookup.
@@ -211,7 +221,8 @@ For complete parameter details and response schemas, see [Retrieve a spend limit
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/slir_01AbCdEfGhIjKlMnOpQrSt" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01"
 ```
 
 ### Approve an increase request
@@ -224,6 +235,7 @@ For complete parameter details and response schemas, see [Approve a spend limit 
 curl --request POST "https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/slir_01AbCdEfGhIjKlMnOpQrSt/approve" \
   --header "content-type: application/json" \
   --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01" \
   --data '{"amount": "75000", "suppress_notification": true}'
 ```
 
@@ -237,6 +249,7 @@ For complete parameter details and response schemas, see [Deny a spend limit inc
 curl --request POST "https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/slir_01AbCdEfGhIjKlMnOpQrSt/deny" \
   --header "content-type: application/json" \
   --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  --header "anthropic-version: 2023-06-01" \
   --data '{"suppress_notification": true}'
 ```
 
@@ -254,7 +267,8 @@ Run a scheduled job that fetches pending requests, applies your organization's a
 
    ```bash cURL
    curl --globoff "https://api.anthropic.com/v1/organizations/spend_limit_increase_requests?status[]=pending&limit=100" \
-     --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+     --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+     --header "anthropic-version: 2023-06-01"
    ```
 
    Each request carries the requester's `actor.user_id` and a live `spend_summary` with their current effective `amount` and `period_to_date_spend`, enough to decide without a separate lookup.
@@ -267,6 +281,7 @@ Run a scheduled job that fetches pending requests, applies your organization's a
    curl --request POST "https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/{id}/approve" \
      --header "content-type: application/json" \
      --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+     --header "anthropic-version: 2023-06-01" \
      --data '{"amount": "75000", "suppress_notification": true}'
    ```
 
@@ -280,7 +295,8 @@ Find members approaching their cap so you can raise it before they're blocked.
 
    ```bash cURL
    curl "https://api.anthropic.com/v1/organizations/analytics/user_cost_report?starting_at=2026-06-01T00:00:00Z&limit=1000" \
-     --header "x-api-key: $ANALYTICS_API_KEY"
+     --header "x-api-key: $ANALYTICS_API_KEY" \
+     --header "anthropic-version: 2023-06-01"
    ```
 
    Each row carries `actor.user_id`, `actor.email`, and `amount` (the member's spend in cents). Page through `next_page` to cover the whole organization.
@@ -289,7 +305,8 @@ Find members approaching their cap so you can raise it before they're blocked.
 
    ```bash cURL
    curl --globoff "https://api.anthropic.com/v1/organizations/spend_limits/effective?user_ids[]=user_01Ab...&user_ids[]=user_01Cd...&limit=100" \
-     --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+     --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+     --header "anthropic-version: 2023-06-01"
    ```
 
    Each row returns the cap as `amount` (`null` = unlimited, `"0"` = included usage only) alongside `period_to_date_spend`.
@@ -306,7 +323,8 @@ Surface members whose spend has jumped week over week.
 
    ```bash cURL
    curl "https://api.anthropic.com/v1/organizations/analytics/user_cost_report?starting_at=2026-06-09T00:00:00Z&ending_at=2026-06-23T00:00:00Z&bucket_width=1d&limit=1000" \
-     --header "x-api-key: $ANALYTICS_API_KEY"
+     --header "x-api-key: $ANALYTICS_API_KEY" \
+     --header "anthropic-version: 2023-06-01"
    ```
 
    With `bucket_width` set, each member spans one row per day with usage; page through `next_page` to collect every member's full series.
@@ -323,7 +341,8 @@ Give an incident responder room to work while an incident is open: raise their s
 
    ```bash cURL
    curl --globoff "https://api.anthropic.com/v1/organizations/spend_limits/effective?user_ids[]=user_01AbCdEfGh&period[]=monthly" \
-     --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
+     --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+     --header "anthropic-version: 2023-06-01"
    ```
 
 2. Raise the cap:
@@ -332,6 +351,7 @@ Give an incident responder room to work while an incident is open: raise their s
    curl --request POST "https://api.anthropic.com/v1/organizations/spend_limits" \
      --header "content-type: application/json" \
      --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+     --header "anthropic-version: 2023-06-01" \
      --data '{"scope": {"type": "user", "user_id": "user_01AbCdEfGh"}, "amount": "500000", "period": "monthly"}'
    ```
 
@@ -341,6 +361,7 @@ Give an incident responder room to work while an incident is open: raise their s
    curl --request POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members" \
      --header "content-type: application/json" \
      --header "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+     --header "anthropic-version: 2023-06-01" \
      --data '{"user_id": "user_01AbCdEfGh"}'
    ```
 

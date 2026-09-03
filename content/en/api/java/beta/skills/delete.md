@@ -118,7 +118,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_deleted"`
 
     Deleted object type.
 

@@ -114,6 +114,10 @@ You can control individual members' feature access entirely through groups and c
 
 Owners, Primary Owners, and custom roles with the **User Management** permission set to "Can manage" can change member roles. You can also assign “Custom” at scale by mapping an IdP group using **[group mappings](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
 
+**Important:** If your provisioning mode is SCIM directory sync and group mappings are enabled, each member’s role is set by your IdP group-to-role mapping and managed by the sync, not by the **Members** page. A role that was set to “Custom” before you enabled group mappings (or set another way) is recalculated on the next full sync and reverts to the mapped role. It works until that sync runs, and the reversion isn’t recorded in the audit log, so it can look like custom role permissions stopped applying for no reason.
+
+To keep a member on “Custom,” add them to an IdP group that’s mapped to the “Custom” role in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**, then run a sync. See **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)** and **[How SCIM sync works for Enterprise organizations](https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations)**.
+
 ### Recommended setup
 
 1. Create custom roles with the desired permissions in **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**. For details, see **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452)**.

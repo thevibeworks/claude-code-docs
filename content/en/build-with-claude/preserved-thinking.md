@@ -296,6 +296,52 @@ The same beta names apply on Amazon Bedrock and Google Cloud. See [Beta headers]
 * Cross-turn files are `file_id` or base64, not mutable URLs.
 * A production `prefix_mismatch_behavior` is set and its 400s or dropped entries are monitored.
 
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Do I need a new account to test the check?">
+    No. Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior`. Setting the field opts that request into enforcement regardless of account age: `"error"` rejects an edited history with the same 400 a new account gets, and `"drop_block"` lets the request through and lists what was dropped in `input_transformations`. See [How to tell whether your integration is impacted](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted).
+  </Accordion>
+
+  <Accordion title="If anything before a thinking block changes, even one tool description, is the conversation unusable?">
+    No. What fails is the thinking already in the history after the point you changed, and you choose what happens to it. With `prefix_mismatch_behavior: "drop_block"` the API drops those blocks and the request succeeds: the model answers that turn without that reasoning, and the prompt cache restarts at the edit. With the default `"error"` the API rejects the request with a 400 until you undo the edit or resend with `"drop_block"`; see [Decide what happens on a mismatch](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#decide-what-happens-on-a-mismatch). [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit) lists which changes matter.
+  </Accordion>
+
+  <Accordion title="Does changing effort or other thinking settings between requests invalidate earlier thinking?">
+    No. `output_config.effort`, `max_tokens`, and the `thinking` configuration aren't part of the checked prefix, which covers only `system`, `tools`, and `messages`. A top-level effort change still invalidates most of the prompt cache; on Claude Fable 5.1, a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) change keeps it. Once sent, that effort message is part of the history: leave it in place on later requests.
+  </Accordion>
+
+  <Accordion title="My tool list changes mid-session. How do I avoid invalidating the conversation?">
+    Don't edit `tools`: declare the full set at session start, mark tools that aren't available yet `defer_loading: true`, and offer or withdraw them with `tool_addition` and `tool_removal` blocks. A tool whose schema you learn only mid-session, such as one from an MCP server discovered at runtime, can still be appended to `tools` with `defer_loading: true` and offered the same way, because an unreferenced deferred tool isn't part of the prefix. The `role: "system"` messages that carry these blocks join the prefix for later thinking, so don't move, reword, or delete them afterward. See [Change tools with `tool_addition` and `tool_removal`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#change-tools-with-tool-addition-and-tool-removal-not-by-editing-tools).
+  </Accordion>
+
+  <Accordion title="I compact by summarizing older turns and keeping recent turns verbatim. Does that still work?">
+    Not if the kept turns still carry their thinking: those blocks were produced against the history you replaced, so they fail the check. Strip `thinking` and `redacted_thinking` from the turns you carry across (their `text` and `tool_use` blocks stay), or send `prefix_mismatch_behavior: "drop_block"` and let the API drop them. Simple compaction (one summary message plus the next user turn, no earlier turns replayed) leaves no thinking behind to fail and is the recommended shape. Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) don't count as edits. See [Custom compaction on the client](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client).
+  </Accordion>
+
+  <Accordion title="How do I handle instruction files such as AGENTS.md or CLAUDE.md that change mid-session?">
+    Load them once at session start and keep the top-level `system` prompt and `tools` fixed. When a file changes, append the new version at that point in `messages` instead of editing the original: a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) for instructions that come from you as the operator, or content in the next `user` turn for file text you treat as untrusted, which shouldn't carry system-prompt authority. See [Add instructions with a mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#add-instructions-with-a-mid-conversation-system-message-not-by-editing-system) and [Limitations](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations).
+  </Accordion>
+
+  <Accordion title="Can I resume a saved session later, after a restart or the next day?">
+    Yes. A resumed session is an ordinary follow-up request: `system`, `tools`, and the earlier `messages` must match what you last sent byte-for-byte. Persist what you sent and received (the rendered system prompt, the tool definitions, each assistant turn as returned) and replay that, rather than re-rendering from inputs that might have changed since, such as the date, an updated instruction file, or a new tool version. Anything new goes in an appended message. See [Append assistant turns exactly as returned](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned).
+  </Accordion>
+
+  <Accordion title="What happens to thinking when the conversation moves from Claude Fable 5.1 to an older model and back?">
+    Keep sending the full history and let the API decide on each request. An older model can't read Claude Fable 5.1's thinking blocks, so the API leaves them out of what that model sees for that one request (no error, not billed, and reported as `model_binding_mismatch` in `input_transformations` when you send the beta header); it never edits your `messages` array, so the blocks stay in your history. When the same history goes back to Claude Fable 5.1, those blocks are readable again, along with the older model's thinking. The reasoning is lost only if your client removes the blocks itself, for example a harness that strips thinking on a model switch or rebuilds the history from what each model used. See [Only for the model that produced it, or a newer one](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model) for which models read which blocks.
+
+    ![Animation: switching to Claude Opus skips Claude Fable 5.1's thinking for that turn; switching back, everything is read again](https://platform.claude.com/docs/images/preserved-thinking-model-switch.gif)
+  </Accordion>
+
+  <Accordion title="My harness can route a turn to a non-Claude model. Do those turns invalidate Claude's earlier thinking?">
+    No, provided they're appended after the existing history and nothing earlier changes: an assistant message without thinking blocks is an appended message like any other. Send the other model's output as `text` and `tool_use` content.
+  </Accordion>
+
+  <Accordion title="Can I carry a conversation's reasoning into a new conversation?">
+    Not into a different conversation. A thinking block is usable only behind the exact `system`, `tools`, and `messages` it was produced from, so a branch that replays that history unchanged up to the fork point keeps its thinking, and a conversation that starts from anything else can't use it. Start that one from a summary of the task state (the goal, decisions made, files and results so far, and the next step), as in [simple compaction](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client).
+  </Accordion>
+</AccordionGroup>
+
 ## Next steps
 
 <CardGroup cols={2}>

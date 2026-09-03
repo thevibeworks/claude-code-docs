@@ -181,7 +181,7 @@ List Skills
 
       - `PLUGIN("plugin")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill"`
 
     Object type.
 

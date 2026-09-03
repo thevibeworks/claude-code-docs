@@ -207,13 +207,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "ephemeral"`
 
                 - `Optional<Ttl> ttl`
 
@@ -250,7 +250,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "char_location"`
 
                 - `class BetaCitationPageLocationParam:`
 
@@ -270,7 +270,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "page_location"`
 
                 - `class BetaCitationContentBlockLocationParam:`
 
@@ -300,7 +300,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "content_block_location"`
 
                 - `class BetaCitationWebSearchResultLocationParam:`
 
@@ -312,7 +312,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 512, minLength: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_result_location"`
 
                   - `String url`
 
@@ -350,7 +350,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> title`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "search_result_location"`
 
             - `class BetaImageBlockParam:`
 
@@ -372,11 +372,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `IMAGE_WEBP("image/webp")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class BetaUrlImageSource:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "url"`
 
                   - `String url`
 
@@ -384,9 +384,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "file"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "image"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -414,17 +414,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     format: byte
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "application/pdf"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class BetaPlainTextSource:`
 
                   - `String data`
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "text/plain"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text"`
 
                 - `class BetaContentBlockSource:`
 
@@ -438,11 +438,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `class BetaImageBlockParam:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "content"`
 
                 - `class BetaUrlPdfSource:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "url"`
 
                   - `String url`
 
@@ -450,9 +450,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "file"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "document"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -478,7 +478,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minLength: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
                 - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -490,7 +490,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "search_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -510,7 +510,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "thinking"`
 
             - `class BetaRedactedThinkingBlockParam:`
 
@@ -518,7 +518,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "redacted_thinking"`
 
             - `class BetaToolUseBlockParam:`
 
@@ -532,7 +532,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 200, minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_use"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -546,7 +546,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool invocation directly from the model.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "direct"`
 
                 - `class BetaServerToolCaller:`
 
@@ -556,7 +556,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_20250825"`
 
                 - `class BetaServerToolCaller20260120:`
 
@@ -564,7 +564,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_20260120"`
 
               - `Optional<String> toolsetName`
 
@@ -578,7 +578,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^[a-zA-Z0-9_-]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -606,7 +606,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "tool_reference"`
 
                     - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -650,7 +650,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "browser_state"`
 
                     - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -678,7 +678,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "tab_opened"`
 
                       - `class BetaBrowserStateChangeDownloadStarted:`
 
@@ -690,7 +690,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "download_started"`
 
                         - `String url`
 
@@ -711,7 +711,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "download_completed"`
 
                         - `String url`
 
@@ -741,7 +741,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "download_failed"`
 
                         - `String url`
 
@@ -789,7 +789,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "server_tool_use"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -819,7 +819,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String title`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_result"`
 
                   - `String url`
 
@@ -841,13 +841,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `REQUEST_TOO_LARGE("request_too_large")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_tool_result_error"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -893,13 +893,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `UNAVAILABLE("unavailable")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_fetch_tool_result_error"`
 
                 - `class BetaWebFetchBlockParam:`
 
                   - `BetaRequestDocumentBlock content`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_fetch_result"`
 
                   - `String url`
 
@@ -913,7 +913,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -955,13 +955,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `MODEL_NOT_FOUND("model_not_found")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "advisor_tool_result_error"`
 
                 - `class BetaAdvisorResultBlockParam:`
 
                   - `String text`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "advisor_result"`
 
                   - `Optional<String> stopReason`
 
@@ -971,7 +971,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Opaque blob produced by a prior response; must be round-tripped verbatim.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "advisor_redacted_result"`
 
                   - `Optional<String> stopReason`
 
@@ -979,7 +979,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "advisor_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1003,7 +1003,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_tool_result_error"`
 
                 - `class BetaCodeExecutionResultBlockParam:`
 
@@ -1011,7 +1011,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "code_execution_output"`
 
                   - `long returnCode`
 
@@ -1019,7 +1019,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_result"`
 
                 - `class BetaEncryptedCodeExecutionResultBlockParam:`
 
@@ -1029,7 +1029,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "code_execution_output"`
 
                   - `String encryptedStdout`
 
@@ -1037,13 +1037,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stderr`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "encrypted_code_execution_result"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1067,7 +1067,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_tool_result_error"`
 
                 - `class BetaBashCodeExecutionResultBlockParam:`
 
@@ -1075,7 +1075,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "bash_code_execution_output"`
 
                   - `long returnCode`
 
@@ -1083,13 +1083,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_result"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1113,7 +1113,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `FILE_NOT_FOUND("file_not_found")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
                   - `Optional<String> errorMessage`
 
@@ -1129,7 +1129,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `PDF("pdf")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_view_result"`
 
                   - `Optional<Long> numLines`
 
@@ -1141,11 +1141,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `boolean isFileUpdate`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_create_result"`
 
                 - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
                   - `Optional<List<String>> lines`
 
@@ -1161,7 +1161,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1183,7 +1183,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_search_tool_result_error"`
 
                   - `Optional<String> errorMessage`
 
@@ -1195,19 +1195,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "tool_reference"`
 
                     - `Optional<BetaCacheControlEphemeral> cacheControl`
 
                       Create a cache control breakpoint at this content block.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_search_tool_search_result"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1227,7 +1227,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The name of the MCP server
 
-              - `JsonValue type constant`
+              - `JsonValue type = "mcp_tool_use"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1239,7 +1239,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^[a-zA-Z0-9_-]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "mcp_tool_result"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1255,7 +1255,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minLength: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text"`
 
                   - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1272,7 +1272,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "container_upload"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1288,7 +1288,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               When content is None, the block represents a failed compaction. The server
               treats these as no-ops. Empty string content is not allowed.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "compaction"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1328,7 +1328,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_reference"`
 
                 - `class BetaToolChangeMcpToolReference:`
 
@@ -1339,7 +1339,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String serverName`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "mcp_tool_reference"`
 
                 - `class BetaToolChangeMcpToolsetReference:`
 
@@ -1347,9 +1347,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String serverName`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "mcp_toolset_reference"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_addition"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1386,7 +1386,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Reference to every tool in the named MCP server's toolset.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_removal"`
 
               - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -1490,7 +1490,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Identifies one hop of a fallback transition.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "fallback"`
 
               - `Optional<JsonValue> trigger`
 
@@ -1598,13 +1598,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaClearToolUses20250919Edit:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "clear_tool_uses_20250919"`
 
             - `Optional<BetaInputTokensClearAtLeast> clearAtLeast`
 
               Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "input_tokens"`
 
               - `long value`
 
@@ -1626,7 +1626,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Number of tool uses to retain in the conversation
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_uses"`
 
               - `long value`
 
@@ -1638,7 +1638,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaInputTokensTrigger:`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "input_tokens"`
 
                 - `long value`
 
@@ -1646,7 +1646,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaToolUsesTrigger:`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_uses"`
 
                 - `long value`
 
@@ -1654,7 +1654,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaClearThinking20251015Edit:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "clear_thinking_20251015"`
 
             - `Optional<Keep> keep`
 
@@ -1662,7 +1662,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaThinkingTurns:`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "thinking_turns"`
 
                 - `long value`
 
@@ -1670,7 +1670,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaAllThinkingTurns:`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "all"`
 
               - `JsonValue`
 
@@ -1678,7 +1678,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Automatically compact older context when reaching the configured trigger threshold.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "compact_20260112"`
 
             - `Optional<String> instructions`
 
@@ -1790,7 +1790,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The JSON schema of the format
 
-              - `JsonValue type constant`
+              - `JsonValue type = "json_schema"`
 
             - `Optional<BetaTokenTaskBudget> taskBudget`
 
@@ -1802,7 +1802,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 1024
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tokens"`
 
                 The budget type. Currently only 'tokens' is supported.
 
@@ -1834,7 +1834,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 1024
 
-              - `JsonValue type constant`
+              - `JsonValue type = "enabled"`
 
               - `Optional<BetaThinkingBlockBinding> blockBinding`
 
@@ -1866,11 +1866,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `class BetaThinkingConfigDisabled:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "disabled"`
 
             - `class BetaThinkingConfigAdaptive:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "adaptive"`
 
               - `Optional<BetaThinkingBlockBinding> blockBinding`
 
@@ -1902,7 +1902,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `String name`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "url"`
 
         - `String url`
 
@@ -1976,7 +1976,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
           - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -2006,7 +2006,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will automatically decide whether to use tools.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "auto"`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -2018,7 +2018,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will use any available tools.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "any"`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -2034,7 +2034,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The name of the tool to use.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool"`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -2046,7 +2046,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will not be allowed to use tools.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "none"`
 
       - `Optional<List<BetaToolUnion>> tools`
 
@@ -2120,7 +2120,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "object"`
 
             - `Optional<Properties> properties`
 
@@ -2172,13 +2172,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolBash20241022:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_20241022"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2206,13 +2206,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolBash20250124:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_20250124"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2240,13 +2240,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaCodeExecutionTool20250522:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250522"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2272,13 +2272,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaCodeExecutionTool20250825:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250825"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2306,13 +2306,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260120"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2340,13 +2340,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260521"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2377,7 +2377,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           the family's tool with any members disabled via `configs` removed
           from its schema.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "browser_toolset_20260801"`
 
           - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -2778,13 +2778,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `JsonValue name constant`
+          - `JsonValue name = "computer"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "computer_20241022"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2818,13 +2818,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaMemoryTool20250818:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "memory"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "memory_20250818"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2864,13 +2864,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `JsonValue name constant`
+          - `JsonValue name = "computer"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "computer_20250124"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2904,13 +2904,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20241022:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_editor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20241022"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2950,13 +2950,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `JsonValue name constant`
+          - `JsonValue name = "computer"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "computer_20251124"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3003,7 +3003,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           `type`, `configs`, and `cache_control`; zoom is controlled
           via `configs.zoom.enabled`.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "computer_toolset_20260801"`
 
           - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -3224,13 +3224,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20250124:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_editor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20250124"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3258,13 +3258,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20250429:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_based_edit_tool"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20250429"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3292,13 +3292,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolTextEditor20250728:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_based_edit_tool"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20250728"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3332,13 +3332,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebSearchTool20250305:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_20250305"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3380,7 +3380,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "approximate"`
 
             - `Optional<String> city`
 
@@ -3408,13 +3408,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebFetchTool20250910:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20250910"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3464,13 +3464,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebSearchTool20260209:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_20260209"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3514,13 +3514,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebFetchTool20260209:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20260209"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3572,13 +3572,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20260309"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3632,13 +3632,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebSearchTool20260318:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_20260318"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3690,13 +3690,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaWebFetchTool20260318:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20260318"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3764,13 +3764,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "advisor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "advisor_20260301"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -3812,7 +3812,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolSearchToolBm25_20251119:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "tool_search_tool_bm25"`
 
             Name of the tool.
 
@@ -3848,7 +3848,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class BetaToolSearchToolRegex20251119:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "tool_search_tool_regex"`
 
             Name of the tool.
 
@@ -3895,7 +3895,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             maxLength: 255, minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "mcp_toolset"`
 
           - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -4053,7 +4053,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -4316,7 +4316,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -4580,7 +4580,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -4841,7 +4841,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -5011,7 +5011,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the Message Batch.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch_deleted"`
 
     Deleted object type.
 
@@ -5280,7 +5280,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "char_location"`
 
               - `class BetaCitationPageLocation:`
 
@@ -5300,7 +5300,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "page_location"`
 
               - `class BetaCitationContentBlockLocation:`
 
@@ -5330,7 +5330,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "content_block_location"`
 
               - `class BetaCitationsWebSearchResultLocation:`
 
@@ -5342,7 +5342,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result_location"`
 
                 - `String url`
 
@@ -5378,13 +5378,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "search_result_location"`
 
             - `String text`
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
           - `class BetaThinkingBlock:`
 
@@ -5400,7 +5400,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "thinking"`
 
           - `class BetaRedactedThinkingBlock:`
 
@@ -5412,7 +5412,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "redacted_thinking"`
 
           - `class BetaToolUseBlock:`
 
@@ -5426,7 +5426,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_use"`
 
             - `Optional<Caller> caller`
 
@@ -5436,7 +5436,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation directly from the model.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "direct"`
 
               - `class BetaServerToolCaller:`
 
@@ -5446,7 +5446,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_20250825"`
 
               - `class BetaServerToolCaller20260120:`
 
@@ -5454,7 +5454,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_20260120"`
 
             - `Optional<String> toolsetName`
 
@@ -5488,7 +5488,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "server_tool_use"`
 
             - `Optional<Caller> caller`
 
@@ -5524,7 +5524,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `REQUEST_TOO_LARGE("request_too_large")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_tool_result_error"`
 
               - `List<BetaWebSearchResultBlock>`
 
@@ -5534,7 +5534,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result"`
 
                 - `String url`
 
@@ -5542,7 +5542,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_tool_result"`
 
             - `Optional<Caller> caller`
 
@@ -5584,7 +5584,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `UNAVAILABLE("unavailable")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_fetch_tool_result_error"`
 
               - `class BetaWebFetchBlock:`
 
@@ -5604,29 +5604,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         format: byte
 
-                      - `JsonValue mediaType constant`
+                      - `JsonValue mediaType = "application/pdf"`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "base64"`
 
                     - `class BetaPlainTextSource:`
 
                       - `String data`
 
-                      - `JsonValue mediaType constant`
+                      - `JsonValue mediaType = "text/plain"`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "text"`
 
                   - `Optional<String> title`
 
                     The title of the document
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "document"`
 
                 - `Optional<String> retrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_fetch_result"`
 
                 - `String url`
 
@@ -5636,7 +5636,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_tool_result"`
 
             - `Optional<Caller> caller`
 
@@ -5674,7 +5674,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `MODEL_NOT_FOUND("model_not_found")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "advisor_tool_result_error"`
 
               - `class BetaAdvisorResultBlock:`
 
@@ -5684,7 +5684,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String text`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "advisor_result"`
 
               - `class BetaAdvisorRedactedResultBlock:`
 
@@ -5696,13 +5696,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `JsonValue type constant`
+                - `JsonValue type = "advisor_redacted_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "advisor_tool_result"`
 
           - `class BetaCodeExecutionToolResultBlock:`
 
@@ -5722,7 +5722,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_tool_result_error"`
 
               - `class BetaCodeExecutionResultBlock:`
 
@@ -5730,7 +5730,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_output"`
 
                 - `long returnCode`
 
@@ -5738,7 +5738,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_result"`
 
               - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -5748,7 +5748,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_output"`
 
                 - `String encryptedStdout`
 
@@ -5756,13 +5756,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stderr`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "encrypted_code_execution_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_tool_result"`
 
           - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -5782,7 +5782,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_tool_result_error"`
 
               - `class BetaBashCodeExecutionResultBlock:`
 
@@ -5790,7 +5790,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_output"`
 
                 - `long returnCode`
 
@@ -5798,13 +5798,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -5826,7 +5826,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
               - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -5846,13 +5846,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> totalLines`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_view_result"`
 
               - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
                 - `boolean isFileUpdate`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_create_result"`
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -5866,13 +5866,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> oldStart`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `class BetaToolSearchToolResultBlock:`
 
@@ -5892,7 +5892,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_search_tool_result_error"`
 
               - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -5902,15 +5902,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_reference"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_search_tool_search_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_result"`
 
           - `class BetaMcpToolUseBlock:`
 
@@ -5928,7 +5928,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-            - `JsonValue type constant`
+            - `JsonValue type = "mcp_tool_use"`
 
           - `class BetaMcpToolResultBlock:`
 
@@ -5948,7 +5948,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 5000000, minLength: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
             - `boolean isError`
 
@@ -5956,7 +5956,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "mcp_tool_result"`
 
           - `class BetaContainerUploadBlock:`
 
@@ -5964,7 +5964,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "container_upload"`
 
           - `class BetaCompactionBlock:`
 
@@ -5982,7 +5982,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-            - `JsonValue type constant`
+            - `JsonValue type = "compaction"`
 
           - `class BetaFallbackBlock:`
 
@@ -6108,9 +6108,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "refusal"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "fallback"`
 
         - `Optional<BetaContextManagementResponse> contextManagement`
 
@@ -6136,7 +6136,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "clear_tool_uses_20250919"`
 
                 The type of context management edit applied.
 
@@ -6154,7 +6154,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "clear_thinking_20251015"`
 
                 The type of context management edit applied.
 
@@ -6173,7 +6173,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "model_changed"`
 
             - `class BetaCacheMissSystemChanged:`
 
@@ -6181,7 +6181,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "system_changed"`
 
             - `class BetaCacheMissToolsChanged:`
 
@@ -6189,7 +6189,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tools_changed"`
 
             - `class BetaCacheMissMessagesChanged:`
 
@@ -6197,15 +6197,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "messages_changed"`
 
             - `class BetaCacheMissPreviousMessageNotFound:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "previous_message_not_found"`
 
             - `class BetaCacheMissUnavailable:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "unavailable"`
 
         - `Model model`
 
@@ -6213,7 +6213,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `JsonValue role constant`
+        - `JsonValue role = "assistant"`
 
           Conversational role of the generated message.
 
@@ -6302,7 +6302,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "refusal"`
 
         - `Optional<BetaStopReason> stopReason`
 
@@ -6342,7 +6342,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This value will be a non-null string if one of your custom stop sequences was generated.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "message"`
 
           Object type.
 
@@ -6406,7 +6406,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "redeemed"`
 
               - `class BetaFallbackCreditNotApplied:`
 
@@ -6443,7 +6443,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `WRONG_WORKSPACE("wrong_workspace")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "not_applied"`
 
                 - `Optional<List<String>> removeToRedeem`
 
@@ -6516,7 +6516,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "message"`
 
                 Usage for a sampling iteration
 
@@ -6552,7 +6552,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "compaction"`
 
                 Usage for a compaction iteration
 
@@ -6594,7 +6594,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "advisor_message"`
 
                 Usage for an advisor sub-inference iteration
 
@@ -6641,7 +6641,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "fallback_message"`
 
                 Usage for the fallback-model attempt that served the response
 
@@ -6755,11 +6755,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "thinking_dropped"`
 
             Always `thinking_dropped` for this entry type.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "succeeded"`
 
     - `class BetaMessageBatchErroredResult:`
 
@@ -6771,69 +6771,69 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "invalid_request_error"`
 
           - `class BetaAuthenticationError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "authentication_error"`
 
           - `class BetaBillingError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "billing_error"`
 
           - `class BetaPermissionError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "permission_error"`
 
           - `class BetaNotFoundError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "not_found_error"`
 
           - `class BetaRateLimitError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "rate_limit_error"`
 
           - `class BetaGatewayTimeoutError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "timeout_error"`
 
           - `class BetaApiError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "api_error"`
 
           - `class BetaOverloadedError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "overloaded_error"`
 
         - `Optional<String> requestId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "error"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "errored"`
 
     - `class BetaMessageBatchCanceledResult:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "canceled"`
 
     - `class BetaMessageBatchExpiredResult:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "expired"`
 
 ### Example
 
@@ -6867,7 +6867,7 @@ public final class Main {
 
     ID of the Message Batch.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch_deleted"`
 
     Deleted object type.
 
@@ -6965,7 +6965,7 @@ public final class Main {
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -6975,7 +6975,7 @@ public final class Main {
 
 - `class BetaMessageBatchCanceledResult:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "canceled"`
 
 ### Beta Message Batch Errored Result
 
@@ -6989,67 +6989,67 @@ public final class Main {
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "invalid_request_error"`
 
       - `class BetaAuthenticationError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "authentication_error"`
 
       - `class BetaBillingError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "billing_error"`
 
       - `class BetaPermissionError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "permission_error"`
 
       - `class BetaNotFoundError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "not_found_error"`
 
       - `class BetaRateLimitError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "rate_limit_error"`
 
       - `class BetaGatewayTimeoutError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "timeout_error"`
 
       - `class BetaApiError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "api_error"`
 
       - `class BetaOverloadedError:`
 
         - `String message`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "overloaded_error"`
 
     - `Optional<String> requestId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "error"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "errored"`
 
 ### Beta Message Batch Expired Result
 
 - `class BetaMessageBatchExpiredResult:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "expired"`
 
 ### Beta Message Batch Individual Response
 
@@ -7172,7 +7172,7 @@ public final class Main {
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "char_location"`
 
               - `class BetaCitationPageLocation:`
 
@@ -7192,7 +7192,7 @@ public final class Main {
 
                   minimum: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "page_location"`
 
               - `class BetaCitationContentBlockLocation:`
 
@@ -7222,7 +7222,7 @@ public final class Main {
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "content_block_location"`
 
               - `class BetaCitationsWebSearchResultLocation:`
 
@@ -7234,7 +7234,7 @@ public final class Main {
 
                   maxLength: 512
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result_location"`
 
                 - `String url`
 
@@ -7270,13 +7270,13 @@ public final class Main {
 
                 - `Optional<String> title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "search_result_location"`
 
             - `String text`
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
           - `class BetaThinkingBlock:`
 
@@ -7292,7 +7292,7 @@ public final class Main {
 
               The text of Claude's thinking process for this block.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "thinking"`
 
           - `class BetaRedactedThinkingBlock:`
 
@@ -7304,7 +7304,7 @@ public final class Main {
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "redacted_thinking"`
 
           - `class BetaToolUseBlock:`
 
@@ -7318,7 +7318,7 @@ public final class Main {
 
               minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_use"`
 
             - `Optional<Caller> caller`
 
@@ -7328,7 +7328,7 @@ public final class Main {
 
                 Tool invocation directly from the model.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "direct"`
 
               - `class BetaServerToolCaller:`
 
@@ -7338,7 +7338,7 @@ public final class Main {
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_20250825"`
 
               - `class BetaServerToolCaller20260120:`
 
@@ -7346,7 +7346,7 @@ public final class Main {
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_20260120"`
 
             - `Optional<String> toolsetName`
 
@@ -7380,7 +7380,7 @@ public final class Main {
 
               - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "server_tool_use"`
 
             - `Optional<Caller> caller`
 
@@ -7416,7 +7416,7 @@ public final class Main {
 
                   - `REQUEST_TOO_LARGE("request_too_large")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_tool_result_error"`
 
               - `List<BetaWebSearchResultBlock>`
 
@@ -7426,7 +7426,7 @@ public final class Main {
 
                 - `String title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result"`
 
                 - `String url`
 
@@ -7434,7 +7434,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_tool_result"`
 
             - `Optional<Caller> caller`
 
@@ -7476,7 +7476,7 @@ public final class Main {
 
                   - `UNAVAILABLE("unavailable")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_fetch_tool_result_error"`
 
               - `class BetaWebFetchBlock:`
 
@@ -7496,29 +7496,29 @@ public final class Main {
 
                         format: byte
 
-                      - `JsonValue mediaType constant`
+                      - `JsonValue mediaType = "application/pdf"`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "base64"`
 
                     - `class BetaPlainTextSource:`
 
                       - `String data`
 
-                      - `JsonValue mediaType constant`
+                      - `JsonValue mediaType = "text/plain"`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "text"`
 
                   - `Optional<String> title`
 
                     The title of the document
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "document"`
 
                 - `Optional<String> retrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_fetch_result"`
 
                 - `String url`
 
@@ -7528,7 +7528,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_tool_result"`
 
             - `Optional<Caller> caller`
 
@@ -7566,7 +7566,7 @@ public final class Main {
 
                   - `MODEL_NOT_FOUND("model_not_found")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "advisor_tool_result_error"`
 
               - `class BetaAdvisorResultBlock:`
 
@@ -7576,7 +7576,7 @@ public final class Main {
 
                 - `String text`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "advisor_result"`
 
               - `class BetaAdvisorRedactedResultBlock:`
 
@@ -7588,13 +7588,13 @@ public final class Main {
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `JsonValue type constant`
+                - `JsonValue type = "advisor_redacted_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "advisor_tool_result"`
 
           - `class BetaCodeExecutionToolResultBlock:`
 
@@ -7614,7 +7614,7 @@ public final class Main {
 
                   - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_tool_result_error"`
 
               - `class BetaCodeExecutionResultBlock:`
 
@@ -7622,7 +7622,7 @@ public final class Main {
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_output"`
 
                 - `long returnCode`
 
@@ -7630,7 +7630,7 @@ public final class Main {
 
                 - `String stdout`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_result"`
 
               - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -7640,7 +7640,7 @@ public final class Main {
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_output"`
 
                 - `String encryptedStdout`
 
@@ -7648,13 +7648,13 @@ public final class Main {
 
                 - `String stderr`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "encrypted_code_execution_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_tool_result"`
 
           - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -7674,7 +7674,7 @@ public final class Main {
 
                   - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_tool_result_error"`
 
               - `class BetaBashCodeExecutionResultBlock:`
 
@@ -7682,7 +7682,7 @@ public final class Main {
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_output"`
 
                 - `long returnCode`
 
@@ -7690,13 +7690,13 @@ public final class Main {
 
                 - `String stdout`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -7718,7 +7718,7 @@ public final class Main {
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
               - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -7738,13 +7738,13 @@ public final class Main {
 
                 - `Optional<Long> totalLines`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_view_result"`
 
               - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
                 - `boolean isFileUpdate`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_create_result"`
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -7758,13 +7758,13 @@ public final class Main {
 
                 - `Optional<Long> oldStart`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `class BetaToolSearchToolResultBlock:`
 
@@ -7784,7 +7784,7 @@ public final class Main {
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_search_tool_result_error"`
 
               - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -7794,15 +7794,15 @@ public final class Main {
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_reference"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_search_tool_search_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_result"`
 
           - `class BetaMcpToolUseBlock:`
 
@@ -7820,7 +7820,7 @@ public final class Main {
 
               The name of the MCP server
 
-            - `JsonValue type constant`
+            - `JsonValue type = "mcp_tool_use"`
 
           - `class BetaMcpToolResultBlock:`
 
@@ -7840,7 +7840,7 @@ public final class Main {
 
                   maxLength: 5000000, minLength: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
             - `boolean isError`
 
@@ -7848,7 +7848,7 @@ public final class Main {
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "mcp_tool_result"`
 
           - `class BetaContainerUploadBlock:`
 
@@ -7856,7 +7856,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "container_upload"`
 
           - `class BetaCompactionBlock:`
 
@@ -7874,7 +7874,7 @@ public final class Main {
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-            - `JsonValue type constant`
+            - `JsonValue type = "compaction"`
 
           - `class BetaFallbackBlock:`
 
@@ -8000,9 +8000,9 @@ public final class Main {
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "refusal"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "fallback"`
 
         - `Optional<BetaContextManagementResponse> contextManagement`
 
@@ -8028,7 +8028,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "clear_tool_uses_20250919"`
 
                 The type of context management edit applied.
 
@@ -8046,7 +8046,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "clear_thinking_20251015"`
 
                 The type of context management edit applied.
 
@@ -8065,7 +8065,7 @@ public final class Main {
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "model_changed"`
 
             - `class BetaCacheMissSystemChanged:`
 
@@ -8073,7 +8073,7 @@ public final class Main {
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "system_changed"`
 
             - `class BetaCacheMissToolsChanged:`
 
@@ -8081,7 +8081,7 @@ public final class Main {
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tools_changed"`
 
             - `class BetaCacheMissMessagesChanged:`
 
@@ -8089,15 +8089,15 @@ public final class Main {
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "messages_changed"`
 
             - `class BetaCacheMissPreviousMessageNotFound:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "previous_message_not_found"`
 
             - `class BetaCacheMissUnavailable:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "unavailable"`
 
         - `Model model`
 
@@ -8105,7 +8105,7 @@ public final class Main {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `JsonValue role constant`
+        - `JsonValue role = "assistant"`
 
           Conversational role of the generated message.
 
@@ -8194,7 +8194,7 @@ public final class Main {
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "refusal"`
 
         - `Optional<BetaStopReason> stopReason`
 
@@ -8234,7 +8234,7 @@ public final class Main {
 
           This value will be a non-null string if one of your custom stop sequences was generated.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "message"`
 
           Object type.
 
@@ -8298,7 +8298,7 @@ public final class Main {
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "redeemed"`
 
               - `class BetaFallbackCreditNotApplied:`
 
@@ -8335,7 +8335,7 @@ public final class Main {
 
                   - `WRONG_WORKSPACE("wrong_workspace")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "not_applied"`
 
                 - `Optional<List<String>> removeToRedeem`
 
@@ -8408,7 +8408,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "message"`
 
                 Usage for a sampling iteration
 
@@ -8444,7 +8444,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "compaction"`
 
                 Usage for a compaction iteration
 
@@ -8486,7 +8486,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "advisor_message"`
 
                 Usage for an advisor sub-inference iteration
 
@@ -8533,7 +8533,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "fallback_message"`
 
                 Usage for the fallback-model attempt that served the response
 
@@ -8647,11 +8647,11 @@ public final class Main {
 
             - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "thinking_dropped"`
 
             Always `thinking_dropped` for this entry type.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "succeeded"`
 
     - `class BetaMessageBatchErroredResult:`
 
@@ -8663,69 +8663,69 @@ public final class Main {
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "invalid_request_error"`
 
           - `class BetaAuthenticationError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "authentication_error"`
 
           - `class BetaBillingError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "billing_error"`
 
           - `class BetaPermissionError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "permission_error"`
 
           - `class BetaNotFoundError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "not_found_error"`
 
           - `class BetaRateLimitError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "rate_limit_error"`
 
           - `class BetaGatewayTimeoutError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "timeout_error"`
 
           - `class BetaApiError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "api_error"`
 
           - `class BetaOverloadedError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "overloaded_error"`
 
         - `Optional<String> requestId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "error"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "errored"`
 
     - `class BetaMessageBatchCanceledResult:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "canceled"`
 
     - `class BetaMessageBatchExpiredResult:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "expired"`
 
 ### Beta Message Batch Request Counts
 
@@ -8870,7 +8870,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "char_location"`
 
             - `class BetaCitationPageLocation:`
 
@@ -8890,7 +8890,7 @@ public final class Main {
 
                 minimum: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "page_location"`
 
             - `class BetaCitationContentBlockLocation:`
 
@@ -8920,7 +8920,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "content_block_location"`
 
             - `class BetaCitationsWebSearchResultLocation:`
 
@@ -8932,7 +8932,7 @@ public final class Main {
 
                 maxLength: 512
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result_location"`
 
               - `String url`
 
@@ -8968,13 +8968,13 @@ public final class Main {
 
               - `Optional<String> title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "search_result_location"`
 
           - `String text`
 
             maxLength: 5000000, minLength: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
         - `class BetaThinkingBlock:`
 
@@ -8990,7 +8990,7 @@ public final class Main {
 
             The text of Claude's thinking process for this block.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "thinking"`
 
         - `class BetaRedactedThinkingBlock:`
 
@@ -9002,7 +9002,7 @@ public final class Main {
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "redacted_thinking"`
 
         - `class BetaToolUseBlock:`
 
@@ -9016,7 +9016,7 @@ public final class Main {
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_use"`
 
           - `Optional<Caller> caller`
 
@@ -9026,7 +9026,7 @@ public final class Main {
 
               Tool invocation directly from the model.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "direct"`
 
             - `class BetaServerToolCaller:`
 
@@ -9036,7 +9036,7 @@ public final class Main {
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20250825"`
 
             - `class BetaServerToolCaller20260120:`
 
@@ -9044,7 +9044,7 @@ public final class Main {
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20260120"`
 
           - `Optional<String> toolsetName`
 
@@ -9078,7 +9078,7 @@ public final class Main {
 
             - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "server_tool_use"`
 
           - `Optional<Caller> caller`
 
@@ -9114,7 +9114,7 @@ public final class Main {
 
                 - `REQUEST_TOO_LARGE("request_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_tool_result_error"`
 
             - `List<BetaWebSearchResultBlock>`
 
@@ -9124,7 +9124,7 @@ public final class Main {
 
               - `String title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result"`
 
               - `String url`
 
@@ -9132,7 +9132,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result"`
 
           - `Optional<Caller> caller`
 
@@ -9174,7 +9174,7 @@ public final class Main {
 
                 - `UNAVAILABLE("unavailable")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_tool_result_error"`
 
             - `class BetaWebFetchBlock:`
 
@@ -9194,29 +9194,29 @@ public final class Main {
 
                       format: byte
 
-                    - `JsonValue mediaType constant`
+                    - `JsonValue mediaType = "application/pdf"`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "base64"`
 
                   - `class BetaPlainTextSource:`
 
                     - `String data`
 
-                    - `JsonValue mediaType constant`
+                    - `JsonValue mediaType = "text/plain"`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "text"`
 
                 - `Optional<String> title`
 
                   The title of the document
 
-                - `JsonValue type constant`
+                - `JsonValue type = "document"`
 
               - `Optional<String> retrievedAt`
 
                 ISO 8601 timestamp when the content was retrieved
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_result"`
 
               - `String url`
 
@@ -9226,7 +9226,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result"`
 
           - `Optional<Caller> caller`
 
@@ -9264,7 +9264,7 @@ public final class Main {
 
                 - `MODEL_NOT_FOUND("model_not_found")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "advisor_tool_result_error"`
 
             - `class BetaAdvisorResultBlock:`
 
@@ -9274,7 +9274,7 @@ public final class Main {
 
               - `String text`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "advisor_result"`
 
             - `class BetaAdvisorRedactedResultBlock:`
 
@@ -9286,13 +9286,13 @@ public final class Main {
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-              - `JsonValue type constant`
+              - `JsonValue type = "advisor_redacted_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "advisor_tool_result"`
 
         - `class BetaCodeExecutionToolResultBlock:`
 
@@ -9312,7 +9312,7 @@ public final class Main {
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_tool_result_error"`
 
             - `class BetaCodeExecutionResultBlock:`
 
@@ -9320,7 +9320,7 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `long returnCode`
 
@@ -9328,7 +9328,7 @@ public final class Main {
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_result"`
 
             - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -9338,7 +9338,7 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `String encryptedStdout`
 
@@ -9346,13 +9346,13 @@ public final class Main {
 
               - `String stderr`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "encrypted_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result"`
 
         - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -9372,7 +9372,7 @@ public final class Main {
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_tool_result_error"`
 
             - `class BetaBashCodeExecutionResultBlock:`
 
@@ -9380,7 +9380,7 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_output"`
 
               - `long returnCode`
 
@@ -9388,13 +9388,13 @@ public final class Main {
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result"`
 
         - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -9416,7 +9416,7 @@ public final class Main {
 
               - `Optional<String> errorMessage`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
             - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -9436,13 +9436,13 @@ public final class Main {
 
               - `Optional<Long> totalLines`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_view_result"`
 
             - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
               - `boolean isFileUpdate`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_create_result"`
 
             - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -9456,13 +9456,13 @@ public final class Main {
 
               - `Optional<Long> oldStart`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result"`
 
         - `class BetaToolSearchToolResultBlock:`
 
@@ -9482,7 +9482,7 @@ public final class Main {
 
               - `Optional<String> errorMessage`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_result_error"`
 
             - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -9492,15 +9492,15 @@ public final class Main {
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_reference"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_search_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result"`
 
         - `class BetaMcpToolUseBlock:`
 
@@ -9518,7 +9518,7 @@ public final class Main {
 
             The name of the MCP server
 
-          - `JsonValue type constant`
+          - `JsonValue type = "mcp_tool_use"`
 
         - `class BetaMcpToolResultBlock:`
 
@@ -9538,7 +9538,7 @@ public final class Main {
 
                 maxLength: 5000000, minLength: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
           - `boolean isError`
 
@@ -9546,7 +9546,7 @@ public final class Main {
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "mcp_tool_result"`
 
         - `class BetaContainerUploadBlock:`
 
@@ -9554,7 +9554,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "container_upload"`
 
         - `class BetaCompactionBlock:`
 
@@ -9572,7 +9572,7 @@ public final class Main {
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-          - `JsonValue type constant`
+          - `JsonValue type = "compaction"`
 
         - `class BetaFallbackBlock:`
 
@@ -9698,9 +9698,9 @@ public final class Main {
 
                 The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "refusal"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "fallback"`
 
       - `Optional<BetaContextManagementResponse> contextManagement`
 
@@ -9726,7 +9726,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "clear_tool_uses_20250919"`
 
               The type of context management edit applied.
 
@@ -9744,7 +9744,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "clear_thinking_20251015"`
 
               The type of context management edit applied.
 
@@ -9763,7 +9763,7 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "model_changed"`
 
           - `class BetaCacheMissSystemChanged:`
 
@@ -9771,7 +9771,7 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "system_changed"`
 
           - `class BetaCacheMissToolsChanged:`
 
@@ -9779,7 +9779,7 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tools_changed"`
 
           - `class BetaCacheMissMessagesChanged:`
 
@@ -9787,15 +9787,15 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "messages_changed"`
 
           - `class BetaCacheMissPreviousMessageNotFound:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "previous_message_not_found"`
 
           - `class BetaCacheMissUnavailable:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "unavailable"`
 
       - `Model model`
 
@@ -9803,7 +9803,7 @@ public final class Main {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `JsonValue role constant`
+      - `JsonValue role = "assistant"`
 
         Conversational role of the generated message.
 
@@ -9892,7 +9892,7 @@ public final class Main {
 
           The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "refusal"`
 
       - `Optional<BetaStopReason> stopReason`
 
@@ -9932,7 +9932,7 @@ public final class Main {
 
         This value will be a non-null string if one of your custom stop sequences was generated.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "message"`
 
         Object type.
 
@@ -9996,7 +9996,7 @@ public final class Main {
               The reprice was applied: the retry is billed as if the conversation
               had been on the retry model all along.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "redeemed"`
 
             - `class BetaFallbackCreditNotApplied:`
 
@@ -10033,7 +10033,7 @@ public final class Main {
 
                 - `WRONG_WORKSPACE("wrong_workspace")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "not_applied"`
 
               - `Optional<List<String>> removeToRedeem`
 
@@ -10106,7 +10106,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "message"`
 
               Usage for a sampling iteration
 
@@ -10142,7 +10142,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "compaction"`
 
               Usage for a compaction iteration
 
@@ -10184,7 +10184,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "advisor_message"`
 
               Usage for an advisor sub-inference iteration
 
@@ -10231,7 +10231,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "fallback_message"`
 
               Usage for the fallback-model attempt that served the response
 
@@ -10345,11 +10345,11 @@ public final class Main {
 
           - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "thinking_dropped"`
 
           Always `thinking_dropped` for this entry type.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "succeeded"`
 
   - `class BetaMessageBatchErroredResult:`
 
@@ -10361,69 +10361,69 @@ public final class Main {
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "invalid_request_error"`
 
         - `class BetaAuthenticationError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "authentication_error"`
 
         - `class BetaBillingError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "billing_error"`
 
         - `class BetaPermissionError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "permission_error"`
 
         - `class BetaNotFoundError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "not_found_error"`
 
         - `class BetaRateLimitError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "rate_limit_error"`
 
         - `class BetaGatewayTimeoutError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "timeout_error"`
 
         - `class BetaApiError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "api_error"`
 
         - `class BetaOverloadedError:`
 
           - `String message`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "overloaded_error"`
 
       - `Optional<String> requestId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "error"`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "errored"`
 
   - `class BetaMessageBatchCanceledResult:`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "canceled"`
 
   - `class BetaMessageBatchExpiredResult:`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "expired"`
 
 ### Beta Message Batch Succeeded Result
 
@@ -10530,7 +10530,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "char_location"`
 
           - `class BetaCitationPageLocation:`
 
@@ -10550,7 +10550,7 @@ public final class Main {
 
               minimum: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "page_location"`
 
           - `class BetaCitationContentBlockLocation:`
 
@@ -10580,7 +10580,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content_block_location"`
 
           - `class BetaCitationsWebSearchResultLocation:`
 
@@ -10592,7 +10592,7 @@ public final class Main {
 
               maxLength: 512
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result_location"`
 
             - `String url`
 
@@ -10628,13 +10628,13 @@ public final class Main {
 
             - `Optional<String> title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "search_result_location"`
 
         - `String text`
 
           maxLength: 5000000, minLength: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
       - `class BetaThinkingBlock:`
 
@@ -10650,7 +10650,7 @@ public final class Main {
 
           The text of Claude's thinking process for this block.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "thinking"`
 
       - `class BetaRedactedThinkingBlock:`
 
@@ -10662,7 +10662,7 @@ public final class Main {
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "redacted_thinking"`
 
       - `class BetaToolUseBlock:`
 
@@ -10676,7 +10676,7 @@ public final class Main {
 
           minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_use"`
 
         - `Optional<Caller> caller`
 
@@ -10686,7 +10686,7 @@ public final class Main {
 
             Tool invocation directly from the model.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "direct"`
 
           - `class BetaServerToolCaller:`
 
@@ -10696,7 +10696,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_20250825"`
 
           - `class BetaServerToolCaller20260120:`
 
@@ -10704,7 +10704,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_20260120"`
 
         - `Optional<String> toolsetName`
 
@@ -10738,7 +10738,7 @@ public final class Main {
 
           - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "server_tool_use"`
 
         - `Optional<Caller> caller`
 
@@ -10774,7 +10774,7 @@ public final class Main {
 
               - `REQUEST_TOO_LARGE("request_too_large")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_tool_result_error"`
 
           - `List<BetaWebSearchResultBlock>`
 
@@ -10784,7 +10784,7 @@ public final class Main {
 
             - `String title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result"`
 
             - `String url`
 
@@ -10792,7 +10792,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_tool_result"`
 
         - `Optional<Caller> caller`
 
@@ -10834,7 +10834,7 @@ public final class Main {
 
               - `UNAVAILABLE("unavailable")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_tool_result_error"`
 
           - `class BetaWebFetchBlock:`
 
@@ -10854,29 +10854,29 @@ public final class Main {
 
                     format: byte
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "application/pdf"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class BetaPlainTextSource:`
 
                   - `String data`
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "text/plain"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text"`
 
               - `Optional<String> title`
 
                 The title of the document
 
-              - `JsonValue type constant`
+              - `JsonValue type = "document"`
 
             - `Optional<String> retrievedAt`
 
               ISO 8601 timestamp when the content was retrieved
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_result"`
 
             - `String url`
 
@@ -10886,7 +10886,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_tool_result"`
 
         - `Optional<Caller> caller`
 
@@ -10924,7 +10924,7 @@ public final class Main {
 
               - `MODEL_NOT_FOUND("model_not_found")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "advisor_tool_result_error"`
 
           - `class BetaAdvisorResultBlock:`
 
@@ -10934,7 +10934,7 @@ public final class Main {
 
             - `String text`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "advisor_result"`
 
           - `class BetaAdvisorRedactedResultBlock:`
 
@@ -10946,13 +10946,13 @@ public final class Main {
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-            - `JsonValue type constant`
+            - `JsonValue type = "advisor_redacted_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "advisor_tool_result"`
 
       - `class BetaCodeExecutionToolResultBlock:`
 
@@ -10972,7 +10972,7 @@ public final class Main {
 
               - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_tool_result_error"`
 
           - `class BetaCodeExecutionResultBlock:`
 
@@ -10980,7 +10980,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_output"`
 
             - `long returnCode`
 
@@ -10988,7 +10988,7 @@ public final class Main {
 
             - `String stdout`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_result"`
 
           - `class BetaEncryptedCodeExecutionResultBlock:`
 
@@ -10998,7 +10998,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_output"`
 
             - `String encryptedStdout`
 
@@ -11006,13 +11006,13 @@ public final class Main {
 
             - `String stderr`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "encrypted_code_execution_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_tool_result"`
 
       - `class BetaBashCodeExecutionToolResultBlock:`
 
@@ -11032,7 +11032,7 @@ public final class Main {
 
               - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_tool_result_error"`
 
           - `class BetaBashCodeExecutionResultBlock:`
 
@@ -11040,7 +11040,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_output"`
 
             - `long returnCode`
 
@@ -11048,13 +11048,13 @@ public final class Main {
 
             - `String stdout`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_tool_result"`
 
       - `class BetaTextEditorCodeExecutionToolResultBlock:`
 
@@ -11076,7 +11076,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
           - `class BetaTextEditorCodeExecutionViewResultBlock:`
 
@@ -11096,13 +11096,13 @@ public final class Main {
 
             - `Optional<Long> totalLines`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_view_result"`
 
           - `class BetaTextEditorCodeExecutionCreateResultBlock:`
 
             - `boolean isFileUpdate`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_create_result"`
 
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -11116,13 +11116,13 @@ public final class Main {
 
             - `Optional<Long> oldStart`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_tool_result"`
 
       - `class BetaToolSearchToolResultBlock:`
 
@@ -11142,7 +11142,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_result_error"`
 
           - `class BetaToolSearchToolSearchResultBlock:`
 
@@ -11152,15 +11152,15 @@ public final class Main {
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_reference"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_search_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_result"`
 
       - `class BetaMcpToolUseBlock:`
 
@@ -11178,7 +11178,7 @@ public final class Main {
 
           The name of the MCP server
 
-        - `JsonValue type constant`
+        - `JsonValue type = "mcp_tool_use"`
 
       - `class BetaMcpToolResultBlock:`
 
@@ -11198,7 +11198,7 @@ public final class Main {
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
         - `boolean isError`
 
@@ -11206,7 +11206,7 @@ public final class Main {
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "mcp_tool_result"`
 
       - `class BetaContainerUploadBlock:`
 
@@ -11214,7 +11214,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "container_upload"`
 
       - `class BetaCompactionBlock:`
 
@@ -11232,7 +11232,7 @@ public final class Main {
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `JsonValue type constant`
+        - `JsonValue type = "compaction"`
 
       - `class BetaFallbackBlock:`
 
@@ -11358,9 +11358,9 @@ public final class Main {
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "refusal"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "fallback"`
 
     - `Optional<BetaContextManagementResponse> contextManagement`
 
@@ -11386,7 +11386,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "clear_tool_uses_20250919"`
 
             The type of context management edit applied.
 
@@ -11404,7 +11404,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "clear_thinking_20251015"`
 
             The type of context management edit applied.
 
@@ -11423,7 +11423,7 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "model_changed"`
 
         - `class BetaCacheMissSystemChanged:`
 
@@ -11431,7 +11431,7 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "system_changed"`
 
         - `class BetaCacheMissToolsChanged:`
 
@@ -11439,7 +11439,7 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tools_changed"`
 
         - `class BetaCacheMissMessagesChanged:`
 
@@ -11447,15 +11447,15 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "messages_changed"`
 
         - `class BetaCacheMissPreviousMessageNotFound:`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "previous_message_not_found"`
 
         - `class BetaCacheMissUnavailable:`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "unavailable"`
 
     - `Model model`
 
@@ -11463,7 +11463,7 @@ public final class Main {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `JsonValue role constant`
+    - `JsonValue role = "assistant"`
 
       Conversational role of the generated message.
 
@@ -11552,7 +11552,7 @@ public final class Main {
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "refusal"`
 
     - `Optional<BetaStopReason> stopReason`
 
@@ -11592,7 +11592,7 @@ public final class Main {
 
       This value will be a non-null string if one of your custom stop sequences was generated.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message"`
 
       Object type.
 
@@ -11656,7 +11656,7 @@ public final class Main {
             The reprice was applied: the retry is billed as if the conversation
             had been on the retry model all along.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "redeemed"`
 
           - `class BetaFallbackCreditNotApplied:`
 
@@ -11693,7 +11693,7 @@ public final class Main {
 
               - `WRONG_WORKSPACE("wrong_workspace")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "not_applied"`
 
             - `Optional<List<String>> removeToRedeem`
 
@@ -11766,7 +11766,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "message"`
 
             Usage for a sampling iteration
 
@@ -11802,7 +11802,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "compaction"`
 
             Usage for a compaction iteration
 
@@ -11844,7 +11844,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "advisor_message"`
 
             Usage for an advisor sub-inference iteration
 
@@ -11891,7 +11891,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "fallback_message"`
 
             Usage for the fallback-model attempt that served the response
 
@@ -12005,8 +12005,8 @@ public final class Main {
 
         - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "thinking_dropped"`
 
         Always `thinking_dropped` for this entry type.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "succeeded"`
