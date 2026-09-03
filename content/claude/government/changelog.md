@@ -6,6 +6,13 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.02.1">
+  * Fixed the Sessions page under Account showing every app sign-in as "Desktop app": each sign-in now names its app, or reads "Claude app" when the app is not known.
+  * (breaking) Changed the "Telemetry endpoint" setting under Config > Compliance and telemetry to refuse an address products can't use, such as one with a password or a `?` query; an address you already saved is checked only when you next change the setting.
+  * (breaking) Changed the "Telemetry resource attributes" setting under Config > Compliance and telemetry to refuse a value longer than 255 bytes, where a space or an accented letter counts as three or more bytes; values you already saved are checked only when you next change the setting.
+  * (breaking) Changed the "Advanced file analysis in Chat" setting under Config > Product availability to apply only on Claude Desktop 1.14271.0 or later; on 1.13576.0, the only earlier version with this feature, it is off until the app is updated.
+</Update>
+
 <Update label="2026.08.28.1">
   * Improved screen reader and keyboard support in the Admin Console: actions such as revoking a key or saving seats now announce their result, and keyboard focus returns to the control you used instead of being lost.
   * Changed the main button on the sign-in pages to a dark button with a white label so it is easier to read; the page an emailed sign-in link opens now announces its result to screen readers.
