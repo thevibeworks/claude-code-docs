@@ -7,7 +7,7 @@
 > Fix MCP tunnel problems: cloudflared won't connect, connector added but tools don't appear, no route for host, IP validation failed, TLS handshake failed, expired certificate, OAuth sign-in redirects to a tunnel.anthropic.com URL, token exchange fails, and setup or Helm hook errors.
 
 <Note>
-  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, contact your Anthropic account team.
+  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
 </Note>
 
 A request through an [MCP tunnel](/docs/connectors/mcp-tunnels/overview) can fail at three points, and it helps to check them in order. First the outbound connection from cloudflared to the tunnel edge, then the inner TLS handshake between Anthropic and your proxy, then the proxy's routing to your MCP server. The cloudflared and proxy logs on your side show which point a request reached. If the proxy logs nothing at all for a request, it never arrived in your network.

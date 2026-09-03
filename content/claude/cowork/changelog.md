@@ -6,7 +6,7 @@
 
 > Release notes for Claude Desktop
 
-<Update label="v1.44121.4" description="2026-09-03">
+<Update label="v1.44121.4" description="2026-09-02">
   **General**
 
   * No user-facing changes.
