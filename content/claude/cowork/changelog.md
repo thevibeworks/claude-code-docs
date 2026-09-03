@@ -6,6 +6,99 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.44121.4" description="2026-09-03">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * Added support in Chat for skills from organization-provided plugins, and Chat-only users can now see and manage those plugins under Customize, matching Cowork and Code.
+  * Fixed advanced file analysis in Chat failing with "Workspace unavailable" for users whose organization enables `chatAdvancedFileAnalysisEnabled` but turns Cowork off with `coworkTabEnabled: false`.
+  * Fixed managed OAuth connectors showing a connection error instead of prompting to sign in when the app starts without a usable sign-in (expired with no refresh token, or never signed in on this machine), including servers added by URL alone, where Connect could fail instead of opening the sign-in page.
+  * Fixed organization-configured URL plugin marketplaces failing to install or load plugins with "marketplace entry path does not stay inside the marketplace directory".
+</Update>
+
+<Update label="v1.44121.2" description="2026-09-02">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * Fixed sessions on Windows being unable to run commands or fetch web pages. This reverts the 1.44121.1 fix for sessions failing to start on Windows for accounts with many saved artifacts, scheduled tasks, or connected folders.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
+<Update label="v1.44121.1" description="2026-09-02">
+  **General**
+
+  * Added Claude to the "Open with" menu for common work files, including spreadsheets, PDFs, Word and PowerPoint documents, text files, and images, on macOS and on Windows (Microsoft Store and MSIX installs).
+  * Fixed a crash at launch when the app's settings file couldn't be read.
+  * Fixed a new chat's first message being dropped when you had to sign in again or verify this device; the chat now asks for that step in a dialog over your message.
+  * Fixed an issue where an invalid settings file could cause all app settings to be reset.
+  * Fixed Claude not finding files attached in Cowork and Chat, including pasted files and a re-attached file with the same name; attachments that can't be read now say so instead of being dropped silently.
+  * Fixed scheduled tasks failing with an error after a permission approval.
+  * Fixed the app reloading endlessly when it keeps crashing right after loading; it now stops and shows what to do next.
+
+  **Code**
+
+  * Added a Split View submenu to the View menu for opening a new session beside or below the current one, and side panes (diff, terminal, plan, preview, and others) can now open in a window of their own.
+  * Added Claude Code output styles: an "Output style" submenu in the session menu and a `/output-style` command for viewing and switching styles, a "New style…" option that drafts a custom style from a plain-language description, and a default style setting in Settings › Claude Code.
+  * Changed the Files pane to open files as tabs beside a collapsible file tree, with single-click preview tabs, multi-select, richer right-click menus, and inline previews for PDF, Word, Excel, and PowerPoint files.
+  * Fixed `/rewind` appearing undone when returning to a session after navigating away, which could also cause the next message to silently drop recent conversation history.
+  * Fixed Code sessions repeatedly failing to start after a corrupt Claude Code download on macOS, failing to start on Linux arm64, and SSH and WSL session setup failing on slow connections; the one-time install now shows progress and can fall back to uploading Claude Code from your computer.
+  * Fixed sessions failing to start on macOS 12 (Monterey).
+  * Fixed sessions getting stuck on "responding" when a message was queued near the end of a turn.
+
+  **Cowork**
+
+  * Changed live artifact sharing to follow your organization's Artifacts setting and sharing policies: members no longer see sharing options their organization has turned off, and already-shared artifacts keep Copy link and Unshare.
+  * Changed updating a skill from a file card or skill proposal to apply in one step with an Undo toast instead of a confirmation dialog; where a confirmation still appears, its Update button is the pre-selected action.
+  * Changed what happens when web fetch isn't available for your organization: Claude now says so instead of retrying and reporting failed fetches.
+  * Fixed a crash when previewing an image file that is empty or actually contains text.
+  * Fixed a message with an attachment that couldn't be read or was too large failing to send over and over with no explanation; Claude now marks the attachment with the problem, says what to do, and offers Retry where it can help.
+  * Fixed sessions failing to start on Windows for accounts with many saved artifacts, scheduled tasks, or connected folders.
+  * Fixed sessions that run Claude Code directly on the device failing to start for organizations that set `disableSideloadFlags` in Claude Code's managed settings (`managed-settings.json`, an MDM profile, or the registry); in those sessions Claude Code loads none of the desktop's plugins, so their commands, agents, and hooks are unavailable.
+  * Fixed the session page reloading after you connect a connector that signs in through the browser.
+
+  **3P**
+
+  * Added `claudeAiImport.automatic3pImport` (beta): when `true` and `deploymentOrganizationUuid` is set, the app copies this computer's earlier third-party sessions stored before an organization ID was configured into that organization's session store, once per device and in the background, independently of `claudeAiImport.enabled`; a copy interrupted when the app quits resumes on the next launch.
+  * Added `egressProxyUrl` and `egressProxyPacUrl`: route the app's and the agent's traffic through a corporate HTTP proxy, or let a PAC file choose the proxy per request, instead of following the operating system's proxy settings; on macOS and Windows, Cowork's workspace follows the pinned proxy too. Both keys are read from device management or the local configuration file only, and the PAC file wins when both are set.
+  * Added `inferenceStreamIdleTimeoutSec`: how many extra seconds (300 to 1800, default 300) Chat, Cowork, and Code sessions wait for model output on a streaming response that is sending only keep-alive pings, for gateways that send keep-alives while the upstream model is silent. Gateway provider only.
+  * Added a Duplicates step to the import wizard when an imported Project has the same name as one you already have, with the option to merge the imported sessions into your Project and remove the duplicate; the Projects page offers the same merge.
+  * Added conversation titles to the OpenTelemetry export: a `desktop_session_title_set` event carries each Cowork and Code session's title plus the Claude Code session ID to join on, sent when `otlpDesktopLogLevel` is `info` or lower; the title text is included only when `otlpContentCapture` includes `userPrompts`.
+  * Added installing and updating plugins from admin-configured marketplaces on devices where Cowork isn't available, from the Code tab or the Cowork tab.
+  * Added local scheduled tasks to the Code tab, including the `/schedule` command and the Scheduled page, matching what Cowork already offered.
+  * Added the ability to attach files in SSH Code sessions.
+  * (breaking) Changed the Usage page cost estimate to require `inferenceModelPricingEnabled`; `inferenceModelPricingMultiplier` and `inferenceModelPricing` now refine the estimate only while it is on and no longer turn it on by themselves.
+  * Changed `HTTPS_PROXY`, `HTTP_PROXY`, and `NO_PROXY` set in the `env` block of Claude Code's managed settings (`managed-settings.json` or your organization's server-managed Claude Code settings) to apply to Chat, Cowork, and Code sessions even when the computer has a system proxy configured.
+  * Changed `isClaudeCodeForDesktopEnabled`: when it is `false`, the app no longer starts Code sessions even if asked directly, Preview no longer scans projects for a dev server, and the computer is no longer offered for Remote Control; a Code session requested anyway shows "Code sessions are turned off by your organization" instead of a retry prompt.
+  * Fixed Bedrock and Bedrock Mantle sessions being cut off by network idle timeouts during long thinking phases on Opus 4.7 and later models.
+  * Fixed Code tab sessions not prompting to re-authenticate when the deployment's credentials had expired; they now show the same sign-in prompt as Cowork. Also fixed Live Artifact `askClaude()` calls and the Code tab's "Detect dev server" failing on deployments that use SSO, credential helpers, Vertex, or Bedrock SSO.
+  * Fixed managed MCP connector sign-in staying permanently stuck when the identity provider no longer recognizes the OAuth client the app registered; the app now registers a new client automatically.
+  * Fixed MCP servers provided by plugins not connecting in Code and Cowork sessions when `managedMcpServers` is configured; in that case, with `isLocalDevMcpEnabled` set to `false`, plugins' remote MCP servers connect and their local (stdio) ones stay blocked.
+  * Fixed plugins distributed as a zip whose top level is a single component folder (for example `skills/` or `commands/`) installing with no skills, commands, or agents.
+  * Fixed the `allowedWorkspaceFolders` policy not always being applied to Code sessions over SSH.
+  * Fixed the Code tab home's usage stats reporting a favorite model, per-model breakdown, and activity from other Claude Code history on the same machine instead of this deployment's own sessions.
+</Update>
+
 <Update label="v1.40609.1" description="2026-08-30">
   **General**
 

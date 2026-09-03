@@ -66,7 +66,7 @@ Claude Desktop's own traffic is HTTPS on port 443, and you can allowlist it by h
 * **`www.claudeusercontent.com`.** This host serves the frame that displays artifact previews.
 * **Update hosts.** While [automatic updates](/docs/government/deploy-desktop/configure#automatic-updates) are on, also allow the hosts listed under Auto-updates in [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths). The telemetry rows there never apply, because Claude for Government does not send telemetry to Anthropic.
 * **Hosts your tools and connectors use.** Allow the hosts you add to [Allowed network hosts](/docs/government/config/settings#allowed-network-hosts) (such as package registries), the addresses of any connectors you configure on the Config page (including Microsoft 365 if you set up that connector), and your telemetry collector if you set one.
-* **Proxies.** The app and the Cowork workspace follow the operating system's proxy settings, including PAC files, as described under [Proxy support](/docs/third-party/claude-desktop/telemetry#proxy-support). If your proxy inspects TLS, validate sign-in, a chat, and a Cowork task on a pilot device before rollout.
+* **Proxies.** The app and the Cowork workspace follow the operating system's proxy settings, including PAC files, as described under [Network proxy](/docs/third-party/claude-desktop/network-proxy). If your proxy inspects TLS, validate sign-in, a chat, and a Cowork task on a pilot device before rollout.
 
 ## User accounts and seats
 

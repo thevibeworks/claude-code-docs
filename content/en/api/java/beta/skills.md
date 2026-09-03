@@ -172,7 +172,7 @@ Create Skill
 
       - `PLUGIN("plugin")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill"`
 
     Object type.
 
@@ -408,7 +408,7 @@ List Skills
 
       - `PLUGIN("plugin")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill"`
 
     Object type.
 
@@ -628,7 +628,7 @@ Get Skill
 
       - `PLUGIN("plugin")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill"`
 
     Object type.
 
@@ -797,7 +797,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_deleted"`
 
     Deleted object type.
 
@@ -845,7 +845,7 @@ public final class Main {
 
     The format and length of IDs may change over time.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_deleted"`
 
     Deleted object type.
 
@@ -907,7 +907,7 @@ public final class Main {
 
       - `PLUGIN("plugin")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill"`
 
     Object type.
 
@@ -1094,7 +1094,7 @@ Create Skill Version
 
     The format and length of IDs may change over time.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_version"`
 
     Object type.
 
@@ -1295,7 +1295,7 @@ List Skill Versions
 
     The format and length of IDs may change over time.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_version"`
 
     Object type.
 
@@ -1631,7 +1631,7 @@ Get Skill Version
 
     The format and length of IDs may change over time.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_version"`
 
     Object type.
 
@@ -1800,7 +1800,7 @@ Delete Skill Version
     Unique identifier for this Skill Version. The id addresses the version in
     paths and pins it in references.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "skill_version_deleted"`
 
     Deleted object type.
 

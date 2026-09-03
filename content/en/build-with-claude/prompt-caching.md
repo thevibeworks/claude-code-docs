@@ -867,7 +867,7 @@ When mixing TTLs, the API determines three billing locations in your prompt:
 3. Position `C`: The token count at the last `cache_control` block.
 
 <Note>
-  If `B` and/or `C` are larger than `A`, they will necessarily be cache misses, because `A` is the highest cache hit.
+  If `B` or `C` is larger than `A`, it is necessarily a cache miss, because `A` is the highest cache hit.
 </Note>
 
 You'll be charged for:

@@ -27,7 +27,7 @@ Members and invites are the same endpoints for both organization types; this pag
 <Check>
   **Scoped Admin API key required**
 
-  These endpoints require an Admin API key with the `read:members` scope (member and invite `GET` endpoints, and all custom-role endpoints; there is no separate role scope), the `write:members` scope (member and invite `POST` and `DELETE` endpoints), the `read:rbac_groups` scope (group `GET` endpoints), or the `write:rbac_groups` scope (group `POST` and `DELETE` endpoints). A key carrying the `read:org_audit` scope (a read-only scope for security-audit integrations) can also call every `GET` endpoint on this page and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) read endpoints. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) for where your primary owner creates one and which scopes to select. Pass the key in the `x-api-key` header on every request. Member and invite requests also require the `anthropic-version: 2023-06-01` header, as shown in the examples; group and custom-role requests do not.
+  These endpoints require an Admin API key with the `read:members` scope (member and invite `GET` endpoints, and all custom-role endpoints; there is no separate role scope), the `write:members` scope (member and invite `POST` and `DELETE` endpoints), the `read:rbac_groups` scope (group `GET` endpoints), or the `write:rbac_groups` scope (group `POST` and `DELETE` endpoints). A key carrying the `read:org_audit` scope (a read-only scope for security-audit integrations) can also call every `GET` endpoint on this page and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) read endpoints. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) for where your primary owner creates one and which scopes to select. Pass the key in the `x-api-key` header on every request, together with the [`anthropic-version`](https://platform.claude.com/docs/en/api/versioning) header.
 </Check>
 
 ## Overview
@@ -97,6 +97,10 @@ If your organization's plan draws members from a finite pool of purchased seats,
 ### Groups and roles
 
 Groups connect members to custom roles (role-based access control, the `rbac` in the endpoint paths and scope names). Groups are owned by your enterprise as a whole (the parent organization together with every organization under it) rather than by a single organization, so the group scopes (`read:rbac_groups` and `write:rbac_groups`) require a key created for all linked organizations. Each group carries a `source_type`: `direct` for groups created in claude.ai, `scim` for groups provisioned by your identity provider. A group's `roles` field lists the IDs of the custom roles attached to it; resolve them to names and permissions with the [custom role endpoints](https://platform.claude.com/docs/en/manage-claude/user-management#custom-roles), noting that the role catalog is per-organization while groups are enterprise-wide, so fetching a role that belongs to a different organization of your enterprise returns 404 for your key. The field is `null` (rather than `[]`) when role data was temporarily unavailable, so retry to distinguish a degraded read from a group with no roles.
+
+## Versioning
+
+Send the `anthropic-version` header on every request; see [API versions](https://platform.claude.com/docs/en/api/versioning) for the available versions.
 
 ## Rate limits
 
@@ -245,7 +249,7 @@ curl -X DELETE "https://api.anthropic.com/v1/organizations/invites/invite_01QrSt
 
 ## Groups
 
-Groups your enterprise creates directly, in [claude.ai organization settings](https://claude.ai/admin-settings) or through this API (`source_type: "direct"`), support every endpoint in this section. Groups provisioned by your identity provider (`source_type: "scim"`) can be read but not modified: renaming or deleting a SCIM group, or changing its membership, returns 400, because your identity provider owns it. Unlike member and invite requests, group requests do not require the `anthropic-version` header.
+Groups your enterprise creates directly, in [claude.ai organization settings](https://claude.ai/admin-settings) or through this API (`source_type: "direct"`), support every endpoint in this section. Groups provisioned by your identity provider (`source_type: "scim"`) can be read but not modified: renaming or deleting a SCIM group, or changing its membership, returns 400, because your identity provider owns it.
 
 ### List groups
 
@@ -255,7 +259,8 @@ For complete parameter details and response schemas, see [List groups](https://p
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json
@@ -284,7 +289,8 @@ For complete parameter details and response schemas, see [Get group](https://pla
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ### Create a group
@@ -297,6 +303,7 @@ For complete parameter details and response schemas, see [Create group](https://
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
   -H "content-type: application/json" \
   -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   -d '{"name": "Engineering"}'
 ```
 
@@ -322,6 +329,7 @@ For complete parameter details and response schemas, see [Update group](https://
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
   -H "content-type: application/json" \
   -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   -d '{"name": "Platform Engineering"}'
 ```
 
@@ -333,7 +341,8 @@ For complete parameter details and response schemas, see [Delete group](https://
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json
@@ -351,7 +360,8 @@ For complete parameter details and response schemas, see [List group members](ht
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members?limit=100" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json
@@ -380,6 +390,7 @@ For complete parameter details and response schemas, see [Add group member](http
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members" \
   -H "content-type: application/json" \
   -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   -d '{"user_id": "user_01AbCdEfGhIjKlMnOpQrSt"}'
 ```
 
@@ -401,7 +412,8 @@ For complete parameter details and response schemas, see [Remove group member](h
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members/user_01AbCdEfGhIjKlMnOpQrSt" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json
@@ -424,7 +436,8 @@ For complete parameter details and response schemas, see [List roles](https://pl
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json
@@ -451,7 +464,8 @@ For complete parameter details and response schemas, see [Get role](https://plat
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ### List a role's permissions
@@ -464,7 +478,8 @@ For complete parameter details and response schemas, see [List role permissions]
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv/permissions?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json

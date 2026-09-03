@@ -178,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1788362100&amp;signature=2d8932d551e04278f625340e207b046460b597ba6fd1c28934dda68cab924e42&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6tDvMFOx8iWjaktE940NwEhKjouFcjjVyKD6%0Aee4cboMxsi1JziN%2B%2BgY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1788544800&amp;signature=f26d0d070a7842559b307b6319c8256dd0abf3340299c1c5c1af1dc26ecfc6e5&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD1LPYb1mMqW%2FkK1eJsZ5KLabs9WMufnnj%0Ak9pgAMc9IlwDCaXhc%2BjEIHiF3Gs%3D%0A)
 
 ### Folder instructions
 
@@ -282,9 +282,9 @@ For more detailed examples, see our **[use cases](https://claude.com/resources/u
 
 Some Cowork capabilities are not yet available:
 
-- **No session sharing:** Sessions can't be shared with others. On Team and Enterprise plans, you can share live artifacts within your organization. Learn more about **[using live artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
+- **No session sharing:** Sessions can't be shared with others, but you can share individual artifacts you create during a session. Learn more about **[using artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
 
-- **Some features are desktop-only:** Live artifacts and plugins that include local MCP servers work through the desktop app only.
+- **Some features are desktop-only:** Live artifacts created before August 19, 2026 and plugins that include local MCP servers work through the desktop app only.
 
 We're iterating on Cowork based on feedback. To share feedback on Free, Pro, and Max plans, use the feedback button in the app. If you're on a Team or Enterprise plan, you won't see a feedback button in the app, so you should contact your organization admin or your Anthropic Contact if you have suggestions.
 

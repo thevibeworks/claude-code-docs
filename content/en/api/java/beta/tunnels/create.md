@@ -140,7 +140,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tunnel"`
 
 ## Example
 

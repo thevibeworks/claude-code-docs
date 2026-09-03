@@ -45,7 +45,7 @@ If you're unsure which model to use, start with [Claude Opus 5](https://platform
 | [Claude Platform on AWS ID](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) | `claude-fable-5-1`                                                                | —                                                                           | `claude-sonnet-5`                                                               | `claude-haiku-4-5`                                                                |
 
 * **Comparative latency:** Relative to the current lineup. Actual latency depends on prompt length, output length, and thinking effort.
-* **Pricing:** Base price per million tokens. Batch API requests are 50% off; prompt cache reads cost 10% of the base input price. See Pricing for cache writes, long-context, and per-platform pricing.
+* **Pricing:** Base price per million tokens. Batch API requests are 50% off; prompt cache reads cost 10% of the base input price (2.5% on Claude Fable 5.1 and Claude Mythos 5.1). See Pricing for cache writes, long-context, and per-platform pricing.
 * **Claude API ID:** Every Claude model ID is a pinned snapshot, including the dateless IDs used from the 4.6 generation on.
 * **Thinking:** Adaptive thinking lets the model decide how much to think, steered by effort. Extended thinking is the manual thinking.type “enabled” + budget\_tokens mode on earlier models; it is deprecated on Claude Opus 4.6 and Claude Sonnet 4.6 and not accepted on later models.
 * **Default effort:** The effort parameter’s default on the Claude API. Set effort explicitly to use a different level.

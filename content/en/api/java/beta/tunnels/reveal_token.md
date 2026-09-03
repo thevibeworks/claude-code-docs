@@ -120,7 +120,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tunnel_token"`
 
 ## Example
 

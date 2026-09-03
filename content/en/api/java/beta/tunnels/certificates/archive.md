@@ -144,7 +144,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tunnel_certificate"`
 
 ## Example
 

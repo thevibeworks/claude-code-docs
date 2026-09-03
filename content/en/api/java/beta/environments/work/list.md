@@ -146,7 +146,7 @@ List work items in an environment.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -192,7 +192,7 @@ List work items in an environment.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 

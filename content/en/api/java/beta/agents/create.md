@@ -340,7 +340,7 @@ Create Agent
 
           Configuration override for the bash tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
             Must be "bash".
 
@@ -370,7 +370,7 @@ Create Agent
 
           Configuration override for the edit tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "edit"`
 
             Must be "edit".
 
@@ -396,7 +396,7 @@ Create Agent
 
           Configuration override for the read tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "read"`
 
             Must be "read".
 
@@ -422,7 +422,7 @@ Create Agent
 
           Configuration override for the write tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "write"`
 
             Must be "write".
 
@@ -448,7 +448,7 @@ Create Agent
 
           Configuration override for the glob tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "glob"`
 
             Must be "glob".
 
@@ -474,7 +474,7 @@ Create Agent
 
           Configuration override for the grep tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "grep"`
 
             Must be "grep".
 
@@ -500,7 +500,7 @@ Create Agent
 
           Configuration override for the web_fetch tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Must be "web_fetch".
 
@@ -540,7 +540,7 @@ Create Agent
 
           Configuration override for the web_search tool.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Must be "web_search".
 
@@ -574,7 +574,7 @@ Create Agent
 
             Approximate user location for search result localization.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -692,7 +692,7 @@ Create Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "object"`
 
         - `Optional<Properties> properties`
 
@@ -920,7 +920,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -938,7 +938,7 @@ Create Agent
 
               - `Type type`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -946,7 +946,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "edit"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -960,7 +960,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -968,7 +968,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "read"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -982,7 +982,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -990,7 +990,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "write"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -1004,7 +1004,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -1012,7 +1012,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "glob"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -1026,7 +1026,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -1034,7 +1034,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "grep"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -1048,7 +1048,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -1056,7 +1056,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -1070,7 +1070,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch"`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -1086,7 +1086,7 @@ Create Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -1100,7 +1100,7 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search"`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -1110,7 +1110,7 @@ Create Agent
 
             Approximate user location for search result localization.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -1208,7 +1208,7 @@ Create Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "object"`
 
         - `Optional<Properties> properties`
 

@@ -296,7 +296,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "bash"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -314,7 +314,7 @@ List Session Threads
 
                   - `Type type`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash"`
 
             - `class BetaManagedAgentsEditToolConfig:`
 
@@ -322,7 +322,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "edit"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -336,7 +336,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "edit"`
 
             - `class BetaManagedAgentsReadToolConfig:`
 
@@ -344,7 +344,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "read"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -358,7 +358,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "read"`
 
             - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -366,7 +366,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "write"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -380,7 +380,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "write"`
 
             - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -388,7 +388,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "glob"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -402,7 +402,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "glob"`
 
             - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -410,7 +410,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "grep"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -424,7 +424,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "grep"`
 
             - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -432,7 +432,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_fetch"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -446,7 +446,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -462,7 +462,7 @@ List Session Threads
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_search"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -476,7 +476,7 @@ List Session Threads
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -486,7 +486,7 @@ List Session Threads
 
                 Approximate user location for search result localization.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "approximate"`
 
                   Location precision. Only "approximate" is supported.
 
@@ -584,7 +584,7 @@ List Session Threads
 
             JSON Schema for custom tool input parameters.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "object"`
 
             - `Optional<Properties> properties`
 
@@ -1147,7 +1147,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "bash"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1165,7 +1165,7 @@ Get Session Thread
 
                   - `Type type`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash"`
 
             - `class BetaManagedAgentsEditToolConfig:`
 
@@ -1173,7 +1173,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "edit"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1187,7 +1187,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "edit"`
 
             - `class BetaManagedAgentsReadToolConfig:`
 
@@ -1195,7 +1195,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "read"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1209,7 +1209,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "read"`
 
             - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -1217,7 +1217,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "write"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1231,7 +1231,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "write"`
 
             - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -1239,7 +1239,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "glob"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1253,7 +1253,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "glob"`
 
             - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -1261,7 +1261,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "grep"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1275,7 +1275,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "grep"`
 
             - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -1283,7 +1283,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_fetch"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1297,7 +1297,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -1313,7 +1313,7 @@ Get Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_search"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -1327,7 +1327,7 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -1337,7 +1337,7 @@ Get Session Thread
 
                 Approximate user location for search result localization.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "approximate"`
 
                   Location precision. Only "approximate" is supported.
 
@@ -1435,7 +1435,7 @@ Get Session Thread
 
             JSON Schema for custom tool input parameters.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "object"`
 
             - `Optional<Properties> properties`
 
@@ -1997,7 +1997,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "bash"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2015,7 +2015,7 @@ Archive Session Thread
 
                   - `Type type`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash"`
 
             - `class BetaManagedAgentsEditToolConfig:`
 
@@ -2023,7 +2023,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "edit"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2037,7 +2037,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "edit"`
 
             - `class BetaManagedAgentsReadToolConfig:`
 
@@ -2045,7 +2045,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "read"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2059,7 +2059,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "read"`
 
             - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -2067,7 +2067,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "write"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2081,7 +2081,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "write"`
 
             - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -2089,7 +2089,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "glob"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2103,7 +2103,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "glob"`
 
             - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -2111,7 +2111,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "grep"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2125,7 +2125,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "grep"`
 
             - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -2133,7 +2133,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_fetch"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2147,7 +2147,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -2163,7 +2163,7 @@ Archive Session Thread
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_search"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2177,7 +2177,7 @@ Archive Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -2187,7 +2187,7 @@ Archive Session Thread
 
                 Approximate user location for search result localization.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "approximate"`
 
                   Location precision. Only "approximate" is supported.
 
@@ -2285,7 +2285,7 @@ Archive Session Thread
 
             JSON Schema for custom tool input parameters.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "object"`
 
             - `Optional<Properties> properties`
 
@@ -2741,7 +2741,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "bash"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2759,7 +2759,7 @@ public final class Main {
 
                   - `Type type`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash"`
 
             - `class BetaManagedAgentsEditToolConfig:`
 
@@ -2767,7 +2767,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "edit"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2781,7 +2781,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "edit"`
 
             - `class BetaManagedAgentsReadToolConfig:`
 
@@ -2789,7 +2789,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "read"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2803,7 +2803,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "read"`
 
             - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -2811,7 +2811,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "write"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2825,7 +2825,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "write"`
 
             - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -2833,7 +2833,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "glob"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2847,7 +2847,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "glob"`
 
             - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -2855,7 +2855,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "grep"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2869,7 +2869,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "grep"`
 
             - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -2877,7 +2877,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_fetch"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2891,7 +2891,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -2907,7 +2907,7 @@ public final class Main {
 
               - `boolean enabled`
 
-              - `JsonValue name constant`
+              - `JsonValue name = "web_search"`
 
               - `PermissionPolicy permissionPolicy`
 
@@ -2921,7 +2921,7 @@ public final class Main {
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search"`
 
               - `Optional<List<String>> allowedDomains`
 
@@ -2931,7 +2931,7 @@ public final class Main {
 
                 Approximate user location for search result localization.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "approximate"`
 
                   Location precision. Only "approximate" is supported.
 
@@ -3029,7 +3029,7 @@ public final class Main {
 
             JSON Schema for custom tool input parameters.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "object"`
 
             - `Optional<Properties> properties`
 
@@ -4941,7 +4941,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "bash"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -4959,7 +4959,7 @@ public final class Main {
 
                         - `Type type`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "bash"`
 
                   - `class BetaManagedAgentsEditToolConfig:`
 
@@ -4967,7 +4967,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "edit"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -4981,7 +4981,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "edit"`
 
                   - `class BetaManagedAgentsReadToolConfig:`
 
@@ -4989,7 +4989,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "read"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -5003,7 +5003,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "read"`
 
                   - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -5011,7 +5011,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "write"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -5025,7 +5025,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "write"`
 
                   - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -5033,7 +5033,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "glob"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -5047,7 +5047,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "glob"`
 
                   - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -5055,7 +5055,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "grep"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -5069,7 +5069,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "grep"`
 
                   - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -5077,7 +5077,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_fetch"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -5091,7 +5091,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_fetch"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -5107,7 +5107,7 @@ public final class Main {
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_search"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -5121,7 +5121,7 @@ public final class Main {
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_search"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -5131,7 +5131,7 @@ public final class Main {
 
                       Approximate user location for search result localization.
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "approximate"`
 
                         Location precision. Only "approximate" is supported.
 
@@ -5229,7 +5229,7 @@ public final class Main {
 
                   JSON Schema for custom tool input parameters.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "object"`
 
                   - `Optional<Properties> properties`
 
@@ -7237,7 +7237,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "bash"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7255,7 +7255,7 @@ List Session Thread Events
 
                         - `Type type`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "bash"`
 
                   - `class BetaManagedAgentsEditToolConfig:`
 
@@ -7263,7 +7263,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "edit"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7277,7 +7277,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "edit"`
 
                   - `class BetaManagedAgentsReadToolConfig:`
 
@@ -7285,7 +7285,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "read"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7299,7 +7299,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "read"`
 
                   - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -7307,7 +7307,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "write"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7321,7 +7321,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "write"`
 
                   - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -7329,7 +7329,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "glob"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7343,7 +7343,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "glob"`
 
                   - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -7351,7 +7351,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "grep"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7365,7 +7365,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "grep"`
 
                   - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -7373,7 +7373,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_fetch"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7387,7 +7387,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_fetch"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -7403,7 +7403,7 @@ List Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_search"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -7417,7 +7417,7 @@ List Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_search"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -7427,7 +7427,7 @@ List Session Thread Events
 
                       Approximate user location for search result localization.
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "approximate"`
 
                         Location precision. Only "approximate" is supported.
 
@@ -7525,7 +7525,7 @@ List Session Thread Events
 
                   JSON Schema for custom tool input parameters.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "object"`
 
                   - `Optional<Properties> properties`
 
@@ -9523,7 +9523,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "bash"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9541,7 +9541,7 @@ Stream Session Thread Events
 
                         - `Type type`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "bash"`
 
                   - `class BetaManagedAgentsEditToolConfig:`
 
@@ -9549,7 +9549,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "edit"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9563,7 +9563,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "edit"`
 
                   - `class BetaManagedAgentsReadToolConfig:`
 
@@ -9571,7 +9571,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "read"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9585,7 +9585,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "read"`
 
                   - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -9593,7 +9593,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "write"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9607,7 +9607,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "write"`
 
                   - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -9615,7 +9615,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "glob"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9629,7 +9629,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "glob"`
 
                   - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -9637,7 +9637,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "grep"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9651,7 +9651,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "grep"`
 
                   - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -9659,7 +9659,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_fetch"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9673,7 +9673,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_fetch"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -9689,7 +9689,7 @@ Stream Session Thread Events
 
                     - `boolean enabled`
 
-                    - `JsonValue name constant`
+                    - `JsonValue name = "web_search"`
 
                     - `PermissionPolicy permissionPolicy`
 
@@ -9703,7 +9703,7 @@ Stream Session Thread Events
 
                         Tool calls require user confirmation before execution.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "web_search"`
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -9713,7 +9713,7 @@ Stream Session Thread Events
 
                       Approximate user location for search result localization.
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "approximate"`
 
                         Location precision. Only "approximate" is supported.
 
@@ -9811,7 +9811,7 @@ Stream Session Thread Events
 
                   JSON Schema for custom tool input parameters.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "object"`
 
                   - `Optional<Properties> properties`
 

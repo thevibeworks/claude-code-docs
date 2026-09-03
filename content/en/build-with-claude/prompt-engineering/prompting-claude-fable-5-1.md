@@ -130,7 +130,8 @@ The following loop shows this placement. Each assistant turn goes back exactly a
       tool_results: list[BetaToolResultBlockParam] = []
       for block in response.content:
           if block.type == "tool_use":
-              path = str(block.input["path"])
+              raw_path = block.input.get("path")
+              path = raw_path if isinstance(raw_path, str) else ""
               if path in FILES:
                   tool_results.append(
                       {
@@ -255,7 +256,7 @@ The following loop shows this placement. Each assistant turn goes back exactly a
   }
 
   const finalText = response.content.find((block) => block.type === "text");
-  console.log(finalText?.text);
+  console.log(finalText?.text ?? "");
   ```
 
   ```csharp C#
@@ -333,7 +334,10 @@ The following loop shows this placement. Each assistant turn goes back exactly a
       {
           if (block.TryPickToolUse(out var toolUse))
           {
-              var path = toolUse.Input["path"].GetString()!;
+              var path = toolUse.Input.TryGetValue("path", out var pathValue)
+                  && pathValue.ValueKind == JsonValueKind.String
+                  ? pathValue.GetString()!
+                  : "";
               if (files.TryGetValue(path, out var fileText))
               {
                   toolResults.Add(new BetaToolResultBlockParam { ToolUseID = toolUse.ID, Content = fileText });
@@ -446,8 +450,9 @@ The following loop shows this placement. Each assistant turn goes back exactly a
   			var input struct {
   				Path string `json:"path"`
   			}
+  			// A missing or non-string path leaves input.Path empty, which takes the error-result branch.
   			if err := json.Unmarshal([]byte(toolUse.JSON.Input.Raw()), &input); err != nil {
-  				log.Fatal(err)
+  				input.Path = ""
   			}
   			text, found := files[input.Path]
   			if !found {
@@ -548,7 +553,10 @@ The following loop shows this placement. Each assistant turn goes back exactly a
           for (BetaToolUseBlock toolUse : toolUses) {
               Map<String, JsonValue> input =
                   (Map<String, JsonValue>) toolUse._input().asObject().orElseThrow();
-              String path = input.get("path").asStringOrThrow();
+              JsonValue pathValue = input.get("path");
+              String path = pathValue != null && pathValue.asString().isPresent()
+                  ? pathValue.asStringOrThrow()
+                  : "";
               String fileText = FILES.get(path);
               BetaToolResultBlockParam.Builder result = BetaToolResultBlockParam.builder()
                   .toolUseId(toolUse.id());
@@ -575,9 +583,9 @@ The following loop shows this placement. Each assistant turn goes back exactly a
 
       String finalText = response.content().stream()
           .flatMap(block -> block.text().stream())
+          .map(textBlock -> textBlock.text())
           .findFirst()
-          .orElseThrow()
-          .text();
+          .orElse("");
       IO.println(finalText);
   }
   ```
@@ -637,7 +645,7 @@ The following loop shows this placement. Each assistant turn goes back exactly a
       $toolResults = [];
       foreach ($response->content as $block) {
           if ($block->type === 'tool_use') {
-              $path = $block->input['path'];
+              $path = is_string($block->input['path'] ?? null) ? $block->input['path'] : '';
               if (array_key_exists($path, FILES)) {
                   $toolResults[] = [
                       'type' => 'tool_result',
@@ -666,7 +674,7 @@ The following loop shows this placement. Each assistant turn goes back exactly a
   }
 
   $textBlock = array_find($response->content, fn ($block) => $block->type === 'text');
-  echo $textBlock->text, PHP_EOL;
+  echo $textBlock?->text ?? '', PHP_EOL;
   ```
 
   ```ruby Ruby
@@ -870,7 +878,7 @@ At `xhigh` and especially `max` effort, Claude Fable 5.1 can think for longer be
 * Append the following note to the end of the user message. It makes the thinking much shorter on prose and code requests. Replace `[max_tokens]` with the request's actual `max_tokens` value, for example 64,000.
 
 ```text wrap
-Everything produced in one reply, including any reasoning or drafting it does before the reply, counts toward a single limit of about [max_tokens] tokens. If that limit is reached before the reply is finished, the person receives a cut-off response and has to start over. Composing an entire output or deliverable in full as reasoning and then again as a reply would double the length of the turn without improving the result, so don't do that.
+Everything produced in one reply, including any reasoning or drafting done before the reply, counts toward a single limit of about [max_tokens] tokens. If that limit is reached before the reply is finished, the person receives a cut-off response and has to start over. Composing an entire output or deliverable in full as reasoning and then again as a reply would double the length of the turn without improving the result, so don't do that.
 
 Instead, when the person has asked for a long or effort-intensive deliverable such as a multi-section document, a large table or dataset, or a complete code file, spend extra effort on understanding the request, checking the inputs the answer depends on, settling the structure and other difficult decisions, and otherwise using the reasoning space to reason and the output space to write an output. Usually it is not needed to draft an output multiple times.
 ```

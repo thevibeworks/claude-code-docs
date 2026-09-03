@@ -134,7 +134,7 @@ Retrieve a specific environment by ID.
 
           Unrestricted network access.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "unrestricted"`
 
             Network policy type
 
@@ -154,7 +154,7 @@ Retrieve a specific environment by ID.
 
             Specifies domains the container can reach.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "limited"`
 
             Network policy type
 
@@ -190,7 +190,7 @@ Retrieve a specific environment by ID.
 
           Package configuration type
 
-      - `JsonValue type constant`
+      - `JsonValue type = "cloud"`
 
         Environment type
 
@@ -198,7 +198,7 @@ Retrieve a specific environment by ID.
 
       Configuration for self-hosted environments.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "self_hosted"`
 
         Environment type
 
@@ -218,7 +218,7 @@ Retrieve a specific environment by ID.
 
     Human-readable name for the environment
 
-  - `JsonValue type constant`
+  - `JsonValue type = "environment"`
 
     The type of object (always 'environment')
 

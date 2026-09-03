@@ -779,7 +779,7 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
 <Note>
   See [Thinking and the context window](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-the-context-window) for more details.
 
-  * Thinking blocks from **previous** assistant turns are ignored and **do not** count toward your input tokens
+  * Thinking blocks from **previous** assistant turns count toward your input tokens on models that [keep all prior turns](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model); on models that keep only the last turn, the API strips them and they do **not** count
   * **Current** assistant turn thinking **does** count toward your input tokens
 </Note>
 
@@ -790,10 +790,9 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
     -H "content-type: application/json" \
     -H "anthropic-version: 2023-06-01" \
     -d '{
-      "model": "claude-sonnet-4-6",
+      "model": "claude-opus-5",
       "thinking": {
-        "type": "enabled",
-        "budget_tokens": 16000
+        "type": "adaptive"
       },
       "messages": [
         {
@@ -824,10 +823,9 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
 
   ```bash CLI
   ant messages count-tokens <<'YAML'
-  model: claude-sonnet-4-6
+  model: claude-opus-5
   thinking:
-    type: enabled
-    budget_tokens: 16000
+    type: adaptive
   messages:
     - role: user
       content: Are there an infinite number of prime numbers such that n mod 4 == 3?
@@ -849,8 +847,8 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
   client = anthropic.Anthropic()
 
   response = client.messages.count_tokens(
-      model="claude-sonnet-4-6",
-      thinking={"type": "enabled", "budget_tokens": 16000},
+      model="claude-opus-5",
+      thinking={"type": "adaptive"},
       messages=[
           {
               "role": "user",
@@ -881,11 +879,8 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
   const client = new Anthropic();
 
   const response = await client.messages.countTokens({
-    model: "claude-sonnet-4-6",
-    thinking: {
-      type: "enabled",
-      budget_tokens: 16000
-    },
+    model: "claude-opus-5",
+    thinking: { type: "adaptive" },
     messages: [
       {
         role: "user",
@@ -928,8 +923,8 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
 
   var parameters = new MessageCountTokensParams
   {
-      Model = Model.ClaudeSonnet4_6,
-      Thinking = new ThinkingConfigEnabled(budgetTokens: 16000),
+      Model = Model.ClaudeOpus5,
+      Thinking = new ThinkingConfigAdaptive(),
       Messages =
       [
           new()
@@ -975,8 +970,10 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
   )
 
   response, err := client.Messages.CountTokens(context.TODO(), anthropic.MessageCountTokensParams{
-  	Model:    anthropic.ModelClaudeSonnet4_6,
-  	Thinking: anthropic.ThinkingConfigParamOfEnabled(16000),
+  	Model: anthropic.ModelClaudeOpus5,
+  	Thinking: anthropic.ThinkingConfigParamUnion{
+  		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
+  	},
   	Messages: []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock("Are there an infinite number of prime numbers such that n mod 4 == 3?")),
   		anthropic.NewAssistantMessage(thinkingBlock, textBlock),
@@ -995,6 +992,7 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
   import com.anthropic.models.messages.MessageTokensCount;
   // ...
   import com.anthropic.models.messages.ThinkingBlockParam;
+  import com.anthropic.models.messages.ThinkingConfigAdaptive;
   // ...
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
@@ -1017,8 +1015,8 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
       );
 
       MessageCountTokensParams params = MessageCountTokensParams.builder()
-        .model(Model.CLAUDE_SONNET_4_6)
-        .enabledThinking(16000)
+        .model(Model.CLAUDE_OPUS_5)
+        .thinking(ThinkingConfigAdaptive.builder().build())
         .addUserMessage("Are there an infinite number of prime numbers such that n mod 4 == 3?")
         .addAssistantMessageOfBlockParams(assistantBlocks)
         .addUserMessage("Can you write a formal proof?")
@@ -1056,11 +1054,8 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
               'content' => 'Can you write a formal proof?'
           ]
       ],
-      model: 'claude-sonnet-4-6',
-      thinking: [
-          'type' => 'enabled',
-          'budget_tokens' => 16000
-      ],
+      model: 'claude-opus-5',
+      thinking: ['type' => 'adaptive'],
   );
 
   echo json_encode($response);
@@ -1070,10 +1065,9 @@ An embedded image block that sets [`"oversized_image": "error"`](https://platfor
   client = Anthropic::Client.new
 
   response = client.messages.count_tokens(
-    model: "claude-sonnet-4-6",
+    model: "claude-opus-5",
     thinking: {
-      type: "enabled",
-      budget_tokens: 16000
+      type: "adaptive"
     },
     messages: [
       {

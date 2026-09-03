@@ -146,7 +146,7 @@ List environments with pagination support.
 
           Unrestricted network access.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "unrestricted"`
 
             Network policy type
 
@@ -166,7 +166,7 @@ List environments with pagination support.
 
             Specifies domains the container can reach.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "limited"`
 
             Network policy type
 
@@ -202,7 +202,7 @@ List environments with pagination support.
 
           Package configuration type
 
-      - `JsonValue type constant`
+      - `JsonValue type = "cloud"`
 
         Environment type
 
@@ -210,7 +210,7 @@ List environments with pagination support.
 
       Configuration for self-hosted environments.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "self_hosted"`
 
         Environment type
 
@@ -230,7 +230,7 @@ List environments with pagination support.
 
     Human-readable name for the environment
 
-  - `JsonValue type constant`
+  - `JsonValue type = "environment"`
 
     The type of object (always 'environment')
 

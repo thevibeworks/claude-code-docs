@@ -140,7 +140,7 @@ Retrieve detailed information about a specific work item.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -186,7 +186,7 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -394,7 +394,7 @@ Long poll for work items in the queue.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -440,7 +440,7 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -631,7 +631,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -677,7 +677,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -881,7 +881,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work_heartbeat"`
 
     The type of response
 
@@ -1066,7 +1066,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -1112,7 +1112,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -1316,7 +1316,7 @@ List work items in an environment.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -1362,7 +1362,7 @@ List work items in an environment.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -1561,7 +1561,7 @@ Update work item metadata with merge semantics.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -1607,7 +1607,7 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -1792,7 +1792,7 @@ Get statistics about the work queue for an environment.
 
     Number of work items being processed (polled but not acknowledged)
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work_queue_stats"`
 
     The type of object
 
@@ -1865,7 +1865,7 @@ public final class Main {
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -1911,7 +1911,7 @@ public final class Main {
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 
@@ -1947,7 +1947,7 @@ public final class Main {
 
     Effective TTL applied to the lease
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work_heartbeat"`
 
     The type of response
 
@@ -1981,7 +1981,7 @@ public final class Main {
 
         Session identifier (e.g., 'session_...')
 
-      - `JsonValue type constant`
+      - `JsonValue type = "session"`
 
         Type of work data
 
@@ -2027,7 +2027,7 @@ public final class Main {
 
       RFC 3339 timestamp when work execution stopped
 
-    - `JsonValue type constant`
+    - `JsonValue type = "work"`
 
       The type of object (always 'work')
 
@@ -2055,7 +2055,7 @@ public final class Main {
 
     Number of work items being processed (polled but not acknowledged)
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work_queue_stats"`
 
     The type of object
 
@@ -2096,6 +2096,6 @@ public final class Main {
 
     Session identifier (e.g., 'session_...')
 
-  - `JsonValue type constant`
+  - `JsonValue type = "session"`
 
     Type of work data

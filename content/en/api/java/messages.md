@@ -95,13 +95,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "ephemeral"`
 
             - `Optional<Ttl> ttl`
 
@@ -138,7 +138,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "char_location"`
 
             - `class CitationPageLocationParam:`
 
@@ -158,7 +158,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "page_location"`
 
             - `class CitationContentBlockLocationParam:`
 
@@ -188,7 +188,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "content_block_location"`
 
             - `class CitationWebSearchResultLocationParam:`
 
@@ -200,7 +200,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 maxLength: 512, minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result_location"`
 
               - `String url`
 
@@ -238,7 +238,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<String> title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "search_result_location"`
 
         - `class ImageBlockParam:`
 
@@ -260,11 +260,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `IMAGE_WEBP("image/webp")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "base64"`
 
             - `class UrlImageSource:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "url"`
 
               - `String url`
 
@@ -272,9 +272,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "file"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "image"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -302,17 +302,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 format: byte
 
-              - `JsonValue mediaType constant`
+              - `JsonValue mediaType = "application/pdf"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "base64"`
 
             - `class PlainTextSource:`
 
               - `String data`
 
-              - `JsonValue mediaType constant`
+              - `JsonValue mediaType = "text/plain"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
             - `class ContentBlockSource:`
 
@@ -326,11 +326,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `class ImageBlockParam:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "content"`
 
             - `class UrlPdfSource:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "url"`
 
               - `String url`
 
@@ -338,9 +338,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "file"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "document"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -366,7 +366,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
             - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -378,7 +378,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "search_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -398,7 +398,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `thinking` text of this block as returned by the API.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "thinking"`
 
         - `class RedactedThinkingBlockParam:`
 
@@ -406,7 +406,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "redacted_thinking"`
 
         - `class ToolUseBlockParam:`
 
@@ -420,7 +420,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 200, minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_use"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -434,7 +434,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Tool invocation directly from the model.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "direct"`
 
             - `class ServerToolCaller:`
 
@@ -444,7 +444,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20250825"`
 
             - `class ServerToolCaller20260120:`
 
@@ -452,7 +452,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20260120"`
 
           - `Optional<String> toolsetName`
 
@@ -466,7 +466,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -494,7 +494,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_reference"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -538,7 +538,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "browser_state"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -566,7 +566,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "tab_opened"`
 
                   - `class BrowserStateChangeDownloadStarted:`
 
@@ -578,7 +578,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "download_started"`
 
                     - `String url`
 
@@ -599,7 +599,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "download_completed"`
 
                     - `String url`
 
@@ -629,7 +629,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "download_failed"`
 
                     - `String url`
 
@@ -675,7 +675,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "server_tool_use"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -705,7 +705,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result"`
 
               - `String url`
 
@@ -727,13 +727,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `REQUEST_TOO_LARGE("request_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_tool_result_error"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -779,13 +779,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `UNAVAILABLE("unavailable")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_tool_result_error"`
 
             - `class WebFetchBlockParam:`
 
               - `DocumentBlockParam content`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_result"`
 
               - `String url`
 
@@ -799,7 +799,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -837,7 +837,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_tool_result_error"`
 
             - `class CodeExecutionResultBlockParam:`
 
@@ -845,7 +845,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `long returnCode`
 
@@ -853,7 +853,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_result"`
 
             - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -863,7 +863,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `String encryptedStdout`
 
@@ -871,13 +871,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String stderr`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "encrypted_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -901,7 +901,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_tool_result_error"`
 
             - `class BashCodeExecutionResultBlockParam:`
 
@@ -909,7 +909,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_output"`
 
               - `long returnCode`
 
@@ -917,13 +917,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -947,7 +947,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `FILE_NOT_FOUND("file_not_found")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
               - `Optional<String> errorMessage`
 
@@ -963,7 +963,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `PDF("pdf")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_view_result"`
 
               - `Optional<Long> numLines`
 
@@ -975,11 +975,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `boolean isFileUpdate`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_create_result"`
 
             - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
               - `Optional<List<String>> lines`
 
@@ -995,7 +995,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1017,7 +1017,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_result_error"`
 
               - `Optional<String> errorMessage`
 
@@ -1029,19 +1029,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_reference"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
                   Create a cache control breakpoint at this content block.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_search_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1054,7 +1054,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "container_upload"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1126,7 +1126,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1218,7 +1218,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "object"`
 
         - `Optional<Properties> properties`
 
@@ -1270,13 +1270,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolBash20250124:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "bash"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_20250124"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1304,13 +1304,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class CodeExecutionTool20250522:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250522"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1336,13 +1336,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class CodeExecutionTool20250825:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1370,13 +1370,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1404,13 +1404,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Code execution tool with REPL state persistence.
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260521"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1441,7 +1441,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       the family's tool with any members disabled via `configs` removed
       from its schema.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "browser_toolset_20260801"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1830,13 +1830,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class MemoryTool20250818:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "memory"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "memory_20250818"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1873,7 +1873,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       `type`, `configs`, and `cache_control`; zoom is controlled
       via `configs.zoom.enabled`.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "computer_toolset_20260801"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -2094,13 +2094,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolTextEditor20250124:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "str_replace_editor"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_20250124"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2128,13 +2128,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolTextEditor20250429:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "str_replace_based_edit_tool"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_20250429"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2162,13 +2162,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolTextEditor20250728:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "str_replace_based_edit_tool"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_20250728"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2202,13 +2202,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class WebSearchTool20250305:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_search"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_20250305"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2250,7 +2250,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "approximate"`
 
         - `Optional<String> city`
 
@@ -2278,13 +2278,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class WebFetchTool20250910:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20250910"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2334,13 +2334,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class WebSearchTool20260209:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_search"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_20260209"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2384,13 +2384,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class WebFetchTool20260209:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20260209"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2442,13 +2442,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20260309"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2502,13 +2502,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class WebSearchTool20260318:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_search"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_20260318"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2560,13 +2560,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class WebFetchTool20260318:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20260318"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2628,7 +2628,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolSearchToolBm25_20251119:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "tool_search_tool_bm25"`
 
         Name of the tool.
 
@@ -2664,7 +2664,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolSearchToolRegex20251119:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "tool_search_tool_regex"`
 
         Name of the tool.
 
@@ -2837,7 +2837,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "char_location"`
 
         - `class CitationPageLocation:`
 
@@ -2857,7 +2857,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "page_location"`
 
         - `class CitationContentBlockLocation:`
 
@@ -2887,7 +2887,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "content_block_location"`
 
         - `class CitationsWebSearchResultLocation:`
 
@@ -2899,7 +2899,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 512
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result_location"`
 
           - `String url`
 
@@ -2935,13 +2935,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<String> title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "search_result_location"`
 
       - `String text`
 
         maxLength: 5000000, minLength: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
     - `class ThinkingBlock:`
 
@@ -2957,7 +2957,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "thinking"`
 
     - `class RedactedThinkingBlock:`
 
@@ -2969,7 +2969,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "redacted_thinking"`
 
     - `class ToolUseBlock:`
 
@@ -2985,7 +2985,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Tool invocation directly from the model.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "direct"`
 
         - `class ServerToolCaller:`
 
@@ -2995,7 +2995,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250825"`
 
         - `class ServerToolCaller20260120:`
 
@@ -3003,7 +3003,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260120"`
 
       - `Input input`
 
@@ -3011,7 +3011,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_use"`
 
       - `Optional<String> toolsetName`
 
@@ -3057,7 +3057,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "server_tool_use"`
 
     - `class WebSearchToolResultBlock:`
 
@@ -3093,7 +3093,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `REQUEST_TOO_LARGE("request_too_large")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result_error"`
 
         - `List<WebSearchResultBlock>`
 
@@ -3103,7 +3103,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result"`
 
           - `String url`
 
@@ -3111,7 +3111,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_tool_result"`
 
     - `class WebFetchToolResultBlock:`
 
@@ -3153,7 +3153,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `UNAVAILABLE("unavailable")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result_error"`
 
         - `class WebFetchBlock:`
 
@@ -3173,29 +3173,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   format: byte
 
-                - `JsonValue mediaType constant`
+                - `JsonValue mediaType = "application/pdf"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "base64"`
 
               - `class PlainTextSource:`
 
                 - `String data`
 
-                - `JsonValue mediaType constant`
+                - `JsonValue mediaType = "text/plain"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
             - `Optional<String> title`
 
               The title of the document
 
-            - `JsonValue type constant`
+            - `JsonValue type = "document"`
 
           - `Optional<String> retrievedAt`
 
             ISO 8601 timestamp when the content was retrieved
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_result"`
 
           - `String url`
 
@@ -3205,7 +3205,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_tool_result"`
 
     - `class CodeExecutionToolResultBlock:`
 
@@ -3225,7 +3225,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result_error"`
 
         - `class CodeExecutionResultBlock:`
 
@@ -3233,7 +3233,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_output"`
 
           - `long returnCode`
 
@@ -3241,7 +3241,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String stdout`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_result"`
 
         - `class EncryptedCodeExecutionResultBlock:`
 
@@ -3251,7 +3251,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_output"`
 
           - `String encryptedStdout`
 
@@ -3259,13 +3259,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String stderr`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "encrypted_code_execution_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_tool_result"`
 
     - `class BashCodeExecutionToolResultBlock:`
 
@@ -3285,7 +3285,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result_error"`
 
         - `class BashCodeExecutionResultBlock:`
 
@@ -3293,7 +3293,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_output"`
 
           - `long returnCode`
 
@@ -3301,13 +3301,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String stdout`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_tool_result"`
 
     - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -3329,7 +3329,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<String> errorMessage`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
         - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -3349,13 +3349,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Long> totalLines`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_view_result"`
 
         - `class TextEditorCodeExecutionCreateResultBlock:`
 
           - `boolean isFileUpdate`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_create_result"`
 
         - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -3369,13 +3369,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Long> oldStart`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_tool_result"`
 
     - `class ToolSearchToolResultBlock:`
 
@@ -3395,7 +3395,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<String> errorMessage`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result_error"`
 
         - `class ToolSearchToolSearchResultBlock:`
 
@@ -3405,15 +3405,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_reference"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_search_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_result"`
 
     - `class ContainerUploadBlock:`
 
@@ -3421,7 +3421,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "container_upload"`
 
   - `Model model`
 
@@ -3497,7 +3497,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       High-performance model for agents and coding
 
-  - `JsonValue role constant`
+  - `JsonValue role = "assistant"`
 
     Conversational role of the generated message.
 
@@ -3537,7 +3537,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "refusal"`
 
   - `Optional<StopReason> stopReason`
 
@@ -3575,7 +3575,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This value will be a non-null string if one of your custom stop sequences was generated.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message"`
 
     Object type.
 
@@ -3691,7 +3691,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `Message message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message_start"`
 
   - `class RawMessageDeltaEvent:`
 
@@ -3709,7 +3709,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<String> stopSequence`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message_delta"`
 
     - `MessageDeltaUsage usage`
 
@@ -3760,7 +3760,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class RawMessageStopEvent:`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message_stop"`
 
   - `class RawContentBlockStartEvent:`
 
@@ -3796,7 +3796,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `long index`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_start"`
 
   - `class RawContentBlockDeltaEvent:`
 
@@ -3806,13 +3806,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `String text`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_delta"`
 
       - `class InputJsonDelta:`
 
         - `String partialJson`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "input_json_delta"`
 
       - `class CitationsDelta:`
 
@@ -3828,7 +3828,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `class CitationsSearchResultLocation:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "citations_delta"`
 
       - `class ThinkingDelta:`
 
@@ -3836,7 +3836,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "thinking_delta"`
 
       - `class SignatureDelta:`
 
@@ -3844,17 +3844,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "signature_delta"`
 
     - `long index`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_delta"`
 
   - `class RawContentBlockStopEvent:`
 
     - `long index`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_stop"`
 
 ### Example
 
@@ -4031,13 +4031,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "ephemeral"`
 
             - `Optional<Ttl> ttl`
 
@@ -4074,7 +4074,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "char_location"`
 
             - `class CitationPageLocationParam:`
 
@@ -4094,7 +4094,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "page_location"`
 
             - `class CitationContentBlockLocationParam:`
 
@@ -4124,7 +4124,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "content_block_location"`
 
             - `class CitationWebSearchResultLocationParam:`
 
@@ -4136,7 +4136,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 maxLength: 512, minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result_location"`
 
               - `String url`
 
@@ -4174,7 +4174,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<String> title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "search_result_location"`
 
         - `class ImageBlockParam:`
 
@@ -4196,11 +4196,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `IMAGE_WEBP("image/webp")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "base64"`
 
             - `class UrlImageSource:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "url"`
 
               - `String url`
 
@@ -4208,9 +4208,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "file"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "image"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4238,17 +4238,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 format: byte
 
-              - `JsonValue mediaType constant`
+              - `JsonValue mediaType = "application/pdf"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "base64"`
 
             - `class PlainTextSource:`
 
               - `String data`
 
-              - `JsonValue mediaType constant`
+              - `JsonValue mediaType = "text/plain"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
             - `class ContentBlockSource:`
 
@@ -4262,11 +4262,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   - `class ImageBlockParam:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "content"`
 
             - `class UrlPdfSource:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "url"`
 
               - `String url`
 
@@ -4274,9 +4274,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "file"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "document"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4302,7 +4302,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
             - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4314,7 +4314,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `String title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "search_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4334,7 +4334,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `thinking` text of this block as returned by the API.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "thinking"`
 
         - `class RedactedThinkingBlockParam:`
 
@@ -4342,7 +4342,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "redacted_thinking"`
 
         - `class ToolUseBlockParam:`
 
@@ -4356,7 +4356,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 200, minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_use"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4370,7 +4370,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Tool invocation directly from the model.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "direct"`
 
             - `class ServerToolCaller:`
 
@@ -4380,7 +4380,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20250825"`
 
             - `class ServerToolCaller20260120:`
 
@@ -4388,7 +4388,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20260120"`
 
           - `Optional<String> toolsetName`
 
@@ -4402,7 +4402,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4430,7 +4430,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_reference"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4474,7 +4474,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "browser_state"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4502,7 +4502,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "tab_opened"`
 
                   - `class BrowserStateChangeDownloadStarted:`
 
@@ -4514,7 +4514,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "download_started"`
 
                     - `String url`
 
@@ -4535,7 +4535,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "download_completed"`
 
                     - `String url`
 
@@ -4565,7 +4565,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "download_failed"`
 
                     - `String url`
 
@@ -4611,7 +4611,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "server_tool_use"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4641,7 +4641,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result"`
 
               - `String url`
 
@@ -4663,13 +4663,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `REQUEST_TOO_LARGE("request_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_tool_result_error"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4715,13 +4715,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `UNAVAILABLE("unavailable")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_tool_result_error"`
 
             - `class WebFetchBlockParam:`
 
               - `DocumentBlockParam content`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_result"`
 
               - `String url`
 
@@ -4735,7 +4735,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4773,7 +4773,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_tool_result_error"`
 
             - `class CodeExecutionResultBlockParam:`
 
@@ -4781,7 +4781,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `long returnCode`
 
@@ -4789,7 +4789,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_result"`
 
             - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -4799,7 +4799,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `String encryptedStdout`
 
@@ -4807,13 +4807,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String stderr`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "encrypted_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4837,7 +4837,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_tool_result_error"`
 
             - `class BashCodeExecutionResultBlockParam:`
 
@@ -4845,7 +4845,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_output"`
 
               - `long returnCode`
 
@@ -4853,13 +4853,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4883,7 +4883,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `FILE_NOT_FOUND("file_not_found")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
               - `Optional<String> errorMessage`
 
@@ -4899,7 +4899,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `PDF("pdf")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_view_result"`
 
               - `Optional<Long> numLines`
 
@@ -4911,11 +4911,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `boolean isFileUpdate`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_create_result"`
 
             - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
               - `Optional<List<String>> lines`
 
@@ -4931,7 +4931,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4953,7 +4953,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_result_error"`
 
               - `Optional<String> errorMessage`
 
@@ -4965,19 +4965,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_reference"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
                   Create a cache control breakpoint at this content block.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_search_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4990,7 +4990,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "container_upload"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -5032,7 +5032,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -5124,7 +5124,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "object"`
 
         - `Optional<Properties> properties`
 
@@ -5176,13 +5176,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolBash20250124:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "bash"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_20250124"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -5210,13 +5210,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class CodeExecutionTool20250522:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250522"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -5242,13 +5242,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class CodeExecutionTool20250825:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -5276,13 +5276,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -5310,13 +5310,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Code execution tool with REPL state persistence.
 
-      - `JsonValue name constant`
+      - `JsonValue name = "code_execution"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260521"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -5347,7 +5347,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       the family's tool with any members disabled via `configs` removed
       from its schema.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "browser_toolset_20260801"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -5736,13 +5736,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class MemoryTool20250818:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "memory"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "memory_20250818"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -5779,7 +5779,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       `type`, `configs`, and `cache_control`; zoom is controlled
       via `configs.zoom.enabled`.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "computer_toolset_20260801"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -6000,13 +6000,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolTextEditor20250124:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "str_replace_editor"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_20250124"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6034,13 +6034,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolTextEditor20250429:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "str_replace_based_edit_tool"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_20250429"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6068,13 +6068,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolTextEditor20250728:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "str_replace_based_edit_tool"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_20250728"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6108,13 +6108,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class WebSearchTool20250305:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_search"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_20250305"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6156,7 +6156,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "approximate"`
 
         - `Optional<String> city`
 
@@ -6184,13 +6184,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class WebFetchTool20250910:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20250910"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6240,13 +6240,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class WebSearchTool20260209:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_search"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_20260209"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6290,13 +6290,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class WebFetchTool20260209:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20260209"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6348,13 +6348,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20260309"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6408,13 +6408,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class WebSearchTool20260318:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_search"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_20260318"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6466,13 +6466,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class WebFetchTool20260318:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "web_fetch"`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_20260318"`
 
       - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -6534,7 +6534,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolSearchToolBm25_20251119:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "tool_search_tool_bm25"`
 
         Name of the tool.
 
@@ -6570,7 +6570,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolSearchToolRegex20251119:`
 
-      - `JsonValue name constant`
+      - `JsonValue name = "tool_search_tool_regex"`
 
         Name of the tool.
 
@@ -6666,7 +6666,7 @@ public final class Main {
 
     - `IMAGE_WEBP("image/webp")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "base64"`
 
 ### Base64 PDF Source
 
@@ -6676,9 +6676,9 @@ public final class Main {
 
     format: byte
 
-  - `JsonValue mediaType constant`
+  - `JsonValue mediaType = "application/pdf"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "base64"`
 
 ### Bash Code Execution Output Block
 
@@ -6686,7 +6686,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_output"`
 
 ### Bash Code Execution Output Block Param
 
@@ -6694,7 +6694,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_output"`
 
 ### Bash Code Execution Result Block
 
@@ -6704,7 +6704,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "bash_code_execution_output"`
 
   - `long returnCode`
 
@@ -6712,7 +6712,7 @@ public final class Main {
 
   - `String stdout`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_result"`
 
 ### Bash Code Execution Result Block Param
 
@@ -6722,7 +6722,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "bash_code_execution_output"`
 
   - `long returnCode`
 
@@ -6730,7 +6730,7 @@ public final class Main {
 
   - `String stdout`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_result"`
 
 ### Bash Code Execution Tool Result Block
 
@@ -6752,7 +6752,7 @@ public final class Main {
 
         - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_tool_result_error"`
 
     - `class BashCodeExecutionResultBlock:`
 
@@ -6760,7 +6760,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_output"`
 
       - `long returnCode`
 
@@ -6768,13 +6768,13 @@ public final class Main {
 
       - `String stdout`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_tool_result"`
 
 ### Bash Code Execution Tool Result Block Param
 
@@ -6796,7 +6796,7 @@ public final class Main {
 
         - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_tool_result_error"`
 
     - `class BashCodeExecutionResultBlockParam:`
 
@@ -6804,7 +6804,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_output"`
 
       - `long returnCode`
 
@@ -6812,19 +6812,19 @@ public final class Main {
 
       - `String stdout`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -6857,7 +6857,7 @@ public final class Main {
 
     - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_tool_result_error"`
 
 ### Bash Code Execution Tool Result Error Code
 
@@ -6889,7 +6889,7 @@ public final class Main {
 
     - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_code_execution_tool_result_error"`
 
 ### Browser Close Tab Config
 
@@ -7295,13 +7295,13 @@ public final class Main {
 
       Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "browser_state"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -7340,7 +7340,7 @@ public final class Main {
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tab_opened"`
 
     - `class BrowserStateChangeDownloadStarted:`
 
@@ -7352,7 +7352,7 @@ public final class Main {
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "download_started"`
 
       - `String url`
 
@@ -7373,7 +7373,7 @@ public final class Main {
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "download_completed"`
 
       - `String url`
 
@@ -7403,7 +7403,7 @@ public final class Main {
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "download_failed"`
 
       - `String url`
 
@@ -7445,7 +7445,7 @@ public final class Main {
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tab_opened"`
 
   - `class BrowserStateChangeDownloadStarted:`
 
@@ -7457,7 +7457,7 @@ public final class Main {
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "download_started"`
 
     - `String url`
 
@@ -7478,7 +7478,7 @@ public final class Main {
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "download_completed"`
 
     - `String url`
 
@@ -7508,7 +7508,7 @@ public final class Main {
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "download_failed"`
 
     - `String url`
 
@@ -7537,7 +7537,7 @@ public final class Main {
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "download_completed"`
 
   - `String url`
 
@@ -7569,7 +7569,7 @@ public final class Main {
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "download_failed"`
 
   - `String url`
 
@@ -7595,7 +7595,7 @@ public final class Main {
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "download_started"`
 
   - `String url`
 
@@ -7621,7 +7621,7 @@ public final class Main {
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tab_opened"`
 
 ### Browser State Tab Entry
 
@@ -7681,13 +7681,13 @@ public final class Main {
   the family's tool with any members disabled via `configs` removed
   from its schema.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "browser_toolset_20260801"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -8528,7 +8528,7 @@ public final class Main {
 
 - `class CacheControlEphemeral:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "ephemeral"`
 
   - `Optional<Ttl> ttl`
 
@@ -8581,7 +8581,7 @@ public final class Main {
 
     minimum: 0
 
-  - `JsonValue type constant`
+  - `JsonValue type = "char_location"`
 
 ### Citation Char Location Param
 
@@ -8603,7 +8603,7 @@ public final class Main {
 
     minimum: 0
 
-  - `JsonValue type constant`
+  - `JsonValue type = "char_location"`
 
 ### Citation Content Block Location
 
@@ -8635,7 +8635,7 @@ public final class Main {
 
     minimum: 0
 
-  - `JsonValue type constant`
+  - `JsonValue type = "content_block_location"`
 
 ### Citation Content Block Location Param
 
@@ -8667,7 +8667,7 @@ public final class Main {
 
     minimum: 0
 
-  - `JsonValue type constant`
+  - `JsonValue type = "content_block_location"`
 
 ### Citation Page Location
 
@@ -8689,7 +8689,7 @@ public final class Main {
 
     minimum: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "page_location"`
 
 ### Citation Page Location Param
 
@@ -8711,7 +8711,7 @@ public final class Main {
 
     minimum: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "page_location"`
 
 ### Citation Search Result Location Param
 
@@ -8747,7 +8747,7 @@ public final class Main {
 
   - `Optional<String> title`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "search_result_location"`
 
 ### Citation Web Search Result Location Param
 
@@ -8761,7 +8761,7 @@ public final class Main {
 
     maxLength: 512, minLength: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_result_location"`
 
   - `String url`
 
@@ -8803,7 +8803,7 @@ public final class Main {
 
         minimum: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "char_location"`
 
     - `class CitationPageLocation:`
 
@@ -8823,7 +8823,7 @@ public final class Main {
 
         minimum: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "page_location"`
 
     - `class CitationContentBlockLocation:`
 
@@ -8853,7 +8853,7 @@ public final class Main {
 
         minimum: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "content_block_location"`
 
     - `class CitationsWebSearchResultLocation:`
 
@@ -8865,7 +8865,7 @@ public final class Main {
 
         maxLength: 512
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_result_location"`
 
       - `String url`
 
@@ -8901,9 +8901,9 @@ public final class Main {
 
       - `Optional<String> title`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "search_result_location"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "citations_delta"`
 
 ### Citations Search Result Location
 
@@ -8939,7 +8939,7 @@ public final class Main {
 
   - `Optional<String> title`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "search_result_location"`
 
 ### Citations Web Search Result Location
 
@@ -8953,7 +8953,7 @@ public final class Main {
 
     maxLength: 512
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_result_location"`
 
   - `String url`
 
@@ -8963,7 +8963,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_output"`
 
 ### Code Execution Output Block Param
 
@@ -8971,7 +8971,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_output"`
 
 ### Code Execution Result Block
 
@@ -8981,7 +8981,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_output"`
 
   - `long returnCode`
 
@@ -8989,7 +8989,7 @@ public final class Main {
 
   - `String stdout`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_result"`
 
 ### Code Execution Result Block Param
 
@@ -8999,7 +8999,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_output"`
 
   - `long returnCode`
 
@@ -9007,19 +9007,19 @@ public final class Main {
 
   - `String stdout`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_result"`
 
 ### Code Execution Tool 20250522
 
 - `class CodeExecutionTool20250522:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_20250522"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -9035,7 +9035,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -9064,13 +9064,13 @@ public final class Main {
 
 - `class CodeExecutionTool20250825:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_20250825"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -9086,7 +9086,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -9117,13 +9117,13 @@ public final class Main {
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-  - `JsonValue name constant`
+  - `JsonValue name = "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_20260120"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -9139,7 +9139,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -9170,13 +9170,13 @@ public final class Main {
 
   Code execution tool with REPL state persistence.
 
-  - `JsonValue name constant`
+  - `JsonValue name = "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_20260521"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -9192,7 +9192,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -9237,7 +9237,7 @@ public final class Main {
 
         - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_tool_result_error"`
 
     - `class CodeExecutionResultBlock:`
 
@@ -9245,7 +9245,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_output"`
 
       - `long returnCode`
 
@@ -9253,7 +9253,7 @@ public final class Main {
 
       - `String stdout`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_result"`
 
     - `class EncryptedCodeExecutionResultBlock:`
 
@@ -9263,7 +9263,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_output"`
 
       - `String encryptedStdout`
 
@@ -9271,13 +9271,13 @@ public final class Main {
 
       - `String stderr`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "encrypted_code_execution_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_tool_result"`
 
 ### Code Execution Tool Result Block Content
 
@@ -9297,7 +9297,7 @@ public final class Main {
 
       - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_tool_result_error"`
 
   - `class CodeExecutionResultBlock:`
 
@@ -9305,7 +9305,7 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_output"`
 
     - `long returnCode`
 
@@ -9313,7 +9313,7 @@ public final class Main {
 
     - `String stdout`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_result"`
 
   - `class EncryptedCodeExecutionResultBlock:`
 
@@ -9323,7 +9323,7 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_output"`
 
     - `String encryptedStdout`
 
@@ -9331,7 +9331,7 @@ public final class Main {
 
     - `String stderr`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "encrypted_code_execution_result"`
 
 ### Code Execution Tool Result Block Param
 
@@ -9353,7 +9353,7 @@ public final class Main {
 
         - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_tool_result_error"`
 
     - `class CodeExecutionResultBlockParam:`
 
@@ -9361,7 +9361,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_output"`
 
       - `long returnCode`
 
@@ -9369,7 +9369,7 @@ public final class Main {
 
       - `String stdout`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_result"`
 
     - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -9379,7 +9379,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_output"`
 
       - `String encryptedStdout`
 
@@ -9387,19 +9387,19 @@ public final class Main {
 
       - `String stderr`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "encrypted_code_execution_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -9434,7 +9434,7 @@ public final class Main {
 
       - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_tool_result_error"`
 
   - `class CodeExecutionResultBlockParam:`
 
@@ -9442,7 +9442,7 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_output"`
 
     - `long returnCode`
 
@@ -9450,7 +9450,7 @@ public final class Main {
 
     - `String stdout`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_result"`
 
   - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -9460,7 +9460,7 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_output"`
 
     - `String encryptedStdout`
 
@@ -9468,7 +9468,7 @@ public final class Main {
 
     - `String stderr`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "encrypted_code_execution_result"`
 
 ### Code Execution Tool Result Error
 
@@ -9484,7 +9484,7 @@ public final class Main {
 
     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_tool_result_error"`
 
 ### Code Execution Tool Result Error Code
 
@@ -9512,7 +9512,7 @@ public final class Main {
 
     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_tool_result_error"`
 
 ### Computer Cursor Position Config
 
@@ -9709,13 +9709,13 @@ public final class Main {
   `type`, `configs`, and `cache_control`; zoom is controlled
   via `configs.zoom.enabled`.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "computer_toolset_20260801"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -10326,7 +10326,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "container_upload"`
 
 ### Container Upload Block Param
 
@@ -10337,13 +10337,13 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "container_upload"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -10392,7 +10392,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "char_location"`
 
       - `class CitationPageLocation:`
 
@@ -10412,7 +10412,7 @@ public final class Main {
 
           minimum: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "page_location"`
 
       - `class CitationContentBlockLocation:`
 
@@ -10442,7 +10442,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content_block_location"`
 
       - `class CitationsWebSearchResultLocation:`
 
@@ -10454,7 +10454,7 @@ public final class Main {
 
           maxLength: 512
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result_location"`
 
         - `String url`
 
@@ -10490,13 +10490,13 @@ public final class Main {
 
         - `Optional<String> title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result_location"`
 
     - `String text`
 
       maxLength: 5000000, minLength: 0
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text"`
 
   - `class ThinkingBlock:`
 
@@ -10512,7 +10512,7 @@ public final class Main {
 
       The text of Claude's thinking process for this block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "thinking"`
 
   - `class RedactedThinkingBlock:`
 
@@ -10524,7 +10524,7 @@ public final class Main {
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "redacted_thinking"`
 
   - `class ToolUseBlock:`
 
@@ -10540,7 +10540,7 @@ public final class Main {
 
         Tool invocation directly from the model.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "direct"`
 
       - `class ServerToolCaller:`
 
@@ -10550,7 +10550,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_20250825"`
 
       - `class ServerToolCaller20260120:`
 
@@ -10558,7 +10558,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_20260120"`
 
     - `Input input`
 
@@ -10566,7 +10566,7 @@ public final class Main {
 
       minLength: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_use"`
 
     - `Optional<String> toolsetName`
 
@@ -10612,7 +10612,7 @@ public final class Main {
 
       - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "server_tool_use"`
 
   - `class WebSearchToolResultBlock:`
 
@@ -10648,7 +10648,7 @@ public final class Main {
 
           - `REQUEST_TOO_LARGE("request_too_large")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_tool_result_error"`
 
       - `List<WebSearchResultBlock>`
 
@@ -10658,7 +10658,7 @@ public final class Main {
 
         - `String title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result"`
 
         - `String url`
 
@@ -10666,7 +10666,7 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_tool_result"`
 
   - `class WebFetchToolResultBlock:`
 
@@ -10708,7 +10708,7 @@ public final class Main {
 
           - `UNAVAILABLE("unavailable")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_tool_result_error"`
 
       - `class WebFetchBlock:`
 
@@ -10728,29 +10728,29 @@ public final class Main {
 
                 format: byte
 
-              - `JsonValue mediaType constant`
+              - `JsonValue mediaType = "application/pdf"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "base64"`
 
             - `class PlainTextSource:`
 
               - `String data`
 
-              - `JsonValue mediaType constant`
+              - `JsonValue mediaType = "text/plain"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
           - `Optional<String> title`
 
             The title of the document
 
-          - `JsonValue type constant`
+          - `JsonValue type = "document"`
 
         - `Optional<String> retrievedAt`
 
           ISO 8601 timestamp when the content was retrieved
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_result"`
 
         - `String url`
 
@@ -10760,7 +10760,7 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_tool_result"`
 
   - `class CodeExecutionToolResultBlock:`
 
@@ -10780,7 +10780,7 @@ public final class Main {
 
           - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_tool_result_error"`
 
       - `class CodeExecutionResultBlock:`
 
@@ -10788,7 +10788,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_output"`
 
         - `long returnCode`
 
@@ -10796,7 +10796,7 @@ public final class Main {
 
         - `String stdout`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_result"`
 
       - `class EncryptedCodeExecutionResultBlock:`
 
@@ -10806,7 +10806,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_output"`
 
         - `String encryptedStdout`
 
@@ -10814,13 +10814,13 @@ public final class Main {
 
         - `String stderr`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "encrypted_code_execution_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_tool_result"`
 
   - `class BashCodeExecutionToolResultBlock:`
 
@@ -10840,7 +10840,7 @@ public final class Main {
 
           - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_tool_result_error"`
 
       - `class BashCodeExecutionResultBlock:`
 
@@ -10848,7 +10848,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_output"`
 
         - `long returnCode`
 
@@ -10856,13 +10856,13 @@ public final class Main {
 
         - `String stdout`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "bash_code_execution_tool_result"`
 
   - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -10884,7 +10884,7 @@ public final class Main {
 
         - `Optional<String> errorMessage`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
       - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -10904,13 +10904,13 @@ public final class Main {
 
         - `Optional<Long> totalLines`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_view_result"`
 
       - `class TextEditorCodeExecutionCreateResultBlock:`
 
         - `boolean isFileUpdate`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_create_result"`
 
       - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -10924,13 +10924,13 @@ public final class Main {
 
         - `Optional<Long> oldStart`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_code_execution_tool_result"`
 
   - `class ToolSearchToolResultBlock:`
 
@@ -10950,7 +10950,7 @@ public final class Main {
 
         - `Optional<String> errorMessage`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_result_error"`
 
       - `class ToolSearchToolSearchResultBlock:`
 
@@ -10960,15 +10960,15 @@ public final class Main {
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_reference"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_search_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_search_tool_result"`
 
   - `class ContainerUploadBlock:`
 
@@ -10976,7 +10976,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "container_upload"`
 
 ### Content Block Param
 
@@ -10990,13 +10990,13 @@ public final class Main {
 
       minLength: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "ephemeral"`
 
       - `Optional<Ttl> ttl`
 
@@ -11033,7 +11033,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "char_location"`
 
       - `class CitationPageLocationParam:`
 
@@ -11053,7 +11053,7 @@ public final class Main {
 
           minimum: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "page_location"`
 
       - `class CitationContentBlockLocationParam:`
 
@@ -11083,7 +11083,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content_block_location"`
 
       - `class CitationWebSearchResultLocationParam:`
 
@@ -11095,7 +11095,7 @@ public final class Main {
 
           maxLength: 512, minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result_location"`
 
         - `String url`
 
@@ -11133,7 +11133,7 @@ public final class Main {
 
         - `Optional<String> title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result_location"`
 
   - `class ImageBlockParam:`
 
@@ -11155,11 +11155,11 @@ public final class Main {
 
           - `IMAGE_WEBP("image/webp")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "base64"`
 
       - `class UrlImageSource:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "url"`
 
         - `String url`
 
@@ -11167,9 +11167,9 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "file"`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "image"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11197,17 +11197,17 @@ public final class Main {
 
           format: byte
 
-        - `JsonValue mediaType constant`
+        - `JsonValue mediaType = "application/pdf"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "base64"`
 
       - `class PlainTextSource:`
 
         - `String data`
 
-        - `JsonValue mediaType constant`
+        - `JsonValue mediaType = "text/plain"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
       - `class ContentBlockSource:`
 
@@ -11221,11 +11221,11 @@ public final class Main {
 
             - `class ImageBlockParam:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content"`
 
       - `class UrlPdfSource:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "url"`
 
         - `String url`
 
@@ -11233,9 +11233,9 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "file"`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "document"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11261,7 +11261,7 @@ public final class Main {
 
         minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11273,7 +11273,7 @@ public final class Main {
 
     - `String title`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "search_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11293,7 +11293,7 @@ public final class Main {
 
       The `thinking` text of this block as returned by the API.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "thinking"`
 
   - `class RedactedThinkingBlockParam:`
 
@@ -11301,7 +11301,7 @@ public final class Main {
 
       The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "redacted_thinking"`
 
   - `class ToolUseBlockParam:`
 
@@ -11315,7 +11315,7 @@ public final class Main {
 
       maxLength: 200, minLength: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_use"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11329,7 +11329,7 @@ public final class Main {
 
         Tool invocation directly from the model.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "direct"`
 
       - `class ServerToolCaller:`
 
@@ -11339,7 +11339,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_20250825"`
 
       - `class ServerToolCaller20260120:`
 
@@ -11347,7 +11347,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_20260120"`
 
     - `Optional<String> toolsetName`
 
@@ -11361,7 +11361,7 @@ public final class Main {
 
       pattern: ^[a-zA-Z0-9_-]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11389,7 +11389,7 @@ public final class Main {
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_reference"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11433,7 +11433,7 @@ public final class Main {
 
               Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "browser_state"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11461,7 +11461,7 @@ public final class Main {
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tab_opened"`
 
             - `class BrowserStateChangeDownloadStarted:`
 
@@ -11473,7 +11473,7 @@ public final class Main {
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "download_started"`
 
               - `String url`
 
@@ -11494,7 +11494,7 @@ public final class Main {
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "download_completed"`
 
               - `String url`
 
@@ -11524,7 +11524,7 @@ public final class Main {
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "download_failed"`
 
               - `String url`
 
@@ -11570,7 +11570,7 @@ public final class Main {
 
       - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "server_tool_use"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11600,7 +11600,7 @@ public final class Main {
 
         - `String title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result"`
 
         - `String url`
 
@@ -11622,13 +11622,13 @@ public final class Main {
 
           - `REQUEST_TOO_LARGE("request_too_large")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_tool_result_error"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11674,13 +11674,13 @@ public final class Main {
 
           - `UNAVAILABLE("unavailable")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_tool_result_error"`
 
       - `class WebFetchBlockParam:`
 
         - `DocumentBlockParam content`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_result"`
 
         - `String url`
 
@@ -11694,7 +11694,7 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11732,7 +11732,7 @@ public final class Main {
 
           - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_tool_result_error"`
 
       - `class CodeExecutionResultBlockParam:`
 
@@ -11740,7 +11740,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_output"`
 
         - `long returnCode`
 
@@ -11748,7 +11748,7 @@ public final class Main {
 
         - `String stdout`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_result"`
 
       - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -11758,7 +11758,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_output"`
 
         - `String encryptedStdout`
 
@@ -11766,13 +11766,13 @@ public final class Main {
 
         - `String stderr`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "encrypted_code_execution_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11796,7 +11796,7 @@ public final class Main {
 
           - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_tool_result_error"`
 
       - `class BashCodeExecutionResultBlockParam:`
 
@@ -11804,7 +11804,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_output"`
 
         - `long returnCode`
 
@@ -11812,13 +11812,13 @@ public final class Main {
 
         - `String stdout`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "bash_code_execution_tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11842,7 +11842,7 @@ public final class Main {
 
           - `FILE_NOT_FOUND("file_not_found")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
         - `Optional<String> errorMessage`
 
@@ -11858,7 +11858,7 @@ public final class Main {
 
           - `PDF("pdf")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_view_result"`
 
         - `Optional<Long> numLines`
 
@@ -11870,11 +11870,11 @@ public final class Main {
 
         - `boolean isFileUpdate`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_create_result"`
 
       - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
         - `Optional<List<String>> lines`
 
@@ -11890,7 +11890,7 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_code_execution_tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11912,7 +11912,7 @@ public final class Main {
 
           - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_result_error"`
 
         - `Optional<String> errorMessage`
 
@@ -11924,19 +11924,19 @@ public final class Main {
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_reference"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_search_result"`
 
     - `String toolUseId`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_search_tool_result"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11949,7 +11949,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "container_upload"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -11971,13 +11971,13 @@ public final class Main {
 
           minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
           Create a cache control breakpoint at this content block.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "ephemeral"`
 
           - `Optional<Ttl> ttl`
 
@@ -12014,7 +12014,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "char_location"`
 
           - `class CitationPageLocationParam:`
 
@@ -12034,7 +12034,7 @@ public final class Main {
 
               minimum: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "page_location"`
 
           - `class CitationContentBlockLocationParam:`
 
@@ -12064,7 +12064,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content_block_location"`
 
           - `class CitationWebSearchResultLocationParam:`
 
@@ -12076,7 +12076,7 @@ public final class Main {
 
               maxLength: 512, minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result_location"`
 
             - `String url`
 
@@ -12114,7 +12114,7 @@ public final class Main {
 
             - `Optional<String> title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "search_result_location"`
 
       - `class ImageBlockParam:`
 
@@ -12136,11 +12136,11 @@ public final class Main {
 
               - `IMAGE_WEBP("image/webp")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class UrlImageSource:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "url"`
 
             - `String url`
 
@@ -12148,9 +12148,9 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "file"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "image"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -12168,7 +12168,7 @@ public final class Main {
 
             - `ERROR("error")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "content"`
 
 ### Content Block Source Content
 
@@ -12180,13 +12180,13 @@ public final class Main {
 
       minLength: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "ephemeral"`
 
       - `Optional<Ttl> ttl`
 
@@ -12223,7 +12223,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "char_location"`
 
       - `class CitationPageLocationParam:`
 
@@ -12243,7 +12243,7 @@ public final class Main {
 
           minimum: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "page_location"`
 
       - `class CitationContentBlockLocationParam:`
 
@@ -12273,7 +12273,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content_block_location"`
 
       - `class CitationWebSearchResultLocationParam:`
 
@@ -12285,7 +12285,7 @@ public final class Main {
 
           maxLength: 512, minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result_location"`
 
         - `String url`
 
@@ -12323,7 +12323,7 @@ public final class Main {
 
         - `Optional<String> title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result_location"`
 
   - `class ImageBlockParam:`
 
@@ -12345,11 +12345,11 @@ public final class Main {
 
           - `IMAGE_WEBP("image/webp")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "base64"`
 
       - `class UrlImageSource:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "url"`
 
         - `String url`
 
@@ -12357,9 +12357,9 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "file"`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "image"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -12383,7 +12383,7 @@ public final class Main {
 
   Tool invocation directly from the model.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "direct"`
 
 ### Document Block
 
@@ -12403,23 +12403,23 @@ public final class Main {
 
         format: byte
 
-      - `JsonValue mediaType constant`
+      - `JsonValue mediaType = "application/pdf"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "base64"`
 
     - `class PlainTextSource:`
 
       - `String data`
 
-      - `JsonValue mediaType constant`
+      - `JsonValue mediaType = "text/plain"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
   - `Optional<String> title`
 
     The title of the document
 
-  - `JsonValue type constant`
+  - `JsonValue type = "document"`
 
 ### Document Block Param
 
@@ -12433,17 +12433,17 @@ public final class Main {
 
         format: byte
 
-      - `JsonValue mediaType constant`
+      - `JsonValue mediaType = "application/pdf"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "base64"`
 
     - `class PlainTextSource:`
 
       - `String data`
 
-      - `JsonValue mediaType constant`
+      - `JsonValue mediaType = "text/plain"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
     - `class ContentBlockSource:`
 
@@ -12459,13 +12459,13 @@ public final class Main {
 
               minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
             - `Optional<CacheControlEphemeral> cacheControl`
 
               Create a cache control breakpoint at this content block.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "ephemeral"`
 
               - `Optional<Ttl> ttl`
 
@@ -12502,7 +12502,7 @@ public final class Main {
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "char_location"`
 
               - `class CitationPageLocationParam:`
 
@@ -12522,7 +12522,7 @@ public final class Main {
 
                   minimum: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "page_location"`
 
               - `class CitationContentBlockLocationParam:`
 
@@ -12552,7 +12552,7 @@ public final class Main {
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "content_block_location"`
 
               - `class CitationWebSearchResultLocationParam:`
 
@@ -12564,7 +12564,7 @@ public final class Main {
 
                   maxLength: 512, minLength: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result_location"`
 
                 - `String url`
 
@@ -12602,7 +12602,7 @@ public final class Main {
 
                 - `Optional<String> title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "search_result_location"`
 
           - `class ImageBlockParam:`
 
@@ -12624,11 +12624,11 @@ public final class Main {
 
                   - `IMAGE_WEBP("image/webp")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "base64"`
 
               - `class UrlImageSource:`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "url"`
 
                 - `String url`
 
@@ -12636,9 +12636,9 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "file"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "image"`
 
             - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -12656,11 +12656,11 @@ public final class Main {
 
                 - `ERROR("error")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "content"`
 
     - `class UrlPdfSource:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "url"`
 
       - `String url`
 
@@ -12668,9 +12668,9 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "file"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "document"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -12698,7 +12698,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_output"`
 
   - `String encryptedStdout`
 
@@ -12706,7 +12706,7 @@ public final class Main {
 
   - `String stderr`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "encrypted_code_execution_result"`
 
 ### Encrypted Code Execution Result Block Param
 
@@ -12718,7 +12718,7 @@ public final class Main {
 
     - `String fileId`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_output"`
 
   - `String encryptedStdout`
 
@@ -12726,7 +12726,7 @@ public final class Main {
 
   - `String stderr`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "encrypted_code_execution_result"`
 
 ### File Document Source
 
@@ -12734,7 +12734,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "file"`
 
 ### File Image Source
 
@@ -12742,7 +12742,7 @@ public final class Main {
 
   - `String fileId`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "file"`
 
 ### Image Block Param
 
@@ -12766,11 +12766,11 @@ public final class Main {
 
         - `IMAGE_WEBP("image/webp")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "base64"`
 
     - `class UrlImageSource:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "url"`
 
       - `String url`
 
@@ -12778,15 +12778,15 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "file"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "image"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -12835,7 +12835,7 @@ public final class Main {
 
   - `String partialJson`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "input_json_delta"`
 
 ### JSON Output Format
 
@@ -12845,19 +12845,19 @@ public final class Main {
 
     The JSON schema of the format
 
-  - `JsonValue type constant`
+  - `JsonValue type = "json_schema"`
 
 ### Memory Tool 20250818
 
 - `class MemoryTool20250818:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "memory"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "memory_20250818"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -12873,7 +12873,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -13003,7 +13003,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "char_location"`
 
         - `class CitationPageLocation:`
 
@@ -13023,7 +13023,7 @@ public final class Main {
 
             minimum: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "page_location"`
 
         - `class CitationContentBlockLocation:`
 
@@ -13053,7 +13053,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "content_block_location"`
 
         - `class CitationsWebSearchResultLocation:`
 
@@ -13065,7 +13065,7 @@ public final class Main {
 
             maxLength: 512
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result_location"`
 
           - `String url`
 
@@ -13101,13 +13101,13 @@ public final class Main {
 
           - `Optional<String> title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "search_result_location"`
 
       - `String text`
 
         maxLength: 5000000, minLength: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
     - `class ThinkingBlock:`
 
@@ -13123,7 +13123,7 @@ public final class Main {
 
         The text of Claude's thinking process for this block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "thinking"`
 
     - `class RedactedThinkingBlock:`
 
@@ -13135,7 +13135,7 @@ public final class Main {
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "redacted_thinking"`
 
     - `class ToolUseBlock:`
 
@@ -13151,7 +13151,7 @@ public final class Main {
 
           Tool invocation directly from the model.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "direct"`
 
         - `class ServerToolCaller:`
 
@@ -13161,7 +13161,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250825"`
 
         - `class ServerToolCaller20260120:`
 
@@ -13169,7 +13169,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260120"`
 
       - `Input input`
 
@@ -13177,7 +13177,7 @@ public final class Main {
 
         minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_use"`
 
       - `Optional<String> toolsetName`
 
@@ -13223,7 +13223,7 @@ public final class Main {
 
         - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "server_tool_use"`
 
     - `class WebSearchToolResultBlock:`
 
@@ -13259,7 +13259,7 @@ public final class Main {
 
             - `REQUEST_TOO_LARGE("request_too_large")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result_error"`
 
         - `List<WebSearchResultBlock>`
 
@@ -13269,7 +13269,7 @@ public final class Main {
 
           - `String title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result"`
 
           - `String url`
 
@@ -13277,7 +13277,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_tool_result"`
 
     - `class WebFetchToolResultBlock:`
 
@@ -13319,7 +13319,7 @@ public final class Main {
 
             - `UNAVAILABLE("unavailable")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result_error"`
 
         - `class WebFetchBlock:`
 
@@ -13339,29 +13339,29 @@ public final class Main {
 
                   format: byte
 
-                - `JsonValue mediaType constant`
+                - `JsonValue mediaType = "application/pdf"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "base64"`
 
               - `class PlainTextSource:`
 
                 - `String data`
 
-                - `JsonValue mediaType constant`
+                - `JsonValue mediaType = "text/plain"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
             - `Optional<String> title`
 
               The title of the document
 
-            - `JsonValue type constant`
+            - `JsonValue type = "document"`
 
           - `Optional<String> retrievedAt`
 
             ISO 8601 timestamp when the content was retrieved
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_result"`
 
           - `String url`
 
@@ -13371,7 +13371,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_tool_result"`
 
     - `class CodeExecutionToolResultBlock:`
 
@@ -13391,7 +13391,7 @@ public final class Main {
 
             - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result_error"`
 
         - `class CodeExecutionResultBlock:`
 
@@ -13399,7 +13399,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_output"`
 
           - `long returnCode`
 
@@ -13407,7 +13407,7 @@ public final class Main {
 
           - `String stdout`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_result"`
 
         - `class EncryptedCodeExecutionResultBlock:`
 
@@ -13417,7 +13417,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_output"`
 
           - `String encryptedStdout`
 
@@ -13425,13 +13425,13 @@ public final class Main {
 
           - `String stderr`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "encrypted_code_execution_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_tool_result"`
 
     - `class BashCodeExecutionToolResultBlock:`
 
@@ -13451,7 +13451,7 @@ public final class Main {
 
             - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result_error"`
 
         - `class BashCodeExecutionResultBlock:`
 
@@ -13459,7 +13459,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_output"`
 
           - `long returnCode`
 
@@ -13467,13 +13467,13 @@ public final class Main {
 
           - `String stdout`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_tool_result"`
 
     - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -13495,7 +13495,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
         - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -13515,13 +13515,13 @@ public final class Main {
 
           - `Optional<Long> totalLines`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_view_result"`
 
         - `class TextEditorCodeExecutionCreateResultBlock:`
 
           - `boolean isFileUpdate`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_create_result"`
 
         - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -13535,13 +13535,13 @@ public final class Main {
 
           - `Optional<Long> oldStart`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_tool_result"`
 
     - `class ToolSearchToolResultBlock:`
 
@@ -13561,7 +13561,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result_error"`
 
         - `class ToolSearchToolSearchResultBlock:`
 
@@ -13571,15 +13571,15 @@ public final class Main {
 
               maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_reference"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_search_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_result"`
 
     - `class ContainerUploadBlock:`
 
@@ -13587,7 +13587,7 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "container_upload"`
 
   - `Model model`
 
@@ -13663,7 +13663,7 @@ public final class Main {
 
       High-performance model for agents and coding
 
-  - `JsonValue role constant`
+  - `JsonValue role = "assistant"`
 
     Conversational role of the generated message.
 
@@ -13703,7 +13703,7 @@ public final class Main {
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "refusal"`
 
   - `Optional<StopReason> stopReason`
 
@@ -13741,7 +13741,7 @@ public final class Main {
 
     This value will be a non-null string if one of your custom stop sequences was generated.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message"`
 
     Object type.
 
@@ -13865,7 +13865,7 @@ public final class Main {
 
       This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "object"`
 
       - `Optional<Properties> properties`
 
@@ -13893,7 +13893,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "ephemeral"`
 
       - `Optional<Ttl> ttl`
 
@@ -13934,13 +13934,13 @@ public final class Main {
 
   - `class ToolBash20250124:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "bash"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "bash_20250124"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -13968,13 +13968,13 @@ public final class Main {
 
   - `class CodeExecutionTool20250522:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20250522"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14000,13 +14000,13 @@ public final class Main {
 
   - `class CodeExecutionTool20250825:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20250825"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14034,13 +14034,13 @@ public final class Main {
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20260120"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14068,13 +14068,13 @@ public final class Main {
 
     Code execution tool with REPL state persistence.
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20260521"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14105,7 +14105,7 @@ public final class Main {
     the family's tool with any members disabled via `configs` removed
     from its schema.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "browser_toolset_20260801"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -14494,13 +14494,13 @@ public final class Main {
 
   - `class MemoryTool20250818:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "memory"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "memory_20250818"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14537,7 +14537,7 @@ public final class Main {
     `type`, `configs`, and `cache_control`; zoom is controlled
     via `configs.zoom.enabled`.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "computer_toolset_20260801"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -14758,13 +14758,13 @@ public final class Main {
 
   - `class ToolTextEditor20250124:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "str_replace_editor"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_20250124"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14792,13 +14792,13 @@ public final class Main {
 
   - `class ToolTextEditor20250429:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_20250429"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14826,13 +14826,13 @@ public final class Main {
 
   - `class ToolTextEditor20250728:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_20250728"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14866,13 +14866,13 @@ public final class Main {
 
   - `class WebSearchTool20250305:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_20250305"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -14914,7 +14914,7 @@ public final class Main {
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "approximate"`
 
       - `Optional<String> city`
 
@@ -14942,13 +14942,13 @@ public final class Main {
 
   - `class WebFetchTool20250910:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20250910"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -15000,13 +15000,13 @@ public final class Main {
 
   - `class WebSearchTool20260209:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_20260209"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -15050,13 +15050,13 @@ public final class Main {
 
   - `class WebFetchTool20260209:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20260209"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -15108,13 +15108,13 @@ public final class Main {
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20260309"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -15168,13 +15168,13 @@ public final class Main {
 
   - `class WebSearchTool20260318:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_20260318"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -15226,13 +15226,13 @@ public final class Main {
 
   - `class WebFetchTool20260318:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20260318"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -15294,7 +15294,7 @@ public final class Main {
 
   - `class ToolSearchToolBm25_20251119:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "tool_search_tool_bm25"`
 
       Name of the tool.
 
@@ -15330,7 +15330,7 @@ public final class Main {
 
   - `class ToolSearchToolRegex20251119:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "tool_search_tool_regex"`
 
       Name of the tool.
 
@@ -15486,13 +15486,13 @@ public final class Main {
 
           minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
           Create a cache control breakpoint at this content block.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "ephemeral"`
 
           - `Optional<Ttl> ttl`
 
@@ -15529,7 +15529,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "char_location"`
 
           - `class CitationPageLocationParam:`
 
@@ -15549,7 +15549,7 @@ public final class Main {
 
               minimum: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "page_location"`
 
           - `class CitationContentBlockLocationParam:`
 
@@ -15579,7 +15579,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content_block_location"`
 
           - `class CitationWebSearchResultLocationParam:`
 
@@ -15591,7 +15591,7 @@ public final class Main {
 
               maxLength: 512, minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result_location"`
 
             - `String url`
 
@@ -15629,7 +15629,7 @@ public final class Main {
 
             - `Optional<String> title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "search_result_location"`
 
       - `class ImageBlockParam:`
 
@@ -15651,11 +15651,11 @@ public final class Main {
 
               - `IMAGE_WEBP("image/webp")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class UrlImageSource:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "url"`
 
             - `String url`
 
@@ -15663,9 +15663,9 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "file"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "image"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15693,17 +15693,17 @@ public final class Main {
 
               format: byte
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "application/pdf"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class PlainTextSource:`
 
             - `String data`
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "text/plain"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
           - `class ContentBlockSource:`
 
@@ -15717,11 +15717,11 @@ public final class Main {
 
                 - `class ImageBlockParam:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content"`
 
           - `class UrlPdfSource:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "url"`
 
             - `String url`
 
@@ -15729,9 +15729,9 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "file"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "document"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15757,7 +15757,7 @@ public final class Main {
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15769,7 +15769,7 @@ public final class Main {
 
         - `String title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15789,7 +15789,7 @@ public final class Main {
 
           The `thinking` text of this block as returned by the API.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "thinking"`
 
       - `class RedactedThinkingBlockParam:`
 
@@ -15797,7 +15797,7 @@ public final class Main {
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "redacted_thinking"`
 
       - `class ToolUseBlockParam:`
 
@@ -15811,7 +15811,7 @@ public final class Main {
 
           maxLength: 200, minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_use"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15825,7 +15825,7 @@ public final class Main {
 
             Tool invocation directly from the model.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "direct"`
 
           - `class ServerToolCaller:`
 
@@ -15835,7 +15835,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_20250825"`
 
           - `class ServerToolCaller20260120:`
 
@@ -15843,7 +15843,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_20260120"`
 
         - `Optional<String> toolsetName`
 
@@ -15857,7 +15857,7 @@ public final class Main {
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15885,7 +15885,7 @@ public final class Main {
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_reference"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15929,7 +15929,7 @@ public final class Main {
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "browser_state"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -15957,7 +15957,7 @@ public final class Main {
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tab_opened"`
 
                 - `class BrowserStateChangeDownloadStarted:`
 
@@ -15969,7 +15969,7 @@ public final class Main {
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "download_started"`
 
                   - `String url`
 
@@ -15990,7 +15990,7 @@ public final class Main {
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "download_completed"`
 
                   - `String url`
 
@@ -16020,7 +16020,7 @@ public final class Main {
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "download_failed"`
 
                   - `String url`
 
@@ -16066,7 +16066,7 @@ public final class Main {
 
           - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "server_tool_use"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16096,7 +16096,7 @@ public final class Main {
 
             - `String title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result"`
 
             - `String url`
 
@@ -16118,13 +16118,13 @@ public final class Main {
 
               - `REQUEST_TOO_LARGE("request_too_large")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_tool_result_error"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16170,13 +16170,13 @@ public final class Main {
 
               - `UNAVAILABLE("unavailable")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_tool_result_error"`
 
           - `class WebFetchBlockParam:`
 
             - `DocumentBlockParam content`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_result"`
 
             - `String url`
 
@@ -16190,7 +16190,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16228,7 +16228,7 @@ public final class Main {
 
               - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_tool_result_error"`
 
           - `class CodeExecutionResultBlockParam:`
 
@@ -16236,7 +16236,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_output"`
 
             - `long returnCode`
 
@@ -16244,7 +16244,7 @@ public final class Main {
 
             - `String stdout`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_result"`
 
           - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -16254,7 +16254,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_output"`
 
             - `String encryptedStdout`
 
@@ -16262,13 +16262,13 @@ public final class Main {
 
             - `String stderr`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "encrypted_code_execution_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16292,7 +16292,7 @@ public final class Main {
 
               - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_tool_result_error"`
 
           - `class BashCodeExecutionResultBlockParam:`
 
@@ -16300,7 +16300,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_output"`
 
             - `long returnCode`
 
@@ -16308,13 +16308,13 @@ public final class Main {
 
             - `String stdout`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16338,7 +16338,7 @@ public final class Main {
 
               - `FILE_NOT_FOUND("file_not_found")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
             - `Optional<String> errorMessage`
 
@@ -16354,7 +16354,7 @@ public final class Main {
 
               - `PDF("pdf")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_view_result"`
 
             - `Optional<Long> numLines`
 
@@ -16366,11 +16366,11 @@ public final class Main {
 
             - `boolean isFileUpdate`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_create_result"`
 
           - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
             - `Optional<List<String>> lines`
 
@@ -16386,7 +16386,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16408,7 +16408,7 @@ public final class Main {
 
               - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_result_error"`
 
             - `Optional<String> errorMessage`
 
@@ -16420,19 +16420,19 @@ public final class Main {
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_reference"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_search_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16445,7 +16445,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "container_upload"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16581,7 +16581,7 @@ public final class Main {
 
       The JSON schema of the format
 
-    - `JsonValue type constant`
+    - `JsonValue type = "json_schema"`
 
 ### Output Tokens Details
 
@@ -16606,9 +16606,9 @@ public final class Main {
 
   - `String data`
 
-  - `JsonValue mediaType constant`
+  - `JsonValue mediaType = "text/plain"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text"`
 
 ### Raw Content Block Delta
 
@@ -16618,13 +16618,13 @@ public final class Main {
 
     - `String text`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_delta"`
 
   - `class InputJsonDelta:`
 
     - `String partialJson`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "input_json_delta"`
 
   - `class CitationsDelta:`
 
@@ -16648,7 +16648,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "char_location"`
 
       - `class CitationPageLocation:`
 
@@ -16668,7 +16668,7 @@ public final class Main {
 
           minimum: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "page_location"`
 
       - `class CitationContentBlockLocation:`
 
@@ -16698,7 +16698,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content_block_location"`
 
       - `class CitationsWebSearchResultLocation:`
 
@@ -16710,7 +16710,7 @@ public final class Main {
 
           maxLength: 512
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result_location"`
 
         - `String url`
 
@@ -16746,9 +16746,9 @@ public final class Main {
 
         - `Optional<String> title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result_location"`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "citations_delta"`
 
   - `class ThinkingDelta:`
 
@@ -16756,7 +16756,7 @@ public final class Main {
 
       The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "thinking_delta"`
 
   - `class SignatureDelta:`
 
@@ -16764,7 +16764,7 @@ public final class Main {
 
       The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "signature_delta"`
 
 ### Raw Content Block Delta Event
 
@@ -16776,13 +16776,13 @@ public final class Main {
 
       - `String text`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_delta"`
 
     - `class InputJsonDelta:`
 
       - `String partialJson`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "input_json_delta"`
 
     - `class CitationsDelta:`
 
@@ -16806,7 +16806,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "char_location"`
 
         - `class CitationPageLocation:`
 
@@ -16826,7 +16826,7 @@ public final class Main {
 
             minimum: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "page_location"`
 
         - `class CitationContentBlockLocation:`
 
@@ -16856,7 +16856,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "content_block_location"`
 
         - `class CitationsWebSearchResultLocation:`
 
@@ -16868,7 +16868,7 @@ public final class Main {
 
             maxLength: 512
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result_location"`
 
           - `String url`
 
@@ -16904,9 +16904,9 @@ public final class Main {
 
           - `Optional<String> title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "search_result_location"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "citations_delta"`
 
     - `class ThinkingDelta:`
 
@@ -16914,7 +16914,7 @@ public final class Main {
 
         The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "thinking_delta"`
 
     - `class SignatureDelta:`
 
@@ -16922,11 +16922,11 @@ public final class Main {
 
         The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "signature_delta"`
 
   - `long index`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "content_block_delta"`
 
 ### Raw Content Block Start Event
 
@@ -16962,7 +16962,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "char_location"`
 
         - `class CitationPageLocation:`
 
@@ -16982,7 +16982,7 @@ public final class Main {
 
             minimum: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "page_location"`
 
         - `class CitationContentBlockLocation:`
 
@@ -17012,7 +17012,7 @@ public final class Main {
 
             minimum: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "content_block_location"`
 
         - `class CitationsWebSearchResultLocation:`
 
@@ -17024,7 +17024,7 @@ public final class Main {
 
             maxLength: 512
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result_location"`
 
           - `String url`
 
@@ -17060,13 +17060,13 @@ public final class Main {
 
           - `Optional<String> title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "search_result_location"`
 
       - `String text`
 
         maxLength: 5000000, minLength: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text"`
 
     - `class ThinkingBlock:`
 
@@ -17082,7 +17082,7 @@ public final class Main {
 
         The text of Claude's thinking process for this block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "thinking"`
 
     - `class RedactedThinkingBlock:`
 
@@ -17094,7 +17094,7 @@ public final class Main {
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "redacted_thinking"`
 
     - `class ToolUseBlock:`
 
@@ -17110,7 +17110,7 @@ public final class Main {
 
           Tool invocation directly from the model.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "direct"`
 
         - `class ServerToolCaller:`
 
@@ -17120,7 +17120,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250825"`
 
         - `class ServerToolCaller20260120:`
 
@@ -17128,7 +17128,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260120"`
 
       - `Input input`
 
@@ -17136,7 +17136,7 @@ public final class Main {
 
         minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_use"`
 
       - `Optional<String> toolsetName`
 
@@ -17182,7 +17182,7 @@ public final class Main {
 
         - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "server_tool_use"`
 
     - `class WebSearchToolResultBlock:`
 
@@ -17218,7 +17218,7 @@ public final class Main {
 
             - `REQUEST_TOO_LARGE("request_too_large")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result_error"`
 
         - `List<WebSearchResultBlock>`
 
@@ -17228,7 +17228,7 @@ public final class Main {
 
           - `String title`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_result"`
 
           - `String url`
 
@@ -17236,7 +17236,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_tool_result"`
 
     - `class WebFetchToolResultBlock:`
 
@@ -17278,7 +17278,7 @@ public final class Main {
 
             - `UNAVAILABLE("unavailable")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result_error"`
 
         - `class WebFetchBlock:`
 
@@ -17298,29 +17298,29 @@ public final class Main {
 
                   format: byte
 
-                - `JsonValue mediaType constant`
+                - `JsonValue mediaType = "application/pdf"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "base64"`
 
               - `class PlainTextSource:`
 
                 - `String data`
 
-                - `JsonValue mediaType constant`
+                - `JsonValue mediaType = "text/plain"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
             - `Optional<String> title`
 
               The title of the document
 
-            - `JsonValue type constant`
+            - `JsonValue type = "document"`
 
           - `Optional<String> retrievedAt`
 
             ISO 8601 timestamp when the content was retrieved
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_result"`
 
           - `String url`
 
@@ -17330,7 +17330,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_tool_result"`
 
     - `class CodeExecutionToolResultBlock:`
 
@@ -17350,7 +17350,7 @@ public final class Main {
 
             - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result_error"`
 
         - `class CodeExecutionResultBlock:`
 
@@ -17358,7 +17358,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_output"`
 
           - `long returnCode`
 
@@ -17366,7 +17366,7 @@ public final class Main {
 
           - `String stdout`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_result"`
 
         - `class EncryptedCodeExecutionResultBlock:`
 
@@ -17376,7 +17376,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_output"`
 
           - `String encryptedStdout`
 
@@ -17384,13 +17384,13 @@ public final class Main {
 
           - `String stderr`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "encrypted_code_execution_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_tool_result"`
 
     - `class BashCodeExecutionToolResultBlock:`
 
@@ -17410,7 +17410,7 @@ public final class Main {
 
             - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result_error"`
 
         - `class BashCodeExecutionResultBlock:`
 
@@ -17418,7 +17418,7 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_output"`
 
           - `long returnCode`
 
@@ -17426,13 +17426,13 @@ public final class Main {
 
           - `String stdout`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "bash_code_execution_tool_result"`
 
     - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -17454,7 +17454,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
         - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -17474,13 +17474,13 @@ public final class Main {
 
           - `Optional<Long> totalLines`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_view_result"`
 
         - `class TextEditorCodeExecutionCreateResultBlock:`
 
           - `boolean isFileUpdate`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_create_result"`
 
         - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -17494,13 +17494,13 @@ public final class Main {
 
           - `Optional<Long> oldStart`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_tool_result"`
 
     - `class ToolSearchToolResultBlock:`
 
@@ -17520,7 +17520,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result_error"`
 
         - `class ToolSearchToolSearchResultBlock:`
 
@@ -17530,15 +17530,15 @@ public final class Main {
 
               maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_reference"`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_search_result"`
 
       - `String toolUseId`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_result"`
 
     - `class ContainerUploadBlock:`
 
@@ -17546,11 +17546,11 @@ public final class Main {
 
       - `String fileId`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "container_upload"`
 
   - `long index`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "content_block_start"`
 
 ### Raw Content Block Stop Event
 
@@ -17558,7 +17558,7 @@ public final class Main {
 
   - `long index`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "content_block_stop"`
 
 ### Raw Message Delta Event
 
@@ -17638,7 +17638,7 @@ public final class Main {
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "refusal"`
 
     - `Optional<StopReason> stopReason`
 
@@ -17658,7 +17658,7 @@ public final class Main {
 
     - `Optional<String> stopSequence`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_delta"`
 
   - `MessageDeltaUsage usage`
 
@@ -17837,7 +17837,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "char_location"`
 
           - `class CitationPageLocation:`
 
@@ -17857,7 +17857,7 @@ public final class Main {
 
               minimum: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "page_location"`
 
           - `class CitationContentBlockLocation:`
 
@@ -17887,7 +17887,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content_block_location"`
 
           - `class CitationsWebSearchResultLocation:`
 
@@ -17899,7 +17899,7 @@ public final class Main {
 
               maxLength: 512
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result_location"`
 
             - `String url`
 
@@ -17935,13 +17935,13 @@ public final class Main {
 
             - `Optional<String> title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "search_result_location"`
 
         - `String text`
 
           maxLength: 5000000, minLength: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
       - `class ThinkingBlock:`
 
@@ -17957,7 +17957,7 @@ public final class Main {
 
           The text of Claude's thinking process for this block.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "thinking"`
 
       - `class RedactedThinkingBlock:`
 
@@ -17969,7 +17969,7 @@ public final class Main {
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "redacted_thinking"`
 
       - `class ToolUseBlock:`
 
@@ -17985,7 +17985,7 @@ public final class Main {
 
             Tool invocation directly from the model.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "direct"`
 
           - `class ServerToolCaller:`
 
@@ -17995,7 +17995,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_20250825"`
 
           - `class ServerToolCaller20260120:`
 
@@ -18003,7 +18003,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_20260120"`
 
         - `Input input`
 
@@ -18011,7 +18011,7 @@ public final class Main {
 
           minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_use"`
 
         - `Optional<String> toolsetName`
 
@@ -18057,7 +18057,7 @@ public final class Main {
 
           - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "server_tool_use"`
 
       - `class WebSearchToolResultBlock:`
 
@@ -18093,7 +18093,7 @@ public final class Main {
 
               - `REQUEST_TOO_LARGE("request_too_large")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_tool_result_error"`
 
           - `List<WebSearchResultBlock>`
 
@@ -18103,7 +18103,7 @@ public final class Main {
 
             - `String title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result"`
 
             - `String url`
 
@@ -18111,7 +18111,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_tool_result"`
 
       - `class WebFetchToolResultBlock:`
 
@@ -18153,7 +18153,7 @@ public final class Main {
 
               - `UNAVAILABLE("unavailable")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_tool_result_error"`
 
           - `class WebFetchBlock:`
 
@@ -18173,29 +18173,29 @@ public final class Main {
 
                     format: byte
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "application/pdf"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class PlainTextSource:`
 
                   - `String data`
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "text/plain"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text"`
 
               - `Optional<String> title`
 
                 The title of the document
 
-              - `JsonValue type constant`
+              - `JsonValue type = "document"`
 
             - `Optional<String> retrievedAt`
 
               ISO 8601 timestamp when the content was retrieved
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_result"`
 
             - `String url`
 
@@ -18205,7 +18205,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_fetch_tool_result"`
 
       - `class CodeExecutionToolResultBlock:`
 
@@ -18225,7 +18225,7 @@ public final class Main {
 
               - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_tool_result_error"`
 
           - `class CodeExecutionResultBlock:`
 
@@ -18233,7 +18233,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_output"`
 
             - `long returnCode`
 
@@ -18241,7 +18241,7 @@ public final class Main {
 
             - `String stdout`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_result"`
 
           - `class EncryptedCodeExecutionResultBlock:`
 
@@ -18251,7 +18251,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_output"`
 
             - `String encryptedStdout`
 
@@ -18259,13 +18259,13 @@ public final class Main {
 
             - `String stderr`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "encrypted_code_execution_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "code_execution_tool_result"`
 
       - `class BashCodeExecutionToolResultBlock:`
 
@@ -18285,7 +18285,7 @@ public final class Main {
 
               - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_tool_result_error"`
 
           - `class BashCodeExecutionResultBlock:`
 
@@ -18293,7 +18293,7 @@ public final class Main {
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_output"`
 
             - `long returnCode`
 
@@ -18301,13 +18301,13 @@ public final class Main {
 
             - `String stdout`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "bash_code_execution_tool_result"`
 
       - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -18329,7 +18329,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
           - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -18349,13 +18349,13 @@ public final class Main {
 
             - `Optional<Long> totalLines`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_view_result"`
 
           - `class TextEditorCodeExecutionCreateResultBlock:`
 
             - `boolean isFileUpdate`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_create_result"`
 
           - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -18369,13 +18369,13 @@ public final class Main {
 
             - `Optional<Long> oldStart`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_editor_code_execution_tool_result"`
 
       - `class ToolSearchToolResultBlock:`
 
@@ -18395,7 +18395,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_result_error"`
 
           - `class ToolSearchToolSearchResultBlock:`
 
@@ -18405,15 +18405,15 @@ public final class Main {
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_reference"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_search_result"`
 
         - `String toolUseId`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_search_tool_result"`
 
       - `class ContainerUploadBlock:`
 
@@ -18421,7 +18421,7 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "container_upload"`
 
     - `Model model`
 
@@ -18497,7 +18497,7 @@ public final class Main {
 
         High-performance model for agents and coding
 
-    - `JsonValue role constant`
+    - `JsonValue role = "assistant"`
 
       Conversational role of the generated message.
 
@@ -18537,7 +18537,7 @@ public final class Main {
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "refusal"`
 
     - `Optional<StopReason> stopReason`
 
@@ -18575,7 +18575,7 @@ public final class Main {
 
       This value will be a non-null string if one of your custom stop sequences was generated.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message"`
 
       Object type.
 
@@ -18685,13 +18685,13 @@ public final class Main {
 
         - `BATCH("batch")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_start"`
 
 ### Raw Message Stop Event
 
 - `class RawMessageStopEvent:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_stop"`
 
 ### Raw Message Stream Event
 
@@ -18800,7 +18800,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "char_location"`
 
             - `class CitationPageLocation:`
 
@@ -18820,7 +18820,7 @@ public final class Main {
 
                 minimum: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "page_location"`
 
             - `class CitationContentBlockLocation:`
 
@@ -18850,7 +18850,7 @@ public final class Main {
 
                 minimum: 0
 
-              - `JsonValue type constant`
+              - `JsonValue type = "content_block_location"`
 
             - `class CitationsWebSearchResultLocation:`
 
@@ -18862,7 +18862,7 @@ public final class Main {
 
                 maxLength: 512
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result_location"`
 
               - `String url`
 
@@ -18898,13 +18898,13 @@ public final class Main {
 
               - `Optional<String> title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "search_result_location"`
 
           - `String text`
 
             maxLength: 5000000, minLength: 0
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
         - `class ThinkingBlock:`
 
@@ -18920,7 +18920,7 @@ public final class Main {
 
             The text of Claude's thinking process for this block.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "thinking"`
 
         - `class RedactedThinkingBlock:`
 
@@ -18932,7 +18932,7 @@ public final class Main {
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "redacted_thinking"`
 
         - `class ToolUseBlock:`
 
@@ -18948,7 +18948,7 @@ public final class Main {
 
               Tool invocation directly from the model.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "direct"`
 
             - `class ServerToolCaller:`
 
@@ -18958,7 +18958,7 @@ public final class Main {
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20250825"`
 
             - `class ServerToolCaller20260120:`
 
@@ -18966,7 +18966,7 @@ public final class Main {
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_20260120"`
 
           - `Input input`
 
@@ -18974,7 +18974,7 @@ public final class Main {
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_use"`
 
           - `Optional<String> toolsetName`
 
@@ -19020,7 +19020,7 @@ public final class Main {
 
             - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "server_tool_use"`
 
         - `class WebSearchToolResultBlock:`
 
@@ -19056,7 +19056,7 @@ public final class Main {
 
                 - `REQUEST_TOO_LARGE("request_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_tool_result_error"`
 
             - `List<WebSearchResultBlock>`
 
@@ -19066,7 +19066,7 @@ public final class Main {
 
               - `String title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_result"`
 
               - `String url`
 
@@ -19074,7 +19074,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_tool_result"`
 
         - `class WebFetchToolResultBlock:`
 
@@ -19116,7 +19116,7 @@ public final class Main {
 
                 - `UNAVAILABLE("unavailable")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_tool_result_error"`
 
             - `class WebFetchBlock:`
 
@@ -19136,29 +19136,29 @@ public final class Main {
 
                       format: byte
 
-                    - `JsonValue mediaType constant`
+                    - `JsonValue mediaType = "application/pdf"`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "base64"`
 
                   - `class PlainTextSource:`
 
                     - `String data`
 
-                    - `JsonValue mediaType constant`
+                    - `JsonValue mediaType = "text/plain"`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "text"`
 
                 - `Optional<String> title`
 
                   The title of the document
 
-                - `JsonValue type constant`
+                - `JsonValue type = "document"`
 
               - `Optional<String> retrievedAt`
 
                 ISO 8601 timestamp when the content was retrieved
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_result"`
 
               - `String url`
 
@@ -19168,7 +19168,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_tool_result"`
 
         - `class CodeExecutionToolResultBlock:`
 
@@ -19188,7 +19188,7 @@ public final class Main {
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_tool_result_error"`
 
             - `class CodeExecutionResultBlock:`
 
@@ -19196,7 +19196,7 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `long returnCode`
 
@@ -19204,7 +19204,7 @@ public final class Main {
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_result"`
 
             - `class EncryptedCodeExecutionResultBlock:`
 
@@ -19214,7 +19214,7 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_output"`
 
               - `String encryptedStdout`
 
@@ -19222,13 +19222,13 @@ public final class Main {
 
               - `String stderr`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "encrypted_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_tool_result"`
 
         - `class BashCodeExecutionToolResultBlock:`
 
@@ -19248,7 +19248,7 @@ public final class Main {
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_tool_result_error"`
 
             - `class BashCodeExecutionResultBlock:`
 
@@ -19256,7 +19256,7 @@ public final class Main {
 
                 - `String fileId`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_output"`
 
               - `long returnCode`
 
@@ -19264,13 +19264,13 @@ public final class Main {
 
               - `String stdout`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_code_execution_tool_result"`
 
         - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -19292,7 +19292,7 @@ public final class Main {
 
               - `Optional<String> errorMessage`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
             - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -19312,13 +19312,13 @@ public final class Main {
 
               - `Optional<Long> totalLines`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_view_result"`
 
             - `class TextEditorCodeExecutionCreateResultBlock:`
 
               - `boolean isFileUpdate`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_create_result"`
 
             - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -19332,13 +19332,13 @@ public final class Main {
 
               - `Optional<Long> oldStart`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_code_execution_tool_result"`
 
         - `class ToolSearchToolResultBlock:`
 
@@ -19358,7 +19358,7 @@ public final class Main {
 
               - `Optional<String> errorMessage`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_result_error"`
 
             - `class ToolSearchToolSearchResultBlock:`
 
@@ -19368,15 +19368,15 @@ public final class Main {
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_reference"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_search_result"`
 
           - `String toolUseId`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool_search_tool_result"`
 
         - `class ContainerUploadBlock:`
 
@@ -19384,7 +19384,7 @@ public final class Main {
 
           - `String fileId`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "container_upload"`
 
       - `Model model`
 
@@ -19460,7 +19460,7 @@ public final class Main {
 
           High-performance model for agents and coding
 
-      - `JsonValue role constant`
+      - `JsonValue role = "assistant"`
 
         Conversational role of the generated message.
 
@@ -19500,7 +19500,7 @@ public final class Main {
 
           This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "refusal"`
 
       - `Optional<StopReason> stopReason`
 
@@ -19538,7 +19538,7 @@ public final class Main {
 
         This value will be a non-null string if one of your custom stop sequences was generated.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "message"`
 
         Object type.
 
@@ -19648,7 +19648,7 @@ public final class Main {
 
           - `BATCH("batch")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message_start"`
 
   - `class RawMessageDeltaEvent:`
 
@@ -19666,7 +19666,7 @@ public final class Main {
 
       - `Optional<String> stopSequence`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message_delta"`
 
     - `MessageDeltaUsage usage`
 
@@ -19717,7 +19717,7 @@ public final class Main {
 
   - `class RawMessageStopEvent:`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "message_stop"`
 
   - `class RawContentBlockStartEvent:`
 
@@ -19753,7 +19753,7 @@ public final class Main {
 
     - `long index`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_start"`
 
   - `class RawContentBlockDeltaEvent:`
 
@@ -19763,13 +19763,13 @@ public final class Main {
 
         - `String text`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text_delta"`
 
       - `class InputJsonDelta:`
 
         - `String partialJson`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "input_json_delta"`
 
       - `class CitationsDelta:`
 
@@ -19785,7 +19785,7 @@ public final class Main {
 
           - `class CitationsSearchResultLocation:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "citations_delta"`
 
       - `class ThinkingDelta:`
 
@@ -19793,7 +19793,7 @@ public final class Main {
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "thinking_delta"`
 
       - `class SignatureDelta:`
 
@@ -19801,17 +19801,17 @@ public final class Main {
 
           The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "signature_delta"`
 
     - `long index`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_delta"`
 
   - `class RawContentBlockStopEvent:`
 
     - `long index`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_stop"`
 
 ### Redacted Thinking Block
 
@@ -19825,7 +19825,7 @@ public final class Main {
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "redacted_thinking"`
 
 ### Redacted Thinking Block Param
 
@@ -19835,7 +19835,7 @@ public final class Main {
 
     The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "redacted_thinking"`
 
 ### Refusal Stop Details
 
@@ -19873,7 +19873,7 @@ public final class Main {
 
     This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "refusal"`
 
 ### Search Result Block Param
 
@@ -19885,13 +19885,13 @@ public final class Main {
 
       minLength: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "ephemeral"`
 
       - `Optional<Ttl> ttl`
 
@@ -19928,7 +19928,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "char_location"`
 
       - `class CitationPageLocationParam:`
 
@@ -19948,7 +19948,7 @@ public final class Main {
 
           minimum: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "page_location"`
 
       - `class CitationContentBlockLocationParam:`
 
@@ -19978,7 +19978,7 @@ public final class Main {
 
           minimum: 0
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content_block_location"`
 
       - `class CitationWebSearchResultLocationParam:`
 
@@ -19990,7 +19990,7 @@ public final class Main {
 
           maxLength: 512, minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "web_search_result_location"`
 
         - `String url`
 
@@ -20028,13 +20028,13 @@ public final class Main {
 
         - `Optional<String> title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result_location"`
 
   - `String source`
 
   - `String title`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "search_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -20054,7 +20054,7 @@ public final class Main {
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_20250825"`
 
 ### Server Tool Caller 20260120
 
@@ -20064,7 +20064,7 @@ public final class Main {
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "code_execution_20260120"`
 
 ### Server Tool Usage
 
@@ -20098,7 +20098,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -20108,7 +20108,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -20116,7 +20116,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
   - `Input input`
 
@@ -20136,7 +20136,7 @@ public final class Main {
 
     - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "server_tool_use"`
 
 ### Server Tool Use Block Param
 
@@ -20164,13 +20164,13 @@ public final class Main {
 
     - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "server_tool_use"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -20195,7 +20195,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -20205,7 +20205,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -20213,7 +20213,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
 ### Signature Delta
 
@@ -20223,7 +20223,7 @@ public final class Main {
 
     The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "signature_delta"`
 
 ### Skill Params
 
@@ -20297,7 +20297,7 @@ public final class Main {
 
         minimum: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "char_location"`
 
     - `class CitationPageLocation:`
 
@@ -20317,7 +20317,7 @@ public final class Main {
 
         minimum: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "page_location"`
 
     - `class CitationContentBlockLocation:`
 
@@ -20347,7 +20347,7 @@ public final class Main {
 
         minimum: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "content_block_location"`
 
     - `class CitationsWebSearchResultLocation:`
 
@@ -20359,7 +20359,7 @@ public final class Main {
 
         maxLength: 512
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_result_location"`
 
       - `String url`
 
@@ -20395,13 +20395,13 @@ public final class Main {
 
       - `Optional<String> title`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "search_result_location"`
 
   - `String text`
 
     maxLength: 5000000, minLength: 0
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text"`
 
 ### Text Block Param
 
@@ -20411,13 +20411,13 @@ public final class Main {
 
     minLength: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -20454,7 +20454,7 @@ public final class Main {
 
         minimum: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "char_location"`
 
     - `class CitationPageLocationParam:`
 
@@ -20474,7 +20474,7 @@ public final class Main {
 
         minimum: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "page_location"`
 
     - `class CitationContentBlockLocationParam:`
 
@@ -20504,7 +20504,7 @@ public final class Main {
 
         minimum: 0
 
-      - `JsonValue type constant`
+      - `JsonValue type = "content_block_location"`
 
     - `class CitationWebSearchResultLocationParam:`
 
@@ -20516,7 +20516,7 @@ public final class Main {
 
         maxLength: 512, minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_result_location"`
 
       - `String url`
 
@@ -20554,7 +20554,7 @@ public final class Main {
 
       - `Optional<String> title`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "search_result_location"`
 
 ### Text Citation
 
@@ -20578,7 +20578,7 @@ public final class Main {
 
       minimum: 0
 
-    - `JsonValue type constant`
+    - `JsonValue type = "char_location"`
 
   - `class CitationPageLocation:`
 
@@ -20598,7 +20598,7 @@ public final class Main {
 
       minimum: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "page_location"`
 
   - `class CitationContentBlockLocation:`
 
@@ -20628,7 +20628,7 @@ public final class Main {
 
       minimum: 0
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_location"`
 
   - `class CitationsWebSearchResultLocation:`
 
@@ -20640,7 +20640,7 @@ public final class Main {
 
       maxLength: 512
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_result_location"`
 
     - `String url`
 
@@ -20676,7 +20676,7 @@ public final class Main {
 
     - `Optional<String> title`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "search_result_location"`
 
 ### Text Citation Param
 
@@ -20700,7 +20700,7 @@ public final class Main {
 
       minimum: 0
 
-    - `JsonValue type constant`
+    - `JsonValue type = "char_location"`
 
   - `class CitationPageLocationParam:`
 
@@ -20720,7 +20720,7 @@ public final class Main {
 
       minimum: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "page_location"`
 
   - `class CitationContentBlockLocationParam:`
 
@@ -20750,7 +20750,7 @@ public final class Main {
 
       minimum: 0
 
-    - `JsonValue type constant`
+    - `JsonValue type = "content_block_location"`
 
   - `class CitationWebSearchResultLocationParam:`
 
@@ -20762,7 +20762,7 @@ public final class Main {
 
       maxLength: 512, minLength: 1
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_result_location"`
 
     - `String url`
 
@@ -20800,7 +20800,7 @@ public final class Main {
 
     - `Optional<String> title`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "search_result_location"`
 
 ### Text Delta
 
@@ -20808,7 +20808,7 @@ public final class Main {
 
   - `String text`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_delta"`
 
 ### Text Editor Code Execution Create Result Block
 
@@ -20816,7 +20816,7 @@ public final class Main {
 
   - `boolean isFileUpdate`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_create_result"`
 
 ### Text Editor Code Execution Create Result Block Param
 
@@ -20824,7 +20824,7 @@ public final class Main {
 
   - `boolean isFileUpdate`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_create_result"`
 
 ### Text Editor Code Execution Str Replace Result Block
 
@@ -20840,13 +20840,13 @@ public final class Main {
 
   - `Optional<Long> oldStart`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
 ### Text Editor Code Execution Str Replace Result Block Param
 
 - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
   - `Optional<List<String>> lines`
 
@@ -20880,7 +20880,7 @@ public final class Main {
 
       - `Optional<String> errorMessage`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
     - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -20900,13 +20900,13 @@ public final class Main {
 
       - `Optional<Long> totalLines`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_view_result"`
 
     - `class TextEditorCodeExecutionCreateResultBlock:`
 
       - `boolean isFileUpdate`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_create_result"`
 
     - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -20920,13 +20920,13 @@ public final class Main {
 
       - `Optional<Long> oldStart`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_tool_result"`
 
 ### Text Editor Code Execution Tool Result Block Param
 
@@ -20948,7 +20948,7 @@ public final class Main {
 
         - `FILE_NOT_FOUND("file_not_found")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
       - `Optional<String> errorMessage`
 
@@ -20964,7 +20964,7 @@ public final class Main {
 
         - `PDF("pdf")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_view_result"`
 
       - `Optional<Long> numLines`
 
@@ -20976,11 +20976,11 @@ public final class Main {
 
       - `boolean isFileUpdate`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_create_result"`
 
     - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
       - `Optional<List<String>> lines`
 
@@ -20996,13 +20996,13 @@ public final class Main {
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -21037,7 +21037,7 @@ public final class Main {
 
   - `Optional<String> errorMessage`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
 ### Text Editor Code Execution Tool Result Error Code
 
@@ -21069,7 +21069,7 @@ public final class Main {
 
     - `FILE_NOT_FOUND("file_not_found")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
   - `Optional<String> errorMessage`
 
@@ -21093,7 +21093,7 @@ public final class Main {
 
   - `Optional<Long> totalLines`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_view_result"`
 
 ### Text Editor Code Execution View Result Block Param
 
@@ -21109,7 +21109,7 @@ public final class Main {
 
     - `PDF("pdf")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_code_execution_view_result"`
 
   - `Optional<Long> numLines`
 
@@ -21133,7 +21133,7 @@ public final class Main {
 
     The text of Claude's thinking process for this block.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "thinking"`
 
 ### Thinking Block Param
 
@@ -21149,13 +21149,13 @@ public final class Main {
 
     The `thinking` text of this block as returned by the API.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "thinking"`
 
 ### Thinking Config Adaptive
 
 - `class ThinkingConfigAdaptive:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "adaptive"`
 
   - `Optional<Display> display`
 
@@ -21169,7 +21169,7 @@ public final class Main {
 
 - `class ThinkingConfigDisabled:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "disabled"`
 
 ### Thinking Config Enabled
 
@@ -21185,7 +21185,7 @@ public final class Main {
 
     minimum: 1024
 
-  - `JsonValue type constant`
+  - `JsonValue type = "enabled"`
 
   - `Optional<Display> display`
 
@@ -21217,7 +21217,7 @@ public final class Main {
 
       minimum: 1024
 
-    - `JsonValue type constant`
+    - `JsonValue type = "enabled"`
 
     - `Optional<Display> display`
 
@@ -21229,11 +21229,11 @@ public final class Main {
 
   - `class ThinkingConfigDisabled:`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "disabled"`
 
   - `class ThinkingConfigAdaptive:`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "adaptive"`
 
     - `Optional<Display> display`
 
@@ -21251,7 +21251,7 @@ public final class Main {
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "thinking_delta"`
 
 ### Tool
 
@@ -21263,7 +21263,7 @@ public final class Main {
 
     This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "object"`
 
     - `Optional<Properties> properties`
 
@@ -21291,7 +21291,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -21334,13 +21334,13 @@ public final class Main {
 
 - `class ToolBash20250124:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "bash"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "bash_20250124"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -21356,7 +21356,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -21393,7 +21393,7 @@ public final class Main {
 
     The model will automatically decide whether to use tools.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "auto"`
 
     - `Optional<Boolean> disableParallelToolUse`
 
@@ -21405,7 +21405,7 @@ public final class Main {
 
     The model will use any available tools.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "any"`
 
     - `Optional<Boolean> disableParallelToolUse`
 
@@ -21421,7 +21421,7 @@ public final class Main {
 
       The name of the tool to use.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool"`
 
     - `Optional<Boolean> disableParallelToolUse`
 
@@ -21433,7 +21433,7 @@ public final class Main {
 
     The model will not be allowed to use tools.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "none"`
 
 ### Tool Choice Any
 
@@ -21441,7 +21441,7 @@ public final class Main {
 
   The model will use any available tools.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "any"`
 
   - `Optional<Boolean> disableParallelToolUse`
 
@@ -21455,7 +21455,7 @@ public final class Main {
 
   The model will automatically decide whether to use tools.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "auto"`
 
   - `Optional<Boolean> disableParallelToolUse`
 
@@ -21469,7 +21469,7 @@ public final class Main {
 
   The model will not be allowed to use tools.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "none"`
 
 ### Tool Choice Tool
 
@@ -21481,7 +21481,7 @@ public final class Main {
 
     The name of the tool to use.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool"`
 
   - `Optional<Boolean> disableParallelToolUse`
 
@@ -21497,7 +21497,7 @@ public final class Main {
 
     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_reference"`
 
 ### Tool Reference Block Param
 
@@ -21509,13 +21509,13 @@ public final class Main {
 
     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_reference"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -21540,13 +21540,13 @@ public final class Main {
 
     pattern: ^[a-zA-Z0-9_-]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -21575,7 +21575,7 @@ public final class Main {
 
           minLength: 1
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21601,7 +21601,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "char_location"`
 
           - `class CitationPageLocationParam:`
 
@@ -21621,7 +21621,7 @@ public final class Main {
 
               minimum: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "page_location"`
 
           - `class CitationContentBlockLocationParam:`
 
@@ -21651,7 +21651,7 @@ public final class Main {
 
               minimum: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content_block_location"`
 
           - `class CitationWebSearchResultLocationParam:`
 
@@ -21663,7 +21663,7 @@ public final class Main {
 
               maxLength: 512, minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_result_location"`
 
             - `String url`
 
@@ -21701,7 +21701,7 @@ public final class Main {
 
             - `Optional<String> title`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "search_result_location"`
 
       - `class ImageBlockParam:`
 
@@ -21723,11 +21723,11 @@ public final class Main {
 
               - `IMAGE_WEBP("image/webp")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class UrlImageSource:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "url"`
 
             - `String url`
 
@@ -21735,9 +21735,9 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "file"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "image"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21763,7 +21763,7 @@ public final class Main {
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21775,7 +21775,7 @@ public final class Main {
 
         - `String title`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "search_result"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21795,17 +21795,17 @@ public final class Main {
 
               format: byte
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "application/pdf"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class PlainTextSource:`
 
             - `String data`
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "text/plain"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
           - `class ContentBlockSource:`
 
@@ -21819,11 +21819,11 @@ public final class Main {
 
                 - `class ImageBlockParam:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content"`
 
           - `class UrlPdfSource:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "url"`
 
             - `String url`
 
@@ -21831,9 +21831,9 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "file"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "document"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21857,7 +21857,7 @@ public final class Main {
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_reference"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21901,7 +21901,7 @@ public final class Main {
 
             Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "browser_state"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21929,7 +21929,7 @@ public final class Main {
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tab_opened"`
 
           - `class BrowserStateChangeDownloadStarted:`
 
@@ -21941,7 +21941,7 @@ public final class Main {
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "download_started"`
 
             - `String url`
 
@@ -21962,7 +21962,7 @@ public final class Main {
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "download_completed"`
 
             - `String url`
 
@@ -21992,7 +21992,7 @@ public final class Main {
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "download_failed"`
 
             - `String url`
 
@@ -22018,7 +22018,7 @@ public final class Main {
 
 - `class ToolSearchToolBm25_20251119:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "tool_search_tool_bm25"`
 
     Name of the tool.
 
@@ -22044,7 +22044,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -22073,7 +22073,7 @@ public final class Main {
 
 - `class ToolSearchToolRegex20251119:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "tool_search_tool_regex"`
 
     Name of the tool.
 
@@ -22099,7 +22099,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -22144,7 +22144,7 @@ public final class Main {
 
       - `Optional<String> errorMessage`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_result_error"`
 
     - `class ToolSearchToolSearchResultBlock:`
 
@@ -22154,15 +22154,15 @@ public final class Main {
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_reference"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_search_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_search_tool_result"`
 
 ### Tool Search Tool Result Block Param
 
@@ -22182,7 +22182,7 @@ public final class Main {
 
         - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_result_error"`
 
       - `Optional<String> errorMessage`
 
@@ -22194,13 +22194,13 @@ public final class Main {
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-        - `JsonValue type constant`
+        - `JsonValue type = "tool_reference"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
           Create a cache control breakpoint at this content block.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "ephemeral"`
 
           - `Optional<Ttl> ttl`
 
@@ -22217,13 +22217,13 @@ public final class Main {
 
             - `TTL_1H("1h")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "tool_search_tool_search_result"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_search_tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -22245,7 +22245,7 @@ public final class Main {
 
   - `Optional<String> errorMessage`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_search_tool_result_error"`
 
 ### Tool Search Tool Result Error Code
 
@@ -22273,7 +22273,7 @@ public final class Main {
 
     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_search_tool_result_error"`
 
   - `Optional<String> errorMessage`
 
@@ -22287,9 +22287,9 @@ public final class Main {
 
       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_reference"`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_search_tool_search_result"`
 
 ### Tool Search Tool Search Result Block Param
 
@@ -22301,13 +22301,13 @@ public final class Main {
 
       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-    - `JsonValue type constant`
+    - `JsonValue type = "tool_reference"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "ephemeral"`
 
       - `Optional<Ttl> ttl`
 
@@ -22324,19 +22324,19 @@ public final class Main {
 
         - `TTL_1H("1h")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_search_tool_search_result"`
 
 ### Tool Text Editor 20250124
 
 - `class ToolTextEditor20250124:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "str_replace_editor"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_20250124"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22352,7 +22352,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -22383,13 +22383,13 @@ public final class Main {
 
 - `class ToolTextEditor20250429:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "str_replace_based_edit_tool"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_20250429"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22405,7 +22405,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -22436,13 +22436,13 @@ public final class Main {
 
 - `class ToolTextEditor20250728:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "str_replace_based_edit_tool"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "text_editor_20250728"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22458,7 +22458,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -22505,7 +22505,7 @@ public final class Main {
 
       This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "object"`
 
       - `Optional<Properties> properties`
 
@@ -22533,7 +22533,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "ephemeral"`
 
       - `Optional<Ttl> ttl`
 
@@ -22574,13 +22574,13 @@ public final class Main {
 
   - `class ToolBash20250124:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "bash"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "bash_20250124"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22608,13 +22608,13 @@ public final class Main {
 
   - `class CodeExecutionTool20250522:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20250522"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22640,13 +22640,13 @@ public final class Main {
 
   - `class CodeExecutionTool20250825:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20250825"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22674,13 +22674,13 @@ public final class Main {
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20260120"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22708,13 +22708,13 @@ public final class Main {
 
     Code execution tool with REPL state persistence.
 
-    - `JsonValue name constant`
+    - `JsonValue name = "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "code_execution_20260521"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -22745,7 +22745,7 @@ public final class Main {
     the family's tool with any members disabled via `configs` removed
     from its schema.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "browser_toolset_20260801"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -23134,13 +23134,13 @@ public final class Main {
 
   - `class MemoryTool20250818:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "memory"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "memory_20250818"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23177,7 +23177,7 @@ public final class Main {
     `type`, `configs`, and `cache_control`; zoom is controlled
     via `configs.zoom.enabled`.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "computer_toolset_20260801"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -23398,13 +23398,13 @@ public final class Main {
 
   - `class ToolTextEditor20250124:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "str_replace_editor"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_20250124"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23432,13 +23432,13 @@ public final class Main {
 
   - `class ToolTextEditor20250429:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_20250429"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23466,13 +23466,13 @@ public final class Main {
 
   - `class ToolTextEditor20250728:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "text_editor_20250728"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23506,13 +23506,13 @@ public final class Main {
 
   - `class WebSearchTool20250305:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_20250305"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23554,7 +23554,7 @@ public final class Main {
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "approximate"`
 
       - `Optional<String> city`
 
@@ -23582,13 +23582,13 @@ public final class Main {
 
   - `class WebFetchTool20250910:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20250910"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23640,13 +23640,13 @@ public final class Main {
 
   - `class WebSearchTool20260209:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_20260209"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23690,13 +23690,13 @@ public final class Main {
 
   - `class WebFetchTool20260209:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20260209"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23748,13 +23748,13 @@ public final class Main {
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20260309"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23808,13 +23808,13 @@ public final class Main {
 
   - `class WebSearchTool20260318:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_20260318"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23866,13 +23866,13 @@ public final class Main {
 
   - `class WebFetchTool20260318:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_fetch_20260318"`
 
     - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -23934,7 +23934,7 @@ public final class Main {
 
   - `class ToolSearchToolBm25_20251119:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "tool_search_tool_bm25"`
 
       Name of the tool.
 
@@ -23970,7 +23970,7 @@ public final class Main {
 
   - `class ToolSearchToolRegex20251119:`
 
-    - `JsonValue name constant`
+    - `JsonValue name = "tool_search_tool_regex"`
 
       Name of the tool.
 
@@ -24020,7 +24020,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -24030,7 +24030,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -24038,7 +24038,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
   - `Input input`
 
@@ -24046,7 +24046,7 @@ public final class Main {
 
     minLength: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_use"`
 
   - `Optional<String> toolsetName`
 
@@ -24068,13 +24068,13 @@ public final class Main {
 
     maxLength: 200, minLength: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tool_use"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -24099,7 +24099,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -24109,7 +24109,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -24117,7 +24117,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
   - `Optional<String> toolsetName`
 
@@ -24129,7 +24129,7 @@ public final class Main {
 
 - `class UrlImageSource:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "url"`
 
   - `String url`
 
@@ -24137,7 +24137,7 @@ public final class Main {
 
 - `class UrlPdfSource:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "url"`
 
   - `String url`
 
@@ -24241,7 +24241,7 @@ public final class Main {
 
 - `class UserLocation:`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "approximate"`
 
   - `Optional<String> city`
 
@@ -24287,29 +24287,29 @@ public final class Main {
 
           format: byte
 
-        - `JsonValue mediaType constant`
+        - `JsonValue mediaType = "application/pdf"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "base64"`
 
       - `class PlainTextSource:`
 
         - `String data`
 
-        - `JsonValue mediaType constant`
+        - `JsonValue mediaType = "text/plain"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
     - `Optional<String> title`
 
       The title of the document
 
-    - `JsonValue type constant`
+    - `JsonValue type = "document"`
 
   - `Optional<String> retrievedAt`
 
     ISO 8601 timestamp when the content was retrieved
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_result"`
 
   - `String url`
 
@@ -24329,17 +24329,17 @@ public final class Main {
 
           format: byte
 
-        - `JsonValue mediaType constant`
+        - `JsonValue mediaType = "application/pdf"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "base64"`
 
       - `class PlainTextSource:`
 
         - `String data`
 
-        - `JsonValue mediaType constant`
+        - `JsonValue mediaType = "text/plain"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "text"`
 
       - `class ContentBlockSource:`
 
@@ -24355,13 +24355,13 @@ public final class Main {
 
                 minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "ephemeral"`
 
                 - `Optional<Ttl> ttl`
 
@@ -24398,7 +24398,7 @@ public final class Main {
 
                     minimum: 0
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "char_location"`
 
                 - `class CitationPageLocationParam:`
 
@@ -24418,7 +24418,7 @@ public final class Main {
 
                     minimum: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "page_location"`
 
                 - `class CitationContentBlockLocationParam:`
 
@@ -24448,7 +24448,7 @@ public final class Main {
 
                     minimum: 0
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "content_block_location"`
 
                 - `class CitationWebSearchResultLocationParam:`
 
@@ -24460,7 +24460,7 @@ public final class Main {
 
                     maxLength: 512, minLength: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_result_location"`
 
                   - `String url`
 
@@ -24498,7 +24498,7 @@ public final class Main {
 
                   - `Optional<String> title`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "search_result_location"`
 
             - `class ImageBlockParam:`
 
@@ -24520,11 +24520,11 @@ public final class Main {
 
                     - `IMAGE_WEBP("image/webp")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class UrlImageSource:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "url"`
 
                   - `String url`
 
@@ -24532,9 +24532,9 @@ public final class Main {
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "file"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "image"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -24552,11 +24552,11 @@ public final class Main {
 
                   - `ERROR("error")`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "content"`
 
       - `class UrlPdfSource:`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "url"`
 
         - `String url`
 
@@ -24564,9 +24564,9 @@ public final class Main {
 
         - `String fileId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "file"`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "document"`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -24584,7 +24584,7 @@ public final class Main {
 
       maxLength: 500, minLength: 1
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_result"`
 
   - `String url`
 
@@ -24598,13 +24598,13 @@ public final class Main {
 
 - `class WebFetchTool20250910:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_20250910"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -24628,7 +24628,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -24675,13 +24675,13 @@ public final class Main {
 
 - `class WebFetchTool20260209:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_20260209"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -24705,7 +24705,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -24754,13 +24754,13 @@ public final class Main {
 
   Web fetch tool with use_cache parameter for bypassing cached content.
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_20260309"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -24784,7 +24784,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -24835,13 +24835,13 @@ public final class Main {
 
 - `class WebFetchTool20260318:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_20260318"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -24865,7 +24865,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -24932,7 +24932,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -24942,7 +24942,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -24950,7 +24950,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
   - `Content content`
 
@@ -24976,7 +24976,7 @@ public final class Main {
 
         - `UNAVAILABLE("unavailable")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_tool_result_error"`
 
     - `class WebFetchBlock:`
 
@@ -24996,29 +24996,29 @@ public final class Main {
 
               format: byte
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "application/pdf"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class PlainTextSource:`
 
             - `String data`
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "text/plain"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
         - `Optional<String> title`
 
           The title of the document
 
-        - `JsonValue type constant`
+        - `JsonValue type = "document"`
 
       - `Optional<String> retrievedAt`
 
         ISO 8601 timestamp when the content was retrieved
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_result"`
 
       - `String url`
 
@@ -25028,7 +25028,7 @@ public final class Main {
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_tool_result"`
 
 ### Web Fetch Tool Result Block Param
 
@@ -25058,7 +25058,7 @@ public final class Main {
 
         - `UNAVAILABLE("unavailable")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_tool_result_error"`
 
     - `class WebFetchBlockParam:`
 
@@ -25072,17 +25072,17 @@ public final class Main {
 
               format: byte
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "application/pdf"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "base64"`
 
           - `class PlainTextSource:`
 
             - `String data`
 
-            - `JsonValue mediaType constant`
+            - `JsonValue mediaType = "text/plain"`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
           - `class ContentBlockSource:`
 
@@ -25098,13 +25098,13 @@ public final class Main {
 
                     minLength: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text"`
 
                   - `Optional<CacheControlEphemeral> cacheControl`
 
                     Create a cache control breakpoint at this content block.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "ephemeral"`
 
                     - `Optional<Ttl> ttl`
 
@@ -25141,7 +25141,7 @@ public final class Main {
 
                         minimum: 0
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "char_location"`
 
                     - `class CitationPageLocationParam:`
 
@@ -25161,7 +25161,7 @@ public final class Main {
 
                         minimum: 1
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "page_location"`
 
                     - `class CitationContentBlockLocationParam:`
 
@@ -25191,7 +25191,7 @@ public final class Main {
 
                         minimum: 0
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "content_block_location"`
 
                     - `class CitationWebSearchResultLocationParam:`
 
@@ -25203,7 +25203,7 @@ public final class Main {
 
                         maxLength: 512, minLength: 1
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "web_search_result_location"`
 
                       - `String url`
 
@@ -25241,7 +25241,7 @@ public final class Main {
 
                       - `Optional<String> title`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "search_result_location"`
 
                 - `class ImageBlockParam:`
 
@@ -25263,11 +25263,11 @@ public final class Main {
 
                         - `IMAGE_WEBP("image/webp")`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "base64"`
 
                     - `class UrlImageSource:`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "url"`
 
                       - `String url`
 
@@ -25275,9 +25275,9 @@ public final class Main {
 
                       - `String fileId`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "file"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "image"`
 
                   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -25295,11 +25295,11 @@ public final class Main {
 
                       - `ERROR("error")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "content"`
 
           - `class UrlPdfSource:`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "url"`
 
             - `String url`
 
@@ -25307,9 +25307,9 @@ public final class Main {
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "file"`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "document"`
 
         - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -25327,7 +25327,7 @@ public final class Main {
 
           maxLength: 500, minLength: 1
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_fetch_result"`
 
       - `String url`
 
@@ -25341,7 +25341,7 @@ public final class Main {
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -25355,7 +25355,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -25365,7 +25365,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -25373,7 +25373,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
 ### Web Fetch Tool Result Error Block
 
@@ -25399,7 +25399,7 @@ public final class Main {
 
     - `UNAVAILABLE("unavailable")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_tool_result_error"`
 
 ### Web Fetch Tool Result Error Block Param
 
@@ -25425,7 +25425,7 @@ public final class Main {
 
     - `UNAVAILABLE("unavailable")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_fetch_tool_result_error"`
 
 ### Web Fetch Tool Result Error Code
 
@@ -25459,7 +25459,7 @@ public final class Main {
 
   - `String title`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_result"`
 
   - `String url`
 
@@ -25471,7 +25471,7 @@ public final class Main {
 
   - `String title`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_result"`
 
   - `String url`
 
@@ -25481,13 +25481,13 @@ public final class Main {
 
 - `class WebSearchTool20250305:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_search"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_20250305"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -25511,7 +25511,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -25546,7 +25546,7 @@ public final class Main {
 
     Parameters for the user's location. Used to provide more relevant search results.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "approximate"`
 
     - `Optional<String> city`
 
@@ -25576,13 +25576,13 @@ public final class Main {
 
 - `class WebSearchTool20260209:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_search"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_20260209"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -25606,7 +25606,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -25641,7 +25641,7 @@ public final class Main {
 
     Parameters for the user's location. Used to provide more relevant search results.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "approximate"`
 
     - `Optional<String> city`
 
@@ -25671,13 +25671,13 @@ public final class Main {
 
 - `class WebSearchTool20260318:`
 
-  - `JsonValue name constant`
+  - `JsonValue name = "web_search"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_20260318"`
 
   - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -25701,7 +25701,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -25744,7 +25744,7 @@ public final class Main {
 
     Parameters for the user's location. Used to provide more relevant search results.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "approximate"`
 
     - `Optional<String> city`
 
@@ -25788,7 +25788,7 @@ public final class Main {
 
     - `REQUEST_TOO_LARGE("request_too_large")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_tool_result_error"`
 
 ### Web Search Tool Result Block
 
@@ -25802,7 +25802,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -25812,7 +25812,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -25820,7 +25820,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
   - `WebSearchToolResultBlockContent content`
 
@@ -25840,7 +25840,7 @@ public final class Main {
 
         - `REQUEST_TOO_LARGE("request_too_large")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_tool_result_error"`
 
     - `List<WebSearchResultBlock>`
 
@@ -25850,7 +25850,7 @@ public final class Main {
 
       - `String title`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_result"`
 
       - `String url`
 
@@ -25858,7 +25858,7 @@ public final class Main {
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_tool_result"`
 
 ### Web Search Tool Result Block Content
 
@@ -25880,7 +25880,7 @@ public final class Main {
 
       - `REQUEST_TOO_LARGE("request_too_large")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_tool_result_error"`
 
   - `List<WebSearchResultBlock>`
 
@@ -25890,7 +25890,7 @@ public final class Main {
 
     - `String title`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_result"`
 
     - `String url`
 
@@ -25906,7 +25906,7 @@ public final class Main {
 
       - `String title`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_result"`
 
       - `String url`
 
@@ -25928,19 +25928,19 @@ public final class Main {
 
         - `REQUEST_TOO_LARGE("request_too_large")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "web_search_tool_result_error"`
 
   - `String toolUseId`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_tool_result"`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
 
-    - `JsonValue type constant`
+    - `JsonValue type = "ephemeral"`
 
     - `Optional<Ttl> ttl`
 
@@ -25965,7 +25965,7 @@ public final class Main {
 
       Tool invocation directly from the model.
 
-      - `JsonValue type constant`
+      - `JsonValue type = "direct"`
 
     - `class ServerToolCaller:`
 
@@ -25975,7 +25975,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20250825"`
 
     - `class ServerToolCaller20260120:`
 
@@ -25983,7 +25983,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `JsonValue type constant`
+      - `JsonValue type = "code_execution_20260120"`
 
 ### Web Search Tool Result Block Param Content
 
@@ -25995,7 +25995,7 @@ public final class Main {
 
     - `String title`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_result"`
 
     - `String url`
 
@@ -26017,7 +26017,7 @@ public final class Main {
 
       - `REQUEST_TOO_LARGE("request_too_large")`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "web_search_tool_result_error"`
 
 ### Web Search Tool Result Error
 
@@ -26037,7 +26037,7 @@ public final class Main {
 
     - `REQUEST_TOO_LARGE("request_too_large")`
 
-  - `JsonValue type constant`
+  - `JsonValue type = "web_search_tool_result_error"`
 
 ### Web Search Tool Result Error Code
 
@@ -26172,13 +26172,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "ephemeral"`
 
                 - `Optional<Ttl> ttl`
 
@@ -26215,7 +26215,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "char_location"`
 
                 - `class CitationPageLocationParam:`
 
@@ -26235,7 +26235,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "page_location"`
 
                 - `class CitationContentBlockLocationParam:`
 
@@ -26265,7 +26265,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "content_block_location"`
 
                 - `class CitationWebSearchResultLocationParam:`
 
@@ -26277,7 +26277,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 512, minLength: 1
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_result_location"`
 
                   - `String url`
 
@@ -26315,7 +26315,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> title`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "search_result_location"`
 
             - `class ImageBlockParam:`
 
@@ -26337,11 +26337,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `IMAGE_WEBP("image/webp")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class UrlImageSource:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "url"`
 
                   - `String url`
 
@@ -26349,9 +26349,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "file"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "image"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26379,17 +26379,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     format: byte
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "application/pdf"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "base64"`
 
                 - `class PlainTextSource:`
 
                   - `String data`
 
-                  - `JsonValue mediaType constant`
+                  - `JsonValue mediaType = "text/plain"`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text"`
 
                 - `class ContentBlockSource:`
 
@@ -26403,11 +26403,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `class ImageBlockParam:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "content"`
 
                 - `class UrlPdfSource:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "url"`
 
                   - `String url`
 
@@ -26415,9 +26415,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "file"`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "document"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26443,7 +26443,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minLength: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text"`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26455,7 +26455,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String title`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "search_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26475,7 +26475,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "thinking"`
 
             - `class RedactedThinkingBlockParam:`
 
@@ -26483,7 +26483,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-              - `JsonValue type constant`
+              - `JsonValue type = "redacted_thinking"`
 
             - `class ToolUseBlockParam:`
 
@@ -26497,7 +26497,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 200, minLength: 1
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_use"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26511,7 +26511,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool invocation directly from the model.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "direct"`
 
                 - `class ServerToolCaller:`
 
@@ -26521,7 +26521,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_20250825"`
 
                 - `class ServerToolCaller20260120:`
 
@@ -26529,7 +26529,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_20260120"`
 
               - `Optional<String> toolsetName`
 
@@ -26543,7 +26543,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^[a-zA-Z0-9_-]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26571,7 +26571,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "tool_reference"`
 
                     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26615,7 +26615,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "browser_state"`
 
                     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26643,7 +26643,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "tab_opened"`
 
                       - `class BrowserStateChangeDownloadStarted:`
 
@@ -26655,7 +26655,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "download_started"`
 
                         - `String url`
 
@@ -26676,7 +26676,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "download_completed"`
 
                         - `String url`
 
@@ -26706,7 +26706,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `JsonValue type constant`
+                        - `JsonValue type = "download_failed"`
 
                         - `String url`
 
@@ -26752,7 +26752,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "server_tool_use"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26782,7 +26782,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String title`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_result"`
 
                   - `String url`
 
@@ -26804,13 +26804,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `REQUEST_TOO_LARGE("request_too_large")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_search_tool_result_error"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_search_tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26856,13 +26856,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `UNAVAILABLE("unavailable")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_fetch_tool_result_error"`
 
                 - `class WebFetchBlockParam:`
 
                   - `DocumentBlockParam content`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "web_fetch_result"`
 
                   - `String url`
 
@@ -26876,7 +26876,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "web_fetch_tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26914,7 +26914,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_tool_result_error"`
 
                 - `class CodeExecutionResultBlockParam:`
 
@@ -26922,7 +26922,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "code_execution_output"`
 
                   - `long returnCode`
 
@@ -26930,7 +26930,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_result"`
 
                 - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -26940,7 +26940,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "code_execution_output"`
 
                   - `String encryptedStdout`
 
@@ -26948,13 +26948,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stderr`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "encrypted_code_execution_result"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "code_execution_tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -26978,7 +26978,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_tool_result_error"`
 
                 - `class BashCodeExecutionResultBlockParam:`
 
@@ -26986,7 +26986,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "bash_code_execution_output"`
 
                   - `long returnCode`
 
@@ -26994,13 +26994,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_result"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "bash_code_execution_tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -27024,7 +27024,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `FILE_NOT_FOUND("file_not_found")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
                   - `Optional<String> errorMessage`
 
@@ -27040,7 +27040,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `PDF("pdf")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_view_result"`
 
                   - `Optional<Long> numLines`
 
@@ -27052,11 +27052,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `boolean isFileUpdate`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_create_result"`
 
                 - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
                   - `Optional<List<String>> lines`
 
@@ -27072,7 +27072,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "text_editor_code_execution_tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -27094,7 +27094,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_search_tool_result_error"`
 
                   - `Optional<String> errorMessage`
 
@@ -27106,19 +27106,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `JsonValue type constant`
+                    - `JsonValue type = "tool_reference"`
 
                     - `Optional<CacheControlEphemeral> cacheControl`
 
                       Create a cache control breakpoint at this content block.
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_search_tool_search_result"`
 
               - `String toolUseId`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `JsonValue type constant`
+              - `JsonValue type = "tool_search_tool_result"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -27131,7 +27131,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String fileId`
 
-              - `JsonValue type constant`
+              - `JsonValue type = "container_upload"`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -27305,7 +27305,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The JSON schema of the format
 
-          - `JsonValue type constant`
+          - `JsonValue type = "json_schema"`
 
       - `Optional<ServiceTier> serviceTier`
 
@@ -27345,7 +27345,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minLength: 1
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -27373,7 +27373,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1024
 
-          - `JsonValue type constant`
+          - `JsonValue type = "enabled"`
 
           - `Optional<Display> display`
 
@@ -27385,11 +27385,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ThinkingConfigDisabled:`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "disabled"`
 
         - `class ThinkingConfigAdaptive:`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "adaptive"`
 
           - `Optional<Display> display`
 
@@ -27407,7 +27407,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will automatically decide whether to use tools.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "auto"`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -27419,7 +27419,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will use any available tools.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "any"`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -27435,7 +27435,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The name of the tool to use.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "tool"`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -27447,7 +27447,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will not be allowed to use tools.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "none"`
 
       - `Optional<List<ToolUnion>> tools`
 
@@ -27521,7 +27521,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "object"`
 
             - `Optional<Properties> properties`
 
@@ -27573,13 +27573,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolBash20250124:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash_20250124"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -27607,13 +27607,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class CodeExecutionTool20250522:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250522"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -27639,13 +27639,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class CodeExecutionTool20250825:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20250825"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -27673,13 +27673,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260120"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -27707,13 +27707,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "code_execution"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "code_execution_20260521"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -27744,7 +27744,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           the family's tool with any members disabled via `configs` removed
           from its schema.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "browser_toolset_20260801"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -28133,13 +28133,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class MemoryTool20250818:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "memory"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "memory_20250818"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28176,7 +28176,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           `type`, `configs`, and `cache_control`; zoom is controlled
           via `configs.zoom.enabled`.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "computer_toolset_20260801"`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -28397,13 +28397,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolTextEditor20250124:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_editor"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20250124"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28431,13 +28431,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolTextEditor20250429:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_based_edit_tool"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20250429"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28465,13 +28465,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolTextEditor20250728:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "str_replace_based_edit_tool"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "text_editor_20250728"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28505,13 +28505,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebSearchTool20250305:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_20250305"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28553,7 +28553,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "approximate"`
 
             - `Optional<String> city`
 
@@ -28581,13 +28581,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebFetchTool20250910:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20250910"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28637,13 +28637,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebSearchTool20260209:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_20260209"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28687,13 +28687,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebFetchTool20260209:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20260209"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28745,13 +28745,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20260309"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28805,13 +28805,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebSearchTool20260318:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search_20260318"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28863,13 +28863,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebFetchTool20260318:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch_20260318"`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -28931,7 +28931,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolSearchToolBm25_20251119:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "tool_search_tool_bm25"`
 
             Name of the tool.
 
@@ -28967,7 +28967,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolSearchToolRegex20251119:`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "tool_search_tool_regex"`
 
             Name of the tool.
 
@@ -29129,7 +29129,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -29300,7 +29300,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -29472,7 +29472,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -29641,7 +29641,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch"`
 
     Object type.
 
@@ -29719,7 +29719,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the Message Batch.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "message_batch_deleted"`
 
     Deleted object type.
 
@@ -29896,7 +29896,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "char_location"`
 
               - `class CitationPageLocation:`
 
@@ -29916,7 +29916,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `JsonValue type constant`
+                - `JsonValue type = "page_location"`
 
               - `class CitationContentBlockLocation:`
 
@@ -29946,7 +29946,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type constant`
+                - `JsonValue type = "content_block_location"`
 
               - `class CitationsWebSearchResultLocation:`
 
@@ -29958,7 +29958,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result_location"`
 
                 - `String url`
 
@@ -29994,13 +29994,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "search_result_location"`
 
             - `String text`
 
               maxLength: 5000000, minLength: 0
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text"`
 
           - `class ThinkingBlock:`
 
@@ -30016,7 +30016,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "thinking"`
 
           - `class RedactedThinkingBlock:`
 
@@ -30028,7 +30028,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "redacted_thinking"`
 
           - `class ToolUseBlock:`
 
@@ -30044,7 +30044,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation directly from the model.
 
-                - `JsonValue type constant`
+                - `JsonValue type = "direct"`
 
               - `class ServerToolCaller:`
 
@@ -30054,7 +30054,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_20250825"`
 
               - `class ServerToolCaller20260120:`
 
@@ -30062,7 +30062,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_20260120"`
 
             - `Input input`
 
@@ -30070,7 +30070,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 1
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_use"`
 
             - `Optional<String> toolsetName`
 
@@ -30116,7 +30116,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "server_tool_use"`
 
           - `class WebSearchToolResultBlock:`
 
@@ -30152,7 +30152,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `REQUEST_TOO_LARGE("request_too_large")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_tool_result_error"`
 
               - `List<WebSearchResultBlock>`
 
@@ -30162,7 +30162,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String title`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_search_result"`
 
                 - `String url`
 
@@ -30170,7 +30170,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_search_tool_result"`
 
           - `class WebFetchToolResultBlock:`
 
@@ -30212,7 +30212,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `UNAVAILABLE("unavailable")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_fetch_tool_result_error"`
 
               - `class WebFetchBlock:`
 
@@ -30232,29 +30232,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         format: byte
 
-                      - `JsonValue mediaType constant`
+                      - `JsonValue mediaType = "application/pdf"`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "base64"`
 
                     - `class PlainTextSource:`
 
                       - `String data`
 
-                      - `JsonValue mediaType constant`
+                      - `JsonValue mediaType = "text/plain"`
 
-                      - `JsonValue type constant`
+                      - `JsonValue type = "text"`
 
                   - `Optional<String> title`
 
                     The title of the document
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "document"`
 
                 - `Optional<String> retrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
 
-                - `JsonValue type constant`
+                - `JsonValue type = "web_fetch_result"`
 
                 - `String url`
 
@@ -30264,7 +30264,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "web_fetch_tool_result"`
 
           - `class CodeExecutionToolResultBlock:`
 
@@ -30284,7 +30284,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_tool_result_error"`
 
               - `class CodeExecutionResultBlock:`
 
@@ -30292,7 +30292,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_output"`
 
                 - `long returnCode`
 
@@ -30300,7 +30300,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "code_execution_result"`
 
               - `class EncryptedCodeExecutionResultBlock:`
 
@@ -30310,7 +30310,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "code_execution_output"`
 
                 - `String encryptedStdout`
 
@@ -30318,13 +30318,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stderr`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "encrypted_code_execution_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "code_execution_tool_result"`
 
           - `class BashCodeExecutionToolResultBlock:`
 
@@ -30344,7 +30344,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_tool_result_error"`
 
               - `class BashCodeExecutionResultBlock:`
 
@@ -30352,7 +30352,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String fileId`
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "bash_code_execution_output"`
 
                 - `long returnCode`
 
@@ -30360,13 +30360,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "bash_code_execution_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -30388,7 +30388,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
               - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -30408,13 +30408,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> totalLines`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_view_result"`
 
               - `class TextEditorCodeExecutionCreateResultBlock:`
 
                 - `boolean isFileUpdate`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_create_result"`
 
               - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
@@ -30428,13 +30428,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> oldStart`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `class ToolSearchToolResultBlock:`
 
@@ -30454,7 +30454,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_search_tool_result_error"`
 
               - `class ToolSearchToolSearchResultBlock:`
 
@@ -30464,15 +30464,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonValue type constant`
+                  - `JsonValue type = "tool_reference"`
 
-                - `JsonValue type constant`
+                - `JsonValue type = "tool_search_tool_search_result"`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type constant`
+            - `JsonValue type = "tool_search_tool_result"`
 
           - `class ContainerUploadBlock:`
 
@@ -30480,7 +30480,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `String fileId`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "container_upload"`
 
         - `Model model`
 
@@ -30556,7 +30556,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             High-performance model for agents and coding
 
-        - `JsonValue role constant`
+        - `JsonValue role = "assistant"`
 
           Conversational role of the generated message.
 
@@ -30596,7 +30596,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "refusal"`
 
         - `Optional<StopReason> stopReason`
 
@@ -30634,7 +30634,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This value will be a non-null string if one of your custom stop sequences was generated.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "message"`
 
           Object type.
 
@@ -30744,7 +30744,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `BATCH("batch")`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "succeeded"`
 
     - `class MessageBatchErroredResult:`
 
@@ -30756,69 +30756,69 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "invalid_request_error"`
 
           - `class AuthenticationError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "authentication_error"`
 
           - `class BillingError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "billing_error"`
 
           - `class PermissionError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "permission_error"`
 
           - `class NotFoundError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "not_found_error"`
 
           - `class RateLimitError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "rate_limit_error"`
 
           - `class GatewayTimeoutError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "timeout_error"`
 
           - `class ApiErrorObject:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "api_error"`
 
           - `class OverloadedError:`
 
             - `String message`
 
-            - `JsonValue type constant`
+            - `JsonValue type = "overloaded_error"`
 
         - `Optional<String> requestId`
 
-        - `JsonValue type constant`
+        - `JsonValue type = "error"`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "errored"`
 
     - `class MessageBatchCanceledResult:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "canceled"`
 
     - `class MessageBatchExpiredResult:`
 
-      - `JsonValue type constant`
+      - `JsonValue type = "expired"`
 
 #### Example
 

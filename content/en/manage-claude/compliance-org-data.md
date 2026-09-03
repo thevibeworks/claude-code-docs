@@ -25,7 +25,8 @@ The following call lists every organization under your parent. The response is a
 ```bash cURL
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/organizations" \
-  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -77,6 +78,7 @@ org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/organizations/$org_uuid/users" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01" \
   --data-urlencode "limit=500"
 ```
 
@@ -111,7 +113,8 @@ org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
 
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/organizations/${org_uuid}/roles" \
-  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -145,7 +148,8 @@ List groups, then for each group list its members:
 ```bash cURL
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/groups" \
-  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -173,7 +177,8 @@ group_id="rbac_group_01P9qRsTuVwXyZa2BcDeFgHjK"
 
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/groups/$group_id/members" \
-  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 ```json Response
@@ -208,7 +213,8 @@ org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
 
 curl --fail-with-body -sS \
   "https://api.anthropic.com/v1/compliance/organizations/$org_uuid/settings" \
-  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
 ```
 
 The response is a list of typed setting rows, and which rows appear varies by organization: a setting the organization's administrators cannot change, because it is controlled by Anthropic policy or not available to the organization, is omitted from the list. Treat a missing row as "not controllable by this organization's administrators", not as "off". The following abridged example shows three of the rows a response can contain:

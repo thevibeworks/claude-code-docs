@@ -144,7 +144,7 @@ Fetches a tunnel certificate by ID.
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tunnel_certificate"`
 
 ## Example
 

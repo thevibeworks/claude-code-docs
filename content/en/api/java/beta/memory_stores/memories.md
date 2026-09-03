@@ -1072,55 +1072,55 @@ public final class Main {
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "invalid_request_error"`
 
   - `class BetaAuthenticationError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "authentication_error"`
 
   - `class BetaBillingError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "billing_error"`
 
   - `class BetaPermissionError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "permission_error"`
 
   - `class BetaNotFoundError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "not_found_error"`
 
   - `class BetaRateLimitError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "rate_limit_error"`
 
   - `class BetaGatewayTimeoutError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "timeout_error"`
 
   - `class BetaApiError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "api_error"`
 
   - `class BetaOverloadedError:`
 
     - `String message`
 
-    - `JsonValue type constant`
+    - `JsonValue type = "overloaded_error"`
 
   - `class BetaManagedAgentsMemoryPreconditionFailedError:`
 

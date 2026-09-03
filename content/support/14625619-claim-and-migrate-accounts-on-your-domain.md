@@ -52,7 +52,7 @@ Once confirmed, all affected accounts receive notification immediately—both by
 
 ### The 30-day migration window
 
-The migration deadline is a single org-wide date, not a rolling per-user timer. All affected accounts share the same deadline.
+The migration deadline is a single date for the claim, not a rolling per-user timer. Every account covered by the claim shares that deadline. If you claim an additional domain later, that claim gets its own 30-day window (see **[Add a domain after you've started a claim](#h_d7ccebb0ac)** below).
 
 During this window, each person on the domain can sign in and choose how to migrate:
 
@@ -71,6 +71,20 @@ During this window, each person on the domain can sign in and choose how to migr
 - People who don’t choose before the deadline are given a fresh Enterprise account by default and their data will be emailed to them, but their personal account will not be accessible.
 
 New accounts created on the domain after domain capture is enabled go directly through SSO and your Enterprise workspace—no personal account is created.
+
+### Add a domain after you've started a claim
+
+Each claim covers the domains that were verified on your organization at the moment you initiated it. A domain you verify after starting a claim won't be added to the claim in progress, and accounts associated with that domain aren't notified or migrated as part of it.
+
+To migrate accounts on a domain you verified later:
+
+1. Wait for the current claim's 30-day window to end. Only one claim can be in progress at a time.
+
+2. Verify the new domain if you haven't already. See **[Set up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso)**.
+
+3. Review the accounts on the new domain, then initiate a new claim. This claim has its own 30-day window, and the accounts on the new domain receive the same email and in-product notifications.
+
+**Note:** If you're onboarding several domains in phases, verify all of them before you initiate a claim when possible. That way, one claim and one deadline cover every account. Otherwise, each phase needs its own claim, and each claim has to finish its 30-day window before the next one can start.
 
 ## What’s not supported
 

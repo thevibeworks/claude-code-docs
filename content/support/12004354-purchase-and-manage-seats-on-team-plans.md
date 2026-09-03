@@ -69,6 +69,8 @@ You can reduce the total number of seats on your Team plan:
 
 8. Check the confirmation box and click "Confirm & purchase" to complete the change.
 
+Reducing your organization's seat count takes effect at your next renewal (on the annual renewal date for annual plans). There is no prorated refund at the time you submit this change.
+
 ---
 
 ## Assign and reassign seat types
@@ -86,6 +88,12 @@ To reassign a user's seat type:
 4. Select "Standard" or "Premium."
 
 Members moved from Premium to Standard will have lower usage limits, and vice versa.
+
+To move several members from Premium to Standard, do not use the per-member **Tier** dropdown. Instead, open **Organization and access**, click "Manage" under **Total seats**, then "Add or change seats," and set the Premium and Standard totals in one submission. You can set Premium below the number of members currently assigned to it: those members are moved onto Standard seats automatically at renewal. The Standard total cannot be lower than your current billable members.
+
+Only one scheduled seat change can be pending at a time. Submitting a new one, adding seats, or accepting a new invite replaces the pending change.
+
+Moving a member from Premium to Standard takes effect at your next renewal (on the annual renewal date for annual plans). There is no prorated refund at the time you submit this change.
 
 ---
 
@@ -125,7 +133,7 @@ Selecting **No seat assigned** lets you temporarily remove a user from a seat wi
 
 4. Find User A and change their seat tier to "Standard."
 
-**Note:** Unassigned users remain members of your organization but cannot use Claude until they're assigned to a seat.
+**Note:** Members with no seat assigned remain part of your organization but can't use Claude until you reassign them a seat. They do not count toward your organization's seat limit. Pending invitations do count. If "Add member" is unavailable even though seats show as available, revoke pending invitations that won't be accepted, or purchase additional seats.
 
 ---
 

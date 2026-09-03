@@ -60,6 +60,8 @@ Both paths move the same content for each person.
 
 4. Make a note of the apps you've connected so you can reconnect them.
 
+**Note:** After a migration, your chat list can take a little while to fill in. Searching by chat title works right away. The first time Claude searches your past chats in your new organization, it rebuilds its search index, so Claude might not find everything at first. If chats still seem to be missing, sign out, sign back in, and search again.
+
 ---
 
 ## Voluntary migration
@@ -124,7 +126,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1788362100&amp;signature=fe2ca85b5ef91b41a568d43473f5e1f5abcfd0cd3211ea6107f9401e085b5d4d&amp;req=diMmFMh3noJbXvMW1HO4zXhPndg1zh1gufhmlOXMdYbfQGmZgZUHOSbskQZI%0A9h9fCD8jec3IpVssDv8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1788544800&amp;signature=56bb0926846a2a8c2109d12948481bcb57a2a4c05fef1bdca762c61ce59ecf15&amp;req=diMmFMh3noJbXvMW3nq%2BgXydQ01U5EIKB%2BRl6PawEbkJlv5UPBmyjmrD53h%2B%0Az72QPdkEG8kzrHbZaOPPZaAYYoU%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 

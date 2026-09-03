@@ -318,7 +318,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -336,7 +336,7 @@ Archive Agent
 
               - `Type type`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -344,7 +344,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "edit"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -358,7 +358,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -366,7 +366,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "read"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -380,7 +380,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -388,7 +388,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "write"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -402,7 +402,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -410,7 +410,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "glob"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -424,7 +424,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -432,7 +432,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "grep"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -446,7 +446,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -454,7 +454,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -468,7 +468,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch"`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -484,7 +484,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -498,7 +498,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search"`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -508,7 +508,7 @@ Archive Agent
 
             Approximate user location for search result localization.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -606,7 +606,7 @@ Archive Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "object"`
 
         - `Optional<Properties> properties`
 

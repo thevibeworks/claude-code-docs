@@ -246,7 +246,7 @@ The Models API response can be used to determine which models are available for 
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "model"`
 
     Object type.
 

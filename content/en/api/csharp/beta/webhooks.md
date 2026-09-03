@@ -12,7 +12,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "agent.archived"`
 
   - `required string WorkspaceID`
 
@@ -26,7 +26,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "agent.created"`
 
   - `required string WorkspaceID`
 
@@ -40,7 +40,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "agent.deleted"`
 
   - `required string WorkspaceID`
 
@@ -54,7 +54,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "agent.updated"`
 
   - `required string WorkspaceID`
 
@@ -68,7 +68,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment.archived"`
 
   - `required string WorkspaceID`
 
@@ -82,7 +82,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment.created"`
 
   - `required string WorkspaceID`
 
@@ -96,7 +96,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment.deleted"`
 
   - `required string WorkspaceID`
 
@@ -110,7 +110,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment.paused"`
 
   - `required string WorkspaceID`
 
@@ -124,7 +124,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment_run.failed"`
 
   - `required string WorkspaceID`
 
@@ -138,7 +138,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment_run.started"`
 
   - `required string WorkspaceID`
 
@@ -152,7 +152,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment_run.succeeded"`
 
   - `required string WorkspaceID`
 
@@ -166,7 +166,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment.unpaused"`
 
   - `required string WorkspaceID`
 
@@ -180,7 +180,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "deployment.updated"`
 
   - `required string WorkspaceID`
 
@@ -194,7 +194,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "environment.archived"`
 
   - `required string WorkspaceID`
 
@@ -208,7 +208,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "environment.created"`
 
   - `required string WorkspaceID`
 
@@ -222,7 +222,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "environment.deleted"`
 
   - `required string WorkspaceID`
 
@@ -236,7 +236,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "environment.updated"`
 
   - `required string WorkspaceID`
 
@@ -264,7 +264,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.created"`
 
       - `required string WorkspaceID`
 
@@ -276,7 +276,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.pending"`
 
       - `required string WorkspaceID`
 
@@ -288,7 +288,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.running"`
 
       - `required string WorkspaceID`
 
@@ -300,7 +300,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.idled"`
 
       - `required string WorkspaceID`
 
@@ -312,7 +312,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.requires_action"`
 
       - `required string WorkspaceID`
 
@@ -324,7 +324,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.archived"`
 
       - `required string WorkspaceID`
 
@@ -336,7 +336,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.deleted"`
 
       - `required string WorkspaceID`
 
@@ -348,7 +348,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.status_rescheduled"`
 
       - `required string WorkspaceID`
 
@@ -360,7 +360,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.status_run_started"`
 
       - `required string WorkspaceID`
 
@@ -372,7 +372,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.status_idled"`
 
       - `required string WorkspaceID`
 
@@ -384,7 +384,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.status_terminated"`
 
       - `required string WorkspaceID`
 
@@ -400,7 +400,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.thread_created"`
 
       - `required string WorkspaceID`
 
@@ -416,7 +416,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.thread_idled"`
 
       - `required string WorkspaceID`
 
@@ -432,7 +432,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.thread_terminated"`
 
       - `required string WorkspaceID`
 
@@ -444,7 +444,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.outcome_evaluation_ended"`
 
       - `required string WorkspaceID`
 
@@ -456,7 +456,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault.created"`
 
       - `required string WorkspaceID`
 
@@ -468,7 +468,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault.archived"`
 
       - `required string WorkspaceID`
 
@@ -480,7 +480,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault.deleted"`
 
       - `required string WorkspaceID`
 
@@ -492,7 +492,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault_credential.created"`
 
       - `required string VaultID`
 
@@ -508,7 +508,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault_credential.archived"`
 
       - `required string VaultID`
 
@@ -524,7 +524,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault_credential.deleted"`
 
       - `required string VaultID`
 
@@ -540,7 +540,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "vault_credential.refresh_failed"`
 
       - `required string VaultID`
 
@@ -556,7 +556,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.updated"`
 
       - `required string WorkspaceID`
 
@@ -568,7 +568,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "agent.created"`
 
       - `required string WorkspaceID`
 
@@ -580,7 +580,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "agent.archived"`
 
       - `required string WorkspaceID`
 
@@ -592,7 +592,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "agent.deleted"`
 
       - `required string WorkspaceID`
 
@@ -604,7 +604,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment.paused"`
 
       - `required string WorkspaceID`
 
@@ -616,7 +616,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment_run.failed"`
 
       - `required string WorkspaceID`
 
@@ -628,7 +628,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment.created"`
 
       - `required string WorkspaceID`
 
@@ -640,7 +640,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment.updated"`
 
       - `required string WorkspaceID`
 
@@ -652,7 +652,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment.unpaused"`
 
       - `required string WorkspaceID`
 
@@ -664,7 +664,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "agent.updated"`
 
       - `required string WorkspaceID`
 
@@ -676,7 +676,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment.archived"`
 
       - `required string WorkspaceID`
 
@@ -688,7 +688,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment_run.started"`
 
       - `required string WorkspaceID`
 
@@ -700,7 +700,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment.deleted"`
 
       - `required string WorkspaceID`
 
@@ -712,7 +712,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "deployment_run.succeeded"`
 
       - `required string WorkspaceID`
 
@@ -724,7 +724,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "environment.created"`
 
       - `required string WorkspaceID`
 
@@ -736,7 +736,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "environment.updated"`
 
       - `required string WorkspaceID`
 
@@ -748,7 +748,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "environment.archived"`
 
       - `required string WorkspaceID`
 
@@ -760,7 +760,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "environment.deleted"`
 
       - `required string WorkspaceID`
 
@@ -772,7 +772,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "memory_store.created"`
 
       - `required string WorkspaceID`
 
@@ -784,7 +784,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "memory_store.archived"`
 
       - `required string WorkspaceID`
 
@@ -796,7 +796,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "memory_store.deleted"`
 
       - `required string WorkspaceID`
 
@@ -808,11 +808,11 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type constant`
+      - `JsonElement Type = "session.budget_reached"`
 
       - `required string WorkspaceID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "event"`
 
     Object type. Always `event` for webhook payloads.
 
@@ -828,7 +828,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.created"`
 
     - `required string WorkspaceID`
 
@@ -840,7 +840,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.pending"`
 
     - `required string WorkspaceID`
 
@@ -852,7 +852,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.running"`
 
     - `required string WorkspaceID`
 
@@ -864,7 +864,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.idled"`
 
     - `required string WorkspaceID`
 
@@ -876,7 +876,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.requires_action"`
 
     - `required string WorkspaceID`
 
@@ -888,7 +888,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.archived"`
 
     - `required string WorkspaceID`
 
@@ -900,7 +900,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.deleted"`
 
     - `required string WorkspaceID`
 
@@ -912,7 +912,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.status_rescheduled"`
 
     - `required string WorkspaceID`
 
@@ -924,7 +924,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.status_run_started"`
 
     - `required string WorkspaceID`
 
@@ -936,7 +936,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.status_idled"`
 
     - `required string WorkspaceID`
 
@@ -948,7 +948,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.status_terminated"`
 
     - `required string WorkspaceID`
 
@@ -964,7 +964,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.thread_created"`
 
     - `required string WorkspaceID`
 
@@ -980,7 +980,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.thread_idled"`
 
     - `required string WorkspaceID`
 
@@ -996,7 +996,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.thread_terminated"`
 
     - `required string WorkspaceID`
 
@@ -1008,7 +1008,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.outcome_evaluation_ended"`
 
     - `required string WorkspaceID`
 
@@ -1020,7 +1020,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault.created"`
 
     - `required string WorkspaceID`
 
@@ -1032,7 +1032,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault.archived"`
 
     - `required string WorkspaceID`
 
@@ -1044,7 +1044,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault.deleted"`
 
     - `required string WorkspaceID`
 
@@ -1056,7 +1056,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault_credential.created"`
 
     - `required string VaultID`
 
@@ -1072,7 +1072,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault_credential.archived"`
 
     - `required string VaultID`
 
@@ -1088,7 +1088,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault_credential.deleted"`
 
     - `required string VaultID`
 
@@ -1104,7 +1104,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "vault_credential.refresh_failed"`
 
     - `required string VaultID`
 
@@ -1120,7 +1120,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.updated"`
 
     - `required string WorkspaceID`
 
@@ -1132,7 +1132,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "agent.created"`
 
     - `required string WorkspaceID`
 
@@ -1144,7 +1144,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "agent.archived"`
 
     - `required string WorkspaceID`
 
@@ -1156,7 +1156,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "agent.deleted"`
 
     - `required string WorkspaceID`
 
@@ -1168,7 +1168,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment.paused"`
 
     - `required string WorkspaceID`
 
@@ -1180,7 +1180,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment_run.failed"`
 
     - `required string WorkspaceID`
 
@@ -1192,7 +1192,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment.created"`
 
     - `required string WorkspaceID`
 
@@ -1204,7 +1204,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment.updated"`
 
     - `required string WorkspaceID`
 
@@ -1216,7 +1216,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment.unpaused"`
 
     - `required string WorkspaceID`
 
@@ -1228,7 +1228,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "agent.updated"`
 
     - `required string WorkspaceID`
 
@@ -1240,7 +1240,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment.archived"`
 
     - `required string WorkspaceID`
 
@@ -1252,7 +1252,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment_run.started"`
 
     - `required string WorkspaceID`
 
@@ -1264,7 +1264,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment.deleted"`
 
     - `required string WorkspaceID`
 
@@ -1276,7 +1276,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "deployment_run.succeeded"`
 
     - `required string WorkspaceID`
 
@@ -1288,7 +1288,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "environment.created"`
 
     - `required string WorkspaceID`
 
@@ -1300,7 +1300,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "environment.updated"`
 
     - `required string WorkspaceID`
 
@@ -1312,7 +1312,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "environment.archived"`
 
     - `required string WorkspaceID`
 
@@ -1324,7 +1324,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "environment.deleted"`
 
     - `required string WorkspaceID`
 
@@ -1336,7 +1336,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "memory_store.created"`
 
     - `required string WorkspaceID`
 
@@ -1348,7 +1348,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "memory_store.archived"`
 
     - `required string WorkspaceID`
 
@@ -1360,7 +1360,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "memory_store.deleted"`
 
     - `required string WorkspaceID`
 
@@ -1372,7 +1372,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type constant`
+    - `JsonElement Type = "session.budget_reached"`
 
     - `required string WorkspaceID`
 
@@ -1386,7 +1386,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "memory_store.archived"`
 
   - `required string WorkspaceID`
 
@@ -1400,7 +1400,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "memory_store.created"`
 
   - `required string WorkspaceID`
 
@@ -1414,7 +1414,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "memory_store.deleted"`
 
   - `required string WorkspaceID`
 
@@ -1428,7 +1428,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.archived"`
 
   - `required string WorkspaceID`
 
@@ -1442,7 +1442,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.budget_reached"`
 
   - `required string WorkspaceID`
 
@@ -1456,7 +1456,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.created"`
 
   - `required string WorkspaceID`
 
@@ -1470,7 +1470,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.deleted"`
 
   - `required string WorkspaceID`
 
@@ -1484,7 +1484,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.idled"`
 
   - `required string WorkspaceID`
 
@@ -1498,7 +1498,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.outcome_evaluation_ended"`
 
   - `required string WorkspaceID`
 
@@ -1512,7 +1512,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.pending"`
 
   - `required string WorkspaceID`
 
@@ -1526,7 +1526,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.requires_action"`
 
   - `required string WorkspaceID`
 
@@ -1540,7 +1540,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.running"`
 
   - `required string WorkspaceID`
 
@@ -1554,7 +1554,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.status_idled"`
 
   - `required string WorkspaceID`
 
@@ -1568,7 +1568,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.status_rescheduled"`
 
   - `required string WorkspaceID`
 
@@ -1582,7 +1582,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.status_run_started"`
 
   - `required string WorkspaceID`
 
@@ -1596,7 +1596,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.status_terminated"`
 
   - `required string WorkspaceID`
 
@@ -1614,7 +1614,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.thread_created"`
 
   - `required string WorkspaceID`
 
@@ -1632,7 +1632,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.thread_idled"`
 
   - `required string WorkspaceID`
 
@@ -1650,7 +1650,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.thread_terminated"`
 
   - `required string WorkspaceID`
 
@@ -1664,7 +1664,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "session.updated"`
 
   - `required string WorkspaceID`
 
@@ -1678,7 +1678,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault.archived"`
 
   - `required string WorkspaceID`
 
@@ -1692,7 +1692,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault.created"`
 
   - `required string WorkspaceID`
 
@@ -1706,7 +1706,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault_credential.archived"`
 
   - `required string VaultID`
 
@@ -1724,7 +1724,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault_credential.created"`
 
   - `required string VaultID`
 
@@ -1742,7 +1742,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault_credential.deleted"`
 
   - `required string VaultID`
 
@@ -1760,7 +1760,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault_credential.refresh_failed"`
 
   - `required string VaultID`
 
@@ -1778,6 +1778,6 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type constant`
+  - `JsonElement Type = "vault.deleted"`
 
   - `required string WorkspaceID`

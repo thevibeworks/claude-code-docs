@@ -324,7 +324,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "bash"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -342,7 +342,7 @@ Get Agent
 
               - `Type type`
 
-          - `JsonValue type constant`
+          - `JsonValue type = "bash"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -350,7 +350,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "edit"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -364,7 +364,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "edit"`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -372,7 +372,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "read"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -386,7 +386,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "read"`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -394,7 +394,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "write"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -408,7 +408,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "write"`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -416,7 +416,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "glob"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -430,7 +430,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "glob"`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -438,7 +438,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "grep"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -452,7 +452,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "grep"`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -460,7 +460,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_fetch"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -474,7 +474,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_fetch"`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -490,7 +490,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue name constant`
+          - `JsonValue name = "web_search"`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -504,7 +504,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue type constant`
+          - `JsonValue type = "web_search"`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -514,7 +514,7 @@ Get Agent
 
             Approximate user location for search result localization.
 
-            - `JsonValue type constant`
+            - `JsonValue type = "approximate"`
 
               Location precision. Only "approximate" is supported.
 
@@ -612,7 +612,7 @@ Get Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue type constant`
+        - `JsonValue type = "object"`
 
         - `Optional<Properties> properties`
 

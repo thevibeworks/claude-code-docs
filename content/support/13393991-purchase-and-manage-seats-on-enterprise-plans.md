@@ -76,7 +76,7 @@ To unassign a member:
 
 To restore their access, repeat the process and select “Enterprise seat.”
 
-**Note:** Members with no seat assigned remain part of your organization but can't use Claude until you reassign them a seat.
+**Note:** Members with no seat assigned remain part of your organization but can't use Claude until you reassign them a seat. They do not count toward your organization's seat limit. Pending invitations do count. If "Add member" is unavailable even though seats show as available, revoke pending invitations that won't be accepted, or purchase additional seats.
 
 ---
 

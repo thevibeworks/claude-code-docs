@@ -1,7 +1,7 @@
 {
   "version": 1,
   "note": "What the last full run could see outside sources.json. Written by the fetcher so a new source arrives as a diff a human reviews, not as a line in an Actions log nobody reads. Stable facts only: a change here is always news. `review` is the actionable list \u2014 domains we could archive today and do not.",
-  "updated": "2026-09-02",
+  "updated": "2026-09-03",
   "domains": {
     "anthropic.com": {
       "status": "frozen",
@@ -105,6 +105,7 @@
       "anthropics/claude-tag-wif-gateway-sample",
       "anthropics/claudes-c-compiler",
       "anthropics/code-migration-kit-with-claude-code",
+      "anthropics/commerce-agents",
       "anthropics/cryptography-research-demo",
       "anthropics/defending-code-reference-harness",
       "anthropics/devcontainer-features",

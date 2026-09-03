@@ -248,16 +248,51 @@ Claude sees a budget-countdown marker injected server-side throughout the conver
 </Note>
 
 <Warning>
-  **The countdown reflects tokens Claude has processed in the current agentic loop, not tokens you resend between turns.** If your client sends the full conversation history on every follow-up request, your client-side token count may differ from the budget Claude is tracking. If you also decrement `remaining` while resending full history, the model sees an under-reported budget and the countdown drops faster than it should, causing Claude to wrap up earlier than the budget actually allows. Set a generous budget and let the model self-regulate against the countdown rather than trying to mirror it client-side.
+  **The countdown reflects tokens Claude has processed in the current agentic loop, not tokens you resend between requests.** If your client sends the full conversation history on every follow-up request, your client-side token count might differ from the budget Claude is tracking. If you also decrement `remaining` while resending full history, the model sees an under-reported budget and the countdown drops faster than it should, causing Claude to wrap up earlier than the budget actually allows. Set a generous budget and let the model self-regulate against the countdown rather than trying to mirror it client-side.
 </Warning>
 
-### Worked example: budget counting across turns
+### What counts as a turn
 
-The task budget counts what Claude **sees** (thinking, tool calls and results, and text), not what's in your request payload. In an agentic loop your client resends the full conversation on every request, so the payload grows turn over turn, but the budget only decrements by the tokens Claude sees this turn.
+The budget covers one agentic turn, also called an agentic loop: everything Claude does in response to one user message that carries no tool results. A turn can span several requests.
+
+A user message that carries no tool results starts a new turn with a fresh budget. Today, the countdown still counts earlier turns' history while it remains in the context. A common case is a follow-up after Claude has ended its turn, for example because the budget ran out:
+
+```json
+{ "role": "user", "content": "Continue." }
+```
+
+A user message that contains `tool_result` blocks continues the current turn, because your client is resolving tool calls that are part of that turn:
+
+```json
+{
+  "role": "user",
+  "content": [
+    { "type": "tool_result", "tool_use_id": "toolu_01", "content": "<npm audit output>" }
+  ]
+}
+```
+
+That holds even when the message adds new content alongside the tool results:
+
+```json
+{
+  "role": "user",
+  "content": [
+    { "type": "tool_result", "tool_use_id": "toolu_01", "content": "<npm audit output>" },
+    { "type": "text", "text": "Also check the Dockerfile." }
+  ]
+}
+```
+
+Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) during a turn does not reset the budget: tokens the turn consumed before the compaction still count against it. Tokens from before the turn began do not count, even when a compaction at the start of a turn summarizes them. Today, that exclusion applies only to the budget carried across a server-side compaction; earlier turns' history still counts while it remains in the context.
+
+### Worked example: budget counting across requests
+
+The task budget counts what Claude **sees** (thinking, tool calls and results, and text), not what's in your request payload. In an agentic loop your client resends the full conversation on every request, so the payload keeps growing, but the budget only decrements by what is new: the tokens Claude generates and the content it has not seen before. The following example is one [agentic turn](https://platform.claude.com/docs/en/build-with-claude/task-budgets#what-counts-as-a-turn) made of three requests: the first carries the user message, and the next two each resend the history with a tool result appended.
 
 Consider a loop with `task_budget: {type: "tokens", total: 100000}` and a single `bash` tool.
 
-**Turn 1.** You send the initial request:
+**Request 1.** You send the initial request:
 
 ```json
 {
@@ -287,9 +322,9 @@ Claude thinks, then emits a tool call and stops with `stop_reason: "tool_use"`:
 }
 ```
 
-Suppose this assistant turn (thinking plus the tool call) totals 5,000 generated tokens. The countdown Claude saw during generation ended near `remaining` ≈ 95,000.
+Suppose this assistant message (thinking plus the tool call) totals 5,000 generated tokens. The countdown Claude saw during generation ended near `remaining` ≈ 95,000.
 
-**Turn 2.** Your client runs the tool, then resends the full history with the tool result appended:
+**Request 2.** Your client runs the tool, then resends the full history with the tool result appended:
 
 ```json
 {
@@ -321,24 +356,24 @@ Suppose this assistant turn (thinking plus the tool call) totals 5,000 generated
 }
 ```
 
-The resent turn-1 user and assistant messages are not counted again, but the 2,800-token tool result is new content Claude sees this turn and counts against the budget. Claude spends another 4,000 tokens on thinking and a second tool call (`grep -rn "eval(" src/`). The countdown ends near `remaining` ≈ 88,200.
+The resent messages from request 1 are not counted again, but the 2,800-token tool result is new content and counts against the budget. Claude spends another 4,000 tokens on thinking and a second tool call (`grep -rn "eval(" src/`). The countdown ends near `remaining` ≈ 88,200.
 
-**Turn 3.** Full history resent again with the second tool result (1,200 tokens of grep output) appended. Claude writes a 6,000-token final findings report and stops with `stop_reason: "end_turn"`. `remaining` ≈ 81,000.
+**Request 3.** Full history resent again with the second tool result (1,200 tokens of grep output) appended. Claude writes a 6,000-token final findings report and stops with `stop_reason: "end_turn"`. `remaining` ≈ 81,000.
 
-Putting the three turns side by side makes the distinction between payload size and budget spend explicit:
+Putting the three requests side by side makes the distinction between payload size and budget spend explicit:
 
-| Turn      | Request payload (approx. input tokens you sent) | Tokens counted against budget this turn                   | Budget `remaining` after |
+| Request   | Request payload (approx. input tokens you sent) | Tokens counted against budget this request                | Budget `remaining` after |
 | --------- | ----------------------------------------------- | --------------------------------------------------------- | ------------------------ |
 | 1         | \~20                                            | 5,000 (thinking + `tool_use`)                             | \~95,000                 |
-| 2         | \~7,800 (turn 1 history + tool result)          | 6,800 (2,800 tool result + 4,000 thinking and `tool_use`) | \~88,200                 |
+| 2         | \~7,800 (messages from request 1 + tool result) | 6,800 (2,800 tool result + 4,000 thinking and `tool_use`) | \~88,200                 |
 | 3         | \~13,000 (full history + second tool result)    | 7,200 (1,200 tool result + 6,000 `text`)                  | \~81,000                 |
 | **Total** | **\~20,820 sent across requests**               | **19,000 counted against budget**                         | N/A                      |
 
-Your client sent the turn-1 user message three times and the turn-1 assistant message twice, but each was counted once. The budget spent 19,000 of 100,000 tokens, even though the cumulative payload your client transmitted was larger and the prompt-cached input on turns 2 and 3 was larger still.
+Your client sent the original user message three times and the first assistant message twice, but each was counted once. The budget spent 19,000 of 100,000 tokens, even though the cumulative payload your client transmitted was larger and the prompt-cached input on requests 2 and 3 was larger still.
 
 ### Carrying a budget across compaction with `remaining`
 
-If your agentic loop compacts or rewrites context between requests (for example, by summarizing earlier turns), the server has no memory of how much budget was spent before compaction. Pass `remaining` on the next request so the countdown continues from where you left off rather than resetting to `total`:
+If your own code compacts or rewrites the message history between requests (for example, by summarizing earlier messages), the server has no memory of how much budget was spent before compaction. Pass `remaining` on the next request so the countdown continues from where you left off rather than resetting to `total`:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -439,7 +474,9 @@ If your agentic loop compacts or rewrites context between requests (for example,
   ```
 </CodeGroup>
 
-For loops that resend the full uncompacted history on every turn, omit `remaining` and let the server track the countdown.
+In this example, the tokens spent before compaction are the usage of all the messages you have removed from the history so far, measured as in [Measure your current usage](https://platform.claude.com/docs/en/build-with-claude/task-budgets#measure-your-current-usage). Leave out anything still present in the messages you send, including any summary you added, because the server counts those tokens itself. Update this figure only when you replace the history this way; don't decrement it per request. Pass the resulting `remaining` on every request, not only the one that compacts.
+
+For loops that resend the full uncompacted history on every request, omit `remaining` and let the server track the countdown.
 
 ## Changing the budget mid-conversation
 
@@ -594,7 +631,7 @@ The minimum accepted `task_budget.total` is model-specific. On every model that 
 * **`max_tokens`:** Orthogonal to task budgets. `max_tokens` is a hard per-request cap on generated tokens, while `task_budget` is an advisory cap across the full agentic loop (potentially spanning many requests). At `xhigh` or `max` effort, set `max_tokens` to at least 64k to give Claude room to think and act on each request.
 * **[Effort](https://platform.claude.com/docs/en/build-with-claude/effort):** Effort controls how deeply Claude reasons per step. Task budgets control how much total work Claude does across an agentic loop. The two are complementary: effort tunes depth, task budgets tune breadth.
 * **[Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking):** Task budgets include thinking tokens in the count, so adaptive thinking scales down as the budget depletes.
-* **[Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching):** The budget-countdown marker is injected server-side per turn, so it does not match across requests. If your client decrements `task_budget.remaining` on each follow-up request, the changed value invalidates any cache prefix that contains it. To preserve caching, set the budget once on the initial request and let the model self-regulate against the server-side countdown rather than mutating the budget client-side.
+* **[Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching):** The budget-countdown marker is injected server-side on each request, so it does not match across requests. If your client decrements `task_budget.remaining` on each follow-up request, the changed value invalidates any cache prefix that contains it. To preserve caching, set the budget once on the initial request and let the model self-regulate against the server-side countdown rather than mutating the budget client-side.
 
 ## Feature support
 

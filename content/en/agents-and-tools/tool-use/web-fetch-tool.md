@@ -27,7 +27,7 @@ For Zero Data Retention eligibility and the `allowed_callers` workaround, see [S
 <Warning>
   Enabling the web fetch tool in environments where Claude processes untrusted input alongside sensitive data poses data exfiltration risks. Only use this tool in trusted environments or when handling non-sensitive data.
 
-  To minimize exfiltration risks, Claude is not allowed to dynamically construct URLs. Claude can only fetch URLs that have been explicitly provided by the user or that come from previous web search or web fetch results. However, there is still residual risk that you should carefully consider when using this tool.
+  To minimize exfiltration risks, Claude cannot fetch URLs that appear only in its own output. Claude can only fetch URLs that have previously appeared in the conversation: URLs in user messages, URLs in client-side tool results (even when a result echoes text that Claude generated), and URLs from previous web search or web fetch results (see [URL validation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#url-validation)). However, there is still residual risk that you should carefully consider when using this tool.
 
   If data exfiltration is a concern, consider:
 
@@ -503,7 +503,7 @@ The `response_inclusion` parameter controls how fetch result blocks appear in th
 Unlike web search where citations are always enabled, citations are optional for web fetch and disabled by default. Set `"citations": {"enabled": true}` to enable Claude to cite specific passages from fetched documents.
 
 <Note>
-  When displaying API outputs directly to end users, include citations to the original source. If you are making modifications to API outputs, including by reprocessing and/or combining them with your own material before displaying them to end users, display citations as appropriate based on consultation with your legal team.
+  When displaying API outputs directly to end users, include citations to the original source. If you are making modifications to API outputs, including by reprocessing or combining them with your own material before displaying them to end users, display citations as appropriate based on consultation with your legal team.
 </Note>
 
 ## Response
@@ -650,7 +650,7 @@ For security reasons, the web fetch tool can only fetch URLs that have previousl
 * URLs in client-side tool results
 * URLs from previous web search or web fetch results
 
-The tool cannot fetch arbitrary URLs that Claude generates or URLs from container-based server tools (such as Code Execution and Bash).
+The tool cannot fetch URLs that appear only in Claude's own output or only in the system prompt. To make a URL from the system prompt fetchable, also include it in a user message. Results of other server-side tools, such as [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool), the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector), or [tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool), are not an allowed source either. Client-side tool results are an allowed source even when they echo text that Claude produced (for example, a command that prints its input, or an error message that quotes it).
 
 ## Combined search and fetch
 

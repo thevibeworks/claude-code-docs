@@ -8,6 +8,48 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v1.44121.4" description="2026-09-02">
+  No configuration changes in this release.
+</Update>
+
+<Update label="v1.44121.2" description="2026-09-02">
+  No configuration changes in this release.
+</Update>
+
+<Update label="v1.44121.1" description="2026-09-02">
+  <div className="cfg-keys">
+    | MDM key                                                                                                    | Type      | Description                                                                                                                                                                                                                                                                                                      |
+    | ---------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | [`inferenceStreamIdleTimeoutSec`](/docs/third-party/claude-desktop/configuration#inferencestreamidletimeoutsec) | `integer` | Stream idle timeout                                                                                                                                                                                                                                                                                              |
+    | [`egressProxyUrl`](/docs/third-party/claude-desktop/configuration#egressproxyurl)                               | `string`  | Proxy server URL                                                                                                                                                                                                                                                                                                 |
+    | [`egressProxyPacUrl`](/docs/third-party/claude-desktop/configuration#egressproxypacurl)                         | `string`  | Proxy auto-config (PAC) URL                                                                                                                                                                                                                                                                                      |
+    | [`claudeAiImport.automatic3pImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport)             | `boolean` | New subfield (beta): when `true` and `deploymentOrganizationUuid` is set, the app copies this computer's earlier third-party sessions stored before an organization ID was configured into that organization's session store, once per device and in the background; independent of `enabled` (default `false`). |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "inference": {
+      "streamIdleTimeoutSec": "<integer>"
+    },
+    "workspace": {
+      "egressProxyUrl": "<string>",
+      "egressProxyPacUrl": "<string>"
+    },
+    "claudeAiImport": {
+      "automatic3pImport": "<boolean>"
+    }
+  }
+  ```
+
+  `egressProxyUrl` and `egressProxyPacUrl` are read from device management or a local configuration file only; a value served by a bootstrap URL is not applied.
+
+  **Changed:**
+
+  * **Breaking:** `inferenceModelPricingMultiplier` and `inferenceModelPricing` no longer turn on the Usage page's cost estimate by themselves; they apply only while `inferenceModelPricingEnabled` is `true` and are ignored otherwise. A configuration that sets either without `inferenceModelPricingEnabled: true` now shows token counts only; add that key to keep the estimate.
+</Update>
+
 <Update label="v1.40609.1" description="2026-08-30">
   No configuration changes in this release.
 </Update>

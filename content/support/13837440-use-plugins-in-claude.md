@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1788362100&amp;signature=7c5c64313022f3481285d58d518fe81203676451b70b067d2359c30c77c9279a&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3Ih3eNfdUxakFVfq5Wwz5r2mSk2uHZfaiTHri%0A1RPwDpc3HKK5%2FSeQ%2Fkc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1788414300&amp;signature=6de55e122ff02d24e6ff7c8b21c744710c6412fb050e8ea53c6efcd1e8d54ecd&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3Ih3ZMvFWxakFVfq5WwzV8tXiZ%2Fngz1cf%2FpaA%0AdunzE95YPP5RN58arMs%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1788362100&amp;signature=062683887544d69468c17854453fa216f35d7dee85d733f032d298adc3fffb26&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBP7%2FhUKVmKUxugP2BQvAPM2wvZeIGMovGZ6J%0AzSe3Fm0T%2Bp7eBtmLzyA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1788414300&amp;signature=2b3c11b5499a8dbd92f4c9d239273ec98f223025fcc2b8119493890f2a1eb8a2&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBP74gkSXmKUxugP2BQv%2FXf1JChr%2Bs%2BkRa5vG%0Au0Bki3KJnEveiAAqiWA%3D%0A)
 
 ---
 

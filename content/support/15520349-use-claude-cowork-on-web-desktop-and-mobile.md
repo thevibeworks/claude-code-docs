@@ -42,19 +42,20 @@ For details on how cloud and local sessions are isolated and what each can acces
 
 Cowork in the cloud is in beta, and some features aren’t available yet. Here's what you can use on each surface today:
 
-| **Feature**                                 | **Desktop** | **Web** | **Mobile** |
-| ------------------------------------------- | ----------- | ------- | ---------- |
-| Start, steer, and review tasks              | ✅           | ✅       | ✅          |
-| Resume a session started on another surface | ✅           | ✅       | ✅          |
-| Connectors                                  | ✅           | ✅       | ✅          |
-| Skills and plugins                          | ✅           | ✅       | ✅          |
-| Preview files Claude creates                | ✅           | ✅       | ✅          |
-| Scheduled tasks                             | ✅           | ✅       | ✅          |
-| Projects                                    | ✅           | ✅       | ✅          |
-| Live artifacts                              | ✅           |         |            |
-| Local file access                           | ✅           | ✅\*     | ✅\*        |
-| Browser use                                 | ✅           | ✅\*     | ✅\*        |
-| Computer use                                | ✅           | ✅\*     | ✅\*        |
+| **Feature**                                     | **Desktop** | **Web** | **Mobile** |
+| ----------------------------------------------- | ----------- | ------- | ---------- |
+| Start, steer, and review tasks                  | ✅           | ✅       | ✅          |
+| Resume a session started on another surface     | ✅           | ✅       | ✅          |
+| Connectors                                      | ✅           | ✅       | ✅          |
+| Skills and plugins                              | ✅           | ✅       | ✅          |
+| Preview files Claude creates                    | ✅           | ✅       | ✅          |
+| Scheduled tasks                                 | ✅           | ✅       | ✅          |
+| Projects                                        | ✅           | ✅       | ✅          |
+| Live artifacts (created before August 19, 2026) | ✅           |         |            |
+| Artifacts (created August 19, 2026 or later)    | ✅           | ✅       |            |
+| Local file access                               | ✅           | ✅\*     | ✅\*        |
+| Browser use                                     | ✅           | ✅\*     | ✅\*        |
+| Computer use                                    | ✅           | ✅\*     | ✅\*        |
 
 A few notes on the table:
 
@@ -62,13 +63,13 @@ A few notes on the table:
 
 - Projects are available on every surface. From a project you can start a chat or a Cowork session, and Claude uses the project's knowledge as context. Projects tied to a local folder support Cowork sessions on desktop only, and Cowork won't change a project's contents, so add anything you want to keep to the project yourself. For more information, see **[Organize your tasks with projects in Claude Cowork](https://support.claude.com/en/articles/14116274)** and **[Use live artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
 
-- Live artifacts are available on the desktop app only. For more information, see **[Use live artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
+- Artifacts created on or after August 19, 2026 are available on the desktop app and web. Live artifacts created before that date are available on the desktop app only. For more information, see **[Use artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
 
 - Local connectors and plugins that include local MCP servers work through the desktop app only.
 
 - Scheduled tasks run in the cloud, so they no longer need your computer to be awake. For more information, see **[Schedule recurring tasks in Claude Cowork](https://support.claude.com/en/articles/13854387)**.
 
-- Computer use is a research preview for Pro and Max plans. For more information, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
+- Computer use is in beta for Pro and Max plans. For more information, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
 
 ## What requires the desktop app
 

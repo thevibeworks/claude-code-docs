@@ -148,7 +148,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work_heartbeat"`
 
     The type of response
 

@@ -129,8 +129,8 @@ Claude Desktop writes the following into the SSH user's home directory on the ho
 
 Each side of a remote session needs its own network access.
 
-* The device must reach `downloads.claude.ai`, including devices installed with the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation). Claude Desktop downloads the remote server there and uploads it to the host over SFTP.
-* The host must reach your inference endpoint and, if configured, your OTLP collector, plus whatever the user's own work needs. It downloads the Claude Code engine from `downloads.claude.ai` when it can; when that fails, Claude Desktop downloads the engine on the device and uploads it over SFTP. Unless you disabled telemetry, the engine on the host also reports to the same Anthropic hosts as a local Code session (see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry)). Blocking them does not affect the session.
+* Devices installed with the regular installer must reach `downloads.claude.ai`: Claude Desktop downloads the remote server there and uploads it to the host over SFTP. Devices installed with the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation) don't: it bundles the remote server and the Claude Code engine for Linux x64 and arm64 hosts, and Claude Desktop uploads both over SFTP. Hosts on other platforms still need the download, and on an offline install the session fails with a message saying the installer doesn't include remote components for that platform.
+* The host must reach your inference endpoint and, if configured, your OTLP collector, plus whatever the user's own work needs. With the regular installer, it downloads the Claude Code engine from `downloads.claude.ai` when it can; when that fails, Claude Desktop downloads the engine on the device and uploads it over SFTP. Unless you disabled telemetry, the engine on the host also reports to the same Anthropic hosts as a local Code session (see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry)). Blocking them does not affect the session.
 
 ### SSH configuration on the device
 

@@ -152,7 +152,7 @@ Long poll for work items in the queue.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue type constant`
+    - `JsonValue type = "session"`
 
       Type of work data
 
@@ -198,7 +198,7 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type constant`
+  - `JsonValue type = "work"`
 
     The type of object (always 'work')
 

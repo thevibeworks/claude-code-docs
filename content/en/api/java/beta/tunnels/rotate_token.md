@@ -126,7 +126,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue type constant`
+  - `JsonValue type = "tunnel_token"`
 
 ## Example
 
