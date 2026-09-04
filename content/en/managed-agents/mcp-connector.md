@@ -53,14 +53,14 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` ar
 
   <MultiFileExample language="cli" label="CLI">
     ```bash CLI
-    AGENT_ID=$(ant beta:agents create --transform id --raw-output < github-assistant.agent.yaml)
+    ant apply github-assistant.md
     ```
 
-    <File filename="github-assistant.agent.yaml">
-      ```yaml
+    <File filename="github-assistant.md">
+      ```markdown
+      ---
       name: GitHub Assistant
-      model:
-        id: claude-opus-5
+      model: claude-opus-5
       mcp_servers:
         - type: url
           name: github
@@ -69,6 +69,7 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` ar
         - type: agent_toolset_20260401
         - type: mcp_toolset
           mcp_server_name: github
+      ---
       ```
     </File>
   </MultiFileExample>

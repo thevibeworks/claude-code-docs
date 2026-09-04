@@ -6,6 +6,11 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.03.1">
+  * Fixed Admin Console pages sometimes loading part light and part dark when your computer is set to dark mode, which made some text hard to read.
+  * Improved the Admin Console for tenant admins who manage several organizations: every page shows which organization or tenant your changes apply to.
+</Update>
+
 <Update label="2026.09.02.1">
   * Fixed the Sessions page under Account showing every app sign-in as "Desktop app": each sign-in now names its app, or reads "Claude app" when the app is not known.
   * (breaking) Changed the "Telemetry endpoint" setting under Config > Compliance and telemetry to refuse an address products can't use, such as one with a password or a `?` query; an address you already saved is checked only when you next change the setting.

@@ -47,7 +47,7 @@ For which Claude Code features work through the gateway and what the server itse
 
 If you already run an LLM gateway or API gateway that meets your needs, keep using it; [Other LLM gateways](/docs/en/llm-gateway) covers configuring Claude Code against it.
 
-The [gateway protocol reference](/docs/en/llm-gateway-protocol) documents the contract Claude Code expects from any gateway: the endpoints it calls, the headers and body fields to forward, and what stops working when they're stripped. A running Claude apps gateway serves a superset of that contract at `GET /protocol`, adding the Claude apps gateway-specific endpoints for SSO sign-in, managed settings delivery, and telemetry. Fetch it with `curl https://claude-gateway.internal.example.com/protocol` from any deployed gateway, such as the one the [quickstart](#quickstart) below produces.
+The [gateway compatibility guide](/docs/en/llm-gateway-protocol) documents what Claude Code expects from any gateway: the endpoints it calls, the headers and body fields to forward, and what stops working when they're stripped. A running Claude apps gateway also serves its own protocol reference at `GET /protocol`, which describes the endpoints it exposes to Claude Code clients: SSO sign-in, inference, managed settings delivery, model discovery, and telemetry. Fetch it with `curl https://claude-gateway.internal.example.com/protocol` from any deployed gateway, such as the one the [quickstart](#quickstart) below produces.
 
 Breaking changes to the protocol are announced in advance, but indefinite backwards compatibility isn't guaranteed.
 

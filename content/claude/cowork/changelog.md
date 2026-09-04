@@ -6,6 +6,56 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.46388.1" description="2026-09-04">
+  **General**
+
+  * Removed the "Mark as unread" action for chats.
+  * Fixed links between artifacts and shared-artifact links clicked inside the app opening in the browser or losing their share key; they now open in place, and a teammate without access sees the request-access screen instead of "not available".
+  * Fixed memory use on macOS growing steadily while working with files, which could end with the system reporting it had run out of application memory.
+  * Fixed new messages being queued instead of sent after reopening a chat whose last message had no reply yet.
+  * Fixed removing a file from the message box after stopping or losing a reply sometimes deleting that file from the message you had already sent, which made "Try again" on it fail.
+  * Fixed side chat, the slash-command picker, usage insights, and other quick actions failing silently on machines where an organization deploys a Claude Code `managed-mcp.json`.
+  * Fixed the dictation microphone button disappearing from the chat composer once a message had text, an attached file, or a quoted reply.
+
+  **Code**
+
+  * Added a queue for messages sent while your 5-hour usage limit is reached: they wait above the composer instead of failing, and you can edit, cancel, or send them when you're ready.
+  * Added keep-awake while Claude works: the computer no longer idle-sleeps while Claude is working in the Code tab, with a "Keep computer awake while Claude works" setting (and a "Keep awake on battery power" option) under Settings > Claude Code, a "Keep computer awake for this session" item in the session menu, and a one-time notice after a long task.
+  * Removed the Summary transcript view from the session's Transcript view menu; sessions that had it selected open in the Normal view.
+  * Fixed Extra high and Max effort on Claude Opus 5 quietly running at High when thinking was turned off in your Claude Code settings; those efforts now run with thinking on for the session.
+  * Fixed organization-managed settings not loading, and Remote Control not connecting automatically, for some users until they signed out and back in.
+  * Fixed sessions failing to open: a "Couldn't load this" message now recovers on its own instead of needing a manual reload, sessions no longer show "No messages yet" on Windows hosts that use FSLogix or similar profile containers, and a transcript that can't be read shows the reason with a Retry button.
+  * Fixed SSH sessions being restarted after some reconnects, which could leave duplicate Claude Code processes on the remote machine, and fixed messages held for an unreachable host: they are retried after an app restart, and when the host comes back needing your password or an unlocked SSH agent the app asks you instead of marking the message "needs you".
+  * Fixed switching models in a session: a switch refused with a "plugin hooks could not be loaded" error now restarts that session's Claude Code on the model you picked, the model picker no longer shows a model Claude Code refused, and Remote Control sessions no longer offer models the connected Claude Code version can't run.
+  * Fixed switching models staying blocked for the rest of the session when an organization-managed plugin's marketplace or a plugin hook failed to load.
+  * Fixed the remembered folder sometimes getting mixed up with a remote machine's path, which made every local session launch fail with "working directory no longer exists".
+
+  **Cowork**
+
+  * Added automatic re-runs (after 5, 15, and 30 minutes) for a scheduled task that could not reach the model at all, for example right after the computer wakes behind a VPN.
+  * Fixed Record a skill opening an unresponsive chooser window on Windows.
+  * Fixed saving a skill Claude proposes in a conversation: a name that matches one of your skills now offers to update that skill instead of failing with "Try again", and when saving is blocked until you sign in again the Save skill button opens the sign-in prompt instead of a generic error.
+  * Fixed scheduled tasks and other automatic ways of starting a session choosing a model the installed app version can't run, which made every turn fail.
+  * Fixed the row under the composer (Add folder, permission mode, model) disappearing after switching a session to automatic approvals.
+
+  **3P**
+
+  * Added `blockReadsOutsideWorkingDirectories`: restricts Code sessions to reading files inside the session folder and `allowedWorkspaceFolders`; file tools refuse reads elsewhere, and sandboxed shell commands lose access to the home directory.
+  * Added `configRecheckIntervalMinutes`: how often a running app re-checks its managed configuration for changes, from 2 to 30 minutes; unset means 10 minutes, where the app previously checked every 30. A served value applies without a restart, and the key can also be set from device management.
+  * Added `disableBypassPermissionsMode`: removes bypass permissions mode from Code sessions and Cowork tasks, so Claude always follows the configured permission policy.
+  * Added `sshClientPath` (beta): the absolute path of the OpenSSH program the app runs for SSH sessions; when unset, the app uses the first `ssh` on the user's PATH.
+  * Added an Edit button to your most recent message in Cowork and Chat sessions, so you can revise and resend it, and fixed "Restart conversation from here" doing nothing in Chat sessions.
+  * Added the restart prompt, escalating to a required restart after `relaunchEnforcementHours`, when device-managed configuration (the managed plist, Windows policy registry, or Linux managed-settings file) changes while the app is running; previously only configuration changes served from a customer bootstrap endpoint prompted one.
+  * (breaking) Changed `relaunchEnforcementHours`: in served configuration the key moved from `bootstrap.relaunchEnforcementHours` to `lifecycle.relaunchEnforcementHours`; this release no longer reads the old path and earlier versions do not read the new one, so move the value under `lifecycle` (the flat-format and device-management key name is unchanged); the key can now also be set from device management; and the default window before a required restart is now 24 hours instead of 1. A device-management profile that sets any app-behavior key takes precedence over a served value for this key, so such a profile should set it too.
+  * (breaking) Changed how unreadable Claude Code managed settings are handled: if a device's `managed-settings.json` file, a drop-in, the device-management plist, or the Windows policy registry value cannot be parsed, Claude Code now refuses to start and names the source, so sessions on that device will not start until that file or value is fixed or removed; previously they ran without those settings. Check that these sources parse on managed devices before rolling out this version.
+  * Changed `allowedPluginMarketplaces` entries set to `auto_install` or `required` without a pinned commit SHA (or without `manifestSha256` for a `url` source) to show as available with a configuration warning, instead of being removed from the marketplace list.
+  * Changed Claude Code's `allowedMcpServers` setting (in its `managed-settings.json`, not the managed-configuration schema) to govern only servers users add themselves: a server from a `managed-mcp.json` file that the allowlist used to filter out now loads, and `deniedMcpServers` is the way to keep it off.
+  * Fixed chat search returning no results; searching finds chats by title and message content again.
+  * Fixed deployments without cloud features, or with the Cowork tab turned off, showing controls that could not work there, including Remote Control, automatic pull requests, the Cloud and Slack session filters, Add marketplace, and Cowork slash commands.
+  * Fixed organization plugins staying installed for users after an administrator removed the plugin's folder from the system `org-plugins` directory.
+  * Fixed remote MCP connectors whose `headersHelper` mints the credential continuing to fail for up to several minutes after the server rejected an expired credential; the helper now re-runs immediately and the rejected request is retried once.
+</Update>
+
 <Update label="v1.44121.4" description="2026-09-02">
   **General**
 

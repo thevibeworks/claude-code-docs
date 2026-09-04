@@ -62,7 +62,7 @@ You can also create and upload your own skills to teach Claude your specific wor
 
 7. Your skill will appear in your skills list and can be toggled on or off.
 
-**Note:** Custom skills you upload are private to your individual account. If you’re on a Team or Enterprise plan and want to share skills with your organization, see **[Provision skills for your organization](https://support.claude.com/en/articles/13119606-managing-skills-as-an-admin#h_4dea113421)**.
+**Note:** Custom skills you upload are private to your individual account until you share them. On Team and Enterprise plans, you can share skills (see **Share a skill** below), or provision skills for your organization. Learn more about **[provisioning skills for your organization](https://support.claude.com/en/articles/13119606-managing-skills-as-an-admin#h_4dea113421)**.
 
 ---
 
@@ -76,21 +76,21 @@ To share a skill:
 
 1. Navigate to **[Customize > Skills](https://claude.ai/customize/skills)**.
 
-2. Open a skill you created.
+2. Find the skill you created.
 
-3. Click "Share."
+3. Click the three-dot menu (...) next to it, then select "Share."
 
 4. Choose who to share with:
 
-  - **Specific people:** Enter names or emails to share directly. The skill appears in each recipient's skills list, grayed out until they enable it.
+  - **Specific people:** Enter names or emails to share directly. Sharing creates a link that opens the item for anyone it's shared with. The skill appears in each recipient's skills list, grayed out until they enable it, and shows your name as the owner.
 
-  - **A group:** Share with a group your organization has already set up. The skill appears in every group member's skills list, grayed out until they enable it. Requires the **Share with groups** toggle.
+  - **A group (Enterprise plans only):** Share with a group your organization has already set up. The skill appears in every group member's skills list, grayed out until they enable it. Requires the **Share with groups** toggle.
 
   - **Entire organization:** The skill is published to your organization's directory, where anyone can find and install it.
 
 5. Click "Share."
 
-Shared skills are view-only. Recipients can enable and use the skill, but they can't edit the contents. If you update the skill later, recipients automatically get the updated version.
+Shared skills are view-only. Recipients can enable and use the skill, but they can't edit the contents. If you update the skill later, recipients automatically get the updated version at next use. You can remove someone's access at any time, and access is removed automatically if they leave the organization.
 
 ## Use skills shared with you
 
@@ -98,7 +98,7 @@ On Team and Enterprise plans, your skills list in **[Customize > Skills](https:/
 
 - **Personal skills:** Skills you've created or uploaded yourself.
 
-- **Shared skills:** Skills colleagues have shared with you directly. These appear grayed out until you enable them.
+- **Shared with you:** Skills colleagues have shared with you directly. These stay off until you turn them on.
 
 - **Organization skills:** Skills shared org-wide and skills your owner has provisioned. You install these from the directory rather than enabling them from the list.
 
@@ -166,7 +166,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1788463800&amp;signature=b87f775238681dcd9a7086dc9ef1dc4cc1f6580bfbdcfa7c0f61d03f6c2c8a4f&amp;req=diEnE8p3nINYWvMW1HO4zSOgDyMsxOWlH%2BdCnFXB0ujzEz3BZn5kWprBUoOk%0AYwA0%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1788609600&amp;signature=3808e7e6251b36a0669f757afcba2b28523d654ea2406b69832a0609f8952247&amp;req=diEnE8p3nINYWvMW3nq%2BgQ%2B4%2F5bpiGdMzVcT2ztkCRhdogBorbgY0gYyhJlt%0AntX9KSK7TcPmJXHeSPpAv8m6fFk%3D%0A)
 
 5. Click "Delete" in the confirmation prompt.
 

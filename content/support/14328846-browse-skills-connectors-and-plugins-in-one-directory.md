@@ -22,7 +22,7 @@ Skills you install from the directory are view-only. You can use them, but you c
 
 For members of Team and Enterprise plans, the “Your organization” tab surfaces skills that have been shared with your entire organization. This includes skills that owners have provisioned centrally and skills that colleagues have shared organization-wide. You can’t fully delete organization-shared skills from your list. Only the person who shared the skill or an organization owner can remove it from the directory.
 
-**Note:** Skills shared with you directly by a colleague don’t appear in the directory. They go straight to your skills list. See **[Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)** for details on how shared skills work.
+**Note:** Skills and plugins shared with you directly by a colleague don’t appear in the directory, they go straight to your skills list. See **[Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)** and **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)** for details on how shared skills and plugins work.
 
 ### Connectors
 
@@ -30,10 +30,12 @@ The connectors tab shows the same catalog of services you can connect Claude to,
 
 ### Plugins
 
-The plugins tab shows available plugins, including any your organization has distributed through a marketplace. Click "Install" to add a plugin. Once installed, the skills from that plugin are available in chat (on the web and the Chat tab in Claude Desktop) and in Cowork. For more on installing and customizing plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-)**.
+The plugins tab shows available plugins, including any your organization has distributed through a marketplace. Plugins a colleague has shared with you directly aren't listed here; find them under **Shared with you** in **Customize > Plugins**.
+
+Click "Install" to add a plugin. Once installed, the skills from that plugin are available in chat (on the web and the Chat tab in Claude Desktop) and in Cowork. For more on installing and customizing plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-)**.
 
 ## For organization owners
 
-Skill sharing to the directory is off by default. To let people in your organization share skills org-wide, enable the **Share with organization** toggle in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. You can also enable the **Skill sharing** toggle separately, which lets people share skills with specific colleagues without publishing to the directory.
+Skill sharing to the directory is off by default. To let people in your organization share skills org-wide, enable the **Share with organization** toggle in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. The separate **Skill sharing** lets people share skills and plugins with specific colleagues without publishing to the directory.
 
 For full details on configuring sharing and provisioning skills centrally, see **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.

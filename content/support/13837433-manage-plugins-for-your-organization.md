@@ -6,6 +6,8 @@ Owners and Primary Owners of Team and Enterprise plans can manage organization p
 
 **Requirements:** Cowork and Skills must both be enabled for your organization before you can use plugin marketplaces.
 
+**Note:** Marketplaces are how owners distribute plugins to their organization. Members can also share a plugin they built with specific colleagues or groups themselves. Sharing is controlled by the settings in **Organization settings > Skills**. Learn more about **[using plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)**.
+
 ---
 
 ## Use Anthropic-built marketplaces
@@ -110,7 +112,7 @@ Your personal GitHub token is verified to confirm you have access, then Cowork u
 
 An initial sync runs automatically when you connect a repository. After that, organization owners can opt-in to continued automatic updates per marketplace by going to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, clicking the menu button in the upper right corner of the marketplace, then toggling "Sync automatically" on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193200015/a239033a9ab19fbd39f1a0d9edce/CleanShot+2026-03-23+at+11_41_31%402x.png?expires=1788463800&amp;signature=382de539ce53573cd31d1ee92aafca522649e2be44775ccef25b86c818987cb4&amp;req=diEuFct%2BnYFeXPMW1HO4zUYv5tX9x3wcRDH%2FtUo5ov6WBKiJ6sYcPHMOpvIi%0AozSxTBsEjGlGGQlHHP8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193200015/a239033a9ab19fbd39f1a0d9edce/CleanShot+2026-03-23+at+11_41_31%402x.png?expires=1788609600&amp;signature=169fe0bcc397ccf0d0f55cdb69ef94b7854d39378b497e90541e93bcf7e786d3&amp;req=diEuFct%2BnYFeXPMW3nq%2BgXWVtEoAlUXYgLuKhAZwUoCbsIrvXuTK0i8tFjLQ%0AgwvvfVSjhk0DIPfVX5TpyGdk5IQ%3D%0A)
 
 Enabling automatic sync creates a webhook on the connected repository. The person turning the toggle on must have admin-level access to that repository on GitHub. This is checked through their personal GitHub connection, which is separate from the Claude GitHub App installation. Without admin access, the page shows "Cannot access repository. Ensure the repository exists and the Claude GitHub App is installed," even when the App is installed correctly and manual updates work.
 
@@ -281,7 +283,7 @@ One or more plugins in your repo is likely formatted incorrectly. Fix the format
 
 One or more plugin entries in your `marketplace.json` use a `source` that points outside the connected repository (a `github`, `url`, or `git-subdir` source), and organization sync can't fetch it. A private source only works in two cases: a github.com repository shares your marketplace repository's owner, or a repository on your organization's GitHub Enterprise host with your GitHub Enterprise App installed on it.
 
-For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **Organization settings > Plugins > Add plugins > Upload a file**, then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization.
+For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **Organization settings > Plugins > Add plugins > Upload a file**, then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization, although members can share plugins with specific colleagues or groups if sharing is turned on.
 
 ### Plugins disappeared after a failed sync
 

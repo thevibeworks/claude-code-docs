@@ -32,10 +32,10 @@ A change to the conversation layer leaves the system prompt and project context 
 
 The prefix-match rule explains most of the behaviors on this page. [Plan mode](/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode) and [skill loading](/docs/en/skills), for example, append their instructions as conversation messages, so the cached prefix stays intact.
 
-Two settings aren't part of the prompt text at all, so they don't appear in the layer table, but both are part of the cache key:
+Two settings don't appear in the layer table but still affect what stays cached:
 
 * **Model**: each model has its own cache. Switching models recomputes the entire request even when the content is identical. See [Switching models](#switching-models) below.
-* **Effort level**: each effort level has its own cache for the same model. Changing effort mid-session recomputes the entire request. See [Changing effort level](#changing-effort-level) below.
+* **Effort level**: on most models, each effort level has its own cache, so changing effort mid-session recomputes the entire request. On Fable 5.1 with an API key or a Claude subscription, the cache stays intact by default. See [Changing effort level](#changing-effort-level) below.
 
 <Tip>
   Pick your model and effort level at the top of a session, then save `/compact` for natural breaks between tasks. The fewer changes you make mid-task, the higher your cache hit rate.
@@ -92,7 +92,11 @@ The [`opusplan` model setting](/docs/en/model-config#opusplan-model-setting) res
 
 ### Changing effort level
 
-The cache is keyed by [effort level](/docs/en/model-config#adjust-effort-level) as well as model, so switching with `/effort` means the next request reads the entire conversation history with no cache hits. Changing effort follows the same confirmation as [switching models](#switching-models). When a change resolves to the same level already in effect, such as setting the model's default explicitly, Claude Code keeps the cache and applies the change without asking.
+On most models, changing the [effort level](/docs/en/model-config#adjust-effort-level) mid-session means the next request reads the entire conversation history with no cache hits. While the cache is still warm, Claude Code asks you to confirm the change first.
+
+On Fable 5.1 with an API key or a Claude subscription, changing effort keeps the cache, and Claude Code applies the new level without asking. This doesn't apply on Amazon Bedrock, Google Cloud's Agent Platform, or a [Claude apps gateway](/docs/en/claude-apps-gateway), or when you set [`CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS`](/docs/en/llm-gateway-protocol#disable-pre-release-capabilities) or your organization has a HIPAA configuration.
+
+Before v2.1.260, changing effort on Fable 5.1 with an API key or a Claude subscription also invalidated the cache.
 
 ### Turning on fast mode
 

@@ -85,7 +85,7 @@ You need:
 
       <MultiFileExample language="cli" label="CLI">
         ```bash CLI
-        ant beta:environments create < environment.yaml
+        ant apply environment.yaml
         ```
 
         <File filename="environment.yaml">

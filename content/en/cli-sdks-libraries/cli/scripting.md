@@ -8,90 +8,15 @@ This page covers task-oriented workflows built on the `ant` CLI. For the underly
 
 ## Version-controlling API resources
 
-You can use the CLI to version control API resources such as skills, agents, environments, or deployments as YAML files in your repository and keep them in sync with the Claude API.
+To keep agents, environments, and other Claude Managed Agents resources as files in your repository, see [Manage resources as code with ant apply](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply).
 
-<Note>
-  For more information on these resources, see [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview).
-</Note>
+### Run the applied agent from the shell
+
+Once an agent and environment exist, you can drive a session from the shell:
 
 <Steps>
-  <Step title="Define your agent">
-    Write the agent definition to `summarizer.agent.yaml`:
-
-    ```yaml summarizer.agent.yaml
-    name: Summarizer
-    model: claude-opus-5
-    system: |
-      You are a helpful assistant that writes concise summaries.
-    tools:
-      - type: agent_toolset_20260401
-    ```
-  </Step>
-
-  <Step title="Create the agent">
-    ```bash
-    ant beta:agents create < summarizer.agent.yaml
-    ```
-
-    ```json Output
-    {
-      "id": "agent_011CYm1BLqPXpQRk5khsSXrs",
-      "version": 1,
-      "name": "Summarizer",
-      "model": "claude-opus-5"
-      /* ... */
-    }
-    ```
-
-    Note the `id` from the response. You'll pass it to the session create command in a later step.
-
-    <Tip>
-      Check `summarizer.agent.yaml` into your repository and keep it in sync with the API in your CI pipeline. The update command needs the agent ID and current version as flags:
-
-      ```bash CLI
-      ant beta:agents update --agent-id agent_011CYm1BLqPXpQRk5khsSXrs --version 1 < summarizer.agent.yaml
-      ```
-    </Tip>
-  </Step>
-
-  <Step title="Define the environment">
-    A session runs in an [environment](https://platform.claude.com/docs/en/api/cli/beta/environments), which defines the sandbox it executes in. Write the environment definition to `summarizer.environment.yaml`:
-
-    ```yaml summarizer.environment.yaml
-    name: summarizer-env
-    config:
-      type: cloud
-      networking:
-        type: unrestricted
-    ```
-  </Step>
-
-  <Step title="Create the environment">
-    ```bash
-    ant beta:environments create < summarizer.environment.yaml
-    ```
-
-    ```json Output
-    {
-      "id": "env_01595EKxaaTTGwwY3kyXdtbs",
-      "name": "summarizer-env"
-      /* ... */
-    }
-    ```
-
-    Note the `id` from the response. You'll pass it to the session create command in a later step.
-
-    <Tip>
-      Check `summarizer.environment.yaml` into your repository and keep it in sync with the API in your CI pipeline. The update command needs the environment ID as a flag:
-
-      ```bash CLI
-      ant beta:environments update --environment-id env_01595EKxaaTTGwwY3kyXdtbs < summarizer.environment.yaml
-      ```
-    </Tip>
-  </Step>
-
   <Step title="Start a session">
-    Paste the agent `id` and environment `id` from the previous outputs into the session create command:
+    Pass the agent and environment IDs to the session create command. After `ant apply`, read them from `claude-lock.json`: each entry under `resources` has an `id`, and for the project in [Manage resources as code with ant apply](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply) the entries are `./agents/summarizer.md` and `./environments/cloud.yaml`.
 
     ```bash
     ant beta:sessions create \
@@ -120,12 +45,14 @@ You can use the CLI to version control API resources such as skills, agents, env
   </Step>
 
   <Step title="Read the conversation">
-    `--transform` runs against each listed event, so this prints the text of every message in order. `--format auto` overrides the interactive explorer that list commands open by default in a terminal:
+    Once the agent has replied, list the events. `--transform` runs against each listed event, so this prints the text of every message in order. `--format auto` overrides the interactive explorer that list commands open by default in a terminal:
 
     ```bash
     ant beta:sessions:events list \
       --session-id session_01JZCh78XvmxJjiXVy3oSi7K \
-      --transform 'content.0.text' --format auto --raw-output
+      --transform 'content.0.text' \
+      --raw-output \
+      --format auto
     ```
 
     ```text Output wrap
@@ -134,7 +61,7 @@ You can use the CLI to version control API resources such as skills, agents, env
     ```
 
     <Tip>
-      To watch a session as it runs, use `ant beta:sessions:events stream --session-id session_01JZCh78XvmxJjiXVy3oSi7K`. Events are written to stdout as they arrive.
+      To watch a session as it runs, use `ant beta:sessions:events stream --session-id session_01JZCh78XvmxJjiXVy3oSi7K --format jsonl`, which writes each event to stdout as it arrives. Without `--format`, a terminal opens the interactive explorer instead.
     </Tip>
   </Step>
 </Steps>
