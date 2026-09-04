@@ -6,6 +6,10 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.04.1">
+  * Changed the limit on a member's active app sign-ins from 3 shared across the Claude apps to 6 in each app: a new sign-in over the limit now signs out the one closest to expiring instead of the oldest.
+</Update>
+
 <Update label="2026.09.03.1">
   * Fixed Admin Console pages sometimes loading part light and part dark when your computer is set to dark mode, which made some text hard to read.
   * Improved the Admin Console for tenant admins who manage several organizations: every page shows which organization or tenant your changes apply to.

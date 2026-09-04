@@ -101,7 +101,7 @@ For short-lived header credentials, configure the helper per server:
 
 The helper follows the [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/credential-helper) execution model, with three differences: a 30-second time limit, no `CLAUDE_HELPER_CONTEXT`, and no prompting for input. The helper applies only to servers provisioned through managed configuration and never replaces the `Authorization` header on `oauth` entries.
 
-While the connection is open, only the TTL schedule triggers renewal; a failed request never re-runs the helper. A failed run does not interrupt the connection; Claude Desktop keeps the current headers and retries. A failure while the server is connecting shows the server as needing authentication.
+While the connection is open, the TTL schedule triggers renewal, and a request that the server rejects with HTTP 401 or 403 also re-runs the helper and, when it returns new headers, is retried once with them (Claude Desktop 1.46388.1 or later). A failed helper run does not interrupt the connection; Claude Desktop keeps the current headers and retries on its schedule. A failure while the server is connecting shows the server as needing authentication.
 
 <Note>
   Mid-session renewal requires Claude Desktop 1.21459.0 or later. Earlier versions run the helper only when the server connects.
@@ -377,6 +377,8 @@ To roll out a new version of a plugin:
 1. Update the plugin contents in `org-plugins/<name>/` via your software-distribution tool
 2. Bump the `version` string in `version.json`
 3. Users pick up the change on their next app launch
+
+To withdraw a plugin, remove its folder from `org-plugins/`. On Claude Desktop 1.46388.1 or later, each user's installed copy is unregistered the next time the app syncs organization plugins (at launch or when a session starts); earlier versions leave the copy installed.
 
 ## User extensions
 

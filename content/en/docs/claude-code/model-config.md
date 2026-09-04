@@ -84,7 +84,7 @@ To get the most from Fable:
   Fable 5.1 requires Claude Code v2.1.255 or later. If a request for it from an older version fails, see [Claude Code does not support this model](/docs/en/errors#claude-code-does-not-support-this-model). Fable 5 requires v2.1.170 or later. Run `claude update` to upgrade. For availability under zero data retention, see [Model availability under ZDR](/docs/en/zero-data-retention#model-availability-under-zdr).
 </Note>
 
-On the Anthropic API, the `/model` picker lists a Fable model only after the server reports it available for your organization. When you type `/model fable` or a Fable model ID, Claude Code checks availability with the server directly, so the selection can succeed before the picker lists the entry.
+On the Anthropic API, the `/model` picker lists a Fable model only after the server reports it available for your organization. When you type `/model fable` or a Fable model ID, Claude Code checks availability with the server directly, so a typed selection can succeed even when the picker doesn't list the entry.
 
 #### Fable and usage credits
 

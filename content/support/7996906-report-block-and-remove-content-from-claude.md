@@ -8,10 +8,6 @@ Please note, we reserve the right to suspend users who frequently provide manife
 
 We welcome reports concerning safety issues so that we can enhance the safety and harmlessness of our models. We would also like to hear from you if you identify our safety mechanisms causing any user experience issues. Please report such issues to <usersafety@anthropic.com> with enough detail for us to replicate the issue.
 
-### Help us improve AI safety by reporting universal jailbreaks
-
-This [form](https://docs.google.com/forms/d/1bjD-H30kVJAbIHnFXKzFcSjkUNjE-mwRHSF7R2uSjYM/edit) allows you to submit universal jailbreaks for ASL-3 uses of concern (meaning elicit information related to biological threats) that you've identified. Universal jailbreaks are techniques that allow users to consistently bypass safety measures across multiple harmful queries. Thank you very much for helping us to keep Anthropic safe.
-
 ## How to block or remove content
 
 ### Block or remove websites from Claude web search

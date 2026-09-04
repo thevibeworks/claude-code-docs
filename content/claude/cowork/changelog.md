@@ -6,6 +6,42 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.46388.3" description="2026-09-04">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * Added support for attaching your home folder, Windows Documents, AppData, the macOS Library folder, and whole drives; Claude's own configuration and session data inside them stay off-limits, as do certain credential and shell-startup locations (for example SSH keys, AWS and Google Cloud credentials, and bash, zsh and PowerShell profile files).
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
+<Update label="v1.46388.2" description="2026-09-04">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * Fixed Code sessions started in a git worktree failing to initialize on Windows.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v1.46388.1" description="2026-09-04">
   **General**
 

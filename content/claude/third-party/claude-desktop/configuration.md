@@ -262,7 +262,7 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **Extended context** (`supports1m`) is a capability assertion you make about your deployment; only set it for models you've confirmed support the 1M-token window:
 
-    ```json theme={null} theme={null}
+    ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
     ```
 
@@ -270,13 +270,13 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
 
-    ```json theme={null} theme={null}
+    ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     [{"name": "arn:aws:bedrock:us-east-1:123:application-inference-profile/abc", "labelOverride": "Claude Opus (Prod)"}]
     ```
 
     **Tier mapping** (`anthropicFamilyTier`) tells the app which Claude tier (`haiku`/`sonnet`/`opus`/`fable`/`mythos`) an entry stands in for, so bare tier aliases (e.g. in Code sessions) resolve to your model. `isFamilyDefault: true` picks the winner when several entries share a tier:
 
-    ```json theme={null} theme={null}
+    ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     [{"name": "us.anthropic.claude-opus-4-8", "anthropicFamilyTier": "opus"}]
     ```
 
@@ -301,7 +301,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="inferenceModelPricing details">
     Each row replaces Anthropic list price for one model in the Usage page's estimate, in USD per million tokens (`inputPerMtok`, `outputPerMtok`, `cacheReadPerMtok`, `cacheWritePerMtok`, all four required; `cacheWritePerMtok` prices both 5-minute and 1-hour cache writes); rows apply only while `inferenceModelPricingEnabled` is `true` and do not turn the estimate on by themselves. Mirrors Claude Code's managed `modelPricing.overrides`, and `name` is matched the same way: a built-in Claude model ID (e.g. `claude-sonnet-4-6`, or its Bedrock, Vertex, or Foundry ID) covers every dated and provider spelling of that model; any other value (a gateway alias, an inference-profile ARN) matches that exact ID only (case-insensitive) and wins over a built-in row. An ID Claude Code cannot map to a Claude model at all gets no estimate until a row here prices it. `inferenceModelPricingMultiplier` still applies on top of a row.
 
-    ```json theme={null} theme={null}
+    ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     {"inferenceModelPricingEnabled": true, "inferenceModelPricingMultiplier": 0.9, "inferenceModelPricing": [{"name": "claude-sonnet-4-6", "inputPerMtok": 2.4, "outputPerMtok": 12, "cacheReadPerMtok": 0.24, "cacheWritePerMtok": 3}]}
     ```
 
@@ -853,7 +853,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="orgPluginSettings details">
     Locks per-tool permissions on MCP servers that arrive via the org-plugins directory — one entry per server name:
 
-    ```json theme={null} theme={null}
+    ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     [{"serverName": "internal-search", "tools": [{"toolName": "delete_document", "permission": "blocked"}]}]
     ```
 
@@ -958,7 +958,7 @@ The profiles below are illustrative examples rather than built-in presets, and t
   </Tab>
 
   <Tab title="Locked down">
-    For air-gapped or maximally restricted environments. **The only traffic leaving the device goes to your inference endpoint and OTLP collector.** With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider).
+    For air-gapped or maximally restricted environments. **The only traffic leaving the device goes to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation). With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider).
 
     | Key                                                             | Value                             |
     | --------------------------------------------------------------- | --------------------------------- |

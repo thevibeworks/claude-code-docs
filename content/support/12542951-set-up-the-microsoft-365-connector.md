@@ -120,7 +120,7 @@ Both components need to be restricted to the same set of authorized people.
 
 To limit which types of resources the integration can access, selectively revoke permissions from the default set of authorized scopes. This requires Microsoft Entra admin access.
 
-1. As a Microsoft Entra admin, go to entra.admin.com.
+1. As a Microsoft Entra admin, go to entra.microsoft.com.
 
 2. Select “Enterprise Applications.”
 
@@ -144,27 +144,27 @@ To restore a revoked permission, follow the steps to grant admin consent describ
 
 ## Enable write tools
 
-Write tools let Claude send email, manage drafts and calendar events, update mailbox settings, and create and update files in OneDrive and SharePoint. Read and search tools work the same whether or not write tools are enabled.
+Write tools let Claude send email, manage drafts and calendar events, update mailbox settings, and create and update files in OneDrive and SharePoint, and send messages in Microsoft Teams. Read and search tools work the same whether or not write tools are enabled.
 
 **1. Re-consent to the updated permissions**
 
-The connector's permission set now includes additional Microsoft Graph scopes to support write tools. If your tenant consented before write tools launched, a Microsoft Entra Global Administrator needs to review and approve the updated permission set before write tools activate. Review and approve the updated permissions for the connector in your tenant's **Enterprise Applications** consent flow. This is a one-time action per tenant.
+The connector's permission set now includes additional Microsoft Graph scopes to support write tools. If your tenant consented before write tools or the Teams write tools launched, a Microsoft Entra Global Administrator needs to review and approve the updated permission set before write tools activate. Review and approve the updated permissions for the connector in your tenant's **Enterprise Applications** consent flow.
 
 **2. Enable write tools for your organization**
 
-If your organization was using the connector before write tools launched, they will be blocked by default. Enable them for everyone by going to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**, finding “Microsoft 365,” and setting the appropriate permissions. Enterprise plans can enable them for a subset of users through **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**.
+If your organization was using the connector before write tools launched, they will be blocked by default. Enable them for everyone by going to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**, finding “Microsoft 365,” and setting the appropriate permissions. Enterprise plans can enable them for a subset of users through **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**. For Microsoft Teams specifically, set each Teams write tool individually: the send, post, and reply tools can be set to Ask or Blocked (members confirm each send), and starting a new chat can also be set to Allow. The connector-wide "all tools" permission on its own doesn't turn these on.
 
 **3. Verify**
 
 Once enabled, ask Claude to perform a low-risk write action, such as "Draft an email to myself, but don't send it," to confirm write tools are active.
 
-**Note:** Emails Claude sends include an attribution header identifying them as agent-initiated. File and calendar writes aren't currently tagged. Attachments aren’t supported in write tools, so sending, forwarding, and drafting all reject messages with attachments. Write tools are also subject to per-user limits on writes, sends, and recipients.
+**Note:** Emails Claude sends include an attribution header identifying them as agent-initiated. File writes, calendar writes, and Teams messages aren't currently tagged. Attachments aren’t supported in write tools, so sending, forwarding, and drafting all reject messages with attachments. Write tools are also subject to per-user limits on writes, sends, and recipients.
 
 ---
 
 ## Permissions reference
 
-The Microsoft 365 connector uses **delegated permissions**, meaning Claude acts on behalf of each individual user and can only access data that user already has permission to view in Microsoft 365. Permissions are read-only—Claude can't modify, delete, or create content in your tenant.
+The Microsoft 365 connector uses **delegated permissions**, meaning Claude acts on behalf of each individual user and can only access data that user already has permission to view in Microsoft 365. Permissions are read-only by default. Claude can only send, create, or update content if you enable write tools.
 
 During authentication, the integration requests the following permissions:
 
@@ -253,6 +253,12 @@ The following permissions support write tools and are included in the updated co
 - `Files.ReadWrite.All`: Create and update files in OneDrive and SharePoint
 
 - `MailboxSettings.ReadWrite`: Manage categories, inbox rules, and automatic replies
+
+- `ChatMessage.Send`:  Send a Teams chat message on the user's behalf
+
+- `ChannelMessage.Send`**:** Post or reply in a Teams channel
+
+- `Chat.Create`: Start a new chat on the user’s behalf
 
 **User directory**
 
@@ -364,4 +370,4 @@ Claude reads Word, Excel, PowerPoint (including older .doc, .xls, and .ppt files
 
 ### Can the integration modify Microsoft 365 data?
 
-Only after an Entra admin grants write scopes. With write tools on, Claude can send email, manage drafts and calendar events, update mailbox settings, and create and update files in OneDrive and SharePoint, always within each member's existing Microsoft 365 permissions. Without them, the integration is read-only. Claude can't post Teams messages or change Teams settings or permissions in either case, since there are no tools allowing this.
+Only after an Entra admin grants write scopes. With write tools on, Claude can send email, manage drafts and calendar events, update mailbox settings, create and update files in OneDrive and SharePoint, and send messages in Microsoft Teams (post/reply in a channel, send a chat message, or start a new chat on the user's behalf), always within each member's existing Microsoft 365 permissions. Without them, the integration is read-only. Claude still can't change Teams settings or permissions, only send messages.
