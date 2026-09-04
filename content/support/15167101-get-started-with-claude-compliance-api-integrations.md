@@ -30,11 +30,13 @@ The Compliance API provides access to different data depending on the product:
 
 For Claude Enterprise customers, using an integration is straightforward:
 
-1. Enable the Compliance API in your organization settings. Learn how to **[access the Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**.
+1. Ask your organization's Primary Owner to enable the Compliance API (only the Primary Owner can do this), then create an access key—Owners can create keys limited to their own organization. Learn how to **[access the Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**.
 
-2. Connect your instance to a supported security platform. Setup guides are available in the **[Available integrations section](https://support.claude.com/en/articles/15167101-get-started-with-claude-compliance-api-integrations#h_7ff9e34f8e)**.
+2. Connect your instance to a supported security platform. Setup guides are available in the **[Available integrations section](#h_7ff9e34f8e)**.
 
 Claude activity will flow into the same dashboards and workflows your team uses for every other application.
+
+**Important**: For Claude Enterprise organizations, only your organization's Primary Owner can enable the Compliance API, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**. You can create a key on the same page by clicking "+Create key" under **Keys**: the Primary Owner can create a key covering every linked organization, and Owners can create keys limited to their own organization. Owners see this page but not the **Compliance API** toggle—only the Primary Owner can turn the API on or off. Admins don't see the page at all. If your organization is linked to a parent organization, the parent organization's Primary Owner enables it and the setting applies to every linked organization.
 
 For Claude Platform, contact your Anthropic sales team. Review **[Compliance API documentation](https://platform.claude.com/docs/en/manage-claude/compliance-api)** on Claude API Docs.
 

@@ -65,23 +65,46 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
 
   <MultiFileExample language="cli" label="CLI">
     ```bash CLI
-    ant beta:agents create < coordinator.agent.yaml
+    ant apply engineering-lead.md reviewer.md test-writer.md
     ```
 
-    <File filename="coordinator.agent.yaml">
-      ```yaml
+    <File filename="engineering-lead.md">
+      ```markdown
+      ---
       name: Engineering Lead
       model: claude-opus-5
-      system: You coordinate engineering work. Delegate code review to the reviewer agent and test writing to the test agent.
       tools:
         - type: agent_toolset_20260401
       multiagent:
         type: coordinator
-        agents:
-          - type: agent
-            id: $REVIEWER_AGENT_ID # replace before running command
-          - type: agent
-            id: $TEST_WRITER_AGENT_ID # replace before running command
+        agents: # paths: ant apply substitutes {type: agent, id, version}
+          - ./reviewer.md
+          - ./test-writer.md
+      ---
+
+      You coordinate engineering work. Delegate code review to the reviewer agent and test writing to the test agent.
+      ```
+    </File>
+
+    <File filename="reviewer.md">
+      ```markdown
+      ---
+      name: reviewer
+      model: claude-haiku-4-5
+      ---
+
+      You are a code reviewer.
+      ```
+    </File>
+
+    <File filename="test-writer.md">
+      ```markdown
+      ---
+      name: test-writer
+      model: claude-haiku-4-5
+      ---
+
+      You write unit tests.
       ```
     </File>
   </MultiFileExample>
@@ -234,6 +257,8 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
 * `{"type": "agent", "id": agent.id, "version": agent.version}` pins a specific agent version.
 * `{"type": "self"}` allows the coordinator to spawn copies of itself. If the session was created with [agent configuration overrides](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session), those overrides also apply to these copies; roster entries referenced by ID are unaffected.
 * `{"type": "advisor", "model": "<model id>"}` gives the session's primary thread an advisor it can consult mid-turn. At most one advisor entry per roster. See [Give the session an advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor).
+
+In an [`ant apply`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting#version-controlling-api-resources) agent file (the CLI tab), a roster entry can also be the path to another agent's file, such as `./reviewer.md`. Apply creates that agent first and replaces the path with a pinned `{"type": "agent", "id": ..., "version": ...}` reference.
 
 The coordinator's configuration, including its `multiagent.agents` roster, is snapshotted when the coordinator is created or updated. Referenced agents stay pinned to the versions resolved at that time and do not automatically pick up later updates to their definitions. To delegate to a newer version of a referenced agent, [update the coordinator](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) so its roster references that version.
 
@@ -428,11 +453,27 @@ MCP servers are agent-scoped (each agent definition declares its own servers and
 
   <MultiFileExample language="cli" label="CLI">
     ```bash CLI
-    research_agent_id=$(ant beta:agents create --transform id --raw-output < researcher.agent.yaml)
+    ant apply coordinator.md researcher.md
     ```
 
-    <File filename="researcher.agent.yaml">
-      ```yaml
+    <File filename="coordinator.md">
+      ```markdown
+      ---
+      name: coordinator
+      model: claude-opus-5
+      tools:
+        - type: agent_toolset_20260401
+      multiagent:
+        type: coordinator
+        agents: # path: ant apply substitutes {type: agent, id, version}
+          - ./researcher.md
+      ---
+      ```
+    </File>
+
+    <File filename="researcher.md">
+      ```markdown
+      ---
       name: researcher
       model: claude-haiku-4-5
       mcp_servers:
@@ -442,26 +483,11 @@ MCP servers are agent-scoped (each agent definition declares its own servers and
       tools:
         - type: mcp_toolset
           mcp_server_name: github
-      ```
-    </File>
-
-    <File filename="subagent-coordinator.agent.yaml">
-      ```yaml
-      name: coordinator
-      model: claude-opus-5
-      tools:
-        - type: agent_toolset_20260401
-      multiagent:
-        type: coordinator
-        agents:
-          - type: agent
-            id: $research_agent_id # replace before running command
+      ---
       ```
     </File>
 
     ```bash CLI
-    coordinator_id=$(ant beta:agents create --transform id --raw-output < subagent-coordinator.agent.yaml)
-
     session_id=$(ant beta:sessions create \
       --agent "$coordinator_id" \
       --environment-id "$environment_id" \

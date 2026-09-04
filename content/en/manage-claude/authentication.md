@@ -8,7 +8,7 @@ The Claude API supports three ways to authenticate requests:
 
 | Method                                                                                                                        | Credential                                                                                              | Best for                                                                                                                                        |
 | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys)                                          | Static `sk-ant-api...` secret in the `x-api-key` header                                                 | Local development, prototyping, scripts, and servers where you control secret storage                                                           |
+| [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys)                                          | Static `sk-ant-api...` secret sent as a bearer token in the `Authorization` header                      | Local development, prototyping, scripts, and servers where you control secret storage                                                           |
 | [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/authentication#workload-identity-federation) | Short-lived bearer token exchanged from your identity provider's identity token                         | Production workloads on cloud platforms (AWS, Google Cloud, Azure), CI/CD pipelines, and Kubernetes, where you want to eliminate static secrets |
 | [App Attest](https://platform.claude.com/docs/en/manage-claude/authentication#app-attest)                                     | Short-lived access token issued to a genuine, attested installation of your registered iOS or macOS app | iOS and macOS apps distributed to end users, where the app calls the Claude API directly with no back end or proxy                              |
 
@@ -16,7 +16,7 @@ API keys and Workload Identity Federation grant the same access to Claude API en
 
 ## API keys
 
-API keys are static secrets that you generate in the Claude Console and send on every request in the `x-api-key` header.
+API keys are static secrets that you generate in the Claude Console and send on every request as a bearer token in the `Authorization` header.
 
 ### Key types
 
@@ -37,14 +37,16 @@ Workspace API keys still work but should be considered legacy; identity-backed k
 ### Create and use a key
 
 * **Create a key:** Go to [Settings → API keys](https://platform.claude.com/settings/keys) in the Claude Console and click **Create key**. Name the key and choose an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration). Set **Linked account** to yourself for a personal key, or to a service account for a key shared across multiple users. You can also scope the key to a specific workspace, which lets you skip setting a workspace ID manually in future requests.
-* **Use the key:** Set the `x-api-key` header on direct HTTP requests, or set the `ANTHROPIC_API_KEY` environment variable and the [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) pick it up automatically.
+* **Use the key:** Send it as `Authorization: Bearer <key>` on direct HTTP requests, or set the `ANTHROPIC_API_KEY` environment variable and the [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) pick it up automatically.
 
 ```http
 POST /v1/messages
-x-api-key: YOUR_API_KEY
+Authorization: Bearer YOUR_API_KEY
 anthropic-version: 2023-06-01
 content-type: application/json
 ```
+
+The legacy `x-api-key: YOUR_API_KEY` header is still supported in place of `Authorization`.
 
 Store API keys in a secrets manager, rotate them periodically, and disable or delete any key you suspect has leaked. On the [API keys page](https://platform.claude.com/settings/keys), **Disable** is reversible (the Admin API reports the key's `status` as `"inactive"`, and **Re-enable** returns it to `"active"`), while **Delete** is permanent: the key is archived and still appears in [List API Keys](https://platform.claude.com/docs/en/api/admin/api_keys/list) with `status: "archived"`. Expired keys can only be deleted. You can also set an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create a key to limit how long a leaked credential stays usable.
 

@@ -33,7 +33,7 @@ If you set `deploymentOrganizationUuid`, include it in the MDM profile or import
 2. At launch, the app authenticates via one of the [modes below](#authentication) and sends `GET <bootstrapUrl>` with the resulting `Authorization: Bearer <token>` or the request headers you configured.
 3. Your server validates the token, **authorizes** the caller against your directory or entitlement source, and returns a JSON object whose keys are the same managed-configuration key names documented in the [configuration reference](/docs/third-party/claude-desktop/configuration).
 4. The app validates each key against the [response schema](#response-schema), drops anything it doesn't recognize or that fails validation, and applies the result as the effective configuration.
-5. The response is cached in memory (until your `expiresAt`, or 1 hour by default). The app also re-polls in the background every 30 minutes with a conditional request, so an unchanged configuration costs your server a `304` (see [Caching and `expiresAt`](#caching-and-expiresat)).
+5. The response is cached in memory (until your `expiresAt`, or 1 hour by default). The app also re-checks in the background every [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) (10 minutes by default, 2 to 30 allowed) with a conditional request, so an unchanged configuration costs your server a `304` (see [Caching and `expiresAt`](#caching-and-expiresat)). Releases before 1.46388.1 re-check every 30 minutes and ignore `configRecheckIntervalMinutes`.
 
 If the user has not yet signed in, or the fetch fails with no cached response from this session, the app starts in a degraded state with no inference provider configured and prompts the user to sign in.
 
@@ -45,9 +45,11 @@ Run the endpoint across multiple replicas or regions behind a load balancer. Do 
 
 A refetch that returns different values does **not** change the running session. The app keeps the configuration it launched with (inference credentials, egress allowlist, MCP servers, and renderer state such as the model picker all stay on the boot-time values), prompts the user to restart, and applies the new response when it relaunches.
 
-Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-poll returns a changed response, the user can keep working for [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) (1 hour by default, at most 336 hours, or `0` to require the restart at once). After that the app blocks further use until it restarts, and it relaunches on its own once it has been idle for two minutes (no Claude task running and no keyboard or pointer input). Return `relaunchEnforcementHours` in the bootstrap response to change the window. The app reads it from the newest response, so changing it does not itself require a restart.
+Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a changed response, the user can keep working for [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) (24 hours by default, at most 336 hours, or `0` to require the restart at once; releases before 1.46388.1 default to 1 hour). After that window the app blocks further use until it restarts, and it relaunches on its own once it has been idle for two minutes (no Claude task running and no keyboard or pointer input).
 
-When rotating an inference credential, keep the previous credential valid until your fleet has relaunched. For devices that are running, that is roughly the 30-minute re-poll interval plus the relaunch window. For devices that are off, it is their next launch.
+Return `relaunchEnforcementHours` in the bootstrap response to change the window, and `configRecheckIntervalMinutes` to change how often running apps check for a new response. The app reads both keys from the newest response, so changing them does not itself require a restart. In the nested response format ([`bootstrap-config-v2`](#response-schema)) both keys sit under `lifecycle`, as `lifecycle.relaunchEnforcementHours` and `lifecycle.configRecheckIntervalMinutes`. Releases before 1.46388.1 read the window from `bootstrap.relaunchEnforcementHours` and do not read the `lifecycle` path, so move the value when your fleet updates (the flat-format key name is unchanged). On a device where `bootstrapUrl` came from an imported file rather than MDM, a device-management profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence), such as the update keys, supplies these two keys as well, so set them in that profile or the defaults apply there.
+
+When rotating an inference credential, keep the previous credential valid until your fleet has relaunched. For devices that are running, allow at least one re-check interval plus the relaunch window: with the defaults that is `configRecheckIntervalMinutes` (10 minutes) plus `relaunchEnforcementHours` (24 hours), so about a day. For devices that are off, it is their next launch.
 
 ## Server responsibilities
 
@@ -341,14 +343,14 @@ Consent gates only bootstrap-delivered values. The same keys delivered through d
 
 ### Caching and `expiresAt`
 
-| Field            | Type      | Description                                                                                                                                                                                                            |
-| ---------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `$schemaVersion` | `integer` | Marks the nested v2 wire format. Optional — a response carrying any cluster key is sniffed as v2 regardless — but setting it explicitly is the documented version marker and is what the app's own JSON export writes. |
-| `expiresAt`      | `number`  | Unix epoch (seconds or milliseconds) after which the client should re-fetch this document. Optional; when absent the client uses its default refresh interval.                                                         |
+| Field            | Type      | Description                                                                                                                                                                                                                                                       |
+| ---------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `$schemaVersion` | `integer` | Wire-format marker: `2` for the nested format (bootstrap-config-v2, what the app's own JSON export writes), `1` for the flat format (bootstrap-config-v1). Optional: the client infers the format from the document shape; set it to state the format explicitly. |
+| `expiresAt`      | `number`  | Unix epoch (seconds or milliseconds) after which the client should re-fetch this document. Optional; when absent the client uses its default refresh interval.                                                                                                    |
 
 <AccordionGroup>
   <Accordion title="$schemaVersion details">
-    Omitted → the client infers the version from the document shape (any cluster key present → v2).
+    Omitted → the client infers the version from the document shape (any cluster key present → 2, otherwise 1).
   </Accordion>
 
   <Accordion title="expiresAt details">

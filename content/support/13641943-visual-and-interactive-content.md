@@ -18,7 +18,7 @@ Claude can show current weather conditions and forecasts when you ask about the 
 
 Claude automatically displays temperatures in Fahrenheit for US locations and Celsius for everywhere else.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544927/3a9c695b24df387ecdd766ad308c/8be9f393-dcb0-4ff8-89e8-5fa47bedaa38?expires=1788463800&amp;signature=334fa66af7814e9204987dc3de236ad1d162ec0e68f58f1f43460017950bcbab&amp;req=diAjFsx6mYhdXvMW1HO4zXlB7Ta%2B0xuAdgndksVD5R2d%2BI6PFBeY8lyrbwKK%0A5MdiSNrJSDDcQQLTYWs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544927/3a9c695b24df387ecdd766ad308c/8be9f393-dcb0-4ff8-89e8-5fa47bedaa38?expires=1788500700&amp;signature=0e6f2a25450ef8d94a2a25314f7598fe782ec281d9fb02319ecd69294a1f7ff7&amp;req=diAjFsx6mYhdXvMW1HO4zXlB7Ta%2F1RiPdgndksVD5R0MzerlsaFRqFNLBp%2Bf%0AT%2BImDvLmjiEbkAYO6Tc%3D%0A)
 
 Weather is powered by Google Maps (<https://policies.google.com/privacy>).
 
@@ -28,7 +28,7 @@ When you ask about recipes, Claude can display formatted recipe cards that are e
 
 **Note:** Visual recipe cards are available on web and desktop only. On mobile, Claude provides recipe information as text in the conversation.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544929/12f4c51eda7779d65d3ea2c7ab16/d0f4a314-cff8-421a-b401-10c2bf50374e?expires=1788463800&amp;signature=6b12b53f9e650bac90dd065b80f09e7fa98f82fcb292e6bbcaf29be72dc60c4f&amp;req=diAjFsx6mYhdUPMW1HO4zUQpe7gR1FefrIPm%2FImZVg2XQMNJ7DgpLCBrL5P3%0ATrd3gagzkYnEsl%2BZv34%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544929/12f4c51eda7779d65d3ea2c7ab16/d0f4a314-cff8-421a-b401-10c2bf50374e?expires=1788500700&amp;signature=dd8bb06aac810bbe0eeae028131b4917fc6f307e223ed11c78be2b86f9968c07&amp;req=diAjFsx6mYhdUPMW1HO4zUQpe7gQ0lSQrIPm%2FImZVg1%2FFrevTU7uxmrBXWR4%0AVGSJwHu2sjmmSqZQQb8%3D%0A)
 
 ### Custom visuals
 
@@ -76,7 +76,7 @@ For example, if you ask Claude to help you plan a trip, it might ask you to:
 
 This content appears at the bottom of the chat. You can still type a response if you prefer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544930/9ad066e137d11e4b559b0217e12d/9bf30d2d-1715-42b3-9da5-2a9298f41f08?expires=1788463800&amp;signature=7850e0f00a763728d7661b64c7c6f83225889ba739c212b3e9b64ebf3b81c8f5&amp;req=diAjFsx6mYhcWfMW1HO4zWmF5%2F26bx2qx4wz0C7CTAJCqL74qKKCaTJQEeHu%0AYRHWuYVDguB8nA%2Fd2K8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544930/9ad066e137d11e4b559b0217e12d/9bf30d2d-1715-42b3-9da5-2a9298f41f08?expires=1788500700&amp;signature=b6363d1721798680812e254048f1bd389f7a0e995329690af08d3cd078997a8f&amp;req=diAjFsx6mYhcWfMW1HO4zWmF5%2F27aR6lx4wz0C7CTAKesWQ5x5sSch6Fq6TQ%0AxQdYYPyDnSJwLYeJh5Q%3D%0A)
 
 ---
 

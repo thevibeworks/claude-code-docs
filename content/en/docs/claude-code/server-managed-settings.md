@@ -184,7 +184,7 @@ Claude Code applies most settings updates to running sessions without a restart.
 
 ### Invalid entries in delivered settings
 
-Delivered payloads parse tolerantly with the same rules as the other managed sources. When part of a payload fails schema validation, Claude Code surfaces a validation error and applies every remaining valid setting; [Invalid entries in managed settings](/docs/en/managed-settings#invalid-entries-in-managed-settings) says what it drops and which keys fall back to a stricter value. Requires Claude Code v2.1.169 or later.
+When part of a payload fails schema validation, Claude Code surfaces a validation error and applies every remaining valid setting; [Invalid entries in managed settings](/docs/en/managed-settings#invalid-entries-in-managed-settings) says what it drops and which keys fall back to a stricter value. Requires Claude Code v2.1.169 or later.
 
 Server-managed delivery adds these behaviors:
 
@@ -225,9 +225,10 @@ Certain settings that could pose security risks require explicit user approval b
 * **Sandbox network and isolation settings**: [sandbox](/docs/en/sandboxing) settings that let the sandbox proxy read, reroute, or authenticate traffic, or that weaken the sandbox's isolation: `sandbox.network.tlsTerminate`, `sandbox.network.httpProxyPort`, `sandbox.network.socksProxyPort`, `sandbox.credentials`, `sandbox.allowAppleEvents`, `sandbox.enableWeakerNestedSandbox`, `sandbox.enableWeakerNetworkIsolation`, `sandbox.filesystem.disabled`, `sandbox.network.allowAllUnixSockets`, `sandbox.network.allowUnixSockets`, and `sandbox.network.allowMachLookup`. A `sandbox.credentials` block that contains only `deny` rules doesn't need approval, since it restricts the sandbox without giving the proxy a credential. Before v2.1.251, Claude Code applied these settings without approval
 * **Custom environment variables**: delivered `env` variables that require the user's approval, such as proxy and base-URL variables; see [Environment variables and the approval dialog](#environment-variables-and-the-approval-dialog)
 * **Hook configurations**: any hook definition
-* **Managed CLAUDE.md content**: a `claudeMd` value delivered through managed settings
 
 When these settings are present, users see a security dialog explaining what is being configured. Users must approve to proceed. If a user rejects the settings, Claude Code exits.
+
+A managed CLAUDE.md delivered through the [`claudeMd`](/docs/en/settings-reference#claudemd) key doesn't require approval, because it's instruction text for Claude rather than a command Claude Code runs. Claude Code still checks [permissions](/docs/en/permissions) for the tools Claude uses while following those instructions. Before v2.1.260, a `claudeMd` value required approval too.
 
 #### Approval memory
 

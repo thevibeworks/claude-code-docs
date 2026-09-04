@@ -8,6 +8,38 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v1.46388.1" description="2026-09-04">
+  <div className="cfg-keys">
+    | MDM key                                                                                                                | Type      | Description                             |
+    | ---------------------------------------------------------------------------------------------------------------------- | --------- | --------------------------------------- |
+    | [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) · Beta                                      | `string`  | SSH client program                      |
+    | [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes)               | `integer` | Configuration re-check interval         |
+    | [`disableBypassPermissionsMode`](/docs/third-party/claude-desktop/configuration#disablebypasspermissionsmode)               | `boolean` | Disable bypass permissions mode         |
+    | [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) | `boolean` | Block reads outside working directories |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "codeSurface": {
+      "sshClientPath": "<string>"
+    },
+    "lifecycle": {
+      "configRecheckIntervalMinutes": "<integer>"
+    },
+    "workspace": {
+      "disableBypassPermissionsMode": "<boolean>",
+      "blockReadsOutsideWorkingDirectories": "<boolean>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * **Breaking:** `relaunchEnforcementHours` moved in the nested served format from `bootstrap.relaunchEnforcementHours` to `lifecycle.relaunchEnforcementHours` (beside the new `lifecycle.configRecheckIntervalMinutes`). This release no longer reads the old path and earlier releases do not read the new one, so move the value under `lifecycle`; the MDM / flat key name `relaunchEnforcementHours` is unchanged. The key can now also be set from device management (availability MDM and served), and the default when no tier sets it is 24 hours (was 1).
+</Update>
+
 <Update label="v1.44121.4" description="2026-09-02">
   No configuration changes in this release.
 </Update>

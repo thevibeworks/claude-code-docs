@@ -10,7 +10,7 @@ Groups let you organize members into logical collections—by team, department, 
 
 - **Control member access through group memberships and custom roles**, so their capabilities and permissions are determined entirely by the groups they belong to. For additional details, see **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
-- **Let members share resources with a group**, so a project or skill shared with the group is available to everyone in it, and access follows membership as it changes. For details, see[**Manage project visibility and sharing**](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)  and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
+- **Let members share resources with a group**, so a project, skill, or plugin shared with the group is available to everyone in it, and access follows membership as it changes. For details, see[**Manage project visibility and sharing**](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)  and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
 
 Groups can be created manually or synced automatically from your identity provider via SCIM. Each organization can have up to 100 groups. There's no limit on how many groups a member can belong to, though belonging to more than 250 can slow performance.
 
@@ -66,13 +66,13 @@ To manually trigger a sync, click “SCIM Sync."
 
 ## Group visibility
 
-By default, groups appear only on admin surfaces. Visibility settings let you make a group discoverable to members so they can share resources (like projects and skills) with it. You set them in the **Visibility settings** section when creating or editing a group.
+By default, groups appear only on admin surfaces. Visibility settings let you make a group discoverable to members so they can share resources (like projects, skills, or plugins) with it. You set them in the **Visibility settings** section when creating or editing a group.
 
 There are three settings:
 
 - **Discover this group:** Members can find the group by name. This doesn't expose group members, spend limits, or role assignments.
 
-- **Share resources with this group:** Members can share resources, such as projects and skills, with the group.
+- **Share resources with this group:** Members can share resources, such as projects, skills, and plugins, with the group.
 
 - **See group members:** Members can see who belongs to the group, by name and email address.
 
@@ -84,7 +84,7 @@ The **Visibility** column in the groups list shows each group's current state. N
 
 **Important:** Visibility settings are configured per organization. Groups, group membership, and SCIM sync are managed at the parent organization level and shared across child organizations, but visibility settings aren't. An admin changing visibility settings in one organization doesn't affect any other organization.
 
-### Remove a group's access to shared projects and skills
+### Remove a group's access to shared projects, skills, and plugins
 
 Turning off **Share resources with this group** blocks new shares. It doesn't revoke projects already shared with the group. To revoke those:
 

@@ -54,19 +54,19 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
 
   <MultiFileExample language="cli" label="CLI">
     ```bash CLI
-    agent=$(ant beta:agents create --format json < coding-assistant.agent.yaml)
-
-    AGENT_ID=$(jq -r '.id' <<< "$agent")
+    ant apply coding-assistant.md
     ```
 
-    <File filename="coding-assistant.agent.yaml">
-      ```yaml
+    <File filename="coding-assistant.md">
+      ```markdown
+      ---
       name: Coding Assistant
-      model:
-        id: claude-opus-5
-      system: You are a helpful coding agent.
+      model: claude-opus-5
       tools:
         - type: agent_toolset_20260401
+      ---
+
+      You are a helpful coding agent.
       ```
     </File>
   </MultiFileExample>
@@ -210,7 +210,7 @@ The `default_config` on the toolset shows its default [permission policy](https:
 
 Like `speed` and `effort`, `inference_geo` is set through the object form of `model`: pass `model` as an object and set `inference_geo` alongside `id`. The field accepts `"us"` or `"global"`. When it's unset, each model request follows the workspace's default inference geo at the time it's served. See [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) for the workspace-level geo controls and pricing.
 
-The following example pins an agent to US inference and prints the `inference_geo` value echoed in the response's `model` object:
+The following example pins an agent to US inference and prints the `inference_geo` value from the agent's `model` object:
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -230,18 +230,19 @@ The following example pins an agent to US inference and prints the `inference_ge
 
   <MultiFileExample language="cli" label="CLI">
     ```bash CLI
-    agent=$(ant beta:agents create --format json < geo-pinned.agent.yaml)
-
-    echo "Inference geo: $(jq -r '.model.inference_geo' <<< "$agent")"
+    ant apply geo-pinned-assistant.md
     ```
 
-    <File filename="geo-pinned.agent.yaml">
-      ```yaml
+    <File filename="geo-pinned-assistant.md">
+      ```markdown
+      ---
       name: Geo-pinned assistant
       model:
         id: claude-opus-5
         inference_geo: us
-      system: You are a helpful assistant.
+      ---
+
+      You are a helpful assistant.
       ```
     </File>
   </MultiFileExample>
@@ -349,6 +350,8 @@ Setting `inference_geo` on a model that doesn't support geographic inference pin
 
 Updating an agent generates a new version when the configuration changes. The `version` field is optional: supply it for optimistic concurrency (a mismatch returns a 409), or omit it to apply the update unconditionally (last write wins). Updates to archived agents are rejected.
 
+With the CLI, edit the agent's file and run `ant apply` again; apply supplies `version` for you.
+
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
   updated_agent=$(curl -fsSL "https://api.anthropic.com/v1/agents/$AGENT_ID" \
@@ -369,17 +372,19 @@ Updating an agent generates a new version when the configuration changes. The `v
 
   <MultiFileExample language="cli" label="CLI">
     ```bash CLI
-    ant beta:agents update --agent-id "$AGENT_ID" < coding-assistant.agent.yaml
+    ant apply coding-assistant.md
     ```
 
-    <File filename="coding-assistant.agent.yaml">
-      ```yaml
+    <File filename="coding-assistant.md">
+      ```markdown
+      ---
       name: Coding Assistant
-      model:
-        id: claude-opus-5
-      system: You are a helpful coding agent. Always write tests.
+      model: claude-opus-5
       tools:
         - type: agent_toolset_20260401
+      ---
+
+      You are a helpful coding agent. Always write tests.
       ```
     </File>
   </MultiFileExample>

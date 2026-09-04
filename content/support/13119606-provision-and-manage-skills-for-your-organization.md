@@ -62,17 +62,17 @@ When **User-created skills** is off:
 
 ## Control skill sharing between users
 
-In addition to provisioning skills top-down, you can let users share skills they've built with each other. Three independent toggles control this:
+In addition to provisioning skills top-down, you can let users share skills or plugins they've built with each other. Three independent toggles control this:
 
-- **Skill sharing:** Users can share a skill with specific colleagues. Recipients see the skill in the **Shared with you** section of their skills list.
+- **Skill sharing:** Users can share a skill or plugin with specific colleagues. Recipients see the skill in the **Shared with you** section of their skills list.
 
 - **Share with organization:** Users can publish a skill to the organization directory, where anyone can find and install it.
 
-- **Share with groups:** Users can share a skill with an entire group. Recipients see the skill in the **Shared with you** section of their skills list, the same as skills shared with individuals.
+- **Share with groups:** Users can share a skill or plugin with an entire group. Recipients see it in the **Shared with you** section of their skills list, the same as items shared with individuals.
 
 The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. The **Share with organization** and **Share with groups** toggles are also off by default and can be enabled by an admin.
 
-**Note:** Shared skills are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill but can't edit its contents.
+**Note:** Shared skills and plugins are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill or plugin but can't edit its contents. When the owner saves a new version, everyone it's shared with gets the update automatically at next use. The owner can revoke someone's access at any time, and access is removed automatically if the recipient leaves the organization.
 
 ### Share skills with a group
 
@@ -80,7 +80,7 @@ Before you can share with a group, an admin needs to turn on **Share resources w
 
 If you use custom roles, also make sure the **Share skills with groups** capability is enabled for their role. See **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452)**.
 
-Once your organization’s settings allow skill sharing, users can begin sharing skills with groups.
+Once these settings are on, users can begin sharing skills with groups.
 
 ### How shared skills differ from provisioned skills
 

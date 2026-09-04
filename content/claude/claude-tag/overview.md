@@ -13,7 +13,7 @@
     <p className="tm-hero-lede">Anyone in a channel can tag Claude into a problem and hand it work: reproduce a bug and open a pull request, turn a decision thread into a doc, assemble the state of a project. It posts a checklist in the thread as it goes, and the whole exchange stays visible to the channel.</p>
 
     <div className="tm-hero-ctas">
-      <a className="tm-btn tm-btn-dark" href="/docs/docs/claude-tag/admins/setup-overview">I'm setting it up →</a>
+      <a className="tm-btn tm-btn-dark" href="/docs/claude-tag/admins/setup-overview">I'm setting it up →</a>
       <a className="tm-btn tm-btn-light" href="#put-claude-tag-to-work">Use it in your channel ↓</a>
     </div>
   </div>
@@ -80,7 +80,7 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
 
 <div className="tm-route-grid">
   <div className="tm-card">
-    <a className="tm-band tm-band-admins" href="/docs/docs/claude-tag/admins/setup-overview">
+    <a className="tm-band tm-band-admins" href="/docs/claude-tag/admins/setup-overview">
       <span className="tm-band-text">
         <span className="tm-band-label">For administrators</span>
         <span className="tm-band-title">Set up Claude Tag</span>
@@ -90,21 +90,21 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
     </a>
 
     <div className="tm-qrows">
-      <a className="tm-qrow" href="/docs/docs/claude-tag/admins/setup-overview">
+      <a className="tm-qrow" href="/docs/claude-tag/admins/setup-overview">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">Where do I start?</span>
           <span className="tm-qrow-sub">Pair your Slack workspace, connect the services Claude will work in, launch, and test that it works</span>
         </span>
       </a>
 
-      <a className="tm-qrow" href="/docs/docs/claude-tag/concepts/agent-identity">
+      <a className="tm-qrow" href="/docs/claude-tag/concepts/agent-identity">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">What can Claude Tag access?</span>
           <span className="tm-qrow-sub">How admins set access per channel, and where credentials are stored</span>
         </span>
       </a>
 
-      <a className="tm-qrow" href="/docs/docs/claude-tag/admins/add-connections">
+      <a className="tm-qrow" href="/docs/claude-tag/admins/add-connections">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">How do I connect each service?</span>
           <span className="tm-qrow-sub">Credential types, allowed hosts, and what each connection lets Claude reach</span>
@@ -124,35 +124,35 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
     </a>
 
     <div className="tm-qrows">
-      <a className="tm-qrow" href="/docs/docs/claude-tag/users/getting-started">
+      <a className="tm-qrow" href="/docs/claude-tag/users/getting-started">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">How do I hand Claude Tag a task?</span>
           <span className="tm-qrow-sub">Mention Claude in any channel it's in, with nothing to install</span>
         </span>
       </a>
 
-      <a className="tm-qrow" href="/docs/docs/claude-tag/users/use-cases">
+      <a className="tm-qrow" href="/docs/claude-tag/users/use-cases">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">What is Claude Tag good at?</span>
           <span className="tm-qrow-sub">Use cases for coding, data, incidents, and go-to-market</span>
         </span>
       </a>
 
-      <a className="tm-qrow" href="/docs/docs/claude-tag/users/good-habits">
+      <a className="tm-qrow" href="/docs/claude-tag/users/good-habits">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">How do I get good results?</span>
           <span className="tm-qrow-sub">Good habits for scoping and reviewing work</span>
         </span>
       </a>
 
-      <a className="tm-qrow" href="/docs/docs/claude-tag/users/memory">
+      <a className="tm-qrow" href="/docs/claude-tag/users/memory">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">What does Claude Tag remember?</span>
           <span className="tm-qrow-sub">Channel memory, what's shared across the workspace, and who can see what</span>
         </span>
       </a>
 
-      <a className="tm-qrow" href="/docs/docs/claude-tag/users/proactivity">
+      <a className="tm-qrow" href="/docs/claude-tag/users/proactivity">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">Can Claude Tag run tasks on a schedule?</span>
           <span className="tm-qrow-sub">Scheduled jobs, channel watching, and triggers</span>
@@ -215,7 +215,7 @@ Claude Tag starts with no access to your external systems. The services you conn
 <div className="tm-strip">
   <div className="tm-strip-head">
     <p className="tm-strip-title">Security review</p>
-    <a className="tm-strip-all" href="/docs/docs/claude-tag/concepts/security-and-data">Security and data handling</a>
+    <a className="tm-strip-all" href="/docs/claude-tag/concepts/security-and-data">Security and data handling</a>
   </div>
 
   <p>The security model, what admins can and can't restrict, audit trails, and network requirements.</p>
