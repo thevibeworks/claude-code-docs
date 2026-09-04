@@ -95,9 +95,9 @@ Once these settings are on, users can begin sharing skills with groups.
 
 ### Monitor sharing activity
 
-Skill sharing events are captured in the audit log and Compliance API as `role_assignment` events. You can see who shared a skill, with whom, and whether it was peer-to-peer, organization-wide, or group.
+Skill sharing events are captured in the audit log and Compliance API as `role_assignment` events. You can see who shared a skill or plugin, with whom, and whether it was peer-to-peer, a group, or (skills only) organization-wide.
 
-The audit log doesn't capture the contents of shared skills—only the share event itself. There's no admin dashboard to browse or inspect the contents of skills shared between users.
+The audit log doesn't capture the contents of shared skills or plugins—only the share event itself. There's no admin dashboard to browse or inspect the contents of skills shared between users.
 
 ---
 

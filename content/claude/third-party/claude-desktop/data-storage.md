@@ -65,7 +65,7 @@ Each [project](/docs/cowork/guide/projects) also keeps its own memory under `loc
 For the questions security reviews most often ask about Chat:
 
 * **Memory is read-only and applies only inside projects.** A Chat conversation inside a project can read that project's memory unless memory was paused when the conversation started, but cannot add to or change it. Chat conversations outside a project do not read or update memory.
-* **Past chats are not searchable.** There is no index of conversation content, server-side or local (history exists only as the per-session files above), and a Chat conversation has no tools for listing or reading other sessions' transcripts. Each conversation is isolated to its own directory.
+* **Claude cannot search past chats.** Users can search their own conversations in the app, which scans the per-session files on the device on demand, but there is no index of conversation content, server-side or local (history exists only as the per-session files above), and a Chat conversation has no tools for listing or reading other sessions' transcripts. Each conversation is isolated to its own directory.
 * **The advanced file analysis sandbox writes only inside the session directory.** When [advanced file analysis](/docs/third-party/claude-desktop/chat#advanced-file-analysis) is enabled, code runs in a local sandbox with no network access. The sandbox writes only to the conversation's `outputs/` directory, and reads its `uploads/` directory plus, for a conversation inside a project, that project's memory.
 
 Deleting a conversation's session state file and working directory removes all of this; there is no other copy.

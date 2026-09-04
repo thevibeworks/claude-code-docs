@@ -52,31 +52,57 @@ Organization instructions guide how Claude responds, and they are not an enforce
   **Set at the tenant and organization levels only.** This setting cannot be set for a group.
 </Note>
 
-### Telemetry endpoint (Claude Desktop)
+### Telemetry endpoint
 
 The base address of the collector where Claude Desktop sends usage telemetry using the [OpenTelemetry](https://opentelemetry.io/) protocol (OTLP), for example `https://otel-collector.example.gov:4318`. Claude Desktop appends the OTLP request paths `/v1/logs` and `/v1/metrics` itself, so enter the address without those suffixes. Leaving the value empty disables telemetry.
 
-The value must begin with `https://` and may include a port and a path prefix. Its host must be a hostname or a private-network address, and a public IP address is refused. A matching **Telemetry endpoint (Claude for Microsoft 365)** setting covers that product.
+The value must begin with `https://` and may include a port and a path prefix. Its host must be a hostname or a private-network address, and a public IP address is refused.
 
 Point this address at a receiver that accepts OTLP over HTTP in both its protobuf and JSON encodings. An [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) does this by default and conventionally listens for OTLP over HTTP on port 4318. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and enter the collector's address here.
 
 Claude Desktop on each member's device connects to this address itself rather than through the Claude for Government service. The collector must therefore be reachable from your members' networks and must present a TLS certificate that their operating system trusts.
 
-Members pick up a new or changed endpoint the next time they start Claude Desktop. From then on your collector receives OpenTelemetry logs and metrics for each member's activity under three `service.name` values:
+Members pick up a new or changed endpoint the next time they start Claude Desktop. Once a member has signed in and the app has loaded their configuration from Claude for Government, it takes its telemetry settings from that configuration alone and ignores telemetry keys set on the device itself, such as the `otlp*` keys in the Claude Desktop [configuration reference](/docs/third-party/claude-desktop/configuration). From then on your collector receives OpenTelemetry logs and metrics for each member's activity under three `service.name` values:
 
 * `cowork` for Chat and Cowork activity
 * `claude-code-desktop` for Code sessions
-* `claude-desktop` for error events from the application itself
+* `claude-desktop` for events from the application itself, errors only by default
 
-Each conversation turn produces events such as `user_prompt`, `api_request`, and `tool_result` that record the model, token counts, durations, and tool names. Every record also carries the member's operating-system login name as the `enduser.id` and `process.owner` resource attributes. Message text, file contents, and tool output are not included. See the [event reference in Monitoring](/docs/cowork/monitoring#events) for each event's attributes.
+Each conversation turn produces events such as `user_prompt`, `api_request`, and `tool_result` that record the model, token counts, durations, and tool names. Every record also carries the member's operating-system login name as the `enduser.id` and `process.owner` resource attributes. Message text, file contents, and tool output are included only for the categories you select in **Telemetry content capture**. See the [event reference in Monitoring](/docs/cowork/monitoring#events) for each event's attributes.
 
 Claude Desktop keeps working when the collector refuses requests or cannot be reached, and members see no error. To confirm telemetry is arriving, check your collector's own request logs or metrics for requests to `/v1/logs` after a member has restarted Claude Desktop and sent a message.
 
-### Telemetry headers (Claude Desktop)
+### Telemetry headers
 
-Headers that Claude Desktop sends with every telemetry request, typically the credential your collector requires. Leave the setting empty if your collector does not require one. Because the value may contain a secret, it is never displayed after you save it; you see only that it is set.
+Headers sent with every telemetry request, typically the credential your collector requires. Leave the setting empty if your collector does not require one. Because the value may contain a secret, it is never displayed after you save it; you see only that it is set.
 
-Write each header as `Name=value`, for example `Authorization=Bearer <token>`. To send more than one header, separate them with commas, as in `Authorization=Bearer <token>,X-Tenant=agency`. Because the comma is the separator, a header value itself cannot contain one. Spaces and `=` characters within a value are fine.
+Click **Add header**, then enter the header's name and value, for example `Authorization` and `Bearer <token>`, and add a row for each additional header. A value can contain spaces and `=` characters, but not a comma. Because saved headers are hidden, the headers you enter later replace all of the saved ones when you save, so enter every header again when you add or change one.
+
+### Telemetry content capture
+
+The content that Claude Desktop adds to the telemetry it sends to your collector, chosen from **Prompts**, **Claude's responses**, **Tool inputs**, **Tool results**, and **Full requests and responses**. Nothing is selected by default, so the export records activity such as models, token counts, durations, and tool names without any message or tool text.
+
+**Tool results** content is delivered only while **Telemetry traces** is on. Captured content goes only to your collector and is never sent to Anthropic. [Content capture](/docs/third-party/claude-desktop/telemetry#content-capture) in the Claude Desktop telemetry reference shows what each category adds.
+
+<Note>
+  **Telemetry content capture** applies to Claude Desktop 1.15962.0 and later. Earlier versions ignore the setting.
+</Note>
+
+### Application event level (Claude Desktop)
+
+How much of Claude Desktop's own event log goes to your collector, in addition to the usage telemetry from Chat, Cowork, and Code. These records arrive under the `claude-desktop` service name. The default, **Errors only**, sends failures such as a crash or a request that could not complete. **Off** sends no application events while usage telemetry is still sent, the two levels between **Errors only** and **Debug** add warnings and then routine events such as sign-in, updates, and settings changes, and **Debug** adds verbose diagnostic events for use while troubleshooting with support.
+
+### Telemetry resource attributes
+
+Labels added to every telemetry record sent to your collector, such as your agency or environment name, so the collector can tell where each record comes from. Click **Add attribute**, then enter the attribute's name and value, for example `deployment.environment` and `production`. Attribute names are case-sensitive. A value can be up to 255 characters long when it uses only English letters, digits, and the characters `-`, `.`, `_`, and `~`. Any other character counts as three or more, so a space counts as three and an accented letter such as `é` counts as six. A list set at a more specific level, such as an organization, replaces the whole list inherited from the level above rather than adding to it, so repeat any attributes that should still apply.
+
+### Telemetry traces
+
+Sends a trace for each request in Cowork and Code sessions to the `/v1/traces` path of the address in **Telemetry endpoint**, so your monitoring tools can follow the events of one request together. The setting is off by default and is in beta. Traces carry message and tool content only for the categories selected in **Telemetry content capture**. [Traces](/docs/third-party/claude-desktop/telemetry#traces-beta) in the Claude Desktop telemetry reference describes what a trace contains.
+
+<Note>
+  **Telemetry traces** applies to Claude Desktop 1.22209.0 and later. Earlier versions ignore the setting.
+</Note>
 
 ### Block automatic updates
 

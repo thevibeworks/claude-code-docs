@@ -14,7 +14,7 @@ When Claude Desktop is deployed on third-party inference, Claude can read your o
 
 ## Choose a connector
 
-Both connectors provide the same read and search tools; they differ in data path and authentication. Write actions (sending mail, managing drafts and calendar events, and working with files) are available on the local connector when you grant [write scopes](#grant-write-scopes). For write actions on the remote connector, contact your Anthropic representative. Use this table to pick one, then follow that connector's section below.
+Both connectors provide the same read and search tools; they differ in data path and authentication. Write actions (sending mail, managing drafts and calendar events, working with files, and sending Teams messages) are available on the local connector when you grant [write scopes](#grant-write-scopes). For write actions on the remote connector, contact your Anthropic representative. Use this table to pick one, then follow that connector's section below.
 
 |                                 | Remote connector                                                         | Local connector                                                       |
 | ------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
@@ -237,13 +237,15 @@ With no `scope` field, the connector requests the standard read set at sign-in:
 
 To request a different set, list scopes in the entry's `scope` field. The connector then requests exactly that list (plus `User.Read` and `offline_access`, which are always included). Use the list to narrow the read surface, to add the optional read scopes below, or to add [write scopes](#grant-write-scopes). Whatever you list must also be consented on the app registration from step 1; keep the two lists in sync.
 
-Three optional read scopes are not in the standard set:
+Six optional read scopes are not in the standard set:
 
 * `ChannelMessage.Read.All` adds Teams channel messages to chat search results. Requires tenant-admin consent.
 * `OnlineMeetingTranscript.Read.All` enables reading meeting transcripts. Requires tenant-admin consent.
 * `MailboxSettings.Read` enables reading mail filters and automatic-reply settings.
+* `People.Read` enables people search (`search_people`), which resolves a name to a user before starting a Teams chat.
+* `Team.ReadBasic.All` and `Channel.ReadBasic.All` let Claude list the user's teams and their channels (`teams_list_teams`, `teams_list_channels`), which Claude uses to find the team and channel IDs that the channel-message tools take.
 
-Until the first two are granted, chat search omits channel results and transcript requests return a permission error.
+Until `ChannelMessage.Read.All` and `OnlineMeetingTranscript.Read.All` are granted, chat search omits channel results and transcript requests return a permission error. The `search_people`, `teams_list_teams`, and `teams_list_channels` tools require Claude Desktop version 1.32885.1 or later.
 
 The `scope` field accepts only scopes the connector can use. An entry containing an unrecognized scope name is rejected as a whole at configuration load, with an error in the app's main log listing the valid names, and the connector does not appear.
 
@@ -253,20 +255,24 @@ The `scope` field accepts only scopes the connector can use. An entry containing
 
 The connector provides these read and search tools:
 
-| Tool                                            | What it does                                                                       |
-| ----------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `outlook_email_search`                          | Search Outlook mail                                                                |
-| `outlook_calendar_search`                       | Search calendar events                                                             |
-| `find_meeting_availability`                     | Find free meeting times                                                            |
-| `chat_message_search`                           | Search Teams chat (1:1 and group; channel messages need `ChannelMessage.Read.All`) |
-| `sharepoint_search`, `sharepoint_folder_search` | Search SharePoint and OneDrive                                                     |
-| `read_resource`                                 | Fetch a specific item, such as a message, event, or file                           |
+| Tool                                            | What it does                                                                                        |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `outlook_email_search`                          | Search Outlook mail                                                                                 |
+| `outlook_calendar_search`                       | Search calendar events                                                                              |
+| `find_meeting_availability`                     | Find free meeting times                                                                             |
+| `chat_message_search`                           | Search Teams chat (1:1 and group; channel messages need `ChannelMessage.Read.All`)                  |
+| `sharepoint_search`, `sharepoint_folder_search` | Search SharePoint and OneDrive                                                                      |
+| `read_resource`                                 | Fetch a specific item, such as a message, event, or file                                            |
+| `teams_list_chats`                              | List the user's Teams chats and their members, to find a chat to read or post in                    |
+| `get_me`                                        | Return the signed-in user's own profile                                                             |
+| `search_people`                                 | Search for people by name or email address (needs `People.Read`)                                    |
+| `teams_list_teams`, `teams_list_channels`       | List the user's teams and a team's channels (need `Team.ReadBasic.All` and `Channel.ReadBasic.All`) |
 
 Granting write scopes enables write tools; see [Grant write scopes](#grant-write-scopes).
 
 ### Grant write scopes
 
-With only read scopes granted, the connector is read-only. To let Claude take actions in Microsoft 365 (sending mail, managing drafts, labels, filters, and calendar events, and working with files in OneDrive and SharePoint), grant write scopes: add them to the entry's `scope` field and consent them on the app registration from step 1, the same as any other scope. Each write tool appears only when its scope is in the entry's list, so granting a subset of the write scopes exposes a matching subset of the tools, and removing the write scopes from the list returns the connector to read-only. Write tools require Claude Desktop version 1.19367.0 or later.
+With only read scopes granted, the connector is read-only. To let Claude take actions in Microsoft 365 (sending mail, managing drafts, labels, filters, and calendar events, working with files in OneDrive and SharePoint, and sending Teams chat and channel messages), grant write scopes: add them to the entry's `scope` field and consent them on the app registration from step 1, the same as any other scope. Each write tool appears only when its scope is in the entry's list, so granting a subset of the write scopes exposes a matching subset of the tools, and removing the write scopes from the list returns the connector to read-only. Write tools require Claude Desktop version 1.19367.0 or later, and the Teams write tools require version 1.24012.0 or later.
 
 | Scope                       | What it enables                                                                                               |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -275,10 +281,13 @@ With only read scopes granted, the connector is read-only. To let Claude take ac
 | `Calendars.ReadWrite`       | Create, update, delete, and respond to calendar events                                                        |
 | `Files.ReadWrite.All`       | Create, update, rename, move, copy, and delete files and folders the user can edit in OneDrive and SharePoint |
 | `MailboxSettings.ReadWrite` | Manage labels, mail filters, and automatic replies                                                            |
+| `ChatMessage.Send`          | Post messages in existing Teams chats                                                                         |
+| `ChannelMessage.Send`       | Post and reply to messages in Teams channels                                                                  |
+| `Chat.Create`               | Start 1:1 and group Teams chats                                                                               |
 
 Sending drafts and forwarding mail also require a mail read scope (one of `Mail.Read`, `Mail.ReadWrite`, or `Mail.Read.Shared`) for the pre-send checks; the standard read set already includes one.
 
-Every write tool requires user approval on each call by default. Administrators can change a tool's approval state with [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
+Every write tool requires user approval on each call by default. Administrators can change a tool's approval state with [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
 
 ### How users sign in
 

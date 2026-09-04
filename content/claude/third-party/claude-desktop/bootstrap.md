@@ -313,6 +313,8 @@ The full set of bootstrap-settable keys is published as a machine-readable JSON 
 
 Reference the schema with `"$schema"` in your response template, or with `# yaml-language-server: $schema=…` in YAML, for autocomplete and validation.
 
+Each configuration key in both schemas carries an `x-availableInVersion` annotation naming the first Claude Desktop release that reads it. The app sends its version as `Claude/<version>` in the `User-Agent` header of the bootstrap request, so a server can vary its response by client version if it needs to.
+
 The response can supply any key in that schema, including inference credentials, model allowlists, MCP servers, the egress allowlist, telemetry endpoints, and the organization banner.
 
 <Note>
@@ -321,7 +323,8 @@ The response can supply any key in that schema, including inference credentials,
 
 A small set of keys are **structurally excluded** and ignored if returned:
 
-* `bootstrapUrl`, `bootstrapOidc`, `bootstrapHeaders`, `bootstrapHeadersHelper`, `bootstrapEnabled`, and `trustBootstrapDelivery`: the trust anchor cannot redirect itself, authenticate itself, or grant trust in itself. These are the keys whose Availability column reads **MDM only** in the [configuration reference](/docs/third-party/claude-desktop/configuration).
+* `bootstrapUrl`, `bootstrapOidc`, `bootstrapHeaders`, `bootstrapHeadersHelper`, `bootstrapEnabled`, and `trustBootstrapDelivery`: the trust anchor cannot redirect itself, authenticate itself, or grant trust in itself.
+* `egressProxyUrl` and `egressProxyPacUrl`: the app may need the [network proxy](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration) to reach your endpoint in the first place, so these keys are read from device management or the local configuration file only. These two and the six keys above are the keys whose Availability column reads **MDM only** in the [configuration reference](/docs/third-party/claude-desktop/configuration).
 * Loopback hosts (`127.0.0.1`, `localhost`, `[::1]`) in any URL-valued key, regardless of scheme.
 
 `managedMcpServers` entries are not restricted by transport in version 1.19367.0 and later: remote (`http`/`sse`) servers, local `stdio` commands, and the built-in `microsoft365` and `websearch` connectors can all be delivered in the bootstrap response. Earlier versions accept only remote entries and drop the rest. Because a `stdio` entry names a command that runs on the device, a bootstrap response can start local processes — part of why the warning at the top of this page says to treat this endpoint as fully trusted. Entries whose server URL or OAuth authorization-server URL is loopback or non-HTTPS are still dropped, and the desktop log (see [Troubleshooting](#troubleshooting)) records which keys were dropped and why.

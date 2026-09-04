@@ -31,7 +31,7 @@ A few limits apply to the agent regardless of how the proxy is chosen:
 ## Pin a proxy from managed configuration
 
 <Note>
-  Pinning requires a Claude Desktop release that includes the `egressProxyUrl` and `egressProxyPacUrl` keys. The [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog) lists the first release that carries each key. Earlier releases ignore both keys and keep following the OS proxy settings.
+  Pinning requires Claude Desktop 1.44121.1 or later. Earlier releases ignore the `egressProxyUrl` and `egressProxyPacUrl` keys and keep following the OS proxy settings.
 </Note>
 
 If you want the app, the agent, and (on macOS and Windows) Cowork's sandboxed shell to use a specific proxy regardless of what the device's OS settings say, set one of two managed configuration keys:
@@ -115,7 +115,7 @@ The inverse edge case: if your PAC script returns `DIRECT` for the inference end
 ## Interaction with Claude Code managed settings
 
 <Note>
-  The precedence described here requires the same Claude Desktop release as the pinned-proxy keys above. See the [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog).
+  The precedence described here requires Claude Desktop 1.44121.1 or later, the same release as the pinned-proxy keys above.
 </Note>
 
 If you deploy Claude Code [managed settings](https://code.claude.com/docs/en/settings#settings-files) on the device (a `managed-settings.json` file or an OS-level Claude Code policy) and its `env` block sets `HTTPS_PROXY`, `HTTP_PROXY`, or `NO_PROXY`, those values apply to the agent in Chat, Cowork, and Code sessions alike and take precedence over what the app would have supplied. Precedence is per variable: a managed `HTTPS_PROXY` replaces the app's proxy while the app's loopback `NO_PROXY` entries stay in place, and a managed `NO_PROXY` replaces the app's list (the loopback entries are appended for you when the app is also supplying the proxy). See Claude Code's [network configuration](https://code.claude.com/docs/en/network-config) page for the variables themselves.

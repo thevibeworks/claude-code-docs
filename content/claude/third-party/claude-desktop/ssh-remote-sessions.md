@@ -14,10 +14,10 @@ An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session
 
 ## How a remote session works
 
-1. **Connect.** The user picks an SSH host from the environment picker in the Code tab, or adds one by entering its address, port, and an identity file. Claude Desktop connects with its built-in SSH client, applies the host's entry from the device's `~/.ssh/config` (see [SSH configuration on the device](#ssh-configuration-on-the-device)), and prompts in the app if the host asks for a password or a one-time code.
+1. **Connect.** The user picks an SSH host from the environment picker in Code, or adds one by entering its address, port, and an identity file. Claude Desktop connects with its built-in SSH client, applies the host's entry from the device's `~/.ssh/config` (see [SSH configuration on the device](#ssh-configuration-on-the-device)), and prompts in the app if the host asks for a password or a one-time code.
 2. **Deploy.** Claude Desktop places a remote server and the Claude Code engine under `~/.claude/remote/` in the SSH user's home directory on the host ([Host requirements](#host-requirements) lists every path) and reuses them on later connections.
 3. **Run.** The remote server starts the engine on the host with the inference credential and policy from your managed configuration. Every file read, edit, shell command, and git operation runs on the host, in the working directory the user chose there. Claude Desktop connects to [managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin) from the device and exposes them to the engine as tools.
-4. **Stream.** Claude's responses and tool output stream back to Claude Desktop. Permission prompts appear in the Code tab, and the engine waits on the host until the user answers.
+4. **Stream.** Claude's responses and tool output stream back to Claude Desktop. Permission prompts appear in Claude Desktop, and the engine waits on the host until the user answers.
 
 The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles until the user reopens the session. Reopening starts a fresh engine from the transcript stored on the host, so a turn that finished while the app was closed is shown in full; a turn still running at that moment is cut short and not continued automatically. While Claude Desktop is closed, no new turns run and the inference credential is not refreshed, so a turn that outlives the credential fails with an authentication error.
 
@@ -114,7 +114,7 @@ The host needs the following.
 * `git` on the path, for git features.
 * Up to about 700 MB of disk space in the SSH user's home directory, for the three Claude Code versions the app keeps.
 
-The Claude Code engine is a standalone executable with no runtime dependencies. The device needs the OpenSSH client (`ssh` and `ssh-keygen`).
+The Claude Code engine is a standalone executable with no runtime dependencies. The device needs the OpenSSH client (`ssh` and `ssh-keygen`). Claude Desktop runs the first `ssh` on the user's `PATH`; to pin a specific OpenSSH installation instead, set [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) (beta, Claude Desktop 1.46388.1 or later) to the program's absolute path, and `ssh-keygen` is then taken from the same directory when present. If the pinned program is missing or cannot be run, SSH connections fail with an error that shows the configured path, rather than falling back to another `ssh`.
 
 Claude Desktop writes the following into the SSH user's home directory on the host. Each user who connects gets their own copy.
 
@@ -129,7 +129,7 @@ Claude Desktop writes the following into the SSH user's home directory on the ho
 
 Each side of a remote session needs its own network access.
 
-* Devices installed with the regular installer must reach `downloads.claude.ai`: Claude Desktop downloads the remote server there and uploads it to the host over SFTP. Devices installed with the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation) don't: it bundles the remote server and the Claude Code engine for Linux x64 and arm64 hosts, and Claude Desktop uploads both over SFTP. Hosts on other platforms still need the download, and on an offline install the session fails with a message saying the installer doesn't include remote components for that platform.
+* Devices installed with the regular installer must reach `downloads.claude.ai`: Claude Desktop downloads the remote server there and uploads it to the host over SFTP. Devices installed with the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation) don't: it bundles the remote server and the Claude Code engine for Linux x64 and arm64 hosts, and Claude Desktop uploads both over SFTP. Hosts on other platforms still need the download, so an offline-installed device that cannot reach `downloads.claude.ai` fails the session with a message saying the installer doesn't include remote components for that platform.
 * The host must reach your inference endpoint and, if configured, your OTLP collector, plus whatever the user's own work needs. With the regular installer, it downloads the Claude Code engine from `downloads.claude.ai` when it can; when that fails, Claude Desktop downloads the engine on the device and uploads it over SFTP. Unless you disabled telemetry, the engine on the host also reports to the same Anthropic hosts as a local Code session (see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry)). Blocking them does not affect the session.
 
 ### SSH configuration on the device
