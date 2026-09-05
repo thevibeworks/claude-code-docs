@@ -2,15 +2,14 @@
 
 **POST** `/v1/organizations/service_accounts/{service_account_id}/archive`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Archive a service account.
 
 Idempotent; re-archiving returns the service account with its original
 `archived_at`. Rejected with 400 if any live (non-archived) federation
 rule still targets this service account, same as issuer archival; archive
 those rules first or change their target to another service account.
-
-Requires an OAuth bearer or Console session; Admin API keys are not
-accepted.
 
 ## Path parameters
 
@@ -95,7 +94,7 @@ accepted.
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)

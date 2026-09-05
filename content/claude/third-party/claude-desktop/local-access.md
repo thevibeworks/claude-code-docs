@@ -35,7 +35,7 @@ For example, `[{"path": "~/Documents/Claude"}, {"path": "/Volumes/Shared/Referen
 The check is enforced against the **resolved** path, so symlinks and `..` traversal can't be used to escape an allowed root.
 
 <Note>
-  The allowlist controls what users can **attach**. Within an attached read/write folder, the agent can read and write every file the user's OS account can reach. To keep data out of reach entirely, leave it outside the allowed roots. To let the agent read data in Cowork without changing it, list the folder with `mode` set to `ro`.
+  The allowlist controls what users can **attach**. Within an attached read/write folder, the agent can read and write every file the user's OS account can reach. Data outside the allowed roots cannot be attached in Cowork and is out of reach of Claude's file tools in Code sessions. A Code session's shell commands are confined only by the sandbox described under [Code](/docs/third-party/claude-desktop/code#applied-as-managed-policy): where it applies they can change files only inside the roots and temporary locations but can still read outside them unless you also set [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories), and where it does not apply (Windows devices, hosts without the sandbox dependencies) the allowlist does not confine them and that key can only turn such reads into approval prompts. To let the agent read data in Cowork without changing it, list the folder with `mode` set to `ro`.
 </Note>
 
 ## Network drives on Windows

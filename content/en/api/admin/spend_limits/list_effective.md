@@ -165,7 +165,7 @@ Paginates by member, so a member's periods never split across pages.
 ```bash
 curl https://api.anthropic.com/v1/organizations/spend_limits/effective \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)

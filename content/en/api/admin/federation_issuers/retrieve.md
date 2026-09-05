@@ -2,6 +2,8 @@
 
 **GET** `/v1/organizations/federation_issuers/{federation_issuer_id}`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Retrieve a federation issuer by its ID (`fdis_...`).
 
 ## Path parameters
@@ -166,7 +168,7 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 ```bash
 curl https://api.anthropic.com/v1/organizations/federation_issuers/$FEDERATION_ISSUER_ID \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)

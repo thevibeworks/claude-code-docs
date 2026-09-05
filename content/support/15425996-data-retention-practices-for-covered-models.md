@@ -28,7 +28,7 @@ This change only applies to organizations that have set up workspaces with zero 
 
 ### If your developers use the Claude API
 
-- **Directly from Anthropic through Claude Platform:** Turn on retention for the workspaces where you want to use covered models in the developer console (**Workspace > Manage > Privacy Controls**). Your other ZDR-enabled workspaces keep ZDR. Refer to the **[Anthropic Trust Center for documentation](https://trust.anthropic.com/)**.
+- **Directly from Anthropic through Claude Platform:** Turn on retention for the workspaces where you want to use covered models in the developer console (**Workspace > Manage > Privacy Controls**). Your other ZDR-enabled workspaces keep ZDR. Learn how to **[turn on data retention for a Workspace in a zero data retention organization](https://support.claude.com/en/articles/16824617-turn-on-data-retention-for-a-workspace-in-a-zero-data-retention-organization)**, or refer to the **[Anthropic Trust Center for additional documentation](https://trust.anthropic.com/)**.
 
 - **Through Claude Platform on AWS:** Retention works the same way as the direct Claude API. It's configured at the workspace level, and retained data is handled by Anthropic under the same controls.
 
