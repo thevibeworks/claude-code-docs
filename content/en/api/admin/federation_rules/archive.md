@@ -2,6 +2,8 @@
 
 **POST** `/v1/organizations/federation_rules/{federation_rule_id}/archive`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Archive a federation rule.
 
 Token exchange through this rule stops immediately. Idempotent;
@@ -10,7 +12,7 @@ clears the rule's workspace targeting (`workspace_id` and
 `workspace_ids` are emptied). Tokens already minted before archive
 remain valid until they expire. OAuth callers may only manage rules
 whose `oauth_scope` is `workspace:developer` or `workspace:inference`;
-other scopes require a Console session. Admin API keys are not accepted.
+other scopes require a Console session.
 
 ## Path parameters
 
@@ -165,7 +167,7 @@ other scopes require a Console session. Admin API keys are not accepted.
 curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RULE_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)

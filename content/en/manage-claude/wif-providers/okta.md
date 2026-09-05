@@ -307,6 +307,9 @@ Unlike platform-native providers (AWS, Google Cloud, Kubernetes), which make a t
   ```
 
   ```csharp C#
+  using Anthropic.Credentials;
+  // ...
+
   var credentials = new WorkloadIdentityCredentials(new WorkloadIdentityOptions
   {
       FederationRuleId = Environment.GetEnvironmentVariable("ANTHROPIC_FEDERATION_RULE_ID")!,
@@ -315,7 +318,7 @@ Unlike platform-native providers (AWS, Google Cloud, Kubernetes), which make a t
       WorkspaceId = Environment.GetEnvironmentVariable("ANTHROPIC_WORKSPACE_ID"),
       IdentityTokenProvider = new OktaTokenProvider(),
   });
-  using var client = new AnthropicOidcClient(credentials);
+  using var client = new AnthropicClient(new ClientOptions { Credentials = credentials });
 
   var message = await client.Messages.Create(new()
   {

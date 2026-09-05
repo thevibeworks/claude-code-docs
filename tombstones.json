@@ -1,7 +1,7 @@
 {
   "version": 1,
   "note": "URLs confirmed gone upstream. Kept so a page that died once does not report as a fresh failure on every later run, which would bury the failure that is actually new. An entry clears itself if the URL answers again -- but only while something still probes it. Entries whose local file was removed are no longer fetched, so they stay as a record of the restructure rather than a live check.",
-  "updated": "2026-09-04",
+  "updated": "2026-09-05",
   "urls": {
     "https://claude.com/docs/claude-science/annotations": {
       "since": "2026-09-01",
@@ -661,6 +661,10 @@
     },
     "https://support.claude.com/en/articles/12922929-building-desktop-extensions-with-mcpb": {
       "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/13163666-holiday-2025-usage-promotion": {
+      "since": "2026-09-05",
       "reason": "HTTP 404"
     },
     "https://support.claude.com/en/articles/13371040-logging-in-to-your-console-account": {

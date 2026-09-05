@@ -4,6 +4,8 @@
 
 **POST** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Add a service account to a workspace with the given `workspace_role`.
 
 Mirror of `POST /workspaces/{workspace_id}/service_accounts`, addressed
@@ -11,8 +13,7 @@ from the service-account side; both create the same membership. If the
 service account is already an explicit member of the workspace, its
 `workspace_role` is replaced with the value supplied here. Archived
 workspaces return 400. Archived service accounts cannot be added and are
-rejected. Requires an OAuth bearer or Console session; Admin API keys
-are not accepted.
+rejected.
 
 ### Path parameters
 
@@ -88,7 +89,7 @@ are not accepted.
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/workspaces \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN" \
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
     -d '{
           "workspace_id": "workspace_id",
           "workspace_role": "workspace_admin"
@@ -112,6 +113,8 @@ curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUN
 
 **GET** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 List the workspaces a service account is a member of.
 
 Each entry includes the service account's `workspace_role` in that
@@ -121,8 +124,12 @@ implicit (`implicit: true`) membership is returned as the first entry on
 the first page; with `limit=1` the first page may return up to 2 entries
 (the implicit entry plus one explicit membership) so a pagination cursor
 can be derived. Memberships are returned only while
-the service account is active; an archived service account returns an
-empty list.
+the service account is active. Without a `page` cursor, an archived
+service account returns an empty list. A `page` cursor that does not
+match an active membership returns a 400 invalid-request error. A cursor
+stops matching when the membership is removed, the workspace is deleted,
+or the service account is archived. Restart pagination from the first
+page to recover.
 
 ### Path parameters
 
@@ -197,7 +204,7 @@ empty list.
 ```bash
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/workspaces \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 #### Response (200)
@@ -222,6 +229,8 @@ curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUN
 
 **DELETE** `/v1/organizations/service_accounts/{service_account_id}/workspaces/{workspace_id}`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Remove a service account from a workspace.
 
 Mirror of `DELETE /workspaces/{workspace_id}/service_accounts/{service_account_id}`,
@@ -230,8 +239,7 @@ addressed from the service-account side. Removal is idempotent (returns
 implicit default-workspace membership returns 200 but is a no-op and the
 membership persists; deleting an explicit default-workspace row reverts
 to the implicit `workspace_user` membership. Archived workspaces return
-400. Requires an OAuth bearer or Console session; Admin API keys are not
-accepted.
+400.
 
 ### Path parameters
 
@@ -271,7 +279,7 @@ accepted.
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/workspaces/$WORKSPACE_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 #### Response (200)

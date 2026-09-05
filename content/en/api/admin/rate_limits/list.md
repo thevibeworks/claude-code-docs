@@ -8,6 +8,10 @@ Each entry corresponds to one rate-limit group (either a model family
 or an API-surface category such as the Files API or Message Batches)
 and contains the set of limiter values that apply to it.
 
+When `limit` is omitted, every matching entry is returned in a single
+page; when `limit` truncates the result, follow `next_page` to fetch
+the remaining entries.
+
 ## Query parameters
 
 - `group_type: optional "batch" or "files" or "model_group" or 3 more`
@@ -25,6 +29,14 @@ and contains the set of limiter values that apply to it.
   - `"token_count"`
 
   - `"web_search"`
+
+- `limit: optional number`
+
+  Maximum number of items to return per page. Ranges from `1` to `1000`.
+
+  When omitted, every remaining entry is returned in a single page and `next_page` is `null`.
+
+  maximum: 1000, minimum: 1
 
 - `model: optional string`
 
@@ -84,14 +96,14 @@ and contains the set of limiter values that apply to it.
 
 - `next_page: string or null`
 
-  Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+  Opaque cursor for the next page of results, or `null` when no entries remain beyond this response.
 
 ## Example
 
 ```bash
 curl https://api.anthropic.com/v1/organizations/rate_limits \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)

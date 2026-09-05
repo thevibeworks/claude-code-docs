@@ -1,7 +1,7 @@
 ---
 title: CLI scripting and automation
 url: https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting
-description: Version-control API resources as YAML, chain ant CLI commands in scripts, operate on resources from Claude Code, and authenticate curl calls with CLI credentials.
+description: Version-control API resources as files with ant apply, chain ant CLI commands in scripts, operate on resources from Claude Code, and authenticate curl calls with CLI credentials.
 ---
 
 This page covers task-oriented workflows built on the `ant` CLI. For the underlying flags and output options, see [Using the CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using).

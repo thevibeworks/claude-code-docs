@@ -249,8 +249,8 @@ You can construct the client with explicit credentials or with no arguments. Wit
   ```
 
   ```csharp C#
-  using Anthropic.Models.Messages;
-  using Anthropic.Oidc;
+  using Anthropic.Credentials;
+  // ...
 
   var credentials = new WorkloadIdentityCredentials(new WorkloadIdentityOptions
   {
@@ -260,7 +260,7 @@ You can construct the client with explicit credentials or with no arguments. Wit
       WorkspaceId = "wrkspc_...",
       IdentityTokenProvider = new FileIdentityTokenProvider("/var/run/secrets/anthropic.com/token"),
   });
-  using var client = new AnthropicOidcClient(credentials);
+  using var client = new AnthropicClient(new ClientOptions { Credentials = credentials });
 
   var message = await client.Messages.Create(new()
   {

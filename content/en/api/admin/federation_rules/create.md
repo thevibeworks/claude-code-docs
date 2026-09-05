@@ -2,6 +2,8 @@
 
 **POST** `/v1/organizations/federation_rules`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Create a federation rule owned by your organization.
 
 The referenced issuer and the target service account must already exist
@@ -16,8 +18,7 @@ identity-bearing claim, a tenant-pinning subject prefix (such as
 `repo:YOUR_ORG/...`), or a CEL condition referencing one of those
 identity claims (e.g. `claims.repository_owner`). OAuth callers may only
 manage rules whose `oauth_scope` is `workspace:developer` or
-`workspace:inference`; other scopes require a Console session. Admin API
-keys are not accepted.
+`workspace:inference`; other scopes require a Console session.
 
 ## Headers
 
@@ -248,7 +249,7 @@ keys are not accepted.
 curl https://api.anthropic.com/v1/organizations/federation_rules \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN" \
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
     -d '{
           "issuer_id": "issuer_id",
           "match": {},

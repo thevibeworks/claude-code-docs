@@ -2,6 +2,8 @@
 
 **POST** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Add a service account to a workspace with the given `workspace_role`.
 
 Mirror of `POST /workspaces/{workspace_id}/service_accounts`, addressed
@@ -9,8 +11,7 @@ from the service-account side; both create the same membership. If the
 service account is already an explicit member of the workspace, its
 `workspace_role` is replaced with the value supplied here. Archived
 workspaces return 400. Archived service accounts cannot be added and are
-rejected. Requires an OAuth bearer or Console session; Admin API keys
-are not accepted.
+rejected.
 
 ## Path parameters
 
@@ -86,7 +87,7 @@ are not accepted.
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/workspaces \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN" \
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
     -d '{
           "workspace_id": "workspace_id",
           "workspace_role": "workspace_admin"

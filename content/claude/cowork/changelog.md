@@ -6,6 +6,24 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.46388.4" description="2026-09-05">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v1.46388.3" description="2026-09-04">
   **General**
 

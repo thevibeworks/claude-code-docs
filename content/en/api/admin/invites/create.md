@@ -118,7 +118,7 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 curl https://api.anthropic.com/v1/organizations/invites \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN" \
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN" \
     -d '{
           "email": "user@emaildomain.com",
           "role": "user"

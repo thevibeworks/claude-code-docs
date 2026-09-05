@@ -2,14 +2,15 @@
 
 **DELETE** `/v1/organizations/workspaces/{workspace_id}/service_accounts/{service_account_id}`
 
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
 Remove a service account from a workspace.
 
 Removal is idempotent (returns 200 even if the membership was already
 removed). A DELETE against the implicit default-workspace membership
 returns 200 but is a no-op and the membership persists; deleting an
 explicit default-workspace row reverts to the implicit `workspace_user`
-membership. Archived workspaces return 400. Requires an OAuth bearer or
-Console session; Admin API keys are not accepted.
+membership. Archived workspaces return 400.
 
 ## Path parameters
 
@@ -49,7 +50,7 @@ Console session; Admin API keys are not accepted.
 curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/service_accounts/$SERVICE_ACCOUNT_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)

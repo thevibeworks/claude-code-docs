@@ -228,9 +228,10 @@ The pod spec in [Configure Kubernetes](https://platform.claude.com/docs/en/manag
   ```
 
   ```csharp C#
-  var result = AnthropicCredentials.Resolve()
-      ?? throw new InvalidOperationException("No federation credentials found in environment");
-  using var client = new AnthropicOidcClient(result);
+  // Reads ANTHROPIC_IDENTITY_TOKEN_FILE, ANTHROPIC_FEDERATION_RULE_ID,
+  // ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID
+  // from the pod's environment.
+  using var client = new AnthropicClient();
 
   var message = await client.Messages.Create(new()
   {

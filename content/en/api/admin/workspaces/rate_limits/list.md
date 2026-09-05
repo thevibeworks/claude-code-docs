@@ -8,6 +8,10 @@ Returns only the groups and limiter types that have a workspace-level
 override. Groups without overrides inherit the organization limits and
 are not listed; use `GET /v1/organizations/rate_limits` to see those.
 
+When `limit` is omitted, every matching entry is returned in a single
+page; when `limit` truncates the result, follow `next_page` to fetch
+the remaining entries.
+
 ## Path parameters
 
 - `workspace_id: string`
@@ -31,6 +35,14 @@ are not listed; use `GET /v1/organizations/rate_limits` to see those.
   - `"token_count"`
 
   - `"web_search"`
+
+- `limit: optional number`
+
+  Maximum number of items to return per page. Ranges from `1` to `1000`.
+
+  When omitted, every remaining entry is returned in a single page and `next_page` is `null`.
+
+  maximum: 1000, minimum: 1
 
 - `page: optional string`
 
@@ -94,14 +106,14 @@ are not listed; use `GET /v1/organizations/rate_limits` to see those.
 
 - `next_page: string or null`
 
-  Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+  Opaque cursor for the next page of results, or `null` when no entries remain beyond this response.
 
 ## Example
 
 ```bash
 curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/rate_limits \
     -H 'anthropic-version: 2023-06-01' \
-    -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
+    -H "Authorization: Bearer $ANTHROPIC_AUTH_TOKEN"
 ```
 
 ### Response (200)
