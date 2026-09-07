@@ -42,9 +42,9 @@ The organization setting is the ceiling. A role can't grant access to a model th
 
 If any custom role uses the model you’re disabling as its default, you’ll be prompted to change that role’s default before the change can be saved.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1788759900&amp;signature=5032e02c947a8f6bda7cfc6434aab65ac9add2e36ba55ddc7bc7932fe37e9d25&amp;req=diUmEs93nohdWPMW1HO4zXlxEu%2B%2BUtheQf5Pb7M2Q0u%2F2O7G6J7TY9BGlmu7%0Ab01HZRe0h51Qr781%2F9U%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1788780600&amp;signature=1cdc3e82a71e52fbbe02145a4f15768e003b920b4e485d743de0ea6daae5aca1&amp;req=diUmEs93nohdWPMW1HO4zXlxEu%2B%2BX9FRQf5Pb7M2Q0sKk7thhii40GizjIrk%0AOLSrdrlm%2FaJ8qmRDFtY%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1788759900&amp;signature=071bf8977c3675d9b33920c4b5b216bdd57057a7dadda87a110350b62e1a2028&amp;req=diUmEs93nohdW%2FMW1HO4zTqNsYHCQ1FeAod9uc510lyL2T5fDqNoiDoQnFDl%0AgEpmahqTDPp1haeJJBs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1788780600&amp;signature=762255f362d943a76c391db0ae42c146a5a3cc57e2c65d7e92f74fa779337c12&amp;req=diUmEs93nohdW%2FMW1HO4zTqNsYHCTlhRAod9uc510lyqhw5fbfS2TrsIyl9E%0AtMX2nJ0nd1sk9G6PYGE%3D%0A)
 
 ---
 
@@ -78,7 +78,7 @@ If any custom role has an effort cap higher than the new organization cap for th
 
 Only models the role grants access to can be selected as that role’s default model.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1788759900&amp;signature=89e238afefcbe992114747a19f77afd5870745932894b8e8b2d732a2979cc080&amp;req=diUmEs93nohdWvMW1HO4zYj9Sf0E6Ii0XsqpNqvyFRLHbfEVYGZrzQB7FGJu%0A1KnuqCzk4c0GalxQy%2FY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1788780600&amp;signature=41f6bdb4d5897c7a0a63ea95a0f11d25b070d2ef65dab3e258fcb1a2ed37f211&amp;req=diUmEs93nohdWvMW1HO4zYj9Sf0E5YG7XsqpNqvyFRJNVch0h1K51ul71Npl%0AOS3Av2LrDOqYsBub1BQ%3D%0A)
 
 ---
 
@@ -96,7 +96,7 @@ Effort limits determine how much computation members on a role can apply per res
 
 5. Click "Save" to save your changes.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1788759900&amp;signature=b39b14f0a4057cc378a4694eec2f6936f54ca4ec2aea870e9d41084832019c05&amp;req=diUmEs93nohdXvMW1HO4ze1xBju7drAQDeA1RkowXUFJ0HS3hZheQfmttxgH%0AHo28XUj7TlaCkSUUxtI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1788780600&amp;signature=a80393bee964a4ed263856bd23080134305f9aa1b6fe44bc791dac3783b00806&amp;req=diUmEs93nohdXvMW1HO4ze1xBju7e7kfDeA1RkowXUHblp7xs3e2qaG09sia%0Ay2YOvi728BclijctPuk%3D%0A)
 
 Members on the role see only effort levels at or below the cap in their model menu. Note that available effort levels differ depending on the model, and some models don’t support effort level settings at all. For an explanation of each level, see **[Change the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
 

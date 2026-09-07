@@ -36,7 +36,7 @@ If you followed the steps above to delete your Console organization but want to 
 
 If you have an outstanding balance, you will see a message during the deletion flow that prompts you to pay the balance first by routing you to [Settings > Billing](https://platform.claude.com/settings/billing).
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957766/5c2dd87c0818a0400099a833c9b3/4cc3130a-f696-4967-9fe3-e5623c6f02bd?expires=1788759900&amp;signature=e66e41f1695031ce065c381e4f038697bcda7e9ba93219077348b79b95c11de4&amp;req=dSkgFcB7moZZX%2FMW1HO4zbYXUB9lWe0SFZRyvJPpBZ%2Buxmd%2FHRKjQjpQx8Oh%0A6dN8v%2FlGgTCyLmtUS6g%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957766/5c2dd87c0818a0400099a833c9b3/4cc3130a-f696-4967-9fe3-e5623c6f02bd?expires=1788780600&amp;signature=57da417f381e4625f65114fed8071e8dc191317fb5ed77466611fc04c85b013f&amp;req=dSkgFcB7moZZX%2FMW1HO4zbYXUB9lVOQdFZRyvJPpBZ8dS6O80WnVugUwX7CY%0AaLzjtOlrZ76ibgJ3Yyc%3D%0A)
 
 You must pay this outstanding balance before you’re able to move forward with the deletion process.
 
@@ -44,6 +44,6 @@ You must pay this outstanding balance before you’re able to move forward with 
 
 There are some scenarios where you will need to contact our team to delete your account. If this is the case, it will be noted when you try to delete your organization:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957765/19dda72a40db95d78c00c27a1a1c/6ce89be6-93ce-409c-bbea-d34be09db348?expires=1788759900&amp;signature=a270b64b9f8938166bd2fbadeb944948693c5fbd45c4c060b12cbd8bf4d1118e&amp;req=dSkgFcB7moZZXPMW1HO4zRW12%2B3Kfa3wZxDZGlqR6Gjgt%2BujZSmqCoYw1R0J%0A7fBf5gYhPctkznjnZ%2Bk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957765/19dda72a40db95d78c00c27a1a1c/6ce89be6-93ce-409c-bbea-d34be09db348?expires=1788780600&amp;signature=18261de6ad05f923a32ce22f72bd6cdfc13142abb7dab852560d86a108ba69fd&amp;req=dSkgFcB7moZZXPMW1HO4zRW12%2B3KcKT%2FZxDZGlqR6Ggfii5WtGXURTyRcnbu%0Au5XGI24t6rc9VPMiH9w%3D%0A)
 
 If you are seeing this message, this indicates that your Console organization cannot be deleted via the self-service pathway.
