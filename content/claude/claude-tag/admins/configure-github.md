@@ -85,9 +85,8 @@ When Claude clones a granted repository into a session, its Claude Code configur
 
 * `CLAUDE.md`, `.claude/CLAUDE.md`, and `.claude/rules/*.md` load as project context
 * Skills in `.claude/skills/` load, so Claude can use them in the session
-* The project settings in `.claude/settings.json` load, so hooks defined there run in the session as they do under Claude Code
 
-A repository's `.mcp.json` is never loaded, and connections come only from the Access bundle.
+[Hooks](https://code.claude.com/docs/en/hooks) in a repository's `.claude/settings.json` don't run in the session. A repository's `.mcp.json` is never loaded, and connections come only from the Access bundle.
 
 Repository skills apply only in sessions that have the repository. To give a skill to every channel under a scope, add it through a [skills repository](/docs/claude-tag/admins/skills-repo).
 
