@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1788847200&amp;signature=d8613cf1b59d4ba6af31f750fbd3255b74000a3d1f325fc9408b311e60f2303f&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcpF%2BIW1gN0ADj5oqFAlwBReganB39ALQ6GM%0AxLrBhfuMJabi5ssxMsE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1788864300&amp;signature=4f06f1cb63d5c9e7c7897dcade751bd0c96ba75dfd1d35cfd9bb7f31cd727e31&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcpF%2Boa0gN0ADj5oqFAXG%2FA2Kie17gPih%2Ft5%0AbIc0lQR6gkPAhMee70Q%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1788847200&amp;signature=3f357874bda5595054d8ce061c3c5383983bafc6e3defd1e87cb7f495b4f018c&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm54jCvu7A4lHPBihAVcrv9l0EUvs80kURMF%0AlNOPaTVGXQPuJB9PgzA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1788864300&amp;signature=c1a070603d4dedd3214edc7703022fea9a2bc906a0ba99895d845f9d63d9670d&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm54jijv7A4lHPBihAUWCWYJ5hm7IJuutSID%0Ac97paN0NHVioiGB5vvs%3D%0A)
 
 ### Permission options
 
