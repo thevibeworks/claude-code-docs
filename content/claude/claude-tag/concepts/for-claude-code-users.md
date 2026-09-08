@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Claude Tag runs the same engine as Claude Code. When you tag `@Claude` in Slack with a task, a session starts in a sandbox that your organization configures, not on your machine. That sandbox is the same infrastructure that runs [Claude Code on the web](https://code.claude.com/docs/en/web-quickstart), described in [Compute and the sandbox](/docs/claude-tag/concepts/security-and-data#compute-and-the-sandbox).
 
-If you use Claude Code on the web, a session works the way a web session does, from a fresh clone of your repository rather than from files on your machine. The configuration you checked into that repository, such as `CLAUDE.md`, hooks, and skills, applies in the session as it does in a web session.
+If you use Claude Code on the web, a session works the way a web session does, from a fresh clone of your repository rather than from files on your machine. The `CLAUDE.md` files and skills you checked into that repository apply in the session as they do in a web session.
 
 If you run Claude Code in your terminal, the settings on your own machine don't reach a session, because the session runs in the sandbox and can't read your machine. For most of those settings, an admin sets a channel-wide counterpart instead, and a few have no counterpart at all. This page shows what happens when a session starts, which admin settings replace your local ones, and how Slack threads map to sessions.
 
@@ -25,15 +25,12 @@ A session begins with a fresh sandbox and no repository checked out. Your reposi
 | You tag `@Claude` with a task           | Your message is the task, and Claude starts work in a sandbox with no repository                                                                                                      |
 | Your message names a granted repository | Claude clones it into the sandbox                                                                                                                                                     |
 | The clone completes                     | `CLAUDE.md`, `.claude/CLAUDE.md`, `.claude/rules/*.md`, and the skills in `.claude/skills/` [load into the session](/docs/claude-tag/admins/configure-github#what-loads-from-a-repository) |
-| Claude works on the task                | Hooks defined in the repository's `.claude/settings.json` run as they do under Claude Code                                                                                            |
 
-### How hooks run in the sandbox
-
-Hooks run inside the sandbox. If a hook calls a command the sandbox doesn't include, ask an admin to add it to the setup script of the [environment the channel's sessions run on](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). For a command only one repository needs, add an install step to that repository's `CLAUDE.md`, as described in [Install project dependencies](/docs/claude-tag/admins/configure-github#install-project-dependencies).
+[Hooks](https://code.claude.com/docs/en/hooks) in the repository's `.claude/settings.json` don't run in the session.
 
 ## Local settings versus admin settings
 
-A session reads configuration from your repository, not from your machine. The `CLAUDE.md`, hooks, and skills you checked into the repository load when Claude clones it, as described in [What happens when a session starts](#what-happens-when-a-session-starts).
+A session reads configuration from your repository, not from your machine. The `CLAUDE.md` files and skills you checked into the repository load when Claude clones it, as described in [What happens when a session starts](#what-happens-when-a-session-starts).
 
 The settings on your machine never load into a session, because a session runs in the sandbox and can't read your machine. That includes your `~/.claude` directory, your personal `settings.json`, your shell environment, and the MCP servers you configured locally. They still apply when you run Claude Code in your terminal.
 
