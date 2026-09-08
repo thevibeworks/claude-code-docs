@@ -16,6 +16,10 @@ Your use of the Claude Desktop application, including in Claude Desktop on third
 
 Claude Desktop on 3P routes model inference through the provider you configure (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, a compatible gateway, or the Anthropic API directly). Inference usage is billed by, and subject to your agreement with, that provider. When you configure the Anthropic API as your provider, inference billing and data terms fall under your Anthropic agreement. Your existing commercial agreement with Anthropic continues to apply to your use of the Claude Desktop application, unless we've mutually agreed otherwise.
 
+### Enterprise Admin Console for Desktop 3P
+
+If your organization manages Claude Desktop on 3P from the [Enterprise Admin Console for Desktop 3P](/docs/third-party/claude-desktop/admin-console) (**Organization settings** on claude.ai), rather than authoring the configuration in MDM or hosting your own bootstrap server, Anthropic hosts that console. Your use of the Enterprise Admin Console for Desktop 3P is subject to Anthropic's [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms). When you access Claude through a third-party provider (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or a compatible gateway), the Commercial Terms apply only to your use of the Enterprise Admin Console, unless we've mutually agreed otherwise.
+
 ## Compliance
 
 When using Google Cloud's Agent Platform or Amazon Bedrock, the app sends conversation content only to your configured inference endpoint and stores it on the local device. Data handling at the endpoint is governed by [Google Cloud](https://cloud.google.com/vertex-ai/generative-ai/docs/data-governance) and [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html) respectively, and the compliance posture of your deployment is determined by your inference provider and the device environment you control.

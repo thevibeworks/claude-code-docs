@@ -6,6 +6,43 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.49585.0" description="2026-09-08">
+  **General**
+
+  * Changed an invalid "Required organization" device-policy value to block sign-in with a configuration error, shown in the diagnostic report, instead of being ignored.
+  * Updated the app runtime to Electron 44 (Chromium 152); macOS 13 Ventura or later is now required.
+  * Fixed chats started from the menu bar or Quick Entry panel opening as an empty page for up to a minute before the reply appeared, and ignoring your instructions from Settings > Instructions for Claude.
+  * Fixed macOS sometimes showing repeated "bash would like to access data from other apps" prompts after quitting the app with sessions open.
+  * Fixed scheduled tasks around Mac sleep: a task that ran while the Mac was asleep was sometimes stopped as unresponsive when it woke, tasks missed during sleep sometimes started during a brief background wake and failed (they now start once the Mac is fully awake), and a one-time task occasionally started many sessions at once after wake.
+
+  **Code**
+
+  * Improved terminal tabs: they now show when a command is still running and ask before closing one that is, and a tab whose shell crashed or was killed stays open with a Restart option instead of closing silently with its output.
+  * Removed the Git requirement for local sessions that don't use a worktree; on Windows, Git for Windows (Git Bash) is no longer needed to start a session.
+  * Fixed the Files pane discarding unsaved edits without asking when you closed the pane, expanded another pane, or opened it in a new window; fixed the editor joining lines in files that mix Windows and Unix line endings; and a failed save now says the file couldn't be saved and offers Try again instead of claiming the file changed on disk.
+  * Fixed the selected model reverting or being refused when you switched models while a session was starting, restarting, or still answering; the session now uses the model you chose, and model changes in SSH and WSL sessions no longer fail with "plugin hooks could not be loaded".
+  * Added automatic sending for messages held after you hit your 5-hour limit: they now send when the limit resets, and you can still edit, cancel, or send them early.
+
+  **Cowork**
+
+  * Fixed a conversation started from an artifact, or from an artifact comment's Send to Claude, not using your selected model.
+  * Fixed a task disappearing from the app while its files stayed on disk when one of them was in use during delete; the task is now kept so the delete can be retried.
+  * Fixed an issue where the app could quit at launch with a very large number of Cowork tasks.
+  * Fixed the "Can't reach the Claude API" warning staying on screen until the app was restarted even after the connection had recovered; it now clears on its own.
+
+  **3P**
+
+  * Added `continuousAccessEvaluation` to the Microsoft 365 entry in `managedMcpServers`: the bundled connector's sign-ins, through the OS sign-in broker as well as the browser, request Continuous Access Evaluation tokens from Microsoft, which can live up to about 28 hours but are revoked within minutes when an administrator revokes sessions or a tenant network policy no longer allows them; set it to `disabled` to keep standard one-hour tokens on every sign-in path. Defaults to `enabled`.
+  * Added each model's description from the gateway to the model picker for deployments that discover models from the gateway.
+  * Changed `microsoftAuthBroker`: a new `required` option makes Microsoft 365 sign-in fail when the OS sign-in broker is unavailable instead of falling back to the browser, so the refresh token always stays held by the broker, and removes the token cache an earlier browser sign-in left on disk. Earlier versions treat `required` as `disabled` (browser sign-in only), so set it once every device is on this version or later.
+  * Changed Claude API, Google Vertex AI, Amazon Bedrock, and Bedrock Mantle deployments that set no custom base URL to no longer suppress Claude Code's experimental features, so tool search is on by default there (on Vertex AI with Claude 4.5 and newer models) and `toolSearchEnabled` is no longer needed to turn it on; gateway and Foundry deployments, and those providers behind a custom base URL, are unchanged.
+  * Fixed Amazon Bedrock sessions that use IAM Identity Center sign-in showing an internal error or a bare "operation was aborted" message when AWS sign-in could not be reached at session start; the app now says whether IAM Identity Center was unreachable, temporarily unavailable, refused the account or role, or returned an unreadable response, and what to do next.
+  * Fixed find in page (⌘F) missing matches in messages scrolled out of view.
+  * Fixed Google Cloud (Vertex AI) sessions sometimes running under the computer's own Google login instead of the credential your organization configured, and the app not asking you to sign in again after your Google session expired.
+  * Fixed the app refreshing the sign-in token about once a second when an inference gateway answers 403 to the model list request.
+  * Fixed the built-in Microsoft 365 connector showing Connected before anyone had signed in; its first request in a conversation now offers the sign-in, and a cancelled sign-in no longer hides its tools; the bundled connector also gains a tool that reads Teams channel messages.
+</Update>
+
 <Update label="v1.46388.4" description="2026-09-05">
   **General**
 

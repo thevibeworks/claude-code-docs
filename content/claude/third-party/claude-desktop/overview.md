@@ -29,10 +29,10 @@ Claude Desktop on 3P keeps the standard feature set and relocates inference to t
 | ---------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | Model inference        | Anthropic API              | Your configured provider endpoint (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or gateway), or the Anthropic API |
 | Web application        | Loaded from claude.ai      | Bundled inside the desktop app                                                                                                         |
-| User identity          | Anthropic account          | Local device identity only                                                                                                             |
+| User identity          | Anthropic account          | Local device identity only (Anthropic account when managed from the claude.ai admin console, in beta)                                  |
 | Conversation storage   | Anthropic backend          | Local disk on the user's machine                                                                                                       |
 | Code execution sandbox | Local VM                   | Local VM (identical)                                                                                                                   |
-| Configuration          | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user)                                                                                      |
+| Configuration          | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user), or the claude.ai admin console (beta)                                               |
 
 The desktop app detects 3P mode at launch from the configured inference provider. When a provider and its credentials are present, the sign-in screen offers the option to skip Anthropic authentication and start the app using your inference-provider configuration instead.
 

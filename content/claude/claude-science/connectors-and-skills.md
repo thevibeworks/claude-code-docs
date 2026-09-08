@@ -47,6 +47,8 @@ The databases behind Featured connectors are on the network allowlist in groups 
 
 **Settings > Skills** lists the skills Claude can load. Featured science skills include literature review, indication dossier, and model-specific skills for AlphaFold2, Boltz-2, Chai-1, ESMFold2, OpenFold3, ProteinMPNN (with LigandMPNN and SolubleMPNN), DiffDock, ESM-2, Evo 2, Borzoi, scGPT, and scvi-tools.
 
+The AlphaFold2, Boltz-2, Chai-1, and OpenFold3 skills can build sequence alignments on the public ColabFold server (api.colabfold.com), and AlphaFold2 and Boltz-2 do so unless you supply your own alignment files. When a skill uses that server, the job sends your protein sequences to it directly from the computer or your own compute, not through Anthropic.
+
 Claude loads a skill automatically when the work calls for it. Type **/** in the composer to open the skill picker and insert one explicitly. On Team and Enterprise plans, your organization can turn individual Featured skills off; a skill it has off stays listed, grayed, and Claude doesn't load it.
 
 **Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](/docs/claude-science/admin-controls#custom-skills)).

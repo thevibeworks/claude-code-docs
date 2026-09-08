@@ -8,6 +8,13 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v1.49585.0" description="2026-09-08">
+  **Changed:**
+
+  * `managedMcpServers`: the built-in Microsoft 365 server entry (`"server": "microsoft365"`) accepts a new `continuousAccessEvaluation` value, `enabled` (the default) or `disabled`. When enabled, the bundled connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours but are cut off within minutes when an administrator revokes sessions or disables the account, or, where the tenant enforces a location or compliant-network Conditional Access policy, when the token is used from outside that network; `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts.
+  * `microsoftAuthBroker` accepts a new `required` value: Microsoft 365 sign-in fails when the OS sign-in broker (WAM on Windows, the Company Portal SSO extension on macOS) is unavailable instead of falling back to the browser, so the refresh token stays broker-held, and the connector removes the token cache an earlier browser sign-in left on disk. Linux has no broker, so `required` is not supported there. Earlier releases treat `required` as `disabled` (browser-only sign-in), so deploy it once every device is on this release or later.
+</Update>
+
 <Update label="v1.46388.4" description="2026-09-05">
   No configuration changes in this release.
 </Update>

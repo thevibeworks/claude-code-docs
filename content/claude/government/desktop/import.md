@@ -19,6 +19,8 @@ The import copies your conversations, their attached files, and the projects you
 
 ## Run the import
 
+You start the import yourself from **Settings**, whenever you are ready. Claude Desktop does not prompt you to run it.
+
 <Steps>
   <Step title="Open the import dialog">
     In Claude Desktop, open **Settings**, then the **Import & export** page, and click **Import…**.
@@ -59,10 +61,11 @@ To delete what an import added, open **Settings**, then the **Import & export** 
 
 ## Troubleshooting
 
-| What you see                                 | Likely cause                                                          | What to do                                                                                                                                  |
-| -------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Your export exceeds the import size limit    | You have more data than the import can bring over                     | Remove conversations or files you no longer need in the web app, in line with your organization's records policy, then run the import again |
-| The account does not match your organization | You signed in to the web app with a different account or organization | In the browser, sign in to the web app with your work account, then click **Sign in** in the dialog again                                   |
+| What you see                                                               | Likely cause                                                                               | What to do                                                                                                                                               |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Your export exceeds the import size limit                                  | You have more data than the import can bring over                                          | Remove conversations or files you no longer need in the web app, in line with your organization's records policy, then run the import again              |
+| The account does not match your organization                               | You signed in to the web app with a different account or organization                      | In the browser, sign in to the web app with your work account, then click **Sign in** in the dialog again                                                |
+| The **Import & export** page says import isn't enabled for this deployment | Your app is out of date, or Anthropic has not yet enabled the import for your organization | Update Claude Desktop to the latest version. If the page still says import isn't enabled, contact your administrator, who can ask Anthropic to enable it |
 
 For anything else, try the import again; if it keeps failing, contact your administrator.
 

@@ -4,7 +4,7 @@
 
 # Installation and setup
 
-> Install Claude Desktop on 3P, check device readiness, and choose how configuration reaches your devices: an MDM profile or a bootstrap server
+> Install Claude Desktop on 3P, check device readiness, and choose whether configuration reaches your devices through the Enterprise Admin Console, an MDM profile, or a bootstrap server
 
 Claude Desktop on third-party (3P) is the standard Claude Desktop application plus a managed configuration that activates third-party inference mode. Setup is two pieces: install the regular Claude Desktop app, and deliver the configuration to it.
 
@@ -43,33 +43,36 @@ Download the installer for your platform from [claude.com/download](https://clau
 | macOS    | `.dmg`    | Drag **Claude.app** to Applications                         |
 | Windows  | `.msix`   | Supports per-machine provisioning for enterprise deployment |
 
-For fleet rollouts, distribute the installer through your standard software-distribution mechanism after the configuration reaches devices; [Choose a configuration delivery model](#choose-a-configuration-delivery-model) covers how the configuration gets there.
+For fleet rollouts, distribute the installer through your standard software-distribution mechanism. On the MDM and bootstrap paths, distribute it after the configuration reaches devices; [Choose a configuration delivery model](#choose-a-configuration-delivery-model) covers how the configuration gets there.
 
 ## Choose a configuration delivery model
 
-Configuration reaches devices in one of two ways. Both typically use your MDM tooling to push a profile; the difference is what the profile contains.
+Configuration reaches devices in one of three ways. With the Enterprise Admin Console, Anthropic hosts the configuration and users receive it by signing in to the app. With MDM or a bootstrap server, you typically push a profile to devices with your MDM tooling, and the two differ in what the profile contains.
 
-|                            | MDM profile                                                             | Bootstrap server                                                                                                     |
-| -------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| What you deploy to devices | The full configuration, exported as a `.mobileconfig` or `.reg` profile | A minimal profile containing only the bootstrap keys (`bootstrapUrl`, optionally `bootstrapOidc` or request headers) |
-| Where settings live        | In the profile, identical for every device the profile targets          | On an HTTPS endpoint you operate, which returns each user's configuration at sign-in                                 |
-| Per-user values            | Separate profiles per device group                                      | The server keys its response to the signed-in user                                                                   |
-| Changing settings          | Export and push an updated profile                                      | Change your server's response; devices pick it up at the next fetch, with no profile push                            |
+|                            | Enterprise Admin Console                                                                                 | MDM profile                                                             | Bootstrap server                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| What you deploy to devices | Only the app, which downloads each user's configuration when they sign in with their work account        | The full configuration, exported as a `.mobileconfig` or `.reg` profile | A minimal profile containing only the bootstrap keys (`bootstrapUrl`, optionally `bootstrapOidc` or request headers) |
+| Where settings live        | In the Enterprise Admin Console, which Anthropic hosts and your administrators edit in a browser         | In the profile, identical for every device the profile targets          | On an HTTPS endpoint you operate, which returns each user's configuration at sign-in                                 |
+| Per-user values            | Permission policies per group of users                                                                   | Separate profiles per device group                                      | The server keys its response to the signed-in user                                                                   |
+| Changing settings          | Save the change in the console. Running apps pick it up at their next check and ask the user to relaunch | Export and push an updated profile                                      | Change your server's response; devices pick it up at the next fetch, with no profile push                            |
 
-Choose an MDM profile when one configuration, or a few group-scoped profiles, covers your fleet. Most MDMs support role-based distribution, so per-group configuration doesn't require a bootstrap server.
+Choose the Enterprise Admin Console when you want to manage the configuration centrally without operating MDM profiles or a server, and your users can sign in to Claude Desktop with a Claude account tied to their work email. Anthropic stores your user list and the settings you save. Prompts still go only to your inference provider, and conversations stay on the device. Contact your Anthropic representative to have an organization provisioned.
+
+Choose an MDM profile when one configuration, or a few group-scoped profiles, covers your fleet and no device should depend on a sign-in to Anthropic. Most MDMs support role-based distribution, so per-group configuration doesn't require a bootstrap server.
 
 Building the configuration in the app is optional. The [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) can also export schema-only templates (an ADMX template for Windows, a Profile Manifest `.plist` for macOS) from its **Export** menu, so you can enter values directly in your management console instead. See [Export the profile](/docs/third-party/claude-desktop/mdm#2-export-the-profile) for all formats.
 
 Choose a bootstrap server when your organization doesn't use MDM, or when per-user credentials or frequently changing settings would make per-group profiles unwieldy. The tradeoff is that you operate the endpoint.
 
-The two models don't combine: when a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration)).
+The models don't combine. A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) uses that configuration and ignores the Enterprise Admin Console. When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration)).
 
 Pick your path:
 
+* [Deploy with Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) covers provisioning, configuring the app in the console, and onboarding users.
 * [Deploy with MDM](/docs/third-party/claude-desktop/mdm) covers authoring the configuration in the app, exporting the profile, and deploying it to your fleet.
 * [Deploy with a bootstrap server](/docs/third-party/claude-desktop/bootstrap) covers getting the bootstrap keys onto devices and running the server.
 
-On either path, deploy the configuration before the app so users open Claude for the first time and land directly in the third-party deployment.
+On the MDM and bootstrap paths, deploy the configuration before the app so users open Claude for the first time and land directly in the third-party deployment. With the Enterprise Admin Console, save a configuration in the console first, and users then install the app and sign in.
 
 ## Single-machine setup
 
@@ -78,7 +81,7 @@ For evaluating before a fleet rollout, for pilots, or for organizations that don
 1. Install Claude Desktop from [claude.com/download](https://claude.com/download).
 2. Launch the app. **Do not sign in or create an Anthropic account.** From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration).
 3. Enter the provider, endpoint, and credential values supplied by your administrator.
-4. Click **Apply locally**. The app relaunches and the sign-in screen now offers the option to start in Claude Desktop on 3P using the configuration you entered.
+4. Click **Apply Changes**, then click **Save & Restart**. The app relaunches and the sign-in screen now offers the option to start in Claude Desktop on 3P using the configuration you entered.
 
 The configuration is written to the application's local config file and applies only to that device and user account. It can be edited from the same window at any time. To return to standard Claude Desktop, choose the Anthropic sign-in option on the sign-in screen instead.
 
