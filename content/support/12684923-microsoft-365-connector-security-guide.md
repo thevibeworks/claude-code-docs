@@ -26,13 +26,14 @@ Second, after the Owner enables the connector, a Microsoft Entra Global Administ
 
 You can selectively disable specific capabilities via Microsoft Entra Admin Center. For example:
 
-| **To restrict** | **Action**                                        | **Effect**                         |
-| --------------- | ------------------------------------------------- | ---------------------------------- |
-| All access      | Disable connector in Claude organization settings | Complete shutdown                  |
-| SharePoint only | Revoke Sites.Read.All permission in Entra         | Blocks SharePoint                  |
-| Email access    | Revoke Mail.Read permission in Entra              | Blocks Outlook                     |
-| Teams chat      | Revoke Chat.Read permission in Entra              | Blocks Teams                       |
-| OneDrive files  | Revoke Files.Read and/or Files.Read.All           | Blocks reading files from OneDrive |
+| **To restrict**         | **Action**                                                             | **Effect**                                |
+| ----------------------- | ---------------------------------------------------------------------- | ----------------------------------------- |
+| All access              | Disable connector in Claude organization settings                      | Complete shutdown                         |
+| SharePoint only         | Revoke Sites.Read.All permission in Entra                              | Blocks SharePoint                         |
+| Email access            | Revoke Mail.Read permission in Entra                                   | Blocks Outlook                            |
+| Teams chat              | Revoke Chat.Read permission in Entra                                   | Blocks Teams                              |
+| Teams messaging (write) | Revoke ChatMessage.Send, ChannelMessage.Send, and Chat.Create in Entra | Blocks Claude from sending Teams messages |
+| OneDrive files          | Revoke Files.Read and/or Files.Read.All                                | Blocks reading files from OneDrive        |
 
 Changes take effect immediately for all people in your organization. People can also choose to disable capabilities during a chat by selectively toggling off the connector's tools.
 
@@ -159,20 +160,44 @@ The connector provides **read-only** access to:
 | `sharepoint_move_item`           | Move a file or folder                                | Files.ReadWrite.All       |
 | `sharepoint_copy_item`           | Copy a file or folder                                | Files.ReadWrite.All       |
 | `sharepoint_delete_item`         | Delete a file or folder (to recycle bin)             | Files.ReadWrite.All       |
+| `teams_send_chat_message`        | Send a message in an existing Teams chat             | ChatMessage.Send          |
+| `teams_send_channel_message`     | Post or reply in a Teams channel                     | ChannelMessage.Send       |
+| `teams_reply_channel_message`    | Reply in a Teams channel thread                      | ChannelMessage.Send       |
+| `teams_create_chat`              | Start a new Teams chat                               | Chat.Create               |
 
-**Note:** “Always allow” is not supported for `outlook_send_email`, `outlook_forward_mail`, `outlook_send_draft`, `outlook_create_event`, or `outlook_update_event`.
+**Note:** “Always allow” is not supported for the following tools:
 
-When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, and creating and updating files in OneDrive and SharePoint. Teams remains read-only.
+- `outlook_send_email`
+
+- `outlook_forward_mail`
+
+- `outlook_send_draft`
+
+- `outlook_create_event`
+
+- `outlook_update_event`
+
+- `teams_send_chat_message`
+
+- `teams_send_channel_message`
+
+- `teams_reply_channel_message`
+
+- `teams_create_chat`
+
+When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, creating and updating files in OneDrive and SharePoint, and sending Teams messages. Teams write tools are off by default and are enabled individually in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** within “Microsoft 365”; the connector-wide "all tools" permission doesn't turn them on. Claude can send messages in Teams but can't change Teams settings, memberships, or permissions.
 
 Write tools include the following built-in safeguards:
 
-- **Attribution:** Emails Claude sends include an attribution header identifying them as agent-initiated. File and calendar writes aren't currently tagged.
+- **Attribution:** Emails Claude sends include an attribution header identifying them as agent-initiated. File writes, calendar writes, and Teams messages aren't currently tagged.
 
 - **Rate limits:** Per-user limits apply to writes, sends, and recipients.
 
 - **Attachment restriction:** Attachments aren't supported in any write tool—sending, forwarding, and drafting all reject messages with attachments.
 
-- **Blocked by default:** Organizations that used the connector before write tools launched have write tools blocked by default until an admin enables them.
+- **Blocked by default:** Organizations that used the connector before write tools launched have write tools blocked by default until an admin enables them. Teams write tools are blocked by default for every organization and must each be enabled individually.
+
+- **Confirmation required:** Sending a Teams chat message and posting or replying in a channel can only be set to Ask, so the user confirms every send.
 
 ## Permissions list
 
@@ -254,9 +279,15 @@ Requested as part of the updated consent set; used only when write tools are ena
 
 - **[MailboxSettings.ReadWrite](https://learn.microsoft.com/en-us/graph/permissions-reference#mailboxsettingsreadwrite)** - Manage categories, inbox rules, and automatic replies
 
+- **[ChatMessage.Send](https://learn.microsoft.com/en-us/graph/permissions-reference#chatmessagesend)** - Send a Teams chat message on the user's behalf
+
+- **[ChannelMessage.Send](https://learn.microsoft.com/en-us/graph/permissions-reference#channelmessagesend)** - Post or reply in a Teams channel
+
+- **[Chat.Create](https://learn.microsoft.com/en-us/graph/permissions-reference#chatcreate)** - Start a new Teams chat on the user's behalf
+
 ## Current limitations
 
-- **Teams is read-only**: Claude can't post Teams messages or modify Teams settings. Other write tools require an admin to enable them.
+- **Teams write access is limited to messaging**: Claude can send a chat message, post or reply in a channel, or start a new chat, but can't modify Teams settings, memberships, or permissions. All write tools require an admin to enable them, and Teams write tools are enabled individually.
 
 - **User-level access only**: Access with service principal authentication is not supported.
 

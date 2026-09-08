@@ -24,8 +24,6 @@ Open **Customize** in the sidebar, then **Skills**, to see your skills and turn 
 
 Open a skill you created to rename or delete it. Skills you create are stored on your device, so they are available only there.
 
-If your organization restricts skill creation through device managed configuration, the options to create and upload skills are hidden, and Claude does not offer to create or update skills in your conversations.
-
 ## Skills for administrators
 
 The admin portal does not currently have a skills view or per-skill controls, so there is no setting that allows, blocks, or distributes a skill on its own. To distribute skills to the members you manage, bundle them in a plugin, which can be as small as the skill plus a plugin manifest, and add it on the **Plugins** card, as described in [Manage plugins and connectors](/docs/government/config/plugins-and-connectors).

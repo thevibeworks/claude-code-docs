@@ -84,6 +84,7 @@
       "anthropics/anthropic-sdk-ruby",
       "anthropics/apitools",
       "anthropics/argo-cd",
+      "anthropics/axt-verify",
       "anthropics/beam",
       "anthropics/blobfile",
       "anthropics/buffa",

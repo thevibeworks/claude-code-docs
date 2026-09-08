@@ -10,7 +10,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 ## Key differences
 
-**Configuration.** Claude Enterprise uses a web-based admin console. Claude Desktop on 3P is configured entirely via [MDM](/docs/third-party/claude-desktop/mdm) (Jamf, Intune, Group Policy) or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), with no Anthropic-hosted admin interface.
+**Configuration.** Claude Enterprise uses a web-based admin console. Claude Desktop on 3P is configured via [MDM](/docs/third-party/claude-desktop/mdm) (Jamf, Intune, Group Policy) or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap); organizations in the admin console beta can instead manage it from **Organization settings** on claude.ai.
 
 **Telemetry.** Claude Desktop on 3P sends usage and debugging metrics only, and these can be fully disabled via managed configuration. Claude Enterprise does not offer telemetry toggles. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry).
 

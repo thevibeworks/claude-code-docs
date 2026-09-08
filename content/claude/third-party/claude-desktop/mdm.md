@@ -65,9 +65,9 @@ Once your configuration tests successfully, click **Export** and choose a format
 | `.zip` (ADMX template)      | Windows  | Schema-only template for Intune or Group Policy; you enter values in the management console                     |
 | `.plist` (Profile Manifest) | macOS    | Schema-only template for Jamf, ProfileCreator, or similar macOS tools                                           |
 
-The two actions in the configuration window do different things:
+**Apply Changes** and **Export** do different things:
 
-* **Apply locally** writes the selected configuration to your own machine's Claude settings and relaunches the app, so you can test it end to end before deploying it.
+* **Apply Changes** asks you to confirm, then writes the selected configuration to your own machine's Claude settings and relaunches the app, so you can test it end to end before deploying it.
 * **Export** writes a deployment file in the format you choose and leaves your local settings untouched.
 
 ### Creating profiles for multiple user groups
@@ -81,7 +81,7 @@ The configuration window can hold multiple named configurations. Use the picker 
 * **Rename** and **Delete** manage the list.
 * **Reveal in Finder** opens the on-disk location where saved configurations are stored.
 
-Selecting a configuration in the picker loads it for editing; the **applied** badge marks the one currently active on your machine. **Apply locally** and **Export** each act on whichever configuration is selected, so you can test each one locally and export them independently.
+Selecting a configuration in the picker loads it for editing; the **applied** badge marks the one currently active on your machine. **Apply Changes** and **Export** each act on whichever configuration is selected, so you can test each one locally and export them independently.
 
 In your MDM, scope each exported profile to the corresponding device or user group. Targeting is handled by your MDM's assignment rules; the configuration name is for your authoring workflow and is not part of the deployed profile.
 

@@ -58,7 +58,7 @@ On a device that does not meet these requirements, Chat still works apart from A
 
 ## Network access
 
-Claude Desktop's own traffic is HTTPS on port 443, and you can allowlist it by hostname. The [Security and data handling](/docs/government/security/security-and-data-handling#network-egress-required-domains-and-proxies) page explains what each connection carries.
+Claude Desktop's own traffic and the browser's traffic to the Claude for Government sign-in service use HTTPS on port 443. Claude for Government does not publish IP addresses for its host or its sign-in service, so allowlist both by hostname. The [Security and data handling](/docs/government/security/security-and-data-handling#network-egress-required-domains-and-proxies) page explains what each connection carries.
 
 * **App traffic.** Allow Claude Desktop on every device to reach the Claude for Government host, which carries the app's configuration and chat traffic.
 * **Browser sign-in traffic.** Allow the browser on every device to reach the Claude for Government host, the Claude for Government sign-in service (a separate host that your Anthropic representative provides), and your agency's identity provider. Sign-in happens in each user's default browser, not in the app.
