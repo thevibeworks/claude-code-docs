@@ -1,13 +1,14 @@
 {
   "version": "2.0",
-  "updated": "2026-08-24",
+  "updated": "2026-09-09",
   "description": "Complete Anthropic content source registry. Discovered via robots.txt/sitemap/llms.txt probing across all known Anthropic domains, GitHub API enumeration, and package registry checks. Discovery surfaces are treated as incomplete: the fetcher also refreshes every doc already on disk, because upstream de-indexes pages it still serves.",
   "domains": {
     "anthropic.com": {
       "robots": true,
       "sitemap": true,
       "llms_txt": false,
-      "notes": "Main site: news, engineering, research"
+      "notes": "Main site: news, engineering, research. FROZEN 2026-07-08 -- HTML-only, no .md variant, and the jina.ai proxy path was removed. content/blog/ is a static archive; the fetcher skips this domain (FROZEN_DOMAINS in fetcher.py).",
+      "frozen": "2026-07-08"
     },
     "platform.claude.com": {
       "robots": true,
