@@ -5,7 +5,7 @@ description: Install the MCP tunnel stack on a VM using Docker Compose.
 ---
 
 <Note>
-  MCP tunnels are in research preview. [Request access](https://claude.com/form/claude-managed-agents) to try them.
+  MCP tunnels are in research preview. [Request access](https://claude.com/form/mcp-tunnels) to try them.
 </Note>
 
 This guide deploys the [tunnel stack](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) as hardened containers on a single host. The same configuration can be replicated across multiple hosts for availability.

@@ -907,7 +907,9 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
   {
       if (streamEvent.Value is BetaManagedAgentsAgentMessageEvent message)
       {
-          Console.WriteLine(string.Concat(message.Content.Select(block => block.Text)));
+          var text = string.Concat(message.Content.Select(block =>
+              block.Value is BetaManagedAgentsTextBlock textBlock ? textBlock.Text : ""));
+          Console.WriteLine(text);
       }
       else if (streamEvent.Value is BetaManagedAgentsAgentCustomToolUseEvent toolUse)
       {
