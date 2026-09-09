@@ -1,16 +1,17 @@
 # Claude Code Docs
 
-> Comprehensive, auto-updating archive of everything Anthropic publishes
-> for building with Claude. 3,900+ docs from 12 sources.
+> Auto-updating archive of Anthropic's builder documentation: every source
+> that publishes markdown, fetched 4x daily. 4,100 files from six live sources,
+> plus a frozen archive of the engineering blog.
 
 [![fetch](https://github.com/thevibeworks/claude-code-docs/actions/workflows/fetch-claude-docs.yml/badge.svg)](https://github.com/thevibeworks/claude-code-docs/actions/workflows/fetch-claude-docs.yml)
 [![review](https://github.com/thevibeworks/claude-code-docs/actions/workflows/claude-review.yml/badge.svg)](https://github.com/thevibeworks/claude-code-docs/actions/workflows/claude-review.yml)
 [![license](https://img.shields.io/github/license/thevibeworks/claude-code-docs)](LICENSE)
-[![docs](https://img.shields.io/badge/docs-3900%2B-blue)](#content)
+[![files](https://img.shields.io/badge/files-4%2C100-blue)](#content)
 
 Clone this repo and point Claude Code at it. Every doc, tutorial, cookbook,
-skill, and engineering post Anthropic has published -- searchable, version-
-controlled, and offline.
+skill, and engineering post Anthropic publishes on a markdown surface --
+searchable, version-controlled, and offline.
 
 ## Install
 
@@ -30,17 +31,34 @@ claude "how do I set up hooks in the Agent SDK?"
 
 ## Content
 
+Counts are files on disk as of 2026-09-09; `uv run scripts/fetcher.py --tree`
+prints them live.
+
 | Source | Section | Files | What |
 |--------|---------|------:|------|
 | code.claude.com | `--section claude-code` | 198 | Claude Code + Agent SDK docs |
-| platform.claude.com | `--section api` | 1,993 | API reference, build guides |
-| claude.com/docs | `--section products` | 215 | Claude Tag, Cowork, office agents, connectors |
-| modelcontextprotocol.io | `--section mcp` | 373 | MCP spec, SDKs, governance |
-| anthropic.com | `--section engineering` | 25 | "Building Effective Agents", context engineering, tool use |
-| anthropic.com | `--section research` | 118 | Research papers |
-| anthropic.com | `--section news` | ~76 | Model releases, announcements |
-| github.com/anthropics | `--section github` | 718 | Cookbooks, skills, plugins, courses, SDK docs |
-| support.claude.com | `--section support` | 365 | Help articles |
+| platform.claude.com | `--section api` | 2,228 | API reference, build guides |
+| claude.com/docs | `--section products` | 226 | Claude Tag, Cowork, office agents, connectors |
+| modelcontextprotocol.io | `--section mcp` | 347 | MCP spec, SDKs, governance |
+| github.com/anthropics | `--section github` | 764 | Cookbooks, skills, plugins, courses, SDK docs |
+| support.claude.com | `--section support` | 372 | Help articles |
+| anthropic.com | frozen 2026-07-08 | 158 | Engineering, research, news posts -- see below |
+
+`anthropic.com` has no `--section` flag: it is HTML-only, the jina.ai proxy the
+fetcher used was removed in July 2026, and `content/blog/` has been a static
+archive since 2026-07-08. What is in it, against what anthropic.com's sitemap
+lists today:
+
+| `content/blog/` | Archived | Upstream | Coverage |
+|---|---:|---:|---:|
+| `engineering/` | 25 | 25 | complete |
+| `product/` | 4 | 4 | complete |
+| `research/` | 72 | 155 | 46% |
+| `news/` | 57 | 260 | 22% |
+
+The engineering posts -- "Building Effective Agents", context engineering, tool
+use -- are all here. Research and news are not, and will not grow until
+something converts HTML to markdown.
 
 ```
 content/
@@ -51,10 +69,11 @@ content/
   en/manage-claude/      Admin, billing, managed agents
   claude/                Product docs (Claude Tag, Cowork, office agents)
   mcp/                   MCP protocol spec + community
-  blog/
+  blog/                  frozen 2026-07-08, not refreshed
     engineering/         Building Effective Agents, context engineering, ...
     research/            Research papers
     news/                Model releases
+    product/             Product announcements
   github/
     cookbooks/           164 recipes + notebooks
     skills/              90 official Agent Skills
