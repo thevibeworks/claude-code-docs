@@ -5,7 +5,7 @@ description: Proxy configuration fields, the Tunnels REST API, certificate requi
 ---
 
 <Note>
-  MCP tunnels are in research preview. [Request access](https://claude.com/form/claude-managed-agents) to try them.
+  MCP tunnels are in research preview. [Request access](https://claude.com/form/mcp-tunnels) to try them.
 </Note>
 
 ## Proxy configuration

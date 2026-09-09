@@ -6,6 +6,11 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.08.1">
+  * Fixed web fetch failing in Claude Desktop's Code sessions on networks that block `api.anthropic.com`: sessions no longer contact that host before fetching a page, which takes effect on Claude Desktop 1.37937.0 or later after a restart.
+  * Fixed the sign-in page Claude Desktop opens in the browser showing an error instead of a field to enter the code when it is opened without a code or with an expired one.
+</Update>
+
 <Update label="2026.09.04.1">
   * Changed the limit on a member's active app sign-ins from 3 shared across the Claude apps to 6 in each app: a new sign-in over the limit now signs out the one closest to expiring instead of the oldest.
 </Update>

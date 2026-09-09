@@ -1561,7 +1561,7 @@ These changes aren't required, but each one lowers cost or latency or removes a 
 * If your interface renders progress text between tool calls, set `thinking.display` to `"updates"` (beta) or `"summarized"` and prompt for updates.
 * If you change effort between requests, move the change to a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) `role: "system"` message (beta) to keep cache hits.
 * Handle `stop_reason: "refusal"` and read `stop_details.category`. Consider `fallbacks: "default"` (beta).
-* Re-evaluate `effort` with a fresh sweep, starting at `high`, and re-baseline cost and latency on your own workloads. Token counts are roughly unchanged. Prompt cache reads cost a quarter of the Claude Fable 5 rate.
+* Re-evaluate `effort` with a fresh sweep, starting at `high`, and re-baseline cost and latency on your own workloads. The tokenizer is unchanged. Prompt cache reads cost a quarter of the Claude Fable 5 rate.
 
 ## Migrating to Claude Fable 5.1 from Claude Opus 5
 
@@ -1601,7 +1601,7 @@ model = "claude-mythos-5-1"  # After
 * Replace forced `tool_choice` (`any` or `tool`) with `auto` plus an explicit instruction (`user` turn or mid-conversation system message) and `strict: true` tools, or with JSON outputs.
 * If your interface renders text between tool calls, set `display: "updates"` (beta) or `"summarized"` and render the non-empty `thinking` blocks.
 * Apply the preserved-thinking, history-editing, behavior, effort, and fallback items from the [Claude Fable 5 checklist](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migration-checklist-fable-5-1-from-fable-5).
-* Re-baseline cost on your own workloads. Token counts are roughly unchanged. Per-token pricing differs.
+* Re-baseline cost on your own workloads. The tokenizer is unchanged. Per-token pricing differs.
 
 ## Migrating to Claude Fable 5.1 from Claude Opus 4.8 or earlier
 
