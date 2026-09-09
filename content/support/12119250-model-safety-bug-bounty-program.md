@@ -28,7 +28,7 @@ To emphasize, we are interested in jailbreaks that extract information that answ
 
 We will pay **up to $35,000 per novel, universal jailbreak identified.** We are only interested in jailbreaks that reveal substantial amounts of harmful information based on our sole criteria and discretion. We award bounties using a sliding scale based on an internal grading rubric which determines how detailed and accurate responses are.
 
-This program is scoped to jailbreaks on our Constitutional Classifiers. For technical vulnerabilities that potentially exist on our Information Systems such as misconfigurations, CSRFs or cross site request forgeries, privilege escalation attacks, SQL Injection, XSS, and directory traversal attacks, please refer to our [Responsible Disclosure Policy](https://www.anthropic.com/responsible-disclosure-policy) and submit your report [here](https://hackerone.com/297a385f-b3bd-4ecd-9466-7d9ad55371ce/embedded_submissions/new).
+This program is scoped to jailbreaks on our Constitutional Classifiers. For technical vulnerabilities that potentially exist on our Information Systems such as misconfigurations, CSRFs or cross site request forgeries, privilege escalation attacks, SQL Injection, XSS, and directory traversal attacks, please refer to our [Responsible Disclosure Policy](https://www.anthropic.com/responsible-disclosure-policy) and submit your report [here](https://hackerone.com/4f1f16ba-10d3-4d09-9ecc-c721aad90f24/embedded_submissions/new).
 
 ## How to Apply
 

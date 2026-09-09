@@ -10,7 +10,7 @@ If you’re unable to locate Claude for iOS in your App Store, you may be locate
 
 ## What versions of iOS are supported?
 
-We currently support iOS version 17.0 and above.
+We currently support iOS version 18.0 and above, and iPadOS 18.0 and above.
 
 ## How do I uninstall the Claude for iOS app?
 
