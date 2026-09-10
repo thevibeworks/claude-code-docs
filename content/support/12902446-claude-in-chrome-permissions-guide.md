@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1788981300&amp;signature=3a62acf9d5c70a9d04cc92bbafa34212efed7391bad8f6c2f2865b4b23453f34&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcpE9IO0gN0ADj5oqFBIUSJwc8CvLXQcvtjg%0AiX1hRepgFoQV5mkceig%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789020000&amp;signature=9868f39eb1dd0ddca664420480edcaae63139fed48c6cd20377ad748fd361a41&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctN%2FoK3gN0ADj5oqFAJwvvjxl9%2BljG47%2Bri%0AeMFhzt%2F06lPlrkQNtO8%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1788981300&amp;signature=d8cd196db3725d12e4ba0ce70f3ad1ca98a7f65b2fbb0aee70c3d5144164a5f6&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm55gC3v7A4lHPBihAWA7inOdDbtS74FzSor%0AWETPKQf1QTFtPXQuEmw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789020000&amp;signature=5078b5642db1fe3fe38f022789ddca916e17b798906b81ea4e9d737d50650c3a&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9wiizs7A4lHPBihAXMG0Sp4AlubY6M6KUn%0AtDhLVMuuCoFF7Kd6cOY%3D%0A)
 
 ### Permission options
 

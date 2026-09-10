@@ -70,4 +70,4 @@ To remove a plugin, click its remove icon and save the change. Removing a plugin
 
 You add and edit connectors on the **Connectors** card, and for each one you choose the products that receive it and set a policy for each of its tools. See [Connectors](/docs/government/connectors/overview) for the three-step wizard.
 
-On Claude Desktop, that tool policy shapes what members experience. A tool you switch off is blocked, so Claude cannot use it. A tool you switch on is available and asks the member on every use, and members are not offered a lasting approval for it. A tool you do not list is left to the member to turn on or off, and its approval prompts follow the member's own choices, which can include lasting approval unless your organization turns that off.
+On Claude Desktop, that tool policy shapes what members experience. A tool you switch off is blocked, so Claude cannot use it. A tool you switch on is available and asks the member on every use, and members are not offered a lasting approval for it. A tool you do not list is left to the member to turn on or off, and its approval prompts follow the member's own choices, which can include lasting approval.

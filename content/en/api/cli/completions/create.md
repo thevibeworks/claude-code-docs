@@ -203,39 +203,6 @@ Future models and features will not be compatible with Text Completions. See our
 
     For Text Completions, this is always `"completion"`.
 
-- `completion: object`
-
-  - `id: string`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `completion: string`
-
-    The resulting completion up to and excluding the stop sequences.
-
-  - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `stop_reason: string`
-
-    The reason that we stopped.
-
-    This may be one the following values:
-
-    * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
-    * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
-
-  - `type: "completion"`
-
-    Object type.
-
-    For Text Completions, this is always `"completion"`.
-
 ## Example
 
 ```bash

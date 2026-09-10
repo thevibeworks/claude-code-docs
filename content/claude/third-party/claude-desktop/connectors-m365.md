@@ -242,7 +242,7 @@ Six optional read scopes are not in the standard set:
 
 * `ChannelMessage.Read.All` adds Teams channel messages to chat search results. Requires tenant-admin consent.
 * `OnlineMeetingTranscript.Read.All` enables reading meeting transcripts. Requires tenant-admin consent.
-* `MailboxSettings.Read` enables reading mail filters and automatic-reply settings.
+* `MailboxSettings.Read` lets the connector read the user's mailbox time zone so that dates in requests follow the user's local time rather than UTC.
 * `People.Read` enables people search (`search_people`), which resolves a name to a user before starting a Teams chat.
 * `Team.ReadBasic.All` and `Channel.ReadBasic.All` let Claude list the user's teams and their channels (`teams_list_teams`, `teams_list_channels`), which Claude uses to find the team and channel IDs that the channel-message tools take.
 
@@ -273,7 +273,7 @@ Granting write scopes enables write tools; see [Grant write scopes](#grant-write
 
 ### Grant write scopes
 
-With only read scopes granted, the connector is read-only. To let Claude take actions in Microsoft 365 (sending mail, managing drafts, labels, filters, and calendar events, working with files in OneDrive and SharePoint, and sending Teams chat and channel messages), grant write scopes: add them to the entry's `scope` field and consent them on the app registration from step 1, the same as any other scope. Each write tool appears only when its scope is in the entry's list, so granting a subset of the write scopes exposes a matching subset of the tools, and removing the write scopes from the list returns the connector to read-only. Write tools require Claude Desktop version 1.19367.0 or later, and the Teams write tools require version 1.24012.0 or later.
+With only read scopes granted, the connector is read-only. To let Claude take actions in Microsoft 365 (sending mail, managing drafts, labels, and calendar events, working with files in OneDrive and SharePoint, and sending Teams chat and channel messages), grant write scopes: add them to the entry's `scope` field and consent them on the app registration from step 1, the same as any other scope. Each write tool appears only when its scope is in the entry's list, so granting a subset of the write scopes exposes a matching subset of the tools, and removing the write scopes from the list returns the connector to read-only. Write tools require Claude Desktop version 1.19367.0 or later, and the Teams write tools require version 1.24012.0 or later.
 
 | Scope                       | What it enables                                                                                               |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -281,7 +281,7 @@ With only read scopes granted, the connector is read-only. To let Claude take ac
 | `Mail.ReadWrite`            | Create, update, and delete drafts; trash, untrash, and delete messages; apply and remove labels on messages   |
 | `Calendars.ReadWrite`       | Create, update, delete, and respond to calendar events                                                        |
 | `Files.ReadWrite.All`       | Create, update, rename, move, copy, and delete files and folders the user can edit in OneDrive and SharePoint |
-| `MailboxSettings.ReadWrite` | Manage labels, mail filters, and automatic replies                                                            |
+| `MailboxSettings.ReadWrite` | Create and delete mail filters, manage labels, and configure automatic replies                                |
 | `ChatMessage.Send`          | Post messages in existing Teams chats                                                                         |
 | `ChannelMessage.Send`       | Post and reply to messages in Teams channels                                                                  |
 | `Chat.Create`               | Start 1:1 and group Teams chats                                                                               |

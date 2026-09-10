@@ -40095,10 +40095,6 @@ Stream Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-- `type BetaManagedAgentsStreamSessionEventsUnion interface{…}`
-
-  Server-sent event in the session stream.
-
 #### Example
 
 ```go
@@ -48568,10 +48564,6 @@ Stream Session Thread Events
     - `Budget BetaManagedAgentsBudgetLimit Optional`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-- `type BetaManagedAgentsStreamSessionThreadEventsUnion interface{…}`
-
-  Server-sent event in a single thread's stream.
 
 #### Example
 
