@@ -3938,8 +3938,6 @@ Stream Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-- `ManagedAgentsStreamSessionEvents`
-
 #### Example
 
 ```php
@@ -6603,8 +6601,6 @@ Stream Session Thread Events
     - `?BetaManagedAgentsBudgetLimit budget`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-- `ManagedAgentsStreamSessionThreadEvents`
 
 #### Example
 

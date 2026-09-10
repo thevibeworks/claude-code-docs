@@ -6,6 +6,10 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.09.1">
+  * Changed how the "Telemetry headers" setting and your connectors are delivered to Claude Desktop, ahead of Claude Desktop retiring the older formats: nothing changes in your settings or for members, and the notice about deprecated configuration fields that Claude Desktop 1.40609.0 or later can show no longer lists them.
+</Update>
+
 <Update label="2026.09.08.1">
   * Fixed web fetch failing in Claude Desktop's Code sessions on networks that block `api.anthropic.com`: sessions no longer contact that host before fetching a page, which takes effect on Claude Desktop 1.37937.0 or later after a restart.
   * Fixed the sign-in page Claude Desktop opens in the browser showing an error instead of a field to enter the code when it is opened without a code or with an expired one.

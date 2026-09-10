@@ -119,17 +119,17 @@ Whatever you select here must also be added and approved on the Entra app regist
 
 ### Read access
 
-| Permission                        | What it lets Claude do                                                      |
-| --------------------------------- | --------------------------------------------------------------------------- |
-| `Mail.Read` (Default)             | Read the member's mail                                                      |
-| `Mail.Read.Shared` (Default)      | Read mail in mailboxes shared with the member                               |
-| `Calendars.Read` (Default)        | Read the member's calendar events                                           |
-| `Calendars.Read.Shared` (Default) | Read events on calendars shared with the member and find free meeting times |
-| `Files.Read.All` (Default)        | Read files the member can open in OneDrive and SharePoint                   |
-| `Sites.Read.All` (Default)        | Read SharePoint site content the member can open                            |
-| `Chat.Read` (Default)             | Read the member's Teams chats                                               |
-| `OnlineMeetings.Read` (Default)   | Read the member's online meetings                                           |
-| `MailboxSettings.Read`            | Read the member's mail rules and automatic-reply settings                   |
+| Permission                        | What it lets Claude do                                                                                       |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `Mail.Read` (Default)             | Read the member's mail                                                                                       |
+| `Mail.Read.Shared` (Default)      | Read mail in mailboxes shared with the member                                                                |
+| `Calendars.Read` (Default)        | Read the member's calendar events                                                                            |
+| `Calendars.Read.Shared` (Default) | Read events on calendars shared with the member and find free meeting times                                  |
+| `Files.Read.All` (Default)        | Read files the member can open in OneDrive and SharePoint                                                    |
+| `Sites.Read.All` (Default)        | Read SharePoint site content the member can open                                                             |
+| `Chat.Read` (Default)             | Read the member's Teams chats                                                                                |
+| `OnlineMeetings.Read` (Default)   | Read the member's online meetings                                                                            |
+| `MailboxSettings.Read`            | Read the member's mailbox time zone so that dates in requests follow the member's local time rather than UTC |
 
 ### Read access requiring administrator approval
 
@@ -154,7 +154,7 @@ Write permissions let Claude take actions in Microsoft 365 on the member's behal
 | `ChatMessage.Send`          | Send messages in the member's existing Teams chats                                                                                                                                                                |
 | `ChannelMessage.Send`       | Post messages to Teams channels                                                                                                                                                                                   |
 | `Chat.Create`               | Start new Teams chats                                                                                                                                                                                             |
-| `MailboxSettings.ReadWrite` | Manage the member's labels, mail rules, and automatic replies                                                                                                                                                     |
+| `MailboxSettings.ReadWrite` | Create and delete the member's mail rules, manage labels, and configure automatic replies                                                                                                                         |
 
 <Note>
   Removing a permission from the **Access** picker changes what Claude Desktop requests the next time a member signs in, but it does not revoke permissions that Microsoft Entra has already approved for the application. To revoke a permission entirely, remove it in the Entra admin center under **Enterprise applications** > your application > **Permissions**.

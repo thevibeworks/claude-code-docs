@@ -293,8 +293,6 @@ Future models and features will not be compatible with Text Completions. See our
 
     For Text Completions, this is always `"completion"`.
 
-- `class Completion:`
-
 ## Example
 
 ```java
