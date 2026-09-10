@@ -1,3 +1,8 @@
+---
+title: List Deployments
+url: https://platform.claude.com/docs/en/api/ruby/beta/deployments/list
+---
+
 # List Deployments
 
 `beta.deployments.list(**kwargs) -> PageCursor<BetaManagedAgentsDeployment>`
@@ -52,7 +57,7 @@ List Deployments
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -100,6 +105,8 @@ List Deployments
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -142,11 +149,15 @@ List Deployments
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaManagedAgentsDeployment`
 
   A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
+
+  - `type: :deployment`
 
   - `id: String`
 
@@ -156,9 +167,9 @@ List Deployments
 
     A resolved agent reference with a concrete version.
 
-    - `id: String`
-
     - `type: :agent`
+
+    - `id: String`
 
     - `version: Integer`
 
@@ -192,6 +203,8 @@ List Deployments
 
       A user message sent to the session.
 
+      - `type: :"user.message"`
+
       - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
         Array of content blocks for the user message.
@@ -200,17 +213,19 @@ List Deployments
 
           Regular text content.
 
+          - `type: :text`
+
           - `text: String`
 
             The text content.
 
             minLength: 1
 
-          - `type: :text`
-
         - `class BetaManagedAgentsImageBlock`
 
           Image content specified directly as base64 data or as a reference via a URL.
+
+          - `type: :image`
 
           - `source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource`
 
@@ -219,6 +234,8 @@ List Deployments
             - `class BetaManagedAgentsBase64ImageSource`
 
               Base64-encoded image data.
+
+              - `type: :base64`
 
               - `data: String`
 
@@ -231,8 +248,6 @@ List Deployments
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
                 minLength: 1
-
-              - `type: :base64`
 
             - `class BetaManagedAgentsURLImageSource`
 
@@ -250,19 +265,19 @@ List Deployments
 
               Image referenced by file ID.
 
+              - `type: :file`
+
               - `file_id: String`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
 
-              - `type: :file`
-
-          - `type: :image`
-
         - `class BetaManagedAgentsDocumentBlock`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+          - `type: :document`
 
           - `source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource`
 
@@ -271,6 +286,8 @@ List Deployments
             - `class BetaManagedAgentsBase64DocumentSource`
 
               Base64-encoded document data.
+
+              - `type: :base64`
 
               - `data: String`
 
@@ -284,11 +301,11 @@ List Deployments
 
                 minLength: 1
 
-              - `type: :base64`
-
             - `class BetaManagedAgentsPlainTextDocumentSource`
 
               Plain text document content.
+
+              - `type: :text`
 
               - `data: String`
 
@@ -299,8 +316,6 @@ List Deployments
               - `media_type: :"text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
-
-              - `type: :text`
 
             - `class BetaManagedAgentsURLDocumentSource`
 
@@ -318,15 +333,13 @@ List Deployments
 
               Document referenced by file ID.
 
+              - `type: :file`
+
               - `file_id: String`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
-
-              - `type: :file`
-
-          - `type: :document`
 
           - `context: String`
 
@@ -342,11 +355,11 @@ List Deployments
 
           - `type: :redacted`
 
-      - `type: :"user.message"`
-
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent`
 
       An outcome the agent should work toward. The agent begins work on receipt.
+
+      - `type: :"user.define_outcome"`
 
       - `description: String`
 
@@ -360,23 +373,21 @@ List Deployments
 
           Rubric referenced by a file uploaded via the Files API.
 
+          - `type: :file`
+
           - `file_id: String`
 
             ID of the rubric file.
-
-          - `type: :file`
 
         - `class BetaManagedAgentsTextRubric`
 
           Rubric content provided inline as text.
 
+          - `type: :text`
+
           - `content: String`
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-          - `type: :text`
-
-      - `type: :"user.define_outcome"`
 
       - `max_iterations: Integer`
 
@@ -388,19 +399,19 @@ List Deployments
 
       Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
 
+      - `type: :"system.message"`
+
       - `content: Array[BetaManagedAgentsSystemContentBlock]`
 
         System content blocks to append. Text-only.
+
+        - `type: :text`
 
         - `text: String`
 
           The text content.
 
           minLength: 1
-
-        - `type: :text`
-
-      - `type: :"system.message"`
 
   - `metadata: Hash[Symbol, String]`
 
@@ -423,6 +434,8 @@ List Deployments
     - `class BetaManagedAgentsErrorDeploymentPausedReason`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
+
+      - `type: :error`
 
       - `error: BetaManagedAgentsDeploymentPausedReasonError`
 
@@ -512,8 +525,6 @@ List Deployments
 
           - `type: :mcp_egress_blocked_error`
 
-      - `type: :error`
-
   - `resources: Array[BetaManagedAgentsSessionResourceConfig]`
 
     Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
@@ -534,23 +545,23 @@ List Deployments
 
         - `class BetaManagedAgentsBranchCheckout`
 
+          - `type: :branch`
+
           - `name: String`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `type: :branch`
-
         - `class BetaManagedAgentsCommitCheckout`
+
+          - `type: :commit`
 
           - `sha: String`
 
             Full commit SHA to check out.
 
             minLength: 7, maxLength: 64
-
-          - `type: :commit`
 
       - `mount_path: String`
 
@@ -560,11 +571,11 @@ List Deployments
 
       A file mounted into each session's container.
 
+      - `type: :file`
+
       - `file_id: String`
 
         ID of a previously uploaded file.
-
-      - `type: :file`
 
       - `mount_path: String`
 
@@ -574,11 +585,11 @@ List Deployments
 
       A memory store attached to each session created from this deployment.
 
+      - `type: :memory_store`
+
       - `memory_store_id: String`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `type: :memory_store`
 
       - `access: :read_write | :read_only`
 
@@ -596,6 +607,8 @@ List Deployments
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
+    - `type: :cron`
+
     - `expression: String`
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
@@ -607,8 +620,6 @@ List Deployments
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
       minLength: 1
-
-    - `type: :cron`
 
     - `last_run_at: Time`
 
@@ -628,8 +639,6 @@ List Deployments
 
     - `:paused`
 
-  - `type: :deployment`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
@@ -644,6 +653,8 @@ List Deployments
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `type: :limit`
+
     - `max_list_cost: BetaMonetaryAmount`
 
       A monetary amount in a specific currency.
@@ -655,8 +666,6 @@ List Deployments
       - `currency: BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `type: :limit`
 
 ## Example
 

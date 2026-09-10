@@ -1,3 +1,8 @@
+---
+title: Retrieve Message Batch results
+url: https://platform.claude.com/docs/en/api/java/beta/messages/batches/results
+---
+
 # Retrieve Message Batch results
 
 `BetaMessageBatchIndividualResponse beta().messages().batches().resultsStreaming(params = BatchResultsParams.none(), requestOptions = RequestOptions.none())`
@@ -68,6 +73,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -110,6 +117,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaMessageBatchIndividualResponse:`
@@ -130,7 +139,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `class BetaMessageBatchSucceededResult:`
 
+      - `JsonValue type = "succeeded"`
+
       - `BetaMessage message`
+
+        - `JsonValue type = "message"`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
 
         - `String id`
 
@@ -156,12 +173,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `String skillId`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `Type type`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -169,6 +180,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `ANTHROPIC("anthropic")`
 
               - `CUSTOM("custom")`
+
+            - `String skillId`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `String version`
 
@@ -207,6 +224,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaTextBlock:`
 
+            - `JsonValue type = "text"`
+
             - `Optional<List<BetaTextCitation>> citations`
 
               Citations supporting the text block.
@@ -214,6 +233,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `class BetaCitationCharLocation:`
+
+                - `JsonValue type = "char_location"`
 
                 - `String citedText`
 
@@ -231,9 +252,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type = "char_location"`
-
               - `class BetaCitationPageLocation:`
+
+                - `JsonValue type = "page_location"`
 
                 - `String citedText`
 
@@ -251,9 +272,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `JsonValue type = "page_location"`
-
               - `class BetaCitationContentBlockLocation:`
+
+                - `JsonValue type = "content_block_location"`
 
                 - `String citedText`
 
@@ -281,9 +302,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type = "content_block_location"`
-
               - `class BetaCitationsWebSearchResultLocation:`
+
+                - `JsonValue type = "web_search_result_location"`
 
                 - `String citedText`
 
@@ -293,11 +314,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `JsonValue type = "web_search_result_location"`
-
                 - `String url`
 
               - `class BetaCitationSearchResultLocation:`
+
+                - `JsonValue type = "search_result_location"`
 
                 - `String citedText`
 
@@ -329,15 +350,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> title`
 
-                - `JsonValue type = "search_result_location"`
-
             - `String text`
 
-              maxLength: 5000000, minLength: 0
-
-            - `JsonValue type = "text"`
+              minLength: 0
 
           - `class BetaThinkingBlock:`
+
+            - `JsonValue type = "thinking"`
 
             - `String signature`
 
@@ -351,9 +370,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `JsonValue type = "thinking"`
-
           - `class BetaRedactedThinkingBlock:`
+
+            - `JsonValue type = "redacted_thinking"`
 
             - `String data`
 
@@ -363,9 +382,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonValue type = "redacted_thinking"`
-
           - `class BetaToolUseBlock:`
+
+            - `JsonValue type = "tool_use"`
 
             - `String id`
 
@@ -376,8 +395,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `String name`
 
               minLength: 1
-
-            - `JsonValue type = "tool_use"`
 
             - `Optional<Caller> caller`
 
@@ -393,19 +410,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `JsonValue type = "code_execution_20250825"`
+
                 - `String toolId`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `JsonValue type = "code_execution_20250825"`
 
               - `class BetaServerToolCaller20260120:`
 
+                - `JsonValue type = "code_execution_20260120"`
+
                 - `String toolId`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `JsonValue type = "code_execution_20260120"`
 
             - `Optional<String> toolsetName`
 
@@ -414,6 +431,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaServerToolUseBlock:`
+
+            - `JsonValue type = "server_tool_use"`
 
             - `String id`
 
@@ -439,8 +458,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-            - `JsonValue type = "server_tool_use"`
-
             - `Optional<Caller> caller`
 
               Tool invocation directly from the model.
@@ -457,9 +474,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaWebSearchToolResultBlock:`
 
+            - `JsonValue type = "web_search_tool_result"`
+
             - `BetaWebSearchToolResultBlockContent content`
 
               - `class BetaWebSearchToolResultError:`
+
+                - `JsonValue type = "web_search_tool_result_error"`
 
                 - `BetaWebSearchToolResultErrorCode errorCode`
 
@@ -475,9 +496,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `REQUEST_TOO_LARGE("request_too_large")`
 
-                - `JsonValue type = "web_search_tool_result_error"`
-
               - `List<BetaWebSearchResultBlock>`
+
+                - `JsonValue type = "web_search_result"`
 
                 - `String encryptedContent`
 
@@ -485,15 +506,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String title`
 
-                - `JsonValue type = "web_search_result"`
-
                 - `String url`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `JsonValue type = "web_search_tool_result"`
 
             - `Optional<Caller> caller`
 
@@ -511,9 +528,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaWebFetchToolResultBlock:`
 
+            - `JsonValue type = "web_fetch_tool_result"`
+
             - `Content content`
 
               - `class BetaWebFetchToolResultErrorBlock:`
+
+                - `JsonValue type = "web_fetch_tool_result_error"`
 
                 - `BetaWebFetchToolResultErrorCode errorCode`
 
@@ -535,11 +556,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `UNAVAILABLE("unavailable")`
 
-                - `JsonValue type = "web_fetch_tool_result_error"`
+                  - `CONTENT_TOO_LARGE("content_too_large")`
 
               - `class BetaWebFetchBlock:`
 
+                - `JsonValue type = "web_fetch_result"`
+
                 - `BetaDocumentBlock content`
+
+                  - `JsonValue type = "document"`
 
                   - `Optional<BetaCitationConfig> citations`
 
@@ -551,33 +576,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `class BetaBase64PdfSource:`
 
+                      - `JsonValue type = "base64"`
+
                       - `String data`
 
                         format: byte
 
                       - `JsonValue mediaType = "application/pdf"`
 
-                      - `JsonValue type = "base64"`
-
                     - `class BetaPlainTextSource:`
+
+                      - `JsonValue type = "text"`
 
                       - `String data`
 
                       - `JsonValue mediaType = "text/plain"`
 
-                      - `JsonValue type = "text"`
-
                   - `Optional<String> title`
 
                     The title of the document
 
-                  - `JsonValue type = "document"`
-
                 - `Optional<String> retrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `JsonValue type = "web_fetch_result"`
 
                 - `String url`
 
@@ -586,8 +607,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `JsonValue type = "web_fetch_tool_result"`
 
             - `Optional<Caller> caller`
 
@@ -605,9 +624,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaAdvisorToolResultBlock:`
 
+            - `JsonValue type = "advisor_tool_result"`
+
             - `Content content`
 
               - `class BetaAdvisorToolResultError:`
+
+                - `JsonValue type = "advisor_tool_result_error"`
 
                 - `ErrorCode errorCode`
 
@@ -625,9 +648,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `MODEL_NOT_FOUND("model_not_found")`
 
-                - `JsonValue type = "advisor_tool_result_error"`
-
               - `class BetaAdvisorResultBlock:`
+
+                - `JsonValue type = "advisor_result"`
 
                 - `Optional<String> stopReason`
 
@@ -635,9 +658,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String text`
 
-                - `JsonValue type = "advisor_result"`
-
               - `class BetaAdvisorRedactedResultBlock:`
+
+                - `JsonValue type = "advisor_redacted_result"`
 
                 - `String encryptedContent`
 
@@ -647,21 +670,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `JsonValue type = "advisor_redacted_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "advisor_tool_result"`
-
           - `class BetaCodeExecutionToolResultBlock:`
+
+            - `JsonValue type = "code_execution_tool_result"`
 
             - `BetaCodeExecutionToolResultBlockContent content`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class BetaCodeExecutionToolResultError:`
+
+                - `JsonValue type = "code_execution_tool_result_error"`
 
                 - `BetaCodeExecutionToolResultErrorCode errorCode`
 
@@ -673,15 +696,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                - `JsonValue type = "code_execution_tool_result_error"`
-
               - `class BetaCodeExecutionResultBlock:`
+
+                - `JsonValue type = "code_execution_result"`
 
                 - `List<BetaCodeExecutionOutputBlock> content`
 
-                  - `String fileId`
-
                   - `JsonValue type = "code_execution_output"`
+
+                  - `String fileId`
 
                 - `long returnCode`
 
@@ -689,17 +712,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type = "code_execution_result"`
-
               - `class BetaEncryptedCodeExecutionResultBlock:`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
+                - `JsonValue type = "encrypted_code_execution_result"`
+
                 - `List<BetaCodeExecutionOutputBlock> content`
 
-                  - `String fileId`
-
                   - `JsonValue type = "code_execution_output"`
+
+                  - `String fileId`
 
                 - `String encryptedStdout`
 
@@ -707,19 +730,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stderr`
 
-                - `JsonValue type = "encrypted_code_execution_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "code_execution_tool_result"`
-
           - `class BetaBashCodeExecutionToolResultBlock:`
+
+            - `JsonValue type = "bash_code_execution_tool_result"`
 
             - `Content content`
 
               - `class BetaBashCodeExecutionToolResultError:`
+
+                - `JsonValue type = "bash_code_execution_tool_result_error"`
 
                 - `ErrorCode errorCode`
 
@@ -733,15 +756,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                - `JsonValue type = "bash_code_execution_tool_result_error"`
-
               - `class BetaBashCodeExecutionResultBlock:`
+
+                - `JsonValue type = "bash_code_execution_result"`
 
                 - `List<BetaBashCodeExecutionOutputBlock> content`
 
-                  - `String fileId`
-
                   - `JsonValue type = "bash_code_execution_output"`
+
+                  - `String fileId`
 
                 - `long returnCode`
 
@@ -749,19 +772,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type = "bash_code_execution_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "bash_code_execution_tool_result"`
-
           - `class BetaTextEditorCodeExecutionToolResultBlock:`
+
+            - `JsonValue type = "text_editor_code_execution_tool_result"`
 
             - `Content content`
 
               - `class BetaTextEditorCodeExecutionToolResultError:`
+
+                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
                 - `ErrorCode errorCode`
 
@@ -777,9 +800,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
-
               - `class BetaTextEditorCodeExecutionViewResultBlock:`
+
+                - `JsonValue type = "text_editor_code_execution_view_result"`
 
                 - `String content`
 
@@ -797,15 +820,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> totalLines`
 
-                - `JsonValue type = "text_editor_code_execution_view_result"`
-
               - `class BetaTextEditorCodeExecutionCreateResultBlock:`
-
-                - `boolean isFileUpdate`
 
                 - `JsonValue type = "text_editor_code_execution_create_result"`
 
+                - `boolean isFileUpdate`
+
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+
+                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
                 - `Optional<List<String>> lines`
 
@@ -817,19 +840,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> oldStart`
 
-                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "text_editor_code_execution_tool_result"`
-
           - `class BetaToolSearchToolResultBlock:`
+
+            - `JsonValue type = "tool_search_tool_result"`
 
             - `Content content`
 
               - `class BetaToolSearchToolResultError:`
+
+                - `JsonValue type = "tool_search_tool_result_error"`
 
                 - `ErrorCode errorCode`
 
@@ -843,27 +866,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type = "tool_search_tool_result_error"`
-
               - `class BetaToolSearchToolSearchResultBlock:`
 
+                - `JsonValue type = "tool_search_tool_search_result"`
+
                 - `List<BetaToolReferenceBlock> toolReferences`
+
+                  - `JsonValue type = "tool_reference"`
 
                   - `String toolName`
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonValue type = "tool_reference"`
-
-                - `JsonValue type = "tool_search_tool_search_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "tool_search_tool_result"`
-
           - `class BetaMcpToolUseBlock:`
+
+            - `JsonValue type = "mcp_tool_use"`
 
             - `String id`
 
@@ -879,15 +900,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-            - `JsonValue type = "mcp_tool_use"`
-
           - `class BetaMcpToolResultBlock:`
+
+            - `JsonValue type = "mcp_tool_result"`
 
             - `Content content`
 
               - `String`
 
               - `List<BetaTextBlock>`
+
+                - `JsonValue type = "text"`
 
                 - `Optional<List<BetaTextCitation>> citations`
 
@@ -897,9 +920,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String text`
 
-                  maxLength: 5000000, minLength: 0
-
-                - `JsonValue type = "text"`
+                  minLength: 0
 
             - `boolean isError`
 
@@ -907,15 +928,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `JsonValue type = "mcp_tool_result"`
-
           - `class BetaContainerUploadBlock:`
 
             Response model for a file uploaded to the container.
 
-            - `String fileId`
-
             - `JsonValue type = "container_upload"`
+
+            - `String fileId`
 
           - `class BetaCompactionBlock:`
 
@@ -925,6 +944,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             summary (e.g., malformed output from the model). Clients may round-trip
             compaction blocks with null content; the server treats them as no-ops.
 
+            - `JsonValue type = "compaction"`
+
             - `Optional<String> content`
 
               Summary of compacted content, or null if compaction failed
@@ -932,8 +953,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `Optional<String> encryptedContent`
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
-
-            - `JsonValue type = "compaction"`
 
           - `class BetaFallbackBlock:`
 
@@ -948,6 +967,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             The block is treated like a server-tool content block for streaming: it
             arrives via the standard `content_block_start` / `content_block_stop`
             pair and carries no deltas.
+
+            - `JsonValue type = "fallback"`
 
             - `BetaFallbackInfo from`
 
@@ -1035,6 +1056,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               What caused the `from` model to hand over at this hop.
 
+              - `JsonValue type = "refusal"`
+
               - `Optional<Category> category`
 
                 The policy category that triggered a refusal.
@@ -1059,10 +1082,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `JsonValue type = "refusal"`
-
-            - `JsonValue type = "fallback"`
-
         - `Optional<BetaContextManagementResponse> contextManagement`
 
           Context management response.
@@ -1074,6 +1093,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             List of context management edits that were applied.
 
             - `class BetaClearToolUses20250919EditResponse:`
+
+              - `JsonValue type = "clear_tool_uses_20250919"`
+
+                The type of context management edit applied.
 
               - `long clearedInputTokens`
 
@@ -1087,11 +1110,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type = "clear_tool_uses_20250919"`
+            - `class BetaClearThinking20251015EditResponse:`
+
+              - `JsonValue type = "clear_thinking_20251015"`
 
                 The type of context management edit applied.
-
-            - `class BetaClearThinking20251015EditResponse:`
 
               - `long clearedInputTokens`
 
@@ -1105,10 +1128,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type = "clear_thinking_20251015"`
-
-                The type of context management edit applied.
-
         - `Optional<BetaDiagnostics> diagnostics`
 
           Response envelope for request-level diagnostics. Present (possibly
@@ -1120,35 +1139,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `class BetaCacheMissModelChanged:`
 
+              - `JsonValue type = "model_changed"`
+
               - `long cacheMissedInputTokens`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `JsonValue type = "model_changed"`
 
             - `class BetaCacheMissSystemChanged:`
 
+              - `JsonValue type = "system_changed"`
+
               - `long cacheMissedInputTokens`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `JsonValue type = "system_changed"`
 
             - `class BetaCacheMissToolsChanged:`
 
+              - `JsonValue type = "tools_changed"`
+
               - `long cacheMissedInputTokens`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `JsonValue type = "tools_changed"`
 
             - `class BetaCacheMissMessagesChanged:`
 
+              - `JsonValue type = "messages_changed"`
+
               - `long cacheMissedInputTokens`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `JsonValue type = "messages_changed"`
 
             - `class BetaCacheMissPreviousMessageNotFound:`
 
@@ -1173,6 +1192,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `Optional<BetaRefusalStopDetails> stopDetails`
 
           Structured information about a refusal.
+
+          - `JsonValue type = "refusal"`
 
           - `Optional<Category> category`
 
@@ -1253,8 +1274,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `JsonValue type = "refusal"`
-
         - `Optional<BetaStopReason> stopReason`
 
           The reason that we stopped.
@@ -1292,12 +1311,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `JsonValue type = "message"`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
 
         - `BetaUsage usage`
 
@@ -1363,6 +1376,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 No reprice was applied; `reason` says why.
 
+                - `JsonValue type = "not_applied"`
+
                 - `Reason reason`
 
                   Why the reprice was not applied.
@@ -1393,8 +1408,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `WRONG_PLATFORM("wrong_platform")`
 
                   - `WRONG_WORKSPACE("wrong_workspace")`
-
-                - `JsonValue type = "not_applied"`
 
                 - `Optional<List<String>> removeToRedeem`
 
@@ -1433,6 +1446,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for a sampling iteration.
 
+              - `JsonValue type = "message"`
+
+                Usage for a sampling iteration
+
               - `Optional<BetaCacheCreation> cacheCreation`
 
                 Breakdown of cached tokens by TTL
@@ -1466,15 +1483,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `JsonValue type = "message"`
-
-                Usage for a sampling iteration
 
             - `class BetaCompactionIterationUsage:`
 
               Token usage for a compaction iteration.
 
+              - `JsonValue type = "compaction"`
+
+                Usage for a compaction iteration
+
               - `Optional<BetaCacheCreation> cacheCreation`
 
                 Breakdown of cached tokens by TTL
@@ -1503,13 +1520,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `JsonValue type = "compaction"`
-
-                Usage for a compaction iteration
-
             - `class BetaAdvisorMessageIterationUsage:`
 
               Token usage for an advisor sub-inference iteration.
+
+              - `JsonValue type = "advisor_message"`
+
+                Usage for an advisor sub-inference iteration
 
               - `Optional<BetaCacheCreation> cacheCreation`
 
@@ -1544,10 +1561,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `JsonValue type = "advisor_message"`
-
-                Usage for an advisor sub-inference iteration
 
             - `class BetaFallbackMessageIterationUsage:`
 
@@ -1558,6 +1571,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               a fallback model served the response is signalled by the presence of this
               entry in `usage.iterations`.
 
+              - `JsonValue type = "fallback_message"`
+
+                Usage for the fallback-model attempt that served the response
+
               - `Optional<BetaCacheCreation> cacheCreation`
 
                 Breakdown of cached tokens by TTL
@@ -1591,10 +1608,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `JsonValue type = "fallback_message"`
-
-                Usage for the fallback-model attempt that served the response
 
           - `long outputTokens`
 
@@ -1676,6 +1689,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           fallback happened mid-stream, in which case it holds the serving model's
           entries and replaces the one in `message_start`.
 
+          - `JsonValue type = "thinking_dropped"`
+
+            Always `thinking_dropped` for this entry type.
+
           - `String path`
 
             Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -1706,77 +1723,71 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
-          - `JsonValue type = "thinking_dropped"`
-
-            Always `thinking_dropped` for this entry type.
-
-      - `JsonValue type = "succeeded"`
-
     - `class BetaMessageBatchErroredResult:`
 
+      - `JsonValue type = "errored"`
+
       - `BetaErrorResponse error`
+
+        - `JsonValue type = "error"`
 
         - `BetaError error`
 
           - `class BetaInvalidRequestError:`
 
-            - `String message`
-
             - `JsonValue type = "invalid_request_error"`
+
+            - `String message`
 
           - `class BetaAuthenticationError:`
 
-            - `String message`
-
             - `JsonValue type = "authentication_error"`
+
+            - `String message`
 
           - `class BetaBillingError:`
 
-            - `String message`
-
             - `JsonValue type = "billing_error"`
+
+            - `String message`
 
           - `class BetaPermissionError:`
 
-            - `String message`
-
             - `JsonValue type = "permission_error"`
+
+            - `String message`
 
           - `class BetaNotFoundError:`
 
-            - `String message`
-
             - `JsonValue type = "not_found_error"`
+
+            - `String message`
 
           - `class BetaRateLimitError:`
 
-            - `String message`
-
             - `JsonValue type = "rate_limit_error"`
+
+            - `String message`
 
           - `class BetaGatewayTimeoutError:`
 
-            - `String message`
-
             - `JsonValue type = "timeout_error"`
+
+            - `String message`
 
           - `class BetaApiError:`
 
-            - `String message`
-
             - `JsonValue type = "api_error"`
+
+            - `String message`
 
           - `class BetaOverloadedError:`
 
-            - `String message`
-
             - `JsonValue type = "overloaded_error"`
 
+            - `String message`
+
         - `Optional<String> requestId`
-
-        - `JsonValue type = "error"`
-
-      - `JsonValue type = "errored"`
 
     - `class BetaMessageBatchCanceledResult:`
 

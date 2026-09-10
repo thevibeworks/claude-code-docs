@@ -1,3 +1,8 @@
+---
+title: List Work Items
+url: https://platform.claude.com/docs/en/api/csharp/beta/environments/work/list
+---
+
 # List Work Items
 
 `WorkListPage Beta.Environments.Work.List(parameters, cancellationToken = default)`
@@ -76,6 +81,8 @@ List work items in an environment.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -128,6 +135,10 @@ List work items in an environment.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
+
   - `required string ID`
 
     Work identifier (e.g., 'work_...')
@@ -144,13 +155,13 @@ List work items in an environment.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -193,10 +204,6 @@ List work items in an environment.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 ## Example
 

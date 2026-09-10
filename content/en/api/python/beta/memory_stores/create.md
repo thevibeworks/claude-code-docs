@@ -1,3 +1,8 @@
+---
+title: Create a memory store
+url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/create
+---
+
 # Create a memory store
 
 `beta.memory_stores.create(**kwargs)  -> BetaManagedAgentsMemoryStore`
@@ -30,7 +35,7 @@ Create a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -78,6 +83,8 @@ Create a memory store
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -120,11 +127,15 @@ Create a memory store
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsMemoryStore: …`
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
+
+  - `type: Literal["memory_store"]`
 
   - `id: str`
 
@@ -139,8 +150,6 @@ Create a memory store
   - `name: str`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `type: Literal["memory_store"]`
 
   - `updated_at: datetime`
 

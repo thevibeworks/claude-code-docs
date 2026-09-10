@@ -1,3 +1,8 @@
+---
+title: List Skill Versions
+url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/list
+---
+
 # List Skill Versions
 
 `beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[BetaSkillVersion]`
@@ -32,7 +37,7 @@ List Skill Versions
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -80,6 +85,8 @@ List Skill Versions
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -122,9 +129,19 @@ List Skill Versions
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaSkillVersion: …`
+
+  - `type: Literal["skill_version"]`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
+
+    default: skill_version
 
   - `id: str`
 
@@ -155,14 +172,6 @@ List Skill Versions
     Unique identifier for the skill.
 
     The format and length of IDs may change over time.
-
-  - `type: Literal["skill_version"]`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-    default: skill_version
 
 ## Example
 

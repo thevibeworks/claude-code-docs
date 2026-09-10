@@ -1,3 +1,8 @@
+---
+title: Create User Profile
+url: https://platform.claude.com/docs/en/api/csharp/beta/user_profiles/create
+---
+
 # Create User Profile
 
 `BetaUserProfile Beta.UserProfiles.Create(parameters, cancellationToken = default)`
@@ -20,9 +25,13 @@ Create User Profile
 
   - `string? externalID`
 
-    Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+    Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
 
     minLength: 1, maxLength: 255
+
+  - `BetaUserProfileExternalUserDetailsParams externalUserDetails`
+
+    Body param: Details about the entity this profile represents, as the platform states them. Every field is optional. Accepted under the `user-profiles-2026-09-04` beta header only.
 
   - `DateTimeOffset externalUserOnboardedAt`
 
@@ -90,6 +99,8 @@ Create User Profile
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -136,6 +147,10 @@ Create User Profile
 
 - `class BetaUserProfile:`
 
+  - `required Type Type`
+
+    Object type. Always `user_profile`.
+
   - `required string ID`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -164,10 +179,6 @@ Create User Profile
 
       - `Rejected("rejected")`
 
-  - `required Type Type`
-
-    Object type. Always `user_profile`.
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
@@ -184,7 +195,55 @@ Create User Profile
 
   - `string? ExternalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `BetaUserProfileExternalUserDetails ExternalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `required AccountStatus? AccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `Active("active")`
+
+      - `Suspended("suspended")`
+
+      - `Blocked("blocked")`
+
+    - `required string? Country`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `required string? EmailHash`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `required EntityType? EntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `Individual("individual")`
+
+      - `Business("business")`
+
+      - `NonProfit("non_profit")`
+
+      - `Government("government")`
+
+    - `required string? NameHash`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `required DateTimeOffset? OnboardedAt`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `required string? ReferenceID`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `DateTimeOffset? ExternalUserOnboardedAt`
 
@@ -222,6 +281,15 @@ Console.WriteLine(betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }

@@ -1,3 +1,8 @@
+---
+title: Get File Metadata
+url: https://platform.claude.com/docs/en/api/cli/beta/files/retrieve_metadata
+---
+
 # Get File Metadata
 
 `$ ant beta:files retrieve-metadata`
@@ -16,9 +21,21 @@ Get File Metadata
 
   Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_file_metadata: object`
+
+  - `type: "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: string`
 
@@ -50,12 +67,6 @@ Get File Metadata
 
     minimum: 0
 
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `downloadable: optional boolean`
 
     Whether the file can be downloaded.
@@ -70,13 +81,13 @@ Get File Metadata
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-    - `id: string`
-
-      The ID of the scoping resource (e.g., the session ID).
-
     - `type: "session"`
 
       The type of scope (e.g., `"session"`).
+
+    - `id: string`
+
+      The ID of the scoping resource (e.g., the session ID).
 
 ## Example
 

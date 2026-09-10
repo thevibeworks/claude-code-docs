@@ -1,3 +1,8 @@
+---
+title: Rotate Tunnel Token
+url: https://platform.claude.com/docs/en/api/python/beta/tunnels/rotate_token
+---
+
 # Rotate Tunnel Token
 
 `beta.tunnels.rotate_token(tunnel_id, **kwargs)  -> BetaTunnelToken`
@@ -24,7 +29,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -72,6 +77,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -114,11 +121,15 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaTunnelToken: …`
 
   A tunnel's connector token.
+
+  - `type: Literal["tunnel_token"]`
 
   - `id: str`
 
@@ -127,8 +138,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `tunnel_token: str`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `type: Literal["tunnel_token"]`
 
 ## Example
 

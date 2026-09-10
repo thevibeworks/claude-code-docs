@@ -1,3 +1,8 @@
+---
+title: Unwrap
+url: https://platform.claude.com/docs/en/api/cli/beta/webhooks/unwrap
+---
+
 # Unwrap
 
 Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`

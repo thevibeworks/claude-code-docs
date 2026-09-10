@@ -1,3 +1,8 @@
+---
+title: Get Session Thread
+url: https://platform.claude.com/docs/en/api/java/beta/sessions/threads/retrieve
+---
+
 # Get Session Thread
 
 `BetaManagedAgentsSessionThread beta().sessions().threads().retrieve(params, requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Get Session Thread
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,11 +113,15 @@ Get Session Thread
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaManagedAgentsSessionThread:`
 
   An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
+
+  - `Type type`
 
   - `String id`
 
@@ -124,15 +135,17 @@ Get Session Thread
 
       Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+      - `Type type`
+
       - `String id`
 
       - `Optional<String> description`
 
       - `List<BetaManagedAgentsMcpServerUrlDefinition> mcpServers`
 
-        - `String name`
-
         - `Type type`
+
+        - `String name`
 
         - `String url`
 
@@ -256,9 +269,9 @@ Get Session Thread
 
           A resolved Anthropic-managed skill.
 
-          - `String skillId`
-
           - `Type type`
+
+          - `String skillId`
 
           - `String version`
 
@@ -266,9 +279,9 @@ Get Session Thread
 
           A resolved user-created custom skill.
 
-          - `String skillId`
-
           - `Type type`
+
+          - `String skillId`
 
           - `String version`
 
@@ -278,11 +291,15 @@ Get Session Thread
 
         - `class BetaManagedAgentsAgentToolset20260401:`
 
+          - `Type type`
+
           - `List<BetaManagedAgentsAgentToolConfig> configs`
 
             - `class BetaManagedAgentsBashToolConfig:`
 
               Configuration for the bash tool.
+
+              - `JsonValue type = "bash"`
 
               - `boolean enabled`
 
@@ -304,11 +321,17 @@ Get Session Thread
 
                   - `Type type`
 
-              - `JsonValue type = "bash"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `JsonValue type = "auto"`
 
             - `class BetaManagedAgentsEditToolConfig:`
 
               Configuration for the edit tool.
+
+              - `JsonValue type = "edit"`
 
               - `boolean enabled`
 
@@ -326,11 +349,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "edit"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsReadToolConfig:`
 
               Configuration for the read tool.
+
+              - `JsonValue type = "read"`
 
               - `boolean enabled`
 
@@ -348,11 +375,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "read"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsWriteToolConfig:`
 
               Configuration for the write tool.
+
+              - `JsonValue type = "write"`
 
               - `boolean enabled`
 
@@ -370,11 +401,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "write"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsGlobToolConfig:`
 
               Configuration for the glob tool.
+
+              - `JsonValue type = "glob"`
 
               - `boolean enabled`
 
@@ -392,11 +427,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "glob"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsGrepToolConfig:`
 
               Configuration for the grep tool.
+
+              - `JsonValue type = "grep"`
 
               - `boolean enabled`
 
@@ -414,11 +453,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "grep"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsWebFetchToolConfig:`
 
               Configuration for the web_fetch tool.
+
+              - `JsonValue type = "web_fetch"`
 
               - `boolean enabled`
 
@@ -436,7 +479,9 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "web_fetch"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `Optional<List<String>> allowedDomains`
 
@@ -449,6 +494,8 @@ Get Session Thread
             - `class BetaManagedAgentsWebSearchToolConfig:`
 
               Configuration for the web_search tool.
+
+              - `JsonValue type = "web_search"`
 
               - `boolean enabled`
 
@@ -466,7 +513,9 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonValue type = "web_search"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `Optional<List<String>> allowedDomains`
 
@@ -520,9 +569,13 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
-          - `Type type`
+              - `class BetaManagedAgentsAutoPolicy:`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsMcpToolset:`
+
+          - `Type type`
 
           - `List<BetaManagedAgentsMcpToolConfig> configs`
 
@@ -542,6 +595,10 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
+              - `class BetaManagedAgentsAutoPolicy:`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
           - `BetaManagedAgentsMcpToolsetDefaultConfig defaultConfig`
 
             Resolved default configuration for all tools from an MCP server.
@@ -560,13 +617,17 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
-          - `String mcpServerName`
+              - `class BetaManagedAgentsAutoPolicy:`
 
-          - `Type type`
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `String mcpServerName`
 
         - `class BetaManagedAgentsCustomTool:`
 
           A custom tool as returned in API responses.
+
+          - `Type type`
 
           - `String description`
 
@@ -582,10 +643,6 @@ Get Session Thread
 
           - `String name`
 
-          - `Type type`
-
-      - `Type type`
-
       - `long version`
 
         format: int32
@@ -594,11 +651,11 @@ Get Session Thread
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+      - `Type type`
+
       - `String model`
 
         The advisor model id.
-
-      - `Type type`
 
   - `Optional<LocalDateTime> archivedAt`
 
@@ -653,8 +710,6 @@ Get Session Thread
     - `RESCHEDULING("rescheduling")`
 
     - `TERMINATED("terminated")`
-
-  - `Type type`
 
   - `LocalDateTime updatedAt`
 

@@ -1,3 +1,8 @@
+---
+title: List Credentials
+url: https://platform.claude.com/docs/en/api/ruby/beta/vaults/credentials/list
+---
+
 # List Credentials
 
 `beta.vaults.credentials.list(vault_id, **kwargs) -> PageCursor<BetaManagedAgentsCredential>`
@@ -30,7 +35,7 @@ List Credentials
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -78,6 +83,8 @@ List Credentials
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -120,11 +127,15 @@ List Credentials
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `type: :vault_credential`
 
   - `id: String`
 
@@ -144,11 +155,11 @@ List Credentials
 
       OAuth credential details for an MCP server.
 
+      - `type: :mcp_oauth`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: :mcp_oauth`
 
       - `expires_at: Time`
 
@@ -202,15 +213,17 @@ List Credentials
 
       Static bearer token credential details for an MCP server.
 
+      - `type: :static_bearer`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: :static_bearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: :environment_variable`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -238,17 +251,15 @@ List Credentials
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: :limited`
+
           - `allowed_hosts: Array[String]`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: :limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
-
-      - `type: :environment_variable`
 
   - `created_at: Time`
 
@@ -259,8 +270,6 @@ List Credentials
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: :vault_credential`
 
   - `updated_at: Time`
 

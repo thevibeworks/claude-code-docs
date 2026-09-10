@@ -1,3 +1,8 @@
+---
+title: Agents
+url: https://platform.claude.com/docs/en/api/ruby/beta/agents
+---
+
 # Agents
 
 ## Create Agent
@@ -170,13 +175,13 @@ Create Agent
 
   MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
+  - `type: :url`
+
   - `name: String`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: :url`
 
   - `url: String`
 
@@ -192,6 +197,8 @@ Create Agent
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
+  - `type: :coordinator`
+
   - `agents: Array[BetaManagedAgentsMultiagentRosterEntryParams]`
 
     Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
@@ -202,13 +209,13 @@ Create Agent
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `type: :agent`
+
       - `id: String`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `type: :agent`
 
       - `version: Integer`
 
@@ -226,15 +233,13 @@ Create Agent
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `type: :advisor`
+
       - `model: String`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `type: :advisor`
-
-  - `type: :coordinator`
 
 - `skills: Array[BetaManagedAgentsSkillParams]`
 
@@ -244,13 +249,13 @@ Create Agent
 
     An Anthropic-managed skill.
 
+    - `type: :anthropic`
+
     - `skill_id: String`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `type: :anthropic`
 
     - `version: String`
 
@@ -262,13 +267,13 @@ Create Agent
 
     A user-created custom skill.
 
+    - `type: :custom`
+
     - `skill_id: String`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `type: :custom`
 
     - `version: String`
 
@@ -300,6 +305,8 @@ Create Agent
 
         Configuration override for the bash tool.
 
+        - `type: :bash`
+
         - `name: :bash`
 
           Must be "bash".
@@ -308,7 +315,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -324,11 +331,17 @@ Create Agent
 
             - `type: :always_ask`
 
-        - `type: :bash`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `type: :auto`
 
       - `class BetaManagedAgentsEditToolConfigParams`
 
         Configuration override for the edit tool.
+
+        - `type: :edit`
 
         - `name: :edit`
 
@@ -338,7 +351,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -350,11 +363,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :edit`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsReadToolConfigParams`
 
         Configuration override for the read tool.
+
+        - `type: :read`
 
         - `name: :read`
 
@@ -364,7 +381,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -376,11 +393,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :read`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWriteToolConfigParams`
 
         Configuration override for the write tool.
+
+        - `type: :write`
 
         - `name: :write`
 
@@ -390,7 +411,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -402,11 +423,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :write`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGlobToolConfigParams`
 
         Configuration override for the glob tool.
+
+        - `type: :glob`
 
         - `name: :glob`
 
@@ -416,7 +441,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -428,11 +453,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :glob`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGrepToolConfigParams`
 
         Configuration override for the grep tool.
+
+        - `type: :grep`
 
         - `name: :grep`
 
@@ -442,7 +471,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -454,11 +483,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :grep`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebFetchToolConfigParams`
 
         Configuration override for the web_fetch tool.
+
+        - `type: :web_fetch`
 
         - `name: :web_fetch`
 
@@ -482,7 +515,7 @@ Create Agent
 
           format: int32
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -494,11 +527,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :web_fetch`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebSearchToolConfigParams`
 
         Configuration override for the web_search tool.
+
+        - `type: :web_search`
 
         - `name: :web_search`
 
@@ -516,7 +553,7 @@ Create Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -528,7 +565,9 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :web_search`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `user_location: BetaManagedAgentsUserLocation`
 
@@ -568,7 +607,7 @@ Create Agent
 
         Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -580,17 +619,21 @@ Create Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsMCPToolsetParams`
 
     Configuration for tools from an MCP server defined in `mcp_servers`.
+
+    - `type: :mcp_toolset`
 
     - `mcp_server_name: String`
 
       Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
       minLength: 1, maxLength: 255
-
-    - `type: :mcp_toolset`
 
     - `configs: Array[BetaManagedAgentsMCPToolConfigParams]`
 
@@ -606,7 +649,7 @@ Create Agent
 
         Whether this tool is enabled. Overrides the `default_config` setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -617,6 +660,10 @@ Create Agent
         - `class BetaManagedAgentsAlwaysAskPolicy`
 
           Tool calls require user confirmation before execution.
+
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `default_config: BetaManagedAgentsMCPToolsetDefaultConfigParams`
 
@@ -626,7 +673,7 @@ Create Agent
 
         Whether tools are enabled by default. Defaults to true if not specified.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -638,9 +685,15 @@ Create Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsCustomToolParams`
 
     A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+    - `type: :custom`
 
     - `description: String`
 
@@ -664,15 +717,13 @@ Create Agent
 
       minLength: 1, maxLength: 128
 
-    - `type: :custom`
-
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -720,6 +771,8 @@ Create Agent
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -762,11 +815,15 @@ Create Agent
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -786,9 +843,9 @@ Create Agent
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -918,6 +975,8 @@ Create Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -926,9 +985,9 @@ Create Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -938,13 +997,11 @@ Create Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -954,9 +1011,9 @@ Create Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -964,9 +1021,9 @@ Create Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -976,17 +1033,21 @@ Create Agent
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1002,17 +1063,23 @@ Create Agent
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1024,17 +1091,21 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1046,17 +1117,21 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1068,17 +1143,21 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1090,17 +1169,21 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1112,17 +1195,21 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1134,7 +1221,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -1148,11 +1237,13 @@ Create Agent
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1164,7 +1255,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -1206,7 +1299,7 @@ Create Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -1218,9 +1311,13 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -1228,7 +1325,7 @@ Create Agent
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -1239,6 +1336,10 @@ Create Agent
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -1246,7 +1347,7 @@ Create Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -1258,13 +1359,17 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -1279,10 +1384,6 @@ Create Agent
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 
@@ -1430,7 +1531,7 @@ List Agents
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1478,6 +1579,8 @@ List Agents
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -1520,11 +1623,15 @@ List Agents
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -1544,9 +1651,9 @@ List Agents
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -1676,6 +1783,8 @@ List Agents
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -1684,9 +1793,9 @@ List Agents
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -1696,13 +1805,11 @@ List Agents
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -1712,9 +1819,9 @@ List Agents
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -1722,9 +1829,9 @@ List Agents
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -1734,17 +1841,21 @@ List Agents
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1760,17 +1871,23 @@ List Agents
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1782,17 +1899,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1804,17 +1925,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1826,17 +1951,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1848,17 +1977,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1870,17 +2003,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1892,7 +2029,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -1906,11 +2045,13 @@ List Agents
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -1922,7 +2063,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -1964,7 +2107,7 @@ List Agents
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -1976,9 +2119,13 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -1986,7 +2133,7 @@ List Agents
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -1997,6 +2144,10 @@ List Agents
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -2004,7 +2155,7 @@ List Agents
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -2016,13 +2167,17 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -2037,10 +2192,6 @@ List Agents
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 
@@ -2172,7 +2323,7 @@ Get Agent
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2220,6 +2371,8 @@ Get Agent
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -2262,11 +2415,15 @@ Get Agent
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -2286,9 +2443,9 @@ Get Agent
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -2418,6 +2575,8 @@ Get Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -2426,9 +2585,9 @@ Get Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -2438,13 +2597,11 @@ Get Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -2454,9 +2611,9 @@ Get Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -2464,9 +2621,9 @@ Get Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -2476,17 +2633,21 @@ Get Agent
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2502,17 +2663,23 @@ Get Agent
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2524,17 +2691,21 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2546,17 +2717,21 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2568,17 +2743,21 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2590,17 +2769,21 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2612,17 +2795,21 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2634,7 +2821,9 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -2648,11 +2837,13 @@ Get Agent
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -2664,7 +2855,9 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -2706,7 +2899,7 @@ Get Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -2718,9 +2911,13 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -2728,7 +2925,7 @@ Get Agent
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -2739,6 +2936,10 @@ Get Agent
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -2746,7 +2947,7 @@ Get Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -2758,13 +2959,17 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -2779,10 +2984,6 @@ Get Agent
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 
@@ -2907,13 +3108,13 @@ Update Agent
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
+  - `type: :url`
+
   - `name: String`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: :url`
 
   - `url: String`
 
@@ -3073,6 +3274,8 @@ Update Agent
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
+  - `type: :coordinator`
+
   - `agents: Array[BetaManagedAgentsMultiagentRosterEntryParams]`
 
     Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
@@ -3083,13 +3286,13 @@ Update Agent
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `type: :agent`
+
       - `id: String`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `type: :agent`
 
       - `version: Integer`
 
@@ -3107,15 +3310,13 @@ Update Agent
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `type: :advisor`
+
       - `model: String`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `type: :advisor`
-
-  - `type: :coordinator`
 
 - `name: String`
 
@@ -3131,13 +3332,13 @@ Update Agent
 
     An Anthropic-managed skill.
 
+    - `type: :anthropic`
+
     - `skill_id: String`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `type: :anthropic`
 
     - `version: String`
 
@@ -3149,13 +3350,13 @@ Update Agent
 
     A user-created custom skill.
 
+    - `type: :custom`
+
     - `skill_id: String`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `type: :custom`
 
     - `version: String`
 
@@ -3187,6 +3388,8 @@ Update Agent
 
         Configuration override for the bash tool.
 
+        - `type: :bash`
+
         - `name: :bash`
 
           Must be "bash".
@@ -3195,7 +3398,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3211,11 +3414,17 @@ Update Agent
 
             - `type: :always_ask`
 
-        - `type: :bash`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `type: :auto`
 
       - `class BetaManagedAgentsEditToolConfigParams`
 
         Configuration override for the edit tool.
+
+        - `type: :edit`
 
         - `name: :edit`
 
@@ -3225,7 +3434,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3237,11 +3446,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :edit`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsReadToolConfigParams`
 
         Configuration override for the read tool.
+
+        - `type: :read`
 
         - `name: :read`
 
@@ -3251,7 +3464,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3263,11 +3476,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :read`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWriteToolConfigParams`
 
         Configuration override for the write tool.
+
+        - `type: :write`
 
         - `name: :write`
 
@@ -3277,7 +3494,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3289,11 +3506,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :write`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGlobToolConfigParams`
 
         Configuration override for the glob tool.
+
+        - `type: :glob`
 
         - `name: :glob`
 
@@ -3303,7 +3524,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3315,11 +3536,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :glob`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGrepToolConfigParams`
 
         Configuration override for the grep tool.
+
+        - `type: :grep`
 
         - `name: :grep`
 
@@ -3329,7 +3554,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3341,11 +3566,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :grep`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebFetchToolConfigParams`
 
         Configuration override for the web_fetch tool.
+
+        - `type: :web_fetch`
 
         - `name: :web_fetch`
 
@@ -3369,7 +3598,7 @@ Update Agent
 
           format: int32
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3381,11 +3610,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :web_fetch`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebSearchToolConfigParams`
 
         Configuration override for the web_search tool.
+
+        - `type: :web_search`
 
         - `name: :web_search`
 
@@ -3403,7 +3636,7 @@ Update Agent
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -3415,7 +3648,9 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: :web_search`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `user_location: BetaManagedAgentsUserLocation`
 
@@ -3455,7 +3690,7 @@ Update Agent
 
         Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -3467,17 +3702,21 @@ Update Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsMCPToolsetParams`
 
     Configuration for tools from an MCP server defined in `mcp_servers`.
+
+    - `type: :mcp_toolset`
 
     - `mcp_server_name: String`
 
       Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
       minLength: 1, maxLength: 255
-
-    - `type: :mcp_toolset`
 
     - `configs: Array[BetaManagedAgentsMCPToolConfigParams]`
 
@@ -3493,7 +3732,7 @@ Update Agent
 
         Whether this tool is enabled. Overrides the `default_config` setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -3504,6 +3743,10 @@ Update Agent
         - `class BetaManagedAgentsAlwaysAskPolicy`
 
           Tool calls require user confirmation before execution.
+
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `default_config: BetaManagedAgentsMCPToolsetDefaultConfigParams`
 
@@ -3513,7 +3756,7 @@ Update Agent
 
         Whether tools are enabled by default. Defaults to true if not specified.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -3525,9 +3768,15 @@ Update Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsCustomToolParams`
 
     A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+    - `type: :custom`
 
     - `description: String`
 
@@ -3551,8 +3800,6 @@ Update Agent
 
       minLength: 1, maxLength: 128
 
-    - `type: :custom`
-
 - `version: Integer`
 
   The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
@@ -3565,7 +3812,7 @@ Update Agent
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -3613,6 +3860,8 @@ Update Agent
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -3655,11 +3904,15 @@ Update Agent
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -3679,9 +3932,9 @@ Update Agent
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -3811,6 +4064,8 @@ Update Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -3819,9 +4074,9 @@ Update Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -3831,13 +4086,11 @@ Update Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -3847,9 +4100,9 @@ Update Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -3857,9 +4110,9 @@ Update Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -3869,17 +4122,21 @@ Update Agent
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -3895,17 +4152,23 @@ Update Agent
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -3917,17 +4180,21 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -3939,17 +4206,21 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -3961,17 +4232,21 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -3983,17 +4258,21 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4005,17 +4284,21 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4027,7 +4310,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -4041,11 +4326,13 @@ Update Agent
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4057,7 +4344,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -4099,7 +4388,7 @@ Update Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -4111,9 +4400,13 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -4121,7 +4414,7 @@ Update Agent
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -4132,6 +4425,10 @@ Update Agent
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -4139,7 +4436,7 @@ Update Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -4151,13 +4448,17 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -4172,10 +4473,6 @@ Update Agent
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 
@@ -4296,7 +4593,7 @@ Archive Agent
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -4344,6 +4641,8 @@ Archive Agent
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -4386,11 +4685,15 @@ Archive Agent
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -4410,9 +4713,9 @@ Archive Agent
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -4542,6 +4845,8 @@ Archive Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -4550,9 +4855,9 @@ Archive Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -4562,13 +4867,11 @@ Archive Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -4578,9 +4881,9 @@ Archive Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -4588,9 +4891,9 @@ Archive Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -4600,17 +4903,21 @@ Archive Agent
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4626,17 +4933,23 @@ Archive Agent
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4648,17 +4961,21 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4670,17 +4987,21 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4692,17 +5013,21 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4714,17 +5039,21 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4736,17 +5065,21 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4758,7 +5091,9 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -4772,11 +5107,13 @@ Archive Agent
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -4788,7 +5125,9 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -4830,7 +5169,7 @@ Archive Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -4842,9 +5181,13 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -4852,7 +5195,7 @@ Archive Agent
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -4863,6 +5206,10 @@ Archive Agent
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -4870,7 +5217,7 @@ Archive Agent
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -4882,13 +5229,17 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -4903,10 +5254,6 @@ Archive Agent
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 
@@ -5017,17 +5364,19 @@ puts(beta_managed_agents_agent)
 
   Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+  - `type: :advisor`
+
   - `model: String`
 
     The advisor model id.
-
-  - `type: :advisor`
 
 ### Beta Managed Agents Agent
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -5047,9 +5396,9 @@ puts(beta_managed_agents_agent)
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -5179,6 +5528,8 @@ puts(beta_managed_agents_agent)
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -5187,9 +5538,9 @@ puts(beta_managed_agents_agent)
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -5199,13 +5550,11 @@ puts(beta_managed_agents_agent)
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -5215,9 +5564,9 @@ puts(beta_managed_agents_agent)
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -5225,9 +5574,9 @@ puts(beta_managed_agents_agent)
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -5237,17 +5586,21 @@ puts(beta_managed_agents_agent)
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5263,17 +5616,23 @@ puts(beta_managed_agents_agent)
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5285,17 +5644,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5307,17 +5670,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5329,17 +5696,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5351,17 +5722,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5373,17 +5748,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5395,7 +5774,9 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -5409,11 +5790,13 @@ puts(beta_managed_agents_agent)
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -5425,7 +5808,9 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -5467,7 +5852,7 @@ puts(beta_managed_agents_agent)
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -5479,9 +5864,13 @@ puts(beta_managed_agents_agent)
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -5489,7 +5878,7 @@ puts(beta_managed_agents_agent)
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -5500,6 +5889,10 @@ puts(beta_managed_agents_agent)
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -5507,7 +5900,7 @@ puts(beta_managed_agents_agent)
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -5519,13 +5912,17 @@ puts(beta_managed_agents_agent)
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -5540,10 +5937,6 @@ puts(beta_managed_agents_agent)
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 
@@ -5563,9 +5956,9 @@ puts(beta_managed_agents_agent)
 
   A resolved agent reference with a concrete version.
 
-  - `id: String`
-
   - `type: :agent`
+
+  - `id: String`
 
   - `version: Integer`
 
@@ -5581,11 +5974,13 @@ puts(beta_managed_agents_agent)
 
     Configuration for the bash tool.
 
+    - `type: :bash`
+
     - `enabled: bool`
 
     - `name: :bash`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5601,17 +5996,23 @@ puts(beta_managed_agents_agent)
 
         - `type: :always_ask`
 
-    - `type: :bash`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: :auto`
 
   - `class BetaManagedAgentsEditToolConfig`
 
     Configuration for the edit tool.
 
+    - `type: :edit`
+
     - `enabled: bool`
 
     - `name: :edit`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5623,17 +6024,21 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :edit`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsReadToolConfig`
 
     Configuration for the read tool.
 
+    - `type: :read`
+
     - `enabled: bool`
 
     - `name: :read`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5645,17 +6050,21 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :read`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWriteToolConfig`
 
     Configuration for the write tool.
 
+    - `type: :write`
+
     - `enabled: bool`
 
     - `name: :write`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5667,17 +6076,21 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :write`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGlobToolConfig`
 
     Configuration for the glob tool.
 
+    - `type: :glob`
+
     - `enabled: bool`
 
     - `name: :glob`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5689,17 +6102,21 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :glob`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGrepToolConfig`
 
     Configuration for the grep tool.
 
+    - `type: :grep`
+
     - `enabled: bool`
 
     - `name: :grep`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5711,17 +6128,21 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :grep`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebFetchToolConfig`
 
     Configuration for the web_fetch tool.
 
+    - `type: :web_fetch`
+
     - `enabled: bool`
 
     - `name: :web_fetch`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5733,7 +6154,9 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :web_fetch`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `allowed_domains: Array[String]`
 
@@ -5747,11 +6170,13 @@ puts(beta_managed_agents_agent)
 
     Configuration for the web_search tool.
 
+    - `type: :web_search`
+
     - `enabled: bool`
 
     - `name: :web_search`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5763,7 +6188,9 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :web_search`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `allowed_domains: Array[String]`
 
@@ -5809,6 +6236,8 @@ puts(beta_managed_agents_agent)
 
     Configuration override for the bash tool.
 
+    - `type: :bash`
+
     - `name: :bash`
 
       Must be "bash".
@@ -5817,7 +6246,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5833,11 +6262,17 @@ puts(beta_managed_agents_agent)
 
         - `type: :always_ask`
 
-    - `type: :bash`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: :auto`
 
   - `class BetaManagedAgentsEditToolConfigParams`
 
     Configuration override for the edit tool.
+
+    - `type: :edit`
 
     - `name: :edit`
 
@@ -5847,7 +6282,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5859,11 +6294,15 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :edit`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsReadToolConfigParams`
 
     Configuration override for the read tool.
+
+    - `type: :read`
 
     - `name: :read`
 
@@ -5873,7 +6312,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5885,11 +6324,15 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :read`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWriteToolConfigParams`
 
     Configuration override for the write tool.
+
+    - `type: :write`
 
     - `name: :write`
 
@@ -5899,7 +6342,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5911,11 +6354,15 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :write`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGlobToolConfigParams`
 
     Configuration override for the glob tool.
+
+    - `type: :glob`
 
     - `name: :glob`
 
@@ -5925,7 +6372,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5937,11 +6384,15 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :glob`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGrepToolConfigParams`
 
     Configuration override for the grep tool.
+
+    - `type: :grep`
 
     - `name: :grep`
 
@@ -5951,7 +6402,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -5963,11 +6414,15 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :grep`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebFetchToolConfigParams`
 
     Configuration override for the web_fetch tool.
+
+    - `type: :web_fetch`
 
     - `name: :web_fetch`
 
@@ -5991,7 +6446,7 @@ puts(beta_managed_agents_agent)
 
       format: int32
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -6003,11 +6458,15 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :web_fetch`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebSearchToolConfigParams`
 
     Configuration override for the web_search tool.
+
+    - `type: :web_search`
 
     - `name: :web_search`
 
@@ -6025,7 +6484,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -6037,7 +6496,9 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-    - `type: :web_search`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `user_location: BetaManagedAgentsUserLocation`
 
@@ -6077,7 +6538,7 @@ puts(beta_managed_agents_agent)
 
   - `enabled: bool`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -6092,6 +6553,12 @@ puts(beta_managed_agents_agent)
       Tool calls require user confirmation before execution.
 
       - `type: :always_ask`
+
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Agent Toolset Default Config Params
 
@@ -6103,7 +6570,7 @@ puts(beta_managed_agents_agent)
 
     Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -6119,9 +6586,17 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
+
 ### Beta Managed Agents Agent Toolset20260401
 
 - `class BetaManagedAgentsAgentToolset20260401`
+
+  - `type: :agent_toolset_20260401`
 
   - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
@@ -6129,11 +6604,13 @@ puts(beta_managed_agents_agent)
 
       Configuration for the bash tool.
 
+      - `type: :bash`
+
       - `enabled: bool`
 
       - `name: :bash`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6149,17 +6626,23 @@ puts(beta_managed_agents_agent)
 
           - `type: :always_ask`
 
-      - `type: :bash`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `type: :auto`
 
     - `class BetaManagedAgentsEditToolConfig`
 
       Configuration for the edit tool.
 
+      - `type: :edit`
+
       - `enabled: bool`
 
       - `name: :edit`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6171,17 +6654,21 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :edit`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsReadToolConfig`
 
       Configuration for the read tool.
 
+      - `type: :read`
+
       - `enabled: bool`
 
       - `name: :read`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6193,17 +6680,21 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :read`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWriteToolConfig`
 
       Configuration for the write tool.
 
+      - `type: :write`
+
       - `enabled: bool`
 
       - `name: :write`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6215,17 +6706,21 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :write`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGlobToolConfig`
 
       Configuration for the glob tool.
 
+      - `type: :glob`
+
       - `enabled: bool`
 
       - `name: :glob`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6237,17 +6732,21 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :glob`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGrepToolConfig`
 
       Configuration for the grep tool.
 
+      - `type: :grep`
+
       - `enabled: bool`
 
       - `name: :grep`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6259,17 +6758,21 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :grep`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebFetchToolConfig`
 
       Configuration for the web_fetch tool.
 
+      - `type: :web_fetch`
+
       - `enabled: bool`
 
       - `name: :web_fetch`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6281,7 +6784,9 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :web_fetch`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `allowed_domains: Array[String]`
 
@@ -6295,11 +6800,13 @@ puts(beta_managed_agents_agent)
 
       Configuration for the web_search tool.
 
+      - `type: :web_search`
+
       - `enabled: bool`
 
       - `name: :web_search`
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6311,7 +6818,9 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :web_search`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `allowed_domains: Array[String]`
 
@@ -6353,7 +6862,7 @@ puts(beta_managed_agents_agent)
 
     - `enabled: bool`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -6365,7 +6874,9 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-  - `type: :agent_toolset_20260401`
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Agent Toolset20260401 Bash Input
 
@@ -6468,6 +6979,8 @@ puts(beta_managed_agents_agent)
 
       Configuration override for the bash tool.
 
+      - `type: :bash`
+
       - `name: :bash`
 
         Must be "bash".
@@ -6476,7 +6989,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6492,11 +7005,17 @@ puts(beta_managed_agents_agent)
 
           - `type: :always_ask`
 
-      - `type: :bash`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `type: :auto`
 
     - `class BetaManagedAgentsEditToolConfigParams`
 
       Configuration override for the edit tool.
+
+      - `type: :edit`
 
       - `name: :edit`
 
@@ -6506,7 +7025,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6518,11 +7037,15 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :edit`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsReadToolConfigParams`
 
       Configuration override for the read tool.
+
+      - `type: :read`
 
       - `name: :read`
 
@@ -6532,7 +7055,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6544,11 +7067,15 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :read`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWriteToolConfigParams`
 
       Configuration override for the write tool.
+
+      - `type: :write`
 
       - `name: :write`
 
@@ -6558,7 +7085,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6570,11 +7097,15 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :write`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGlobToolConfigParams`
 
       Configuration override for the glob tool.
+
+      - `type: :glob`
 
       - `name: :glob`
 
@@ -6584,7 +7115,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6596,11 +7127,15 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :glob`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGrepToolConfigParams`
 
       Configuration override for the grep tool.
+
+      - `type: :grep`
 
       - `name: :grep`
 
@@ -6610,7 +7145,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6622,11 +7157,15 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :grep`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebFetchToolConfigParams`
 
       Configuration override for the web_fetch tool.
+
+      - `type: :web_fetch`
 
       - `name: :web_fetch`
 
@@ -6650,7 +7189,7 @@ puts(beta_managed_agents_agent)
 
         format: int32
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6662,11 +7201,15 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :web_fetch`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebSearchToolConfigParams`
 
       Configuration override for the web_search tool.
+
+      - `type: :web_search`
 
       - `name: :web_search`
 
@@ -6684,7 +7227,7 @@ puts(beta_managed_agents_agent)
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
         Permission policy for tool execution.
 
@@ -6696,7 +7239,9 @@ puts(beta_managed_agents_agent)
 
           Tool calls require user confirmation before execution.
 
-      - `type: :web_search`
+        - `class BetaManagedAgentsAutoPolicy`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `user_location: BetaManagedAgentsUserLocation`
 
@@ -6736,7 +7281,7 @@ puts(beta_managed_agents_agent)
 
       Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -6747,6 +7292,10 @@ puts(beta_managed_agents_agent)
       - `class BetaManagedAgentsAlwaysAskPolicy`
 
         Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Agent Toolset20260401 Read Input
 
@@ -6805,9 +7354,9 @@ puts(beta_managed_agents_agent)
 
   A resolved Anthropic-managed skill.
 
-  - `skill_id: String`
-
   - `type: :anthropic`
+
+  - `skill_id: String`
 
   - `version: String`
 
@@ -6817,13 +7366,13 @@ puts(beta_managed_agents_agent)
 
   An Anthropic-managed skill.
 
+  - `type: :anthropic`
+
   - `skill_id: String`
 
     Identifier of the Anthropic skill (e.g., "xlsx").
 
     minLength: 1, maxLength: 64
-
-  - `type: :anthropic`
 
   - `version: String`
 
@@ -6831,17 +7380,27 @@ puts(beta_managed_agents_agent)
 
     minLength: 1, maxLength: 64
 
+### Beta Managed Agents Auto Policy
+
+- `class BetaManagedAgentsAutoPolicy`
+
+  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+  - `type: :auto`
+
 ### Beta Managed Agents Bash Tool Config
 
 - `class BetaManagedAgentsBashToolConfig`
 
   Configuration for the bash tool.
 
+  - `type: :bash`
+
   - `enabled: bool`
 
   - `name: :bash`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -6857,13 +7416,19 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :bash`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Bash Tool Config Params
 
 - `class BetaManagedAgentsBashToolConfigParams`
 
   Configuration override for the bash tool.
+
+  - `type: :bash`
 
   - `name: :bash`
 
@@ -6873,7 +7438,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -6889,7 +7454,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :bash`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Custom Skill
 
@@ -6897,9 +7466,9 @@ puts(beta_managed_agents_agent)
 
   A resolved user-created custom skill.
 
-  - `skill_id: String`
-
   - `type: :custom`
+
+  - `skill_id: String`
 
   - `version: String`
 
@@ -6909,13 +7478,13 @@ puts(beta_managed_agents_agent)
 
   A user-created custom skill.
 
+  - `type: :custom`
+
   - `skill_id: String`
 
     Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
     minLength: 1, maxLength: 64
-
-  - `type: :custom`
 
   - `version: String`
 
@@ -6928,6 +7497,8 @@ puts(beta_managed_agents_agent)
 - `class BetaManagedAgentsCustomTool`
 
   A custom tool as returned in API responses.
+
+  - `type: :custom`
 
   - `description: String`
 
@@ -6942,8 +7513,6 @@ puts(beta_managed_agents_agent)
     - `required: Array[String]`
 
   - `name: String`
-
-  - `type: :custom`
 
 ### Beta Managed Agents Custom Tool Input Schema
 
@@ -6962,6 +7531,8 @@ puts(beta_managed_agents_agent)
 - `class BetaManagedAgentsCustomToolParams`
 
   A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+  - `type: :custom`
 
   - `description: String`
 
@@ -6985,19 +7556,19 @@ puts(beta_managed_agents_agent)
 
     minLength: 1, maxLength: 128
 
-  - `type: :custom`
-
 ### Beta Managed Agents Edit Tool Config
 
 - `class BetaManagedAgentsEditToolConfig`
 
   Configuration for the edit tool.
 
+  - `type: :edit`
+
   - `enabled: bool`
 
   - `name: :edit`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7013,13 +7584,19 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :edit`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Edit Tool Config Params
 
 - `class BetaManagedAgentsEditToolConfigParams`
 
   Configuration override for the edit tool.
+
+  - `type: :edit`
 
   - `name: :edit`
 
@@ -7029,7 +7606,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7045,7 +7622,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :edit`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Effort High
 
@@ -7093,11 +7674,13 @@ puts(beta_managed_agents_agent)
 
   Configuration for the glob tool.
 
+  - `type: :glob`
+
   - `enabled: bool`
 
   - `name: :glob`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7113,13 +7696,19 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :glob`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Glob Tool Config Params
 
 - `class BetaManagedAgentsGlobToolConfigParams`
 
   Configuration override for the glob tool.
+
+  - `type: :glob`
 
   - `name: :glob`
 
@@ -7129,7 +7718,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7145,7 +7734,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :glob`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Grep Tool Config
 
@@ -7153,11 +7746,13 @@ puts(beta_managed_agents_agent)
 
   Configuration for the grep tool.
 
+  - `type: :grep`
+
   - `enabled: bool`
 
   - `name: :grep`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7173,13 +7768,19 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :grep`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Grep Tool Config Params
 
 - `class BetaManagedAgentsGrepToolConfigParams`
 
   Configuration override for the grep tool.
+
+  - `type: :grep`
 
   - `name: :grep`
 
@@ -7189,7 +7790,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7205,7 +7806,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :grep`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents MCP Server URL Definition
 
@@ -7213,9 +7818,9 @@ puts(beta_managed_agents_agent)
 
   URL-based MCP server connection as returned in API responses.
 
-  - `name: String`
-
   - `type: :url`
+
+  - `name: String`
 
   - `url: String`
 
@@ -7229,7 +7834,7 @@ puts(beta_managed_agents_agent)
 
   - `name: String`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7244,6 +7849,12 @@ puts(beta_managed_agents_agent)
       Tool calls require user confirmation before execution.
 
       - `type: :always_ask`
+
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents MCP Tool Config Params
 
@@ -7261,7 +7872,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled. Overrides the `default_config` setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7277,9 +7888,17 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
+
 ### Beta Managed Agents MCP Toolset
 
 - `class BetaManagedAgentsMCPToolset`
+
+  - `type: :mcp_toolset`
 
   - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -7287,7 +7906,7 @@ puts(beta_managed_agents_agent)
 
     - `name: String`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -7303,13 +7922,19 @@ puts(beta_managed_agents_agent)
 
         - `type: :always_ask`
 
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: :auto`
+
   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
     Resolved default configuration for all tools from an MCP server.
 
     - `enabled: bool`
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -7321,9 +7946,11 @@ puts(beta_managed_agents_agent)
 
         Tool calls require user confirmation before execution.
 
-  - `mcp_server_name: String`
+      - `class BetaManagedAgentsAutoPolicy`
 
-  - `type: :mcp_toolset`
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+  - `mcp_server_name: String`
 
 ### Beta Managed Agents MCP Toolset Default Config
 
@@ -7333,7 +7960,7 @@ puts(beta_managed_agents_agent)
 
   - `enabled: bool`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7348,6 +7975,12 @@ puts(beta_managed_agents_agent)
       Tool calls require user confirmation before execution.
 
       - `type: :always_ask`
+
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents MCP Toolset Default Config Params
 
@@ -7359,7 +7992,7 @@ puts(beta_managed_agents_agent)
 
     Whether tools are enabled by default. Defaults to true if not specified.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7375,19 +8008,25 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
+
 ### Beta Managed Agents MCP Toolset Params
 
 - `class BetaManagedAgentsMCPToolsetParams`
 
   Configuration for tools from an MCP server defined in `mcp_servers`.
 
+  - `type: :mcp_toolset`
+
   - `mcp_server_name: String`
 
     Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: :mcp_toolset`
 
   - `configs: Array[BetaManagedAgentsMCPToolConfigParams]`
 
@@ -7403,7 +8042,7 @@ puts(beta_managed_agents_agent)
 
       Whether this tool is enabled. Overrides the `default_config` setting.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -7419,6 +8058,12 @@ puts(beta_managed_agents_agent)
 
         - `type: :always_ask`
 
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: :auto`
+
   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfigParams`
 
     Default configuration for all tools from an MCP server.
@@ -7427,7 +8072,7 @@ puts(beta_managed_agents_agent)
 
       Whether tools are enabled by default. Defaults to true if not specified.
 
-    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
       Permission policy for tool execution.
 
@@ -7438,6 +8083,10 @@ puts(beta_managed_agents_agent)
       - `class BetaManagedAgentsAlwaysAskPolicy`
 
         Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsAutoPolicy`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Model
 
@@ -7775,6 +8424,8 @@ puts(beta_managed_agents_agent)
 
   Resolved coordinator topology with a concrete agent roster.
 
+  - `type: :coordinator`
+
   - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
     Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -7783,9 +8434,9 @@ puts(beta_managed_agents_agent)
 
       A resolved agent reference with a concrete version.
 
-      - `id: String`
-
       - `type: :agent`
+
+      - `id: String`
 
       - `version: Integer`
 
@@ -7795,19 +8446,19 @@ puts(beta_managed_agents_agent)
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+      - `type: :advisor`
+
       - `model: String`
 
         The advisor model id.
-
-      - `type: :advisor`
-
-  - `type: :coordinator`
 
 ### Beta Managed Agents Multiagent Coordinator Params
 
 - `class BetaManagedAgentsMultiagentCoordinatorParams`
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+
+  - `type: :coordinator`
 
   - `agents: Array[BetaManagedAgentsMultiagentRosterEntryParams]`
 
@@ -7819,13 +8470,13 @@ puts(beta_managed_agents_agent)
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `type: :agent`
+
       - `id: String`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `type: :agent`
 
       - `version: Integer`
 
@@ -7843,15 +8494,13 @@ puts(beta_managed_agents_agent)
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `type: :advisor`
+
       - `model: String`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `type: :advisor`
-
-  - `type: :coordinator`
 
 ### Beta Managed Agents Multiagent Self Params
 
@@ -7867,11 +8516,13 @@ puts(beta_managed_agents_agent)
 
   Configuration for the read tool.
 
+  - `type: :read`
+
   - `enabled: bool`
 
   - `name: :read`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7887,13 +8538,19 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :read`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Read Tool Config Params
 
 - `class BetaManagedAgentsReadToolConfigParams`
 
   Configuration override for the read tool.
+
+  - `type: :read`
 
   - `name: :read`
 
@@ -7903,7 +8560,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -7919,7 +8576,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :read`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Session Thread Agent
 
@@ -7927,15 +8588,17 @@ puts(beta_managed_agents_agent)
 
   Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+  - `type: :agent`
+
   - `id: String`
 
   - `description: String`
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -8067,9 +8730,9 @@ puts(beta_managed_agents_agent)
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -8077,9 +8740,9 @@ puts(beta_managed_agents_agent)
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -8089,17 +8752,21 @@ puts(beta_managed_agents_agent)
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8115,17 +8782,23 @@ puts(beta_managed_agents_agent)
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8137,17 +8810,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8159,17 +8836,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8181,17 +8862,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8203,17 +8888,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8225,17 +8914,21 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8247,7 +8940,9 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -8261,11 +8956,13 @@ puts(beta_managed_agents_agent)
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -8277,7 +8974,9 @@ puts(beta_managed_agents_agent)
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -8319,7 +9018,7 @@ puts(beta_managed_agents_agent)
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -8331,9 +9030,13 @@ puts(beta_managed_agents_agent)
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -8341,7 +9044,7 @@ puts(beta_managed_agents_agent)
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -8352,6 +9055,10 @@ puts(beta_managed_agents_agent)
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -8359,7 +9066,7 @@ puts(beta_managed_agents_agent)
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -8371,13 +9078,17 @@ puts(beta_managed_agents_agent)
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -8393,10 +9104,6 @@ puts(beta_managed_agents_agent)
 
       - `name: String`
 
-      - `type: :custom`
-
-  - `type: :agent`
-
   - `version: Integer`
 
     format: int32
@@ -8411,13 +9118,13 @@ puts(beta_managed_agents_agent)
 
     An Anthropic-managed skill.
 
+    - `type: :anthropic`
+
     - `skill_id: String`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `type: :anthropic`
 
     - `version: String`
 
@@ -8429,13 +9136,13 @@ puts(beta_managed_agents_agent)
 
     A user-created custom skill.
 
+    - `type: :custom`
+
     - `skill_id: String`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `type: :custom`
 
     - `version: String`
 
@@ -8449,13 +9156,13 @@ puts(beta_managed_agents_agent)
 
   URL-based MCP server connection.
 
+  - `type: :url`
+
   - `name: String`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: :url`
 
   - `url: String`
 
@@ -8501,11 +9208,13 @@ puts(beta_managed_agents_agent)
 
   Configuration for the web_fetch tool.
 
+  - `type: :web_fetch`
+
   - `enabled: bool`
 
   - `name: :web_fetch`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -8521,7 +9230,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :web_fetch`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
   - `allowed_domains: Array[String]`
 
@@ -8536,6 +9249,8 @@ puts(beta_managed_agents_agent)
 - `class BetaManagedAgentsWebFetchToolConfigParams`
 
   Configuration override for the web_fetch tool.
+
+  - `type: :web_fetch`
 
   - `name: :web_fetch`
 
@@ -8559,7 +9274,7 @@ puts(beta_managed_agents_agent)
 
     format: int32
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -8575,7 +9290,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :web_fetch`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Web Search Tool Config
 
@@ -8583,11 +9302,13 @@ puts(beta_managed_agents_agent)
 
   Configuration for the web_search tool.
 
+  - `type: :web_search`
+
   - `enabled: bool`
 
   - `name: :web_search`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -8603,7 +9324,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :web_search`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
   - `allowed_domains: Array[String]`
 
@@ -8645,6 +9370,8 @@ puts(beta_managed_agents_agent)
 
   Configuration override for the web_search tool.
 
+  - `type: :web_search`
+
   - `name: :web_search`
 
     Must be "web_search".
@@ -8661,7 +9388,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -8677,7 +9404,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :web_search`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
   - `user_location: BetaManagedAgentsUserLocation`
 
@@ -8715,11 +9446,13 @@ puts(beta_managed_agents_agent)
 
   Configuration for the write tool.
 
+  - `type: :write`
+
   - `enabled: bool`
 
   - `name: :write`
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -8735,13 +9468,19 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :write`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ### Beta Managed Agents Write Tool Config Params
 
 - `class BetaManagedAgentsWriteToolConfigParams`
 
   Configuration override for the write tool.
+
+  - `type: :write`
 
   - `name: :write`
 
@@ -8751,7 +9490,7 @@ puts(beta_managed_agents_agent)
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
     Permission policy for tool execution.
 
@@ -8767,7 +9506,11 @@ puts(beta_managed_agents_agent)
 
       - `type: :always_ask`
 
-  - `type: :write`
+    - `class BetaManagedAgentsAutoPolicy`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: :auto`
 
 ## Agents › Versions
 
@@ -8799,7 +9542,7 @@ List Agent Versions
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -8847,6 +9590,8 @@ List Agent Versions
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -8889,11 +9634,15 @@ List Agent Versions
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsAgent`
 
   A Managed Agents `agent`.
+
+  - `type: :agent`
 
   - `id: String`
 
@@ -8913,9 +9662,9 @@ List Agent Versions
 
   - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: String`
-
     - `type: :url`
+
+    - `name: String`
 
     - `url: String`
 
@@ -9045,6 +9794,8 @@ List Agent Versions
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: :coordinator`
+
     - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -9053,9 +9804,9 @@ List Agent Versions
 
         A resolved agent reference with a concrete version.
 
-        - `id: String`
-
         - `type: :agent`
+
+        - `id: String`
 
         - `version: Integer`
 
@@ -9065,13 +9816,11 @@ List Agent Versions
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: :advisor`
+
         - `model: String`
 
           The advisor model id.
-
-        - `type: :advisor`
-
-    - `type: :coordinator`
 
   - `name: String`
 
@@ -9081,9 +9830,9 @@ List Agent Versions
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: String`
-
       - `type: :anthropic`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -9091,9 +9840,9 @@ List Agent Versions
 
       A resolved user-created custom skill.
 
-      - `skill_id: String`
-
       - `type: :custom`
+
+      - `skill_id: String`
 
       - `version: String`
 
@@ -9103,17 +9852,21 @@ List Agent Versions
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
+      - `type: :agent_toolset_20260401`
+
       - `configs: Array[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig`
 
           Configuration for the bash tool.
 
+          - `type: :bash`
+
           - `enabled: bool`
 
           - `name: :bash`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9129,17 +9882,23 @@ List Agent Versions
 
               - `type: :always_ask`
 
-          - `type: :bash`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: :auto`
 
         - `class BetaManagedAgentsEditToolConfig`
 
           Configuration for the edit tool.
 
+          - `type: :edit`
+
           - `enabled: bool`
 
           - `name: :edit`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9151,17 +9910,21 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :edit`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
 
+          - `type: :read`
+
           - `enabled: bool`
 
           - `name: :read`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9173,17 +9936,21 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :read`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
 
+          - `type: :write`
+
           - `enabled: bool`
 
           - `name: :write`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9195,17 +9962,21 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :write`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
 
+          - `type: :glob`
+
           - `enabled: bool`
 
           - `name: :glob`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9217,17 +9988,21 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :glob`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
 
+          - `type: :grep`
+
           - `enabled: bool`
 
           - `name: :grep`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9239,17 +10014,21 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :grep`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
 
+          - `type: :web_fetch`
+
           - `enabled: bool`
 
           - `name: :web_fetch`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9261,7 +10040,9 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_fetch`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -9275,11 +10056,13 @@ List Agent Versions
 
           Configuration for the web_search tool.
 
+          - `type: :web_search`
+
           - `enabled: bool`
 
           - `name: :web_search`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -9291,7 +10074,9 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: :web_search`
+            - `class BetaManagedAgentsAutoPolicy`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Array[String]`
 
@@ -9333,7 +10118,7 @@ List Agent Versions
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -9345,9 +10130,13 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
-      - `type: :agent_toolset_20260401`
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset`
+
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfig]`
 
@@ -9355,7 +10144,7 @@ List Agent Versions
 
         - `name: String`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -9366,6 +10155,10 @@ List Agent Versions
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
+
+          - `class BetaManagedAgentsAutoPolicy`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -9373,7 +10166,7 @@ List Agent Versions
 
         - `enabled: bool`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -9385,13 +10178,17 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: String`
+          - `class BetaManagedAgentsAutoPolicy`
 
-      - `type: :mcp_toolset`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: String`
 
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
+
+      - `type: :custom`
 
       - `description: String`
 
@@ -9406,10 +10203,6 @@ List Agent Versions
         - `required: Array[String]`
 
       - `name: String`
-
-      - `type: :custom`
-
-  - `type: :agent`
 
   - `updated_at: Time`
 

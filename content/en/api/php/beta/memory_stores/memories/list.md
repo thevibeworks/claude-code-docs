@@ -1,6 +1,11 @@
+---
+title: List memories
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memories/list
+---
+
 # List memories
 
-`$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryListItem>`
+`$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsMemoryListItem>`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -34,11 +39,15 @@ List memories
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ManagedAgentsMemoryListItem`
 
   - `ManagedAgentsMemory`
+
+    - `Type type`
 
     - `string id`
 
@@ -68,8 +77,6 @@ List memories
 
       Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
@@ -80,11 +87,11 @@ List memories
 
   - `ManagedAgentsMemoryPrefix`
 
+    - `Type type`
+
     - `string path`
 
       The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-    - `Type type`
 
 ## Example
 
@@ -103,6 +110,7 @@ $page = $client->beta->memoryStores->memories->list(
   pathPrefix: 'path_prefix',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

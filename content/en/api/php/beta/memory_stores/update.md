@@ -1,6 +1,11 @@
+---
+title: Update a memory store
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/update
+---
+
 # Update a memory store
 
-`$client->beta->memoryStores->update(string memoryStoreID, ?string description, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
+`$client->beta->memoryStores->update(string memoryStoreID, ?string description, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores/{memory_store_id}`
 
@@ -26,9 +31,13 @@ Update a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -41,8 +50,6 @@ Update a memory store
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -75,6 +82,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->update(
   metadata: ['foo' => 'string'],
   name: 'x',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryStore);

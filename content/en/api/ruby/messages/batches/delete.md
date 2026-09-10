@@ -1,6 +1,11 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/ruby/messages/batches/delete
+---
+
 # Delete a Message Batch
 
-`messages.batches.delete(message_batch_id) -> DeletedMessageBatch`
+`messages.batches.delete(message_batch_id, **kwargs) -> DeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -16,19 +21,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class DeletedMessageBatch`
-
-  - `id: String`
-
-    ID of the Message Batch.
 
   - `type: :message_batch_deleted`
 
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
+
+  - `id: String`
+
+    ID of the Message Batch.
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: Tunnels
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels
+---
+
 # Tunnels
 
 ## Create Tunnel
@@ -64,6 +69,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,6 +113,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `Optional<String> displayName`
 
     Optional human-readable name for the tunnel (1-255 characters).
@@ -117,6 +126,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonValue type = "tunnel"`
 
   - `String id`
 
@@ -141,8 +152,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
   - `String domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonValue type = "tunnel"`
 
 ### Example
 
@@ -244,6 +253,8 @@ Fetches a tunnel by ID.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -286,11 +297,15 @@ Fetches a tunnel by ID.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonValue type = "tunnel"`
 
   - `String id`
 
@@ -315,8 +330,6 @@ Fetches a tunnel by ID.
   - `String domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonValue type = "tunnel"`
 
 ### Example
 
@@ -430,6 +443,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -472,11 +487,15 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonValue type = "tunnel"`
 
   - `String id`
 
@@ -501,8 +520,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `String domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonValue type = "tunnel"`
 
 ### Example
 
@@ -609,6 +626,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -651,11 +670,15 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonValue type = "tunnel"`
 
   - `String id`
 
@@ -680,8 +703,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
   - `String domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonValue type = "tunnel"`
 
 ### Example
 
@@ -783,6 +804,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -825,11 +848,15 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonValue type = "tunnel_token"`
 
   - `String id`
 
@@ -838,8 +865,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `String tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonValue type = "tunnel_token"`
 
 ### Example
 
@@ -938,6 +963,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -980,6 +1007,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `Optional<String> reason`
 
     Optional free-text reason for the rotation, recorded for audit.
@@ -992,6 +1021,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   A tunnel's connector token.
 
+  - `JsonValue type = "tunnel_token"`
+
   - `String id`
 
     Stable identifier for the current token value. Changes when the token is rotated.
@@ -999,8 +1030,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `String tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonValue type = "tunnel_token"`
 
 ### Example
 
@@ -1041,6 +1070,8 @@ public final class Main {
 
   An MCP tunnel.
 
+  - `JsonValue type = "tunnel"`
+
   - `String id`
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
@@ -1065,13 +1096,13 @@ public final class Main {
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue type = "tunnel"`
-
 ### Beta Tunnel Token
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonValue type = "tunnel_token"`
 
   - `String id`
 
@@ -1080,8 +1111,6 @@ public final class Main {
   - `String tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonValue type = "tunnel_token"`
 
 ## Tunnels › Certificates
 
@@ -1151,6 +1180,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1193,6 +1224,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `String caCertificatePem`
 
     PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
@@ -1204,6 +1237,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -1234,8 +1269,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 #### Example
 
@@ -1344,6 +1377,8 @@ Fetches a tunnel certificate by ID.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1386,11 +1421,15 @@ Fetches a tunnel certificate by ID.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -1421,8 +1460,6 @@ Fetches a tunnel certificate by ID.
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 #### Example
 
@@ -1543,6 +1580,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1585,11 +1624,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -1620,8 +1663,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 #### Example
 
@@ -1731,6 +1772,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1773,11 +1816,15 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -1808,8 +1855,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 #### Example
 

@@ -1,6 +1,11 @@
+---
+title: Update Work Item
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/update
+---
+
 # Update Work Item
 
-`$client->beta->environments->work->update(string workID, string environmentID, array<string,string> metadata, ?list<AnthropicBeta> betas): SelfHostedWork`
+`$client->beta->environments->work->update(string workID, string environmentID, array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}`
 
@@ -22,9 +27,15 @@ Update work item metadata with merge semantics.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `SelfHostedWork`
+
+  - `"work" type`
+
+    The type of object (always 'work')
 
   - `string id`
 
@@ -74,10 +85,6 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `"work" type`
-
-    The type of object (always 'work')
-
 ## Example
 
 ```php
@@ -92,6 +99,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   metadata: ['foo' => 'string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWork);

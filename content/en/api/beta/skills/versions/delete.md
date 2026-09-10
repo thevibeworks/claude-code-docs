@@ -1,3 +1,8 @@
+---
+title: Delete Skill Version
+url: https://platform.claude.com/docs/en/api/beta/skills/versions/delete
+---
+
 # Delete Skill Version
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
@@ -26,7 +31,7 @@ Delete Skill Version
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -74,6 +79,8 @@ Delete Skill Version
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -116,14 +123,11 @@ Delete Skill Version
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `BetaDeletedSkillVersion object`
-
-  - `id: string`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
 
   - `type: "skill_version_deleted"`
 
@@ -132,6 +136,11 @@ Delete Skill Version
     For Skill Versions, this is always `"skill_version_deleted"`.
 
     default: skill_version_deleted
+
+  - `id: string`
+
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
 ## Example
 

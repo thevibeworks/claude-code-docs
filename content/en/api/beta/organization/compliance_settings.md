@@ -1,3 +1,8 @@
+---
+title: Compliance Settings
+url: https://platform.claude.com/docs/en/api/beta/organization/compliance_settings
+---
+
 # Compliance Settings
 
 ## Get Compliance Settings
@@ -15,7 +20,11 @@ organization reads the state inherited from the parent's configuration.
 
 - `BetaComplianceSettings object`
 
-  - `state: BetaComplianceSettingsStateEnabled or BetaComplianceSettingsStateDisabled`
+  - `type: "compliance_settings"`
+
+    default: compliance_settings
+
+  - `state: BetaComplianceSettingsState`
 
     Whether the Compliance API is enabled for this organization.
 
@@ -30,10 +39,6 @@ organization reads the state inherited from the parent's configuration.
       - `type: "disabled"`
 
         default: disabled
-
-  - `type: "compliance_settings"`
-
-    default: compliance_settings
 
 ### Example
 
@@ -75,7 +80,7 @@ compliance settings.
 
 ### Body parameters
 
-- `state: BetaComplianceSettingsStateEnabledParam or BetaComplianceSettingsStateDisabledParam`
+- `state: BetaComplianceSettingsStateParam`
 
   Desired state. Accepts the string shorthand "enabled" or "disabled" in place of the object form; the response always returns the canonical object form.
 
@@ -91,7 +96,11 @@ compliance settings.
 
 - `BetaComplianceSettings object`
 
-  - `state: BetaComplianceSettingsStateEnabled or BetaComplianceSettingsStateDisabled`
+  - `type: "compliance_settings"`
+
+    default: compliance_settings
+
+  - `state: BetaComplianceSettingsState`
 
     Whether the Compliance API is enabled for this organization.
 
@@ -106,10 +115,6 @@ compliance settings.
       - `type: "disabled"`
 
         default: disabled
-
-  - `type: "compliance_settings"`
-
-    default: compliance_settings
 
 ### Example
 
@@ -142,7 +147,11 @@ curl https://api.anthropic.com/v1/organizations/compliance_settings \
 
 - `BetaComplianceSettings object`
 
-  - `state: BetaComplianceSettingsStateEnabled or BetaComplianceSettingsStateDisabled`
+  - `type: "compliance_settings"`
+
+    default: compliance_settings
+
+  - `state: BetaComplianceSettingsState`
 
     Whether the Compliance API is enabled for this organization.
 
@@ -158,9 +167,21 @@ curl https://api.anthropic.com/v1/organizations/compliance_settings \
 
         default: disabled
 
-  - `type: "compliance_settings"`
+### Beta Compliance Settings State
 
-    default: compliance_settings
+- `BetaComplianceSettingsState = BetaComplianceSettingsStateEnabled or BetaComplianceSettingsStateDisabled`
+
+  - `BetaComplianceSettingsStateEnabled object`
+
+    - `type: "enabled"`
+
+      default: enabled
+
+  - `BetaComplianceSettingsStateDisabled object`
+
+    - `type: "disabled"`
+
+      default: disabled
 
 ### Beta Compliance Settings State Disabled
 
@@ -189,3 +210,15 @@ curl https://api.anthropic.com/v1/organizations/compliance_settings \
 - `BetaComplianceSettingsStateEnabledParam object`
 
   - `type: "enabled"`
+
+### Beta Compliance Settings State Param
+
+- `BetaComplianceSettingsStateParam = BetaComplianceSettingsStateEnabledParam or BetaComplianceSettingsStateDisabledParam`
+
+  - `BetaComplianceSettingsStateEnabledParam object`
+
+    - `type: "enabled"`
+
+  - `BetaComplianceSettingsStateDisabledParam object`
+
+    - `type: "disabled"`

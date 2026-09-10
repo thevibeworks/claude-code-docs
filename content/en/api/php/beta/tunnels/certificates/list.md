@@ -1,6 +1,11 @@
+---
+title: List Tunnel Certificates
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates/list
+---
+
 # List Tunnel Certificates
 
-`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
+`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<TunnelCertificate>`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -28,9 +33,13 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -56,8 +65,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ## Example
 
 ```php
@@ -73,6 +80,7 @@ $page = $client->beta->tunnels->certificates->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

@@ -1,6 +1,11 @@
+---
+title: List Skill Versions
+url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/list
+---
+
 # List Skill Versions
 
-`$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<SkillVersion>`
+`$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<SkillVersion>`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -30,9 +35,17 @@ List Skill Versions
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `SkillVersion`
+
+  - `"skill_version" type`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
 
   - `string id`
 
@@ -62,12 +75,6 @@ List Skill Versions
 
     The format and length of IDs may change over time.
 
-  - `"skill_version" type`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
 ## Example
 
 ```php
@@ -82,6 +89,7 @@ $page = $client->beta->skills->versions->list(
   limit: 1,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

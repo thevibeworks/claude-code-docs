@@ -1,3 +1,8 @@
+---
+title: Get Compliance Role
+url: https://platform.claude.com/docs/en/api/compliance/organizations/roles/retrieve
+---
+
 # Get Compliance Role
 
 **GET** `/v1/compliance/organizations/{org_uuid}/roles/{role_id}`
@@ -16,6 +21,12 @@ Get Compliance Role
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ## Returns
@@ -26,7 +37,9 @@ Get Compliance Role
 
 - `created_at: string or null`
 
-  Role creation timestamp (ISO 8601)
+  Role creation timestamp (RFC 3339)
+
+  format: date-time
 
 - `description: string`
 
@@ -38,7 +51,9 @@ Get Compliance Role
 
 - `updated_at: string or null`
 
-  Role last-updated timestamp (ISO 8601)
+  Role last-updated timestamp (RFC 3339)
+
+  format: date-time
 
 ## Example
 
@@ -52,9 +67,9 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORG_UUID/roles/$ROLE
 ```json
 {
   "id": "rbac_role_01SGBg3kEnZrdsVR2QmyJbvD",
-  "created_at": "2025-03-12T18:22:41.123456",
+  "created_at": "2025-03-12T18:22:41.123456Z",
   "description": "Full administrative access to organization settings and members",
   "name": "Organization Admin",
-  "updated_at": "2025-03-14T09:05:17.456789"
+  "updated_at": "2025-03-14T09:05:17.456789Z"
 }
 ```

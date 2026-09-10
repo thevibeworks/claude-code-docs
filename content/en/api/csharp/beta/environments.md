@@ -1,3 +1,8 @@
+---
+title: Environments
+url: https://platform.claude.com/docs/en/api/csharp/beta/environments
+---
+
 # Environments
 
 ## Create Environment
@@ -76,6 +81,10 @@ Create a new environment with the specified configuration.
 
         Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+        - `Type Type`
+
+          Package configuration type
+
         - `IReadOnlyList<string>? Apt`
 
           Ubuntu/Debian packages to install
@@ -100,10 +109,6 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
     - `class BetaSelfHostedConfigParams:`
 
       Request params for `self_hosted` environment configuration.
@@ -124,7 +129,7 @@ Create a new environment with the specified configuration.
 
   - `Scope? scope`
 
-    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
+    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
     - `Organization("organization")`
 
@@ -180,6 +185,8 @@ Create a new environment with the specified configuration.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -222,11 +229,21 @@ Create a new environment with the specified configuration.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonElement Type = "environment"`
+
+    The type of object (always 'environment')
 
   - `required string ID`
 
@@ -244,6 +261,10 @@ Create a new environment with the specified configuration.
 
       `cloud` environment configuration.
 
+      - `JsonElement Type = "cloud"`
+
+        Environment type
+
       - `required Networking Networking`
 
         Network configuration policy.
@@ -260,6 +281,10 @@ Create a new environment with the specified configuration.
 
           Limited network access.
 
+          - `JsonElement Type = "limited"`
+
+            Network policy type
+
           - `required bool AllowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -272,13 +297,13 @@ Create a new environment with the specified configuration.
 
             Specifies domains the container can reach.
 
-          - `JsonElement Type = "limited"`
-
-            Network policy type
-
       - `required BetaPackages Packages`
 
         Package manager configuration.
+
+        - `Type Type`
+
+          Package configuration type
 
         - `required IReadOnlyList<string> Apt`
 
@@ -304,14 +329,6 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
-      - `JsonElement Type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -335,10 +352,6 @@ Create a new environment with the specified configuration.
   - `required string Name`
 
     Human-readable name for the environment
-
-  - `JsonElement Type = "environment"`
-
-    The type of object (always 'environment')
 
   - `required string UpdatedAt`
 
@@ -487,6 +500,8 @@ List environments with pagination support.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -529,11 +544,21 @@ List environments with pagination support.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonElement Type = "environment"`
+
+    The type of object (always 'environment')
 
   - `required string ID`
 
@@ -551,6 +576,10 @@ List environments with pagination support.
 
       `cloud` environment configuration.
 
+      - `JsonElement Type = "cloud"`
+
+        Environment type
+
       - `required Networking Networking`
 
         Network configuration policy.
@@ -567,6 +596,10 @@ List environments with pagination support.
 
           Limited network access.
 
+          - `JsonElement Type = "limited"`
+
+            Network policy type
+
           - `required bool AllowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -579,13 +612,13 @@ List environments with pagination support.
 
             Specifies domains the container can reach.
 
-          - `JsonElement Type = "limited"`
-
-            Network policy type
-
       - `required BetaPackages Packages`
 
         Package manager configuration.
+
+        - `Type Type`
+
+          Package configuration type
 
         - `required IReadOnlyList<string> Apt`
 
@@ -611,14 +644,6 @@ List environments with pagination support.
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
-      - `JsonElement Type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -642,10 +667,6 @@ List environments with pagination support.
   - `required string Name`
 
     Human-readable name for the environment
-
-  - `JsonElement Type = "environment"`
-
-    The type of object (always 'environment')
 
   - `required string UpdatedAt`
 
@@ -789,6 +810,8 @@ Retrieve a specific environment by ID.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -831,11 +854,21 @@ Retrieve a specific environment by ID.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonElement Type = "environment"`
+
+    The type of object (always 'environment')
 
   - `required string ID`
 
@@ -853,6 +886,10 @@ Retrieve a specific environment by ID.
 
       `cloud` environment configuration.
 
+      - `JsonElement Type = "cloud"`
+
+        Environment type
+
       - `required Networking Networking`
 
         Network configuration policy.
@@ -869,6 +906,10 @@ Retrieve a specific environment by ID.
 
           Limited network access.
 
+          - `JsonElement Type = "limited"`
+
+            Network policy type
+
           - `required bool AllowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -881,13 +922,13 @@ Retrieve a specific environment by ID.
 
             Specifies domains the container can reach.
 
-          - `JsonElement Type = "limited"`
-
-            Network policy type
-
       - `required BetaPackages Packages`
 
         Package manager configuration.
+
+        - `Type Type`
+
+          Package configuration type
 
         - `required IReadOnlyList<string> Apt`
 
@@ -913,14 +954,6 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
-      - `JsonElement Type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -944,10 +977,6 @@ Retrieve a specific environment by ID.
   - `required string Name`
 
     Human-readable name for the environment
-
-  - `JsonElement Type = "environment"`
-
-    The type of object (always 'environment')
 
   - `required string UpdatedAt`
 
@@ -1097,6 +1126,10 @@ Update an existing environment's configuration.
 
         Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+        - `Type Type`
+
+          Package configuration type
+
         - `IReadOnlyList<string>? Apt`
 
           Ubuntu/Debian packages to install
@@ -1120,10 +1153,6 @@ Update an existing environment's configuration.
         - `IReadOnlyList<string>? Pip`
 
           Python packages to install
-
-        - `Type Type`
-
-          Package configuration type
 
     - `class BetaSelfHostedConfigParams:`
 
@@ -1207,6 +1236,8 @@ Update an existing environment's configuration.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1249,11 +1280,21 @@ Update an existing environment's configuration.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonElement Type = "environment"`
+
+    The type of object (always 'environment')
 
   - `required string ID`
 
@@ -1271,6 +1312,10 @@ Update an existing environment's configuration.
 
       `cloud` environment configuration.
 
+      - `JsonElement Type = "cloud"`
+
+        Environment type
+
       - `required Networking Networking`
 
         Network configuration policy.
@@ -1287,6 +1332,10 @@ Update an existing environment's configuration.
 
           Limited network access.
 
+          - `JsonElement Type = "limited"`
+
+            Network policy type
+
           - `required bool AllowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -1299,13 +1348,13 @@ Update an existing environment's configuration.
 
             Specifies domains the container can reach.
 
-          - `JsonElement Type = "limited"`
-
-            Network policy type
-
       - `required BetaPackages Packages`
 
         Package manager configuration.
+
+        - `Type Type`
+
+          Package configuration type
 
         - `required IReadOnlyList<string> Apt`
 
@@ -1331,14 +1380,6 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
-      - `JsonElement Type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -1362,10 +1403,6 @@ Update an existing environment's configuration.
   - `required string Name`
 
     Human-readable name for the environment
-
-  - `JsonElement Type = "environment"`
-
-    The type of object (always 'environment')
 
   - `required string UpdatedAt`
 
@@ -1505,6 +1542,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1547,19 +1586,25 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironmentDeleteResponse:`
 
   Response after deleting an environment.
 
-  - `required string ID`
-
-    Environment identifier
-
   - `required Type Type`
 
     The type of response
+
+  - `required string ID`
+
+    Environment identifier
 
 ### Example
 
@@ -1647,6 +1692,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1689,11 +1736,21 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonElement Type = "environment"`
+
+    The type of object (always 'environment')
 
   - `required string ID`
 
@@ -1711,6 +1768,10 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
       `cloud` environment configuration.
 
+      - `JsonElement Type = "cloud"`
+
+        Environment type
+
       - `required Networking Networking`
 
         Network configuration policy.
@@ -1727,6 +1788,10 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Limited network access.
 
+          - `JsonElement Type = "limited"`
+
+            Network policy type
+
           - `required bool AllowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -1739,13 +1804,13 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Specifies domains the container can reach.
 
-          - `JsonElement Type = "limited"`
-
-            Network policy type
-
       - `required BetaPackages Packages`
 
         Package manager configuration.
+
+        - `Type Type`
+
+          Package configuration type
 
         - `required IReadOnlyList<string> Apt`
 
@@ -1771,14 +1836,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
-      - `JsonElement Type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -1802,10 +1859,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
   - `required string Name`
 
     Human-readable name for the environment
-
-  - `JsonElement Type = "environment"`
-
-    The type of object (always 'environment')
 
   - `required string UpdatedAt`
 
@@ -1889,6 +1942,10 @@ Console.WriteLine(betaEnvironment);
 
   `cloud` environment configuration.
 
+  - `JsonElement Type = "cloud"`
+
+    Environment type
+
   - `required Networking Networking`
 
     Network configuration policy.
@@ -1905,6 +1962,10 @@ Console.WriteLine(betaEnvironment);
 
       Limited network access.
 
+      - `JsonElement Type = "limited"`
+
+        Network policy type
+
       - `required bool AllowMcpServers`
 
         Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -1917,13 +1978,13 @@ Console.WriteLine(betaEnvironment);
 
         Specifies domains the container can reach.
 
-      - `JsonElement Type = "limited"`
-
-        Network policy type
-
   - `required BetaPackages Packages`
 
     Package manager configuration.
+
+    - `Type Type`
+
+      Package configuration type
 
     - `required IReadOnlyList<string> Apt`
 
@@ -1948,14 +2009,6 @@ Console.WriteLine(betaEnvironment);
     - `required IReadOnlyList<string> Pip`
 
       Python packages to install
-
-    - `Type Type`
-
-      Package configuration type
-
-  - `JsonElement Type = "cloud"`
-
-    Environment type
 
 ### Beta Cloud Config Params
 
@@ -2013,6 +2066,10 @@ Console.WriteLine(betaEnvironment);
 
     Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+    - `Type Type`
+
+      Package configuration type
+
     - `IReadOnlyList<string>? Apt`
 
       Ubuntu/Debian packages to install
@@ -2037,15 +2094,15 @@ Console.WriteLine(betaEnvironment);
 
       Python packages to install
 
-    - `Type Type`
-
-      Package configuration type
-
 ### Beta Environment
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonElement Type = "environment"`
+
+    The type of object (always 'environment')
 
   - `required string ID`
 
@@ -2063,6 +2120,10 @@ Console.WriteLine(betaEnvironment);
 
       `cloud` environment configuration.
 
+      - `JsonElement Type = "cloud"`
+
+        Environment type
+
       - `required Networking Networking`
 
         Network configuration policy.
@@ -2079,6 +2140,10 @@ Console.WriteLine(betaEnvironment);
 
           Limited network access.
 
+          - `JsonElement Type = "limited"`
+
+            Network policy type
+
           - `required bool AllowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -2091,13 +2156,13 @@ Console.WriteLine(betaEnvironment);
 
             Specifies domains the container can reach.
 
-          - `JsonElement Type = "limited"`
-
-            Network policy type
-
       - `required BetaPackages Packages`
 
         Package manager configuration.
+
+        - `Type Type`
+
+          Package configuration type
 
         - `required IReadOnlyList<string> Apt`
 
@@ -2123,14 +2188,6 @@ Console.WriteLine(betaEnvironment);
 
           Python packages to install
 
-        - `Type Type`
-
-          Package configuration type
-
-      - `JsonElement Type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -2155,10 +2212,6 @@ Console.WriteLine(betaEnvironment);
 
     Human-readable name for the environment
 
-  - `JsonElement Type = "environment"`
-
-    The type of object (always 'environment')
-
   - `required string UpdatedAt`
 
     RFC 3339 timestamp when environment was last updated
@@ -2177,19 +2230,23 @@ Console.WriteLine(betaEnvironment);
 
   Response after deleting an environment.
 
-  - `required string ID`
-
-    Environment identifier
-
   - `required Type Type`
 
     The type of response
+
+  - `required string ID`
+
+    Environment identifier
 
 ### Beta Limited Network
 
 - `class BetaLimitedNetwork:`
 
   Limited network access.
+
+  - `JsonElement Type = "limited"`
+
+    Network policy type
 
   - `required bool AllowMcpServers`
 
@@ -2202,10 +2259,6 @@ Console.WriteLine(betaEnvironment);
   - `required IReadOnlyList<string> AllowedHosts`
 
     Specifies domains the container can reach.
-
-  - `JsonElement Type = "limited"`
-
-    Network policy type
 
 ### Beta Limited Network Params
 
@@ -2238,6 +2291,10 @@ Console.WriteLine(betaEnvironment);
 
   Packages (and their versions) available in this environment.
 
+  - `Type Type`
+
+    Package configuration type
+
   - `required IReadOnlyList<string> Apt`
 
     Ubuntu/Debian packages to install
@@ -2262,10 +2319,6 @@ Console.WriteLine(betaEnvironment);
 
     Python packages to install
 
-  - `Type Type`
-
-    Package configuration type
-
 ### Beta Packages Params
 
 - `class BetaPackagesParams:`
@@ -2275,6 +2328,10 @@ Console.WriteLine(betaEnvironment);
   When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
   Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
+
+  - `Type Type`
+
+    Package configuration type
 
   - `IReadOnlyList<string>? Apt`
 
@@ -2299,10 +2356,6 @@ Console.WriteLine(betaEnvironment);
   - `IReadOnlyList<string>? Pip`
 
     Python packages to install
-
-  - `Type Type`
-
-    Package configuration type
 
 ### Beta Self Hosted Config
 
@@ -2408,6 +2461,8 @@ Retrieve detailed information about a specific work item.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -2450,6 +2505,12 @@ Retrieve detailed information about a specific work item.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaSelfHostedWork:`
@@ -2459,6 +2520,10 @@ Retrieve detailed information about a specific work item.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
 
   - `required string ID`
 
@@ -2476,13 +2541,13 @@ Retrieve detailed information about a specific work item.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -2525,10 +2590,6 @@ Retrieve detailed information about a specific work item.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -2649,6 +2710,8 @@ Long poll for work items in the queue.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -2705,6 +2768,10 @@ Long poll for work items in the queue.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
+
   - `required string ID`
 
     Work identifier (e.g., 'work_...')
@@ -2721,13 +2788,13 @@ Long poll for work items in the queue.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -2770,10 +2837,6 @@ Long poll for work items in the queue.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -2885,6 +2948,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -2937,6 +3002,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
+
   - `required string ID`
 
     Work identifier (e.g., 'work_...')
@@ -2953,13 +3022,13 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -3002,10 +3071,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -3126,6 +3191,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -3174,6 +3241,10 @@ Record a heartbeat for a work item to maintain the lease.
 
   Response after recording a heartbeat for a work item.
 
+  - `JsonElement Type = "work_heartbeat"`
+
+    The type of response
+
   - `required string LastHeartbeat`
 
     RFC 3339 timestamp of the actual heartbeat from DB
@@ -3199,10 +3270,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `required long TtlSeconds`
 
     Effective TTL applied to the lease
-
-  - `JsonElement Type = "work_heartbeat"`
-
-    The type of response
 
 #### Example
 
@@ -3306,6 +3373,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -3348,6 +3417,12 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaSelfHostedWork:`
@@ -3357,6 +3432,10 @@ Stop a work item, initiating graceful or forced shutdown.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
 
   - `required string ID`
 
@@ -3374,13 +3453,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -3423,10 +3502,6 @@ Stop a work item, initiating graceful or forced shutdown.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -3545,6 +3620,8 @@ List work items in an environment.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -3597,6 +3674,10 @@ List work items in an environment.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
+
   - `required string ID`
 
     Work identifier (e.g., 'work_...')
@@ -3613,13 +3694,13 @@ List work items in an environment.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -3662,10 +3743,6 @@ List work items in an environment.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -3788,6 +3865,8 @@ Update work item metadata with merge semantics.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -3830,6 +3909,12 @@ Update work item metadata with merge semantics.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaSelfHostedWork:`
@@ -3839,6 +3924,10 @@ Update work item metadata with merge semantics.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
 
   - `required string ID`
 
@@ -3856,13 +3945,13 @@ Update work item metadata with merge semantics.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -3905,10 +3994,6 @@ Update work item metadata with merge semantics.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -4014,6 +4099,8 @@ Get statistics about the work queue for an environment.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -4056,6 +4143,12 @@ Get statistics about the work queue for an environment.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaSelfHostedWorkQueueStats:`
@@ -4063,6 +4156,10 @@ Get statistics about the work queue for an environment.
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `JsonElement Type = "work_queue_stats"`
+
+    The type of object
 
   - `required long Depth`
 
@@ -4075,10 +4172,6 @@ Get statistics about the work queue for an environment.
   - `required long Pending`
 
     Number of work items being processed (polled but not acknowledged)
-
-  - `JsonElement Type = "work_queue_stats"`
-
-    The type of object
 
   - `required long? WorkersPolling`
 

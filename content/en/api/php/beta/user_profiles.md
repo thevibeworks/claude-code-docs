@@ -1,8 +1,13 @@
+---
+title: User Profiles
+url: https://platform.claude.com/docs/en/api/php/beta/user_profiles
+---
+
 # User Profiles
 
 ## Create User Profile
 
-`$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
+`$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?BetaUserProfileExternalUserDetailsParams externalUserDetails, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
 
 **POST** `/v1/user_profiles`
 
@@ -16,7 +21,11 @@ Create User Profile
 
 - `externalID?:optional string`
 
-  Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+  Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
+
+- `externalUserDetails?:optional BetaUserProfileExternalUserDetailsParams`
+
+  Details about the entity this profile represents, as the platform states them. Every field is optional. Accepted under the `user-profiles-2026-09-04` beta header only.
 
 - `externalUserOnboardedAt?:optional \Datetime`
 
@@ -38,6 +47,10 @@ Create User Profile
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -54,10 +67,6 @@ Create User Profile
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -68,7 +77,11 @@ Create User Profile
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -90,6 +103,15 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaUserProfile = $client->beta->userProfiles->create(
   accessType: 'application',
   externalID: 'user_12345',
+  externalUserDetails: [
+    'accountStatus' => 'active',
+    'country' => 'country',
+    'emailHash' => 'x',
+    'entityType' => 'individual',
+    'nameHash' => 'x',
+    'onboardedAt' => new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+    'referenceID' => 'x',
+  ],
   externalUserOnboardedAt: new \DateTimeImmutable('2024-11-02T08:15:00Z'),
   metadata: [],
   name: 'x',
@@ -115,6 +137,15 @@ var_dump($betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -154,6 +185,10 @@ List User Profiles
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -170,10 +205,6 @@ List User Profiles
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -184,7 +215,11 @@ List User Profiles
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -232,6 +267,15 @@ var_dump($page);
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
+      "external_user_details": {
+        "account_status": "active",
+        "country": "country",
+        "email_hash": "email_hash",
+        "entity_type": "individual",
+        "name_hash": "name_hash",
+        "onboarded_at": "2019-12-27T18:11:19.117Z",
+        "reference_id": "reference_id"
+      },
       "external_user_onboarded_at": "2024-11-02T08:15:00Z",
       "name": "Example User"
     }
@@ -260,6 +304,10 @@ Get User Profile
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -276,10 +324,6 @@ Get User Profile
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -290,7 +334,11 @@ Get User Profile
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -333,6 +381,15 @@ var_dump($betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -340,7 +397,7 @@ var_dump($betaUserProfile);
 
 ## Update User Profile
 
-`$client->beta->userProfiles->update(string userProfileID, ?AccessType accessType, ?string externalID, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
+`$client->beta->userProfiles->update(string userProfileID, ?AccessType accessType, ?string externalID, ?BetaUserProfileExternalUserDetailsParams externalUserDetails, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 
@@ -356,7 +413,11 @@ Update User Profile
 
 - `externalID?:optional string`
 
-  If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
+  If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
+
+- `externalUserDetails?:optional BetaUserProfileExternalUserDetailsParams`
+
+  Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Accepted under the `user-profiles-2026-09-04` beta header only.
 
 - `externalUserOnboardedAt?:optional \Datetime`
 
@@ -378,6 +439,10 @@ Update User Profile
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -394,10 +459,6 @@ Update User Profile
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -408,7 +469,11 @@ Update User Profile
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -431,6 +496,15 @@ $betaUserProfile = $client->beta->userProfiles->update(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
   accessType: 'application',
   externalID: 'user_12345',
+  externalUserDetails: [
+    'accountStatus' => 'active',
+    'country' => 'country',
+    'emailHash' => 'x',
+    'entityType' => 'individual',
+    'nameHash' => 'x',
+    'onboardedAt' => new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+    'referenceID' => 'x',
+  ],
   externalUserOnboardedAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
   metadata: ['foo' => 'string'],
   name: 'x',
@@ -456,6 +530,15 @@ var_dump($betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -481,13 +564,13 @@ Create Enrollment URL
 
 - `BetaUserProfileEnrollmentURL`
 
-  - `\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
   - `Type type`
 
     Object type. Always `enrollment_url`.
+
+  - `\Datetime expiresAt`
+
+    A timestamp in RFC 3339 format
 
   - `string url`
 
@@ -529,6 +612,10 @@ var_dump($betaUserProfileEnrollmentURL);
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -545,10 +632,6 @@ var_dump($betaUserProfileEnrollmentURL);
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -559,7 +642,11 @@ var_dump($betaUserProfileEnrollmentURL);
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -573,17 +660,81 @@ var_dump($betaUserProfileEnrollmentURL);
 
 - `BetaUserProfileEnrollmentURL`
 
-  - `\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
   - `Type type`
 
     Object type. Always `enrollment_url`.
 
+  - `\Datetime expiresAt`
+
+    A timestamp in RFC 3339 format
+
   - `string url`
 
     Enrollment URL to send to the end user. Valid until `expires_at`.
+
+### Beta User Profile External User Details
+
+- `BetaUserProfileExternalUserDetails`
+
+  - `?AccountStatus accountStatus`
+
+    The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+  - `?string country`
+
+    The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+  - `?string emailHash`
+
+    The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+  - `?EntityType entityType`
+
+    What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+  - `?string nameHash`
+
+    The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+  - `?\Datetime onboardedAt`
+
+    A timestamp in RFC 3339 format
+
+  - `?string referenceID`
+
+    The platform's own reference for the entity. `null` until the platform supplies one.
+
+### Beta User Profile External User Details Params
+
+- `BetaUserProfileExternalUserDetailsParams`
+
+  - `?AccountStatus accountStatus`
+
+    The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+  - `?string country`
+
+    The country of the entity (not of the platform), as the platform determines it: an ISO 3166-1 alpha-2 code in upper case, for example `US`. Only the form, two uppercase ASCII letters, is checked.
+
+  - `?string emailHash`
+
+    A hash of the entity's email address, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
+
+  - `?EntityType entityType`
+
+    What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+  - `?string nameHash`
+
+    A hash of the entity's name, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
+
+  - `?\Datetime onboardedAt`
+
+    A timestamp in RFC 3339 format
+
+  - `?string referenceID`
+
+    The platform's own reference for the entity, for example the key of the end-user's row in the platform's database. Not interpreted by Anthropic and not enforced unique. 1 to 255 characters.
 
 ### Beta User Profile Trust Grant
 

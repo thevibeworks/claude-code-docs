@@ -1,6 +1,11 @@
+---
+title: Retrieve Message Batch results
+url: https://platform.claude.com/docs/en/api/go/messages/batches/results
+---
+
 # Retrieve Message Batch results
 
-`client.Messages.Batches.Results(ctx, messageBatchID) (*MessageBatchIndividualResponse, error)`
+`client.Messages.Batches.Results(ctx, messageBatchID, query) (*MessageBatchIndividualResponse, error)`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -15,6 +20,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 - `messageBatchID string`
 
   ID of the Message Batch.
+
+- `query MessageBatchResultsParams`
+
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 
@@ -36,7 +49,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `type MessageBatchSucceededResult struct{…}`
 
+      - `Type Succeeded`
+
+        default: succeeded
+
       - `Message Message`
+
+        - `Type Message`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
+
+          default: message
 
         - `ID string`
 
@@ -62,12 +87,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `SkillID string`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `Type ContainerSkillType`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -75,6 +94,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `const ContainerSkillTypeAnthropic ContainerSkillType = "anthropic"`
 
               - `const ContainerSkillTypeCustom ContainerSkillType = "custom"`
+
+            - `SkillID string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `Version string`
 
@@ -113,6 +138,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type TextBlock struct{…}`
 
+            - `Type Text`
+
+              default: text
+
             - `Citations []TextCitationUnion`
 
               Citations supporting the text block.
@@ -120,6 +149,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `type CitationCharLocation struct{…}`
+
+                - `Type CharLocation`
+
+                  default: char_location
 
                 - `CitedText string`
 
@@ -137,11 +170,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `Type CharLocation`
-
-                  default: char_location
-
               - `type CitationPageLocation struct{…}`
+
+                - `Type PageLocation`
+
+                  default: page_location
 
                 - `CitedText string`
 
@@ -159,11 +192,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `Type PageLocation`
-
-                  default: page_location
-
               - `type CitationContentBlockLocation struct{…}`
+
+                - `Type ContentBlockLocation`
+
+                  default: content_block_location
 
                 - `CitedText string`
 
@@ -191,11 +224,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `Type ContentBlockLocation`
-
-                  default: content_block_location
-
               - `type CitationsWebSearchResultLocation struct{…}`
+
+                - `Type WebSearchResultLocation`
+
+                  default: web_search_result_location
 
                 - `CitedText string`
 
@@ -205,13 +238,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `Type WebSearchResultLocation`
-
-                  default: web_search_result_location
-
                 - `URL string`
 
               - `type CitationsSearchResultLocation struct{…}`
+
+                - `Type SearchResultLocation`
+
+                  default: search_result_location
 
                 - `CitedText string`
 
@@ -243,19 +276,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Title string`
 
-                - `Type SearchResultLocation`
-
-                  default: search_result_location
-
             - `Text string`
 
-              maxLength: 5000000, minLength: 0
-
-            - `Type Text`
-
-              default: text
+              minLength: 0
 
           - `type ThinkingBlock struct{…}`
+
+            - `Type Thinking`
+
+              default: thinking
 
             - `Signature string`
 
@@ -269,11 +298,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `Type Thinking`
-
-              default: thinking
-
           - `type RedactedThinkingBlock struct{…}`
+
+            - `Type RedactedThinking`
+
+              default: redacted_thinking
 
             - `Data string`
 
@@ -283,11 +312,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `Type RedactedThinking`
-
-              default: redacted_thinking
-
           - `type ToolUseBlock struct{…}`
+
+            - `Type ToolUse`
+
+              default: tool_use
 
             - `ID string`
 
@@ -309,29 +338,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `Type CodeExecution20250825`
+
                 - `ToolID string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `Type CodeExecution20250825`
 
               - `type ServerToolCaller20260120 struct{…}`
 
+                - `Type CodeExecution20260120`
+
                 - `ToolID string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `Type CodeExecution20260120`
 
             - `Input map[string, any]`
 
             - `Name string`
 
               minLength: 1
-
-            - `Type ToolUse`
-
-              default: tool_use
 
             - `ToolsetName string Optional`
 
@@ -340,6 +365,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `type ServerToolUseBlock struct{…}`
+
+            - `Type ServerToolUse`
+
+              default: server_tool_use
 
             - `ID string`
 
@@ -379,11 +408,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `const ServerToolUseBlockNameToolSearchToolBm25 ServerToolUseBlockName = "tool_search_tool_bm25"`
 
-            - `Type ServerToolUse`
-
-              default: server_tool_use
-
           - `type WebSearchToolResultBlock struct{…}`
+
+            - `Type WebSearchToolResult`
+
+              default: web_search_tool_result
 
             - `Caller WebSearchToolResultBlockCallerUnion`
 
@@ -405,6 +434,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type WebSearchToolResultError struct{…}`
 
+                - `Type WebSearchToolResultError`
+
+                  default: web_search_tool_result_error
+
                 - `ErrorCode WebSearchToolResultErrorCode`
 
                   - `const WebSearchToolResultErrorCodeInvalidToolInput WebSearchToolResultErrorCode = "invalid_tool_input"`
@@ -419,11 +452,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const WebSearchToolResultErrorCodeRequestTooLarge WebSearchToolResultErrorCode = "request_too_large"`
 
-                - `Type WebSearchToolResultError`
-
-                  default: web_search_tool_result_error
-
               - `type WebSearchToolResultBlockContentArray []WebSearchResultBlock`
+
+                - `Type WebSearchResult`
+
+                  default: web_search_result
 
                 - `EncryptedContent string`
 
@@ -431,21 +464,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Title string`
 
-                - `Type WebSearchResult`
-
-                  default: web_search_result
-
                 - `URL string`
 
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type WebSearchToolResult`
-
-              default: web_search_tool_result
-
           - `type WebFetchToolResultBlock struct{…}`
+
+            - `Type WebFetchToolResult`
+
+              default: web_fetch_tool_result
 
             - `Caller WebFetchToolResultBlockCallerUnion`
 
@@ -467,6 +496,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type WebFetchToolResultErrorBlock struct{…}`
 
+                - `Type WebFetchToolResultError`
+
+                  default: web_fetch_tool_result_error
+
                 - `ErrorCode WebFetchToolResultErrorCode`
 
                   - `const WebFetchToolResultErrorCodeInvalidToolInput WebFetchToolResultErrorCode = "invalid_tool_input"`
@@ -487,13 +520,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const WebFetchToolResultErrorCodeUnavailable WebFetchToolResultErrorCode = "unavailable"`
 
-                - `Type WebFetchToolResultError`
-
-                  default: web_fetch_tool_result_error
+                  - `const WebFetchToolResultErrorCodeContentTooLarge WebFetchToolResultErrorCode = "content_too_large"`
 
               - `type WebFetchBlock struct{…}`
 
+                - `Type WebFetchResult`
+
+                  default: web_fetch_result
+
                 - `Content DocumentBlock`
+
+                  - `Type Document`
+
+                    default: document
 
                   - `Citations CitationsConfig`
 
@@ -507,37 +546,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `type Base64PDFSource struct{…}`
 
+                      - `Type Base64`
+
                       - `Data string`
 
                         format: byte
 
                       - `MediaType ApplicationPDF`
 
-                      - `Type Base64`
-
                     - `type PlainTextSource struct{…}`
+
+                      - `Type Text`
 
                       - `Data string`
 
                       - `MediaType TextPlain`
 
-                      - `Type Text`
-
                   - `Title string`
 
                     The title of the document
 
-                  - `Type Document`
-
-                    default: document
-
                 - `RetrievedAt string`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `Type WebFetchResult`
-
-                  default: web_fetch_result
 
                 - `URL string`
 
@@ -547,17 +578,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type WebFetchToolResult`
-
-              default: web_fetch_tool_result
-
           - `type CodeExecutionToolResultBlock struct{…}`
+
+            - `Type CodeExecutionToolResult`
+
+              default: code_execution_tool_result
 
             - `Content CodeExecutionToolResultBlockContentUnion`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `type CodeExecutionToolResultError struct{…}`
+
+                - `Type CodeExecutionToolResultError`
+
+                  default: code_execution_tool_result_error
 
                 - `ErrorCode CodeExecutionToolResultErrorCode`
 
@@ -569,19 +604,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const CodeExecutionToolResultErrorCodeExecutionTimeExceeded CodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-                - `Type CodeExecutionToolResultError`
-
-                  default: code_execution_tool_result_error
-
               - `type CodeExecutionResultBlock struct{…}`
 
-                - `Content []CodeExecutionOutputBlock`
+                - `Type CodeExecutionResult`
 
-                  - `FileID string`
+                  default: code_execution_result
+
+                - `Content []CodeExecutionOutputBlock`
 
                   - `Type CodeExecutionOutput`
 
                     default: code_execution_output
+
+                  - `FileID string`
 
                 - `ReturnCode int64`
 
@@ -589,21 +624,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Stdout string`
 
-                - `Type CodeExecutionResult`
-
-                  default: code_execution_result
-
               - `type EncryptedCodeExecutionResultBlock struct{…}`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
-                - `Content []CodeExecutionOutputBlock`
+                - `Type EncryptedCodeExecutionResult`
 
-                  - `FileID string`
+                  default: encrypted_code_execution_result
+
+                - `Content []CodeExecutionOutputBlock`
 
                   - `Type CodeExecutionOutput`
 
                     default: code_execution_output
+
+                  - `FileID string`
 
                 - `EncryptedStdout string`
 
@@ -611,23 +646,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Stderr string`
 
-                - `Type EncryptedCodeExecutionResult`
-
-                  default: encrypted_code_execution_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type CodeExecutionToolResult`
-
-              default: code_execution_tool_result
-
           - `type BashCodeExecutionToolResultBlock struct{…}`
+
+            - `Type BashCodeExecutionToolResult`
+
+              default: bash_code_execution_tool_result
 
             - `Content BashCodeExecutionToolResultBlockContentUnion`
 
               - `type BashCodeExecutionToolResultError struct{…}`
+
+                - `Type BashCodeExecutionToolResultError`
+
+                  default: bash_code_execution_tool_result_error
 
                 - `ErrorCode BashCodeExecutionToolResultErrorCode`
 
@@ -641,19 +676,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const BashCodeExecutionToolResultErrorCodeOutputFileTooLarge BashCodeExecutionToolResultErrorCode = "output_file_too_large"`
 
-                - `Type BashCodeExecutionToolResultError`
-
-                  default: bash_code_execution_tool_result_error
-
               - `type BashCodeExecutionResultBlock struct{…}`
 
-                - `Content []BashCodeExecutionOutputBlock`
+                - `Type BashCodeExecutionResult`
 
-                  - `FileID string`
+                  default: bash_code_execution_result
+
+                - `Content []BashCodeExecutionOutputBlock`
 
                   - `Type BashCodeExecutionOutput`
 
                     default: bash_code_execution_output
+
+                  - `FileID string`
 
                 - `ReturnCode int64`
 
@@ -661,23 +696,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Stdout string`
 
-                - `Type BashCodeExecutionResult`
-
-                  default: bash_code_execution_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type BashCodeExecutionToolResult`
-
-              default: bash_code_execution_tool_result
-
           - `type TextEditorCodeExecutionToolResultBlock struct{…}`
+
+            - `Type TextEditorCodeExecutionToolResult`
+
+              default: text_editor_code_execution_tool_result
 
             - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
               - `type TextEditorCodeExecutionToolResultError struct{…}`
+
+                - `Type TextEditorCodeExecutionToolResultError`
+
+                  default: text_editor_code_execution_tool_result_error
 
                 - `ErrorCode TextEditorCodeExecutionToolResultErrorCode`
 
@@ -693,11 +728,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `ErrorMessage string`
 
-                - `Type TextEditorCodeExecutionToolResultError`
-
-                  default: text_editor_code_execution_tool_result_error
-
               - `type TextEditorCodeExecutionViewResultBlock struct{…}`
+
+                - `Type TextEditorCodeExecutionViewResult`
+
+                  default: text_editor_code_execution_view_result
 
                 - `Content string`
 
@@ -715,19 +750,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `TotalLines int64`
 
-                - `Type TextEditorCodeExecutionViewResult`
-
-                  default: text_editor_code_execution_view_result
-
               - `type TextEditorCodeExecutionCreateResultBlock struct{…}`
-
-                - `IsFileUpdate bool`
 
                 - `Type TextEditorCodeExecutionCreateResult`
 
                   default: text_editor_code_execution_create_result
 
+                - `IsFileUpdate bool`
+
               - `type TextEditorCodeExecutionStrReplaceResultBlock struct{…}`
+
+                - `Type TextEditorCodeExecutionStrReplaceResult`
+
+                  default: text_editor_code_execution_str_replace_result
 
                 - `Lines []string`
 
@@ -739,23 +774,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `OldStart int64`
 
-                - `Type TextEditorCodeExecutionStrReplaceResult`
-
-                  default: text_editor_code_execution_str_replace_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type TextEditorCodeExecutionToolResult`
-
-              default: text_editor_code_execution_tool_result
-
           - `type ToolSearchToolResultBlock struct{…}`
+
+            - `Type ToolSearchToolResult`
+
+              default: tool_search_tool_result
 
             - `Content ToolSearchToolResultBlockContentUnion`
 
               - `type ToolSearchToolResultError struct{…}`
+
+                - `Type ToolSearchToolResultError`
+
+                  default: tool_search_tool_result_error
 
                 - `ErrorCode ToolSearchToolResultErrorCode`
 
@@ -769,43 +804,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `ErrorMessage string`
 
-                - `Type ToolSearchToolResultError`
-
-                  default: tool_search_tool_result_error
-
               - `type ToolSearchToolSearchResultBlock struct{…}`
-
-                - `ToolReferences []ToolReferenceBlock`
-
-                  - `ToolName string`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `Type ToolReference`
-
-                    default: tool_reference
 
                 - `Type ToolSearchToolSearchResult`
 
                   default: tool_search_tool_search_result
 
+                - `ToolReferences []ToolReferenceBlock`
+
+                  - `Type ToolReference`
+
+                    default: tool_reference
+
+                  - `ToolName string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `Type ToolSearchToolResult`
-
-              default: tool_search_tool_result
 
           - `type ContainerUploadBlock struct{…}`
 
             Response model for a file uploaded to the container.
 
-            - `FileID string`
-
             - `Type ContainerUpload`
 
               default: container_upload
+
+            - `FileID string`
 
         - `Model Model`
 
@@ -901,6 +928,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Structured information about a refusal.
 
+          - `Type Refusal`
+
+            default: refusal
+
           - `Category RefusalStopDetailsCategory`
 
             The policy category that triggered a refusal.
@@ -930,10 +961,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Human-readable explanation of the refusal.
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-          - `Type Refusal`
-
-            default: refusal
 
         - `StopReason StopReason`
 
@@ -970,14 +997,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `Type Message`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          default: message
 
         - `Usage Usage`
 
@@ -1083,115 +1102,111 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const UsageServiceTierBatch UsageServiceTier = "batch"`
 
-      - `Type Succeeded`
-
-        default: succeeded
-
     - `type MessageBatchErroredResult struct{…}`
 
+      - `Type Errored`
+
+        default: errored
+
       - `Error ErrorResponse`
-
-        - `Error ErrorObjectUnion`
-
-          - `type InvalidRequestError struct{…}`
-
-            - `Message string`
-
-              default: Invalid request
-
-            - `Type InvalidRequestError`
-
-              default: invalid_request_error
-
-          - `type AuthenticationError struct{…}`
-
-            - `Message string`
-
-              default: Authentication error
-
-            - `Type AuthenticationError`
-
-              default: authentication_error
-
-          - `type BillingError struct{…}`
-
-            - `Message string`
-
-              default: Billing error
-
-            - `Type BillingError`
-
-              default: billing_error
-
-          - `type PermissionError struct{…}`
-
-            - `Message string`
-
-              default: Permission denied
-
-            - `Type PermissionError`
-
-              default: permission_error
-
-          - `type NotFoundError struct{…}`
-
-            - `Message string`
-
-              default: Not found
-
-            - `Type NotFoundError`
-
-              default: not_found_error
-
-          - `type RateLimitError struct{…}`
-
-            - `Message string`
-
-              default: Rate limited
-
-            - `Type RateLimitError`
-
-              default: rate_limit_error
-
-          - `type GatewayTimeoutError struct{…}`
-
-            - `Message string`
-
-              default: Request timeout
-
-            - `Type TimeoutError`
-
-              default: timeout_error
-
-          - `type APIErrorObject struct{…}`
-
-            - `Message string`
-
-              default: Internal server error
-
-            - `Type APIError`
-
-              default: api_error
-
-          - `type OverloadedError struct{…}`
-
-            - `Message string`
-
-              default: Overloaded
-
-            - `Type OverloadedError`
-
-              default: overloaded_error
-
-        - `RequestID string`
 
         - `Type Error`
 
           default: error
 
-      - `Type Errored`
+        - `Error ErrorObjectUnion`
 
-        default: errored
+          - `type InvalidRequestError struct{…}`
+
+            - `Type InvalidRequestError`
+
+              default: invalid_request_error
+
+            - `Message string`
+
+              default: Invalid request
+
+          - `type AuthenticationError struct{…}`
+
+            - `Type AuthenticationError`
+
+              default: authentication_error
+
+            - `Message string`
+
+              default: Authentication error
+
+          - `type BillingError struct{…}`
+
+            - `Type BillingError`
+
+              default: billing_error
+
+            - `Message string`
+
+              default: Billing error
+
+          - `type PermissionError struct{…}`
+
+            - `Type PermissionError`
+
+              default: permission_error
+
+            - `Message string`
+
+              default: Permission denied
+
+          - `type NotFoundError struct{…}`
+
+            - `Type NotFoundError`
+
+              default: not_found_error
+
+            - `Message string`
+
+              default: Not found
+
+          - `type RateLimitError struct{…}`
+
+            - `Type RateLimitError`
+
+              default: rate_limit_error
+
+            - `Message string`
+
+              default: Rate limited
+
+          - `type GatewayTimeoutError struct{…}`
+
+            - `Type TimeoutError`
+
+              default: timeout_error
+
+            - `Message string`
+
+              default: Request timeout
+
+          - `type APIErrorObject struct{…}`
+
+            - `Type APIError`
+
+              default: api_error
+
+            - `Message string`
+
+              default: Internal server error
+
+          - `type OverloadedError struct{…}`
+
+            - `Type OverloadedError`
+
+              default: overloaded_error
+
+            - `Message string`
+
+              default: Overloaded
+
+        - `RequestID string`
 
     - `type MessageBatchCanceledResult struct{…}`
 
@@ -1222,7 +1237,11 @@ func main() {
 	client := anthropic.NewClient(
 		option.WithAPIKey("my-anthropic-api-key"),
 	)
-	stream := client.Messages.Batches.ResultsStreaming(context.TODO(), "message_batch_id")
+	stream := client.Messages.Batches.ResultsStreaming(
+		context.TODO(),
+		"message_batch_id",
+		anthropic.MessageBatchResultsParams{},
+	)
 	for stream.Next() {
 		fmt.Printf("%+v\n", stream.Current())
 	}

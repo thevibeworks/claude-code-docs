@@ -1,6 +1,11 @@
+---
+title: Download Skill Version Content
+url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/download
+---
+
 # Download Skill Version Content
 
-`$client->beta->skills->versions->download(string version, string skillID, ?list<AnthropicBeta> betas): download`
+`$client->beta->skills->versions->download(string version, string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): download`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
@@ -24,6 +29,8 @@ Download a skill version's content as a zip archive.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `mixed`
@@ -41,6 +48,7 @@ $response = $client->beta->skills->versions->download(
   'version',
   skillID: 'skill_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($response);

@@ -1,3 +1,8 @@
+---
+title: Create Environment
+url: https://platform.claude.com/docs/en/api/beta/environments/create
+---
+
 # Create Environment
 
 **POST** `/v1/environments`
@@ -12,7 +17,7 @@ Create a new environment with the specified configuration.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -60,6 +65,8 @@ Create a new environment with the specified configuration.
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -101,6 +108,8 @@ Create a new environment with the specified configuration.
     - `"thinking-binding-controls-2026-08-01"`
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
+
+- `"anthropic-workspace-id": optional string`
 
 ## Body parameters
 
@@ -168,6 +177,12 @@ Create a new environment with the specified configuration.
 
       Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+      - `type: optional "packages"`
+
+        Package configuration type
+
+        default: packages
+
       - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
@@ -192,12 +207,6 @@ Create a new environment with the specified configuration.
 
         Python packages to install
 
-      - `type: optional "packages"`
-
-        Package configuration type
-
-        default: packages
-
   - `BetaSelfHostedConfigParams object`
 
     Request params for `self_hosted` environment configuration.
@@ -218,7 +227,7 @@ Create a new environment with the specified configuration.
 
 - `scope: optional "organization" or "account" or null`
 
-  The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
+  The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
   - `"organization"`
 
@@ -229,6 +238,12 @@ Create a new environment with the specified configuration.
 - `BetaEnvironment object`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `type: "environment"`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `id: string`
 
@@ -246,6 +261,10 @@ Create a new environment with the specified configuration.
 
       `cloud` environment configuration.
 
+      - `type: "cloud"`
+
+        Environment type
+
       - `networking: BetaUnrestrictedNetwork or BetaLimitedNetwork`
 
         Network configuration policy.
@@ -262,6 +281,10 @@ Create a new environment with the specified configuration.
 
           Limited network access.
 
+          - `type: "limited"`
+
+            Network policy type
+
           - `allow_mcp_servers: boolean`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -274,13 +297,15 @@ Create a new environment with the specified configuration.
 
             Specifies domains the container can reach.
 
-          - `type: "limited"`
-
-            Network policy type
-
       - `packages: BetaPackages`
 
         Package manager configuration.
+
+        - `type: optional "packages"`
+
+          Package configuration type
+
+          default: packages
 
         - `apt: array of string`
 
@@ -306,16 +331,6 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-        - `type: optional "packages"`
-
-          Package configuration type
-
-          default: packages
-
-      - `type: "cloud"`
-
-        Environment type
-
     - `BetaSelfHostedConfig object`
 
       Configuration for self-hosted environments.
@@ -339,12 +354,6 @@ Create a new environment with the specified configuration.
   - `name: string`
 
     Human-readable name for the environment
-
-  - `type: "environment"`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `updated_at: string`
 

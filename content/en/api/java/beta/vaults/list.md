@@ -1,3 +1,8 @@
+---
+title: List Vaults
+url: https://platform.claude.com/docs/en/api/java/beta/vaults/list
+---
+
 # List Vaults
 
 `VaultListPage beta().vaults().list(params = VaultListParams.none(), requestOptions = RequestOptions.none())`
@@ -74,6 +79,8 @@ List Vaults
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -116,11 +123,15 @@ List Vaults
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaManagedAgentsVault:`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `Type type`
 
   - `String id`
 
@@ -145,8 +156,6 @@ List Vaults
   - `Metadata metadata`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `Type type`
 
   - `LocalDateTime updatedAt`
 

@@ -1,3 +1,8 @@
+---
+title: Update Environment
+url: https://platform.claude.com/docs/en/api/beta/environments/update
+---
+
 # Update Environment
 
 **POST** `/v1/environments/{environment_id}`
@@ -16,7 +21,7 @@ Update an existing environment's configuration.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,6 +69,8 @@ Update an existing environment's configuration.
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -105,6 +112,8 @@ Update an existing environment's configuration.
     - `"thinking-binding-controls-2026-08-01"`
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
+
+- `"anthropic-workspace-id": optional string`
 
 ## Body parameters
 
@@ -166,6 +175,12 @@ Update an existing environment's configuration.
 
       Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+      - `type: optional "packages"`
+
+        Package configuration type
+
+        default: packages
+
       - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
@@ -189,12 +204,6 @@ Update an existing environment's configuration.
       - `pip: optional array of string or null`
 
         Python packages to install
-
-      - `type: optional "packages"`
-
-        Package configuration type
-
-        default: packages
 
   - `BetaSelfHostedConfigParams object`
 
@@ -234,6 +243,12 @@ Update an existing environment's configuration.
 
   Unified Environment resource for both cloud and self-hosted environments.
 
+  - `type: "environment"`
+
+    The type of object (always 'environment')
+
+    default: environment
+
   - `id: string`
 
     Environment identifier (e.g., 'env_...')
@@ -249,6 +264,10 @@ Update an existing environment's configuration.
     - `BetaCloudConfig object`
 
       `cloud` environment configuration.
+
+      - `type: "cloud"`
+
+        Environment type
 
       - `networking: BetaUnrestrictedNetwork or BetaLimitedNetwork`
 
@@ -266,6 +285,10 @@ Update an existing environment's configuration.
 
           Limited network access.
 
+          - `type: "limited"`
+
+            Network policy type
+
           - `allow_mcp_servers: boolean`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -278,13 +301,15 @@ Update an existing environment's configuration.
 
             Specifies domains the container can reach.
 
-          - `type: "limited"`
-
-            Network policy type
-
       - `packages: BetaPackages`
 
         Package manager configuration.
+
+        - `type: optional "packages"`
+
+          Package configuration type
+
+          default: packages
 
         - `apt: array of string`
 
@@ -310,16 +335,6 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `type: optional "packages"`
-
-          Package configuration type
-
-          default: packages
-
-      - `type: "cloud"`
-
-        Environment type
-
     - `BetaSelfHostedConfig object`
 
       Configuration for self-hosted environments.
@@ -343,12 +358,6 @@ Update an existing environment's configuration.
   - `name: string`
 
     Human-readable name for the environment
-
-  - `type: "environment"`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `updated_at: string`
 

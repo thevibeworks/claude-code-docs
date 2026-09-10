@@ -1,3 +1,8 @@
+---
+title: Get Skill
+url: https://platform.claude.com/docs/en/api/skills/retrieve
+---
+
 # Get Skill
 
 **GET** `/v1/skills/{skill_id}`
@@ -12,9 +17,21 @@ Get Skill
 
   The format and length of IDs may change over time.
 
+## Headers
+
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `Skill object`
+
+  - `type: "skill"`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
+
+    default: skill
 
   - `id: string`
 
@@ -67,14 +84,6 @@ Get Skill
       - `"anthropic_example"`
 
       - `"plugin"`
-
-  - `type: "skill"`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
 
   - `updated_at: string`
 

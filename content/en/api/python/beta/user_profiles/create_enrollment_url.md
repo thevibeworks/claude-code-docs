@@ -1,3 +1,8 @@
+---
+title: Create Enrollment URL
+url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/create_enrollment_url
+---
+
 # Create Enrollment URL
 
 `beta.user_profiles.create_enrollment_url(user_profile_id, **kwargs)  -> BetaUserProfileEnrollmentURL`
@@ -16,7 +21,7 @@ Create Enrollment URL
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,6 +69,8 @@ Create Enrollment URL
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -110,15 +117,15 @@ Create Enrollment URL
 
 - `class BetaUserProfileEnrollmentURL: …`
 
+  - `type: Literal["enrollment_url"]`
+
+    Object type. Always `enrollment_url`.
+
   - `expires_at: datetime`
 
     A timestamp in RFC 3339 format
 
     format: date-time
-
-  - `type: Literal["enrollment_url"]`
-
-    Object type. Always `enrollment_url`.
 
   - `url: str`
 

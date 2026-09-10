@@ -1,3 +1,8 @@
+---
+title: Delete Skill Version
+url: https://platform.claude.com/docs/en/api/skills/versions/delete
+---
+
 # Delete Skill Version
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
@@ -18,14 +23,13 @@ Delete Skill Version
 
   Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
+## Headers
+
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `DeletedSkillVersion object`
-
-  - `id: string`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
 
   - `type: "skill_version_deleted"`
 
@@ -34,6 +38,11 @@ Delete Skill Version
     For Skill Versions, this is always `"skill_version_deleted"`.
 
     default: skill_version_deleted
+
+  - `id: string`
+
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
 ## Example
 

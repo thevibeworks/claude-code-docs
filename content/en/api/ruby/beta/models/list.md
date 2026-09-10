@@ -1,3 +1,8 @@
+---
+title: List Models
+url: https://platform.claude.com/docs/en/api/ruby/beta/models/list
+---
+
 # List Models
 
 `beta.models.list(**kwargs) -> Page<BetaModelInfo>`
@@ -32,7 +37,7 @@ The Models API response can be used to determine which models are available for 
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -80,6 +85,8 @@ The Models API response can be used to determine which models are available for 
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -122,9 +129,17 @@ The Models API response can be used to determine which models are available for 
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaModelInfo`
+
+  - `type: :model`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `id: String`
 
@@ -251,12 +266,6 @@ The Models API response can be used to determine which models are available for 
   - `max_tokens: Integer`
 
     Maximum value for the `max_tokens` parameter when using this model.
-
-  - `type: :model`
-
-    Object type.
-
-    For Models, this is always `"model"`.
 
 ## Example
 

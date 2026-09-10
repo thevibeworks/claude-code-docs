@@ -1,6 +1,11 @@
+---
+title: Create Session
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/create
+---
+
 # Create Session
 
-`$client->beta->sessions->create(Agent agent, string environmentID, ?BetaManagedAgentsBudgetLimit budget, ?list<InitialEvent> initialEvents, ?array<string,string> metadata, ?list<Resource> resources, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
+`$client->beta->sessions->create(Agent agent, string environmentID, ?BetaManagedAgentsBudgetLimit budget, ?list<InitialEvent> initialEvents, ?array<string,string> metadata, ?list<Resource> resources, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsSession`
 
 **POST** `/v1/sessions`
 
@@ -44,9 +49,13 @@ Create Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -85,8 +94,6 @@ Create Session
     SessionStatus enum
 
   - `?string title`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -137,6 +144,7 @@ $betaManagedAgentsSession = $client->beta->sessions->create(
   title: 'Order #1234 inquiry',
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSession);

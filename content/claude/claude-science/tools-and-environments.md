@@ -6,7 +6,7 @@
 
 > Claude writes and runs Python, R, and shell commands.
 
-Claude writes and runs Python, R, and shell commands. Python and R run in a persistent kernel that keeps variables in memory across steps in a session. The kernel ends after about 30 minutes idle, when a package install restarts its environment, or when the session ends.
+Claude writes and runs Python, R, and shell commands (PowerShell on Windows). Python and R run in a persistent kernel that keeps variables in memory across steps in a session. The kernel ends after about 30 minutes idle, when a package install restarts its environment, or when the session ends.
 
 ## Starter environments
 

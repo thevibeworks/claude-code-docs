@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/cli/beta/messages/batches/list
+---
+
 # List Message Batches
 
 `$ ant beta:messages:batches list`
@@ -30,11 +35,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaListResponse_MessageBatch_: object`
 
   - `data: array of BetaMessageBatch`
+
+    - `type: "message_batch"`
+
+      Object type.
+
+      For Message Batches, this is always `"message_batch"`.
 
     - `id: string`
 
@@ -123,12 +140,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
       Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-    - `type: "message_batch"`
-
-      Object type.
-
-      For Message Batches, this is always `"message_batch"`.
 
   - `first_id: string`
 

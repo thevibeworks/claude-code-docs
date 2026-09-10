@@ -1,3 +1,8 @@
+---
+title: Get User Profile
+url: https://platform.claude.com/docs/en/api/go/beta/user_profiles/retrieve
+---
+
 # Get User Profile
 
 `client.Beta.UserProfiles.Get(ctx, userProfileID, query) (*BetaUserProfile, error)`
@@ -66,6 +71,8 @@ Get User Profile
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -112,6 +119,10 @@ Get User Profile
 
 - `type BetaUserProfile struct{…}`
 
+  - `Type BetaUserProfileType`
+
+    Object type. Always `user_profile`.
+
   - `ID string`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -140,10 +151,6 @@ Get User Profile
 
       - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
-  - `Type BetaUserProfileType`
-
-    Object type. Always `user_profile`.
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -160,7 +167,55 @@ Get User Profile
 
   - `ExternalID string Optional`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `ExternalUserDetails BetaUserProfileExternalUserDetails Optional`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+    - `Country string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `EmailHash string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+    - `NameHash string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `OnboardedAt Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `ReferenceID string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `ExternalUserOnboardedAt Time Optional`
 
@@ -217,6 +272,15 @@ func main() {
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }

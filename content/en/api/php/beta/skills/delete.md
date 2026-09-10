@@ -1,6 +1,11 @@
+---
+title: Delete Skill
+url: https://platform.claude.com/docs/en/api/php/beta/skills/delete
+---
+
 # Delete Skill
 
-`$client->beta->skills->delete(string skillID, ?list<AnthropicBeta> betas): BetaDeletedSkill`
+`$client->beta->skills->delete(string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDeletedSkill`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -18,21 +23,23 @@ Delete Skill
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaDeletedSkill`
-
-  - `string id`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
 
   - `"skill_deleted" type`
 
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
+
+  - `string id`
+
+    Unique identifier for the skill.
+
+    The format and length of IDs may change over time.
 
 ## Example
 
@@ -44,7 +51,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedSkill = $client->beta->skills->delete(
-  'skill_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedSkill);

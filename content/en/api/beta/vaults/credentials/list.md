@@ -1,3 +1,8 @@
+---
+title: List Credentials
+url: https://platform.claude.com/docs/en/api/beta/vaults/credentials/list
+---
+
 # List Credentials
 
 **GET** `/v1/vaults/{vault_id}/credentials`
@@ -32,7 +37,7 @@ List Credentials
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -80,6 +85,8 @@ List Credentials
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -122,11 +129,15 @@ List Credentials
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `data: optional array of BetaManagedAgentsCredential`
 
   List of credentials.
+
+  - `type: "vault_credential"`
 
   - `id: string`
 
@@ -146,11 +157,11 @@ List Credentials
 
       OAuth credential details for an MCP server.
 
+      - `type: "mcp_oauth"`
+
       - `mcp_server_url: string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: "mcp_oauth"`
 
       - `expires_at: optional string or null`
 
@@ -204,15 +215,17 @@ List Credentials
 
       Static bearer token credential details for an MCP server.
 
+      - `type: "static_bearer"`
+
       - `mcp_server_url: string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: "static_bearer"`
-
     - `BetaManagedAgentsEnvironmentVariableAuthResponse object`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: "environment_variable"`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -240,17 +253,15 @@ List Credentials
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: "limited"`
+
           - `allowed_hosts: array of string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: "limited"`
-
       - `secret_name: string`
 
         Name of the environment variable.
-
-      - `type: "environment_variable"`
 
   - `created_at: string`
 
@@ -261,8 +272,6 @@ List Credentials
   - `metadata: map[string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: "vault_credential"`
 
   - `updated_at: string`
 

@@ -1,3 +1,8 @@
+---
+title: Update User
+url: https://platform.claude.com/docs/en/api/beta/organization/users/update
+---
+
 # Update User
 
 **POST** `/v1/organizations/users/{user_id}`
@@ -31,6 +36,14 @@ Update a member's organization role.
 ## Returns
 
 - `BetaOrganizationUser object`
+
+  - `type: "user"`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
+    default: user
 
   - `id: string`
 
@@ -71,14 +84,6 @@ Update a member's organization role.
     - `"primary_owner"`
 
     - `"user"`
-
-  - `type: "user"`
-
-    Object type.
-
-    For Users, this is always `"user"`.
-
-    default: user
 
 ## Example
 

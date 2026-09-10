@@ -1,6 +1,11 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/php/messages/batches/delete
+---
+
 # Delete a Message Batch
 
-`$client->messages->batches->delete(string messageBatchID): DeletedMessageBatch`
+`$client->messages->batches->delete(string messageBatchID, ?string workspaceID): DeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -16,19 +21,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
 
   - `"message_batch_deleted" type`
 
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
+
+  - `string id`
+
+    ID of the Message Batch.
 
 ## Example
 
@@ -39,7 +46,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$deletedMessageBatch = $client->messages->batches->delete('message_batch_id');
+$deletedMessageBatch = $client->messages->batches->delete(
+  'message_batch_id', workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy'
+);
 
 var_dump($deletedMessageBatch);
 ```

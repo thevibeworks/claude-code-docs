@@ -1,3 +1,8 @@
+---
+title: Get Tunnel
+url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/retrieve
+---
+
 # Get Tunnel
 
 `client.beta.tunnels.retrieve(tunnelID, params?, options?): BetaTunnel`
@@ -20,7 +25,7 @@ Fetches a tunnel by ID.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 41 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -68,6 +73,8 @@ Fetches a tunnel by ID.
 
       - `"user-profiles-2026-08-18"`
 
+      - `"user-profiles-2026-09-04"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
@@ -110,11 +117,19 @@ Fetches a tunnel by ID.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaTunnel`
 
   An MCP tunnel.
+
+  - `type: "tunnel"`
 
   - `id: string`
 
@@ -139,8 +154,6 @@ Fetches a tunnel by ID.
   - `domain: string`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `type: "tunnel"`
 
 ## Example
 

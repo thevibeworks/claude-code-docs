@@ -1,3 +1,8 @@
+---
+title: List Sessions
+url: https://platform.claude.com/docs/en/api/python/beta/sessions/list
+---
+
 # List Sessions
 
 `beta.sessions.list(**kwargs)  -> SyncBidirectionalPageCursor[BetaManagedAgentsSession]`
@@ -90,7 +95,7 @@ List Sessions
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -138,6 +143,8 @@ List Sessions
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -180,11 +187,15 @@ List Sessions
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsSession: …`
 
   A Managed Agents `session`.
+
+  - `type: Literal["session"]`
 
   - `id: str`
 
@@ -192,15 +203,17 @@ List Sessions
 
     Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `type: Literal["agent"]`
+
     - `id: str`
 
     - `description: Optional[str]`
 
     - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-      - `name: str`
-
       - `type: Literal["url"]`
+
+      - `name: str`
 
       - `url: str`
 
@@ -343,6 +356,8 @@ List Sessions
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
+      - `type: Literal["coordinator"]`
+
       - `agents: List[Agent]`
 
         Full `agent` definitions the coordinator may spawn as session threads.
@@ -351,15 +366,17 @@ List Sessions
 
           Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+          - `type: Literal["agent"]`
+
           - `id: str`
 
           - `description: Optional[str]`
 
           - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-            - `name: str`
-
             - `type: Literal["url"]`
+
+            - `name: str`
 
             - `url: str`
 
@@ -375,9 +392,9 @@ List Sessions
 
               A resolved Anthropic-managed skill.
 
-              - `skill_id: str`
-
               - `type: Literal["anthropic"]`
+
+              - `skill_id: str`
 
               - `version: str`
 
@@ -385,9 +402,9 @@ List Sessions
 
               A resolved user-created custom skill.
 
-              - `skill_id: str`
-
               - `type: Literal["custom"]`
+
+              - `skill_id: str`
 
               - `version: str`
 
@@ -397,11 +414,15 @@ List Sessions
 
             - `class BetaManagedAgentsAgentToolset20260401: …`
 
+              - `type: Literal["agent_toolset_20260401"]`
+
               - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
                 - `class BetaManagedAgentsBashToolConfig: …`
 
                   Configuration for the bash tool.
+
+                  - `type: Literal["bash"]`
 
                   - `enabled: bool`
 
@@ -423,11 +444,17 @@ List Sessions
 
                       - `type: Literal["always_ask"]`
 
-                  - `type: Literal["bash"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `type: Literal["auto"]`
 
                 - `class BetaManagedAgentsEditToolConfig: …`
 
                   Configuration for the edit tool.
+
+                  - `type: Literal["edit"]`
 
                   - `enabled: bool`
 
@@ -445,11 +472,15 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["edit"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsReadToolConfig: …`
 
                   Configuration for the read tool.
+
+                  - `type: Literal["read"]`
 
                   - `enabled: bool`
 
@@ -467,11 +498,15 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["read"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsWriteToolConfig: …`
 
                   Configuration for the write tool.
+
+                  - `type: Literal["write"]`
 
                   - `enabled: bool`
 
@@ -489,11 +524,15 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["write"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsGlobToolConfig: …`
 
                   Configuration for the glob tool.
+
+                  - `type: Literal["glob"]`
 
                   - `enabled: bool`
 
@@ -511,11 +550,15 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["glob"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsGrepToolConfig: …`
 
                   Configuration for the grep tool.
+
+                  - `type: Literal["grep"]`
 
                   - `enabled: bool`
 
@@ -533,11 +576,15 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["grep"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsWebFetchToolConfig: …`
 
                   Configuration for the web_fetch tool.
+
+                  - `type: Literal["web_fetch"]`
 
                   - `enabled: bool`
 
@@ -555,7 +602,9 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["web_fetch"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `allowed_domains: Optional[List[str]]`
 
@@ -568,6 +617,8 @@ List Sessions
                 - `class BetaManagedAgentsWebSearchToolConfig: …`
 
                   Configuration for the web_search tool.
+
+                  - `type: Literal["web_search"]`
 
                   - `enabled: bool`
 
@@ -585,7 +636,9 @@ List Sessions
 
                       Tool calls require user confirmation before execution.
 
-                  - `type: Literal["web_search"]`
+                    - `class BetaManagedAgentsAutoPolicy: …`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `allowed_domains: Optional[List[str]]`
 
@@ -639,9 +692,13 @@ List Sessions
 
                     Tool calls require user confirmation before execution.
 
-              - `type: Literal["agent_toolset_20260401"]`
+                  - `class BetaManagedAgentsAutoPolicy: …`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsMCPToolset: …`
+
+              - `type: Literal["mcp_toolset"]`
 
               - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -661,6 +718,10 @@ List Sessions
 
                     Tool calls require user confirmation before execution.
 
+                  - `class BetaManagedAgentsAutoPolicy: …`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
               - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
                 Resolved default configuration for all tools from an MCP server.
@@ -679,13 +740,17 @@ List Sessions
 
                     Tool calls require user confirmation before execution.
 
-              - `mcp_server_name: str`
+                  - `class BetaManagedAgentsAutoPolicy: …`
 
-              - `type: Literal["mcp_toolset"]`
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `mcp_server_name: str`
 
             - `class BetaManagedAgentsCustomTool: …`
 
               A custom tool as returned in API responses.
+
+              - `type: Literal["custom"]`
 
               - `description: str`
 
@@ -701,10 +766,6 @@ List Sessions
 
               - `name: str`
 
-              - `type: Literal["custom"]`
-
-          - `type: Literal["agent"]`
-
           - `version: int`
 
             format: int32
@@ -713,13 +774,11 @@ List Sessions
 
           Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+          - `type: Literal["advisor"]`
+
           - `model: str`
 
             The advisor model id.
-
-          - `type: Literal["advisor"]`
-
-      - `type: Literal["coordinator"]`
 
     - `name: str`
 
@@ -745,8 +804,6 @@ List Sessions
 
         A custom tool as returned in API responses.
 
-    - `type: Literal["agent"]`
-
     - `version: int`
 
       format: int32
@@ -761,6 +818,8 @@ List Sessions
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `type: Literal["limit"]`
+
     - `max_list_cost: BetaMonetaryAmount`
 
       A monetary amount in a specific currency.
@@ -772,8 +831,6 @@ List Sessions
       - `currency: BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `type: Literal["limit"]`
 
   - `created_at: datetime`
 
@@ -788,6 +845,8 @@ List Sessions
   - `outcome_evaluations: List[BetaManagedAgentsOutcomeEvaluationResource]`
 
     Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
+
+    - `type: Literal["outcome_evaluation"]`
 
     - `completed_at: Optional[datetime]`
 
@@ -817,11 +876,11 @@ List Sessions
 
       Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
 
-    - `type: Literal["outcome_evaluation"]`
-
   - `resources: List[BetaManagedAgentsSessionResource]`
 
     - `class BetaManagedAgentsGitHubRepositoryResource: …`
+
+      - `type: Literal["github_repository"]`
 
       - `id: str`
 
@@ -832,8 +891,6 @@ List Sessions
         format: date-time
 
       - `mount_path: str`
-
-      - `type: Literal["github_repository"]`
 
       - `updated_at: datetime`
 
@@ -847,15 +904,17 @@ List Sessions
 
         - `class BetaManagedAgentsBranchCheckout: …`
 
+          - `type: Literal["branch"]`
+
           - `name: str`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `type: Literal["branch"]`
-
         - `class BetaManagedAgentsCommitCheckout: …`
+
+          - `type: Literal["commit"]`
 
           - `sha: str`
 
@@ -863,9 +922,9 @@ List Sessions
 
             minLength: 7, maxLength: 64
 
-          - `type: Literal["commit"]`
-
     - `class BetaManagedAgentsFileResource: …`
+
+      - `type: Literal["file"]`
 
       - `id: str`
 
@@ -879,8 +938,6 @@ List Sessions
 
       - `mount_path: str`
 
-      - `type: Literal["file"]`
-
       - `updated_at: datetime`
 
         A timestamp in RFC 3339 format
@@ -891,11 +948,11 @@ List Sessions
 
       A memory store attached to an agent session.
 
+      - `type: Literal["memory_store"]`
+
       - `memory_store_id: str`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `type: Literal["memory_store"]`
 
       - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -952,8 +1009,6 @@ List Sessions
     - `"terminated"`
 
   - `title: Optional[str]`
-
-  - `type: Literal["session"]`
 
   - `updated_at: datetime`
 

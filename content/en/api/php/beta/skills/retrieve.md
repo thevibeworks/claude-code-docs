@@ -1,6 +1,11 @@
+---
+title: Get Skill
+url: https://platform.claude.com/docs/en/api/php/beta/skills/retrieve
+---
+
 # Get Skill
 
-`$client->beta->skills->retrieve(string skillID, ?list<AnthropicBeta> betas): BetaSkill`
+`$client->beta->skills->retrieve(string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -18,9 +23,17 @@ Get Skill
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaSkill`
+
+  - `"skill" type`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
 
   - `string id`
 
@@ -53,12 +66,6 @@ Get Skill
     * `"anthropic_example"`: Anthropic-published sample Skill
     * `"plugin"`: resolved from an installed plugin
 
-  - `"skill" type`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
   - `\Datetime updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -73,7 +80,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkill = $client->beta->skills->retrieve(
-  'skill_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSkill);

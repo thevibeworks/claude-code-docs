@@ -1,3 +1,8 @@
+---
+title: Update a memory store
+url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/update
+---
+
 # Update a memory store
 
 `BetaManagedAgentsMemoryStore beta().memoryStores().update(params = MemoryStoreUpdateParams.none(), requestOptions = RequestOptions.none())`
@@ -62,6 +67,8 @@ Update a memory store
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -104,6 +111,8 @@ Update a memory store
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `Optional<String> description`
 
     New description for the store, up to 1024 characters. Pass an empty string to clear it.
@@ -126,6 +135,8 @@ Update a memory store
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
+  - `Type type`
+
   - `String id`
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
@@ -139,8 +150,6 @@ Update a memory store
   - `String name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `LocalDateTime updatedAt`
 

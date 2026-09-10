@@ -1,6 +1,11 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/php/beta/messages/count_tokens
+---
+
 # Count tokens in a Message
 
-`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessageTokensCount`
+`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -181,6 +186,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `workspaceID?:optional string`
+
 - `outputFormat?:optional BetaJSONOutputFormat`
 
   **Deprecated**
@@ -294,6 +301,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessageTokensCount);

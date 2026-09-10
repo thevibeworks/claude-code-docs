@@ -1,3 +1,8 @@
+---
+title: List Tunnel Certificates
+url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/certificates/list
+---
+
 # List Tunnel Certificates
 
 `$ ant beta:tunnels:certificates list`
@@ -32,6 +37,12 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaListTunnelCertificatesResponse: object`
@@ -41,6 +52,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `data: array of BetaTunnelCertificate`
 
     List of certificates, ordered by created_at descending.
+
+    - `type: "tunnel_certificate"`
 
     - `id: string`
 
@@ -71,8 +84,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
     - `tunnel_id: string`
 
       ID of the tunnel the certificate is registered against.
-
-    - `type: "tunnel_certificate"`
 
   - `next_page: string`
 

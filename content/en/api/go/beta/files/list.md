@@ -1,3 +1,8 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/go/beta/files/list
+---
+
 # List Files
 
 `client.Beta.Files.List(ctx, params) (*PageCursor[BetaFileMetadata], error)`
@@ -84,6 +89,8 @@ List Files
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -126,9 +133,21 @@ List Files
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaFileMetadata struct{…}`
+
+  - `Type File`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `ID string`
 
@@ -160,12 +179,6 @@ List Files
 
     minimum: 0
 
-  - `Type File`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `Downloadable bool Optional`
 
     Whether the file can be downloaded.
@@ -182,13 +195,13 @@ List Files
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-    - `ID string`
-
-      The ID of the scoping resource (e.g., the session ID).
-
     - `Type Session`
 
       The type of scope (e.g., `"session"`).
+
+    - `ID string`
+
+      The ID of the scoping resource (e.g., the session ID).
 
 ## Example
 

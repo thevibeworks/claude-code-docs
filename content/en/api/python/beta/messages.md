@@ -1,3 +1,8 @@
+---
+title: Messages
+url: https://platform.claude.com/docs/en/api/python/beta/messages
+---
+
 # Messages
 
 ## Create a Message
@@ -85,11 +90,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaTextBlockParam: …`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -116,6 +121,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `class BetaCitationCharLocationParam: …`
 
+            - `type: Literal["char_location"]`
+
             - `cited_text: str`
 
             - `document_index: int`
@@ -132,9 +139,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 0
 
-            - `type: Literal["char_location"]`
-
           - `class BetaCitationPageLocationParam: …`
+
+            - `type: Literal["page_location"]`
 
             - `cited_text: str`
 
@@ -152,9 +159,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 1
 
-            - `type: Literal["page_location"]`
-
           - `class BetaCitationContentBlockLocationParam: …`
+
+            - `type: Literal["content_block_location"]`
 
             - `cited_text: str`
 
@@ -182,9 +189,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 0
 
-            - `type: Literal["content_block_location"]`
-
           - `class BetaCitationWebSearchResultLocationParam: …`
+
+            - `type: Literal["web_search_result_location"]`
 
             - `cited_text: str`
 
@@ -194,13 +201,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               maxLength: 512, minLength: 1
 
-            - `type: Literal["web_search_result_location"]`
-
             - `url: str`
 
               minLength: 1
 
           - `class BetaCitationSearchResultLocationParam: …`
+
+            - `type: Literal["search_result_location"]`
 
             - `cited_text: str`
 
@@ -232,13 +239,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `title: Optional[str]`
 
-            - `type: Literal["search_result_location"]`
-
       - `class BetaImageBlockParam: …`
+
+        - `type: Literal["image"]`
 
         - `source: Source`
 
           - `class BetaBase64ImageSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -254,8 +263,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"image/webp"`
 
-            - `type: Literal["base64"]`
-
           - `class BetaURLImageSource: …`
 
             - `type: Literal["url"]`
@@ -264,11 +271,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `class BetaFileImageSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["image"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -288,9 +293,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaRequestDocumentBlock: …`
 
+        - `type: Literal["document"]`
+
         - `source: Source`
 
           - `class BetaBase64PDFSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -298,17 +307,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `media_type: Literal["application/pdf"]`
 
-            - `type: Literal["base64"]`
-
           - `class BetaPlainTextSource: …`
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
             - `media_type: Literal["text/plain"]`
 
-            - `type: Literal["text"]`
-
           - `class BetaContentBlockSource: …`
+
+            - `type: Literal["content"]`
 
             - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -320,8 +329,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `class BetaImageBlockParam: …`
 
-            - `type: Literal["content"]`
-
           - `class BetaURLPDFSource: …`
 
             - `type: Literal["url"]`
@@ -330,11 +337,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `class BetaFileDocumentSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["document"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -354,13 +359,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaSearchResultBlockParam: …`
 
+        - `type: Literal["search_result"]`
+
         - `content: List[BetaTextBlockParam]`
+
+          - `type: Literal["text"]`
 
           - `text: str`
 
             minLength: 1
-
-          - `type: Literal["text"]`
 
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -372,8 +379,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `title: str`
 
-        - `type: Literal["search_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -381,6 +386,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `citations: Optional[BetaCitationsConfigParam]`
 
       - `class BetaThinkingBlockParam: …`
+
+        - `type: Literal["thinking"]`
 
         - `signature: str`
 
@@ -392,17 +399,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `thinking` text of this block as returned by the API.
 
-        - `type: Literal["thinking"]`
-
       - `class BetaRedactedThinkingBlockParam: …`
+
+        - `type: Literal["redacted_thinking"]`
 
         - `data: str`
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type: Literal["redacted_thinking"]`
-
       - `class BetaToolUseBlockParam: …`
+
+        - `type: Literal["tool_use"]`
 
         - `id: str`
 
@@ -413,8 +420,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `name: str`
 
           maxLength: 200, minLength: 1
-
-        - `type: Literal["tool_use"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -434,19 +439,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Tool invocation generated by a server-side tool.
 
+            - `type: Literal["code_execution_20250825"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20250825"]`
 
           - `class BetaServerToolCaller20260120: …`
 
+            - `type: Literal["code_execution_20260120"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20260120"]`
 
         - `toolset_name: Optional[str]`
 
@@ -456,11 +461,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaToolResultBlockParam: …`
 
+        - `type: Literal["tool_result"]`
+
         - `tool_use_id: str`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: Literal["tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -484,11 +489,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Tool reference block that can be included in tool_result content.
 
+              - `type: Literal["tool_reference"]`
+
               - `tool_name: str`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: Literal["tool_reference"]`
 
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -503,6 +508,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
               At most one per `tool_result`, only on a non-error result answering a
               browser toolset member `tool_use`. The server renders the
               model-visible text from it; the model never sees the raw fields.
+
+              - `type: Literal["browser_state"]`
 
               - `tabs: List[BetaBrowserStateTabEntry]`
 
@@ -532,8 +539,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `type: Literal["browser_state"]`
-
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
@@ -554,25 +559,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                   during a failed call gets no deferred `tab_opened`; it simply appears
                   in the next result's `tabs` inventory.
 
+                  - `type: Literal["tab_opened"]`
+
                   - `tab_id: str`
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type: Literal["tab_opened"]`
-
                 - `class BetaBrowserStateChangeDownloadStarted: …`
 
                   A file download that started during this call.
+
+                  - `type: Literal["download_started"]`
 
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_started"]`
 
                   - `url: str`
 
@@ -587,13 +592,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                   `download_started`, when the download finished during the call that
                   started it (at most one state change per `download_id` per result).
 
+                  - `type: Literal["download_completed"]`
+
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_completed"]`
 
                   - `url: str`
 
@@ -617,13 +622,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   A file download that failed — or was cancelled — during this call.
 
+                  - `type: Literal["download_failed"]`
+
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_failed"]`
 
                   - `url: str`
 
@@ -646,6 +651,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam: …`
+
+        - `type: Literal["server_tool_use"]`
 
         - `id: str`
 
@@ -671,8 +678,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_search_tool_bm25"`
 
-        - `type: Literal["server_tool_use"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -693,21 +698,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaWebSearchToolResultBlockParam: …`
 
+        - `type: Literal["web_search_tool_result"]`
+
         - `content: BetaWebSearchToolResultBlockParamContent`
 
           - `List[BetaWebSearchResultBlockParam]`
 
+            - `type: Literal["web_search_result"]`
+
             - `encrypted_content: str`
 
             - `title: str`
-
-            - `type: Literal["web_search_result"]`
 
             - `url: str`
 
             - `page_age: Optional[str]`
 
           - `class BetaWebSearchToolRequestError: …`
+
+            - `type: Literal["web_search_tool_result_error"]`
 
             - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -723,13 +732,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"request_too_large"`
 
-            - `type: Literal["web_search_tool_result_error"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_search_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -751,9 +756,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaWebFetchToolResultBlockParam: …`
 
+        - `type: Literal["web_fetch_tool_result"]`
+
         - `content: Content`
 
           - `class BetaWebFetchToolResultErrorBlockParam: …`
+
+            - `type: Literal["web_fetch_tool_result_error"]`
 
             - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -775,13 +784,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"unavailable"`
 
-            - `type: Literal["web_fetch_tool_result_error"]`
+              - `"content_too_large"`
 
           - `class BetaWebFetchBlockParam: …`
 
-            - `content: BetaRequestDocumentBlock`
-
             - `type: Literal["web_fetch_result"]`
+
+            - `content: BetaRequestDocumentBlock`
 
             - `url: str`
 
@@ -794,8 +803,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_fetch_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -817,9 +824,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaAdvisorToolResultBlockParam: …`
 
+        - `type: Literal["advisor_tool_result"]`
+
         - `content: Content`
 
           - `class BetaAdvisorToolResultErrorParam: …`
+
+            - `type: Literal["advisor_tool_result_error"]`
 
             - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -837,23 +848,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"model_not_found"`
 
-            - `type: Literal["advisor_tool_result_error"]`
-
           - `class BetaAdvisorResultBlockParam: …`
 
-            - `text: str`
-
             - `type: Literal["advisor_result"]`
+
+            - `text: str`
 
             - `stop_reason: Optional[str]`
 
           - `class BetaAdvisorRedactedResultBlockParam: …`
 
+            - `type: Literal["advisor_redacted_result"]`
+
             - `encrypted_content: str`
 
               Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-            - `type: Literal["advisor_redacted_result"]`
 
             - `stop_reason: Optional[str]`
 
@@ -861,19 +870,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["advisor_tool_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["code_execution_tool_result"]`
+
         - `content: BetaCodeExecutionToolResultBlockParamContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `class BetaCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["code_execution_tool_result_error"]`
 
             - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -885,15 +896,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["code_execution_tool_result_error"]`
-
           - `class BetaCodeExecutionResultBlockParam: …`
+
+            - `type: Literal["code_execution_result"]`
 
             - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["code_execution_output"]`
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -901,17 +912,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stdout: str`
 
-            - `type: Literal["code_execution_result"]`
-
           - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
+            - `type: Literal["encrypted_code_execution_result"]`
+
             - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["code_execution_output"]`
+
+              - `file_id: str`
 
             - `encrypted_stdout: str`
 
@@ -919,13 +930,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stderr: str`
 
-            - `type: Literal["encrypted_code_execution_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -933,9 +940,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaBashCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["bash_code_execution_tool_result"]`
+
         - `content: Content`
 
           - `class BetaBashCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["bash_code_execution_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -949,15 +960,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"output_file_too_large"`
 
-            - `type: Literal["bash_code_execution_tool_result_error"]`
-
           - `class BetaBashCodeExecutionResultBlockParam: …`
+
+            - `type: Literal["bash_code_execution_result"]`
 
             - `content: List[BetaBashCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["bash_code_execution_output"]`
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -965,13 +976,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stdout: str`
 
-            - `type: Literal["bash_code_execution_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["bash_code_execution_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -979,9 +986,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["text_editor_code_execution_tool_result"]`
+
         - `content: Content`
 
           - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -995,11 +1006,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"file_not_found"`
 
-            - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
             - `error_message: Optional[str]`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+            - `type: Literal["text_editor_code_execution_view_result"]`
 
             - `content: str`
 
@@ -1011,8 +1022,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"pdf"`
 
-            - `type: Literal["text_editor_code_execution_view_result"]`
-
             - `num_lines: Optional[int]`
 
             - `start_line: Optional[int]`
@@ -1021,9 +1030,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-            - `is_file_update: bool`
-
             - `type: Literal["text_editor_code_execution_create_result"]`
+
+            - `is_file_update: bool`
 
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
@@ -1043,17 +1052,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["text_editor_code_execution_tool_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaToolSearchToolResultBlockParam: …`
 
+        - `type: Literal["tool_search_tool_result"]`
+
         - `content: Content`
 
           - `class BetaToolSearchToolResultErrorParam: …`
+
+            - `type: Literal["tool_search_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -1065,37 +1076,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["tool_search_tool_result_error"]`
-
             - `error_message: Optional[str]`
 
           - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+            - `type: Literal["tool_search_tool_search_result"]`
+
             - `tool_references: List[BetaToolReferenceBlockParam]`
+
+              - `type: Literal["tool_reference"]`
 
               - `tool_name: str`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `type: Literal["tool_reference"]`
-
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type: Literal["tool_search_tool_search_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["tool_search_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaMCPToolUseBlockParam: …`
+
+        - `type: Literal["mcp_tool_use"]`
 
         - `id: str`
 
@@ -1109,19 +1118,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The name of the MCP server
 
-        - `type: Literal["mcp_tool_use"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaRequestMCPToolResultBlockParam: …`
 
+        - `type: Literal["mcp_tool_result"]`
+
         - `tool_use_id: str`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: Literal["mcp_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -1133,11 +1140,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `List[BetaTextBlockParam]`
 
+            - `type: Literal["text"]`
+
             - `text: str`
 
               minLength: 1
-
-            - `type: Literal["text"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -1152,9 +1159,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
 
-        - `file_id: str`
-
         - `type: Literal["container_upload"]`
+
+        - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -1192,6 +1199,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         `tools`; it is offered to the model from this point in the
         conversation onward.
 
+        - `type: Literal["tool_addition"]`
+
         - `tool: Tool`
 
           Reference to a single tool the caller declared directly in
@@ -1206,32 +1215,30 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             server assigns to MCP-resolved tools — use `mcp_tool_reference` or
             `mcp_toolset_reference` for those.
 
+            - `type: Literal["tool_reference"]`
+
             - `name: str`
 
               pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-            - `type: Literal["tool_reference"]`
 
           - `class BetaToolChangeMCPToolReference: …`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
 
+            - `type: Literal["mcp_tool_reference"]`
+
             - `name: str`
 
             - `server_name: str`
-
-            - `type: Literal["mcp_tool_reference"]`
 
           - `class BetaToolChangeMCPToolsetReference: …`
 
             Reference to every tool in the named MCP server's toolset.
 
-            - `server_name: str`
-
             - `type: Literal["mcp_toolset_reference"]`
 
-        - `type: Literal["tool_addition"]`
+            - `server_name: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -1245,6 +1252,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         `tools`; it is no longer offered to the model from this point in the
         conversation onward.
 
+        - `type: Literal["tool_removal"]`
+
         - `tool: Tool`
 
           Reference to a single tool the caller declared directly in
@@ -1267,8 +1276,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `class BetaToolChangeMCPToolsetReference: …`
 
             Reference to every tool in the named MCP server's toolset.
-
-        - `type: Literal["tool_removal"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -1289,6 +1296,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         request is rejected), and moving it into the middle of a single run is
         likewise rejected; between non-thinking blocks the block's placement has
         no validation effect.
+
+        - `type: Literal["fallback"]`
 
         - `from_: BetaFallbackInfoParam`
 
@@ -1398,8 +1407,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Identifies one hop of a fallback transition.
 
-        - `type: Literal["fallback"]`
-
         - `trigger: Optional[object]`
 
           The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -1470,12 +1477,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       maxItems: 20
 
-      - `skill_id: str`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: Literal["anthropic", "custom"]`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -1483,6 +1484,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: str`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: Optional[str]`
 
@@ -1694,25 +1701,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+        - `type: Literal["json_schema"]`
+
         - `schema: Dict[str, object]`
 
           The JSON schema of the format
 
-        - `type: Literal["json_schema"]`
-
       - `task_budget: Optional[BetaTokenTaskBudget]`
 
         User-configurable total token budget across contexts.
+
+        - `type: Literal["tokens"]`
+
+          The budget type. Currently only 'tokens' is supported.
 
         - `total: int`
 
           Total token budget across all contexts in the session.
 
           minimum: 1024
-
-        - `type: Literal["tokens"]`
-
-          The budget type. Currently only 'tokens' is supported.
 
         - `remaining: Optional[int]`
 
@@ -1732,6 +1739,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaThinkingConfigEnabled: …`
 
+        - `type: Literal["enabled"]`
+
         - `budget_tokens: int`
 
           Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -1741,8 +1750,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
           minimum: 1024
-
-        - `type: Literal["enabled"]`
 
         - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -1808,9 +1815,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   maxItems: 20
 
-  - `name: str`
-
   - `type: Literal["url"]`
+
+  - `name: str`
 
   - `url: str`
 
@@ -1880,11 +1887,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `Iterable[BetaTextBlockParam]`
 
+    - `type: Literal["text"]`
+
     - `text: str`
 
       minLength: 1
-
-    - `type: Literal["text"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -1938,11 +1945,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The model will use the specified tool with `tool_choice.name`.
 
+    - `type: Literal["tool"]`
+
     - `name: str`
 
       The name of the tool to use.
-
-    - `type: Literal["tool"]`
 
     - `disable_parallel_tool_use: Optional[bool]`
 
@@ -2022,6 +2029,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaTool: …`
 
+    - `type: Optional[Literal["custom"]]`
+
     - `input_schema: InputSchema`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -2076,17 +2085,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: Optional[Literal["custom"]]`
-
   - `class BetaToolBash20241022: …`
+
+    - `type: Literal["bash_20241022"]`
 
     - `name: Literal["bash"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["bash_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2114,13 +2121,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolBash20250124: …`
 
+    - `type: Literal["bash_20250124"]`
+
     - `name: Literal["bash"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["bash_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2148,13 +2155,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaCodeExecutionTool20250522: …`
 
+    - `type: Literal["code_execution_20250522"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20250522"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2180,13 +2187,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaCodeExecutionTool20250825: …`
 
+    - `type: Literal["code_execution_20250825"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20250825"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2214,13 +2221,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: Literal["code_execution_20260120"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20260120"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2248,13 +2255,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Code execution tool with REPL state persistence.
 
+    - `type: Literal["code_execution_20260521"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20260521"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2299,6 +2306,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: Optional[BetaBrowserTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: Optional[BetaBrowserCloseTabConfig]`
 
@@ -2636,18 +2655,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: Optional[BetaBrowserTypeConfig]`
-
-        `type`'s config overrides.
-
-        - `defer_loading: Optional[bool]`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: Optional[bool]`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: Optional[BetaBrowserWaitConfig]`
 
         `wait`'s config overrides.
@@ -2674,6 +2681,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolComputerUse20241022: …`
 
+    - `type: Literal["computer_20241022"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -2691,8 +2700,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2726,13 +2733,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaMemoryTool20250818: …`
 
+    - `type: Literal["memory_20250818"]`
+
     - `name: Literal["memory"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["memory_20250818"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2760,6 +2767,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolComputerUse20250124: …`
 
+    - `type: Literal["computer_20250124"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -2777,8 +2786,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2812,13 +2819,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolTextEditor20241022: …`
 
+    - `type: Literal["text_editor_20241022"]`
+
     - `name: Literal["str_replace_editor"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2846,6 +2853,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolComputerUse20251124: …`
 
+    - `type: Literal["computer_20251124"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -2863,8 +2872,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20251124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2925,6 +2932,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: Optional[BetaComputerTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: Optional[BetaComputerCursorPositionConfig]`
 
@@ -3094,18 +3113,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: Optional[BetaComputerTypeConfig]`
-
-        `type`'s config overrides.
-
-        - `defer_loading: Optional[bool]`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: Optional[bool]`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: Optional[BetaComputerWaitConfig]`
 
         `wait`'s config overrides.
@@ -3132,13 +3139,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolTextEditor20250124: …`
 
+    - `type: Literal["text_editor_20250124"]`
+
     - `name: Literal["str_replace_editor"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3166,13 +3173,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolTextEditor20250429: …`
 
+    - `type: Literal["text_editor_20250429"]`
+
     - `name: Literal["str_replace_based_edit_tool"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250429"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3200,13 +3207,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolTextEditor20250728: …`
 
+    - `type: Literal["text_editor_20250728"]`
+
     - `name: Literal["str_replace_based_edit_tool"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250728"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3240,13 +3247,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaWebSearchTool20250305: …`
 
+    - `type: Literal["web_search_20250305"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20250305"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3316,13 +3323,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaWebFetchTool20250910: …`
 
+    - `type: Literal["web_fetch_20250910"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20250910"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3372,13 +3379,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaWebSearchTool20260209: …`
 
+    - `type: Literal["web_search_20260209"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20260209"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3422,13 +3429,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaWebFetchTool20260209: …`
 
+    - `type: Literal["web_fetch_20260209"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260209"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3480,13 +3487,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: Literal["web_fetch_20260309"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260309"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3540,13 +3547,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaWebSearchTool20260318: …`
 
+    - `type: Literal["web_search_20260318"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20260318"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3598,13 +3605,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaWebFetchTool20260318: …`
 
+    - `type: Literal["web_fetch_20260318"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260318"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3666,6 +3673,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaAdvisorTool20260301: …`
 
+    - `type: Literal["advisor_20260301"]`
+
     - `model: Model`
 
       The model that will complete your prompt.
@@ -3677,8 +3686,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["advisor_20260301"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3720,17 +3727,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolSearchToolBm25_20251119: …`
 
-    - `name: Literal["tool_search_tool_bm25"]`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: Literal["tool_search_tool_bm25"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3756,17 +3763,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaToolSearchToolRegex20251119: …`
 
-    - `name: Literal["tool_search_tool_regex"]`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: Literal["tool_search_tool_regex"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -3797,13 +3804,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Allows configuring enabled status and defer_loading for all tools
     from an MCP server, with optional per-tool overrides.
 
+    - `type: Literal["mcp_toolset"]`
+
     - `mcp_server_name: str`
 
       Name of the MCP server to configure tools for
 
       maxLength: 255, minLength: 1
-
-    - `type: Literal["mcp_toolset"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3831,7 +3838,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3879,6 +3886,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -3925,9 +3934,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaMessage: …`
+
+  - `type: Literal["message"]`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
+
+    default: message
 
   - `id: str`
 
@@ -3953,12 +3972,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Skills loaded in the container
 
-      - `skill_id: str`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: Literal["anthropic", "custom"]`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -3966,6 +3979,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: str`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: str`
 
@@ -4004,6 +4023,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class BetaTextBlock: …`
 
+      - `type: Literal["text"]`
+
+        default: text
+
       - `citations: Optional[List[BetaTextCitation]]`
 
         Citations supporting the text block.
@@ -4011,6 +4034,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `class BetaCitationCharLocation: …`
+
+          - `type: Literal["char_location"]`
+
+            default: char_location
 
           - `cited_text: str`
 
@@ -4028,11 +4055,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `type: Literal["char_location"]`
-
-            default: char_location
-
         - `class BetaCitationPageLocation: …`
+
+          - `type: Literal["page_location"]`
+
+            default: page_location
 
           - `cited_text: str`
 
@@ -4050,11 +4077,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-          - `type: Literal["page_location"]`
-
-            default: page_location
-
         - `class BetaCitationContentBlockLocation: …`
+
+          - `type: Literal["content_block_location"]`
+
+            default: content_block_location
 
           - `cited_text: str`
 
@@ -4082,11 +4109,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `type: Literal["content_block_location"]`
-
-            default: content_block_location
-
         - `class BetaCitationsWebSearchResultLocation: …`
+
+          - `type: Literal["web_search_result_location"]`
+
+            default: web_search_result_location
 
           - `cited_text: str`
 
@@ -4096,13 +4123,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 512
 
-          - `type: Literal["web_search_result_location"]`
-
-            default: web_search_result_location
-
           - `url: str`
 
         - `class BetaCitationSearchResultLocation: …`
+
+          - `type: Literal["search_result_location"]`
+
+            default: search_result_location
 
           - `cited_text: str`
 
@@ -4134,19 +4161,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: Optional[str]`
 
-          - `type: Literal["search_result_location"]`
-
-            default: search_result_location
-
       - `text: str`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: Literal["text"]`
-
-        default: text
+        minLength: 0
 
     - `class BetaThinkingBlock: …`
+
+      - `type: Literal["thinking"]`
+
+        default: thinking
 
       - `signature: str`
 
@@ -4160,11 +4183,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-      - `type: Literal["thinking"]`
-
-        default: thinking
-
     - `class BetaRedactedThinkingBlock: …`
+
+      - `type: Literal["redacted_thinking"]`
+
+        default: redacted_thinking
 
       - `data: str`
 
@@ -4174,11 +4197,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `type: Literal["redacted_thinking"]`
-
-        default: redacted_thinking
-
     - `class BetaToolUseBlock: …`
+
+      - `type: Literal["tool_use"]`
+
+        default: tool_use
 
       - `id: str`
 
@@ -4189,10 +4212,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `name: str`
 
         minLength: 1
-
-      - `type: Literal["tool_use"]`
-
-        default: tool_use
 
       - `caller: Optional[Caller]`
 
@@ -4208,19 +4227,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Tool invocation generated by a server-side tool.
 
+          - `type: Literal["code_execution_20250825"]`
+
           - `tool_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["code_execution_20250825"]`
 
         - `class BetaServerToolCaller20260120: …`
 
+          - `type: Literal["code_execution_20260120"]`
+
           - `tool_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["code_execution_20260120"]`
 
       - `toolset_name: Optional[str]`
 
@@ -4229,6 +4248,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `class BetaServerToolUseBlock: …`
+
+      - `type: Literal["server_tool_use"]`
+
+        default: server_tool_use
 
       - `id: str`
 
@@ -4254,10 +4277,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"tool_search_tool_bm25"`
 
-      - `type: Literal["server_tool_use"]`
-
-        default: server_tool_use
-
       - `caller: Optional[Caller]`
 
         Tool invocation directly from the model.
@@ -4274,9 +4293,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class BetaWebSearchToolResultBlock: …`
 
+      - `type: Literal["web_search_tool_result"]`
+
+        default: web_search_tool_result
+
       - `content: BetaWebSearchToolResultBlockContent`
 
         - `class BetaWebSearchToolResultError: …`
+
+          - `type: Literal["web_search_tool_result_error"]`
+
+            default: web_search_tool_result_error
 
           - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -4292,11 +4319,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"request_too_large"`
 
-          - `type: Literal["web_search_tool_result_error"]`
-
-            default: web_search_tool_result_error
-
         - `List[BetaWebSearchResultBlock]`
+
+          - `type: Literal["web_search_result"]`
+
+            default: web_search_result
 
           - `encrypted_content: str`
 
@@ -4304,19 +4331,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: str`
 
-          - `type: Literal["web_search_result"]`
-
-            default: web_search_result
-
           - `url: str`
 
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["web_search_tool_result"]`
-
-        default: web_search_tool_result
 
       - `caller: Optional[Caller]`
 
@@ -4334,9 +4353,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class BetaWebFetchToolResultBlock: …`
 
+      - `type: Literal["web_fetch_tool_result"]`
+
+        default: web_fetch_tool_result
+
       - `content: Content`
 
         - `class BetaWebFetchToolResultErrorBlock: …`
+
+          - `type: Literal["web_fetch_tool_result_error"]`
+
+            default: web_fetch_tool_result_error
 
           - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -4358,13 +4385,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"unavailable"`
 
-          - `type: Literal["web_fetch_tool_result_error"]`
-
-            default: web_fetch_tool_result_error
+            - `"content_too_large"`
 
         - `class BetaWebFetchBlock: …`
 
+          - `type: Literal["web_fetch_result"]`
+
+            default: web_fetch_result
+
           - `content: BetaDocumentBlock`
+
+            - `type: Literal["document"]`
+
+              default: document
 
             - `citations: Optional[BetaCitationConfig]`
 
@@ -4378,37 +4411,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `class BetaBase64PDFSource: …`
 
+                - `type: Literal["base64"]`
+
                 - `data: str`
 
                   format: byte
 
                 - `media_type: Literal["application/pdf"]`
 
-                - `type: Literal["base64"]`
-
               - `class BetaPlainTextSource: …`
+
+                - `type: Literal["text"]`
 
                 - `data: str`
 
                 - `media_type: Literal["text/plain"]`
 
-                - `type: Literal["text"]`
-
             - `title: Optional[str]`
 
               The title of the document
 
-            - `type: Literal["document"]`
-
-              default: document
-
           - `retrieved_at: Optional[str]`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `type: Literal["web_fetch_result"]`
-
-            default: web_fetch_result
 
           - `url: str`
 
@@ -4417,10 +4442,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["web_fetch_tool_result"]`
-
-        default: web_fetch_tool_result
 
       - `caller: Optional[Caller]`
 
@@ -4438,9 +4459,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class BetaAdvisorToolResultBlock: …`
 
+      - `type: Literal["advisor_tool_result"]`
+
+        default: advisor_tool_result
+
       - `content: Content`
 
         - `class BetaAdvisorToolResultError: …`
+
+          - `type: Literal["advisor_tool_result_error"]`
+
+            default: advisor_tool_result_error
 
           - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -4458,11 +4487,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"model_not_found"`
 
-          - `type: Literal["advisor_tool_result_error"]`
-
-            default: advisor_tool_result_error
-
         - `class BetaAdvisorResultBlock: …`
+
+          - `type: Literal["advisor_result"]`
+
+            default: advisor_result
 
           - `stop_reason: Optional[str]`
 
@@ -4470,11 +4499,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `text: str`
 
-          - `type: Literal["advisor_result"]`
-
-            default: advisor_result
-
         - `class BetaAdvisorRedactedResultBlock: …`
+
+          - `type: Literal["advisor_redacted_result"]`
+
+            default: advisor_redacted_result
 
           - `encrypted_content: str`
 
@@ -4484,25 +4513,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-          - `type: Literal["advisor_redacted_result"]`
-
-            default: advisor_redacted_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["advisor_tool_result"]`
-
-        default: advisor_tool_result
-
     - `class BetaCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["code_execution_tool_result"]`
+
+        default: code_execution_tool_result
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `class BetaCodeExecutionToolResultError: …`
+
+          - `type: Literal["code_execution_tool_result_error"]`
+
+            default: code_execution_tool_result_error
 
           - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -4514,19 +4543,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"execution_time_exceeded"`
 
-          - `type: Literal["code_execution_tool_result_error"]`
-
-            default: code_execution_tool_result_error
-
         - `class BetaCodeExecutionResultBlock: …`
 
-          - `content: List[BetaCodeExecutionOutputBlock]`
+          - `type: Literal["code_execution_result"]`
 
-            - `file_id: str`
+            default: code_execution_result
+
+          - `content: List[BetaCodeExecutionOutputBlock]`
 
             - `type: Literal["code_execution_output"]`
 
               default: code_execution_output
+
+            - `file_id: str`
 
           - `return_code: int`
 
@@ -4534,21 +4563,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stdout: str`
 
-          - `type: Literal["code_execution_result"]`
-
-            default: code_execution_result
-
         - `class BetaEncryptedCodeExecutionResultBlock: …`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `content: List[BetaCodeExecutionOutputBlock]`
+          - `type: Literal["encrypted_code_execution_result"]`
 
-            - `file_id: str`
+            default: encrypted_code_execution_result
+
+          - `content: List[BetaCodeExecutionOutputBlock]`
 
             - `type: Literal["code_execution_output"]`
 
               default: code_execution_output
+
+            - `file_id: str`
 
           - `encrypted_stdout: str`
 
@@ -4556,23 +4585,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stderr: str`
 
-          - `type: Literal["encrypted_code_execution_result"]`
-
-            default: encrypted_code_execution_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["code_execution_tool_result"]`
-
-        default: code_execution_tool_result
-
     - `class BetaBashCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["bash_code_execution_tool_result"]`
+
+        default: bash_code_execution_tool_result
 
       - `content: Content`
 
         - `class BetaBashCodeExecutionToolResultError: …`
+
+          - `type: Literal["bash_code_execution_tool_result_error"]`
+
+            default: bash_code_execution_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -4586,19 +4615,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"output_file_too_large"`
 
-          - `type: Literal["bash_code_execution_tool_result_error"]`
-
-            default: bash_code_execution_tool_result_error
-
         - `class BetaBashCodeExecutionResultBlock: …`
 
-          - `content: List[BetaBashCodeExecutionOutputBlock]`
+          - `type: Literal["bash_code_execution_result"]`
 
-            - `file_id: str`
+            default: bash_code_execution_result
+
+          - `content: List[BetaBashCodeExecutionOutputBlock]`
 
             - `type: Literal["bash_code_execution_output"]`
 
               default: bash_code_execution_output
+
+            - `file_id: str`
 
           - `return_code: int`
 
@@ -4606,23 +4635,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stdout: str`
 
-          - `type: Literal["bash_code_execution_result"]`
-
-            default: bash_code_execution_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["bash_code_execution_tool_result"]`
-
-        default: bash_code_execution_tool_result
-
     - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["text_editor_code_execution_tool_result"]`
+
+        default: text_editor_code_execution_tool_result
 
       - `content: Content`
 
         - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+          - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -4638,11 +4667,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `error_message: Optional[str]`
 
-          - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_view_result"]`
+
+            default: text_editor_code_execution_view_result
 
           - `content: str`
 
@@ -4660,19 +4689,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `total_lines: Optional[int]`
 
-          - `type: Literal["text_editor_code_execution_view_result"]`
-
-            default: text_editor_code_execution_view_result
-
         - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-          - `is_file_update: bool`
 
           - `type: Literal["text_editor_code_execution_create_result"]`
 
             default: text_editor_code_execution_create_result
 
+          - `is_file_update: bool`
+
         - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `lines: Optional[List[str]]`
 
@@ -4684,23 +4713,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `old_start: Optional[int]`
 
-          - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["text_editor_code_execution_tool_result"]`
-
-        default: text_editor_code_execution_tool_result
-
     - `class BetaToolSearchToolResultBlock: …`
+
+      - `type: Literal["tool_search_tool_result"]`
+
+        default: tool_search_tool_result
 
       - `content: Content`
 
         - `class BetaToolSearchToolResultError: …`
+
+          - `type: Literal["tool_search_tool_result_error"]`
+
+            default: tool_search_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -4714,35 +4743,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `error_message: Optional[str]`
 
-          - `type: Literal["tool_search_tool_result_error"]`
-
-            default: tool_search_tool_result_error
-
         - `class BetaToolSearchToolSearchResultBlock: …`
-
-          - `tool_references: List[BetaToolReferenceBlock]`
-
-            - `tool_name: str`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `type: Literal["tool_reference"]`
-
-              default: tool_reference
 
           - `type: Literal["tool_search_tool_search_result"]`
 
             default: tool_search_tool_search_result
 
+          - `tool_references: List[BetaToolReferenceBlock]`
+
+            - `type: Literal["tool_reference"]`
+
+              default: tool_reference
+
+            - `tool_name: str`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["tool_search_tool_result"]`
-
-        default: tool_search_tool_result
-
     - `class BetaMCPToolUseBlock: …`
+
+      - `type: Literal["mcp_tool_use"]`
+
+        default: mcp_tool_use
 
       - `id: str`
 
@@ -4758,17 +4783,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The name of the MCP server
 
-      - `type: Literal["mcp_tool_use"]`
-
-        default: mcp_tool_use
-
     - `class BetaMCPToolResultBlock: …`
+
+      - `type: Literal["mcp_tool_result"]`
+
+        default: mcp_tool_result
 
       - `content: Union[str, List[BetaTextBlock]]`
 
         - `str`
 
         - `List[BetaTextBlock]`
+
+          - `type: Literal["text"]`
+
+            default: text
 
           - `citations: Optional[List[BetaTextCitation]]`
 
@@ -4778,11 +4807,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `text: str`
 
-            maxLength: 5000000, minLength: 0
-
-          - `type: Literal["text"]`
-
-            default: text
+            minLength: 0
 
       - `is_error: bool`
 
@@ -4792,19 +4817,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `type: Literal["mcp_tool_result"]`
-
-        default: mcp_tool_result
-
     - `class BetaContainerUploadBlock: …`
 
       Response model for a file uploaded to the container.
 
-      - `file_id: str`
-
       - `type: Literal["container_upload"]`
 
         default: container_upload
+
+      - `file_id: str`
 
     - `class BetaCompactionBlock: …`
 
@@ -4814,6 +4835,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
+      - `type: Literal["compaction"]`
+
+        default: compaction
+
       - `content: Optional[str]`
 
         Summary of compacted content, or null if compaction failed
@@ -4821,10 +4846,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `encrypted_content: Optional[str]`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
-
-      - `type: Literal["compaction"]`
-
-        default: compaction
 
     - `class BetaFallbackBlock: …`
 
@@ -4839,6 +4860,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       The block is treated like a server-tool content block for streaming: it
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
+
+      - `type: Literal["fallback"]`
+
+        default: fallback
 
       - `from_: BetaFallbackInfo`
 
@@ -4952,6 +4977,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         What caused the `from` model to hand over at this hop.
 
+        - `type: Literal["refusal"]`
+
+          default: refusal
+
         - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
           The policy category that triggered a refusal.
@@ -4982,14 +5011,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-        - `type: Literal["refusal"]`
-
-          default: refusal
-
-      - `type: Literal["fallback"]`
-
-        default: fallback
-
   - `context_management: Optional[BetaContextManagementResponse]`
 
     Context management response.
@@ -5001,6 +5022,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       List of context management edits that were applied.
 
       - `class BetaClearToolUses20250919EditResponse: …`
+
+        - `type: Literal["clear_tool_uses_20250919"]`
+
+          The type of context management edit applied.
+
+          default: clear_tool_uses_20250919
 
         - `cleared_input_tokens: int`
 
@@ -5014,13 +5041,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `type: Literal["clear_tool_uses_20250919"]`
+      - `class BetaClearThinking20251015EditResponse: …`
+
+        - `type: Literal["clear_thinking_20251015"]`
 
           The type of context management edit applied.
 
-          default: clear_tool_uses_20250919
-
-      - `class BetaClearThinking20251015EditResponse: …`
+          default: clear_thinking_20251015
 
         - `cleared_input_tokens: int`
 
@@ -5034,12 +5061,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `type: Literal["clear_thinking_20251015"]`
-
-          The type of context management edit applied.
-
-          default: clear_thinking_20251015
-
   - `diagnostics: Optional[BetaDiagnostics]`
 
     Response envelope for request-level diagnostics. Present (possibly
@@ -5051,43 +5072,43 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `class BetaCacheMissModelChanged: …`
 
-        - `cache_missed_input_tokens: int`
-
-          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
         - `type: Literal["model_changed"]`
 
           default: model_changed
 
-      - `class BetaCacheMissSystemChanged: …`
-
         - `cache_missed_input_tokens: int`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class BetaCacheMissSystemChanged: …`
 
         - `type: Literal["system_changed"]`
 
           default: system_changed
 
-      - `class BetaCacheMissToolsChanged: …`
-
         - `cache_missed_input_tokens: int`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class BetaCacheMissToolsChanged: …`
 
         - `type: Literal["tools_changed"]`
 
           default: tools_changed
 
-      - `class BetaCacheMissMessagesChanged: …`
-
         - `cache_missed_input_tokens: int`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+      - `class BetaCacheMissMessagesChanged: …`
+
         - `type: Literal["messages_changed"]`
 
           default: messages_changed
+
+        - `cache_missed_input_tokens: int`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `class BetaCacheMissPreviousMessageNotFound: …`
 
@@ -5118,6 +5139,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `stop_details: Optional[BetaRefusalStopDetails]`
 
     Structured information about a refusal.
+
+    - `type: Literal["refusal"]`
+
+      default: refusal
 
     - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -5204,10 +5229,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-    - `type: Literal["refusal"]`
-
-      default: refusal
-
   - `stop_reason: Optional[BetaStopReason]`
 
     The reason that we stopped.
@@ -5245,14 +5266,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Which custom stop sequence was generated, if any.
 
     This value will be a non-null string if one of your custom stop sequences was generated.
-
-  - `type: Literal["message"]`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
-    default: message
 
   - `usage: BetaUsage`
 
@@ -5320,6 +5333,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           No reprice was applied; `reason` says why.
 
+          - `type: Literal["not_applied"]`
+
+            default: not_applied
+
           - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
             Why the reprice was not applied.
@@ -5350,10 +5367,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             - `"wrong_platform"`
 
             - `"wrong_workspace"`
-
-          - `type: Literal["not_applied"]`
-
-            default: not_applied
 
           - `remove_to_redeem: Optional[List[str]]`
 
@@ -5392,6 +5405,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for a sampling iteration.
 
+        - `type: Literal["message"]`
+
+          Usage for a sampling iteration
+
+          default: message
+
         - `cache_creation: Optional[BetaCacheCreation]`
 
           Breakdown of cached tokens by TTL
@@ -5426,43 +5445,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `type: Literal["message"]`
-
-          Usage for a sampling iteration
-
-          default: message
-
       - `class BetaCompactionIterationUsage: …`
 
         Token usage for a compaction iteration.
-
-        - `cache_creation: Optional[BetaCacheCreation]`
-
-          Breakdown of cached tokens by TTL
-
-        - `cache_creation_input_tokens: int`
-
-          The number of input tokens used to create the cache entry.
-
-          default: 0, minimum: 0
-
-        - `cache_read_input_tokens: int`
-
-          The number of input tokens read from the cache.
-
-          default: 0, minimum: 0
-
-        - `input_tokens: int`
-
-          The number of input tokens which were used.
-
-          minimum: 0
-
-        - `output_tokens: int`
-
-          The number of output tokens which were used.
-
-          minimum: 0
 
         - `type: Literal["compaction"]`
 
@@ -5470,9 +5455,43 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           default: compaction
 
+        - `cache_creation: Optional[BetaCacheCreation]`
+
+          Breakdown of cached tokens by TTL
+
+        - `cache_creation_input_tokens: int`
+
+          The number of input tokens used to create the cache entry.
+
+          default: 0, minimum: 0
+
+        - `cache_read_input_tokens: int`
+
+          The number of input tokens read from the cache.
+
+          default: 0, minimum: 0
+
+        - `input_tokens: int`
+
+          The number of input tokens which were used.
+
+          minimum: 0
+
+        - `output_tokens: int`
+
+          The number of output tokens which were used.
+
+          minimum: 0
+
       - `class BetaAdvisorMessageIterationUsage: …`
 
         Token usage for an advisor sub-inference iteration.
+
+        - `type: Literal["advisor_message"]`
+
+          Usage for an advisor sub-inference iteration
+
+          default: advisor_message
 
         - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -5507,12 +5526,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `type: Literal["advisor_message"]`
-
-          Usage for an advisor sub-inference iteration
-
-          default: advisor_message
 
       - `class BetaFallbackMessageIterationUsage: …`
 
@@ -5523,6 +5536,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
+        - `type: Literal["fallback_message"]`
+
+          Usage for the fallback-model attempt that served the response
+
+          default: fallback_message
+
         - `cache_creation: Optional[BetaCacheCreation]`
 
           Breakdown of cached tokens by TTL
@@ -5556,12 +5575,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `type: Literal["fallback_message"]`
-
-          Usage for the fallback-model attempt that served the response
-
-          default: fallback_message
 
     - `output_tokens: int`
 
@@ -5643,6 +5656,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     fallback happened mid-stream, in which case it holds the serving model's
     entries and replaces the one in `message_start`.
 
+    - `type: Literal["thinking_dropped"]`
+
+      Always `thinking_dropped` for this entry type.
+
+      default: thinking_dropped
+
     - `path: str`
 
       Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -5673,23 +5692,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"end_user_binding_mismatch"`
 
-    - `type: Literal["thinking_dropped"]`
-
-      Always `thinking_dropped` for this entry type.
-
-      default: thinking_dropped
-
 - `BetaRawMessageStreamEvent`
 
   - `class BetaRawMessageStartEvent: …`
-
-    - `message: BetaMessage`
 
     - `type: Literal["message_start"]`
 
       default: message_start
 
+    - `message: BetaMessage`
+
   - `class BetaRawMessageDeltaEvent: …`
+
+    - `type: Literal["message_delta"]`
+
+      default: message_delta
 
     - `context_management: Optional[BetaContextManagementResponse]`
 
@@ -5708,10 +5725,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `stop_reason: Optional[BetaStopReason]`
 
       - `stop_sequence: Optional[str]`
-
-    - `type: Literal["message_delta"]`
-
-      default: message_delta
 
     - `usage: BetaMessageDeltaUsage`
 
@@ -5794,6 +5807,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       fallback happened mid-stream, in which case it holds the serving model's
       entries and replaces the one in `message_start`.
 
+      - `type: Literal["thinking_dropped"]`
+
+        Always `thinking_dropped` for this entry type.
+
+        default: thinking_dropped
+
       - `path: str`
 
         Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -5816,12 +5835,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         `organization_binding_mismatch`, `end_user_binding_mismatch`,
         `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `type: Literal["thinking_dropped"]`
-
-        Always `thinking_dropped` for this entry type.
-
-        default: thinking_dropped
-
   - `class BetaRawMessageStopEvent: …`
 
     - `type: Literal["message_stop"]`
@@ -5829,6 +5842,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       default: message_stop
 
   - `class BetaRawContentBlockStartEvent: …`
+
+    - `type: Literal["content_block_start"]`
+
+      default: content_block_start
 
     - `content_block: ContentBlock`
 
@@ -5890,31 +5907,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `index: int`
 
-    - `type: Literal["content_block_start"]`
-
-      default: content_block_start
-
   - `class BetaRawContentBlockDeltaEvent: …`
+
+    - `type: Literal["content_block_delta"]`
+
+      default: content_block_delta
 
     - `delta: BetaRawContentBlockDelta`
 
       - `class BetaTextDelta: …`
 
-        - `text: str`
-
         - `type: Literal["text_delta"]`
 
           default: text_delta
 
-      - `class BetaInputJSONDelta: …`
+        - `text: str`
 
-        - `partial_json: str`
+      - `class BetaInputJSONDelta: …`
 
         - `type: Literal["input_json_delta"]`
 
           default: input_json_delta
 
+        - `partial_json: str`
+
       - `class BetaCitationsDelta: …`
+
+        - `type: Literal["citations_delta"]`
+
+          default: citations_delta
 
         - `citation: Citation`
 
@@ -5928,11 +5949,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `class BetaCitationSearchResultLocation: …`
 
-        - `type: Literal["citations_delta"]`
-
-          default: citations_delta
-
       - `class BetaThinkingDelta: …`
+
+        - `type: Literal["thinking_delta"]`
+
+          default: thinking_delta
 
         - `estimated_tokens: Optional[int]`
 
@@ -5942,21 +5963,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-        - `type: Literal["thinking_delta"]`
-
-          default: thinking_delta
-
       - `class BetaSignatureDelta: …`
-
-        - `signature: str`
-
-          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
         - `type: Literal["signature_delta"]`
 
           default: signature_delta
 
+        - `signature: str`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
       - `class BetaCompactionContentBlockDelta: …`
+
+        - `type: Literal["compaction_delta"]`
+
+          default: compaction_delta
 
         - `content: Optional[str]`
 
@@ -5964,23 +5985,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `type: Literal["compaction_delta"]`
-
-          default: compaction_delta
-
     - `index: int`
-
-    - `type: Literal["content_block_delta"]`
-
-      default: content_block_delta
 
   - `class BetaRawContentBlockStopEvent: …`
-
-    - `index: int`
 
     - `type: Literal["content_block_stop"]`
 
       default: content_block_stop
+
+    - `index: int`
 
 ### Example
 
@@ -6189,11 +6202,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaTextBlockParam: …`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6220,6 +6233,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `class BetaCitationCharLocationParam: …`
 
+            - `type: Literal["char_location"]`
+
             - `cited_text: str`
 
             - `document_index: int`
@@ -6236,9 +6251,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minimum: 0
 
-            - `type: Literal["char_location"]`
-
           - `class BetaCitationPageLocationParam: …`
+
+            - `type: Literal["page_location"]`
 
             - `cited_text: str`
 
@@ -6256,9 +6271,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minimum: 1
 
-            - `type: Literal["page_location"]`
-
           - `class BetaCitationContentBlockLocationParam: …`
+
+            - `type: Literal["content_block_location"]`
 
             - `cited_text: str`
 
@@ -6286,9 +6301,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minimum: 0
 
-            - `type: Literal["content_block_location"]`
-
           - `class BetaCitationWebSearchResultLocationParam: …`
+
+            - `type: Literal["web_search_result_location"]`
 
             - `cited_text: str`
 
@@ -6298,13 +6313,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               maxLength: 512, minLength: 1
 
-            - `type: Literal["web_search_result_location"]`
-
             - `url: str`
 
               minLength: 1
 
           - `class BetaCitationSearchResultLocationParam: …`
+
+            - `type: Literal["search_result_location"]`
 
             - `cited_text: str`
 
@@ -6336,13 +6351,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: Optional[str]`
 
-            - `type: Literal["search_result_location"]`
-
       - `class BetaImageBlockParam: …`
+
+        - `type: Literal["image"]`
 
         - `source: Source`
 
           - `class BetaBase64ImageSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -6358,8 +6375,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"image/webp"`
 
-            - `type: Literal["base64"]`
-
           - `class BetaURLImageSource: …`
 
             - `type: Literal["url"]`
@@ -6368,11 +6383,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `class BetaFileImageSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["image"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6392,9 +6405,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaRequestDocumentBlock: …`
 
+        - `type: Literal["document"]`
+
         - `source: Source`
 
           - `class BetaBase64PDFSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -6402,17 +6419,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `media_type: Literal["application/pdf"]`
 
-            - `type: Literal["base64"]`
-
           - `class BetaPlainTextSource: …`
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
             - `media_type: Literal["text/plain"]`
 
-            - `type: Literal["text"]`
-
           - `class BetaContentBlockSource: …`
+
+            - `type: Literal["content"]`
 
             - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -6424,8 +6441,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `class BetaImageBlockParam: …`
 
-            - `type: Literal["content"]`
-
           - `class BetaURLPDFSource: …`
 
             - `type: Literal["url"]`
@@ -6434,11 +6449,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `class BetaFileDocumentSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["document"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6458,13 +6471,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaSearchResultBlockParam: …`
 
+        - `type: Literal["search_result"]`
+
         - `content: List[BetaTextBlockParam]`
+
+          - `type: Literal["text"]`
 
           - `text: str`
 
             minLength: 1
-
-          - `type: Literal["text"]`
 
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6476,8 +6491,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `title: str`
 
-        - `type: Literal["search_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -6485,6 +6498,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `citations: Optional[BetaCitationsConfigParam]`
 
       - `class BetaThinkingBlockParam: …`
+
+        - `type: Literal["thinking"]`
 
         - `signature: str`
 
@@ -6496,17 +6511,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           The `thinking` text of this block as returned by the API.
 
-        - `type: Literal["thinking"]`
-
       - `class BetaRedactedThinkingBlockParam: …`
+
+        - `type: Literal["redacted_thinking"]`
 
         - `data: str`
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type: Literal["redacted_thinking"]`
-
       - `class BetaToolUseBlockParam: …`
+
+        - `type: Literal["tool_use"]`
 
         - `id: str`
 
@@ -6517,8 +6532,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `name: str`
 
           maxLength: 200, minLength: 1
-
-        - `type: Literal["tool_use"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6538,19 +6551,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Tool invocation generated by a server-side tool.
 
+            - `type: Literal["code_execution_20250825"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20250825"]`
 
           - `class BetaServerToolCaller20260120: …`
 
+            - `type: Literal["code_execution_20260120"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20260120"]`
 
         - `toolset_name: Optional[str]`
 
@@ -6560,11 +6573,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaToolResultBlockParam: …`
 
+        - `type: Literal["tool_result"]`
+
         - `tool_use_id: str`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: Literal["tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6588,11 +6601,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Tool reference block that can be included in tool_result content.
 
+              - `type: Literal["tool_reference"]`
+
               - `tool_name: str`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: Literal["tool_reference"]`
 
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6607,6 +6620,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               At most one per `tool_result`, only on a non-error result answering a
               browser toolset member `tool_use`. The server renders the
               model-visible text from it; the model never sees the raw fields.
+
+              - `type: Literal["browser_state"]`
 
               - `tabs: List[BetaBrowserStateTabEntry]`
 
@@ -6636,8 +6651,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `type: Literal["browser_state"]`
-
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
@@ -6658,25 +6671,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                   during a failed call gets no deferred `tab_opened`; it simply appears
                   in the next result's `tabs` inventory.
 
+                  - `type: Literal["tab_opened"]`
+
                   - `tab_id: str`
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type: Literal["tab_opened"]`
-
                 - `class BetaBrowserStateChangeDownloadStarted: …`
 
                   A file download that started during this call.
+
+                  - `type: Literal["download_started"]`
 
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_started"]`
 
                   - `url: str`
 
@@ -6691,13 +6704,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                   `download_started`, when the download finished during the call that
                   started it (at most one state change per `download_id` per result).
 
+                  - `type: Literal["download_completed"]`
+
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_completed"]`
 
                   - `url: str`
 
@@ -6721,13 +6734,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   A file download that failed — or was cancelled — during this call.
 
+                  - `type: Literal["download_failed"]`
+
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_failed"]`
 
                   - `url: str`
 
@@ -6750,6 +6763,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam: …`
+
+        - `type: Literal["server_tool_use"]`
 
         - `id: str`
 
@@ -6775,8 +6790,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"tool_search_tool_bm25"`
 
-        - `type: Literal["server_tool_use"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -6797,21 +6810,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaWebSearchToolResultBlockParam: …`
 
+        - `type: Literal["web_search_tool_result"]`
+
         - `content: BetaWebSearchToolResultBlockParamContent`
 
           - `List[BetaWebSearchResultBlockParam]`
 
+            - `type: Literal["web_search_result"]`
+
             - `encrypted_content: str`
 
             - `title: str`
-
-            - `type: Literal["web_search_result"]`
 
             - `url: str`
 
             - `page_age: Optional[str]`
 
           - `class BetaWebSearchToolRequestError: …`
+
+            - `type: Literal["web_search_tool_result_error"]`
 
             - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -6827,13 +6844,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"request_too_large"`
 
-            - `type: Literal["web_search_tool_result_error"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_search_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6855,9 +6868,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaWebFetchToolResultBlockParam: …`
 
+        - `type: Literal["web_fetch_tool_result"]`
+
         - `content: Content`
 
           - `class BetaWebFetchToolResultErrorBlockParam: …`
+
+            - `type: Literal["web_fetch_tool_result_error"]`
 
             - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -6879,13 +6896,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"unavailable"`
 
-            - `type: Literal["web_fetch_tool_result_error"]`
+              - `"content_too_large"`
 
           - `class BetaWebFetchBlockParam: …`
 
-            - `content: BetaRequestDocumentBlock`
-
             - `type: Literal["web_fetch_result"]`
+
+            - `content: BetaRequestDocumentBlock`
 
             - `url: str`
 
@@ -6898,8 +6915,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_fetch_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -6921,9 +6936,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaAdvisorToolResultBlockParam: …`
 
+        - `type: Literal["advisor_tool_result"]`
+
         - `content: Content`
 
           - `class BetaAdvisorToolResultErrorParam: …`
+
+            - `type: Literal["advisor_tool_result_error"]`
 
             - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -6941,23 +6960,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"model_not_found"`
 
-            - `type: Literal["advisor_tool_result_error"]`
-
           - `class BetaAdvisorResultBlockParam: …`
 
-            - `text: str`
-
             - `type: Literal["advisor_result"]`
+
+            - `text: str`
 
             - `stop_reason: Optional[str]`
 
           - `class BetaAdvisorRedactedResultBlockParam: …`
 
+            - `type: Literal["advisor_redacted_result"]`
+
             - `encrypted_content: str`
 
               Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-            - `type: Literal["advisor_redacted_result"]`
 
             - `stop_reason: Optional[str]`
 
@@ -6965,19 +6982,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["advisor_tool_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["code_execution_tool_result"]`
+
         - `content: BetaCodeExecutionToolResultBlockParamContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `class BetaCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["code_execution_tool_result_error"]`
 
             - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -6989,15 +7008,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["code_execution_tool_result_error"]`
-
           - `class BetaCodeExecutionResultBlockParam: …`
+
+            - `type: Literal["code_execution_result"]`
 
             - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["code_execution_output"]`
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -7005,17 +7024,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `stdout: str`
 
-            - `type: Literal["code_execution_result"]`
-
           - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
+            - `type: Literal["encrypted_code_execution_result"]`
+
             - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["code_execution_output"]`
+
+              - `file_id: str`
 
             - `encrypted_stdout: str`
 
@@ -7023,13 +7042,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `stderr: str`
 
-            - `type: Literal["encrypted_code_execution_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7037,9 +7052,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaBashCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["bash_code_execution_tool_result"]`
+
         - `content: Content`
 
           - `class BetaBashCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["bash_code_execution_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -7053,15 +7072,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"output_file_too_large"`
 
-            - `type: Literal["bash_code_execution_tool_result_error"]`
-
           - `class BetaBashCodeExecutionResultBlockParam: …`
+
+            - `type: Literal["bash_code_execution_result"]`
 
             - `content: List[BetaBashCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["bash_code_execution_output"]`
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -7069,13 +7088,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `stdout: str`
 
-            - `type: Literal["bash_code_execution_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["bash_code_execution_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7083,9 +7098,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["text_editor_code_execution_tool_result"]`
+
         - `content: Content`
 
           - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -7099,11 +7118,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"file_not_found"`
 
-            - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
             - `error_message: Optional[str]`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+            - `type: Literal["text_editor_code_execution_view_result"]`
 
             - `content: str`
 
@@ -7115,8 +7134,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"pdf"`
 
-            - `type: Literal["text_editor_code_execution_view_result"]`
-
             - `num_lines: Optional[int]`
 
             - `start_line: Optional[int]`
@@ -7125,9 +7142,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-            - `is_file_update: bool`
-
             - `type: Literal["text_editor_code_execution_create_result"]`
+
+            - `is_file_update: bool`
 
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
@@ -7147,17 +7164,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["text_editor_code_execution_tool_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaToolSearchToolResultBlockParam: …`
 
+        - `type: Literal["tool_search_tool_result"]`
+
         - `content: Content`
 
           - `class BetaToolSearchToolResultErrorParam: …`
+
+            - `type: Literal["tool_search_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -7169,37 +7188,35 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["tool_search_tool_result_error"]`
-
             - `error_message: Optional[str]`
 
           - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+            - `type: Literal["tool_search_tool_search_result"]`
+
             - `tool_references: List[BetaToolReferenceBlockParam]`
+
+              - `type: Literal["tool_reference"]`
 
               - `tool_name: str`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `type: Literal["tool_reference"]`
-
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type: Literal["tool_search_tool_search_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["tool_search_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaMCPToolUseBlockParam: …`
+
+        - `type: Literal["mcp_tool_use"]`
 
         - `id: str`
 
@@ -7213,19 +7230,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           The name of the MCP server
 
-        - `type: Literal["mcp_tool_use"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaRequestMCPToolResultBlockParam: …`
 
+        - `type: Literal["mcp_tool_result"]`
+
         - `tool_use_id: str`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: Literal["mcp_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7237,11 +7252,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `List[BetaTextBlockParam]`
 
+            - `type: Literal["text"]`
+
             - `text: str`
 
               minLength: 1
-
-            - `type: Literal["text"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7256,9 +7271,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
 
-        - `file_id: str`
-
         - `type: Literal["container_upload"]`
+
+        - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7296,6 +7311,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         `tools`; it is offered to the model from this point in the
         conversation onward.
 
+        - `type: Literal["tool_addition"]`
+
         - `tool: Tool`
 
           Reference to a single tool the caller declared directly in
@@ -7310,32 +7327,30 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             server assigns to MCP-resolved tools — use `mcp_tool_reference` or
             `mcp_toolset_reference` for those.
 
+            - `type: Literal["tool_reference"]`
+
             - `name: str`
 
               pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-            - `type: Literal["tool_reference"]`
 
           - `class BetaToolChangeMCPToolReference: …`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
 
+            - `type: Literal["mcp_tool_reference"]`
+
             - `name: str`
 
             - `server_name: str`
-
-            - `type: Literal["mcp_tool_reference"]`
 
           - `class BetaToolChangeMCPToolsetReference: …`
 
             Reference to every tool in the named MCP server's toolset.
 
-            - `server_name: str`
-
             - `type: Literal["mcp_toolset_reference"]`
 
-        - `type: Literal["tool_addition"]`
+            - `server_name: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7349,6 +7364,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         `tools`; it is no longer offered to the model from this point in the
         conversation onward.
 
+        - `type: Literal["tool_removal"]`
+
         - `tool: Tool`
 
           Reference to a single tool the caller declared directly in
@@ -7371,8 +7388,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `class BetaToolChangeMCPToolsetReference: …`
 
             Reference to every tool in the named MCP server's toolset.
-
-        - `type: Literal["tool_removal"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7393,6 +7408,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         request is rejected), and moving it into the middle of a single run is
         likewise rejected; between non-thinking blocks the block's placement has
         no validation effect.
+
+        - `type: Literal["fallback"]`
 
         - `from_: BetaFallbackInfoParam`
 
@@ -7501,8 +7518,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `to: BetaFallbackInfoParam`
 
           Identifies one hop of a fallback transition.
-
-        - `type: Literal["fallback"]`
 
         - `trigger: Optional[object]`
 
@@ -7670,9 +7685,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   maxItems: 20
 
-  - `name: str`
-
   - `type: Literal["url"]`
+
+  - `name: str`
 
   - `url: str`
 
@@ -7706,25 +7721,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+    - `type: Literal["json_schema"]`
+
     - `schema: Dict[str, object]`
 
       The JSON schema of the format
 
-    - `type: Literal["json_schema"]`
-
   - `task_budget: Optional[BetaTokenTaskBudget]`
 
     User-configurable total token budget across contexts.
+
+    - `type: Literal["tokens"]`
+
+      The budget type. Currently only 'tokens' is supported.
 
     - `total: int`
 
       Total token budget across all contexts in the session.
 
       minimum: 1024
-
-    - `type: Literal["tokens"]`
-
-      The budget type. Currently only 'tokens' is supported.
 
     - `remaining: Optional[int]`
 
@@ -7750,11 +7765,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `Iterable[BetaTextBlockParam]`
 
+    - `type: Literal["text"]`
+
     - `text: str`
 
       minLength: 1
-
-    - `type: Literal["text"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7772,6 +7787,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaThinkingConfigEnabled: …`
 
+    - `type: Literal["enabled"]`
+
     - `budget_tokens: int`
 
       Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -7781,8 +7798,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       minimum: 1024
-
-    - `type: Literal["enabled"]`
 
     - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -7868,11 +7883,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The model will use the specified tool with `tool_choice.name`.
 
+    - `type: Literal["tool"]`
+
     - `name: str`
 
       The name of the tool to use.
-
-    - `type: Literal["tool"]`
 
     - `disable_parallel_tool_use: Optional[bool]`
 
@@ -7952,6 +7967,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaTool: …`
 
+    - `type: Optional[Literal["custom"]]`
+
     - `input_schema: InputSchema`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -8006,17 +8023,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: Optional[Literal["custom"]]`
-
   - `class BetaToolBash20241022: …`
+
+    - `type: Literal["bash_20241022"]`
 
     - `name: Literal["bash"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["bash_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8044,13 +8059,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolBash20250124: …`
 
+    - `type: Literal["bash_20250124"]`
+
     - `name: Literal["bash"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["bash_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8078,13 +8093,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaCodeExecutionTool20250522: …`
 
+    - `type: Literal["code_execution_20250522"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20250522"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8110,13 +8125,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaCodeExecutionTool20250825: …`
 
+    - `type: Literal["code_execution_20250825"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20250825"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8144,13 +8159,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: Literal["code_execution_20260120"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20260120"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8178,13 +8193,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Code execution tool with REPL state persistence.
 
+    - `type: Literal["code_execution_20260521"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20260521"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8229,6 +8244,18 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: Optional[BetaBrowserTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: Optional[BetaBrowserCloseTabConfig]`
 
@@ -8566,18 +8593,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: Optional[BetaBrowserTypeConfig]`
-
-        `type`'s config overrides.
-
-        - `defer_loading: Optional[bool]`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: Optional[bool]`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: Optional[BetaBrowserWaitConfig]`
 
         `wait`'s config overrides.
@@ -8604,6 +8619,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolComputerUse20241022: …`
 
+    - `type: Literal["computer_20241022"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -8621,8 +8638,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8656,13 +8671,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaMemoryTool20250818: …`
 
+    - `type: Literal["memory_20250818"]`
+
     - `name: Literal["memory"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["memory_20250818"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8690,6 +8705,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolComputerUse20250124: …`
 
+    - `type: Literal["computer_20250124"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -8707,8 +8724,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8742,13 +8757,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolTextEditor20241022: …`
 
+    - `type: Literal["text_editor_20241022"]`
+
     - `name: Literal["str_replace_editor"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8776,6 +8791,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolComputerUse20251124: …`
 
+    - `type: Literal["computer_20251124"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -8793,8 +8810,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20251124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -8855,6 +8870,18 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: Optional[BetaComputerTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: Optional[BetaComputerCursorPositionConfig]`
 
@@ -9024,18 +9051,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: Optional[BetaComputerTypeConfig]`
-
-        `type`'s config overrides.
-
-        - `defer_loading: Optional[bool]`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: Optional[bool]`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: Optional[BetaComputerWaitConfig]`
 
         `wait`'s config overrides.
@@ -9062,13 +9077,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolTextEditor20250124: …`
 
+    - `type: Literal["text_editor_20250124"]`
+
     - `name: Literal["str_replace_editor"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9096,13 +9111,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolTextEditor20250429: …`
 
+    - `type: Literal["text_editor_20250429"]`
+
     - `name: Literal["str_replace_based_edit_tool"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250429"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9130,13 +9145,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolTextEditor20250728: …`
 
+    - `type: Literal["text_editor_20250728"]`
+
     - `name: Literal["str_replace_based_edit_tool"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250728"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9170,13 +9185,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaWebSearchTool20250305: …`
 
+    - `type: Literal["web_search_20250305"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20250305"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9246,13 +9261,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaWebFetchTool20250910: …`
 
+    - `type: Literal["web_fetch_20250910"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20250910"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9302,13 +9317,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaWebSearchTool20260209: …`
 
+    - `type: Literal["web_search_20260209"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20260209"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9352,13 +9367,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaWebFetchTool20260209: …`
 
+    - `type: Literal["web_fetch_20260209"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260209"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9410,13 +9425,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: Literal["web_fetch_20260309"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260309"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9470,13 +9485,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaWebSearchTool20260318: …`
 
+    - `type: Literal["web_search_20260318"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20260318"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9528,13 +9543,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaWebFetchTool20260318: …`
 
+    - `type: Literal["web_fetch_20260318"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260318"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9596,6 +9611,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaAdvisorTool20260301: …`
 
+    - `type: Literal["advisor_20260301"]`
+
     - `model: Model`
 
       The model that will complete your prompt.
@@ -9607,8 +9624,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["advisor_20260301"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9650,17 +9665,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolSearchToolBm25_20251119: …`
 
-    - `name: Literal["tool_search_tool_bm25"]`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: Literal["tool_search_tool_bm25"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9686,17 +9701,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaToolSearchToolRegex20251119: …`
 
-    - `name: Literal["tool_search_tool_regex"]`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: Literal["tool_search_tool_regex"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -9727,13 +9742,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     Allows configuring enabled status and defer_loading for all tools
     from an MCP server, with optional per-tool overrides.
 
+    - `type: Literal["mcp_toolset"]`
+
     - `mcp_server_name: str`
 
       Name of the MCP server to configure tools for
 
       maxLength: 255, minLength: 1
-
-    - `type: Literal["mcp_toolset"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -9761,7 +9776,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -9809,6 +9824,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -9854,6 +9871,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `user_profile_id: Optional[str]`
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `workspace_id: Optional[str]`
 
 ### Returns
 
@@ -9912,6 +9931,12 @@ print(beta_message_tokens_count.context_management)
 - `class BetaAdvisorMessageIterationUsage: …`
 
   Token usage for an advisor sub-inference iteration.
+
+  - `type: Literal["advisor_message"]`
+
+    Usage for an advisor sub-inference iteration
+
+    default: advisor_message
 
   - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -10053,15 +10078,13 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 0
 
-  - `type: Literal["advisor_message"]`
-
-    Usage for an advisor sub-inference iteration
-
-    default: advisor_message
-
 ### Beta Advisor Redacted Result Block
 
 - `class BetaAdvisorRedactedResultBlock: …`
+
+  - `type: Literal["advisor_redacted_result"]`
+
+    default: advisor_redacted_result
 
   - `encrypted_content: str`
 
@@ -10071,19 +10094,15 @@ print(beta_message_tokens_count.context_management)
 
     The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-  - `type: Literal["advisor_redacted_result"]`
-
-    default: advisor_redacted_result
-
 ### Beta Advisor Redacted Result Block Param
 
 - `class BetaAdvisorRedactedResultBlockParam: …`
 
+  - `type: Literal["advisor_redacted_result"]`
+
   - `encrypted_content: str`
 
     Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-  - `type: Literal["advisor_redacted_result"]`
 
   - `stop_reason: Optional[str]`
 
@@ -10091,29 +10110,31 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaAdvisorResultBlock: …`
 
+  - `type: Literal["advisor_result"]`
+
+    default: advisor_result
+
   - `stop_reason: Optional[str]`
 
     The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
   - `text: str`
 
-  - `type: Literal["advisor_result"]`
-
-    default: advisor_result
-
 ### Beta Advisor Result Block Param
 
 - `class BetaAdvisorResultBlockParam: …`
 
-  - `text: str`
-
   - `type: Literal["advisor_result"]`
+
+  - `text: str`
 
   - `stop_reason: Optional[str]`
 
 ### Beta Advisor Tool 20260301
 
 - `class BetaAdvisorTool20260301: …`
+
+  - `type: Literal["advisor_20260301"]`
 
   - `model: Model`
 
@@ -10221,8 +10242,6 @@ print(beta_message_tokens_count.context_management)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `type: Literal["advisor_20260301"]`
-
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
@@ -10282,9 +10301,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaAdvisorToolResultBlock: …`
 
+  - `type: Literal["advisor_tool_result"]`
+
+    default: advisor_tool_result
+
   - `content: Content`
 
     - `class BetaAdvisorToolResultError: …`
+
+      - `type: Literal["advisor_tool_result_error"]`
+
+        default: advisor_tool_result_error
 
       - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -10302,11 +10329,11 @@ print(beta_message_tokens_count.context_management)
 
         - `"model_not_found"`
 
-      - `type: Literal["advisor_tool_result_error"]`
-
-        default: advisor_tool_result_error
-
     - `class BetaAdvisorResultBlock: …`
+
+      - `type: Literal["advisor_result"]`
+
+        default: advisor_result
 
       - `stop_reason: Optional[str]`
 
@@ -10314,11 +10341,11 @@ print(beta_message_tokens_count.context_management)
 
       - `text: str`
 
-      - `type: Literal["advisor_result"]`
-
-        default: advisor_result
-
     - `class BetaAdvisorRedactedResultBlock: …`
+
+      - `type: Literal["advisor_redacted_result"]`
+
+        default: advisor_redacted_result
 
       - `encrypted_content: str`
 
@@ -10328,25 +10355,21 @@ print(beta_message_tokens_count.context_management)
 
         The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-      - `type: Literal["advisor_redacted_result"]`
-
-        default: advisor_redacted_result
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["advisor_tool_result"]`
-
-    default: advisor_tool_result
 
 ### Beta Advisor Tool Result Block Param
 
 - `class BetaAdvisorToolResultBlockParam: …`
 
+  - `type: Literal["advisor_tool_result"]`
+
   - `content: Content`
 
     - `class BetaAdvisorToolResultErrorParam: …`
+
+      - `type: Literal["advisor_tool_result_error"]`
 
       - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -10364,31 +10387,27 @@ print(beta_message_tokens_count.context_management)
 
         - `"model_not_found"`
 
-      - `type: Literal["advisor_tool_result_error"]`
-
     - `class BetaAdvisorResultBlockParam: …`
 
-      - `text: str`
-
       - `type: Literal["advisor_result"]`
+
+      - `text: str`
 
       - `stop_reason: Optional[str]`
 
     - `class BetaAdvisorRedactedResultBlockParam: …`
 
+      - `type: Literal["advisor_redacted_result"]`
+
       - `encrypted_content: str`
 
         Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-      - `type: Literal["advisor_redacted_result"]`
 
       - `stop_reason: Optional[str]`
 
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["advisor_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -10415,6 +10434,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaAdvisorToolResultError: …`
 
+  - `type: Literal["advisor_tool_result_error"]`
+
+    default: advisor_tool_result_error
+
   - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
     - `"max_uses_exceeded"`
@@ -10430,15 +10453,13 @@ print(beta_message_tokens_count.context_management)
     - `"execution_time_exceeded"`
 
     - `"model_not_found"`
-
-  - `type: Literal["advisor_tool_result_error"]`
-
-    default: advisor_tool_result_error
 
 ### Beta Advisor Tool Result Error Param
 
 - `class BetaAdvisorToolResultErrorParam: …`
 
+  - `type: Literal["advisor_tool_result_error"]`
+
   - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
     - `"max_uses_exceeded"`
@@ -10454,8 +10475,6 @@ print(beta_message_tokens_count.context_management)
     - `"execution_time_exceeded"`
 
     - `"model_not_found"`
-
-  - `type: Literal["advisor_tool_result_error"]`
 
 ### Beta All Thinking Turns
 
@@ -10466,6 +10485,8 @@ print(beta_message_tokens_count.context_management)
 ### Beta Base64 Image Source
 
 - `class BetaBase64ImageSource: …`
+
+  - `type: Literal["base64"]`
 
   - `data: str`
 
@@ -10481,11 +10502,11 @@ print(beta_message_tokens_count.context_management)
 
     - `"image/webp"`
 
-  - `type: Literal["base64"]`
-
 ### Beta Base64 PDF Source
 
 - `class BetaBase64PDFSource: …`
+
+  - `type: Literal["base64"]`
 
   - `data: str`
 
@@ -10493,57 +10514,57 @@ print(beta_message_tokens_count.context_management)
 
   - `media_type: Literal["application/pdf"]`
 
-  - `type: Literal["base64"]`
-
 ### Beta Bash Code Execution Output Block
 
 - `class BetaBashCodeExecutionOutputBlock: …`
-
-  - `file_id: str`
 
   - `type: Literal["bash_code_execution_output"]`
 
     default: bash_code_execution_output
 
+  - `file_id: str`
+
 ### Beta Bash Code Execution Output Block Param
 
 - `class BetaBashCodeExecutionOutputBlockParam: …`
 
-  - `file_id: str`
-
   - `type: Literal["bash_code_execution_output"]`
+
+  - `file_id: str`
 
 ### Beta Bash Code Execution Result Block
 
 - `class BetaBashCodeExecutionResultBlock: …`
 
-  - `content: List[BetaBashCodeExecutionOutputBlock]`
+  - `type: Literal["bash_code_execution_result"]`
 
-    - `file_id: str`
+    default: bash_code_execution_result
+
+  - `content: List[BetaBashCodeExecutionOutputBlock]`
 
     - `type: Literal["bash_code_execution_output"]`
 
       default: bash_code_execution_output
 
+    - `file_id: str`
+
   - `return_code: int`
 
   - `stderr: str`
 
   - `stdout: str`
-
-  - `type: Literal["bash_code_execution_result"]`
-
-    default: bash_code_execution_result
 
 ### Beta Bash Code Execution Result Block Param
 
 - `class BetaBashCodeExecutionResultBlockParam: …`
 
+  - `type: Literal["bash_code_execution_result"]`
+
   - `content: List[BetaBashCodeExecutionOutputBlockParam]`
 
-    - `file_id: str`
-
     - `type: Literal["bash_code_execution_output"]`
+
+    - `file_id: str`
 
   - `return_code: int`
 
@@ -10551,67 +10572,21 @@ print(beta_message_tokens_count.context_management)
 
   - `stdout: str`
 
-  - `type: Literal["bash_code_execution_result"]`
-
 ### Beta Bash Code Execution Tool Result Block
 
 - `class BetaBashCodeExecutionToolResultBlock: …`
-
-  - `content: Content`
-
-    - `class BetaBashCodeExecutionToolResultError: …`
-
-      - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
-
-        - `"invalid_tool_input"`
-
-        - `"unavailable"`
-
-        - `"too_many_requests"`
-
-        - `"execution_time_exceeded"`
-
-        - `"output_file_too_large"`
-
-      - `type: Literal["bash_code_execution_tool_result_error"]`
-
-        default: bash_code_execution_tool_result_error
-
-    - `class BetaBashCodeExecutionResultBlock: …`
-
-      - `content: List[BetaBashCodeExecutionOutputBlock]`
-
-        - `file_id: str`
-
-        - `type: Literal["bash_code_execution_output"]`
-
-          default: bash_code_execution_output
-
-      - `return_code: int`
-
-      - `stderr: str`
-
-      - `stdout: str`
-
-      - `type: Literal["bash_code_execution_result"]`
-
-        default: bash_code_execution_result
-
-  - `tool_use_id: str`
-
-    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `type: Literal["bash_code_execution_tool_result"]`
 
     default: bash_code_execution_tool_result
 
-### Beta Bash Code Execution Tool Result Block Param
-
-- `class BetaBashCodeExecutionToolResultBlockParam: …`
-
   - `content: Content`
 
-    - `class BetaBashCodeExecutionToolResultErrorParam: …`
+    - `class BetaBashCodeExecutionToolResultError: …`
+
+      - `type: Literal["bash_code_execution_tool_result_error"]`
+
+        default: bash_code_execution_tool_result_error
 
       - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -10625,15 +10600,19 @@ print(beta_message_tokens_count.context_management)
 
         - `"output_file_too_large"`
 
-      - `type: Literal["bash_code_execution_tool_result_error"]`
+    - `class BetaBashCodeExecutionResultBlock: …`
 
-    - `class BetaBashCodeExecutionResultBlockParam: …`
+      - `type: Literal["bash_code_execution_result"]`
 
-      - `content: List[BetaBashCodeExecutionOutputBlockParam]`
+        default: bash_code_execution_result
 
-        - `file_id: str`
+      - `content: List[BetaBashCodeExecutionOutputBlock]`
 
         - `type: Literal["bash_code_execution_output"]`
+
+          default: bash_code_execution_output
+
+        - `file_id: str`
 
       - `return_code: int`
 
@@ -10641,13 +10620,53 @@ print(beta_message_tokens_count.context_management)
 
       - `stdout: str`
 
-      - `type: Literal["bash_code_execution_result"]`
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
+### Beta Bash Code Execution Tool Result Block Param
+
+- `class BetaBashCodeExecutionToolResultBlockParam: …`
+
   - `type: Literal["bash_code_execution_tool_result"]`
+
+  - `content: Content`
+
+    - `class BetaBashCodeExecutionToolResultErrorParam: …`
+
+      - `type: Literal["bash_code_execution_tool_result_error"]`
+
+      - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
+
+        - `"invalid_tool_input"`
+
+        - `"unavailable"`
+
+        - `"too_many_requests"`
+
+        - `"execution_time_exceeded"`
+
+        - `"output_file_too_large"`
+
+    - `class BetaBashCodeExecutionResultBlockParam: …`
+
+      - `type: Literal["bash_code_execution_result"]`
+
+      - `content: List[BetaBashCodeExecutionOutputBlockParam]`
+
+        - `type: Literal["bash_code_execution_output"]`
+
+        - `file_id: str`
+
+      - `return_code: int`
+
+      - `stderr: str`
+
+      - `stdout: str`
+
+  - `tool_use_id: str`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -10674,6 +10693,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaBashCodeExecutionToolResultError: …`
 
+  - `type: Literal["bash_code_execution_tool_result_error"]`
+
+    default: bash_code_execution_tool_result_error
+
   - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
     - `"invalid_tool_input"`
@@ -10685,15 +10708,13 @@ print(beta_message_tokens_count.context_management)
     - `"execution_time_exceeded"`
 
     - `"output_file_too_large"`
-
-  - `type: Literal["bash_code_execution_tool_result_error"]`
-
-    default: bash_code_execution_tool_result_error
 
 ### Beta Bash Code Execution Tool Result Error Param
 
 - `class BetaBashCodeExecutionToolResultErrorParam: …`
 
+  - `type: Literal["bash_code_execution_tool_result_error"]`
+
   - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
     - `"invalid_tool_input"`
@@ -10705,8 +10726,6 @@ print(beta_message_tokens_count.context_management)
     - `"execution_time_exceeded"`
 
     - `"output_file_too_large"`
-
-  - `type: Literal["bash_code_execution_tool_result_error"]`
 
 ### Beta Browser Close Tab Config
 
@@ -11084,6 +11103,8 @@ print(beta_message_tokens_count.context_management)
   browser toolset member `tool_use`. The server renders the
   model-visible text from it; the model never sees the raw fields.
 
+  - `type: Literal["browser_state"]`
+
   - `tabs: List[BetaBrowserStateTabEntry]`
 
     All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
@@ -11111,8 +11132,6 @@ print(beta_message_tokens_count.context_management)
     - `active: Optional[bool]`
 
       Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
-
-  - `type: Literal["browser_state"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -11151,25 +11170,25 @@ print(beta_message_tokens_count.context_management)
       during a failed call gets no deferred `tab_opened`; it simply appears
       in the next result's `tabs` inventory.
 
+      - `type: Literal["tab_opened"]`
+
       - `tab_id: str`
 
         The `tab_id` of the opened tab, present in `tabs`.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `type: Literal["tab_opened"]`
-
     - `class BetaBrowserStateChangeDownloadStarted: …`
 
       A file download that started during this call.
+
+      - `type: Literal["download_started"]`
 
       - `download_id: str`
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `type: Literal["download_started"]`
 
       - `url: str`
 
@@ -11184,13 +11203,13 @@ print(beta_message_tokens_count.context_management)
       `download_started`, when the download finished during the call that
       started it (at most one state change per `download_id` per result).
 
+      - `type: Literal["download_completed"]`
+
       - `download_id: str`
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `type: Literal["download_completed"]`
 
       - `url: str`
 
@@ -11214,13 +11233,13 @@ print(beta_message_tokens_count.context_management)
 
       A file download that failed — or was cancelled — during this call.
 
+      - `type: Literal["download_failed"]`
+
       - `download_id: str`
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `type: Literal["download_failed"]`
 
       - `url: str`
 
@@ -11256,25 +11275,25 @@ print(beta_message_tokens_count.context_management)
     during a failed call gets no deferred `tab_opened`; it simply appears
     in the next result's `tabs` inventory.
 
+    - `type: Literal["tab_opened"]`
+
     - `tab_id: str`
 
       The `tab_id` of the opened tab, present in `tabs`.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `type: Literal["tab_opened"]`
-
   - `class BetaBrowserStateChangeDownloadStarted: …`
 
     A file download that started during this call.
+
+    - `type: Literal["download_started"]`
 
     - `download_id: str`
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-    - `type: Literal["download_started"]`
 
     - `url: str`
 
@@ -11289,13 +11308,13 @@ print(beta_message_tokens_count.context_management)
     `download_started`, when the download finished during the call that
     started it (at most one state change per `download_id` per result).
 
+    - `type: Literal["download_completed"]`
+
     - `download_id: str`
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-    - `type: Literal["download_completed"]`
 
     - `url: str`
 
@@ -11319,13 +11338,13 @@ print(beta_message_tokens_count.context_management)
 
     A file download that failed — or was cancelled — during this call.
 
+    - `type: Literal["download_failed"]`
+
     - `download_id: str`
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-    - `type: Literal["download_failed"]`
 
     - `url: str`
 
@@ -11348,13 +11367,13 @@ print(beta_message_tokens_count.context_management)
   `download_started`, when the download finished during the call that
   started it (at most one state change per `download_id` per result).
 
+  - `type: Literal["download_completed"]`
+
   - `download_id: str`
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: Literal["download_completed"]`
 
   - `url: str`
 
@@ -11380,13 +11399,13 @@ print(beta_message_tokens_count.context_management)
 
   A file download that failed — or was cancelled — during this call.
 
+  - `type: Literal["download_failed"]`
+
   - `download_id: str`
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: Literal["download_failed"]`
 
   - `url: str`
 
@@ -11406,13 +11425,13 @@ print(beta_message_tokens_count.context_management)
 
   A file download that started during this call.
 
+  - `type: Literal["download_started"]`
+
   - `download_id: str`
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: Literal["download_started"]`
 
   - `url: str`
 
@@ -11432,13 +11451,13 @@ print(beta_message_tokens_count.context_management)
   during a failed call gets no deferred `tab_opened`; it simply appears
   in the next result's `tabs` inventory.
 
+  - `type: Literal["tab_opened"]`
+
   - `tab_id: str`
 
     The `tab_id` of the opened tab, present in `tabs`.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: Literal["tab_opened"]`
 
 ### Beta Browser State Tab Entry
 
@@ -11529,6 +11548,18 @@ print(beta_message_tokens_count.context_management)
     accepted key, and a member's defaults apply wherever its key is
     absent. Unknown keys are rejected: the field set is this toolset
     version's complete member set.
+
+    - `type: Optional[BetaBrowserTypeConfig]`
+
+      `type`'s config overrides.
+
+      - `defer_loading: Optional[bool]`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled: Optional[bool]`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
     - `close_tab: Optional[BetaBrowserCloseTabConfig]`
 
@@ -11866,18 +11897,6 @@ print(beta_message_tokens_count.context_management)
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type: Optional[BetaBrowserTypeConfig]`
-
-      `type`'s config overrides.
-
-      - `defer_loading: Optional[bool]`
-
-        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-      - `enabled: Optional[bool]`
-
-        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
     - `wait: Optional[BetaBrowserWaitConfig]`
 
       `wait`'s config overrides.
@@ -11912,6 +11931,18 @@ print(beta_message_tokens_count.context_management)
   accepted key, and a member's defaults apply wherever its key is
   absent. Unknown keys are rejected: the field set is this toolset
   version's complete member set.
+
+  - `type: Optional[BetaBrowserTypeConfig]`
+
+    `type`'s config overrides.
+
+    - `defer_loading: Optional[bool]`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled: Optional[bool]`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
   - `close_tab: Optional[BetaBrowserCloseTabConfig]`
 
@@ -12249,18 +12280,6 @@ print(beta_message_tokens_count.context_management)
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `type: Optional[BetaBrowserTypeConfig]`
-
-    `type`'s config overrides.
-
-    - `defer_loading: Optional[bool]`
-
-      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-    - `enabled: Optional[bool]`
-
-      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
   - `wait: Optional[BetaBrowserWaitConfig]`
 
     `wait`'s config overrides.
@@ -12382,25 +12401,25 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCacheMissMessagesChanged: …`
 
-  - `cache_missed_input_tokens: int`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
   - `type: Literal["messages_changed"]`
 
     default: messages_changed
+
+  - `cache_missed_input_tokens: int`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
 ### Beta Cache Miss Model Changed
 
 - `class BetaCacheMissModelChanged: …`
 
-  - `cache_missed_input_tokens: int`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
   - `type: Literal["model_changed"]`
 
     default: model_changed
+
+  - `cache_missed_input_tokens: int`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
 ### Beta Cache Miss Previous Message Not Found
 
@@ -12414,25 +12433,25 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCacheMissSystemChanged: …`
 
-  - `cache_missed_input_tokens: int`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
   - `type: Literal["system_changed"]`
 
     default: system_changed
+
+  - `cache_missed_input_tokens: int`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
 ### Beta Cache Miss Tools Changed
 
 - `class BetaCacheMissToolsChanged: …`
 
-  - `cache_missed_input_tokens: int`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
   - `type: Literal["tools_changed"]`
 
     default: tools_changed
+
+  - `cache_missed_input_tokens: int`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
 ### Beta Cache Miss Unavailable
 
@@ -12446,6 +12465,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCitationCharLocation: …`
 
+  - `type: Literal["char_location"]`
+
+    default: char_location
+
   - `cited_text: str`
 
   - `document_index: int`
@@ -12462,13 +12485,11 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 0
 
-  - `type: Literal["char_location"]`
-
-    default: char_location
-
 ### Beta Citation Char Location Param
 
 - `class BetaCitationCharLocationParam: …`
+
+  - `type: Literal["char_location"]`
 
   - `cited_text: str`
 
@@ -12485,8 +12506,6 @@ print(beta_message_tokens_count.context_management)
   - `start_char_index: int`
 
     minimum: 0
-
-  - `type: Literal["char_location"]`
 
 ### Beta Citation Config
 
@@ -12500,6 +12519,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCitationContentBlockLocation: …`
 
+  - `type: Literal["content_block_location"]`
+
+    default: content_block_location
+
   - `cited_text: str`
 
     The full text of the cited block range, concatenated.
@@ -12525,15 +12548,13 @@ print(beta_message_tokens_count.context_management)
     0-based index of the first cited block in the source's `content` array.
 
     minimum: 0
-
-  - `type: Literal["content_block_location"]`
-
-    default: content_block_location
 
 ### Beta Citation Content Block Location Param
 
 - `class BetaCitationContentBlockLocationParam: …`
 
+  - `type: Literal["content_block_location"]`
+
   - `cited_text: str`
 
     The full text of the cited block range, concatenated.
@@ -12560,11 +12581,13 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 0
 
-  - `type: Literal["content_block_location"]`
-
 ### Beta Citation Page Location
 
 - `class BetaCitationPageLocation: …`
+
+  - `type: Literal["page_location"]`
+
+    default: page_location
 
   - `cited_text: str`
 
@@ -12582,13 +12605,11 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 1
 
-  - `type: Literal["page_location"]`
-
-    default: page_location
-
 ### Beta Citation Page Location Param
 
 - `class BetaCitationPageLocationParam: …`
+
+  - `type: Literal["page_location"]`
 
   - `cited_text: str`
 
@@ -12606,49 +12627,49 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 1
 
-  - `type: Literal["page_location"]`
-
 ### Beta Citation Search Result Location
 
 - `class BetaCitationSearchResultLocation: …`
-
-  - `cited_text: str`
-
-    The full text of the cited block range, concatenated.
-
-    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-  - `end_block_index: int`
-
-    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-  - `search_result_index: int`
-
-    0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-    Counted separately from `document_index`; server-side web search results are not included in this count.
-
-    minimum: 0
-
-  - `source: str`
-
-  - `start_block_index: int`
-
-    0-based index of the first cited block in the source's `content` array.
-
-    minimum: 0
-
-  - `title: Optional[str]`
 
   - `type: Literal["search_result_location"]`
 
     default: search_result_location
 
+  - `cited_text: str`
+
+    The full text of the cited block range, concatenated.
+
+    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+  - `end_block_index: int`
+
+    Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+  - `search_result_index: int`
+
+    0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+    Counted separately from `document_index`; server-side web search results are not included in this count.
+
+    minimum: 0
+
+  - `source: str`
+
+  - `start_block_index: int`
+
+    0-based index of the first cited block in the source's `content` array.
+
+    minimum: 0
+
+  - `title: Optional[str]`
+
 ### Beta Citation Search Result Location Param
 
 - `class BetaCitationSearchResultLocationParam: …`
+
+  - `type: Literal["search_result_location"]`
 
   - `cited_text: str`
 
@@ -12680,11 +12701,11 @@ print(beta_message_tokens_count.context_management)
 
   - `title: Optional[str]`
 
-  - `type: Literal["search_result_location"]`
-
 ### Beta Citation Web Search Result Location Param
 
 - `class BetaCitationWebSearchResultLocationParam: …`
+
+  - `type: Literal["web_search_result_location"]`
 
   - `cited_text: str`
 
@@ -12693,8 +12714,6 @@ print(beta_message_tokens_count.context_management)
   - `title: Optional[str]`
 
     maxLength: 512, minLength: 1
-
-  - `type: Literal["web_search_result_location"]`
 
   - `url: str`
 
@@ -12710,9 +12729,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCitationsDelta: …`
 
+  - `type: Literal["citations_delta"]`
+
+    default: citations_delta
+
   - `citation: Citation`
 
     - `class BetaCitationCharLocation: …`
+
+      - `type: Literal["char_location"]`
+
+        default: char_location
 
       - `cited_text: str`
 
@@ -12730,11 +12757,11 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["char_location"]`
-
-        default: char_location
-
     - `class BetaCitationPageLocation: …`
+
+      - `type: Literal["page_location"]`
+
+        default: page_location
 
       - `cited_text: str`
 
@@ -12752,11 +12779,11 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 1
 
-      - `type: Literal["page_location"]`
-
-        default: page_location
-
     - `class BetaCitationContentBlockLocation: …`
+
+      - `type: Literal["content_block_location"]`
+
+        default: content_block_location
 
       - `cited_text: str`
 
@@ -12784,11 +12811,11 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["content_block_location"]`
-
-        default: content_block_location
-
     - `class BetaCitationsWebSearchResultLocation: …`
+
+      - `type: Literal["web_search_result_location"]`
+
+        default: web_search_result_location
 
       - `cited_text: str`
 
@@ -12798,13 +12825,13 @@ print(beta_message_tokens_count.context_management)
 
         maxLength: 512
 
-      - `type: Literal["web_search_result_location"]`
-
-        default: web_search_result_location
-
       - `url: str`
 
     - `class BetaCitationSearchResultLocation: …`
+
+      - `type: Literal["search_result_location"]`
+
+        default: search_result_location
 
       - `cited_text: str`
 
@@ -12836,17 +12863,13 @@ print(beta_message_tokens_count.context_management)
 
       - `title: Optional[str]`
 
-      - `type: Literal["search_result_location"]`
-
-        default: search_result_location
-
-  - `type: Literal["citations_delta"]`
-
-    default: citations_delta
-
 ### Beta Citations Web Search Result Location
 
 - `class BetaCitationsWebSearchResultLocation: …`
+
+  - `type: Literal["web_search_result_location"]`
+
+    default: web_search_result_location
 
   - `cited_text: str`
 
@@ -12855,10 +12878,6 @@ print(beta_message_tokens_count.context_management)
   - `title: Optional[str]`
 
     maxLength: 512
-
-  - `type: Literal["web_search_result_location"]`
-
-    default: web_search_result_location
 
   - `url: str`
 
@@ -12890,6 +12909,12 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaClearThinking20251015EditResponse: …`
 
+  - `type: Literal["clear_thinking_20251015"]`
+
+    The type of context management edit applied.
+
+    default: clear_thinking_20251015
+
   - `cleared_input_tokens: int`
 
     Number of input tokens cleared by this edit.
@@ -12901,12 +12926,6 @@ print(beta_message_tokens_count.context_management)
     Number of thinking turns that were cleared.
 
     minimum: 0
-
-  - `type: Literal["clear_thinking_20251015"]`
-
-    The type of context management edit applied.
-
-    default: clear_thinking_20251015
 
 ### Beta Clear Tool Uses 20250919 Edit
 
@@ -12970,6 +12989,12 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaClearToolUses20250919EditResponse: …`
 
+  - `type: Literal["clear_tool_uses_20250919"]`
+
+    The type of context management edit applied.
+
+    default: clear_tool_uses_20250919
+
   - `cleared_input_tokens: int`
 
     Number of input tokens cleared by this edit.
@@ -12982,61 +13007,57 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 0
 
-  - `type: Literal["clear_tool_uses_20250919"]`
-
-    The type of context management edit applied.
-
-    default: clear_tool_uses_20250919
-
 ### Beta Code Execution Output Block
 
 - `class BetaCodeExecutionOutputBlock: …`
-
-  - `file_id: str`
 
   - `type: Literal["code_execution_output"]`
 
     default: code_execution_output
 
+  - `file_id: str`
+
 ### Beta Code Execution Output Block Param
 
 - `class BetaCodeExecutionOutputBlockParam: …`
 
-  - `file_id: str`
-
   - `type: Literal["code_execution_output"]`
+
+  - `file_id: str`
 
 ### Beta Code Execution Result Block
 
 - `class BetaCodeExecutionResultBlock: …`
 
-  - `content: List[BetaCodeExecutionOutputBlock]`
+  - `type: Literal["code_execution_result"]`
 
-    - `file_id: str`
+    default: code_execution_result
+
+  - `content: List[BetaCodeExecutionOutputBlock]`
 
     - `type: Literal["code_execution_output"]`
 
       default: code_execution_output
 
+    - `file_id: str`
+
   - `return_code: int`
 
   - `stderr: str`
 
   - `stdout: str`
-
-  - `type: Literal["code_execution_result"]`
-
-    default: code_execution_result
 
 ### Beta Code Execution Result Block Param
 
 - `class BetaCodeExecutionResultBlockParam: …`
 
+  - `type: Literal["code_execution_result"]`
+
   - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-    - `file_id: str`
-
     - `type: Literal["code_execution_output"]`
+
+    - `file_id: str`
 
   - `return_code: int`
 
@@ -13044,19 +13065,17 @@ print(beta_message_tokens_count.context_management)
 
   - `stdout: str`
 
-  - `type: Literal["code_execution_result"]`
-
 ### Beta Code Execution Tool 20250522
 
 - `class BetaCodeExecutionTool20250522: …`
+
+  - `type: Literal["code_execution_20250522"]`
 
   - `name: Literal["code_execution"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["code_execution_20250522"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -13101,13 +13120,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCodeExecutionTool20250825: …`
 
+  - `type: Literal["code_execution_20250825"]`
+
   - `name: Literal["code_execution"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["code_execution_20250825"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -13154,13 +13173,13 @@ print(beta_message_tokens_count.context_management)
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+  - `type: Literal["code_execution_20260120"]`
+
   - `name: Literal["code_execution"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["code_execution_20260120"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -13207,13 +13226,13 @@ print(beta_message_tokens_count.context_management)
 
   Code execution tool with REPL state persistence.
 
+  - `type: Literal["code_execution_20260521"]`
+
   - `name: Literal["code_execution"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["code_execution_20260521"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -13258,11 +13277,19 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCodeExecutionToolResultBlock: …`
 
+  - `type: Literal["code_execution_tool_result"]`
+
+    default: code_execution_tool_result
+
   - `content: BetaCodeExecutionToolResultBlockContent`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
     - `class BetaCodeExecutionToolResultError: …`
+
+      - `type: Literal["code_execution_tool_result_error"]`
+
+        default: code_execution_tool_result_error
 
       - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -13274,19 +13301,19 @@ print(beta_message_tokens_count.context_management)
 
         - `"execution_time_exceeded"`
 
-      - `type: Literal["code_execution_tool_result_error"]`
-
-        default: code_execution_tool_result_error
-
     - `class BetaCodeExecutionResultBlock: …`
 
-      - `content: List[BetaCodeExecutionOutputBlock]`
+      - `type: Literal["code_execution_result"]`
 
-        - `file_id: str`
+        default: code_execution_result
+
+      - `content: List[BetaCodeExecutionOutputBlock]`
 
         - `type: Literal["code_execution_output"]`
 
           default: code_execution_output
+
+        - `file_id: str`
 
       - `return_code: int`
 
@@ -13294,21 +13321,21 @@ print(beta_message_tokens_count.context_management)
 
       - `stdout: str`
 
-      - `type: Literal["code_execution_result"]`
-
-        default: code_execution_result
-
     - `class BetaEncryptedCodeExecutionResultBlock: …`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
-      - `content: List[BetaCodeExecutionOutputBlock]`
+      - `type: Literal["encrypted_code_execution_result"]`
 
-        - `file_id: str`
+        default: encrypted_code_execution_result
+
+      - `content: List[BetaCodeExecutionOutputBlock]`
 
         - `type: Literal["code_execution_output"]`
 
           default: code_execution_output
+
+        - `file_id: str`
 
       - `encrypted_stdout: str`
 
@@ -13316,17 +13343,9 @@ print(beta_message_tokens_count.context_management)
 
       - `stderr: str`
 
-      - `type: Literal["encrypted_code_execution_result"]`
-
-        default: encrypted_code_execution_result
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["code_execution_tool_result"]`
-
-    default: code_execution_tool_result
 
 ### Beta Code Execution Tool Result Block Content
 
@@ -13335,6 +13354,10 @@ print(beta_message_tokens_count.context_management)
   Code execution result with encrypted stdout for PFC + web_search results.
 
   - `class BetaCodeExecutionToolResultError: …`
+
+    - `type: Literal["code_execution_tool_result_error"]`
+
+      default: code_execution_tool_result_error
 
     - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -13346,19 +13369,19 @@ print(beta_message_tokens_count.context_management)
 
       - `"execution_time_exceeded"`
 
-    - `type: Literal["code_execution_tool_result_error"]`
-
-      default: code_execution_tool_result_error
-
   - `class BetaCodeExecutionResultBlock: …`
 
-    - `content: List[BetaCodeExecutionOutputBlock]`
+    - `type: Literal["code_execution_result"]`
 
-      - `file_id: str`
+      default: code_execution_result
+
+    - `content: List[BetaCodeExecutionOutputBlock]`
 
       - `type: Literal["code_execution_output"]`
 
         default: code_execution_output
+
+      - `file_id: str`
 
     - `return_code: int`
 
@@ -13366,21 +13389,21 @@ print(beta_message_tokens_count.context_management)
 
     - `stdout: str`
 
-    - `type: Literal["code_execution_result"]`
-
-      default: code_execution_result
-
   - `class BetaEncryptedCodeExecutionResultBlock: …`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
-    - `content: List[BetaCodeExecutionOutputBlock]`
+    - `type: Literal["encrypted_code_execution_result"]`
 
-      - `file_id: str`
+      default: encrypted_code_execution_result
+
+    - `content: List[BetaCodeExecutionOutputBlock]`
 
       - `type: Literal["code_execution_output"]`
 
         default: code_execution_output
+
+      - `file_id: str`
 
     - `encrypted_stdout: str`
 
@@ -13388,19 +13411,19 @@ print(beta_message_tokens_count.context_management)
 
     - `stderr: str`
 
-    - `type: Literal["encrypted_code_execution_result"]`
-
-      default: encrypted_code_execution_result
-
 ### Beta Code Execution Tool Result Block Param
 
 - `class BetaCodeExecutionToolResultBlockParam: …`
+
+  - `type: Literal["code_execution_tool_result"]`
 
   - `content: BetaCodeExecutionToolResultBlockParamContent`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
     - `class BetaCodeExecutionToolResultErrorParam: …`
+
+      - `type: Literal["code_execution_tool_result_error"]`
 
       - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -13412,15 +13435,15 @@ print(beta_message_tokens_count.context_management)
 
         - `"execution_time_exceeded"`
 
-      - `type: Literal["code_execution_tool_result_error"]`
-
     - `class BetaCodeExecutionResultBlockParam: …`
+
+      - `type: Literal["code_execution_result"]`
 
       - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-        - `file_id: str`
-
         - `type: Literal["code_execution_output"]`
+
+        - `file_id: str`
 
       - `return_code: int`
 
@@ -13428,17 +13451,17 @@ print(beta_message_tokens_count.context_management)
 
       - `stdout: str`
 
-      - `type: Literal["code_execution_result"]`
-
     - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
+      - `type: Literal["encrypted_code_execution_result"]`
+
       - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-        - `file_id: str`
-
         - `type: Literal["code_execution_output"]`
+
+        - `file_id: str`
 
       - `encrypted_stdout: str`
 
@@ -13446,13 +13469,9 @@ print(beta_message_tokens_count.context_management)
 
       - `stderr: str`
 
-      - `type: Literal["encrypted_code_execution_result"]`
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["code_execution_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -13483,6 +13502,8 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaCodeExecutionToolResultErrorParam: …`
 
+    - `type: Literal["code_execution_tool_result_error"]`
+
     - `error_code: BetaCodeExecutionToolResultErrorCode`
 
       - `"invalid_tool_input"`
@@ -13493,15 +13514,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"execution_time_exceeded"`
 
-    - `type: Literal["code_execution_tool_result_error"]`
-
   - `class BetaCodeExecutionResultBlockParam: …`
+
+    - `type: Literal["code_execution_result"]`
 
     - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-      - `file_id: str`
-
       - `type: Literal["code_execution_output"]`
+
+      - `file_id: str`
 
     - `return_code: int`
 
@@ -13509,17 +13530,17 @@ print(beta_message_tokens_count.context_management)
 
     - `stdout: str`
 
-    - `type: Literal["code_execution_result"]`
-
   - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
+    - `type: Literal["encrypted_code_execution_result"]`
+
     - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-      - `file_id: str`
-
       - `type: Literal["code_execution_output"]`
+
+      - `file_id: str`
 
     - `encrypted_stdout: str`
 
@@ -13527,11 +13548,13 @@ print(beta_message_tokens_count.context_management)
 
     - `stderr: str`
 
-    - `type: Literal["encrypted_code_execution_result"]`
-
 ### Beta Code Execution Tool Result Error
 
 - `class BetaCodeExecutionToolResultError: …`
+
+  - `type: Literal["code_execution_tool_result_error"]`
+
+    default: code_execution_tool_result_error
 
   - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -13542,10 +13565,6 @@ print(beta_message_tokens_count.context_management)
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-  - `type: Literal["code_execution_tool_result_error"]`
-
-    default: code_execution_tool_result_error
 
 ### Beta Code Execution Tool Result Error Code
 
@@ -13563,6 +13582,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCodeExecutionToolResultErrorParam: …`
 
+  - `type: Literal["code_execution_tool_result_error"]`
+
   - `error_code: BetaCodeExecutionToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -13572,8 +13593,6 @@ print(beta_message_tokens_count.context_management)
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-  - `type: Literal["code_execution_tool_result_error"]`
 
 ### Beta Compact 20260112 Edit
 
@@ -13611,6 +13630,10 @@ print(beta_message_tokens_count.context_management)
   summary (e.g., malformed output from the model). Clients may round-trip
   compaction blocks with null content; the server treats them as no-ops.
 
+  - `type: Literal["compaction"]`
+
+    default: compaction
+
   - `content: Optional[str]`
 
     Summary of compacted content, or null if compaction failed
@@ -13618,10 +13641,6 @@ print(beta_message_tokens_count.context_management)
   - `encrypted_content: Optional[str]`
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
-
-  - `type: Literal["compaction"]`
-
-    default: compaction
 
 ### Beta Compaction Block Param
 
@@ -13670,21 +13689,27 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaCompactionContentBlockDelta: …`
 
+  - `type: Literal["compaction_delta"]`
+
+    default: compaction_delta
+
   - `content: Optional[str]`
 
   - `encrypted_content: Optional[str]`
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
 
-  - `type: Literal["compaction_delta"]`
-
-    default: compaction_delta
-
 ### Beta Compaction Iteration Usage
 
 - `class BetaCompactionIterationUsage: …`
 
   Token usage for a compaction iteration.
+
+  - `type: Literal["compaction"]`
+
+    Usage for a compaction iteration
+
+    default: compaction
 
   - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -13725,12 +13750,6 @@ print(beta_message_tokens_count.context_management)
     The number of output tokens which were used.
 
     minimum: 0
-
-  - `type: Literal["compaction"]`
-
-    Usage for a compaction iteration
-
-    default: compaction
 
 ### Beta Computer Cursor Position Config
 
@@ -13959,6 +13978,18 @@ print(beta_message_tokens_count.context_management)
     absent. Unknown keys are rejected: the field set is this toolset
     version's complete member set.
 
+    - `type: Optional[BetaComputerTypeConfig]`
+
+      `type`'s config overrides.
+
+      - `defer_loading: Optional[bool]`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled: Optional[bool]`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
     - `cursor_position: Optional[BetaComputerCursorPositionConfig]`
 
       `cursor_position`'s config overrides.
@@ -14127,18 +14158,6 @@ print(beta_message_tokens_count.context_management)
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type: Optional[BetaComputerTypeConfig]`
-
-      `type`'s config overrides.
-
-      - `defer_loading: Optional[bool]`
-
-        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-      - `enabled: Optional[bool]`
-
-        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
     - `wait: Optional[BetaComputerWaitConfig]`
 
       `wait`'s config overrides.
@@ -14173,6 +14192,18 @@ print(beta_message_tokens_count.context_management)
   accepted key, and a member's defaults apply wherever its key is
   absent. Unknown keys are rejected: the field set is this toolset
   version's complete member set.
+
+  - `type: Optional[BetaComputerTypeConfig]`
+
+    `type`'s config overrides.
+
+    - `defer_loading: Optional[bool]`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled: Optional[bool]`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
   - `cursor_position: Optional[BetaComputerCursorPositionConfig]`
 
@@ -14342,18 +14373,6 @@ print(beta_message_tokens_count.context_management)
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `type: Optional[BetaComputerTypeConfig]`
-
-    `type`'s config overrides.
-
-    - `defer_loading: Optional[bool]`
-
-      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-    - `enabled: Optional[bool]`
-
-      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
   - `wait: Optional[BetaComputerWaitConfig]`
 
     `wait`'s config overrides.
@@ -14454,12 +14473,6 @@ print(beta_message_tokens_count.context_management)
 
     Skills loaded in the container
 
-    - `skill_id: str`
-
-      Skill ID
-
-      maxLength: 64, minLength: 1
-
     - `type: Literal["anthropic", "custom"]`
 
       Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -14467,6 +14480,12 @@ print(beta_message_tokens_count.context_management)
       - `"anthropic"`
 
       - `"custom"`
+
+    - `skill_id: str`
+
+      Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `version: str`
 
@@ -14490,12 +14509,6 @@ print(beta_message_tokens_count.context_management)
 
     maxItems: 20
 
-    - `skill_id: str`
-
-      Skill ID
-
-      maxLength: 64, minLength: 1
-
     - `type: Literal["anthropic", "custom"]`
 
       Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -14503,6 +14516,12 @@ print(beta_message_tokens_count.context_management)
       - `"anthropic"`
 
       - `"custom"`
+
+    - `skill_id: str`
+
+      Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `version: Optional[str]`
 
@@ -14516,12 +14535,6 @@ print(beta_message_tokens_count.context_management)
 
   A skill that was loaded in a container (response model).
 
-  - `skill_id: str`
-
-    Skill ID
-
-    maxLength: 64, minLength: 1
-
   - `type: Literal["anthropic", "custom"]`
 
     Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -14529,6 +14542,12 @@ print(beta_message_tokens_count.context_management)
     - `"anthropic"`
 
     - `"custom"`
+
+  - `skill_id: str`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `version: str`
 
@@ -14542,11 +14561,11 @@ print(beta_message_tokens_count.context_management)
 
   Response model for a file uploaded to the container.
 
-  - `file_id: str`
-
   - `type: Literal["container_upload"]`
 
     default: container_upload
+
+  - `file_id: str`
 
 ### Beta Container Upload Block Param
 
@@ -14555,9 +14574,9 @@ print(beta_message_tokens_count.context_management)
   A content block that represents a file to be uploaded to the container
   Files uploaded via this block will be available in the container's input directory.
 
-  - `file_id: str`
-
   - `type: Literal["container_upload"]`
+
+  - `file_id: str`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -14588,6 +14607,10 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaTextBlock: …`
 
+    - `type: Literal["text"]`
+
+      default: text
+
     - `citations: Optional[List[BetaTextCitation]]`
 
       Citations supporting the text block.
@@ -14595,6 +14618,10 @@ print(beta_message_tokens_count.context_management)
       The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
       - `class BetaCitationCharLocation: …`
+
+        - `type: Literal["char_location"]`
+
+          default: char_location
 
         - `cited_text: str`
 
@@ -14612,11 +14639,11 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["char_location"]`
-
-          default: char_location
-
       - `class BetaCitationPageLocation: …`
+
+        - `type: Literal["page_location"]`
+
+          default: page_location
 
         - `cited_text: str`
 
@@ -14634,11 +14661,11 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 1
 
-        - `type: Literal["page_location"]`
-
-          default: page_location
-
       - `class BetaCitationContentBlockLocation: …`
+
+        - `type: Literal["content_block_location"]`
+
+          default: content_block_location
 
         - `cited_text: str`
 
@@ -14666,11 +14693,11 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["content_block_location"]`
-
-          default: content_block_location
-
       - `class BetaCitationsWebSearchResultLocation: …`
+
+        - `type: Literal["web_search_result_location"]`
+
+          default: web_search_result_location
 
         - `cited_text: str`
 
@@ -14680,13 +14707,13 @@ print(beta_message_tokens_count.context_management)
 
           maxLength: 512
 
-        - `type: Literal["web_search_result_location"]`
-
-          default: web_search_result_location
-
         - `url: str`
 
       - `class BetaCitationSearchResultLocation: …`
+
+        - `type: Literal["search_result_location"]`
+
+          default: search_result_location
 
         - `cited_text: str`
 
@@ -14718,19 +14745,15 @@ print(beta_message_tokens_count.context_management)
 
         - `title: Optional[str]`
 
-        - `type: Literal["search_result_location"]`
-
-          default: search_result_location
-
     - `text: str`
 
-      maxLength: 5000000, minLength: 0
-
-    - `type: Literal["text"]`
-
-      default: text
+      minLength: 0
 
   - `class BetaThinkingBlock: …`
+
+    - `type: Literal["thinking"]`
+
+      default: thinking
 
     - `signature: str`
 
@@ -14744,11 +14767,11 @@ print(beta_message_tokens_count.context_management)
 
       The text of Claude's thinking process for this block.
 
-    - `type: Literal["thinking"]`
-
-      default: thinking
-
   - `class BetaRedactedThinkingBlock: …`
+
+    - `type: Literal["redacted_thinking"]`
+
+      default: redacted_thinking
 
     - `data: str`
 
@@ -14758,11 +14781,11 @@ print(beta_message_tokens_count.context_management)
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `type: Literal["redacted_thinking"]`
-
-      default: redacted_thinking
-
   - `class BetaToolUseBlock: …`
+
+    - `type: Literal["tool_use"]`
+
+      default: tool_use
 
     - `id: str`
 
@@ -14773,10 +14796,6 @@ print(beta_message_tokens_count.context_management)
     - `name: str`
 
       minLength: 1
-
-    - `type: Literal["tool_use"]`
-
-      default: tool_use
 
     - `caller: Optional[Caller]`
 
@@ -14792,19 +14811,19 @@ print(beta_message_tokens_count.context_management)
 
         Tool invocation generated by a server-side tool.
 
+        - `type: Literal["code_execution_20250825"]`
+
         - `tool_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_20250825"]`
 
       - `class BetaServerToolCaller20260120: …`
 
+        - `type: Literal["code_execution_20260120"]`
+
         - `tool_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_20260120"]`
 
     - `toolset_name: Optional[str]`
 
@@ -14813,6 +14832,10 @@ print(beta_message_tokens_count.context_management)
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
   - `class BetaServerToolUseBlock: …`
+
+    - `type: Literal["server_tool_use"]`
+
+      default: server_tool_use
 
     - `id: str`
 
@@ -14838,10 +14861,6 @@ print(beta_message_tokens_count.context_management)
 
       - `"tool_search_tool_bm25"`
 
-    - `type: Literal["server_tool_use"]`
-
-      default: server_tool_use
-
     - `caller: Optional[Caller]`
 
       Tool invocation directly from the model.
@@ -14858,9 +14877,17 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebSearchToolResultBlock: …`
 
+    - `type: Literal["web_search_tool_result"]`
+
+      default: web_search_tool_result
+
     - `content: BetaWebSearchToolResultBlockContent`
 
       - `class BetaWebSearchToolResultError: …`
+
+        - `type: Literal["web_search_tool_result_error"]`
+
+          default: web_search_tool_result_error
 
         - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -14876,11 +14903,11 @@ print(beta_message_tokens_count.context_management)
 
           - `"request_too_large"`
 
-        - `type: Literal["web_search_tool_result_error"]`
-
-          default: web_search_tool_result_error
-
       - `List[BetaWebSearchResultBlock]`
+
+        - `type: Literal["web_search_result"]`
+
+          default: web_search_result
 
         - `encrypted_content: str`
 
@@ -14888,19 +14915,11 @@ print(beta_message_tokens_count.context_management)
 
         - `title: str`
 
-        - `type: Literal["web_search_result"]`
-
-          default: web_search_result
-
         - `url: str`
 
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["web_search_tool_result"]`
-
-      default: web_search_tool_result
 
     - `caller: Optional[Caller]`
 
@@ -14918,9 +14937,17 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebFetchToolResultBlock: …`
 
+    - `type: Literal["web_fetch_tool_result"]`
+
+      default: web_fetch_tool_result
+
     - `content: Content`
 
       - `class BetaWebFetchToolResultErrorBlock: …`
+
+        - `type: Literal["web_fetch_tool_result_error"]`
+
+          default: web_fetch_tool_result_error
 
         - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -14942,13 +14969,19 @@ print(beta_message_tokens_count.context_management)
 
           - `"unavailable"`
 
-        - `type: Literal["web_fetch_tool_result_error"]`
-
-          default: web_fetch_tool_result_error
+          - `"content_too_large"`
 
       - `class BetaWebFetchBlock: …`
 
+        - `type: Literal["web_fetch_result"]`
+
+          default: web_fetch_result
+
         - `content: BetaDocumentBlock`
+
+          - `type: Literal["document"]`
+
+            default: document
 
           - `citations: Optional[BetaCitationConfig]`
 
@@ -14962,37 +14995,29 @@ print(beta_message_tokens_count.context_management)
 
             - `class BetaBase64PDFSource: …`
 
+              - `type: Literal["base64"]`
+
               - `data: str`
 
                 format: byte
 
               - `media_type: Literal["application/pdf"]`
 
-              - `type: Literal["base64"]`
-
             - `class BetaPlainTextSource: …`
+
+              - `type: Literal["text"]`
 
               - `data: str`
 
               - `media_type: Literal["text/plain"]`
 
-              - `type: Literal["text"]`
-
           - `title: Optional[str]`
 
             The title of the document
 
-          - `type: Literal["document"]`
-
-            default: document
-
         - `retrieved_at: Optional[str]`
 
           ISO 8601 timestamp when the content was retrieved
-
-        - `type: Literal["web_fetch_result"]`
-
-          default: web_fetch_result
 
         - `url: str`
 
@@ -15001,10 +15026,6 @@ print(beta_message_tokens_count.context_management)
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["web_fetch_tool_result"]`
-
-      default: web_fetch_tool_result
 
     - `caller: Optional[Caller]`
 
@@ -15022,9 +15043,17 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaAdvisorToolResultBlock: …`
 
+    - `type: Literal["advisor_tool_result"]`
+
+      default: advisor_tool_result
+
     - `content: Content`
 
       - `class BetaAdvisorToolResultError: …`
+
+        - `type: Literal["advisor_tool_result_error"]`
+
+          default: advisor_tool_result_error
 
         - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -15042,11 +15071,11 @@ print(beta_message_tokens_count.context_management)
 
           - `"model_not_found"`
 
-        - `type: Literal["advisor_tool_result_error"]`
-
-          default: advisor_tool_result_error
-
       - `class BetaAdvisorResultBlock: …`
+
+        - `type: Literal["advisor_result"]`
+
+          default: advisor_result
 
         - `stop_reason: Optional[str]`
 
@@ -15054,11 +15083,11 @@ print(beta_message_tokens_count.context_management)
 
         - `text: str`
 
-        - `type: Literal["advisor_result"]`
-
-          default: advisor_result
-
       - `class BetaAdvisorRedactedResultBlock: …`
+
+        - `type: Literal["advisor_redacted_result"]`
+
+          default: advisor_redacted_result
 
         - `encrypted_content: str`
 
@@ -15068,25 +15097,25 @@ print(beta_message_tokens_count.context_management)
 
           The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-        - `type: Literal["advisor_redacted_result"]`
-
-          default: advisor_redacted_result
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["advisor_tool_result"]`
-
-      default: advisor_tool_result
-
   - `class BetaCodeExecutionToolResultBlock: …`
+
+    - `type: Literal["code_execution_tool_result"]`
+
+      default: code_execution_tool_result
 
     - `content: BetaCodeExecutionToolResultBlockContent`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
       - `class BetaCodeExecutionToolResultError: …`
+
+        - `type: Literal["code_execution_tool_result_error"]`
+
+          default: code_execution_tool_result_error
 
         - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -15098,19 +15127,19 @@ print(beta_message_tokens_count.context_management)
 
           - `"execution_time_exceeded"`
 
-        - `type: Literal["code_execution_tool_result_error"]`
-
-          default: code_execution_tool_result_error
-
       - `class BetaCodeExecutionResultBlock: …`
 
-        - `content: List[BetaCodeExecutionOutputBlock]`
+        - `type: Literal["code_execution_result"]`
 
-          - `file_id: str`
+          default: code_execution_result
+
+        - `content: List[BetaCodeExecutionOutputBlock]`
 
           - `type: Literal["code_execution_output"]`
 
             default: code_execution_output
+
+          - `file_id: str`
 
         - `return_code: int`
 
@@ -15118,21 +15147,21 @@ print(beta_message_tokens_count.context_management)
 
         - `stdout: str`
 
-        - `type: Literal["code_execution_result"]`
-
-          default: code_execution_result
-
       - `class BetaEncryptedCodeExecutionResultBlock: …`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
-        - `content: List[BetaCodeExecutionOutputBlock]`
+        - `type: Literal["encrypted_code_execution_result"]`
 
-          - `file_id: str`
+          default: encrypted_code_execution_result
+
+        - `content: List[BetaCodeExecutionOutputBlock]`
 
           - `type: Literal["code_execution_output"]`
 
             default: code_execution_output
+
+          - `file_id: str`
 
         - `encrypted_stdout: str`
 
@@ -15140,23 +15169,23 @@ print(beta_message_tokens_count.context_management)
 
         - `stderr: str`
 
-        - `type: Literal["encrypted_code_execution_result"]`
-
-          default: encrypted_code_execution_result
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["code_execution_tool_result"]`
-
-      default: code_execution_tool_result
-
   - `class BetaBashCodeExecutionToolResultBlock: …`
+
+    - `type: Literal["bash_code_execution_tool_result"]`
+
+      default: bash_code_execution_tool_result
 
     - `content: Content`
 
       - `class BetaBashCodeExecutionToolResultError: …`
+
+        - `type: Literal["bash_code_execution_tool_result_error"]`
+
+          default: bash_code_execution_tool_result_error
 
         - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -15170,19 +15199,19 @@ print(beta_message_tokens_count.context_management)
 
           - `"output_file_too_large"`
 
-        - `type: Literal["bash_code_execution_tool_result_error"]`
-
-          default: bash_code_execution_tool_result_error
-
       - `class BetaBashCodeExecutionResultBlock: …`
 
-        - `content: List[BetaBashCodeExecutionOutputBlock]`
+        - `type: Literal["bash_code_execution_result"]`
 
-          - `file_id: str`
+          default: bash_code_execution_result
+
+        - `content: List[BetaBashCodeExecutionOutputBlock]`
 
           - `type: Literal["bash_code_execution_output"]`
 
             default: bash_code_execution_output
+
+          - `file_id: str`
 
         - `return_code: int`
 
@@ -15190,23 +15219,23 @@ print(beta_message_tokens_count.context_management)
 
         - `stdout: str`
 
-        - `type: Literal["bash_code_execution_result"]`
-
-          default: bash_code_execution_result
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["bash_code_execution_tool_result"]`
-
-      default: bash_code_execution_tool_result
-
   - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+    - `type: Literal["text_editor_code_execution_tool_result"]`
+
+      default: text_editor_code_execution_tool_result
 
     - `content: Content`
 
       - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+        - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+          default: text_editor_code_execution_tool_result_error
 
         - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -15222,11 +15251,11 @@ print(beta_message_tokens_count.context_management)
 
         - `error_message: Optional[str]`
 
-        - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-          default: text_editor_code_execution_tool_result_error
-
       - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+        - `type: Literal["text_editor_code_execution_view_result"]`
+
+          default: text_editor_code_execution_view_result
 
         - `content: str`
 
@@ -15244,19 +15273,19 @@ print(beta_message_tokens_count.context_management)
 
         - `total_lines: Optional[int]`
 
-        - `type: Literal["text_editor_code_execution_view_result"]`
-
-          default: text_editor_code_execution_view_result
-
       - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-        - `is_file_update: bool`
 
         - `type: Literal["text_editor_code_execution_create_result"]`
 
           default: text_editor_code_execution_create_result
 
+        - `is_file_update: bool`
+
       - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+        - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+          default: text_editor_code_execution_str_replace_result
 
         - `lines: Optional[List[str]]`
 
@@ -15268,23 +15297,23 @@ print(beta_message_tokens_count.context_management)
 
         - `old_start: Optional[int]`
 
-        - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-          default: text_editor_code_execution_str_replace_result
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["text_editor_code_execution_tool_result"]`
-
-      default: text_editor_code_execution_tool_result
-
   - `class BetaToolSearchToolResultBlock: …`
+
+    - `type: Literal["tool_search_tool_result"]`
+
+      default: tool_search_tool_result
 
     - `content: Content`
 
       - `class BetaToolSearchToolResultError: …`
+
+        - `type: Literal["tool_search_tool_result_error"]`
+
+          default: tool_search_tool_result_error
 
         - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -15298,35 +15327,31 @@ print(beta_message_tokens_count.context_management)
 
         - `error_message: Optional[str]`
 
-        - `type: Literal["tool_search_tool_result_error"]`
-
-          default: tool_search_tool_result_error
-
       - `class BetaToolSearchToolSearchResultBlock: …`
-
-        - `tool_references: List[BetaToolReferenceBlock]`
-
-          - `tool_name: str`
-
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-          - `type: Literal["tool_reference"]`
-
-            default: tool_reference
 
         - `type: Literal["tool_search_tool_search_result"]`
 
           default: tool_search_tool_search_result
 
+        - `tool_references: List[BetaToolReferenceBlock]`
+
+          - `type: Literal["tool_reference"]`
+
+            default: tool_reference
+
+          - `tool_name: str`
+
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["tool_search_tool_result"]`
-
-      default: tool_search_tool_result
-
   - `class BetaMCPToolUseBlock: …`
+
+    - `type: Literal["mcp_tool_use"]`
+
+      default: mcp_tool_use
 
     - `id: str`
 
@@ -15342,17 +15367,21 @@ print(beta_message_tokens_count.context_management)
 
       The name of the MCP server
 
-    - `type: Literal["mcp_tool_use"]`
-
-      default: mcp_tool_use
-
   - `class BetaMCPToolResultBlock: …`
+
+    - `type: Literal["mcp_tool_result"]`
+
+      default: mcp_tool_result
 
     - `content: Union[str, List[BetaTextBlock]]`
 
       - `str`
 
       - `List[BetaTextBlock]`
+
+        - `type: Literal["text"]`
+
+          default: text
 
         - `citations: Optional[List[BetaTextCitation]]`
 
@@ -15362,11 +15391,7 @@ print(beta_message_tokens_count.context_management)
 
         - `text: str`
 
-          maxLength: 5000000, minLength: 0
-
-        - `type: Literal["text"]`
-
-          default: text
+          minLength: 0
 
     - `is_error: bool`
 
@@ -15376,19 +15401,15 @@ print(beta_message_tokens_count.context_management)
 
       pattern: ^[a-zA-Z0-9_-]+$
 
-    - `type: Literal["mcp_tool_result"]`
-
-      default: mcp_tool_result
-
   - `class BetaContainerUploadBlock: …`
 
     Response model for a file uploaded to the container.
 
-    - `file_id: str`
-
     - `type: Literal["container_upload"]`
 
       default: container_upload
+
+    - `file_id: str`
 
   - `class BetaCompactionBlock: …`
 
@@ -15398,6 +15419,10 @@ print(beta_message_tokens_count.context_management)
     summary (e.g., malformed output from the model). Clients may round-trip
     compaction blocks with null content; the server treats them as no-ops.
 
+    - `type: Literal["compaction"]`
+
+      default: compaction
+
     - `content: Optional[str]`
 
       Summary of compacted content, or null if compaction failed
@@ -15405,10 +15430,6 @@ print(beta_message_tokens_count.context_management)
     - `encrypted_content: Optional[str]`
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
-
-    - `type: Literal["compaction"]`
-
-      default: compaction
 
   - `class BetaFallbackBlock: …`
 
@@ -15423,6 +15444,10 @@ print(beta_message_tokens_count.context_management)
     The block is treated like a server-tool content block for streaming: it
     arrives via the standard `content_block_start` / `content_block_stop`
     pair and carries no deltas.
+
+    - `type: Literal["fallback"]`
+
+      default: fallback
 
     - `from_: BetaFallbackInfo`
 
@@ -15536,6 +15561,10 @@ print(beta_message_tokens_count.context_management)
 
       What caused the `from` model to hand over at this hop.
 
+      - `type: Literal["refusal"]`
+
+        default: refusal
+
       - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
         The policy category that triggered a refusal.
@@ -15566,14 +15595,6 @@ print(beta_message_tokens_count.context_management)
 
           The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-      - `type: Literal["refusal"]`
-
-        default: refusal
-
-    - `type: Literal["fallback"]`
-
-      default: fallback
-
 ### Beta Content Block Param
 
 - `BetaContentBlockParam`
@@ -15582,11 +15603,11 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaTextBlockParam: …`
 
+    - `type: Literal["text"]`
+
     - `text: str`
 
       minLength: 1
-
-    - `type: Literal["text"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15613,6 +15634,8 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaCitationCharLocationParam: …`
 
+        - `type: Literal["char_location"]`
+
         - `cited_text: str`
 
         - `document_index: int`
@@ -15629,9 +15652,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["char_location"]`
-
       - `class BetaCitationPageLocationParam: …`
+
+        - `type: Literal["page_location"]`
 
         - `cited_text: str`
 
@@ -15649,9 +15672,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 1
 
-        - `type: Literal["page_location"]`
-
       - `class BetaCitationContentBlockLocationParam: …`
+
+        - `type: Literal["content_block_location"]`
 
         - `cited_text: str`
 
@@ -15679,9 +15702,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["content_block_location"]`
-
       - `class BetaCitationWebSearchResultLocationParam: …`
+
+        - `type: Literal["web_search_result_location"]`
 
         - `cited_text: str`
 
@@ -15691,13 +15714,13 @@ print(beta_message_tokens_count.context_management)
 
           maxLength: 512, minLength: 1
 
-        - `type: Literal["web_search_result_location"]`
-
         - `url: str`
 
           minLength: 1
 
       - `class BetaCitationSearchResultLocationParam: …`
+
+        - `type: Literal["search_result_location"]`
 
         - `cited_text: str`
 
@@ -15729,13 +15752,15 @@ print(beta_message_tokens_count.context_management)
 
         - `title: Optional[str]`
 
-        - `type: Literal["search_result_location"]`
-
   - `class BetaImageBlockParam: …`
+
+    - `type: Literal["image"]`
 
     - `source: Source`
 
       - `class BetaBase64ImageSource: …`
+
+        - `type: Literal["base64"]`
 
         - `data: str`
 
@@ -15751,8 +15776,6 @@ print(beta_message_tokens_count.context_management)
 
           - `"image/webp"`
 
-        - `type: Literal["base64"]`
-
       - `class BetaURLImageSource: …`
 
         - `type: Literal["url"]`
@@ -15761,11 +15784,9 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaFileImageSource: …`
 
-        - `file_id: str`
-
         - `type: Literal["file"]`
 
-    - `type: Literal["image"]`
+        - `file_id: str`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15785,9 +15806,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaRequestDocumentBlock: …`
 
+    - `type: Literal["document"]`
+
     - `source: Source`
 
       - `class BetaBase64PDFSource: …`
+
+        - `type: Literal["base64"]`
 
         - `data: str`
 
@@ -15795,17 +15820,17 @@ print(beta_message_tokens_count.context_management)
 
         - `media_type: Literal["application/pdf"]`
 
-        - `type: Literal["base64"]`
-
       - `class BetaPlainTextSource: …`
+
+        - `type: Literal["text"]`
 
         - `data: str`
 
         - `media_type: Literal["text/plain"]`
 
-        - `type: Literal["text"]`
-
       - `class BetaContentBlockSource: …`
+
+        - `type: Literal["content"]`
 
         - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -15817,8 +15842,6 @@ print(beta_message_tokens_count.context_management)
 
             - `class BetaImageBlockParam: …`
 
-        - `type: Literal["content"]`
-
       - `class BetaURLPDFSource: …`
 
         - `type: Literal["url"]`
@@ -15827,11 +15850,9 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaFileDocumentSource: …`
 
-        - `file_id: str`
-
         - `type: Literal["file"]`
 
-    - `type: Literal["document"]`
+        - `file_id: str`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15851,13 +15872,15 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaSearchResultBlockParam: …`
 
+    - `type: Literal["search_result"]`
+
     - `content: List[BetaTextBlockParam]`
+
+      - `type: Literal["text"]`
 
       - `text: str`
 
         minLength: 1
-
-      - `type: Literal["text"]`
 
       - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15869,8 +15892,6 @@ print(beta_message_tokens_count.context_management)
 
     - `title: str`
 
-    - `type: Literal["search_result"]`
-
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
       Create a cache control breakpoint at this content block.
@@ -15878,6 +15899,8 @@ print(beta_message_tokens_count.context_management)
     - `citations: Optional[BetaCitationsConfigParam]`
 
   - `class BetaThinkingBlockParam: …`
+
+    - `type: Literal["thinking"]`
 
     - `signature: str`
 
@@ -15889,17 +15912,17 @@ print(beta_message_tokens_count.context_management)
 
       The `thinking` text of this block as returned by the API.
 
-    - `type: Literal["thinking"]`
-
   - `class BetaRedactedThinkingBlockParam: …`
+
+    - `type: Literal["redacted_thinking"]`
 
     - `data: str`
 
       The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-    - `type: Literal["redacted_thinking"]`
-
   - `class BetaToolUseBlockParam: …`
+
+    - `type: Literal["tool_use"]`
 
     - `id: str`
 
@@ -15910,8 +15933,6 @@ print(beta_message_tokens_count.context_management)
     - `name: str`
 
       maxLength: 200, minLength: 1
-
-    - `type: Literal["tool_use"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15931,19 +15952,19 @@ print(beta_message_tokens_count.context_management)
 
         Tool invocation generated by a server-side tool.
 
+        - `type: Literal["code_execution_20250825"]`
+
         - `tool_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_20250825"]`
 
       - `class BetaServerToolCaller20260120: …`
 
+        - `type: Literal["code_execution_20260120"]`
+
         - `tool_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_20260120"]`
 
     - `toolset_name: Optional[str]`
 
@@ -15953,11 +15974,11 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolResultBlockParam: …`
 
+    - `type: Literal["tool_result"]`
+
     - `tool_use_id: str`
 
       pattern: ^[a-zA-Z0-9_-]+$
-
-    - `type: Literal["tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15981,11 +16002,11 @@ print(beta_message_tokens_count.context_management)
 
           Tool reference block that can be included in tool_result content.
 
+          - `type: Literal["tool_reference"]`
+
           - `tool_name: str`
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-          - `type: Literal["tool_reference"]`
 
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16000,6 +16021,8 @@ print(beta_message_tokens_count.context_management)
           At most one per `tool_result`, only on a non-error result answering a
           browser toolset member `tool_use`. The server renders the
           model-visible text from it; the model never sees the raw fields.
+
+          - `type: Literal["browser_state"]`
 
           - `tabs: List[BetaBrowserStateTabEntry]`
 
@@ -16029,8 +16052,6 @@ print(beta_message_tokens_count.context_management)
 
               Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-          - `type: Literal["browser_state"]`
-
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
             Create a cache control breakpoint at this content block.
@@ -16051,25 +16072,25 @@ print(beta_message_tokens_count.context_management)
               during a failed call gets no deferred `tab_opened`; it simply appears
               in the next result's `tabs` inventory.
 
+              - `type: Literal["tab_opened"]`
+
               - `tab_id: str`
 
                 The `tab_id` of the opened tab, present in `tabs`.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `type: Literal["tab_opened"]`
-
             - `class BetaBrowserStateChangeDownloadStarted: …`
 
               A file download that started during this call.
+
+              - `type: Literal["download_started"]`
 
               - `download_id: str`
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `type: Literal["download_started"]`
 
               - `url: str`
 
@@ -16084,13 +16105,13 @@ print(beta_message_tokens_count.context_management)
               `download_started`, when the download finished during the call that
               started it (at most one state change per `download_id` per result).
 
+              - `type: Literal["download_completed"]`
+
               - `download_id: str`
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `type: Literal["download_completed"]`
 
               - `url: str`
 
@@ -16114,13 +16135,13 @@ print(beta_message_tokens_count.context_management)
 
               A file download that failed — or was cancelled — during this call.
 
+              - `type: Literal["download_failed"]`
+
               - `download_id: str`
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `type: Literal["download_failed"]`
 
               - `url: str`
 
@@ -16143,6 +16164,8 @@ print(beta_message_tokens_count.context_management)
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
   - `class BetaServerToolUseBlockParam: …`
+
+    - `type: Literal["server_tool_use"]`
 
     - `id: str`
 
@@ -16168,8 +16191,6 @@ print(beta_message_tokens_count.context_management)
 
       - `"tool_search_tool_bm25"`
 
-    - `type: Literal["server_tool_use"]`
-
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
       Create a cache control breakpoint at this content block.
@@ -16190,21 +16211,25 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebSearchToolResultBlockParam: …`
 
+    - `type: Literal["web_search_tool_result"]`
+
     - `content: BetaWebSearchToolResultBlockParamContent`
 
       - `List[BetaWebSearchResultBlockParam]`
 
+        - `type: Literal["web_search_result"]`
+
         - `encrypted_content: str`
 
         - `title: str`
-
-        - `type: Literal["web_search_result"]`
 
         - `url: str`
 
         - `page_age: Optional[str]`
 
       - `class BetaWebSearchToolRequestError: …`
+
+        - `type: Literal["web_search_tool_result_error"]`
 
         - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -16220,13 +16245,9 @@ print(beta_message_tokens_count.context_management)
 
           - `"request_too_large"`
 
-        - `type: Literal["web_search_tool_result_error"]`
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["web_search_tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16248,9 +16269,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebFetchToolResultBlockParam: …`
 
+    - `type: Literal["web_fetch_tool_result"]`
+
     - `content: Content`
 
       - `class BetaWebFetchToolResultErrorBlockParam: …`
+
+        - `type: Literal["web_fetch_tool_result_error"]`
 
         - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -16272,13 +16297,13 @@ print(beta_message_tokens_count.context_management)
 
           - `"unavailable"`
 
-        - `type: Literal["web_fetch_tool_result_error"]`
+          - `"content_too_large"`
 
       - `class BetaWebFetchBlockParam: …`
 
-        - `content: BetaRequestDocumentBlock`
-
         - `type: Literal["web_fetch_result"]`
+
+        - `content: BetaRequestDocumentBlock`
 
         - `url: str`
 
@@ -16291,8 +16316,6 @@ print(beta_message_tokens_count.context_management)
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["web_fetch_tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16314,9 +16337,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaAdvisorToolResultBlockParam: …`
 
+    - `type: Literal["advisor_tool_result"]`
+
     - `content: Content`
 
       - `class BetaAdvisorToolResultErrorParam: …`
+
+        - `type: Literal["advisor_tool_result_error"]`
 
         - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -16334,23 +16361,21 @@ print(beta_message_tokens_count.context_management)
 
           - `"model_not_found"`
 
-        - `type: Literal["advisor_tool_result_error"]`
-
       - `class BetaAdvisorResultBlockParam: …`
 
-        - `text: str`
-
         - `type: Literal["advisor_result"]`
+
+        - `text: str`
 
         - `stop_reason: Optional[str]`
 
       - `class BetaAdvisorRedactedResultBlockParam: …`
 
+        - `type: Literal["advisor_redacted_result"]`
+
         - `encrypted_content: str`
 
           Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-        - `type: Literal["advisor_redacted_result"]`
 
         - `stop_reason: Optional[str]`
 
@@ -16358,19 +16383,21 @@ print(beta_message_tokens_count.context_management)
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["advisor_tool_result"]`
-
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
       Create a cache control breakpoint at this content block.
 
   - `class BetaCodeExecutionToolResultBlockParam: …`
 
+    - `type: Literal["code_execution_tool_result"]`
+
     - `content: BetaCodeExecutionToolResultBlockParamContent`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
       - `class BetaCodeExecutionToolResultErrorParam: …`
+
+        - `type: Literal["code_execution_tool_result_error"]`
 
         - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -16382,15 +16409,15 @@ print(beta_message_tokens_count.context_management)
 
           - `"execution_time_exceeded"`
 
-        - `type: Literal["code_execution_tool_result_error"]`
-
       - `class BetaCodeExecutionResultBlockParam: …`
+
+        - `type: Literal["code_execution_result"]`
 
         - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-          - `file_id: str`
-
           - `type: Literal["code_execution_output"]`
+
+          - `file_id: str`
 
         - `return_code: int`
 
@@ -16398,17 +16425,17 @@ print(beta_message_tokens_count.context_management)
 
         - `stdout: str`
 
-        - `type: Literal["code_execution_result"]`
-
       - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
+        - `type: Literal["encrypted_code_execution_result"]`
+
         - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-          - `file_id: str`
-
           - `type: Literal["code_execution_output"]`
+
+          - `file_id: str`
 
         - `encrypted_stdout: str`
 
@@ -16416,13 +16443,9 @@ print(beta_message_tokens_count.context_management)
 
         - `stderr: str`
 
-        - `type: Literal["encrypted_code_execution_result"]`
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["code_execution_tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16430,9 +16453,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaBashCodeExecutionToolResultBlockParam: …`
 
+    - `type: Literal["bash_code_execution_tool_result"]`
+
     - `content: Content`
 
       - `class BetaBashCodeExecutionToolResultErrorParam: …`
+
+        - `type: Literal["bash_code_execution_tool_result_error"]`
 
         - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -16446,15 +16473,15 @@ print(beta_message_tokens_count.context_management)
 
           - `"output_file_too_large"`
 
-        - `type: Literal["bash_code_execution_tool_result_error"]`
-
       - `class BetaBashCodeExecutionResultBlockParam: …`
+
+        - `type: Literal["bash_code_execution_result"]`
 
         - `content: List[BetaBashCodeExecutionOutputBlockParam]`
 
-          - `file_id: str`
-
           - `type: Literal["bash_code_execution_output"]`
+
+          - `file_id: str`
 
         - `return_code: int`
 
@@ -16462,13 +16489,9 @@ print(beta_message_tokens_count.context_management)
 
         - `stdout: str`
 
-        - `type: Literal["bash_code_execution_result"]`
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["bash_code_execution_tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16476,9 +16499,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
 
+    - `type: Literal["text_editor_code_execution_tool_result"]`
+
     - `content: Content`
 
       - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+        - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
         - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -16492,11 +16519,11 @@ print(beta_message_tokens_count.context_management)
 
           - `"file_not_found"`
 
-        - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
         - `error_message: Optional[str]`
 
       - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+        - `type: Literal["text_editor_code_execution_view_result"]`
 
         - `content: str`
 
@@ -16508,8 +16535,6 @@ print(beta_message_tokens_count.context_management)
 
           - `"pdf"`
 
-        - `type: Literal["text_editor_code_execution_view_result"]`
-
         - `num_lines: Optional[int]`
 
         - `start_line: Optional[int]`
@@ -16518,9 +16543,9 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-        - `is_file_update: bool`
-
         - `type: Literal["text_editor_code_execution_create_result"]`
+
+        - `is_file_update: bool`
 
       - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
@@ -16540,17 +16565,19 @@ print(beta_message_tokens_count.context_management)
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: Literal["text_editor_code_execution_tool_result"]`
-
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
       Create a cache control breakpoint at this content block.
 
   - `class BetaToolSearchToolResultBlockParam: …`
 
+    - `type: Literal["tool_search_tool_result"]`
+
     - `content: Content`
 
       - `class BetaToolSearchToolResultErrorParam: …`
+
+        - `type: Literal["tool_search_tool_result_error"]`
 
         - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -16562,37 +16589,35 @@ print(beta_message_tokens_count.context_management)
 
           - `"execution_time_exceeded"`
 
-        - `type: Literal["tool_search_tool_result_error"]`
-
         - `error_message: Optional[str]`
 
       - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+        - `type: Literal["tool_search_tool_search_result"]`
+
         - `tool_references: List[BetaToolReferenceBlockParam]`
+
+          - `type: Literal["tool_reference"]`
 
           - `tool_name: str`
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `type: Literal["tool_reference"]`
-
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
             Create a cache control breakpoint at this content block.
 
-        - `type: Literal["tool_search_tool_search_result"]`
-
     - `tool_use_id: str`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: Literal["tool_search_tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
       Create a cache control breakpoint at this content block.
 
   - `class BetaMCPToolUseBlockParam: …`
+
+    - `type: Literal["mcp_tool_use"]`
 
     - `id: str`
 
@@ -16606,19 +16631,17 @@ print(beta_message_tokens_count.context_management)
 
       The name of the MCP server
 
-    - `type: Literal["mcp_tool_use"]`
-
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
       Create a cache control breakpoint at this content block.
 
   - `class BetaRequestMCPToolResultBlockParam: …`
 
+    - `type: Literal["mcp_tool_result"]`
+
     - `tool_use_id: str`
 
       pattern: ^[a-zA-Z0-9_-]+$
-
-    - `type: Literal["mcp_tool_result"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16630,11 +16653,11 @@ print(beta_message_tokens_count.context_management)
 
       - `List[BetaTextBlockParam]`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16649,9 +16672,9 @@ print(beta_message_tokens_count.context_management)
     A content block that represents a file to be uploaded to the container
     Files uploaded via this block will be available in the container's input directory.
 
-    - `file_id: str`
-
     - `type: Literal["container_upload"]`
+
+    - `file_id: str`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16689,6 +16712,8 @@ print(beta_message_tokens_count.context_management)
     `tools`; it is offered to the model from this point in the
     conversation onward.
 
+    - `type: Literal["tool_addition"]`
+
     - `tool: Tool`
 
       Reference to a single tool the caller declared directly in
@@ -16703,32 +16728,30 @@ print(beta_message_tokens_count.context_management)
         server assigns to MCP-resolved tools — use `mcp_tool_reference` or
         `mcp_toolset_reference` for those.
 
+        - `type: Literal["tool_reference"]`
+
         - `name: str`
 
           pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-        - `type: Literal["tool_reference"]`
 
       - `class BetaToolChangeMCPToolReference: …`
 
         Reference to a single MCP tool by its server and remote name — the
         same `server_name`/`name` pair `mcp_tool_use` carries.
 
+        - `type: Literal["mcp_tool_reference"]`
+
         - `name: str`
 
         - `server_name: str`
-
-        - `type: Literal["mcp_tool_reference"]`
 
       - `class BetaToolChangeMCPToolsetReference: …`
 
         Reference to every tool in the named MCP server's toolset.
 
-        - `server_name: str`
-
         - `type: Literal["mcp_toolset_reference"]`
 
-    - `type: Literal["tool_addition"]`
+        - `server_name: str`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16742,6 +16765,8 @@ print(beta_message_tokens_count.context_management)
     `tools`; it is no longer offered to the model from this point in the
     conversation onward.
 
+    - `type: Literal["tool_removal"]`
+
     - `tool: Tool`
 
       Reference to a single tool the caller declared directly in
@@ -16764,8 +16789,6 @@ print(beta_message_tokens_count.context_management)
       - `class BetaToolChangeMCPToolsetReference: …`
 
         Reference to every tool in the named MCP server's toolset.
-
-    - `type: Literal["tool_removal"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16786,6 +16809,8 @@ print(beta_message_tokens_count.context_management)
     request is rejected), and moving it into the middle of a single run is
     likewise rejected; between non-thinking blocks the block's placement has
     no validation effect.
+
+    - `type: Literal["fallback"]`
 
     - `from_: BetaFallbackInfoParam`
 
@@ -16895,8 +16920,6 @@ print(beta_message_tokens_count.context_management)
 
       Identifies one hop of a fallback transition.
 
-    - `type: Literal["fallback"]`
-
     - `trigger: Optional[object]`
 
       The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -16904,6 +16927,8 @@ print(beta_message_tokens_count.context_management)
 ### Beta Content Block Source
 
 - `class BetaContentBlockSource: …`
+
+  - `type: Literal["content"]`
 
   - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -16913,11 +16938,11 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaTextBlockParam: …`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -16944,6 +16969,8 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaCitationCharLocationParam: …`
 
+            - `type: Literal["char_location"]`
+
             - `cited_text: str`
 
             - `document_index: int`
@@ -16960,9 +16987,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["char_location"]`
-
           - `class BetaCitationPageLocationParam: …`
+
+            - `type: Literal["page_location"]`
 
             - `cited_text: str`
 
@@ -16980,9 +17007,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 1
 
-            - `type: Literal["page_location"]`
-
           - `class BetaCitationContentBlockLocationParam: …`
+
+            - `type: Literal["content_block_location"]`
 
             - `cited_text: str`
 
@@ -17010,9 +17037,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["content_block_location"]`
-
           - `class BetaCitationWebSearchResultLocationParam: …`
+
+            - `type: Literal["web_search_result_location"]`
 
             - `cited_text: str`
 
@@ -17022,13 +17049,13 @@ print(beta_message_tokens_count.context_management)
 
               maxLength: 512, minLength: 1
 
-            - `type: Literal["web_search_result_location"]`
-
             - `url: str`
 
               minLength: 1
 
           - `class BetaCitationSearchResultLocationParam: …`
+
+            - `type: Literal["search_result_location"]`
 
             - `cited_text: str`
 
@@ -17060,13 +17087,15 @@ print(beta_message_tokens_count.context_management)
 
             - `title: Optional[str]`
 
-            - `type: Literal["search_result_location"]`
-
       - `class BetaImageBlockParam: …`
+
+        - `type: Literal["image"]`
 
         - `source: Source`
 
           - `class BetaBase64ImageSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -17082,8 +17111,6 @@ print(beta_message_tokens_count.context_management)
 
               - `"image/webp"`
 
-            - `type: Literal["base64"]`
-
           - `class BetaURLImageSource: …`
 
             - `type: Literal["url"]`
@@ -17092,11 +17119,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaFileImageSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["image"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -17114,19 +17139,17 @@ print(beta_message_tokens_count.context_management)
 
             - `"error"`
 
-  - `type: Literal["content"]`
-
 ### Beta Content Block Source Content
 
 - `BetaContentBlockSourceContent`
 
   - `class BetaTextBlockParam: …`
 
+    - `type: Literal["text"]`
+
     - `text: str`
 
       minLength: 1
-
-    - `type: Literal["text"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -17153,6 +17176,8 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaCitationCharLocationParam: …`
 
+        - `type: Literal["char_location"]`
+
         - `cited_text: str`
 
         - `document_index: int`
@@ -17169,9 +17194,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["char_location"]`
-
       - `class BetaCitationPageLocationParam: …`
+
+        - `type: Literal["page_location"]`
 
         - `cited_text: str`
 
@@ -17189,9 +17214,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 1
 
-        - `type: Literal["page_location"]`
-
       - `class BetaCitationContentBlockLocationParam: …`
+
+        - `type: Literal["content_block_location"]`
 
         - `cited_text: str`
 
@@ -17219,9 +17244,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["content_block_location"]`
-
       - `class BetaCitationWebSearchResultLocationParam: …`
+
+        - `type: Literal["web_search_result_location"]`
 
         - `cited_text: str`
 
@@ -17231,13 +17256,13 @@ print(beta_message_tokens_count.context_management)
 
           maxLength: 512, minLength: 1
 
-        - `type: Literal["web_search_result_location"]`
-
         - `url: str`
 
           minLength: 1
 
       - `class BetaCitationSearchResultLocationParam: …`
+
+        - `type: Literal["search_result_location"]`
 
         - `cited_text: str`
 
@@ -17269,13 +17294,15 @@ print(beta_message_tokens_count.context_management)
 
         - `title: Optional[str]`
 
-        - `type: Literal["search_result_location"]`
-
   - `class BetaImageBlockParam: …`
+
+    - `type: Literal["image"]`
 
     - `source: Source`
 
       - `class BetaBase64ImageSource: …`
+
+        - `type: Literal["base64"]`
 
         - `data: str`
 
@@ -17291,8 +17318,6 @@ print(beta_message_tokens_count.context_management)
 
           - `"image/webp"`
 
-        - `type: Literal["base64"]`
-
       - `class BetaURLImageSource: …`
 
         - `type: Literal["url"]`
@@ -17301,11 +17326,9 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaFileImageSource: …`
 
-        - `file_id: str`
-
         - `type: Literal["file"]`
 
-    - `type: Literal["image"]`
+        - `file_id: str`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -17439,6 +17462,12 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaClearToolUses20250919EditResponse: …`
 
+      - `type: Literal["clear_tool_uses_20250919"]`
+
+        The type of context management edit applied.
+
+        default: clear_tool_uses_20250919
+
       - `cleared_input_tokens: int`
 
         Number of input tokens cleared by this edit.
@@ -17451,13 +17480,13 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["clear_tool_uses_20250919"]`
+    - `class BetaClearThinking20251015EditResponse: …`
+
+      - `type: Literal["clear_thinking_20251015"]`
 
         The type of context management edit applied.
 
-        default: clear_tool_uses_20250919
-
-    - `class BetaClearThinking20251015EditResponse: …`
+        default: clear_thinking_20251015
 
       - `cleared_input_tokens: int`
 
@@ -17470,12 +17499,6 @@ print(beta_message_tokens_count.context_management)
         Number of thinking turns that were cleared.
 
         minimum: 0
-
-      - `type: Literal["clear_thinking_20251015"]`
-
-        The type of context management edit applied.
-
-        default: clear_thinking_20251015
 
 ### Beta Count Tokens Context Management Response
 
@@ -17498,43 +17521,43 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaCacheMissModelChanged: …`
 
-      - `cache_missed_input_tokens: int`
-
-        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
       - `type: Literal["model_changed"]`
 
         default: model_changed
 
-    - `class BetaCacheMissSystemChanged: …`
-
       - `cache_missed_input_tokens: int`
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `class BetaCacheMissSystemChanged: …`
 
       - `type: Literal["system_changed"]`
 
         default: system_changed
 
-    - `class BetaCacheMissToolsChanged: …`
-
       - `cache_missed_input_tokens: int`
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `class BetaCacheMissToolsChanged: …`
 
       - `type: Literal["tools_changed"]`
 
         default: tools_changed
 
-    - `class BetaCacheMissMessagesChanged: …`
-
       - `cache_missed_input_tokens: int`
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+    - `class BetaCacheMissMessagesChanged: …`
+
       - `type: Literal["messages_changed"]`
 
         default: messages_changed
+
+      - `cache_missed_input_tokens: int`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
     - `class BetaCacheMissPreviousMessageNotFound: …`
 
@@ -17573,6 +17596,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaDocumentBlock: …`
 
+  - `type: Literal["document"]`
+
+    default: document
+
   - `citations: Optional[BetaCitationConfig]`
 
     Citation configuration for the document
@@ -17585,29 +17612,25 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaBase64PDFSource: …`
 
+      - `type: Literal["base64"]`
+
       - `data: str`
 
         format: byte
 
       - `media_type: Literal["application/pdf"]`
 
-      - `type: Literal["base64"]`
-
     - `class BetaPlainTextSource: …`
+
+      - `type: Literal["text"]`
 
       - `data: str`
 
       - `media_type: Literal["text/plain"]`
 
-      - `type: Literal["text"]`
-
   - `title: Optional[str]`
 
     The title of the document
-
-  - `type: Literal["document"]`
-
-    default: document
 
 ### Beta Encrypted Code Execution Result Block
 
@@ -17615,23 +17638,23 @@ print(beta_message_tokens_count.context_management)
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
-  - `content: List[BetaCodeExecutionOutputBlock]`
+  - `type: Literal["encrypted_code_execution_result"]`
 
-    - `file_id: str`
+    default: encrypted_code_execution_result
+
+  - `content: List[BetaCodeExecutionOutputBlock]`
 
     - `type: Literal["code_execution_output"]`
 
       default: code_execution_output
+
+    - `file_id: str`
 
   - `encrypted_stdout: str`
 
   - `return_code: int`
 
   - `stderr: str`
-
-  - `type: Literal["encrypted_code_execution_result"]`
-
-    default: encrypted_code_execution_result
 
 ### Beta Encrypted Code Execution Result Block Param
 
@@ -17639,19 +17662,19 @@ print(beta_message_tokens_count.context_management)
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
+  - `type: Literal["encrypted_code_execution_result"]`
+
   - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-    - `file_id: str`
-
     - `type: Literal["code_execution_output"]`
+
+    - `file_id: str`
 
   - `encrypted_stdout: str`
 
   - `return_code: int`
 
   - `stderr: str`
-
-  - `type: Literal["encrypted_code_execution_result"]`
 
 ### Beta Fallback Block
 
@@ -17668,6 +17691,10 @@ print(beta_message_tokens_count.context_management)
   The block is treated like a server-tool content block for streaming: it
   arrives via the standard `content_block_start` / `content_block_stop`
   pair and carries no deltas.
+
+  - `type: Literal["fallback"]`
+
+    default: fallback
 
   - `from_: BetaFallbackInfo`
 
@@ -17781,6 +17808,10 @@ print(beta_message_tokens_count.context_management)
 
     What caused the `from` model to hand over at this hop.
 
+    - `type: Literal["refusal"]`
+
+      default: refusal
+
     - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
       The policy category that triggered a refusal.
@@ -17811,14 +17842,6 @@ print(beta_message_tokens_count.context_management)
 
         The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-    - `type: Literal["refusal"]`
-
-      default: refusal
-
-  - `type: Literal["fallback"]`
-
-    default: fallback
-
 ### Beta Fallback Block Param
 
 - `class BetaFallbackBlockParam: …`
@@ -17836,6 +17859,8 @@ print(beta_message_tokens_count.context_management)
   request is rejected), and moving it into the middle of a single run is
   likewise rejected; between non-thinking blocks the block's placement has
   no validation effect.
+
+  - `type: Literal["fallback"]`
 
   - `from_: BetaFallbackInfoParam`
 
@@ -17945,8 +17970,6 @@ print(beta_message_tokens_count.context_management)
 
     Identifies one hop of a fallback transition.
 
-  - `type: Literal["fallback"]`
-
   - `trigger: Optional[object]`
 
     The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -17956,6 +17979,10 @@ print(beta_message_tokens_count.context_management)
 - `class BetaFallbackCreditNotApplied: …`
 
   No reprice was applied; `reason` says why.
+
+  - `type: Literal["not_applied"]`
+
+    default: not_applied
 
   - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
@@ -17987,10 +18014,6 @@ print(beta_message_tokens_count.context_management)
     - `"wrong_platform"`
 
     - `"wrong_workspace"`
-
-  - `type: Literal["not_applied"]`
-
-    default: not_applied
 
   - `remove_to_redeem: Optional[List[str]]`
 
@@ -18068,6 +18091,10 @@ print(beta_message_tokens_count.context_management)
 
       No reprice was applied; `reason` says why.
 
+      - `type: Literal["not_applied"]`
+
+        default: not_applied
+
       - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
         Why the reprice was not applied.
@@ -18098,10 +18125,6 @@ print(beta_message_tokens_count.context_management)
         - `"wrong_platform"`
 
         - `"wrong_workspace"`
-
-      - `type: Literal["not_applied"]`
-
-        default: not_applied
 
       - `remove_to_redeem: Optional[List[str]]`
 
@@ -18337,6 +18360,12 @@ print(beta_message_tokens_count.context_management)
   a fallback model served the response is signalled by the presence of this
   entry in `usage.iterations`.
 
+  - `type: Literal["fallback_message"]`
+
+    Usage for the fallback-model attempt that served the response
+
+    default: fallback_message
+
   - `cache_creation: Optional[BetaCacheCreation]`
 
     Breakdown of cached tokens by TTL
@@ -18477,12 +18506,6 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 0
 
-  - `type: Literal["fallback_message"]`
-
-    Usage for the fallback-model attempt that served the response
-
-    default: fallback_message
-
 ### Beta Fallback Param
 
 - `class BetaFallbackParam: …`
@@ -18616,25 +18639,25 @@ print(beta_message_tokens_count.context_management)
 
       A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+      - `type: Literal["json_schema"]`
+
       - `schema: Dict[str, object]`
 
         The JSON schema of the format
 
-      - `type: Literal["json_schema"]`
-
     - `task_budget: Optional[BetaTokenTaskBudget]`
 
       User-configurable total token budget across contexts.
+
+      - `type: Literal["tokens"]`
+
+        The budget type. Currently only 'tokens' is supported.
 
       - `total: int`
 
         Total token budget across all contexts in the session.
 
         minimum: 1024
-
-      - `type: Literal["tokens"]`
-
-        The budget type. Currently only 'tokens' is supported.
 
       - `remaining: Optional[int]`
 
@@ -18654,6 +18677,8 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaThinkingConfigEnabled: …`
 
+      - `type: Literal["enabled"]`
+
       - `budget_tokens: int`
 
         Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -18663,8 +18688,6 @@ print(beta_message_tokens_count.context_management)
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
         minimum: 1024
-
-      - `type: Literal["enabled"]`
 
       - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -18724,6 +18747,10 @@ print(beta_message_tokens_count.context_management)
 
   The `from` model declined for policy reasons.
 
+  - `type: Literal["refusal"]`
+
+    default: refusal
+
   - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
     The policy category that triggered a refusal.
@@ -18753,10 +18780,6 @@ print(beta_message_tokens_count.context_management)
     - `"general_harms"`
 
       The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-  - `type: Literal["refusal"]`
-
-    default: refusal
 
 ### Beta Fallbacks Param
 
@@ -18888,25 +18911,25 @@ print(beta_message_tokens_count.context_management)
 
         A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+        - `type: Literal["json_schema"]`
+
         - `schema: Dict[str, object]`
 
           The JSON schema of the format
 
-        - `type: Literal["json_schema"]`
-
       - `task_budget: Optional[BetaTokenTaskBudget]`
 
         User-configurable total token budget across contexts.
+
+        - `type: Literal["tokens"]`
+
+          The budget type. Currently only 'tokens' is supported.
 
         - `total: int`
 
           Total token budget across all contexts in the session.
 
           minimum: 1024
-
-        - `type: Literal["tokens"]`
-
-          The budget type. Currently only 'tokens' is supported.
 
         - `remaining: Optional[int]`
 
@@ -18926,6 +18949,8 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaThinkingConfigEnabled: …`
 
+        - `type: Literal["enabled"]`
+
         - `budget_tokens: int`
 
           Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -18935,8 +18960,6 @@ print(beta_message_tokens_count.context_management)
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
           minimum: 1024
-
-        - `type: Literal["enabled"]`
 
         - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -18996,25 +19019,29 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaFileDocumentSource: …`
 
-  - `file_id: str`
-
   - `type: Literal["file"]`
+
+  - `file_id: str`
 
 ### Beta File Image Source
 
 - `class BetaFileImageSource: …`
 
-  - `file_id: str`
-
   - `type: Literal["file"]`
+
+  - `file_id: str`
 
 ### Beta Image Block Param
 
 - `class BetaImageBlockParam: …`
 
+  - `type: Literal["image"]`
+
   - `source: Source`
 
     - `class BetaBase64ImageSource: …`
+
+      - `type: Literal["base64"]`
 
       - `data: str`
 
@@ -19030,8 +19057,6 @@ print(beta_message_tokens_count.context_management)
 
         - `"image/webp"`
 
-      - `type: Literal["base64"]`
-
     - `class BetaURLImageSource: …`
 
       - `type: Literal["url"]`
@@ -19040,11 +19065,9 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaFileImageSource: …`
 
-      - `file_id: str`
-
       - `type: Literal["file"]`
 
-  - `type: Literal["image"]`
+      - `file_id: str`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -19097,11 +19120,11 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaInputJSONDelta: …`
 
-  - `partial_json: str`
-
   - `type: Literal["input_json_delta"]`
 
     default: input_json_delta
+
+  - `partial_json: str`
 
 ### Beta Input Tokens Clear At Least
 
@@ -19140,6 +19163,12 @@ print(beta_message_tokens_count.context_management)
   - `class BetaMessageIterationUsage: …`
 
     Token usage for a sampling iteration.
+
+    - `type: Literal["message"]`
+
+      Usage for a sampling iteration
+
+      default: message
 
     - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -19281,15 +19310,15 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["message"]`
-
-      Usage for a sampling iteration
-
-      default: message
-
   - `class BetaCompactionIterationUsage: …`
 
     Token usage for a compaction iteration.
+
+    - `type: Literal["compaction"]`
+
+      Usage for a compaction iteration
+
+      default: compaction
 
     - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -19319,15 +19348,15 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["compaction"]`
-
-      Usage for a compaction iteration
-
-      default: compaction
-
   - `class BetaAdvisorMessageIterationUsage: …`
 
     Token usage for an advisor sub-inference iteration.
+
+    - `type: Literal["advisor_message"]`
+
+      Usage for an advisor sub-inference iteration
+
+      default: advisor_message
 
     - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -19362,12 +19391,6 @@ print(beta_message_tokens_count.context_management)
       The number of output tokens which were used.
 
       minimum: 0
-
-    - `type: Literal["advisor_message"]`
-
-      Usage for an advisor sub-inference iteration
-
-      default: advisor_message
 
   - `class BetaFallbackMessageIterationUsage: …`
 
@@ -19378,6 +19401,12 @@ print(beta_message_tokens_count.context_management)
     a fallback model served the response is signalled by the presence of this
     entry in `usage.iterations`.
 
+    - `type: Literal["fallback_message"]`
+
+      Usage for the fallback-model attempt that served the response
+
+      default: fallback_message
+
     - `cache_creation: Optional[BetaCacheCreation]`
 
       Breakdown of cached tokens by TTL
@@ -19412,21 +19441,15 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["fallback_message"]`
-
-      Usage for the fallback-model attempt that served the response
-
-      default: fallback_message
-
 ### Beta JSON Output Format
 
 - `class BetaJSONOutputFormat: …`
 
+  - `type: Literal["json_schema"]`
+
   - `schema: Dict[str, object]`
 
     The JSON schema of the format
-
-  - `type: Literal["json_schema"]`
 
 ### Beta MCP Tool Config
 
@@ -19452,11 +19475,19 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaMCPToolResultBlock: …`
 
+  - `type: Literal["mcp_tool_result"]`
+
+    default: mcp_tool_result
+
   - `content: Union[str, List[BetaTextBlock]]`
 
     - `str`
 
     - `List[BetaTextBlock]`
+
+      - `type: Literal["text"]`
+
+        default: text
 
       - `citations: Optional[List[BetaTextCitation]]`
 
@@ -19465,6 +19496,10 @@ print(beta_message_tokens_count.context_management)
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `class BetaCitationCharLocation: …`
+
+          - `type: Literal["char_location"]`
+
+            default: char_location
 
           - `cited_text: str`
 
@@ -19482,11 +19517,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["char_location"]`
-
-            default: char_location
-
         - `class BetaCitationPageLocation: …`
+
+          - `type: Literal["page_location"]`
+
+            default: page_location
 
           - `cited_text: str`
 
@@ -19504,11 +19539,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 1
 
-          - `type: Literal["page_location"]`
-
-            default: page_location
-
         - `class BetaCitationContentBlockLocation: …`
+
+          - `type: Literal["content_block_location"]`
+
+            default: content_block_location
 
           - `cited_text: str`
 
@@ -19536,11 +19571,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["content_block_location"]`
-
-            default: content_block_location
-
         - `class BetaCitationsWebSearchResultLocation: …`
+
+          - `type: Literal["web_search_result_location"]`
+
+            default: web_search_result_location
 
           - `cited_text: str`
 
@@ -19550,13 +19585,13 @@ print(beta_message_tokens_count.context_management)
 
             maxLength: 512
 
-          - `type: Literal["web_search_result_location"]`
-
-            default: web_search_result_location
-
           - `url: str`
 
         - `class BetaCitationSearchResultLocation: …`
+
+          - `type: Literal["search_result_location"]`
+
+            default: search_result_location
 
           - `cited_text: str`
 
@@ -19588,17 +19623,9 @@ print(beta_message_tokens_count.context_management)
 
           - `title: Optional[str]`
 
-          - `type: Literal["search_result_location"]`
-
-            default: search_result_location
-
       - `text: str`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: Literal["text"]`
-
-        default: text
+        minLength: 0
 
   - `is_error: bool`
 
@@ -19608,13 +19635,13 @@ print(beta_message_tokens_count.context_management)
 
     pattern: ^[a-zA-Z0-9_-]+$
 
-  - `type: Literal["mcp_tool_result"]`
-
-    default: mcp_tool_result
-
 ### Beta MCP Tool Use Block
 
 - `class BetaMCPToolUseBlock: …`
+
+  - `type: Literal["mcp_tool_use"]`
+
+    default: mcp_tool_use
 
   - `id: str`
 
@@ -19630,13 +19657,11 @@ print(beta_message_tokens_count.context_management)
 
     The name of the MCP server
 
-  - `type: Literal["mcp_tool_use"]`
-
-    default: mcp_tool_use
-
 ### Beta MCP Tool Use Block Param
 
 - `class BetaMCPToolUseBlockParam: …`
+
+  - `type: Literal["mcp_tool_use"]`
 
   - `id: str`
 
@@ -19649,8 +19674,6 @@ print(beta_message_tokens_count.context_management)
   - `server_name: str`
 
     The name of the MCP server
-
-  - `type: Literal["mcp_tool_use"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -19682,13 +19705,13 @@ print(beta_message_tokens_count.context_management)
   Allows configuring enabled status and defer_loading for all tools
   from an MCP server, with optional per-tool overrides.
 
+  - `type: Literal["mcp_toolset"]`
+
   - `mcp_server_name: str`
 
     Name of the MCP server to configure tools for
 
     maxLength: 255, minLength: 1
-
-  - `type: Literal["mcp_toolset"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -19731,13 +19754,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaMemoryTool20250818: …`
 
+  - `type: Literal["memory_20250818"]`
+
   - `name: Literal["memory"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["memory_20250818"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -20008,6 +20031,14 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaMessage: …`
 
+  - `type: Literal["message"]`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
+
+    default: message
+
   - `id: str`
 
     Unique object identifier.
@@ -20032,12 +20063,6 @@ print(beta_message_tokens_count.context_management)
 
       Skills loaded in the container
 
-      - `skill_id: str`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: Literal["anthropic", "custom"]`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -20045,6 +20070,12 @@ print(beta_message_tokens_count.context_management)
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: str`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: str`
 
@@ -20083,6 +20114,10 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaTextBlock: …`
 
+      - `type: Literal["text"]`
+
+        default: text
+
       - `citations: Optional[List[BetaTextCitation]]`
 
         Citations supporting the text block.
@@ -20090,6 +20125,10 @@ print(beta_message_tokens_count.context_management)
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `class BetaCitationCharLocation: …`
+
+          - `type: Literal["char_location"]`
+
+            default: char_location
 
           - `cited_text: str`
 
@@ -20107,11 +20146,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["char_location"]`
-
-            default: char_location
-
         - `class BetaCitationPageLocation: …`
+
+          - `type: Literal["page_location"]`
+
+            default: page_location
 
           - `cited_text: str`
 
@@ -20129,11 +20168,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 1
 
-          - `type: Literal["page_location"]`
-
-            default: page_location
-
         - `class BetaCitationContentBlockLocation: …`
+
+          - `type: Literal["content_block_location"]`
+
+            default: content_block_location
 
           - `cited_text: str`
 
@@ -20161,11 +20200,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["content_block_location"]`
-
-            default: content_block_location
-
         - `class BetaCitationsWebSearchResultLocation: …`
+
+          - `type: Literal["web_search_result_location"]`
+
+            default: web_search_result_location
 
           - `cited_text: str`
 
@@ -20175,13 +20214,13 @@ print(beta_message_tokens_count.context_management)
 
             maxLength: 512
 
-          - `type: Literal["web_search_result_location"]`
-
-            default: web_search_result_location
-
           - `url: str`
 
         - `class BetaCitationSearchResultLocation: …`
+
+          - `type: Literal["search_result_location"]`
+
+            default: search_result_location
 
           - `cited_text: str`
 
@@ -20213,19 +20252,15 @@ print(beta_message_tokens_count.context_management)
 
           - `title: Optional[str]`
 
-          - `type: Literal["search_result_location"]`
-
-            default: search_result_location
-
       - `text: str`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: Literal["text"]`
-
-        default: text
+        minLength: 0
 
     - `class BetaThinkingBlock: …`
+
+      - `type: Literal["thinking"]`
+
+        default: thinking
 
       - `signature: str`
 
@@ -20239,11 +20274,11 @@ print(beta_message_tokens_count.context_management)
 
         The text of Claude's thinking process for this block.
 
-      - `type: Literal["thinking"]`
-
-        default: thinking
-
     - `class BetaRedactedThinkingBlock: …`
+
+      - `type: Literal["redacted_thinking"]`
+
+        default: redacted_thinking
 
       - `data: str`
 
@@ -20253,11 +20288,11 @@ print(beta_message_tokens_count.context_management)
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `type: Literal["redacted_thinking"]`
-
-        default: redacted_thinking
-
     - `class BetaToolUseBlock: …`
+
+      - `type: Literal["tool_use"]`
+
+        default: tool_use
 
       - `id: str`
 
@@ -20268,10 +20303,6 @@ print(beta_message_tokens_count.context_management)
       - `name: str`
 
         minLength: 1
-
-      - `type: Literal["tool_use"]`
-
-        default: tool_use
 
       - `caller: Optional[Caller]`
 
@@ -20287,19 +20318,19 @@ print(beta_message_tokens_count.context_management)
 
           Tool invocation generated by a server-side tool.
 
+          - `type: Literal["code_execution_20250825"]`
+
           - `tool_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["code_execution_20250825"]`
 
         - `class BetaServerToolCaller20260120: …`
 
+          - `type: Literal["code_execution_20260120"]`
+
           - `tool_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["code_execution_20260120"]`
 
       - `toolset_name: Optional[str]`
 
@@ -20308,6 +20339,10 @@ print(beta_message_tokens_count.context_management)
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `class BetaServerToolUseBlock: …`
+
+      - `type: Literal["server_tool_use"]`
+
+        default: server_tool_use
 
       - `id: str`
 
@@ -20333,10 +20368,6 @@ print(beta_message_tokens_count.context_management)
 
         - `"tool_search_tool_bm25"`
 
-      - `type: Literal["server_tool_use"]`
-
-        default: server_tool_use
-
       - `caller: Optional[Caller]`
 
         Tool invocation directly from the model.
@@ -20353,9 +20384,17 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaWebSearchToolResultBlock: …`
 
+      - `type: Literal["web_search_tool_result"]`
+
+        default: web_search_tool_result
+
       - `content: BetaWebSearchToolResultBlockContent`
 
         - `class BetaWebSearchToolResultError: …`
+
+          - `type: Literal["web_search_tool_result_error"]`
+
+            default: web_search_tool_result_error
 
           - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -20371,11 +20410,11 @@ print(beta_message_tokens_count.context_management)
 
             - `"request_too_large"`
 
-          - `type: Literal["web_search_tool_result_error"]`
-
-            default: web_search_tool_result_error
-
         - `List[BetaWebSearchResultBlock]`
+
+          - `type: Literal["web_search_result"]`
+
+            default: web_search_result
 
           - `encrypted_content: str`
 
@@ -20383,19 +20422,11 @@ print(beta_message_tokens_count.context_management)
 
           - `title: str`
 
-          - `type: Literal["web_search_result"]`
-
-            default: web_search_result
-
           - `url: str`
 
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["web_search_tool_result"]`
-
-        default: web_search_tool_result
 
       - `caller: Optional[Caller]`
 
@@ -20413,9 +20444,17 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaWebFetchToolResultBlock: …`
 
+      - `type: Literal["web_fetch_tool_result"]`
+
+        default: web_fetch_tool_result
+
       - `content: Content`
 
         - `class BetaWebFetchToolResultErrorBlock: …`
+
+          - `type: Literal["web_fetch_tool_result_error"]`
+
+            default: web_fetch_tool_result_error
 
           - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -20437,13 +20476,19 @@ print(beta_message_tokens_count.context_management)
 
             - `"unavailable"`
 
-          - `type: Literal["web_fetch_tool_result_error"]`
-
-            default: web_fetch_tool_result_error
+            - `"content_too_large"`
 
         - `class BetaWebFetchBlock: …`
 
+          - `type: Literal["web_fetch_result"]`
+
+            default: web_fetch_result
+
           - `content: BetaDocumentBlock`
+
+            - `type: Literal["document"]`
+
+              default: document
 
             - `citations: Optional[BetaCitationConfig]`
 
@@ -20457,37 +20502,29 @@ print(beta_message_tokens_count.context_management)
 
               - `class BetaBase64PDFSource: …`
 
+                - `type: Literal["base64"]`
+
                 - `data: str`
 
                   format: byte
 
                 - `media_type: Literal["application/pdf"]`
 
-                - `type: Literal["base64"]`
-
               - `class BetaPlainTextSource: …`
+
+                - `type: Literal["text"]`
 
                 - `data: str`
 
                 - `media_type: Literal["text/plain"]`
 
-                - `type: Literal["text"]`
-
             - `title: Optional[str]`
 
               The title of the document
 
-            - `type: Literal["document"]`
-
-              default: document
-
           - `retrieved_at: Optional[str]`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `type: Literal["web_fetch_result"]`
-
-            default: web_fetch_result
 
           - `url: str`
 
@@ -20496,10 +20533,6 @@ print(beta_message_tokens_count.context_management)
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["web_fetch_tool_result"]`
-
-        default: web_fetch_tool_result
 
       - `caller: Optional[Caller]`
 
@@ -20517,9 +20550,17 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaAdvisorToolResultBlock: …`
 
+      - `type: Literal["advisor_tool_result"]`
+
+        default: advisor_tool_result
+
       - `content: Content`
 
         - `class BetaAdvisorToolResultError: …`
+
+          - `type: Literal["advisor_tool_result_error"]`
+
+            default: advisor_tool_result_error
 
           - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -20537,11 +20578,11 @@ print(beta_message_tokens_count.context_management)
 
             - `"model_not_found"`
 
-          - `type: Literal["advisor_tool_result_error"]`
-
-            default: advisor_tool_result_error
-
         - `class BetaAdvisorResultBlock: …`
+
+          - `type: Literal["advisor_result"]`
+
+            default: advisor_result
 
           - `stop_reason: Optional[str]`
 
@@ -20549,11 +20590,11 @@ print(beta_message_tokens_count.context_management)
 
           - `text: str`
 
-          - `type: Literal["advisor_result"]`
-
-            default: advisor_result
-
         - `class BetaAdvisorRedactedResultBlock: …`
+
+          - `type: Literal["advisor_redacted_result"]`
+
+            default: advisor_redacted_result
 
           - `encrypted_content: str`
 
@@ -20563,25 +20604,25 @@ print(beta_message_tokens_count.context_management)
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-          - `type: Literal["advisor_redacted_result"]`
-
-            default: advisor_redacted_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["advisor_tool_result"]`
-
-        default: advisor_tool_result
-
     - `class BetaCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["code_execution_tool_result"]`
+
+        default: code_execution_tool_result
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `class BetaCodeExecutionToolResultError: …`
+
+          - `type: Literal["code_execution_tool_result_error"]`
+
+            default: code_execution_tool_result_error
 
           - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -20593,19 +20634,19 @@ print(beta_message_tokens_count.context_management)
 
             - `"execution_time_exceeded"`
 
-          - `type: Literal["code_execution_tool_result_error"]`
-
-            default: code_execution_tool_result_error
-
         - `class BetaCodeExecutionResultBlock: …`
 
-          - `content: List[BetaCodeExecutionOutputBlock]`
+          - `type: Literal["code_execution_result"]`
 
-            - `file_id: str`
+            default: code_execution_result
+
+          - `content: List[BetaCodeExecutionOutputBlock]`
 
             - `type: Literal["code_execution_output"]`
 
               default: code_execution_output
+
+            - `file_id: str`
 
           - `return_code: int`
 
@@ -20613,21 +20654,21 @@ print(beta_message_tokens_count.context_management)
 
           - `stdout: str`
 
-          - `type: Literal["code_execution_result"]`
-
-            default: code_execution_result
-
         - `class BetaEncryptedCodeExecutionResultBlock: …`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `content: List[BetaCodeExecutionOutputBlock]`
+          - `type: Literal["encrypted_code_execution_result"]`
 
-            - `file_id: str`
+            default: encrypted_code_execution_result
+
+          - `content: List[BetaCodeExecutionOutputBlock]`
 
             - `type: Literal["code_execution_output"]`
 
               default: code_execution_output
+
+            - `file_id: str`
 
           - `encrypted_stdout: str`
 
@@ -20635,23 +20676,23 @@ print(beta_message_tokens_count.context_management)
 
           - `stderr: str`
 
-          - `type: Literal["encrypted_code_execution_result"]`
-
-            default: encrypted_code_execution_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["code_execution_tool_result"]`
-
-        default: code_execution_tool_result
-
     - `class BetaBashCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["bash_code_execution_tool_result"]`
+
+        default: bash_code_execution_tool_result
 
       - `content: Content`
 
         - `class BetaBashCodeExecutionToolResultError: …`
+
+          - `type: Literal["bash_code_execution_tool_result_error"]`
+
+            default: bash_code_execution_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -20665,19 +20706,19 @@ print(beta_message_tokens_count.context_management)
 
             - `"output_file_too_large"`
 
-          - `type: Literal["bash_code_execution_tool_result_error"]`
-
-            default: bash_code_execution_tool_result_error
-
         - `class BetaBashCodeExecutionResultBlock: …`
 
-          - `content: List[BetaBashCodeExecutionOutputBlock]`
+          - `type: Literal["bash_code_execution_result"]`
 
-            - `file_id: str`
+            default: bash_code_execution_result
+
+          - `content: List[BetaBashCodeExecutionOutputBlock]`
 
             - `type: Literal["bash_code_execution_output"]`
 
               default: bash_code_execution_output
+
+            - `file_id: str`
 
           - `return_code: int`
 
@@ -20685,23 +20726,23 @@ print(beta_message_tokens_count.context_management)
 
           - `stdout: str`
 
-          - `type: Literal["bash_code_execution_result"]`
-
-            default: bash_code_execution_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["bash_code_execution_tool_result"]`
-
-        default: bash_code_execution_tool_result
-
     - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["text_editor_code_execution_tool_result"]`
+
+        default: text_editor_code_execution_tool_result
 
       - `content: Content`
 
         - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+          - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -20717,11 +20758,11 @@ print(beta_message_tokens_count.context_management)
 
           - `error_message: Optional[str]`
 
-          - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_view_result"]`
+
+            default: text_editor_code_execution_view_result
 
           - `content: str`
 
@@ -20739,19 +20780,19 @@ print(beta_message_tokens_count.context_management)
 
           - `total_lines: Optional[int]`
 
-          - `type: Literal["text_editor_code_execution_view_result"]`
-
-            default: text_editor_code_execution_view_result
-
         - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-          - `is_file_update: bool`
 
           - `type: Literal["text_editor_code_execution_create_result"]`
 
             default: text_editor_code_execution_create_result
 
+          - `is_file_update: bool`
+
         - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `lines: Optional[List[str]]`
 
@@ -20763,23 +20804,23 @@ print(beta_message_tokens_count.context_management)
 
           - `old_start: Optional[int]`
 
-          - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["text_editor_code_execution_tool_result"]`
-
-        default: text_editor_code_execution_tool_result
-
     - `class BetaToolSearchToolResultBlock: …`
+
+      - `type: Literal["tool_search_tool_result"]`
+
+        default: tool_search_tool_result
 
       - `content: Content`
 
         - `class BetaToolSearchToolResultError: …`
+
+          - `type: Literal["tool_search_tool_result_error"]`
+
+            default: tool_search_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -20793,35 +20834,31 @@ print(beta_message_tokens_count.context_management)
 
           - `error_message: Optional[str]`
 
-          - `type: Literal["tool_search_tool_result_error"]`
-
-            default: tool_search_tool_result_error
-
         - `class BetaToolSearchToolSearchResultBlock: …`
-
-          - `tool_references: List[BetaToolReferenceBlock]`
-
-            - `tool_name: str`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `type: Literal["tool_reference"]`
-
-              default: tool_reference
 
           - `type: Literal["tool_search_tool_search_result"]`
 
             default: tool_search_tool_search_result
 
+          - `tool_references: List[BetaToolReferenceBlock]`
+
+            - `type: Literal["tool_reference"]`
+
+              default: tool_reference
+
+            - `tool_name: str`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["tool_search_tool_result"]`
-
-        default: tool_search_tool_result
-
     - `class BetaMCPToolUseBlock: …`
+
+      - `type: Literal["mcp_tool_use"]`
+
+        default: mcp_tool_use
 
       - `id: str`
 
@@ -20837,17 +20874,21 @@ print(beta_message_tokens_count.context_management)
 
         The name of the MCP server
 
-      - `type: Literal["mcp_tool_use"]`
-
-        default: mcp_tool_use
-
     - `class BetaMCPToolResultBlock: …`
+
+      - `type: Literal["mcp_tool_result"]`
+
+        default: mcp_tool_result
 
       - `content: Union[str, List[BetaTextBlock]]`
 
         - `str`
 
         - `List[BetaTextBlock]`
+
+          - `type: Literal["text"]`
+
+            default: text
 
           - `citations: Optional[List[BetaTextCitation]]`
 
@@ -20857,11 +20898,7 @@ print(beta_message_tokens_count.context_management)
 
           - `text: str`
 
-            maxLength: 5000000, minLength: 0
-
-          - `type: Literal["text"]`
-
-            default: text
+            minLength: 0
 
       - `is_error: bool`
 
@@ -20871,19 +20908,15 @@ print(beta_message_tokens_count.context_management)
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `type: Literal["mcp_tool_result"]`
-
-        default: mcp_tool_result
-
     - `class BetaContainerUploadBlock: …`
 
       Response model for a file uploaded to the container.
 
-      - `file_id: str`
-
       - `type: Literal["container_upload"]`
 
         default: container_upload
+
+      - `file_id: str`
 
     - `class BetaCompactionBlock: …`
 
@@ -20893,6 +20926,10 @@ print(beta_message_tokens_count.context_management)
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
+      - `type: Literal["compaction"]`
+
+        default: compaction
+
       - `content: Optional[str]`
 
         Summary of compacted content, or null if compaction failed
@@ -20900,10 +20937,6 @@ print(beta_message_tokens_count.context_management)
       - `encrypted_content: Optional[str]`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
-
-      - `type: Literal["compaction"]`
-
-        default: compaction
 
     - `class BetaFallbackBlock: …`
 
@@ -20918,6 +20951,10 @@ print(beta_message_tokens_count.context_management)
       The block is treated like a server-tool content block for streaming: it
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
+
+      - `type: Literal["fallback"]`
+
+        default: fallback
 
       - `from_: BetaFallbackInfo`
 
@@ -21031,6 +21068,10 @@ print(beta_message_tokens_count.context_management)
 
         What caused the `from` model to hand over at this hop.
 
+        - `type: Literal["refusal"]`
+
+          default: refusal
+
         - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
           The policy category that triggered a refusal.
@@ -21061,14 +21102,6 @@ print(beta_message_tokens_count.context_management)
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-        - `type: Literal["refusal"]`
-
-          default: refusal
-
-      - `type: Literal["fallback"]`
-
-        default: fallback
-
   - `context_management: Optional[BetaContextManagementResponse]`
 
     Context management response.
@@ -21080,6 +21113,12 @@ print(beta_message_tokens_count.context_management)
       List of context management edits that were applied.
 
       - `class BetaClearToolUses20250919EditResponse: …`
+
+        - `type: Literal["clear_tool_uses_20250919"]`
+
+          The type of context management edit applied.
+
+          default: clear_tool_uses_20250919
 
         - `cleared_input_tokens: int`
 
@@ -21093,13 +21132,13 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["clear_tool_uses_20250919"]`
+      - `class BetaClearThinking20251015EditResponse: …`
+
+        - `type: Literal["clear_thinking_20251015"]`
 
           The type of context management edit applied.
 
-          default: clear_tool_uses_20250919
-
-      - `class BetaClearThinking20251015EditResponse: …`
+          default: clear_thinking_20251015
 
         - `cleared_input_tokens: int`
 
@@ -21113,12 +21152,6 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["clear_thinking_20251015"]`
-
-          The type of context management edit applied.
-
-          default: clear_thinking_20251015
-
   - `diagnostics: Optional[BetaDiagnostics]`
 
     Response envelope for request-level diagnostics. Present (possibly
@@ -21130,43 +21163,43 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaCacheMissModelChanged: …`
 
-        - `cache_missed_input_tokens: int`
-
-          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
         - `type: Literal["model_changed"]`
 
           default: model_changed
 
-      - `class BetaCacheMissSystemChanged: …`
-
         - `cache_missed_input_tokens: int`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class BetaCacheMissSystemChanged: …`
 
         - `type: Literal["system_changed"]`
 
           default: system_changed
 
-      - `class BetaCacheMissToolsChanged: …`
-
         - `cache_missed_input_tokens: int`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class BetaCacheMissToolsChanged: …`
 
         - `type: Literal["tools_changed"]`
 
           default: tools_changed
 
-      - `class BetaCacheMissMessagesChanged: …`
-
         - `cache_missed_input_tokens: int`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+      - `class BetaCacheMissMessagesChanged: …`
+
         - `type: Literal["messages_changed"]`
 
           default: messages_changed
+
+        - `cache_missed_input_tokens: int`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `class BetaCacheMissPreviousMessageNotFound: …`
 
@@ -21197,6 +21230,10 @@ print(beta_message_tokens_count.context_management)
   - `stop_details: Optional[BetaRefusalStopDetails]`
 
     Structured information about a refusal.
+
+    - `type: Literal["refusal"]`
+
+      default: refusal
 
     - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -21283,10 +21320,6 @@ print(beta_message_tokens_count.context_management)
 
       The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-    - `type: Literal["refusal"]`
-
-      default: refusal
-
   - `stop_reason: Optional[BetaStopReason]`
 
     The reason that we stopped.
@@ -21324,14 +21357,6 @@ print(beta_message_tokens_count.context_management)
     Which custom stop sequence was generated, if any.
 
     This value will be a non-null string if one of your custom stop sequences was generated.
-
-  - `type: Literal["message"]`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
-    default: message
 
   - `usage: BetaUsage`
 
@@ -21399,6 +21424,10 @@ print(beta_message_tokens_count.context_management)
 
           No reprice was applied; `reason` says why.
 
+          - `type: Literal["not_applied"]`
+
+            default: not_applied
+
           - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
             Why the reprice was not applied.
@@ -21429,10 +21458,6 @@ print(beta_message_tokens_count.context_management)
             - `"wrong_platform"`
 
             - `"wrong_workspace"`
-
-          - `type: Literal["not_applied"]`
-
-            default: not_applied
 
           - `remove_to_redeem: Optional[List[str]]`
 
@@ -21471,6 +21496,12 @@ print(beta_message_tokens_count.context_management)
 
         Token usage for a sampling iteration.
 
+        - `type: Literal["message"]`
+
+          Usage for a sampling iteration
+
+          default: message
+
         - `cache_creation: Optional[BetaCacheCreation]`
 
           Breakdown of cached tokens by TTL
@@ -21505,43 +21536,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["message"]`
-
-          Usage for a sampling iteration
-
-          default: message
-
       - `class BetaCompactionIterationUsage: …`
 
         Token usage for a compaction iteration.
-
-        - `cache_creation: Optional[BetaCacheCreation]`
-
-          Breakdown of cached tokens by TTL
-
-        - `cache_creation_input_tokens: int`
-
-          The number of input tokens used to create the cache entry.
-
-          default: 0, minimum: 0
-
-        - `cache_read_input_tokens: int`
-
-          The number of input tokens read from the cache.
-
-          default: 0, minimum: 0
-
-        - `input_tokens: int`
-
-          The number of input tokens which were used.
-
-          minimum: 0
-
-        - `output_tokens: int`
-
-          The number of output tokens which were used.
-
-          minimum: 0
 
         - `type: Literal["compaction"]`
 
@@ -21549,9 +21546,43 @@ print(beta_message_tokens_count.context_management)
 
           default: compaction
 
+        - `cache_creation: Optional[BetaCacheCreation]`
+
+          Breakdown of cached tokens by TTL
+
+        - `cache_creation_input_tokens: int`
+
+          The number of input tokens used to create the cache entry.
+
+          default: 0, minimum: 0
+
+        - `cache_read_input_tokens: int`
+
+          The number of input tokens read from the cache.
+
+          default: 0, minimum: 0
+
+        - `input_tokens: int`
+
+          The number of input tokens which were used.
+
+          minimum: 0
+
+        - `output_tokens: int`
+
+          The number of output tokens which were used.
+
+          minimum: 0
+
       - `class BetaAdvisorMessageIterationUsage: …`
 
         Token usage for an advisor sub-inference iteration.
+
+        - `type: Literal["advisor_message"]`
+
+          Usage for an advisor sub-inference iteration
+
+          default: advisor_message
 
         - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -21586,12 +21617,6 @@ print(beta_message_tokens_count.context_management)
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `type: Literal["advisor_message"]`
-
-          Usage for an advisor sub-inference iteration
-
-          default: advisor_message
 
       - `class BetaFallbackMessageIterationUsage: …`
 
@@ -21602,6 +21627,12 @@ print(beta_message_tokens_count.context_management)
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
+        - `type: Literal["fallback_message"]`
+
+          Usage for the fallback-model attempt that served the response
+
+          default: fallback_message
+
         - `cache_creation: Optional[BetaCacheCreation]`
 
           Breakdown of cached tokens by TTL
@@ -21635,12 +21666,6 @@ print(beta_message_tokens_count.context_management)
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `type: Literal["fallback_message"]`
-
-          Usage for the fallback-model attempt that served the response
-
-          default: fallback_message
 
     - `output_tokens: int`
 
@@ -21722,6 +21747,12 @@ print(beta_message_tokens_count.context_management)
     fallback happened mid-stream, in which case it holds the serving model's
     entries and replaces the one in `message_start`.
 
+    - `type: Literal["thinking_dropped"]`
+
+      Always `thinking_dropped` for this entry type.
+
+      default: thinking_dropped
+
     - `path: str`
 
       Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -21751,12 +21782,6 @@ print(beta_message_tokens_count.context_management)
       - `"organization_binding_mismatch"`
 
       - `"end_user_binding_mismatch"`
-
-    - `type: Literal["thinking_dropped"]`
-
-      Always `thinking_dropped` for this entry type.
-
-      default: thinking_dropped
 
 ### Beta Message Delta Usage
 
@@ -21800,6 +21825,10 @@ print(beta_message_tokens_count.context_management)
 
         No reprice was applied; `reason` says why.
 
+        - `type: Literal["not_applied"]`
+
+          default: not_applied
+
         - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
           Why the reprice was not applied.
@@ -21830,10 +21859,6 @@ print(beta_message_tokens_count.context_management)
           - `"wrong_platform"`
 
           - `"wrong_workspace"`
-
-        - `type: Literal["not_applied"]`
-
-          default: not_applied
 
         - `remove_to_redeem: Optional[List[str]]`
 
@@ -21867,6 +21892,12 @@ print(beta_message_tokens_count.context_management)
     - `class BetaMessageIterationUsage: …`
 
       Token usage for a sampling iteration.
+
+      - `type: Literal["message"]`
+
+        Usage for a sampling iteration
+
+        default: message
 
       - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -22008,15 +22039,15 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["message"]`
-
-        Usage for a sampling iteration
-
-        default: message
-
     - `class BetaCompactionIterationUsage: …`
 
       Token usage for a compaction iteration.
+
+      - `type: Literal["compaction"]`
+
+        Usage for a compaction iteration
+
+        default: compaction
 
       - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -22046,15 +22077,15 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["compaction"]`
-
-        Usage for a compaction iteration
-
-        default: compaction
-
     - `class BetaAdvisorMessageIterationUsage: …`
 
       Token usage for an advisor sub-inference iteration.
+
+      - `type: Literal["advisor_message"]`
+
+        Usage for an advisor sub-inference iteration
+
+        default: advisor_message
 
       - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -22089,12 +22120,6 @@ print(beta_message_tokens_count.context_management)
         The number of output tokens which were used.
 
         minimum: 0
-
-      - `type: Literal["advisor_message"]`
-
-        Usage for an advisor sub-inference iteration
-
-        default: advisor_message
 
     - `class BetaFallbackMessageIterationUsage: …`
 
@@ -22105,6 +22130,12 @@ print(beta_message_tokens_count.context_management)
       a fallback model served the response is signalled by the presence of this
       entry in `usage.iterations`.
 
+      - `type: Literal["fallback_message"]`
+
+        Usage for the fallback-model attempt that served the response
+
+        default: fallback_message
+
       - `cache_creation: Optional[BetaCacheCreation]`
 
         Breakdown of cached tokens by TTL
@@ -22138,12 +22169,6 @@ print(beta_message_tokens_count.context_management)
         The number of output tokens which were used.
 
         minimum: 0
-
-      - `type: Literal["fallback_message"]`
-
-        Usage for the fallback-model attempt that served the response
-
-        default: fallback_message
 
   - `output_tokens: int`
 
@@ -22192,6 +22217,12 @@ print(beta_message_tokens_count.context_management)
 - `class BetaMessageIterationUsage: …`
 
   Token usage for a sampling iteration.
+
+  - `type: Literal["message"]`
+
+    Usage for a sampling iteration
+
+    default: message
 
   - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -22333,12 +22364,6 @@ print(beta_message_tokens_count.context_management)
 
     minimum: 0
 
-  - `type: Literal["message"]`
-
-    Usage for a sampling iteration
-
-    default: message
-
 ### Beta Message Param
 
 - `class BetaMessageParam: …`
@@ -22351,11 +22376,11 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaTextBlockParam: …`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22382,6 +22407,8 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaCitationCharLocationParam: …`
 
+            - `type: Literal["char_location"]`
+
             - `cited_text: str`
 
             - `document_index: int`
@@ -22398,9 +22425,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["char_location"]`
-
           - `class BetaCitationPageLocationParam: …`
+
+            - `type: Literal["page_location"]`
 
             - `cited_text: str`
 
@@ -22418,9 +22445,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 1
 
-            - `type: Literal["page_location"]`
-
           - `class BetaCitationContentBlockLocationParam: …`
+
+            - `type: Literal["content_block_location"]`
 
             - `cited_text: str`
 
@@ -22448,9 +22475,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["content_block_location"]`
-
           - `class BetaCitationWebSearchResultLocationParam: …`
+
+            - `type: Literal["web_search_result_location"]`
 
             - `cited_text: str`
 
@@ -22460,13 +22487,13 @@ print(beta_message_tokens_count.context_management)
 
               maxLength: 512, minLength: 1
 
-            - `type: Literal["web_search_result_location"]`
-
             - `url: str`
 
               minLength: 1
 
           - `class BetaCitationSearchResultLocationParam: …`
+
+            - `type: Literal["search_result_location"]`
 
             - `cited_text: str`
 
@@ -22498,13 +22525,15 @@ print(beta_message_tokens_count.context_management)
 
             - `title: Optional[str]`
 
-            - `type: Literal["search_result_location"]`
-
       - `class BetaImageBlockParam: …`
+
+        - `type: Literal["image"]`
 
         - `source: Source`
 
           - `class BetaBase64ImageSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -22520,8 +22549,6 @@ print(beta_message_tokens_count.context_management)
 
               - `"image/webp"`
 
-            - `type: Literal["base64"]`
-
           - `class BetaURLImageSource: …`
 
             - `type: Literal["url"]`
@@ -22530,11 +22557,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaFileImageSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["image"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22554,9 +22579,13 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaRequestDocumentBlock: …`
 
+        - `type: Literal["document"]`
+
         - `source: Source`
 
           - `class BetaBase64PDFSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -22564,17 +22593,17 @@ print(beta_message_tokens_count.context_management)
 
             - `media_type: Literal["application/pdf"]`
 
-            - `type: Literal["base64"]`
-
           - `class BetaPlainTextSource: …`
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
             - `media_type: Literal["text/plain"]`
 
-            - `type: Literal["text"]`
-
           - `class BetaContentBlockSource: …`
+
+            - `type: Literal["content"]`
 
             - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -22586,8 +22615,6 @@ print(beta_message_tokens_count.context_management)
 
                 - `class BetaImageBlockParam: …`
 
-            - `type: Literal["content"]`
-
           - `class BetaURLPDFSource: …`
 
             - `type: Literal["url"]`
@@ -22596,11 +22623,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaFileDocumentSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["document"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22620,13 +22645,15 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaSearchResultBlockParam: …`
 
+        - `type: Literal["search_result"]`
+
         - `content: List[BetaTextBlockParam]`
+
+          - `type: Literal["text"]`
 
           - `text: str`
 
             minLength: 1
-
-          - `type: Literal["text"]`
 
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22638,8 +22665,6 @@ print(beta_message_tokens_count.context_management)
 
         - `title: str`
 
-        - `type: Literal["search_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -22647,6 +22672,8 @@ print(beta_message_tokens_count.context_management)
         - `citations: Optional[BetaCitationsConfigParam]`
 
       - `class BetaThinkingBlockParam: …`
+
+        - `type: Literal["thinking"]`
 
         - `signature: str`
 
@@ -22658,17 +22685,17 @@ print(beta_message_tokens_count.context_management)
 
           The `thinking` text of this block as returned by the API.
 
-        - `type: Literal["thinking"]`
-
       - `class BetaRedactedThinkingBlockParam: …`
+
+        - `type: Literal["redacted_thinking"]`
 
         - `data: str`
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type: Literal["redacted_thinking"]`
-
       - `class BetaToolUseBlockParam: …`
+
+        - `type: Literal["tool_use"]`
 
         - `id: str`
 
@@ -22679,8 +22706,6 @@ print(beta_message_tokens_count.context_management)
         - `name: str`
 
           maxLength: 200, minLength: 1
-
-        - `type: Literal["tool_use"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22700,19 +22725,19 @@ print(beta_message_tokens_count.context_management)
 
             Tool invocation generated by a server-side tool.
 
+            - `type: Literal["code_execution_20250825"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20250825"]`
 
           - `class BetaServerToolCaller20260120: …`
 
+            - `type: Literal["code_execution_20260120"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20260120"]`
 
         - `toolset_name: Optional[str]`
 
@@ -22722,11 +22747,11 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaToolResultBlockParam: …`
 
+        - `type: Literal["tool_result"]`
+
         - `tool_use_id: str`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: Literal["tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22750,11 +22775,11 @@ print(beta_message_tokens_count.context_management)
 
               Tool reference block that can be included in tool_result content.
 
+              - `type: Literal["tool_reference"]`
+
               - `tool_name: str`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: Literal["tool_reference"]`
 
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -22769,6 +22794,8 @@ print(beta_message_tokens_count.context_management)
               At most one per `tool_result`, only on a non-error result answering a
               browser toolset member `tool_use`. The server renders the
               model-visible text from it; the model never sees the raw fields.
+
+              - `type: Literal["browser_state"]`
 
               - `tabs: List[BetaBrowserStateTabEntry]`
 
@@ -22798,8 +22825,6 @@ print(beta_message_tokens_count.context_management)
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `type: Literal["browser_state"]`
-
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
@@ -22820,25 +22845,25 @@ print(beta_message_tokens_count.context_management)
                   during a failed call gets no deferred `tab_opened`; it simply appears
                   in the next result's `tabs` inventory.
 
+                  - `type: Literal["tab_opened"]`
+
                   - `tab_id: str`
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type: Literal["tab_opened"]`
-
                 - `class BetaBrowserStateChangeDownloadStarted: …`
 
                   A file download that started during this call.
+
+                  - `type: Literal["download_started"]`
 
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_started"]`
 
                   - `url: str`
 
@@ -22853,13 +22878,13 @@ print(beta_message_tokens_count.context_management)
                   `download_started`, when the download finished during the call that
                   started it (at most one state change per `download_id` per result).
 
+                  - `type: Literal["download_completed"]`
+
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_completed"]`
 
                   - `url: str`
 
@@ -22883,13 +22908,13 @@ print(beta_message_tokens_count.context_management)
 
                   A file download that failed — or was cancelled — during this call.
 
+                  - `type: Literal["download_failed"]`
+
                   - `download_id: str`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: Literal["download_failed"]`
 
                   - `url: str`
 
@@ -22912,6 +22937,8 @@ print(beta_message_tokens_count.context_management)
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam: …`
+
+        - `type: Literal["server_tool_use"]`
 
         - `id: str`
 
@@ -22937,8 +22964,6 @@ print(beta_message_tokens_count.context_management)
 
           - `"tool_search_tool_bm25"`
 
-        - `type: Literal["server_tool_use"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -22959,21 +22984,25 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaWebSearchToolResultBlockParam: …`
 
+        - `type: Literal["web_search_tool_result"]`
+
         - `content: BetaWebSearchToolResultBlockParamContent`
 
           - `List[BetaWebSearchResultBlockParam]`
 
+            - `type: Literal["web_search_result"]`
+
             - `encrypted_content: str`
 
             - `title: str`
-
-            - `type: Literal["web_search_result"]`
 
             - `url: str`
 
             - `page_age: Optional[str]`
 
           - `class BetaWebSearchToolRequestError: …`
+
+            - `type: Literal["web_search_tool_result_error"]`
 
             - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -22989,13 +23018,9 @@ print(beta_message_tokens_count.context_management)
 
               - `"request_too_large"`
 
-            - `type: Literal["web_search_tool_result_error"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_search_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23017,9 +23042,13 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaWebFetchToolResultBlockParam: …`
 
+        - `type: Literal["web_fetch_tool_result"]`
+
         - `content: Content`
 
           - `class BetaWebFetchToolResultErrorBlockParam: …`
+
+            - `type: Literal["web_fetch_tool_result_error"]`
 
             - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -23041,13 +23070,13 @@ print(beta_message_tokens_count.context_management)
 
               - `"unavailable"`
 
-            - `type: Literal["web_fetch_tool_result_error"]`
+              - `"content_too_large"`
 
           - `class BetaWebFetchBlockParam: …`
 
-            - `content: BetaRequestDocumentBlock`
-
             - `type: Literal["web_fetch_result"]`
+
+            - `content: BetaRequestDocumentBlock`
 
             - `url: str`
 
@@ -23060,8 +23089,6 @@ print(beta_message_tokens_count.context_management)
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_fetch_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23083,9 +23110,13 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaAdvisorToolResultBlockParam: …`
 
+        - `type: Literal["advisor_tool_result"]`
+
         - `content: Content`
 
           - `class BetaAdvisorToolResultErrorParam: …`
+
+            - `type: Literal["advisor_tool_result_error"]`
 
             - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -23103,23 +23134,21 @@ print(beta_message_tokens_count.context_management)
 
               - `"model_not_found"`
 
-            - `type: Literal["advisor_tool_result_error"]`
-
           - `class BetaAdvisorResultBlockParam: …`
 
-            - `text: str`
-
             - `type: Literal["advisor_result"]`
+
+            - `text: str`
 
             - `stop_reason: Optional[str]`
 
           - `class BetaAdvisorRedactedResultBlockParam: …`
 
+            - `type: Literal["advisor_redacted_result"]`
+
             - `encrypted_content: str`
 
               Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-            - `type: Literal["advisor_redacted_result"]`
 
             - `stop_reason: Optional[str]`
 
@@ -23127,19 +23156,21 @@ print(beta_message_tokens_count.context_management)
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["advisor_tool_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["code_execution_tool_result"]`
+
         - `content: BetaCodeExecutionToolResultBlockParamContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `class BetaCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["code_execution_tool_result_error"]`
 
             - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -23151,15 +23182,15 @@ print(beta_message_tokens_count.context_management)
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["code_execution_tool_result_error"]`
-
           - `class BetaCodeExecutionResultBlockParam: …`
+
+            - `type: Literal["code_execution_result"]`
 
             - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["code_execution_output"]`
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -23167,17 +23198,17 @@ print(beta_message_tokens_count.context_management)
 
             - `stdout: str`
 
-            - `type: Literal["code_execution_result"]`
-
           - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
+            - `type: Literal["encrypted_code_execution_result"]`
+
             - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["code_execution_output"]`
+
+              - `file_id: str`
 
             - `encrypted_stdout: str`
 
@@ -23185,13 +23216,9 @@ print(beta_message_tokens_count.context_management)
 
             - `stderr: str`
 
-            - `type: Literal["encrypted_code_execution_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["code_execution_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23199,9 +23226,13 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaBashCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["bash_code_execution_tool_result"]`
+
         - `content: Content`
 
           - `class BetaBashCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["bash_code_execution_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -23215,15 +23246,15 @@ print(beta_message_tokens_count.context_management)
 
               - `"output_file_too_large"`
 
-            - `type: Literal["bash_code_execution_tool_result_error"]`
-
           - `class BetaBashCodeExecutionResultBlockParam: …`
+
+            - `type: Literal["bash_code_execution_result"]`
 
             - `content: List[BetaBashCodeExecutionOutputBlockParam]`
 
-              - `file_id: str`
-
               - `type: Literal["bash_code_execution_output"]`
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -23231,13 +23262,9 @@ print(beta_message_tokens_count.context_management)
 
             - `stdout: str`
 
-            - `type: Literal["bash_code_execution_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["bash_code_execution_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23245,9 +23272,13 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
 
+        - `type: Literal["text_editor_code_execution_tool_result"]`
+
         - `content: Content`
 
           - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+            - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -23261,11 +23292,11 @@ print(beta_message_tokens_count.context_management)
 
               - `"file_not_found"`
 
-            - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
             - `error_message: Optional[str]`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+            - `type: Literal["text_editor_code_execution_view_result"]`
 
             - `content: str`
 
@@ -23277,8 +23308,6 @@ print(beta_message_tokens_count.context_management)
 
               - `"pdf"`
 
-            - `type: Literal["text_editor_code_execution_view_result"]`
-
             - `num_lines: Optional[int]`
 
             - `start_line: Optional[int]`
@@ -23287,9 +23316,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-            - `is_file_update: bool`
-
             - `type: Literal["text_editor_code_execution_create_result"]`
+
+            - `is_file_update: bool`
 
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
@@ -23309,17 +23338,19 @@ print(beta_message_tokens_count.context_management)
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["text_editor_code_execution_tool_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaToolSearchToolResultBlockParam: …`
 
+        - `type: Literal["tool_search_tool_result"]`
+
         - `content: Content`
 
           - `class BetaToolSearchToolResultErrorParam: …`
+
+            - `type: Literal["tool_search_tool_result_error"]`
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -23331,37 +23362,35 @@ print(beta_message_tokens_count.context_management)
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["tool_search_tool_result_error"]`
-
             - `error_message: Optional[str]`
 
           - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+            - `type: Literal["tool_search_tool_search_result"]`
+
             - `tool_references: List[BetaToolReferenceBlockParam]`
+
+              - `type: Literal["tool_reference"]`
 
               - `tool_name: str`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `type: Literal["tool_reference"]`
-
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type: Literal["tool_search_tool_search_result"]`
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["tool_search_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaMCPToolUseBlockParam: …`
+
+        - `type: Literal["mcp_tool_use"]`
 
         - `id: str`
 
@@ -23375,19 +23404,17 @@ print(beta_message_tokens_count.context_management)
 
           The name of the MCP server
 
-        - `type: Literal["mcp_tool_use"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
       - `class BetaRequestMCPToolResultBlockParam: …`
 
+        - `type: Literal["mcp_tool_result"]`
+
         - `tool_use_id: str`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: Literal["mcp_tool_result"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23399,11 +23426,11 @@ print(beta_message_tokens_count.context_management)
 
           - `List[BetaTextBlockParam]`
 
+            - `type: Literal["text"]`
+
             - `text: str`
 
               minLength: 1
-
-            - `type: Literal["text"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23418,9 +23445,9 @@ print(beta_message_tokens_count.context_management)
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
 
-        - `file_id: str`
-
         - `type: Literal["container_upload"]`
+
+        - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23458,6 +23485,8 @@ print(beta_message_tokens_count.context_management)
         `tools`; it is offered to the model from this point in the
         conversation onward.
 
+        - `type: Literal["tool_addition"]`
+
         - `tool: Tool`
 
           Reference to a single tool the caller declared directly in
@@ -23472,32 +23501,30 @@ print(beta_message_tokens_count.context_management)
             server assigns to MCP-resolved tools — use `mcp_tool_reference` or
             `mcp_toolset_reference` for those.
 
+            - `type: Literal["tool_reference"]`
+
             - `name: str`
 
               pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-            - `type: Literal["tool_reference"]`
 
           - `class BetaToolChangeMCPToolReference: …`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
 
+            - `type: Literal["mcp_tool_reference"]`
+
             - `name: str`
 
             - `server_name: str`
-
-            - `type: Literal["mcp_tool_reference"]`
 
           - `class BetaToolChangeMCPToolsetReference: …`
 
             Reference to every tool in the named MCP server's toolset.
 
-            - `server_name: str`
-
             - `type: Literal["mcp_toolset_reference"]`
 
-        - `type: Literal["tool_addition"]`
+            - `server_name: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23511,6 +23538,8 @@ print(beta_message_tokens_count.context_management)
         `tools`; it is no longer offered to the model from this point in the
         conversation onward.
 
+        - `type: Literal["tool_removal"]`
+
         - `tool: Tool`
 
           Reference to a single tool the caller declared directly in
@@ -23533,8 +23562,6 @@ print(beta_message_tokens_count.context_management)
           - `class BetaToolChangeMCPToolsetReference: …`
 
             Reference to every tool in the named MCP server's toolset.
-
-        - `type: Literal["tool_removal"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -23555,6 +23582,8 @@ print(beta_message_tokens_count.context_management)
         request is rejected), and moving it into the middle of a single run is
         likewise rejected; between non-thinking blocks the block's placement has
         no validation effect.
+
+        - `type: Literal["fallback"]`
 
         - `from_: BetaFallbackInfoParam`
 
@@ -23664,8 +23693,6 @@ print(beta_message_tokens_count.context_management)
 
           Identifies one hop of a fallback transition.
 
-        - `type: Literal["fallback"]`
-
         - `trigger: Optional[object]`
 
           The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -23758,25 +23785,25 @@ print(beta_message_tokens_count.context_management)
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+    - `type: Literal["json_schema"]`
+
     - `schema: Dict[str, object]`
 
       The JSON schema of the format
 
-    - `type: Literal["json_schema"]`
-
   - `task_budget: Optional[BetaTokenTaskBudget]`
 
     User-configurable total token budget across contexts.
+
+    - `type: Literal["tokens"]`
+
+      The budget type. Currently only 'tokens' is supported.
 
     - `total: int`
 
       Total token budget across all contexts in the session.
 
       minimum: 1024
-
-    - `type: Literal["tokens"]`
-
-      The budget type. Currently only 'tokens' is supported.
 
     - `remaining: Optional[int]`
 
@@ -23805,11 +23832,11 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaPlainTextSource: …`
 
+  - `type: Literal["text"]`
+
   - `data: str`
 
   - `media_type: Literal["text/plain"]`
-
-  - `type: Literal["text"]`
 
 ### Beta Raw Content Block Delta
 
@@ -23817,25 +23844,33 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaTextDelta: …`
 
-    - `text: str`
-
     - `type: Literal["text_delta"]`
 
       default: text_delta
 
-  - `class BetaInputJSONDelta: …`
+    - `text: str`
 
-    - `partial_json: str`
+  - `class BetaInputJSONDelta: …`
 
     - `type: Literal["input_json_delta"]`
 
       default: input_json_delta
 
+    - `partial_json: str`
+
   - `class BetaCitationsDelta: …`
+
+    - `type: Literal["citations_delta"]`
+
+      default: citations_delta
 
     - `citation: Citation`
 
       - `class BetaCitationCharLocation: …`
+
+        - `type: Literal["char_location"]`
+
+          default: char_location
 
         - `cited_text: str`
 
@@ -23853,11 +23888,11 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["char_location"]`
-
-          default: char_location
-
       - `class BetaCitationPageLocation: …`
+
+        - `type: Literal["page_location"]`
+
+          default: page_location
 
         - `cited_text: str`
 
@@ -23875,11 +23910,11 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 1
 
-        - `type: Literal["page_location"]`
-
-          default: page_location
-
       - `class BetaCitationContentBlockLocation: …`
+
+        - `type: Literal["content_block_location"]`
+
+          default: content_block_location
 
         - `cited_text: str`
 
@@ -23907,11 +23942,11 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["content_block_location"]`
-
-          default: content_block_location
-
       - `class BetaCitationsWebSearchResultLocation: …`
+
+        - `type: Literal["web_search_result_location"]`
+
+          default: web_search_result_location
 
         - `cited_text: str`
 
@@ -23921,13 +23956,13 @@ print(beta_message_tokens_count.context_management)
 
           maxLength: 512
 
-        - `type: Literal["web_search_result_location"]`
-
-          default: web_search_result_location
-
         - `url: str`
 
       - `class BetaCitationSearchResultLocation: …`
+
+        - `type: Literal["search_result_location"]`
+
+          default: search_result_location
 
         - `cited_text: str`
 
@@ -23959,15 +23994,11 @@ print(beta_message_tokens_count.context_management)
 
         - `title: Optional[str]`
 
-        - `type: Literal["search_result_location"]`
-
-          default: search_result_location
-
-    - `type: Literal["citations_delta"]`
-
-      default: citations_delta
-
   - `class BetaThinkingDelta: …`
+
+    - `type: Literal["thinking_delta"]`
+
+      default: thinking_delta
 
     - `estimated_tokens: Optional[int]`
 
@@ -23977,21 +24008,21 @@ print(beta_message_tokens_count.context_management)
 
       The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-    - `type: Literal["thinking_delta"]`
-
-      default: thinking_delta
-
   - `class BetaSignatureDelta: …`
-
-    - `signature: str`
-
-      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
     - `type: Literal["signature_delta"]`
 
       default: signature_delta
 
+    - `signature: str`
+
+      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
   - `class BetaCompactionContentBlockDelta: …`
+
+    - `type: Literal["compaction_delta"]`
+
+      default: compaction_delta
 
     - `content: Optional[str]`
 
@@ -23999,37 +24030,45 @@ print(beta_message_tokens_count.context_management)
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
-    - `type: Literal["compaction_delta"]`
-
-      default: compaction_delta
-
 ### Beta Raw Content Block Delta Event
 
 - `class BetaRawContentBlockDeltaEvent: …`
+
+  - `type: Literal["content_block_delta"]`
+
+    default: content_block_delta
 
   - `delta: BetaRawContentBlockDelta`
 
     - `class BetaTextDelta: …`
 
-      - `text: str`
-
       - `type: Literal["text_delta"]`
 
         default: text_delta
 
-    - `class BetaInputJSONDelta: …`
+      - `text: str`
 
-      - `partial_json: str`
+    - `class BetaInputJSONDelta: …`
 
       - `type: Literal["input_json_delta"]`
 
         default: input_json_delta
 
+      - `partial_json: str`
+
     - `class BetaCitationsDelta: …`
+
+      - `type: Literal["citations_delta"]`
+
+        default: citations_delta
 
       - `citation: Citation`
 
         - `class BetaCitationCharLocation: …`
+
+          - `type: Literal["char_location"]`
+
+            default: char_location
 
           - `cited_text: str`
 
@@ -24047,11 +24086,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["char_location"]`
-
-            default: char_location
-
         - `class BetaCitationPageLocation: …`
+
+          - `type: Literal["page_location"]`
+
+            default: page_location
 
           - `cited_text: str`
 
@@ -24069,11 +24108,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 1
 
-          - `type: Literal["page_location"]`
-
-            default: page_location
-
         - `class BetaCitationContentBlockLocation: …`
+
+          - `type: Literal["content_block_location"]`
+
+            default: content_block_location
 
           - `cited_text: str`
 
@@ -24101,11 +24140,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["content_block_location"]`
-
-            default: content_block_location
-
         - `class BetaCitationsWebSearchResultLocation: …`
+
+          - `type: Literal["web_search_result_location"]`
+
+            default: web_search_result_location
 
           - `cited_text: str`
 
@@ -24115,13 +24154,13 @@ print(beta_message_tokens_count.context_management)
 
             maxLength: 512
 
-          - `type: Literal["web_search_result_location"]`
-
-            default: web_search_result_location
-
           - `url: str`
 
         - `class BetaCitationSearchResultLocation: …`
+
+          - `type: Literal["search_result_location"]`
+
+            default: search_result_location
 
           - `cited_text: str`
 
@@ -24153,15 +24192,11 @@ print(beta_message_tokens_count.context_management)
 
           - `title: Optional[str]`
 
-          - `type: Literal["search_result_location"]`
-
-            default: search_result_location
-
-      - `type: Literal["citations_delta"]`
-
-        default: citations_delta
-
     - `class BetaThinkingDelta: …`
+
+      - `type: Literal["thinking_delta"]`
+
+        default: thinking_delta
 
       - `estimated_tokens: Optional[int]`
 
@@ -24171,21 +24206,21 @@ print(beta_message_tokens_count.context_management)
 
         The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `type: Literal["thinking_delta"]`
-
-        default: thinking_delta
-
     - `class BetaSignatureDelta: …`
-
-      - `signature: str`
-
-        The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
       - `type: Literal["signature_delta"]`
 
         default: signature_delta
 
+      - `signature: str`
+
+        The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
     - `class BetaCompactionContentBlockDelta: …`
+
+      - `type: Literal["compaction_delta"]`
+
+        default: compaction_delta
 
       - `content: Optional[str]`
 
@@ -24193,25 +24228,25 @@ print(beta_message_tokens_count.context_management)
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
-      - `type: Literal["compaction_delta"]`
-
-        default: compaction_delta
-
   - `index: int`
-
-  - `type: Literal["content_block_delta"]`
-
-    default: content_block_delta
 
 ### Beta Raw Content Block Start Event
 
 - `class BetaRawContentBlockStartEvent: …`
+
+  - `type: Literal["content_block_start"]`
+
+    default: content_block_start
 
   - `content_block: ContentBlock`
 
     Response model for a file uploaded to the container.
 
     - `class BetaTextBlock: …`
+
+      - `type: Literal["text"]`
+
+        default: text
 
       - `citations: Optional[List[BetaTextCitation]]`
 
@@ -24220,6 +24255,10 @@ print(beta_message_tokens_count.context_management)
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `class BetaCitationCharLocation: …`
+
+          - `type: Literal["char_location"]`
+
+            default: char_location
 
           - `cited_text: str`
 
@@ -24237,11 +24276,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["char_location"]`
-
-            default: char_location
-
         - `class BetaCitationPageLocation: …`
+
+          - `type: Literal["page_location"]`
+
+            default: page_location
 
           - `cited_text: str`
 
@@ -24259,11 +24298,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 1
 
-          - `type: Literal["page_location"]`
-
-            default: page_location
-
         - `class BetaCitationContentBlockLocation: …`
+
+          - `type: Literal["content_block_location"]`
+
+            default: content_block_location
 
           - `cited_text: str`
 
@@ -24291,11 +24330,11 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["content_block_location"]`
-
-            default: content_block_location
-
         - `class BetaCitationsWebSearchResultLocation: …`
+
+          - `type: Literal["web_search_result_location"]`
+
+            default: web_search_result_location
 
           - `cited_text: str`
 
@@ -24305,13 +24344,13 @@ print(beta_message_tokens_count.context_management)
 
             maxLength: 512
 
-          - `type: Literal["web_search_result_location"]`
-
-            default: web_search_result_location
-
           - `url: str`
 
         - `class BetaCitationSearchResultLocation: …`
+
+          - `type: Literal["search_result_location"]`
+
+            default: search_result_location
 
           - `cited_text: str`
 
@@ -24343,19 +24382,15 @@ print(beta_message_tokens_count.context_management)
 
           - `title: Optional[str]`
 
-          - `type: Literal["search_result_location"]`
-
-            default: search_result_location
-
       - `text: str`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: Literal["text"]`
-
-        default: text
+        minLength: 0
 
     - `class BetaThinkingBlock: …`
+
+      - `type: Literal["thinking"]`
+
+        default: thinking
 
       - `signature: str`
 
@@ -24369,11 +24404,11 @@ print(beta_message_tokens_count.context_management)
 
         The text of Claude's thinking process for this block.
 
-      - `type: Literal["thinking"]`
-
-        default: thinking
-
     - `class BetaRedactedThinkingBlock: …`
+
+      - `type: Literal["redacted_thinking"]`
+
+        default: redacted_thinking
 
       - `data: str`
 
@@ -24383,11 +24418,11 @@ print(beta_message_tokens_count.context_management)
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `type: Literal["redacted_thinking"]`
-
-        default: redacted_thinking
-
     - `class BetaToolUseBlock: …`
+
+      - `type: Literal["tool_use"]`
+
+        default: tool_use
 
       - `id: str`
 
@@ -24398,10 +24433,6 @@ print(beta_message_tokens_count.context_management)
       - `name: str`
 
         minLength: 1
-
-      - `type: Literal["tool_use"]`
-
-        default: tool_use
 
       - `caller: Optional[Caller]`
 
@@ -24417,19 +24448,19 @@ print(beta_message_tokens_count.context_management)
 
           Tool invocation generated by a server-side tool.
 
+          - `type: Literal["code_execution_20250825"]`
+
           - `tool_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["code_execution_20250825"]`
 
         - `class BetaServerToolCaller20260120: …`
 
+          - `type: Literal["code_execution_20260120"]`
+
           - `tool_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["code_execution_20260120"]`
 
       - `toolset_name: Optional[str]`
 
@@ -24438,6 +24469,10 @@ print(beta_message_tokens_count.context_management)
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `class BetaServerToolUseBlock: …`
+
+      - `type: Literal["server_tool_use"]`
+
+        default: server_tool_use
 
       - `id: str`
 
@@ -24463,10 +24498,6 @@ print(beta_message_tokens_count.context_management)
 
         - `"tool_search_tool_bm25"`
 
-      - `type: Literal["server_tool_use"]`
-
-        default: server_tool_use
-
       - `caller: Optional[Caller]`
 
         Tool invocation directly from the model.
@@ -24483,9 +24514,17 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaWebSearchToolResultBlock: …`
 
+      - `type: Literal["web_search_tool_result"]`
+
+        default: web_search_tool_result
+
       - `content: BetaWebSearchToolResultBlockContent`
 
         - `class BetaWebSearchToolResultError: …`
+
+          - `type: Literal["web_search_tool_result_error"]`
+
+            default: web_search_tool_result_error
 
           - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -24501,11 +24540,11 @@ print(beta_message_tokens_count.context_management)
 
             - `"request_too_large"`
 
-          - `type: Literal["web_search_tool_result_error"]`
-
-            default: web_search_tool_result_error
-
         - `List[BetaWebSearchResultBlock]`
+
+          - `type: Literal["web_search_result"]`
+
+            default: web_search_result
 
           - `encrypted_content: str`
 
@@ -24513,19 +24552,11 @@ print(beta_message_tokens_count.context_management)
 
           - `title: str`
 
-          - `type: Literal["web_search_result"]`
-
-            default: web_search_result
-
           - `url: str`
 
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["web_search_tool_result"]`
-
-        default: web_search_tool_result
 
       - `caller: Optional[Caller]`
 
@@ -24543,9 +24574,17 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaWebFetchToolResultBlock: …`
 
+      - `type: Literal["web_fetch_tool_result"]`
+
+        default: web_fetch_tool_result
+
       - `content: Content`
 
         - `class BetaWebFetchToolResultErrorBlock: …`
+
+          - `type: Literal["web_fetch_tool_result_error"]`
+
+            default: web_fetch_tool_result_error
 
           - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -24567,13 +24606,19 @@ print(beta_message_tokens_count.context_management)
 
             - `"unavailable"`
 
-          - `type: Literal["web_fetch_tool_result_error"]`
-
-            default: web_fetch_tool_result_error
+            - `"content_too_large"`
 
         - `class BetaWebFetchBlock: …`
 
+          - `type: Literal["web_fetch_result"]`
+
+            default: web_fetch_result
+
           - `content: BetaDocumentBlock`
+
+            - `type: Literal["document"]`
+
+              default: document
 
             - `citations: Optional[BetaCitationConfig]`
 
@@ -24587,37 +24632,29 @@ print(beta_message_tokens_count.context_management)
 
               - `class BetaBase64PDFSource: …`
 
+                - `type: Literal["base64"]`
+
                 - `data: str`
 
                   format: byte
 
                 - `media_type: Literal["application/pdf"]`
 
-                - `type: Literal["base64"]`
-
               - `class BetaPlainTextSource: …`
+
+                - `type: Literal["text"]`
 
                 - `data: str`
 
                 - `media_type: Literal["text/plain"]`
 
-                - `type: Literal["text"]`
-
             - `title: Optional[str]`
 
               The title of the document
 
-            - `type: Literal["document"]`
-
-              default: document
-
           - `retrieved_at: Optional[str]`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `type: Literal["web_fetch_result"]`
-
-            default: web_fetch_result
 
           - `url: str`
 
@@ -24626,10 +24663,6 @@ print(beta_message_tokens_count.context_management)
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["web_fetch_tool_result"]`
-
-        default: web_fetch_tool_result
 
       - `caller: Optional[Caller]`
 
@@ -24647,9 +24680,17 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaAdvisorToolResultBlock: …`
 
+      - `type: Literal["advisor_tool_result"]`
+
+        default: advisor_tool_result
+
       - `content: Content`
 
         - `class BetaAdvisorToolResultError: …`
+
+          - `type: Literal["advisor_tool_result_error"]`
+
+            default: advisor_tool_result_error
 
           - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -24667,11 +24708,11 @@ print(beta_message_tokens_count.context_management)
 
             - `"model_not_found"`
 
-          - `type: Literal["advisor_tool_result_error"]`
-
-            default: advisor_tool_result_error
-
         - `class BetaAdvisorResultBlock: …`
+
+          - `type: Literal["advisor_result"]`
+
+            default: advisor_result
 
           - `stop_reason: Optional[str]`
 
@@ -24679,11 +24720,11 @@ print(beta_message_tokens_count.context_management)
 
           - `text: str`
 
-          - `type: Literal["advisor_result"]`
-
-            default: advisor_result
-
         - `class BetaAdvisorRedactedResultBlock: …`
+
+          - `type: Literal["advisor_redacted_result"]`
+
+            default: advisor_redacted_result
 
           - `encrypted_content: str`
 
@@ -24693,25 +24734,25 @@ print(beta_message_tokens_count.context_management)
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-          - `type: Literal["advisor_redacted_result"]`
-
-            default: advisor_redacted_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["advisor_tool_result"]`
-
-        default: advisor_tool_result
-
     - `class BetaCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["code_execution_tool_result"]`
+
+        default: code_execution_tool_result
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `class BetaCodeExecutionToolResultError: …`
+
+          - `type: Literal["code_execution_tool_result_error"]`
+
+            default: code_execution_tool_result_error
 
           - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -24723,19 +24764,19 @@ print(beta_message_tokens_count.context_management)
 
             - `"execution_time_exceeded"`
 
-          - `type: Literal["code_execution_tool_result_error"]`
-
-            default: code_execution_tool_result_error
-
         - `class BetaCodeExecutionResultBlock: …`
 
-          - `content: List[BetaCodeExecutionOutputBlock]`
+          - `type: Literal["code_execution_result"]`
 
-            - `file_id: str`
+            default: code_execution_result
+
+          - `content: List[BetaCodeExecutionOutputBlock]`
 
             - `type: Literal["code_execution_output"]`
 
               default: code_execution_output
+
+            - `file_id: str`
 
           - `return_code: int`
 
@@ -24743,21 +24784,21 @@ print(beta_message_tokens_count.context_management)
 
           - `stdout: str`
 
-          - `type: Literal["code_execution_result"]`
-
-            default: code_execution_result
-
         - `class BetaEncryptedCodeExecutionResultBlock: …`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `content: List[BetaCodeExecutionOutputBlock]`
+          - `type: Literal["encrypted_code_execution_result"]`
 
-            - `file_id: str`
+            default: encrypted_code_execution_result
+
+          - `content: List[BetaCodeExecutionOutputBlock]`
 
             - `type: Literal["code_execution_output"]`
 
               default: code_execution_output
+
+            - `file_id: str`
 
           - `encrypted_stdout: str`
 
@@ -24765,23 +24806,23 @@ print(beta_message_tokens_count.context_management)
 
           - `stderr: str`
 
-          - `type: Literal["encrypted_code_execution_result"]`
-
-            default: encrypted_code_execution_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["code_execution_tool_result"]`
-
-        default: code_execution_tool_result
-
     - `class BetaBashCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["bash_code_execution_tool_result"]`
+
+        default: bash_code_execution_tool_result
 
       - `content: Content`
 
         - `class BetaBashCodeExecutionToolResultError: …`
+
+          - `type: Literal["bash_code_execution_tool_result_error"]`
+
+            default: bash_code_execution_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -24795,19 +24836,19 @@ print(beta_message_tokens_count.context_management)
 
             - `"output_file_too_large"`
 
-          - `type: Literal["bash_code_execution_tool_result_error"]`
-
-            default: bash_code_execution_tool_result_error
-
         - `class BetaBashCodeExecutionResultBlock: …`
 
-          - `content: List[BetaBashCodeExecutionOutputBlock]`
+          - `type: Literal["bash_code_execution_result"]`
 
-            - `file_id: str`
+            default: bash_code_execution_result
+
+          - `content: List[BetaBashCodeExecutionOutputBlock]`
 
             - `type: Literal["bash_code_execution_output"]`
 
               default: bash_code_execution_output
+
+            - `file_id: str`
 
           - `return_code: int`
 
@@ -24815,23 +24856,23 @@ print(beta_message_tokens_count.context_management)
 
           - `stdout: str`
 
-          - `type: Literal["bash_code_execution_result"]`
-
-            default: bash_code_execution_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["bash_code_execution_tool_result"]`
-
-        default: bash_code_execution_tool_result
-
     - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+      - `type: Literal["text_editor_code_execution_tool_result"]`
+
+        default: text_editor_code_execution_tool_result
 
       - `content: Content`
 
         - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+          - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -24847,11 +24888,11 @@ print(beta_message_tokens_count.context_management)
 
           - `error_message: Optional[str]`
 
-          - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_view_result"]`
+
+            default: text_editor_code_execution_view_result
 
           - `content: str`
 
@@ -24869,19 +24910,19 @@ print(beta_message_tokens_count.context_management)
 
           - `total_lines: Optional[int]`
 
-          - `type: Literal["text_editor_code_execution_view_result"]`
-
-            default: text_editor_code_execution_view_result
-
         - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-          - `is_file_update: bool`
 
           - `type: Literal["text_editor_code_execution_create_result"]`
 
             default: text_editor_code_execution_create_result
 
+          - `is_file_update: bool`
+
         - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `lines: Optional[List[str]]`
 
@@ -24893,23 +24934,23 @@ print(beta_message_tokens_count.context_management)
 
           - `old_start: Optional[int]`
 
-          - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["text_editor_code_execution_tool_result"]`
-
-        default: text_editor_code_execution_tool_result
-
     - `class BetaToolSearchToolResultBlock: …`
+
+      - `type: Literal["tool_search_tool_result"]`
+
+        default: tool_search_tool_result
 
       - `content: Content`
 
         - `class BetaToolSearchToolResultError: …`
+
+          - `type: Literal["tool_search_tool_result_error"]`
+
+            default: tool_search_tool_result_error
 
           - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -24923,35 +24964,31 @@ print(beta_message_tokens_count.context_management)
 
           - `error_message: Optional[str]`
 
-          - `type: Literal["tool_search_tool_result_error"]`
-
-            default: tool_search_tool_result_error
-
         - `class BetaToolSearchToolSearchResultBlock: …`
-
-          - `tool_references: List[BetaToolReferenceBlock]`
-
-            - `tool_name: str`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `type: Literal["tool_reference"]`
-
-              default: tool_reference
 
           - `type: Literal["tool_search_tool_search_result"]`
 
             default: tool_search_tool_search_result
 
+          - `tool_references: List[BetaToolReferenceBlock]`
+
+            - `type: Literal["tool_reference"]`
+
+              default: tool_reference
+
+            - `tool_name: str`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `tool_use_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: Literal["tool_search_tool_result"]`
-
-        default: tool_search_tool_result
-
     - `class BetaMCPToolUseBlock: …`
+
+      - `type: Literal["mcp_tool_use"]`
+
+        default: mcp_tool_use
 
       - `id: str`
 
@@ -24967,17 +25004,21 @@ print(beta_message_tokens_count.context_management)
 
         The name of the MCP server
 
-      - `type: Literal["mcp_tool_use"]`
-
-        default: mcp_tool_use
-
     - `class BetaMCPToolResultBlock: …`
+
+      - `type: Literal["mcp_tool_result"]`
+
+        default: mcp_tool_result
 
       - `content: Union[str, List[BetaTextBlock]]`
 
         - `str`
 
         - `List[BetaTextBlock]`
+
+          - `type: Literal["text"]`
+
+            default: text
 
           - `citations: Optional[List[BetaTextCitation]]`
 
@@ -24987,11 +25028,7 @@ print(beta_message_tokens_count.context_management)
 
           - `text: str`
 
-            maxLength: 5000000, minLength: 0
-
-          - `type: Literal["text"]`
-
-            default: text
+            minLength: 0
 
       - `is_error: bool`
 
@@ -25001,19 +25038,15 @@ print(beta_message_tokens_count.context_management)
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `type: Literal["mcp_tool_result"]`
-
-        default: mcp_tool_result
-
     - `class BetaContainerUploadBlock: …`
 
       Response model for a file uploaded to the container.
 
-      - `file_id: str`
-
       - `type: Literal["container_upload"]`
 
         default: container_upload
+
+      - `file_id: str`
 
     - `class BetaCompactionBlock: …`
 
@@ -25023,6 +25056,10 @@ print(beta_message_tokens_count.context_management)
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
+      - `type: Literal["compaction"]`
+
+        default: compaction
+
       - `content: Optional[str]`
 
         Summary of compacted content, or null if compaction failed
@@ -25030,10 +25067,6 @@ print(beta_message_tokens_count.context_management)
       - `encrypted_content: Optional[str]`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
-
-      - `type: Literal["compaction"]`
-
-        default: compaction
 
     - `class BetaFallbackBlock: …`
 
@@ -25048,6 +25081,10 @@ print(beta_message_tokens_count.context_management)
       The block is treated like a server-tool content block for streaming: it
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
+
+      - `type: Literal["fallback"]`
+
+        default: fallback
 
       - `from_: BetaFallbackInfo`
 
@@ -25161,6 +25198,10 @@ print(beta_message_tokens_count.context_management)
 
         What caused the `from` model to hand over at this hop.
 
+        - `type: Literal["refusal"]`
+
+          default: refusal
+
         - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
           The policy category that triggered a refusal.
@@ -25191,33 +25232,25 @@ print(beta_message_tokens_count.context_management)
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-        - `type: Literal["refusal"]`
-
-          default: refusal
-
-      - `type: Literal["fallback"]`
-
-        default: fallback
-
   - `index: int`
-
-  - `type: Literal["content_block_start"]`
-
-    default: content_block_start
 
 ### Beta Raw Content Block Stop Event
 
 - `class BetaRawContentBlockStopEvent: …`
 
-  - `index: int`
-
   - `type: Literal["content_block_stop"]`
 
     default: content_block_stop
 
+  - `index: int`
+
 ### Beta Raw Message Delta Event
 
 - `class BetaRawMessageDeltaEvent: …`
+
+  - `type: Literal["message_delta"]`
+
+    default: message_delta
 
   - `context_management: Optional[BetaContextManagementResponse]`
 
@@ -25228,6 +25261,12 @@ print(beta_message_tokens_count.context_management)
       List of context management edits that were applied.
 
       - `class BetaClearToolUses20250919EditResponse: …`
+
+        - `type: Literal["clear_tool_uses_20250919"]`
+
+          The type of context management edit applied.
+
+          default: clear_tool_uses_20250919
 
         - `cleared_input_tokens: int`
 
@@ -25241,13 +25280,13 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["clear_tool_uses_20250919"]`
+      - `class BetaClearThinking20251015EditResponse: …`
+
+        - `type: Literal["clear_thinking_20251015"]`
 
           The type of context management edit applied.
 
-          default: clear_tool_uses_20250919
-
-      - `class BetaClearThinking20251015EditResponse: …`
+          default: clear_thinking_20251015
 
         - `cleared_input_tokens: int`
 
@@ -25260,12 +25299,6 @@ print(beta_message_tokens_count.context_management)
           Number of thinking turns that were cleared.
 
           minimum: 0
-
-        - `type: Literal["clear_thinking_20251015"]`
-
-          The type of context management edit applied.
-
-          default: clear_thinking_20251015
 
   - `delta: Delta`
 
@@ -25287,12 +25320,6 @@ print(beta_message_tokens_count.context_management)
 
         Skills loaded in the container
 
-        - `skill_id: str`
-
-          Skill ID
-
-          maxLength: 64, minLength: 1
-
         - `type: Literal["anthropic", "custom"]`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -25300,6 +25327,12 @@ print(beta_message_tokens_count.context_management)
           - `"anthropic"`
 
           - `"custom"`
+
+        - `skill_id: str`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `version: str`
 
@@ -25310,6 +25343,10 @@ print(beta_message_tokens_count.context_management)
     - `stop_details: Optional[BetaRefusalStopDetails]`
 
       Structured information about a refusal.
+
+      - `type: Literal["refusal"]`
+
+        default: refusal
 
       - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -25396,10 +25433,6 @@ print(beta_message_tokens_count.context_management)
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-      - `type: Literal["refusal"]`
-
-        default: refusal
-
     - `stop_reason: Optional[BetaStopReason]`
 
       - `"end_turn"`
@@ -25419,10 +25452,6 @@ print(beta_message_tokens_count.context_management)
       - `"model_context_window_exceeded"`
 
     - `stop_sequence: Optional[str]`
-
-  - `type: Literal["message_delta"]`
-
-    default: message_delta
 
   - `usage: BetaMessageDeltaUsage`
 
@@ -25474,6 +25503,10 @@ print(beta_message_tokens_count.context_management)
 
           No reprice was applied; `reason` says why.
 
+          - `type: Literal["not_applied"]`
+
+            default: not_applied
+
           - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
             Why the reprice was not applied.
@@ -25504,10 +25537,6 @@ print(beta_message_tokens_count.context_management)
             - `"wrong_platform"`
 
             - `"wrong_workspace"`
-
-          - `type: Literal["not_applied"]`
-
-            default: not_applied
 
           - `remove_to_redeem: Optional[List[str]]`
 
@@ -25541,6 +25570,12 @@ print(beta_message_tokens_count.context_management)
       - `class BetaMessageIterationUsage: …`
 
         Token usage for a sampling iteration.
+
+        - `type: Literal["message"]`
+
+          Usage for a sampling iteration
+
+          default: message
 
         - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -25682,15 +25717,15 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["message"]`
-
-          Usage for a sampling iteration
-
-          default: message
-
       - `class BetaCompactionIterationUsage: …`
 
         Token usage for a compaction iteration.
+
+        - `type: Literal["compaction"]`
+
+          Usage for a compaction iteration
+
+          default: compaction
 
         - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -25720,15 +25755,15 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["compaction"]`
-
-          Usage for a compaction iteration
-
-          default: compaction
-
       - `class BetaAdvisorMessageIterationUsage: …`
 
         Token usage for an advisor sub-inference iteration.
+
+        - `type: Literal["advisor_message"]`
+
+          Usage for an advisor sub-inference iteration
+
+          default: advisor_message
 
         - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -25763,12 +25798,6 @@ print(beta_message_tokens_count.context_management)
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `type: Literal["advisor_message"]`
-
-          Usage for an advisor sub-inference iteration
-
-          default: advisor_message
 
       - `class BetaFallbackMessageIterationUsage: …`
 
@@ -25779,6 +25808,12 @@ print(beta_message_tokens_count.context_management)
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
+        - `type: Literal["fallback_message"]`
+
+          Usage for the fallback-model attempt that served the response
+
+          default: fallback_message
+
         - `cache_creation: Optional[BetaCacheCreation]`
 
           Breakdown of cached tokens by TTL
@@ -25812,12 +25847,6 @@ print(beta_message_tokens_count.context_management)
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `type: Literal["fallback_message"]`
-
-          Usage for the fallback-model attempt that served the response
-
-          default: fallback_message
 
     - `output_tokens: int`
 
@@ -25879,6 +25908,12 @@ print(beta_message_tokens_count.context_management)
     fallback happened mid-stream, in which case it holds the serving model's
     entries and replaces the one in `message_start`.
 
+    - `type: Literal["thinking_dropped"]`
+
+      Always `thinking_dropped` for this entry type.
+
+      default: thinking_dropped
+
     - `path: str`
 
       Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -25909,17 +25944,23 @@ print(beta_message_tokens_count.context_management)
 
       - `"end_user_binding_mismatch"`
 
-    - `type: Literal["thinking_dropped"]`
-
-      Always `thinking_dropped` for this entry type.
-
-      default: thinking_dropped
-
 ### Beta Raw Message Start Event
 
 - `class BetaRawMessageStartEvent: …`
 
+  - `type: Literal["message_start"]`
+
+    default: message_start
+
   - `message: BetaMessage`
+
+    - `type: Literal["message"]`
+
+      Object type.
+
+      For Messages, this is always `"message"`.
+
+      default: message
 
     - `id: str`
 
@@ -25945,12 +25986,6 @@ print(beta_message_tokens_count.context_management)
 
         Skills loaded in the container
 
-        - `skill_id: str`
-
-          Skill ID
-
-          maxLength: 64, minLength: 1
-
         - `type: Literal["anthropic", "custom"]`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -25958,6 +25993,12 @@ print(beta_message_tokens_count.context_management)
           - `"anthropic"`
 
           - `"custom"`
+
+        - `skill_id: str`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `version: str`
 
@@ -25996,6 +26037,10 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaTextBlock: …`
 
+        - `type: Literal["text"]`
+
+          default: text
+
         - `citations: Optional[List[BetaTextCitation]]`
 
           Citations supporting the text block.
@@ -26003,6 +26048,10 @@ print(beta_message_tokens_count.context_management)
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
           - `class BetaCitationCharLocation: …`
+
+            - `type: Literal["char_location"]`
+
+              default: char_location
 
             - `cited_text: str`
 
@@ -26020,11 +26069,11 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["char_location"]`
-
-              default: char_location
-
           - `class BetaCitationPageLocation: …`
+
+            - `type: Literal["page_location"]`
+
+              default: page_location
 
             - `cited_text: str`
 
@@ -26042,11 +26091,11 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 1
 
-            - `type: Literal["page_location"]`
-
-              default: page_location
-
           - `class BetaCitationContentBlockLocation: …`
+
+            - `type: Literal["content_block_location"]`
+
+              default: content_block_location
 
             - `cited_text: str`
 
@@ -26074,11 +26123,11 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["content_block_location"]`
-
-              default: content_block_location
-
           - `class BetaCitationsWebSearchResultLocation: …`
+
+            - `type: Literal["web_search_result_location"]`
+
+              default: web_search_result_location
 
             - `cited_text: str`
 
@@ -26088,13 +26137,13 @@ print(beta_message_tokens_count.context_management)
 
               maxLength: 512
 
-            - `type: Literal["web_search_result_location"]`
-
-              default: web_search_result_location
-
             - `url: str`
 
           - `class BetaCitationSearchResultLocation: …`
+
+            - `type: Literal["search_result_location"]`
+
+              default: search_result_location
 
             - `cited_text: str`
 
@@ -26126,19 +26175,15 @@ print(beta_message_tokens_count.context_management)
 
             - `title: Optional[str]`
 
-            - `type: Literal["search_result_location"]`
-
-              default: search_result_location
-
         - `text: str`
 
-          maxLength: 5000000, minLength: 0
-
-        - `type: Literal["text"]`
-
-          default: text
+          minLength: 0
 
       - `class BetaThinkingBlock: …`
+
+        - `type: Literal["thinking"]`
+
+          default: thinking
 
         - `signature: str`
 
@@ -26152,11 +26197,11 @@ print(beta_message_tokens_count.context_management)
 
           The text of Claude's thinking process for this block.
 
-        - `type: Literal["thinking"]`
-
-          default: thinking
-
       - `class BetaRedactedThinkingBlock: …`
+
+        - `type: Literal["redacted_thinking"]`
+
+          default: redacted_thinking
 
         - `data: str`
 
@@ -26166,11 +26211,11 @@ print(beta_message_tokens_count.context_management)
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `type: Literal["redacted_thinking"]`
-
-          default: redacted_thinking
-
       - `class BetaToolUseBlock: …`
+
+        - `type: Literal["tool_use"]`
+
+          default: tool_use
 
         - `id: str`
 
@@ -26181,10 +26226,6 @@ print(beta_message_tokens_count.context_management)
         - `name: str`
 
           minLength: 1
-
-        - `type: Literal["tool_use"]`
-
-          default: tool_use
 
         - `caller: Optional[Caller]`
 
@@ -26200,19 +26241,19 @@ print(beta_message_tokens_count.context_management)
 
             Tool invocation generated by a server-side tool.
 
+            - `type: Literal["code_execution_20250825"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20250825"]`
 
           - `class BetaServerToolCaller20260120: …`
 
+            - `type: Literal["code_execution_20260120"]`
+
             - `tool_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_20260120"]`
 
         - `toolset_name: Optional[str]`
 
@@ -26221,6 +26262,10 @@ print(beta_message_tokens_count.context_management)
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlock: …`
+
+        - `type: Literal["server_tool_use"]`
+
+          default: server_tool_use
 
         - `id: str`
 
@@ -26246,10 +26291,6 @@ print(beta_message_tokens_count.context_management)
 
           - `"tool_search_tool_bm25"`
 
-        - `type: Literal["server_tool_use"]`
-
-          default: server_tool_use
-
         - `caller: Optional[Caller]`
 
           Tool invocation directly from the model.
@@ -26266,9 +26307,17 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaWebSearchToolResultBlock: …`
 
+        - `type: Literal["web_search_tool_result"]`
+
+          default: web_search_tool_result
+
         - `content: BetaWebSearchToolResultBlockContent`
 
           - `class BetaWebSearchToolResultError: …`
+
+            - `type: Literal["web_search_tool_result_error"]`
+
+              default: web_search_tool_result_error
 
             - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -26284,11 +26333,11 @@ print(beta_message_tokens_count.context_management)
 
               - `"request_too_large"`
 
-            - `type: Literal["web_search_tool_result_error"]`
-
-              default: web_search_tool_result_error
-
           - `List[BetaWebSearchResultBlock]`
+
+            - `type: Literal["web_search_result"]`
+
+              default: web_search_result
 
             - `encrypted_content: str`
 
@@ -26296,19 +26345,11 @@ print(beta_message_tokens_count.context_management)
 
             - `title: str`
 
-            - `type: Literal["web_search_result"]`
-
-              default: web_search_result
-
             - `url: str`
 
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_search_tool_result"]`
-
-          default: web_search_tool_result
 
         - `caller: Optional[Caller]`
 
@@ -26326,9 +26367,17 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaWebFetchToolResultBlock: …`
 
+        - `type: Literal["web_fetch_tool_result"]`
+
+          default: web_fetch_tool_result
+
         - `content: Content`
 
           - `class BetaWebFetchToolResultErrorBlock: …`
+
+            - `type: Literal["web_fetch_tool_result_error"]`
+
+              default: web_fetch_tool_result_error
 
             - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -26350,13 +26399,19 @@ print(beta_message_tokens_count.context_management)
 
               - `"unavailable"`
 
-            - `type: Literal["web_fetch_tool_result_error"]`
-
-              default: web_fetch_tool_result_error
+              - `"content_too_large"`
 
           - `class BetaWebFetchBlock: …`
 
+            - `type: Literal["web_fetch_result"]`
+
+              default: web_fetch_result
+
             - `content: BetaDocumentBlock`
+
+              - `type: Literal["document"]`
+
+                default: document
 
               - `citations: Optional[BetaCitationConfig]`
 
@@ -26370,37 +26425,29 @@ print(beta_message_tokens_count.context_management)
 
                 - `class BetaBase64PDFSource: …`
 
+                  - `type: Literal["base64"]`
+
                   - `data: str`
 
                     format: byte
 
                   - `media_type: Literal["application/pdf"]`
 
-                  - `type: Literal["base64"]`
-
                 - `class BetaPlainTextSource: …`
+
+                  - `type: Literal["text"]`
 
                   - `data: str`
 
                   - `media_type: Literal["text/plain"]`
 
-                  - `type: Literal["text"]`
-
               - `title: Optional[str]`
 
                 The title of the document
 
-              - `type: Literal["document"]`
-
-                default: document
-
             - `retrieved_at: Optional[str]`
 
               ISO 8601 timestamp when the content was retrieved
-
-            - `type: Literal["web_fetch_result"]`
-
-              default: web_fetch_result
 
             - `url: str`
 
@@ -26409,10 +26456,6 @@ print(beta_message_tokens_count.context_management)
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: Literal["web_fetch_tool_result"]`
-
-          default: web_fetch_tool_result
 
         - `caller: Optional[Caller]`
 
@@ -26430,9 +26473,17 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaAdvisorToolResultBlock: …`
 
+        - `type: Literal["advisor_tool_result"]`
+
+          default: advisor_tool_result
+
         - `content: Content`
 
           - `class BetaAdvisorToolResultError: …`
+
+            - `type: Literal["advisor_tool_result_error"]`
+
+              default: advisor_tool_result_error
 
             - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -26450,11 +26501,11 @@ print(beta_message_tokens_count.context_management)
 
               - `"model_not_found"`
 
-            - `type: Literal["advisor_tool_result_error"]`
-
-              default: advisor_tool_result_error
-
           - `class BetaAdvisorResultBlock: …`
+
+            - `type: Literal["advisor_result"]`
+
+              default: advisor_result
 
             - `stop_reason: Optional[str]`
 
@@ -26462,11 +26513,11 @@ print(beta_message_tokens_count.context_management)
 
             - `text: str`
 
-            - `type: Literal["advisor_result"]`
-
-              default: advisor_result
-
           - `class BetaAdvisorRedactedResultBlock: …`
+
+            - `type: Literal["advisor_redacted_result"]`
+
+              default: advisor_redacted_result
 
             - `encrypted_content: str`
 
@@ -26476,25 +26527,25 @@ print(beta_message_tokens_count.context_management)
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-            - `type: Literal["advisor_redacted_result"]`
-
-              default: advisor_redacted_result
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["advisor_tool_result"]`
-
-          default: advisor_tool_result
-
       - `class BetaCodeExecutionToolResultBlock: …`
+
+        - `type: Literal["code_execution_tool_result"]`
+
+          default: code_execution_tool_result
 
         - `content: BetaCodeExecutionToolResultBlockContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `class BetaCodeExecutionToolResultError: …`
+
+            - `type: Literal["code_execution_tool_result_error"]`
+
+              default: code_execution_tool_result_error
 
             - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -26506,19 +26557,19 @@ print(beta_message_tokens_count.context_management)
 
               - `"execution_time_exceeded"`
 
-            - `type: Literal["code_execution_tool_result_error"]`
-
-              default: code_execution_tool_result_error
-
           - `class BetaCodeExecutionResultBlock: …`
 
-            - `content: List[BetaCodeExecutionOutputBlock]`
+            - `type: Literal["code_execution_result"]`
 
-              - `file_id: str`
+              default: code_execution_result
+
+            - `content: List[BetaCodeExecutionOutputBlock]`
 
               - `type: Literal["code_execution_output"]`
 
                 default: code_execution_output
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -26526,21 +26577,21 @@ print(beta_message_tokens_count.context_management)
 
             - `stdout: str`
 
-            - `type: Literal["code_execution_result"]`
-
-              default: code_execution_result
-
           - `class BetaEncryptedCodeExecutionResultBlock: …`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
-            - `content: List[BetaCodeExecutionOutputBlock]`
+            - `type: Literal["encrypted_code_execution_result"]`
 
-              - `file_id: str`
+              default: encrypted_code_execution_result
+
+            - `content: List[BetaCodeExecutionOutputBlock]`
 
               - `type: Literal["code_execution_output"]`
 
                 default: code_execution_output
+
+              - `file_id: str`
 
             - `encrypted_stdout: str`
 
@@ -26548,23 +26599,23 @@ print(beta_message_tokens_count.context_management)
 
             - `stderr: str`
 
-            - `type: Literal["encrypted_code_execution_result"]`
-
-              default: encrypted_code_execution_result
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["code_execution_tool_result"]`
-
-          default: code_execution_tool_result
-
       - `class BetaBashCodeExecutionToolResultBlock: …`
+
+        - `type: Literal["bash_code_execution_tool_result"]`
+
+          default: bash_code_execution_tool_result
 
         - `content: Content`
 
           - `class BetaBashCodeExecutionToolResultError: …`
+
+            - `type: Literal["bash_code_execution_tool_result_error"]`
+
+              default: bash_code_execution_tool_result_error
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -26578,19 +26629,19 @@ print(beta_message_tokens_count.context_management)
 
               - `"output_file_too_large"`
 
-            - `type: Literal["bash_code_execution_tool_result_error"]`
-
-              default: bash_code_execution_tool_result_error
-
           - `class BetaBashCodeExecutionResultBlock: …`
 
-            - `content: List[BetaBashCodeExecutionOutputBlock]`
+            - `type: Literal["bash_code_execution_result"]`
 
-              - `file_id: str`
+              default: bash_code_execution_result
+
+            - `content: List[BetaBashCodeExecutionOutputBlock]`
 
               - `type: Literal["bash_code_execution_output"]`
 
                 default: bash_code_execution_output
+
+              - `file_id: str`
 
             - `return_code: int`
 
@@ -26598,23 +26649,23 @@ print(beta_message_tokens_count.context_management)
 
             - `stdout: str`
 
-            - `type: Literal["bash_code_execution_result"]`
-
-              default: bash_code_execution_result
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["bash_code_execution_tool_result"]`
-
-          default: bash_code_execution_tool_result
-
       - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+        - `type: Literal["text_editor_code_execution_tool_result"]`
+
+          default: text_editor_code_execution_tool_result
 
         - `content: Content`
 
           - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+            - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+              default: text_editor_code_execution_tool_result_error
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -26630,11 +26681,11 @@ print(beta_message_tokens_count.context_management)
 
             - `error_message: Optional[str]`
 
-            - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-              default: text_editor_code_execution_tool_result_error
-
           - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+            - `type: Literal["text_editor_code_execution_view_result"]`
+
+              default: text_editor_code_execution_view_result
 
             - `content: str`
 
@@ -26652,19 +26703,19 @@ print(beta_message_tokens_count.context_management)
 
             - `total_lines: Optional[int]`
 
-            - `type: Literal["text_editor_code_execution_view_result"]`
-
-              default: text_editor_code_execution_view_result
-
           - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-            - `is_file_update: bool`
 
             - `type: Literal["text_editor_code_execution_create_result"]`
 
               default: text_editor_code_execution_create_result
 
+            - `is_file_update: bool`
+
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+            - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+              default: text_editor_code_execution_str_replace_result
 
             - `lines: Optional[List[str]]`
 
@@ -26676,23 +26727,23 @@ print(beta_message_tokens_count.context_management)
 
             - `old_start: Optional[int]`
 
-            - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-              default: text_editor_code_execution_str_replace_result
-
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["text_editor_code_execution_tool_result"]`
-
-          default: text_editor_code_execution_tool_result
-
       - `class BetaToolSearchToolResultBlock: …`
+
+        - `type: Literal["tool_search_tool_result"]`
+
+          default: tool_search_tool_result
 
         - `content: Content`
 
           - `class BetaToolSearchToolResultError: …`
+
+            - `type: Literal["tool_search_tool_result_error"]`
+
+              default: tool_search_tool_result_error
 
             - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -26706,35 +26757,31 @@ print(beta_message_tokens_count.context_management)
 
             - `error_message: Optional[str]`
 
-            - `type: Literal["tool_search_tool_result_error"]`
-
-              default: tool_search_tool_result_error
-
           - `class BetaToolSearchToolSearchResultBlock: …`
-
-            - `tool_references: List[BetaToolReferenceBlock]`
-
-              - `tool_name: str`
-
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: Literal["tool_reference"]`
-
-                default: tool_reference
 
             - `type: Literal["tool_search_tool_search_result"]`
 
               default: tool_search_tool_search_result
 
+            - `tool_references: List[BetaToolReferenceBlock]`
+
+              - `type: Literal["tool_reference"]`
+
+                default: tool_reference
+
+              - `tool_name: str`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
         - `tool_use_id: str`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: Literal["tool_search_tool_result"]`
-
-          default: tool_search_tool_result
-
       - `class BetaMCPToolUseBlock: …`
+
+        - `type: Literal["mcp_tool_use"]`
+
+          default: mcp_tool_use
 
         - `id: str`
 
@@ -26750,17 +26797,21 @@ print(beta_message_tokens_count.context_management)
 
           The name of the MCP server
 
-        - `type: Literal["mcp_tool_use"]`
-
-          default: mcp_tool_use
-
       - `class BetaMCPToolResultBlock: …`
+
+        - `type: Literal["mcp_tool_result"]`
+
+          default: mcp_tool_result
 
         - `content: Union[str, List[BetaTextBlock]]`
 
           - `str`
 
           - `List[BetaTextBlock]`
+
+            - `type: Literal["text"]`
+
+              default: text
 
             - `citations: Optional[List[BetaTextCitation]]`
 
@@ -26770,11 +26821,7 @@ print(beta_message_tokens_count.context_management)
 
             - `text: str`
 
-              maxLength: 5000000, minLength: 0
-
-            - `type: Literal["text"]`
-
-              default: text
+              minLength: 0
 
         - `is_error: bool`
 
@@ -26784,19 +26831,15 @@ print(beta_message_tokens_count.context_management)
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-        - `type: Literal["mcp_tool_result"]`
-
-          default: mcp_tool_result
-
       - `class BetaContainerUploadBlock: …`
 
         Response model for a file uploaded to the container.
 
-        - `file_id: str`
-
         - `type: Literal["container_upload"]`
 
           default: container_upload
+
+        - `file_id: str`
 
       - `class BetaCompactionBlock: …`
 
@@ -26806,6 +26849,10 @@ print(beta_message_tokens_count.context_management)
         summary (e.g., malformed output from the model). Clients may round-trip
         compaction blocks with null content; the server treats them as no-ops.
 
+        - `type: Literal["compaction"]`
+
+          default: compaction
+
         - `content: Optional[str]`
 
           Summary of compacted content, or null if compaction failed
@@ -26813,10 +26860,6 @@ print(beta_message_tokens_count.context_management)
         - `encrypted_content: Optional[str]`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
-
-        - `type: Literal["compaction"]`
-
-          default: compaction
 
       - `class BetaFallbackBlock: …`
 
@@ -26831,6 +26874,10 @@ print(beta_message_tokens_count.context_management)
         The block is treated like a server-tool content block for streaming: it
         arrives via the standard `content_block_start` / `content_block_stop`
         pair and carries no deltas.
+
+        - `type: Literal["fallback"]`
+
+          default: fallback
 
         - `from_: BetaFallbackInfo`
 
@@ -26944,6 +26991,10 @@ print(beta_message_tokens_count.context_management)
 
           What caused the `from` model to hand over at this hop.
 
+          - `type: Literal["refusal"]`
+
+            default: refusal
+
           - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
             The policy category that triggered a refusal.
@@ -26974,14 +27025,6 @@ print(beta_message_tokens_count.context_management)
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-          - `type: Literal["refusal"]`
-
-            default: refusal
-
-        - `type: Literal["fallback"]`
-
-          default: fallback
-
     - `context_management: Optional[BetaContextManagementResponse]`
 
       Context management response.
@@ -26993,6 +27036,12 @@ print(beta_message_tokens_count.context_management)
         List of context management edits that were applied.
 
         - `class BetaClearToolUses20250919EditResponse: …`
+
+          - `type: Literal["clear_tool_uses_20250919"]`
+
+            The type of context management edit applied.
+
+            default: clear_tool_uses_20250919
 
           - `cleared_input_tokens: int`
 
@@ -27006,13 +27055,13 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["clear_tool_uses_20250919"]`
+        - `class BetaClearThinking20251015EditResponse: …`
+
+          - `type: Literal["clear_thinking_20251015"]`
 
             The type of context management edit applied.
 
-            default: clear_tool_uses_20250919
-
-        - `class BetaClearThinking20251015EditResponse: …`
+            default: clear_thinking_20251015
 
           - `cleared_input_tokens: int`
 
@@ -27026,12 +27075,6 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["clear_thinking_20251015"]`
-
-            The type of context management edit applied.
-
-            default: clear_thinking_20251015
-
     - `diagnostics: Optional[BetaDiagnostics]`
 
       Response envelope for request-level diagnostics. Present (possibly
@@ -27043,43 +27086,43 @@ print(beta_message_tokens_count.context_management)
 
         - `class BetaCacheMissModelChanged: …`
 
-          - `cache_missed_input_tokens: int`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
           - `type: Literal["model_changed"]`
 
             default: model_changed
 
-        - `class BetaCacheMissSystemChanged: …`
-
           - `cache_missed_input_tokens: int`
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `class BetaCacheMissSystemChanged: …`
 
           - `type: Literal["system_changed"]`
 
             default: system_changed
 
-        - `class BetaCacheMissToolsChanged: …`
-
           - `cache_missed_input_tokens: int`
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `class BetaCacheMissToolsChanged: …`
 
           - `type: Literal["tools_changed"]`
 
             default: tools_changed
 
-        - `class BetaCacheMissMessagesChanged: …`
-
           - `cache_missed_input_tokens: int`
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+        - `class BetaCacheMissMessagesChanged: …`
+
           - `type: Literal["messages_changed"]`
 
             default: messages_changed
+
+          - `cache_missed_input_tokens: int`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `class BetaCacheMissPreviousMessageNotFound: …`
 
@@ -27110,6 +27153,10 @@ print(beta_message_tokens_count.context_management)
     - `stop_details: Optional[BetaRefusalStopDetails]`
 
       Structured information about a refusal.
+
+      - `type: Literal["refusal"]`
+
+        default: refusal
 
       - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -27196,10 +27243,6 @@ print(beta_message_tokens_count.context_management)
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-      - `type: Literal["refusal"]`
-
-        default: refusal
-
     - `stop_reason: Optional[BetaStopReason]`
 
       The reason that we stopped.
@@ -27237,14 +27280,6 @@ print(beta_message_tokens_count.context_management)
       Which custom stop sequence was generated, if any.
 
       This value will be a non-null string if one of your custom stop sequences was generated.
-
-    - `type: Literal["message"]`
-
-      Object type.
-
-      For Messages, this is always `"message"`.
-
-      default: message
 
     - `usage: BetaUsage`
 
@@ -27312,6 +27347,10 @@ print(beta_message_tokens_count.context_management)
 
             No reprice was applied; `reason` says why.
 
+            - `type: Literal["not_applied"]`
+
+              default: not_applied
+
             - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
               Why the reprice was not applied.
@@ -27342,10 +27381,6 @@ print(beta_message_tokens_count.context_management)
               - `"wrong_platform"`
 
               - `"wrong_workspace"`
-
-            - `type: Literal["not_applied"]`
-
-              default: not_applied
 
             - `remove_to_redeem: Optional[List[str]]`
 
@@ -27384,6 +27419,12 @@ print(beta_message_tokens_count.context_management)
 
           Token usage for a sampling iteration.
 
+          - `type: Literal["message"]`
+
+            Usage for a sampling iteration
+
+            default: message
+
           - `cache_creation: Optional[BetaCacheCreation]`
 
             Breakdown of cached tokens by TTL
@@ -27418,43 +27459,9 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["message"]`
-
-            Usage for a sampling iteration
-
-            default: message
-
         - `class BetaCompactionIterationUsage: …`
 
           Token usage for a compaction iteration.
-
-          - `cache_creation: Optional[BetaCacheCreation]`
-
-            Breakdown of cached tokens by TTL
-
-          - `cache_creation_input_tokens: int`
-
-            The number of input tokens used to create the cache entry.
-
-            default: 0, minimum: 0
-
-          - `cache_read_input_tokens: int`
-
-            The number of input tokens read from the cache.
-
-            default: 0, minimum: 0
-
-          - `input_tokens: int`
-
-            The number of input tokens which were used.
-
-            minimum: 0
-
-          - `output_tokens: int`
-
-            The number of output tokens which were used.
-
-            minimum: 0
 
           - `type: Literal["compaction"]`
 
@@ -27462,9 +27469,43 @@ print(beta_message_tokens_count.context_management)
 
             default: compaction
 
+          - `cache_creation: Optional[BetaCacheCreation]`
+
+            Breakdown of cached tokens by TTL
+
+          - `cache_creation_input_tokens: int`
+
+            The number of input tokens used to create the cache entry.
+
+            default: 0, minimum: 0
+
+          - `cache_read_input_tokens: int`
+
+            The number of input tokens read from the cache.
+
+            default: 0, minimum: 0
+
+          - `input_tokens: int`
+
+            The number of input tokens which were used.
+
+            minimum: 0
+
+          - `output_tokens: int`
+
+            The number of output tokens which were used.
+
+            minimum: 0
+
         - `class BetaAdvisorMessageIterationUsage: …`
 
           Token usage for an advisor sub-inference iteration.
+
+          - `type: Literal["advisor_message"]`
+
+            Usage for an advisor sub-inference iteration
+
+            default: advisor_message
 
           - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -27499,12 +27540,6 @@ print(beta_message_tokens_count.context_management)
             The number of output tokens which were used.
 
             minimum: 0
-
-          - `type: Literal["advisor_message"]`
-
-            Usage for an advisor sub-inference iteration
-
-            default: advisor_message
 
         - `class BetaFallbackMessageIterationUsage: …`
 
@@ -27515,6 +27550,12 @@ print(beta_message_tokens_count.context_management)
           a fallback model served the response is signalled by the presence of this
           entry in `usage.iterations`.
 
+          - `type: Literal["fallback_message"]`
+
+            Usage for the fallback-model attempt that served the response
+
+            default: fallback_message
+
           - `cache_creation: Optional[BetaCacheCreation]`
 
             Breakdown of cached tokens by TTL
@@ -27548,12 +27589,6 @@ print(beta_message_tokens_count.context_management)
             The number of output tokens which were used.
 
             minimum: 0
-
-          - `type: Literal["fallback_message"]`
-
-            Usage for the fallback-model attempt that served the response
-
-            default: fallback_message
 
       - `output_tokens: int`
 
@@ -27635,6 +27670,12 @@ print(beta_message_tokens_count.context_management)
       fallback happened mid-stream, in which case it holds the serving model's
       entries and replaces the one in `message_start`.
 
+      - `type: Literal["thinking_dropped"]`
+
+        Always `thinking_dropped` for this entry type.
+
+        default: thinking_dropped
+
       - `path: str`
 
         Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -27665,16 +27706,6 @@ print(beta_message_tokens_count.context_management)
 
         - `"end_user_binding_mismatch"`
 
-      - `type: Literal["thinking_dropped"]`
-
-        Always `thinking_dropped` for this entry type.
-
-        default: thinking_dropped
-
-  - `type: Literal["message_start"]`
-
-    default: message_start
-
 ### Beta Raw Message Stop Event
 
 - `class BetaRawMessageStopEvent: …`
@@ -27689,7 +27720,19 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaRawMessageStartEvent: …`
 
+    - `type: Literal["message_start"]`
+
+      default: message_start
+
     - `message: BetaMessage`
+
+      - `type: Literal["message"]`
+
+        Object type.
+
+        For Messages, this is always `"message"`.
+
+        default: message
 
       - `id: str`
 
@@ -27715,12 +27758,6 @@ print(beta_message_tokens_count.context_management)
 
           Skills loaded in the container
 
-          - `skill_id: str`
-
-            Skill ID
-
-            maxLength: 64, minLength: 1
-
           - `type: Literal["anthropic", "custom"]`
 
             Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -27728,6 +27765,12 @@ print(beta_message_tokens_count.context_management)
             - `"anthropic"`
 
             - `"custom"`
+
+          - `skill_id: str`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `version: str`
 
@@ -27766,6 +27809,10 @@ print(beta_message_tokens_count.context_management)
 
         - `class BetaTextBlock: …`
 
+          - `type: Literal["text"]`
+
+            default: text
+
           - `citations: Optional[List[BetaTextCitation]]`
 
             Citations supporting the text block.
@@ -27773,6 +27820,10 @@ print(beta_message_tokens_count.context_management)
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
             - `class BetaCitationCharLocation: …`
+
+              - `type: Literal["char_location"]`
+
+                default: char_location
 
               - `cited_text: str`
 
@@ -27790,11 +27841,11 @@ print(beta_message_tokens_count.context_management)
 
                 minimum: 0
 
-              - `type: Literal["char_location"]`
-
-                default: char_location
-
             - `class BetaCitationPageLocation: …`
+
+              - `type: Literal["page_location"]`
+
+                default: page_location
 
               - `cited_text: str`
 
@@ -27812,11 +27863,11 @@ print(beta_message_tokens_count.context_management)
 
                 minimum: 1
 
-              - `type: Literal["page_location"]`
-
-                default: page_location
-
             - `class BetaCitationContentBlockLocation: …`
+
+              - `type: Literal["content_block_location"]`
+
+                default: content_block_location
 
               - `cited_text: str`
 
@@ -27844,11 +27895,11 @@ print(beta_message_tokens_count.context_management)
 
                 minimum: 0
 
-              - `type: Literal["content_block_location"]`
-
-                default: content_block_location
-
             - `class BetaCitationsWebSearchResultLocation: …`
+
+              - `type: Literal["web_search_result_location"]`
+
+                default: web_search_result_location
 
               - `cited_text: str`
 
@@ -27858,13 +27909,13 @@ print(beta_message_tokens_count.context_management)
 
                 maxLength: 512
 
-              - `type: Literal["web_search_result_location"]`
-
-                default: web_search_result_location
-
               - `url: str`
 
             - `class BetaCitationSearchResultLocation: …`
+
+              - `type: Literal["search_result_location"]`
+
+                default: search_result_location
 
               - `cited_text: str`
 
@@ -27896,19 +27947,15 @@ print(beta_message_tokens_count.context_management)
 
               - `title: Optional[str]`
 
-              - `type: Literal["search_result_location"]`
-
-                default: search_result_location
-
           - `text: str`
 
-            maxLength: 5000000, minLength: 0
-
-          - `type: Literal["text"]`
-
-            default: text
+            minLength: 0
 
         - `class BetaThinkingBlock: …`
+
+          - `type: Literal["thinking"]`
+
+            default: thinking
 
           - `signature: str`
 
@@ -27922,11 +27969,11 @@ print(beta_message_tokens_count.context_management)
 
             The text of Claude's thinking process for this block.
 
-          - `type: Literal["thinking"]`
-
-            default: thinking
-
         - `class BetaRedactedThinkingBlock: …`
+
+          - `type: Literal["redacted_thinking"]`
+
+            default: redacted_thinking
 
           - `data: str`
 
@@ -27936,11 +27983,11 @@ print(beta_message_tokens_count.context_management)
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `type: Literal["redacted_thinking"]`
-
-            default: redacted_thinking
-
         - `class BetaToolUseBlock: …`
+
+          - `type: Literal["tool_use"]`
+
+            default: tool_use
 
           - `id: str`
 
@@ -27951,10 +27998,6 @@ print(beta_message_tokens_count.context_management)
           - `name: str`
 
             minLength: 1
-
-          - `type: Literal["tool_use"]`
-
-            default: tool_use
 
           - `caller: Optional[Caller]`
 
@@ -27970,19 +28013,19 @@ print(beta_message_tokens_count.context_management)
 
               Tool invocation generated by a server-side tool.
 
+              - `type: Literal["code_execution_20250825"]`
+
               - `tool_id: str`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `type: Literal["code_execution_20250825"]`
 
             - `class BetaServerToolCaller20260120: …`
 
+              - `type: Literal["code_execution_20260120"]`
+
               - `tool_id: str`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `type: Literal["code_execution_20260120"]`
 
           - `toolset_name: Optional[str]`
 
@@ -27991,6 +28034,10 @@ print(beta_message_tokens_count.context_management)
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `class BetaServerToolUseBlock: …`
+
+          - `type: Literal["server_tool_use"]`
+
+            default: server_tool_use
 
           - `id: str`
 
@@ -28016,10 +28063,6 @@ print(beta_message_tokens_count.context_management)
 
             - `"tool_search_tool_bm25"`
 
-          - `type: Literal["server_tool_use"]`
-
-            default: server_tool_use
-
           - `caller: Optional[Caller]`
 
             Tool invocation directly from the model.
@@ -28036,9 +28079,17 @@ print(beta_message_tokens_count.context_management)
 
         - `class BetaWebSearchToolResultBlock: …`
 
+          - `type: Literal["web_search_tool_result"]`
+
+            default: web_search_tool_result
+
           - `content: BetaWebSearchToolResultBlockContent`
 
             - `class BetaWebSearchToolResultError: …`
+
+              - `type: Literal["web_search_tool_result_error"]`
+
+                default: web_search_tool_result_error
 
               - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -28054,11 +28105,11 @@ print(beta_message_tokens_count.context_management)
 
                 - `"request_too_large"`
 
-              - `type: Literal["web_search_tool_result_error"]`
-
-                default: web_search_tool_result_error
-
             - `List[BetaWebSearchResultBlock]`
+
+              - `type: Literal["web_search_result"]`
+
+                default: web_search_result
 
               - `encrypted_content: str`
 
@@ -28066,19 +28117,11 @@ print(beta_message_tokens_count.context_management)
 
               - `title: str`
 
-              - `type: Literal["web_search_result"]`
-
-                default: web_search_result
-
               - `url: str`
 
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["web_search_tool_result"]`
-
-            default: web_search_tool_result
 
           - `caller: Optional[Caller]`
 
@@ -28096,9 +28139,17 @@ print(beta_message_tokens_count.context_management)
 
         - `class BetaWebFetchToolResultBlock: …`
 
+          - `type: Literal["web_fetch_tool_result"]`
+
+            default: web_fetch_tool_result
+
           - `content: Content`
 
             - `class BetaWebFetchToolResultErrorBlock: …`
+
+              - `type: Literal["web_fetch_tool_result_error"]`
+
+                default: web_fetch_tool_result_error
 
               - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -28120,13 +28171,19 @@ print(beta_message_tokens_count.context_management)
 
                 - `"unavailable"`
 
-              - `type: Literal["web_fetch_tool_result_error"]`
-
-                default: web_fetch_tool_result_error
+                - `"content_too_large"`
 
             - `class BetaWebFetchBlock: …`
 
+              - `type: Literal["web_fetch_result"]`
+
+                default: web_fetch_result
+
               - `content: BetaDocumentBlock`
+
+                - `type: Literal["document"]`
+
+                  default: document
 
                 - `citations: Optional[BetaCitationConfig]`
 
@@ -28140,37 +28197,29 @@ print(beta_message_tokens_count.context_management)
 
                   - `class BetaBase64PDFSource: …`
 
+                    - `type: Literal["base64"]`
+
                     - `data: str`
 
                       format: byte
 
                     - `media_type: Literal["application/pdf"]`
 
-                    - `type: Literal["base64"]`
-
                   - `class BetaPlainTextSource: …`
+
+                    - `type: Literal["text"]`
 
                     - `data: str`
 
                     - `media_type: Literal["text/plain"]`
 
-                    - `type: Literal["text"]`
-
                 - `title: Optional[str]`
 
                   The title of the document
 
-                - `type: Literal["document"]`
-
-                  default: document
-
               - `retrieved_at: Optional[str]`
 
                 ISO 8601 timestamp when the content was retrieved
-
-              - `type: Literal["web_fetch_result"]`
-
-                default: web_fetch_result
 
               - `url: str`
 
@@ -28179,10 +28228,6 @@ print(beta_message_tokens_count.context_management)
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: Literal["web_fetch_tool_result"]`
-
-            default: web_fetch_tool_result
 
           - `caller: Optional[Caller]`
 
@@ -28200,9 +28245,17 @@ print(beta_message_tokens_count.context_management)
 
         - `class BetaAdvisorToolResultBlock: …`
 
+          - `type: Literal["advisor_tool_result"]`
+
+            default: advisor_tool_result
+
           - `content: Content`
 
             - `class BetaAdvisorToolResultError: …`
+
+              - `type: Literal["advisor_tool_result_error"]`
+
+                default: advisor_tool_result_error
 
               - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -28220,11 +28273,11 @@ print(beta_message_tokens_count.context_management)
 
                 - `"model_not_found"`
 
-              - `type: Literal["advisor_tool_result_error"]`
-
-                default: advisor_tool_result_error
-
             - `class BetaAdvisorResultBlock: …`
+
+              - `type: Literal["advisor_result"]`
+
+                default: advisor_result
 
               - `stop_reason: Optional[str]`
 
@@ -28232,11 +28285,11 @@ print(beta_message_tokens_count.context_management)
 
               - `text: str`
 
-              - `type: Literal["advisor_result"]`
-
-                default: advisor_result
-
             - `class BetaAdvisorRedactedResultBlock: …`
+
+              - `type: Literal["advisor_redacted_result"]`
+
+                default: advisor_redacted_result
 
               - `encrypted_content: str`
 
@@ -28246,25 +28299,25 @@ print(beta_message_tokens_count.context_management)
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-              - `type: Literal["advisor_redacted_result"]`
-
-                default: advisor_redacted_result
-
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: Literal["advisor_tool_result"]`
-
-            default: advisor_tool_result
-
         - `class BetaCodeExecutionToolResultBlock: …`
+
+          - `type: Literal["code_execution_tool_result"]`
+
+            default: code_execution_tool_result
 
           - `content: BetaCodeExecutionToolResultBlockContent`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
             - `class BetaCodeExecutionToolResultError: …`
+
+              - `type: Literal["code_execution_tool_result_error"]`
+
+                default: code_execution_tool_result_error
 
               - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -28276,19 +28329,19 @@ print(beta_message_tokens_count.context_management)
 
                 - `"execution_time_exceeded"`
 
-              - `type: Literal["code_execution_tool_result_error"]`
-
-                default: code_execution_tool_result_error
-
             - `class BetaCodeExecutionResultBlock: …`
 
-              - `content: List[BetaCodeExecutionOutputBlock]`
+              - `type: Literal["code_execution_result"]`
 
-                - `file_id: str`
+                default: code_execution_result
+
+              - `content: List[BetaCodeExecutionOutputBlock]`
 
                 - `type: Literal["code_execution_output"]`
 
                   default: code_execution_output
+
+                - `file_id: str`
 
               - `return_code: int`
 
@@ -28296,21 +28349,21 @@ print(beta_message_tokens_count.context_management)
 
               - `stdout: str`
 
-              - `type: Literal["code_execution_result"]`
-
-                default: code_execution_result
-
             - `class BetaEncryptedCodeExecutionResultBlock: …`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
-              - `content: List[BetaCodeExecutionOutputBlock]`
+              - `type: Literal["encrypted_code_execution_result"]`
 
-                - `file_id: str`
+                default: encrypted_code_execution_result
+
+              - `content: List[BetaCodeExecutionOutputBlock]`
 
                 - `type: Literal["code_execution_output"]`
 
                   default: code_execution_output
+
+                - `file_id: str`
 
               - `encrypted_stdout: str`
 
@@ -28318,23 +28371,23 @@ print(beta_message_tokens_count.context_management)
 
               - `stderr: str`
 
-              - `type: Literal["encrypted_code_execution_result"]`
-
-                default: encrypted_code_execution_result
-
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: Literal["code_execution_tool_result"]`
-
-            default: code_execution_tool_result
-
         - `class BetaBashCodeExecutionToolResultBlock: …`
+
+          - `type: Literal["bash_code_execution_tool_result"]`
+
+            default: bash_code_execution_tool_result
 
           - `content: Content`
 
             - `class BetaBashCodeExecutionToolResultError: …`
+
+              - `type: Literal["bash_code_execution_tool_result_error"]`
+
+                default: bash_code_execution_tool_result_error
 
               - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -28348,19 +28401,19 @@ print(beta_message_tokens_count.context_management)
 
                 - `"output_file_too_large"`
 
-              - `type: Literal["bash_code_execution_tool_result_error"]`
-
-                default: bash_code_execution_tool_result_error
-
             - `class BetaBashCodeExecutionResultBlock: …`
 
-              - `content: List[BetaBashCodeExecutionOutputBlock]`
+              - `type: Literal["bash_code_execution_result"]`
 
-                - `file_id: str`
+                default: bash_code_execution_result
+
+              - `content: List[BetaBashCodeExecutionOutputBlock]`
 
                 - `type: Literal["bash_code_execution_output"]`
 
                   default: bash_code_execution_output
+
+                - `file_id: str`
 
               - `return_code: int`
 
@@ -28368,23 +28421,23 @@ print(beta_message_tokens_count.context_management)
 
               - `stdout: str`
 
-              - `type: Literal["bash_code_execution_result"]`
-
-                default: bash_code_execution_result
-
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: Literal["bash_code_execution_tool_result"]`
-
-            default: bash_code_execution_tool_result
-
         - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+          - `type: Literal["text_editor_code_execution_tool_result"]`
+
+            default: text_editor_code_execution_tool_result
 
           - `content: Content`
 
             - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+              - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+                default: text_editor_code_execution_tool_result_error
 
               - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -28400,11 +28453,11 @@ print(beta_message_tokens_count.context_management)
 
               - `error_message: Optional[str]`
 
-              - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-                default: text_editor_code_execution_tool_result_error
-
             - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+              - `type: Literal["text_editor_code_execution_view_result"]`
+
+                default: text_editor_code_execution_view_result
 
               - `content: str`
 
@@ -28422,19 +28475,19 @@ print(beta_message_tokens_count.context_management)
 
               - `total_lines: Optional[int]`
 
-              - `type: Literal["text_editor_code_execution_view_result"]`
-
-                default: text_editor_code_execution_view_result
-
             - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-              - `is_file_update: bool`
 
               - `type: Literal["text_editor_code_execution_create_result"]`
 
                 default: text_editor_code_execution_create_result
 
+              - `is_file_update: bool`
+
             - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+              - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+                default: text_editor_code_execution_str_replace_result
 
               - `lines: Optional[List[str]]`
 
@@ -28446,23 +28499,23 @@ print(beta_message_tokens_count.context_management)
 
               - `old_start: Optional[int]`
 
-              - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-                default: text_editor_code_execution_str_replace_result
-
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: Literal["text_editor_code_execution_tool_result"]`
-
-            default: text_editor_code_execution_tool_result
-
         - `class BetaToolSearchToolResultBlock: …`
+
+          - `type: Literal["tool_search_tool_result"]`
+
+            default: tool_search_tool_result
 
           - `content: Content`
 
             - `class BetaToolSearchToolResultError: …`
+
+              - `type: Literal["tool_search_tool_result_error"]`
+
+                default: tool_search_tool_result_error
 
               - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -28476,35 +28529,31 @@ print(beta_message_tokens_count.context_management)
 
               - `error_message: Optional[str]`
 
-              - `type: Literal["tool_search_tool_result_error"]`
-
-                default: tool_search_tool_result_error
-
             - `class BetaToolSearchToolSearchResultBlock: …`
-
-              - `tool_references: List[BetaToolReferenceBlock]`
-
-                - `tool_name: str`
-
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                - `type: Literal["tool_reference"]`
-
-                  default: tool_reference
 
               - `type: Literal["tool_search_tool_search_result"]`
 
                 default: tool_search_tool_search_result
 
+              - `tool_references: List[BetaToolReferenceBlock]`
+
+                - `type: Literal["tool_reference"]`
+
+                  default: tool_reference
+
+                - `tool_name: str`
+
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
           - `tool_use_id: str`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: Literal["tool_search_tool_result"]`
-
-            default: tool_search_tool_result
-
         - `class BetaMCPToolUseBlock: …`
+
+          - `type: Literal["mcp_tool_use"]`
+
+            default: mcp_tool_use
 
           - `id: str`
 
@@ -28520,17 +28569,21 @@ print(beta_message_tokens_count.context_management)
 
             The name of the MCP server
 
-          - `type: Literal["mcp_tool_use"]`
-
-            default: mcp_tool_use
-
         - `class BetaMCPToolResultBlock: …`
+
+          - `type: Literal["mcp_tool_result"]`
+
+            default: mcp_tool_result
 
           - `content: Union[str, List[BetaTextBlock]]`
 
             - `str`
 
             - `List[BetaTextBlock]`
+
+              - `type: Literal["text"]`
+
+                default: text
 
               - `citations: Optional[List[BetaTextCitation]]`
 
@@ -28540,11 +28593,7 @@ print(beta_message_tokens_count.context_management)
 
               - `text: str`
 
-                maxLength: 5000000, minLength: 0
-
-              - `type: Literal["text"]`
-
-                default: text
+                minLength: 0
 
           - `is_error: bool`
 
@@ -28554,19 +28603,15 @@ print(beta_message_tokens_count.context_management)
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `type: Literal["mcp_tool_result"]`
-
-            default: mcp_tool_result
-
         - `class BetaContainerUploadBlock: …`
 
           Response model for a file uploaded to the container.
 
-          - `file_id: str`
-
           - `type: Literal["container_upload"]`
 
             default: container_upload
+
+          - `file_id: str`
 
         - `class BetaCompactionBlock: …`
 
@@ -28576,6 +28621,10 @@ print(beta_message_tokens_count.context_management)
           summary (e.g., malformed output from the model). Clients may round-trip
           compaction blocks with null content; the server treats them as no-ops.
 
+          - `type: Literal["compaction"]`
+
+            default: compaction
+
           - `content: Optional[str]`
 
             Summary of compacted content, or null if compaction failed
@@ -28583,10 +28632,6 @@ print(beta_message_tokens_count.context_management)
           - `encrypted_content: Optional[str]`
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
-
-          - `type: Literal["compaction"]`
-
-            default: compaction
 
         - `class BetaFallbackBlock: …`
 
@@ -28601,6 +28646,10 @@ print(beta_message_tokens_count.context_management)
           The block is treated like a server-tool content block for streaming: it
           arrives via the standard `content_block_start` / `content_block_stop`
           pair and carries no deltas.
+
+          - `type: Literal["fallback"]`
+
+            default: fallback
 
           - `from_: BetaFallbackInfo`
 
@@ -28714,6 +28763,10 @@ print(beta_message_tokens_count.context_management)
 
             What caused the `from` model to hand over at this hop.
 
+            - `type: Literal["refusal"]`
+
+              default: refusal
+
             - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
               The policy category that triggered a refusal.
@@ -28744,14 +28797,6 @@ print(beta_message_tokens_count.context_management)
 
                 The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-            - `type: Literal["refusal"]`
-
-              default: refusal
-
-          - `type: Literal["fallback"]`
-
-            default: fallback
-
       - `context_management: Optional[BetaContextManagementResponse]`
 
         Context management response.
@@ -28763,6 +28808,12 @@ print(beta_message_tokens_count.context_management)
           List of context management edits that were applied.
 
           - `class BetaClearToolUses20250919EditResponse: …`
+
+            - `type: Literal["clear_tool_uses_20250919"]`
+
+              The type of context management edit applied.
+
+              default: clear_tool_uses_20250919
 
             - `cleared_input_tokens: int`
 
@@ -28776,13 +28827,13 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["clear_tool_uses_20250919"]`
+          - `class BetaClearThinking20251015EditResponse: …`
+
+            - `type: Literal["clear_thinking_20251015"]`
 
               The type of context management edit applied.
 
-              default: clear_tool_uses_20250919
-
-          - `class BetaClearThinking20251015EditResponse: …`
+              default: clear_thinking_20251015
 
             - `cleared_input_tokens: int`
 
@@ -28796,12 +28847,6 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["clear_thinking_20251015"]`
-
-              The type of context management edit applied.
-
-              default: clear_thinking_20251015
-
       - `diagnostics: Optional[BetaDiagnostics]`
 
         Response envelope for request-level diagnostics. Present (possibly
@@ -28813,43 +28858,43 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaCacheMissModelChanged: …`
 
-            - `cache_missed_input_tokens: int`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
             - `type: Literal["model_changed"]`
 
               default: model_changed
 
-          - `class BetaCacheMissSystemChanged: …`
-
             - `cache_missed_input_tokens: int`
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `class BetaCacheMissSystemChanged: …`
 
             - `type: Literal["system_changed"]`
 
               default: system_changed
 
-          - `class BetaCacheMissToolsChanged: …`
-
             - `cache_missed_input_tokens: int`
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `class BetaCacheMissToolsChanged: …`
 
             - `type: Literal["tools_changed"]`
 
               default: tools_changed
 
-          - `class BetaCacheMissMessagesChanged: …`
-
             - `cache_missed_input_tokens: int`
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+          - `class BetaCacheMissMessagesChanged: …`
+
             - `type: Literal["messages_changed"]`
 
               default: messages_changed
+
+            - `cache_missed_input_tokens: int`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
           - `class BetaCacheMissPreviousMessageNotFound: …`
 
@@ -28880,6 +28925,10 @@ print(beta_message_tokens_count.context_management)
       - `stop_details: Optional[BetaRefusalStopDetails]`
 
         Structured information about a refusal.
+
+        - `type: Literal["refusal"]`
+
+          default: refusal
 
         - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -28966,10 +29015,6 @@ print(beta_message_tokens_count.context_management)
 
           The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-        - `type: Literal["refusal"]`
-
-          default: refusal
-
       - `stop_reason: Optional[BetaStopReason]`
 
         The reason that we stopped.
@@ -29007,14 +29052,6 @@ print(beta_message_tokens_count.context_management)
         Which custom stop sequence was generated, if any.
 
         This value will be a non-null string if one of your custom stop sequences was generated.
-
-      - `type: Literal["message"]`
-
-        Object type.
-
-        For Messages, this is always `"message"`.
-
-        default: message
 
       - `usage: BetaUsage`
 
@@ -29082,6 +29119,10 @@ print(beta_message_tokens_count.context_management)
 
               No reprice was applied; `reason` says why.
 
+              - `type: Literal["not_applied"]`
+
+                default: not_applied
+
               - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
                 Why the reprice was not applied.
@@ -29112,10 +29153,6 @@ print(beta_message_tokens_count.context_management)
                 - `"wrong_platform"`
 
                 - `"wrong_workspace"`
-
-              - `type: Literal["not_applied"]`
-
-                default: not_applied
 
               - `remove_to_redeem: Optional[List[str]]`
 
@@ -29154,6 +29191,12 @@ print(beta_message_tokens_count.context_management)
 
             Token usage for a sampling iteration.
 
+            - `type: Literal["message"]`
+
+              Usage for a sampling iteration
+
+              default: message
+
             - `cache_creation: Optional[BetaCacheCreation]`
 
               Breakdown of cached tokens by TTL
@@ -29188,43 +29231,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["message"]`
-
-              Usage for a sampling iteration
-
-              default: message
-
           - `class BetaCompactionIterationUsage: …`
 
             Token usage for a compaction iteration.
-
-            - `cache_creation: Optional[BetaCacheCreation]`
-
-              Breakdown of cached tokens by TTL
-
-            - `cache_creation_input_tokens: int`
-
-              The number of input tokens used to create the cache entry.
-
-              default: 0, minimum: 0
-
-            - `cache_read_input_tokens: int`
-
-              The number of input tokens read from the cache.
-
-              default: 0, minimum: 0
-
-            - `input_tokens: int`
-
-              The number of input tokens which were used.
-
-              minimum: 0
-
-            - `output_tokens: int`
-
-              The number of output tokens which were used.
-
-              minimum: 0
 
             - `type: Literal["compaction"]`
 
@@ -29232,9 +29241,43 @@ print(beta_message_tokens_count.context_management)
 
               default: compaction
 
+            - `cache_creation: Optional[BetaCacheCreation]`
+
+              Breakdown of cached tokens by TTL
+
+            - `cache_creation_input_tokens: int`
+
+              The number of input tokens used to create the cache entry.
+
+              default: 0, minimum: 0
+
+            - `cache_read_input_tokens: int`
+
+              The number of input tokens read from the cache.
+
+              default: 0, minimum: 0
+
+            - `input_tokens: int`
+
+              The number of input tokens which were used.
+
+              minimum: 0
+
+            - `output_tokens: int`
+
+              The number of output tokens which were used.
+
+              minimum: 0
+
           - `class BetaAdvisorMessageIterationUsage: …`
 
             Token usage for an advisor sub-inference iteration.
+
+            - `type: Literal["advisor_message"]`
+
+              Usage for an advisor sub-inference iteration
+
+              default: advisor_message
 
             - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -29269,12 +29312,6 @@ print(beta_message_tokens_count.context_management)
               The number of output tokens which were used.
 
               minimum: 0
-
-            - `type: Literal["advisor_message"]`
-
-              Usage for an advisor sub-inference iteration
-
-              default: advisor_message
 
           - `class BetaFallbackMessageIterationUsage: …`
 
@@ -29285,6 +29322,12 @@ print(beta_message_tokens_count.context_management)
             a fallback model served the response is signalled by the presence of this
             entry in `usage.iterations`.
 
+            - `type: Literal["fallback_message"]`
+
+              Usage for the fallback-model attempt that served the response
+
+              default: fallback_message
+
             - `cache_creation: Optional[BetaCacheCreation]`
 
               Breakdown of cached tokens by TTL
@@ -29318,12 +29361,6 @@ print(beta_message_tokens_count.context_management)
               The number of output tokens which were used.
 
               minimum: 0
-
-            - `type: Literal["fallback_message"]`
-
-              Usage for the fallback-model attempt that served the response
-
-              default: fallback_message
 
         - `output_tokens: int`
 
@@ -29405,6 +29442,12 @@ print(beta_message_tokens_count.context_management)
         fallback happened mid-stream, in which case it holds the serving model's
         entries and replaces the one in `message_start`.
 
+        - `type: Literal["thinking_dropped"]`
+
+          Always `thinking_dropped` for this entry type.
+
+          default: thinking_dropped
+
         - `path: str`
 
           Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -29435,17 +29478,11 @@ print(beta_message_tokens_count.context_management)
 
           - `"end_user_binding_mismatch"`
 
-        - `type: Literal["thinking_dropped"]`
-
-          Always `thinking_dropped` for this entry type.
-
-          default: thinking_dropped
-
-    - `type: Literal["message_start"]`
-
-      default: message_start
-
   - `class BetaRawMessageDeltaEvent: …`
+
+    - `type: Literal["message_delta"]`
+
+      default: message_delta
 
     - `context_management: Optional[BetaContextManagementResponse]`
 
@@ -29464,10 +29501,6 @@ print(beta_message_tokens_count.context_management)
       - `stop_reason: Optional[BetaStopReason]`
 
       - `stop_sequence: Optional[str]`
-
-    - `type: Literal["message_delta"]`
-
-      default: message_delta
 
     - `usage: BetaMessageDeltaUsage`
 
@@ -29550,6 +29583,12 @@ print(beta_message_tokens_count.context_management)
       fallback happened mid-stream, in which case it holds the serving model's
       entries and replaces the one in `message_start`.
 
+      - `type: Literal["thinking_dropped"]`
+
+        Always `thinking_dropped` for this entry type.
+
+        default: thinking_dropped
+
       - `path: str`
 
         Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -29572,12 +29611,6 @@ print(beta_message_tokens_count.context_management)
         `organization_binding_mismatch`, `end_user_binding_mismatch`,
         `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `type: Literal["thinking_dropped"]`
-
-        Always `thinking_dropped` for this entry type.
-
-        default: thinking_dropped
-
   - `class BetaRawMessageStopEvent: …`
 
     - `type: Literal["message_stop"]`
@@ -29585,6 +29618,10 @@ print(beta_message_tokens_count.context_management)
       default: message_stop
 
   - `class BetaRawContentBlockStartEvent: …`
+
+    - `type: Literal["content_block_start"]`
+
+      default: content_block_start
 
     - `content_block: ContentBlock`
 
@@ -29646,31 +29683,35 @@ print(beta_message_tokens_count.context_management)
 
     - `index: int`
 
-    - `type: Literal["content_block_start"]`
-
-      default: content_block_start
-
   - `class BetaRawContentBlockDeltaEvent: …`
+
+    - `type: Literal["content_block_delta"]`
+
+      default: content_block_delta
 
     - `delta: BetaRawContentBlockDelta`
 
       - `class BetaTextDelta: …`
 
-        - `text: str`
-
         - `type: Literal["text_delta"]`
 
           default: text_delta
 
-      - `class BetaInputJSONDelta: …`
+        - `text: str`
 
-        - `partial_json: str`
+      - `class BetaInputJSONDelta: …`
 
         - `type: Literal["input_json_delta"]`
 
           default: input_json_delta
 
+        - `partial_json: str`
+
       - `class BetaCitationsDelta: …`
+
+        - `type: Literal["citations_delta"]`
+
+          default: citations_delta
 
         - `citation: Citation`
 
@@ -29684,11 +29725,11 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaCitationSearchResultLocation: …`
 
-        - `type: Literal["citations_delta"]`
-
-          default: citations_delta
-
       - `class BetaThinkingDelta: …`
+
+        - `type: Literal["thinking_delta"]`
+
+          default: thinking_delta
 
         - `estimated_tokens: Optional[int]`
 
@@ -29698,21 +29739,21 @@ print(beta_message_tokens_count.context_management)
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-        - `type: Literal["thinking_delta"]`
-
-          default: thinking_delta
-
       - `class BetaSignatureDelta: …`
-
-        - `signature: str`
-
-          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
         - `type: Literal["signature_delta"]`
 
           default: signature_delta
 
+        - `signature: str`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
       - `class BetaCompactionContentBlockDelta: …`
+
+        - `type: Literal["compaction_delta"]`
+
+          default: compaction_delta
 
         - `content: Optional[str]`
 
@@ -29720,27 +29761,23 @@ print(beta_message_tokens_count.context_management)
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `type: Literal["compaction_delta"]`
-
-          default: compaction_delta
-
     - `index: int`
-
-    - `type: Literal["content_block_delta"]`
-
-      default: content_block_delta
 
   - `class BetaRawContentBlockStopEvent: …`
-
-    - `index: int`
 
     - `type: Literal["content_block_stop"]`
 
       default: content_block_stop
 
+    - `index: int`
+
 ### Beta Redacted Thinking Block
 
 - `class BetaRedactedThinkingBlock: …`
+
+  - `type: Literal["redacted_thinking"]`
+
+    default: redacted_thinking
 
   - `data: str`
 
@@ -29750,25 +29787,25 @@ print(beta_message_tokens_count.context_management)
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-  - `type: Literal["redacted_thinking"]`
-
-    default: redacted_thinking
-
 ### Beta Redacted Thinking Block Param
 
 - `class BetaRedactedThinkingBlockParam: …`
 
+  - `type: Literal["redacted_thinking"]`
+
   - `data: str`
 
     The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
-
-  - `type: Literal["redacted_thinking"]`
 
 ### Beta Refusal Stop Details
 
 - `class BetaRefusalStopDetails: …`
 
   Structured information about a refusal.
+
+  - `type: Literal["refusal"]`
+
+    default: refusal
 
   - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -29855,17 +29892,17 @@ print(beta_message_tokens_count.context_management)
 
     The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-  - `type: Literal["refusal"]`
-
-    default: refusal
-
 ### Beta Request Document Block
 
 - `class BetaRequestDocumentBlock: …`
 
+  - `type: Literal["document"]`
+
   - `source: Source`
 
     - `class BetaBase64PDFSource: …`
+
+      - `type: Literal["base64"]`
 
       - `data: str`
 
@@ -29873,17 +29910,17 @@ print(beta_message_tokens_count.context_management)
 
       - `media_type: Literal["application/pdf"]`
 
-      - `type: Literal["base64"]`
-
     - `class BetaPlainTextSource: …`
+
+      - `type: Literal["text"]`
 
       - `data: str`
 
       - `media_type: Literal["text/plain"]`
 
-      - `type: Literal["text"]`
-
     - `class BetaContentBlockSource: …`
+
+      - `type: Literal["content"]`
 
       - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -29893,11 +29930,11 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaTextBlockParam: …`
 
+            - `type: Literal["text"]`
+
             - `text: str`
 
               minLength: 1
-
-            - `type: Literal["text"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -29924,6 +29961,8 @@ print(beta_message_tokens_count.context_management)
 
               - `class BetaCitationCharLocationParam: …`
 
+                - `type: Literal["char_location"]`
+
                 - `cited_text: str`
 
                 - `document_index: int`
@@ -29940,9 +29979,9 @@ print(beta_message_tokens_count.context_management)
 
                   minimum: 0
 
-                - `type: Literal["char_location"]`
-
               - `class BetaCitationPageLocationParam: …`
+
+                - `type: Literal["page_location"]`
 
                 - `cited_text: str`
 
@@ -29960,9 +29999,9 @@ print(beta_message_tokens_count.context_management)
 
                   minimum: 1
 
-                - `type: Literal["page_location"]`
-
               - `class BetaCitationContentBlockLocationParam: …`
+
+                - `type: Literal["content_block_location"]`
 
                 - `cited_text: str`
 
@@ -29990,9 +30029,9 @@ print(beta_message_tokens_count.context_management)
 
                   minimum: 0
 
-                - `type: Literal["content_block_location"]`
-
               - `class BetaCitationWebSearchResultLocationParam: …`
+
+                - `type: Literal["web_search_result_location"]`
 
                 - `cited_text: str`
 
@@ -30002,13 +30041,13 @@ print(beta_message_tokens_count.context_management)
 
                   maxLength: 512, minLength: 1
 
-                - `type: Literal["web_search_result_location"]`
-
                 - `url: str`
 
                   minLength: 1
 
               - `class BetaCitationSearchResultLocationParam: …`
+
+                - `type: Literal["search_result_location"]`
 
                 - `cited_text: str`
 
@@ -30040,13 +30079,15 @@ print(beta_message_tokens_count.context_management)
 
                 - `title: Optional[str]`
 
-                - `type: Literal["search_result_location"]`
-
           - `class BetaImageBlockParam: …`
+
+            - `type: Literal["image"]`
 
             - `source: Source`
 
               - `class BetaBase64ImageSource: …`
+
+                - `type: Literal["base64"]`
 
                 - `data: str`
 
@@ -30062,8 +30103,6 @@ print(beta_message_tokens_count.context_management)
 
                   - `"image/webp"`
 
-                - `type: Literal["base64"]`
-
               - `class BetaURLImageSource: …`
 
                 - `type: Literal["url"]`
@@ -30072,11 +30111,9 @@ print(beta_message_tokens_count.context_management)
 
               - `class BetaFileImageSource: …`
 
-                - `file_id: str`
-
                 - `type: Literal["file"]`
 
-            - `type: Literal["image"]`
+                - `file_id: str`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30094,8 +30131,6 @@ print(beta_message_tokens_count.context_management)
 
                 - `"error"`
 
-      - `type: Literal["content"]`
-
     - `class BetaURLPDFSource: …`
 
       - `type: Literal["url"]`
@@ -30104,11 +30139,9 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaFileDocumentSource: …`
 
-      - `file_id: str`
-
       - `type: Literal["file"]`
 
-  - `type: Literal["document"]`
+      - `file_id: str`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30138,9 +30171,9 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaRequestMCPServerURLDefinition: …`
 
-  - `name: str`
-
   - `type: Literal["url"]`
+
+  - `name: str`
 
   - `url: str`
 
@@ -30156,11 +30189,11 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaRequestMCPToolResultBlockParam: …`
 
+  - `type: Literal["mcp_tool_result"]`
+
   - `tool_use_id: str`
 
     pattern: ^[a-zA-Z0-9_-]+$
-
-  - `type: Literal["mcp_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30189,11 +30222,11 @@ print(beta_message_tokens_count.context_management)
 
     - `List[BetaTextBlockParam]`
 
+      - `type: Literal["text"]`
+
       - `text: str`
 
         minLength: 1
-
-      - `type: Literal["text"]`
 
       - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30202,6 +30235,8 @@ print(beta_message_tokens_count.context_management)
       - `citations: Optional[List[BetaTextCitationParam]]`
 
         - `class BetaCitationCharLocationParam: …`
+
+          - `type: Literal["char_location"]`
 
           - `cited_text: str`
 
@@ -30219,9 +30254,9 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["char_location"]`
-
         - `class BetaCitationPageLocationParam: …`
+
+          - `type: Literal["page_location"]`
 
           - `cited_text: str`
 
@@ -30239,9 +30274,9 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 1
 
-          - `type: Literal["page_location"]`
-
         - `class BetaCitationContentBlockLocationParam: …`
+
+          - `type: Literal["content_block_location"]`
 
           - `cited_text: str`
 
@@ -30269,9 +30304,9 @@ print(beta_message_tokens_count.context_management)
 
             minimum: 0
 
-          - `type: Literal["content_block_location"]`
-
         - `class BetaCitationWebSearchResultLocationParam: …`
+
+          - `type: Literal["web_search_result_location"]`
 
           - `cited_text: str`
 
@@ -30281,13 +30316,13 @@ print(beta_message_tokens_count.context_management)
 
             maxLength: 512, minLength: 1
 
-          - `type: Literal["web_search_result_location"]`
-
           - `url: str`
 
             minLength: 1
 
         - `class BetaCitationSearchResultLocationParam: …`
+
+          - `type: Literal["search_result_location"]`
 
           - `cited_text: str`
 
@@ -30319,8 +30354,6 @@ print(beta_message_tokens_count.context_management)
 
           - `title: Optional[str]`
 
-          - `type: Literal["search_result_location"]`
-
   - `is_error: Optional[bool]`
 
 ### Beta Request Tool Addition Block
@@ -30332,6 +30365,8 @@ print(beta_message_tokens_count.context_management)
   `tool` references a tool (or MCP toolset) by name from the request's
   `tools`; it is offered to the model from this point in the
   conversation onward.
+
+  - `type: Literal["tool_addition"]`
 
   - `tool: Tool`
 
@@ -30347,32 +30382,30 @@ print(beta_message_tokens_count.context_management)
       server assigns to MCP-resolved tools — use `mcp_tool_reference` or
       `mcp_toolset_reference` for those.
 
+      - `type: Literal["tool_reference"]`
+
       - `name: str`
 
         pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-      - `type: Literal["tool_reference"]`
 
     - `class BetaToolChangeMCPToolReference: …`
 
       Reference to a single MCP tool by its server and remote name — the
       same `server_name`/`name` pair `mcp_tool_use` carries.
 
+      - `type: Literal["mcp_tool_reference"]`
+
       - `name: str`
 
       - `server_name: str`
-
-      - `type: Literal["mcp_tool_reference"]`
 
     - `class BetaToolChangeMCPToolsetReference: …`
 
       Reference to every tool in the named MCP server's toolset.
 
-      - `server_name: str`
-
       - `type: Literal["mcp_toolset_reference"]`
 
-  - `type: Literal["tool_addition"]`
+      - `server_name: str`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30405,6 +30438,8 @@ print(beta_message_tokens_count.context_management)
   `tools`; it is no longer offered to the model from this point in the
   conversation onward.
 
+  - `type: Literal["tool_removal"]`
+
   - `tool: Tool`
 
     Reference to a single tool the caller declared directly in
@@ -30419,32 +30454,30 @@ print(beta_message_tokens_count.context_management)
       server assigns to MCP-resolved tools — use `mcp_tool_reference` or
       `mcp_toolset_reference` for those.
 
+      - `type: Literal["tool_reference"]`
+
       - `name: str`
 
         pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-      - `type: Literal["tool_reference"]`
 
     - `class BetaToolChangeMCPToolReference: …`
 
       Reference to a single MCP tool by its server and remote name — the
       same `server_name`/`name` pair `mcp_tool_use` carries.
 
+      - `type: Literal["mcp_tool_reference"]`
+
       - `name: str`
 
       - `server_name: str`
-
-      - `type: Literal["mcp_tool_reference"]`
 
     - `class BetaToolChangeMCPToolsetReference: …`
 
       Reference to every tool in the named MCP server's toolset.
 
-      - `server_name: str`
-
       - `type: Literal["mcp_toolset_reference"]`
 
-  - `type: Literal["tool_removal"]`
+      - `server_name: str`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30471,13 +30504,15 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaSearchResultBlockParam: …`
 
+  - `type: Literal["search_result"]`
+
   - `content: List[BetaTextBlockParam]`
+
+    - `type: Literal["text"]`
 
     - `text: str`
 
       minLength: 1
-
-    - `type: Literal["text"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30504,6 +30539,8 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaCitationCharLocationParam: …`
 
+        - `type: Literal["char_location"]`
+
         - `cited_text: str`
 
         - `document_index: int`
@@ -30520,9 +30557,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["char_location"]`
-
       - `class BetaCitationPageLocationParam: …`
+
+        - `type: Literal["page_location"]`
 
         - `cited_text: str`
 
@@ -30540,9 +30577,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 1
 
-        - `type: Literal["page_location"]`
-
       - `class BetaCitationContentBlockLocationParam: …`
+
+        - `type: Literal["content_block_location"]`
 
         - `cited_text: str`
 
@@ -30570,9 +30607,9 @@ print(beta_message_tokens_count.context_management)
 
           minimum: 0
 
-        - `type: Literal["content_block_location"]`
-
       - `class BetaCitationWebSearchResultLocationParam: …`
+
+        - `type: Literal["web_search_result_location"]`
 
         - `cited_text: str`
 
@@ -30582,13 +30619,13 @@ print(beta_message_tokens_count.context_management)
 
           maxLength: 512, minLength: 1
 
-        - `type: Literal["web_search_result_location"]`
-
         - `url: str`
 
           minLength: 1
 
       - `class BetaCitationSearchResultLocationParam: …`
+
+        - `type: Literal["search_result_location"]`
 
         - `cited_text: str`
 
@@ -30620,13 +30657,9 @@ print(beta_message_tokens_count.context_management)
 
         - `title: Optional[str]`
 
-        - `type: Literal["search_result_location"]`
-
   - `source: str`
 
   - `title: str`
-
-  - `type: Literal["search_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30642,21 +30675,21 @@ print(beta_message_tokens_count.context_management)
 
   Tool invocation generated by a server-side tool.
 
+  - `type: Literal["code_execution_20250825"]`
+
   - `tool_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["code_execution_20250825"]`
 
 ### Beta Server Tool Caller 20260120
 
 - `class BetaServerToolCaller20260120: …`
 
+  - `type: Literal["code_execution_20260120"]`
+
   - `tool_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["code_execution_20260120"]`
 
 ### Beta Server Tool Usage
 
@@ -30678,6 +30711,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaServerToolUseBlock: …`
 
+  - `type: Literal["server_tool_use"]`
+
+    default: server_tool_use
+
   - `id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -30701,10 +30738,6 @@ print(beta_message_tokens_count.context_management)
     - `"tool_search_tool_regex"`
 
     - `"tool_search_tool_bm25"`
-
-  - `type: Literal["server_tool_use"]`
-
-    default: server_tool_use
 
   - `caller: Optional[Caller]`
 
@@ -30720,23 +30753,25 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
 ### Beta Server Tool Use Block Param
 
 - `class BetaServerToolUseBlockParam: …`
+
+  - `type: Literal["server_tool_use"]`
 
   - `id: str`
 
@@ -30761,8 +30796,6 @@ print(beta_message_tokens_count.context_management)
     - `"tool_search_tool_regex"`
 
     - `"tool_search_tool_bm25"`
-
-  - `type: Literal["server_tool_use"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -30799,43 +30832,37 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
 ### Beta Signature Delta
 
 - `class BetaSignatureDelta: …`
 
-  - `signature: str`
-
-    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
-
   - `type: Literal["signature_delta"]`
 
     default: signature_delta
+
+  - `signature: str`
+
+    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
 ### Beta Skill Params
 
 - `class BetaSkillParams: …`
 
   Specification for a skill to be loaded in a container (request model).
-
-  - `skill_id: str`
-
-    Skill ID
-
-    maxLength: 64, minLength: 1
 
   - `type: Literal["anthropic", "custom"]`
 
@@ -30844,6 +30871,12 @@ print(beta_message_tokens_count.context_management)
     - `"anthropic"`
 
     - `"custom"`
+
+  - `skill_id: str`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `version: Optional[str]`
 
@@ -30899,6 +30932,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaTextBlock: …`
 
+  - `type: Literal["text"]`
+
+    default: text
+
   - `citations: Optional[List[BetaTextCitation]]`
 
     Citations supporting the text block.
@@ -30906,6 +30943,10 @@ print(beta_message_tokens_count.context_management)
     The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
     - `class BetaCitationCharLocation: …`
+
+      - `type: Literal["char_location"]`
+
+        default: char_location
 
       - `cited_text: str`
 
@@ -30923,11 +30964,11 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["char_location"]`
-
-        default: char_location
-
     - `class BetaCitationPageLocation: …`
+
+      - `type: Literal["page_location"]`
+
+        default: page_location
 
       - `cited_text: str`
 
@@ -30945,11 +30986,11 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 1
 
-      - `type: Literal["page_location"]`
-
-        default: page_location
-
     - `class BetaCitationContentBlockLocation: …`
+
+      - `type: Literal["content_block_location"]`
+
+        default: content_block_location
 
       - `cited_text: str`
 
@@ -30977,11 +31018,11 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["content_block_location"]`
-
-        default: content_block_location
-
     - `class BetaCitationsWebSearchResultLocation: …`
+
+      - `type: Literal["web_search_result_location"]`
+
+        default: web_search_result_location
 
       - `cited_text: str`
 
@@ -30991,13 +31032,13 @@ print(beta_message_tokens_count.context_management)
 
         maxLength: 512
 
-      - `type: Literal["web_search_result_location"]`
-
-        default: web_search_result_location
-
       - `url: str`
 
     - `class BetaCitationSearchResultLocation: …`
+
+      - `type: Literal["search_result_location"]`
+
+        default: search_result_location
 
       - `cited_text: str`
 
@@ -31029,27 +31070,19 @@ print(beta_message_tokens_count.context_management)
 
       - `title: Optional[str]`
 
-      - `type: Literal["search_result_location"]`
-
-        default: search_result_location
-
   - `text: str`
 
-    maxLength: 5000000, minLength: 0
-
-  - `type: Literal["text"]`
-
-    default: text
+    minLength: 0
 
 ### Beta Text Block Param
 
 - `class BetaTextBlockParam: …`
 
+  - `type: Literal["text"]`
+
   - `text: str`
 
     minLength: 1
-
-  - `type: Literal["text"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -31076,6 +31109,8 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaCitationCharLocationParam: …`
 
+      - `type: Literal["char_location"]`
+
       - `cited_text: str`
 
       - `document_index: int`
@@ -31092,9 +31127,9 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["char_location"]`
-
     - `class BetaCitationPageLocationParam: …`
+
+      - `type: Literal["page_location"]`
 
       - `cited_text: str`
 
@@ -31112,9 +31147,9 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 1
 
-      - `type: Literal["page_location"]`
-
     - `class BetaCitationContentBlockLocationParam: …`
+
+      - `type: Literal["content_block_location"]`
 
       - `cited_text: str`
 
@@ -31142,9 +31177,9 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["content_block_location"]`
-
     - `class BetaCitationWebSearchResultLocationParam: …`
+
+      - `type: Literal["web_search_result_location"]`
 
       - `cited_text: str`
 
@@ -31154,13 +31189,13 @@ print(beta_message_tokens_count.context_management)
 
         maxLength: 512, minLength: 1
 
-      - `type: Literal["web_search_result_location"]`
-
       - `url: str`
 
         minLength: 1
 
     - `class BetaCitationSearchResultLocationParam: …`
+
+      - `type: Literal["search_result_location"]`
 
       - `cited_text: str`
 
@@ -31192,13 +31227,15 @@ print(beta_message_tokens_count.context_management)
 
       - `title: Optional[str]`
 
-      - `type: Literal["search_result_location"]`
-
 ### Beta Text Citation
 
 - `BetaTextCitation`
 
   - `class BetaCitationCharLocation: …`
+
+    - `type: Literal["char_location"]`
+
+      default: char_location
 
     - `cited_text: str`
 
@@ -31216,11 +31253,11 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["char_location"]`
-
-      default: char_location
-
   - `class BetaCitationPageLocation: …`
+
+    - `type: Literal["page_location"]`
+
+      default: page_location
 
     - `cited_text: str`
 
@@ -31238,11 +31275,11 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 1
 
-    - `type: Literal["page_location"]`
-
-      default: page_location
-
   - `class BetaCitationContentBlockLocation: …`
+
+    - `type: Literal["content_block_location"]`
+
+      default: content_block_location
 
     - `cited_text: str`
 
@@ -31270,11 +31307,11 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["content_block_location"]`
-
-      default: content_block_location
-
   - `class BetaCitationsWebSearchResultLocation: …`
+
+    - `type: Literal["web_search_result_location"]`
+
+      default: web_search_result_location
 
     - `cited_text: str`
 
@@ -31284,13 +31321,13 @@ print(beta_message_tokens_count.context_management)
 
       maxLength: 512
 
-    - `type: Literal["web_search_result_location"]`
-
-      default: web_search_result_location
-
     - `url: str`
 
   - `class BetaCitationSearchResultLocation: …`
+
+    - `type: Literal["search_result_location"]`
+
+      default: search_result_location
 
     - `cited_text: str`
 
@@ -31322,15 +31359,13 @@ print(beta_message_tokens_count.context_management)
 
     - `title: Optional[str]`
 
-    - `type: Literal["search_result_location"]`
-
-      default: search_result_location
-
 ### Beta Text Citation Param
 
 - `BetaTextCitationParam`
 
   - `class BetaCitationCharLocationParam: …`
+
+    - `type: Literal["char_location"]`
 
     - `cited_text: str`
 
@@ -31348,9 +31383,9 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["char_location"]`
-
   - `class BetaCitationPageLocationParam: …`
+
+    - `type: Literal["page_location"]`
 
     - `cited_text: str`
 
@@ -31368,9 +31403,9 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 1
 
-    - `type: Literal["page_location"]`
-
   - `class BetaCitationContentBlockLocationParam: …`
+
+    - `type: Literal["content_block_location"]`
 
     - `cited_text: str`
 
@@ -31398,9 +31433,9 @@ print(beta_message_tokens_count.context_management)
 
       minimum: 0
 
-    - `type: Literal["content_block_location"]`
-
   - `class BetaCitationWebSearchResultLocationParam: …`
+
+    - `type: Literal["web_search_result_location"]`
 
     - `cited_text: str`
 
@@ -31410,13 +31445,13 @@ print(beta_message_tokens_count.context_management)
 
       maxLength: 512, minLength: 1
 
-    - `type: Literal["web_search_result_location"]`
-
     - `url: str`
 
       minLength: 1
 
   - `class BetaCitationSearchResultLocationParam: …`
+
+    - `type: Literal["search_result_location"]`
 
     - `cited_text: str`
 
@@ -31448,39 +31483,41 @@ print(beta_message_tokens_count.context_management)
 
     - `title: Optional[str]`
 
-    - `type: Literal["search_result_location"]`
-
 ### Beta Text Delta
 
 - `class BetaTextDelta: …`
-
-  - `text: str`
 
   - `type: Literal["text_delta"]`
 
     default: text_delta
 
+  - `text: str`
+
 ### Beta Text Editor Code Execution Create Result Block
 
 - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-  - `is_file_update: bool`
 
   - `type: Literal["text_editor_code_execution_create_result"]`
 
     default: text_editor_code_execution_create_result
 
+  - `is_file_update: bool`
+
 ### Beta Text Editor Code Execution Create Result Block Param
 
 - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-  - `is_file_update: bool`
-
   - `type: Literal["text_editor_code_execution_create_result"]`
+
+  - `is_file_update: bool`
 
 ### Beta Text Editor Code Execution Str Replace Result Block
 
 - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+  - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+    default: text_editor_code_execution_str_replace_result
 
   - `lines: Optional[List[str]]`
 
@@ -31491,10 +31528,6 @@ print(beta_message_tokens_count.context_management)
   - `old_lines: Optional[int]`
 
   - `old_start: Optional[int]`
-
-  - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-    default: text_editor_code_execution_str_replace_result
 
 ### Beta Text Editor Code Execution Str Replace Result Block Param
 
@@ -31516,9 +31549,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaTextEditorCodeExecutionToolResultBlock: …`
 
+  - `type: Literal["text_editor_code_execution_tool_result"]`
+
+    default: text_editor_code_execution_tool_result
+
   - `content: Content`
 
     - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+      - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+        default: text_editor_code_execution_tool_result_error
 
       - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -31534,11 +31575,11 @@ print(beta_message_tokens_count.context_management)
 
       - `error_message: Optional[str]`
 
-      - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-        default: text_editor_code_execution_tool_result_error
-
     - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+      - `type: Literal["text_editor_code_execution_view_result"]`
+
+        default: text_editor_code_execution_view_result
 
       - `content: str`
 
@@ -31556,19 +31597,19 @@ print(beta_message_tokens_count.context_management)
 
       - `total_lines: Optional[int]`
 
-      - `type: Literal["text_editor_code_execution_view_result"]`
-
-        default: text_editor_code_execution_view_result
-
     - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-      - `is_file_update: bool`
 
       - `type: Literal["text_editor_code_execution_create_result"]`
 
         default: text_editor_code_execution_create_result
 
+      - `is_file_update: bool`
+
     - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+      - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+        default: text_editor_code_execution_str_replace_result
 
       - `lines: Optional[List[str]]`
 
@@ -31580,25 +31621,21 @@ print(beta_message_tokens_count.context_management)
 
       - `old_start: Optional[int]`
 
-      - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-        default: text_editor_code_execution_str_replace_result
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["text_editor_code_execution_tool_result"]`
-
-    default: text_editor_code_execution_tool_result
 
 ### Beta Text Editor Code Execution Tool Result Block Param
 
 - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
 
+  - `type: Literal["text_editor_code_execution_tool_result"]`
+
   - `content: Content`
 
     - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+      - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
       - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -31612,11 +31649,11 @@ print(beta_message_tokens_count.context_management)
 
         - `"file_not_found"`
 
-      - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
       - `error_message: Optional[str]`
 
     - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+      - `type: Literal["text_editor_code_execution_view_result"]`
 
       - `content: str`
 
@@ -31628,8 +31665,6 @@ print(beta_message_tokens_count.context_management)
 
         - `"pdf"`
 
-      - `type: Literal["text_editor_code_execution_view_result"]`
-
       - `num_lines: Optional[int]`
 
       - `start_line: Optional[int]`
@@ -31638,9 +31673,9 @@ print(beta_message_tokens_count.context_management)
 
     - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-      - `is_file_update: bool`
-
       - `type: Literal["text_editor_code_execution_create_result"]`
+
+      - `is_file_update: bool`
 
     - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
@@ -31659,8 +31694,6 @@ print(beta_message_tokens_count.context_management)
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["text_editor_code_execution_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -31687,6 +31720,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaTextEditorCodeExecutionToolResultError: …`
 
+  - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+    default: text_editor_code_execution_tool_result_error
+
   - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
     - `"invalid_tool_input"`
@@ -31701,13 +31738,11 @@ print(beta_message_tokens_count.context_management)
 
   - `error_message: Optional[str]`
 
-  - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-    default: text_editor_code_execution_tool_result_error
-
 ### Beta Text Editor Code Execution Tool Result Error Param
 
 - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+  - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
   - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -31720,14 +31755,16 @@ print(beta_message_tokens_count.context_management)
     - `"execution_time_exceeded"`
 
     - `"file_not_found"`
-
-  - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
   - `error_message: Optional[str]`
 
 ### Beta Text Editor Code Execution View Result Block
 
 - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+  - `type: Literal["text_editor_code_execution_view_result"]`
+
+    default: text_editor_code_execution_view_result
 
   - `content: str`
 
@@ -31745,13 +31782,11 @@ print(beta_message_tokens_count.context_management)
 
   - `total_lines: Optional[int]`
 
-  - `type: Literal["text_editor_code_execution_view_result"]`
-
-    default: text_editor_code_execution_view_result
-
 ### Beta Text Editor Code Execution View Result Block Param
 
 - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+  - `type: Literal["text_editor_code_execution_view_result"]`
 
   - `content: str`
 
@@ -31762,8 +31797,6 @@ print(beta_message_tokens_count.context_management)
     - `"image"`
 
     - `"pdf"`
-
-  - `type: Literal["text_editor_code_execution_view_result"]`
 
   - `num_lines: Optional[int]`
 
@@ -31774,6 +31807,10 @@ print(beta_message_tokens_count.context_management)
 ### Beta Thinking Block
 
 - `class BetaThinkingBlock: …`
+
+  - `type: Literal["thinking"]`
+
+    default: thinking
 
   - `signature: str`
 
@@ -31786,10 +31823,6 @@ print(beta_message_tokens_count.context_management)
   - `thinking: str`
 
     The text of Claude's thinking process for this block.
-
-  - `type: Literal["thinking"]`
-
-    default: thinking
 
 ### Beta Thinking Block Binding
 
@@ -31815,6 +31848,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaThinkingBlockParam: …`
 
+  - `type: Literal["thinking"]`
+
   - `signature: str`
 
     The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
@@ -31824,8 +31859,6 @@ print(beta_message_tokens_count.context_management)
   - `thinking: str`
 
     The `thinking` text of this block as returned by the API.
-
-  - `type: Literal["thinking"]`
 
 ### Beta Thinking Config Adaptive
 
@@ -31871,6 +31904,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaThinkingConfigEnabled: …`
 
+  - `type: Literal["enabled"]`
+
   - `budget_tokens: int`
 
     Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -31880,8 +31915,6 @@ print(beta_message_tokens_count.context_management)
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     minimum: 1024
-
-  - `type: Literal["enabled"]`
 
   - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -31923,6 +31956,8 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaThinkingConfigEnabled: …`
 
+    - `type: Literal["enabled"]`
+
     - `budget_tokens: int`
 
       Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -31932,8 +31967,6 @@ print(beta_message_tokens_count.context_management)
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       minimum: 1024
-
-    - `type: Literal["enabled"]`
 
     - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -31991,6 +32024,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaThinkingDelta: …`
 
+  - `type: Literal["thinking_delta"]`
+
+    default: thinking_delta
+
   - `estimated_tokens: Optional[int]`
 
     Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
@@ -31999,13 +32036,15 @@ print(beta_message_tokens_count.context_management)
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-  - `type: Literal["thinking_delta"]`
-
-    default: thinking_delta
-
 ### Beta Thinking Dropped Input Transformation
 
 - `class BetaThinkingDroppedInputTransformation: …`
+
+  - `type: Literal["thinking_dropped"]`
+
+    Always `thinking_dropped` for this entry type.
+
+    default: thinking_dropped
 
   - `path: str`
 
@@ -32037,12 +32076,6 @@ print(beta_message_tokens_count.context_management)
 
     - `"end_user_binding_mismatch"`
 
-  - `type: Literal["thinking_dropped"]`
-
-    Always `thinking_dropped` for this entry type.
-
-    default: thinking_dropped
-
 ### Beta Thinking Prefix Mismatch Behavior
 
 - `Literal["error", "drop_block"]`
@@ -32073,15 +32106,15 @@ print(beta_message_tokens_count.context_management)
 
   User-configurable total token budget across contexts.
 
+  - `type: Literal["tokens"]`
+
+    The budget type. Currently only 'tokens' is supported.
+
   - `total: int`
 
     Total token budget across all contexts in the session.
 
     minimum: 1024
-
-  - `type: Literal["tokens"]`
-
-    The budget type. Currently only 'tokens' is supported.
 
   - `remaining: Optional[int]`
 
@@ -32092,6 +32125,8 @@ print(beta_message_tokens_count.context_management)
 ### Beta Tool
 
 - `class BetaTool: …`
+
+  - `type: Optional[Literal["custom"]]`
 
   - `input_schema: InputSchema`
 
@@ -32164,19 +32199,17 @@ print(beta_message_tokens_count.context_management)
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `type: Optional[Literal["custom"]]`
-
 ### Beta Tool Bash 20241022
 
 - `class BetaToolBash20241022: …`
+
+  - `type: Literal["bash_20241022"]`
 
   - `name: Literal["bash"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["bash_20241022"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -32223,13 +32256,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolBash20250124: …`
 
+  - `type: Literal["bash_20250124"]`
+
   - `name: Literal["bash"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["bash_20250124"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -32279,11 +32312,11 @@ print(beta_message_tokens_count.context_management)
   Reference to a single MCP tool by its server and remote name — the
   same `server_name`/`name` pair `mcp_tool_use` carries.
 
+  - `type: Literal["mcp_tool_reference"]`
+
   - `name: str`
 
   - `server_name: str`
-
-  - `type: Literal["mcp_tool_reference"]`
 
 ### Beta Tool Change MCP Toolset Reference
 
@@ -32291,9 +32324,9 @@ print(beta_message_tokens_count.context_management)
 
   Reference to every tool in the named MCP server's toolset.
 
-  - `server_name: str`
-
   - `type: Literal["mcp_toolset_reference"]`
+
+  - `server_name: str`
 
 ### Beta Tool Change Tool Reference
 
@@ -32304,11 +32337,11 @@ print(beta_message_tokens_count.context_management)
   server assigns to MCP-resolved tools — use `mcp_tool_reference` or
   `mcp_toolset_reference` for those.
 
+  - `type: Literal["tool_reference"]`
+
   - `name: str`
 
     pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-  - `type: Literal["tool_reference"]`
 
 ### Beta Tool Choice
 
@@ -32344,11 +32377,11 @@ print(beta_message_tokens_count.context_management)
 
     The model will use the specified tool with `tool_choice.name`.
 
+    - `type: Literal["tool"]`
+
     - `name: str`
 
       The name of the tool to use.
-
-    - `type: Literal["tool"]`
 
     - `disable_parallel_tool_use: Optional[bool]`
 
@@ -32404,11 +32437,11 @@ print(beta_message_tokens_count.context_management)
 
   The model will use the specified tool with `tool_choice.name`.
 
+  - `type: Literal["tool"]`
+
   - `name: str`
 
     The name of the tool to use.
-
-  - `type: Literal["tool"]`
 
   - `disable_parallel_tool_use: Optional[bool]`
 
@@ -32419,6 +32452,8 @@ print(beta_message_tokens_count.context_management)
 ### Beta Tool Computer Use 20241022
 
 - `class BetaToolComputerUse20241022: …`
+
+  - `type: Literal["computer_20241022"]`
 
   - `display_height_px: int`
 
@@ -32437,8 +32472,6 @@ print(beta_message_tokens_count.context_management)
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["computer_20241022"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -32491,6 +32524,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolComputerUse20250124: …`
 
+  - `type: Literal["computer_20250124"]`
+
   - `display_height_px: int`
 
     The height of the display in pixels.
@@ -32508,8 +32543,6 @@ print(beta_message_tokens_count.context_management)
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["computer_20250124"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -32562,6 +32595,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolComputerUse20251124: …`
 
+  - `type: Literal["computer_20251124"]`
+
   - `display_height_px: int`
 
     The height of the display in pixels.
@@ -32579,8 +32614,6 @@ print(beta_message_tokens_count.context_management)
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["computer_20251124"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -32637,13 +32670,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolReferenceBlock: …`
 
-  - `tool_name: str`
-
-    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
   - `type: Literal["tool_reference"]`
 
     default: tool_reference
+
+  - `tool_name: str`
+
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Beta Tool Reference Block Param
 
@@ -32651,11 +32684,11 @@ print(beta_message_tokens_count.context_management)
 
   Tool reference block that can be included in tool_result content.
 
+  - `type: Literal["tool_reference"]`
+
   - `tool_name: str`
 
     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-  - `type: Literal["tool_reference"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32682,11 +32715,11 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolResultBlockParam: …`
 
+  - `type: Literal["tool_result"]`
+
   - `tool_use_id: str`
 
     pattern: ^[a-zA-Z0-9_-]+$
-
-  - `type: Literal["tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32717,11 +32750,11 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaTextBlockParam: …`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32730,6 +32763,8 @@ print(beta_message_tokens_count.context_management)
         - `citations: Optional[List[BetaTextCitationParam]]`
 
           - `class BetaCitationCharLocationParam: …`
+
+            - `type: Literal["char_location"]`
 
             - `cited_text: str`
 
@@ -32747,9 +32782,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["char_location"]`
-
           - `class BetaCitationPageLocationParam: …`
+
+            - `type: Literal["page_location"]`
 
             - `cited_text: str`
 
@@ -32767,9 +32802,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 1
 
-            - `type: Literal["page_location"]`
-
           - `class BetaCitationContentBlockLocationParam: …`
+
+            - `type: Literal["content_block_location"]`
 
             - `cited_text: str`
 
@@ -32797,9 +32832,9 @@ print(beta_message_tokens_count.context_management)
 
               minimum: 0
 
-            - `type: Literal["content_block_location"]`
-
           - `class BetaCitationWebSearchResultLocationParam: …`
+
+            - `type: Literal["web_search_result_location"]`
 
             - `cited_text: str`
 
@@ -32809,13 +32844,13 @@ print(beta_message_tokens_count.context_management)
 
               maxLength: 512, minLength: 1
 
-            - `type: Literal["web_search_result_location"]`
-
             - `url: str`
 
               minLength: 1
 
           - `class BetaCitationSearchResultLocationParam: …`
+
+            - `type: Literal["search_result_location"]`
 
             - `cited_text: str`
 
@@ -32847,13 +32882,15 @@ print(beta_message_tokens_count.context_management)
 
             - `title: Optional[str]`
 
-            - `type: Literal["search_result_location"]`
-
       - `class BetaImageBlockParam: …`
+
+        - `type: Literal["image"]`
 
         - `source: Source`
 
           - `class BetaBase64ImageSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -32869,8 +32906,6 @@ print(beta_message_tokens_count.context_management)
 
               - `"image/webp"`
 
-            - `type: Literal["base64"]`
-
           - `class BetaURLImageSource: …`
 
             - `type: Literal["url"]`
@@ -32879,11 +32914,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaFileImageSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["image"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32903,13 +32936,15 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaSearchResultBlockParam: …`
 
+        - `type: Literal["search_result"]`
+
         - `content: List[BetaTextBlockParam]`
+
+          - `type: Literal["text"]`
 
           - `text: str`
 
             minLength: 1
-
-          - `type: Literal["text"]`
 
           - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32921,8 +32956,6 @@ print(beta_message_tokens_count.context_management)
 
         - `title: str`
 
-        - `type: Literal["search_result"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -32933,9 +32966,13 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaRequestDocumentBlock: …`
 
+        - `type: Literal["document"]`
+
         - `source: Source`
 
           - `class BetaBase64PDFSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -32943,17 +32980,17 @@ print(beta_message_tokens_count.context_management)
 
             - `media_type: Literal["application/pdf"]`
 
-            - `type: Literal["base64"]`
-
           - `class BetaPlainTextSource: …`
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
             - `media_type: Literal["text/plain"]`
 
-            - `type: Literal["text"]`
-
           - `class BetaContentBlockSource: …`
+
+            - `type: Literal["content"]`
 
             - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -32965,8 +33002,6 @@ print(beta_message_tokens_count.context_management)
 
                 - `class BetaImageBlockParam: …`
 
-            - `type: Literal["content"]`
-
           - `class BetaURLPDFSource: …`
 
             - `type: Literal["url"]`
@@ -32975,11 +33010,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaFileDocumentSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["document"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32999,11 +33032,11 @@ print(beta_message_tokens_count.context_management)
 
         Tool reference block that can be included in tool_result content.
 
+        - `type: Literal["tool_reference"]`
+
         - `tool_name: str`
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-        - `type: Literal["tool_reference"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33018,6 +33051,8 @@ print(beta_message_tokens_count.context_management)
         At most one per `tool_result`, only on a non-error result answering a
         browser toolset member `tool_use`. The server renders the
         model-visible text from it; the model never sees the raw fields.
+
+        - `type: Literal["browser_state"]`
 
         - `tabs: List[BetaBrowserStateTabEntry]`
 
@@ -33047,8 +33082,6 @@ print(beta_message_tokens_count.context_management)
 
             Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-        - `type: Literal["browser_state"]`
-
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -33069,25 +33102,25 @@ print(beta_message_tokens_count.context_management)
             during a failed call gets no deferred `tab_opened`; it simply appears
             in the next result's `tabs` inventory.
 
+            - `type: Literal["tab_opened"]`
+
             - `tab_id: str`
 
               The `tab_id` of the opened tab, present in `tabs`.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `type: Literal["tab_opened"]`
-
           - `class BetaBrowserStateChangeDownloadStarted: …`
 
             A file download that started during this call.
+
+            - `type: Literal["download_started"]`
 
             - `download_id: str`
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `type: Literal["download_started"]`
 
             - `url: str`
 
@@ -33102,13 +33135,13 @@ print(beta_message_tokens_count.context_management)
             `download_started`, when the download finished during the call that
             started it (at most one state change per `download_id` per result).
 
+            - `type: Literal["download_completed"]`
+
             - `download_id: str`
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `type: Literal["download_completed"]`
 
             - `url: str`
 
@@ -33132,13 +33165,13 @@ print(beta_message_tokens_count.context_management)
 
             A file download that failed — or was cancelled — during this call.
 
+            - `type: Literal["download_failed"]`
+
             - `download_id: str`
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `type: Literal["download_failed"]`
 
             - `url: str`
 
@@ -33164,17 +33197,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolSearchToolBm25_20251119: …`
 
-  - `name: Literal["tool_search_tool_bm25"]`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
   - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
     - `"tool_search_tool_bm25_20251119"`
 
     - `"tool_search_tool_bm25"`
+
+  - `name: Literal["tool_search_tool_bm25"]`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33219,17 +33252,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolSearchToolRegex20251119: …`
 
-  - `name: Literal["tool_search_tool_regex"]`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
   - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
     - `"tool_search_tool_regex_20251119"`
 
     - `"tool_search_tool_regex"`
+
+  - `name: Literal["tool_search_tool_regex"]`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33274,57 +33307,61 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolSearchToolResultBlock: …`
 
+  - `type: Literal["tool_search_tool_result"]`
+
+    default: tool_search_tool_result
+
   - `content: Content`
 
     - `class BetaToolSearchToolResultError: …`
-
-      - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
-
-        - `"invalid_tool_input"`
-
-        - `"unavailable"`
-
-        - `"too_many_requests"`
-
-        - `"execution_time_exceeded"`
-
-      - `error_message: Optional[str]`
 
       - `type: Literal["tool_search_tool_result_error"]`
 
         default: tool_search_tool_result_error
 
+      - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
+
+        - `"invalid_tool_input"`
+
+        - `"unavailable"`
+
+        - `"too_many_requests"`
+
+        - `"execution_time_exceeded"`
+
+      - `error_message: Optional[str]`
+
     - `class BetaToolSearchToolSearchResultBlock: …`
-
-      - `tool_references: List[BetaToolReferenceBlock]`
-
-        - `tool_name: str`
-
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-        - `type: Literal["tool_reference"]`
-
-          default: tool_reference
 
       - `type: Literal["tool_search_tool_search_result"]`
 
         default: tool_search_tool_search_result
 
+      - `tool_references: List[BetaToolReferenceBlock]`
+
+        - `type: Literal["tool_reference"]`
+
+          default: tool_reference
+
+        - `tool_name: str`
+
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["tool_search_tool_result"]`
-
-    default: tool_search_tool_result
 
 ### Beta Tool Search Tool Result Block Param
 
 - `class BetaToolSearchToolResultBlockParam: …`
 
+  - `type: Literal["tool_search_tool_result"]`
+
   - `content: Content`
 
     - `class BetaToolSearchToolResultErrorParam: …`
+
+      - `type: Literal["tool_search_tool_result_error"]`
 
       - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -33336,19 +33373,19 @@ print(beta_message_tokens_count.context_management)
 
         - `"execution_time_exceeded"`
 
-      - `type: Literal["tool_search_tool_result_error"]`
-
       - `error_message: Optional[str]`
 
     - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+      - `type: Literal["tool_search_tool_search_result"]`
+
       - `tool_references: List[BetaToolReferenceBlockParam]`
+
+        - `type: Literal["tool_reference"]`
 
         - `tool_name: str`
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-        - `type: Literal["tool_reference"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33371,13 +33408,9 @@ print(beta_message_tokens_count.context_management)
 
             - `"1h"`
 
-      - `type: Literal["tool_search_tool_search_result"]`
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["tool_search_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33387,6 +33420,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolSearchToolResultError: …`
 
+  - `type: Literal["tool_search_tool_result_error"]`
+
+    default: tool_search_tool_result_error
+
   - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
     - `"invalid_tool_input"`
@@ -33399,13 +33436,11 @@ print(beta_message_tokens_count.context_management)
 
   - `error_message: Optional[str]`
 
-  - `type: Literal["tool_search_tool_result_error"]`
-
-    default: tool_search_tool_result_error
-
 ### Beta Tool Search Tool Result Error Param
 
 - `class BetaToolSearchToolResultErrorParam: …`
+
+  - `type: Literal["tool_search_tool_result_error"]`
 
   - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -33416,8 +33451,6 @@ print(beta_message_tokens_count.context_management)
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-  - `type: Literal["tool_search_tool_result_error"]`
 
   - `error_message: Optional[str]`
 
@@ -33425,31 +33458,33 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolSearchToolSearchResultBlock: …`
 
+  - `type: Literal["tool_search_tool_search_result"]`
+
+    default: tool_search_tool_search_result
+
   - `tool_references: List[BetaToolReferenceBlock]`
-
-    - `tool_name: str`
-
-      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `type: Literal["tool_reference"]`
 
       default: tool_reference
 
-  - `type: Literal["tool_search_tool_search_result"]`
+    - `tool_name: str`
 
-    default: tool_search_tool_search_result
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Beta Tool Search Tool Search Result Block Param
 
 - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+  - `type: Literal["tool_search_tool_search_result"]`
+
   - `tool_references: List[BetaToolReferenceBlockParam]`
+
+    - `type: Literal["tool_reference"]`
 
     - `tool_name: str`
 
       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-    - `type: Literal["tool_reference"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33472,19 +33507,17 @@ print(beta_message_tokens_count.context_management)
 
         - `"1h"`
 
-  - `type: Literal["tool_search_tool_search_result"]`
-
 ### Beta Tool Text Editor 20241022
 
 - `class BetaToolTextEditor20241022: …`
+
+  - `type: Literal["text_editor_20241022"]`
 
   - `name: Literal["str_replace_editor"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["text_editor_20241022"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33531,13 +33564,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolTextEditor20250124: …`
 
+  - `type: Literal["text_editor_20250124"]`
+
   - `name: Literal["str_replace_editor"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["text_editor_20250124"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33584,13 +33617,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolTextEditor20250429: …`
 
+  - `type: Literal["text_editor_20250429"]`
+
   - `name: Literal["str_replace_based_edit_tool"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["text_editor_20250429"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33637,13 +33670,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolTextEditor20250728: …`
 
+  - `type: Literal["text_editor_20250728"]`
+
   - `name: Literal["str_replace_based_edit_tool"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["text_editor_20250728"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33699,6 +33732,8 @@ print(beta_message_tokens_count.context_management)
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
   - `class BetaTool: …`
+
+    - `type: Optional[Literal["custom"]]`
 
     - `input_schema: InputSchema`
 
@@ -33771,17 +33806,15 @@ print(beta_message_tokens_count.context_management)
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: Optional[Literal["custom"]]`
-
   - `class BetaToolBash20241022: …`
+
+    - `type: Literal["bash_20241022"]`
 
     - `name: Literal["bash"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["bash_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33809,13 +33842,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolBash20250124: …`
 
+    - `type: Literal["bash_20250124"]`
+
     - `name: Literal["bash"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["bash_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33843,13 +33876,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaCodeExecutionTool20250522: …`
 
+    - `type: Literal["code_execution_20250522"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20250522"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33875,13 +33908,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaCodeExecutionTool20250825: …`
 
+    - `type: Literal["code_execution_20250825"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20250825"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33909,13 +33942,13 @@ print(beta_message_tokens_count.context_management)
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: Literal["code_execution_20260120"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20260120"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33943,13 +33976,13 @@ print(beta_message_tokens_count.context_management)
 
     Code execution tool with REPL state persistence.
 
+    - `type: Literal["code_execution_20260521"]`
+
     - `name: Literal["code_execution"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["code_execution_20260521"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -33994,6 +34027,18 @@ print(beta_message_tokens_count.context_management)
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: Optional[BetaBrowserTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: Optional[BetaBrowserCloseTabConfig]`
 
@@ -34331,18 +34376,6 @@ print(beta_message_tokens_count.context_management)
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: Optional[BetaBrowserTypeConfig]`
-
-        `type`'s config overrides.
-
-        - `defer_loading: Optional[bool]`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: Optional[bool]`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: Optional[BetaBrowserWaitConfig]`
 
         `wait`'s config overrides.
@@ -34369,6 +34402,8 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolComputerUse20241022: …`
 
+    - `type: Literal["computer_20241022"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -34386,8 +34421,6 @@ print(beta_message_tokens_count.context_management)
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34421,13 +34454,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaMemoryTool20250818: …`
 
+    - `type: Literal["memory_20250818"]`
+
     - `name: Literal["memory"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["memory_20250818"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34455,6 +34488,8 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolComputerUse20250124: …`
 
+    - `type: Literal["computer_20250124"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -34472,8 +34507,6 @@ print(beta_message_tokens_count.context_management)
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34507,13 +34540,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolTextEditor20241022: …`
 
+    - `type: Literal["text_editor_20241022"]`
+
     - `name: Literal["str_replace_editor"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20241022"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34541,6 +34574,8 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolComputerUse20251124: …`
 
+    - `type: Literal["computer_20251124"]`
+
     - `display_height_px: int`
 
       The height of the display in pixels.
@@ -34558,8 +34593,6 @@ print(beta_message_tokens_count.context_management)
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["computer_20251124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34620,6 +34653,18 @@ print(beta_message_tokens_count.context_management)
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: Optional[BetaComputerTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: Optional[BetaComputerCursorPositionConfig]`
 
@@ -34789,18 +34834,6 @@ print(beta_message_tokens_count.context_management)
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: Optional[BetaComputerTypeConfig]`
-
-        `type`'s config overrides.
-
-        - `defer_loading: Optional[bool]`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: Optional[bool]`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: Optional[BetaComputerWaitConfig]`
 
         `wait`'s config overrides.
@@ -34827,13 +34860,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolTextEditor20250124: …`
 
+    - `type: Literal["text_editor_20250124"]`
+
     - `name: Literal["str_replace_editor"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250124"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34861,13 +34894,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolTextEditor20250429: …`
 
+    - `type: Literal["text_editor_20250429"]`
+
     - `name: Literal["str_replace_based_edit_tool"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250429"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34895,13 +34928,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolTextEditor20250728: …`
 
+    - `type: Literal["text_editor_20250728"]`
+
     - `name: Literal["str_replace_based_edit_tool"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["text_editor_20250728"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -34935,13 +34968,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebSearchTool20250305: …`
 
+    - `type: Literal["web_search_20250305"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20250305"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35011,13 +35044,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebFetchTool20250910: …`
 
+    - `type: Literal["web_fetch_20250910"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20250910"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35069,13 +35102,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebSearchTool20260209: …`
 
+    - `type: Literal["web_search_20260209"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20260209"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35119,13 +35152,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebFetchTool20260209: …`
 
+    - `type: Literal["web_fetch_20260209"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260209"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35177,13 +35210,13 @@ print(beta_message_tokens_count.context_management)
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: Literal["web_fetch_20260309"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260309"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35237,13 +35270,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebSearchTool20260318: …`
 
+    - `type: Literal["web_search_20260318"]`
+
     - `name: Literal["web_search"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_search_20260318"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35295,13 +35328,13 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaWebFetchTool20260318: …`
 
+    - `type: Literal["web_fetch_20260318"]`
+
     - `name: Literal["web_fetch"]`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: Literal["web_fetch_20260318"]`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35362,6 +35395,8 @@ print(beta_message_tokens_count.context_management)
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
   - `class BetaAdvisorTool20260301: …`
+
+    - `type: Literal["advisor_20260301"]`
 
     - `model: Model`
 
@@ -35469,8 +35504,6 @@ print(beta_message_tokens_count.context_management)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `type: Literal["advisor_20260301"]`
-
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
@@ -35511,17 +35544,17 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolSearchToolBm25_20251119: …`
 
-    - `name: Literal["tool_search_tool_bm25"]`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: Literal["tool_search_tool_bm25"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35547,17 +35580,17 @@ print(beta_message_tokens_count.context_management)
 
   - `class BetaToolSearchToolRegex20251119: …`
 
-    - `name: Literal["tool_search_tool_regex"]`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: Literal["tool_search_tool_regex"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -35588,13 +35621,13 @@ print(beta_message_tokens_count.context_management)
     Allows configuring enabled status and defer_loading for all tools
     from an MCP server, with optional per-tool overrides.
 
+    - `type: Literal["mcp_toolset"]`
+
     - `mcp_server_name: str`
 
       Name of the MCP server to configure tools for
 
       maxLength: 255, minLength: 1
-
-    - `type: Literal["mcp_toolset"]`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -35620,6 +35653,10 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolUseBlock: …`
 
+  - `type: Literal["tool_use"]`
+
+    default: tool_use
+
   - `id: str`
 
     pattern: ^[a-zA-Z0-9_-]+$
@@ -35629,10 +35666,6 @@ print(beta_message_tokens_count.context_management)
   - `name: str`
 
     minLength: 1
-
-  - `type: Literal["tool_use"]`
-
-    default: tool_use
 
   - `caller: Optional[Caller]`
 
@@ -35648,19 +35681,19 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
   - `toolset_name: Optional[str]`
 
@@ -35672,6 +35705,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaToolUseBlockParam: …`
 
+  - `type: Literal["tool_use"]`
+
   - `id: str`
 
     pattern: ^[a-zA-Z0-9_-]+$
@@ -35681,8 +35716,6 @@ print(beta_message_tokens_count.context_management)
   - `name: str`
 
     maxLength: 200, minLength: 1
-
-  - `type: Literal["tool_use"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -35719,19 +35752,19 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
   - `toolset_name: Optional[str]`
 
@@ -35833,6 +35866,10 @@ print(beta_message_tokens_count.context_management)
 
         No reprice was applied; `reason` says why.
 
+        - `type: Literal["not_applied"]`
+
+          default: not_applied
+
         - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
           Why the reprice was not applied.
@@ -35863,10 +35900,6 @@ print(beta_message_tokens_count.context_management)
           - `"wrong_platform"`
 
           - `"wrong_workspace"`
-
-        - `type: Literal["not_applied"]`
-
-          default: not_applied
 
         - `remove_to_redeem: Optional[List[str]]`
 
@@ -35904,6 +35937,12 @@ print(beta_message_tokens_count.context_management)
     - `class BetaMessageIterationUsage: …`
 
       Token usage for a sampling iteration.
+
+      - `type: Literal["message"]`
+
+        Usage for a sampling iteration
+
+        default: message
 
       - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -36033,15 +36072,15 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["message"]`
-
-        Usage for a sampling iteration
-
-        default: message
-
     - `class BetaCompactionIterationUsage: …`
 
       Token usage for a compaction iteration.
+
+      - `type: Literal["compaction"]`
+
+        Usage for a compaction iteration
+
+        default: compaction
 
       - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -36071,15 +36110,15 @@ print(beta_message_tokens_count.context_management)
 
         minimum: 0
 
-      - `type: Literal["compaction"]`
-
-        Usage for a compaction iteration
-
-        default: compaction
-
     - `class BetaAdvisorMessageIterationUsage: …`
 
       Token usage for an advisor sub-inference iteration.
+
+      - `type: Literal["advisor_message"]`
+
+        Usage for an advisor sub-inference iteration
+
+        default: advisor_message
 
       - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -36114,12 +36153,6 @@ print(beta_message_tokens_count.context_management)
         The number of output tokens which were used.
 
         minimum: 0
-
-      - `type: Literal["advisor_message"]`
-
-        Usage for an advisor sub-inference iteration
-
-        default: advisor_message
 
     - `class BetaFallbackMessageIterationUsage: …`
 
@@ -36130,6 +36163,12 @@ print(beta_message_tokens_count.context_management)
       a fallback model served the response is signalled by the presence of this
       entry in `usage.iterations`.
 
+      - `type: Literal["fallback_message"]`
+
+        Usage for the fallback-model attempt that served the response
+
+        default: fallback_message
+
       - `cache_creation: Optional[BetaCacheCreation]`
 
         Breakdown of cached tokens by TTL
@@ -36163,12 +36202,6 @@ print(beta_message_tokens_count.context_management)
         The number of output tokens which were used.
 
         minimum: 0
-
-      - `type: Literal["fallback_message"]`
-
-        Usage for the fallback-model attempt that served the response
-
-        default: fallback_message
 
   - `output_tokens: int`
 
@@ -36266,7 +36299,15 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebFetchBlock: …`
 
+  - `type: Literal["web_fetch_result"]`
+
+    default: web_fetch_result
+
   - `content: BetaDocumentBlock`
+
+    - `type: Literal["document"]`
+
+      default: document
 
     - `citations: Optional[BetaCitationConfig]`
 
@@ -36280,37 +36321,29 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaBase64PDFSource: …`
 
+        - `type: Literal["base64"]`
+
         - `data: str`
 
           format: byte
 
         - `media_type: Literal["application/pdf"]`
 
-        - `type: Literal["base64"]`
-
       - `class BetaPlainTextSource: …`
+
+        - `type: Literal["text"]`
 
         - `data: str`
 
         - `media_type: Literal["text/plain"]`
 
-        - `type: Literal["text"]`
-
     - `title: Optional[str]`
 
       The title of the document
 
-    - `type: Literal["document"]`
-
-      default: document
-
   - `retrieved_at: Optional[str]`
 
     ISO 8601 timestamp when the content was retrieved
-
-  - `type: Literal["web_fetch_result"]`
-
-    default: web_fetch_result
 
   - `url: str`
 
@@ -36320,11 +36353,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebFetchBlockParam: …`
 
+  - `type: Literal["web_fetch_result"]`
+
   - `content: BetaRequestDocumentBlock`
+
+    - `type: Literal["document"]`
 
     - `source: Source`
 
       - `class BetaBase64PDFSource: …`
+
+        - `type: Literal["base64"]`
 
         - `data: str`
 
@@ -36332,17 +36371,17 @@ print(beta_message_tokens_count.context_management)
 
         - `media_type: Literal["application/pdf"]`
 
-        - `type: Literal["base64"]`
-
       - `class BetaPlainTextSource: …`
+
+        - `type: Literal["text"]`
 
         - `data: str`
 
         - `media_type: Literal["text/plain"]`
 
-        - `type: Literal["text"]`
-
       - `class BetaContentBlockSource: …`
+
+        - `type: Literal["content"]`
 
         - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -36352,11 +36391,11 @@ print(beta_message_tokens_count.context_management)
 
             - `class BetaTextBlockParam: …`
 
+              - `type: Literal["text"]`
+
               - `text: str`
 
                 minLength: 1
-
-              - `type: Literal["text"]`
 
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -36383,6 +36422,8 @@ print(beta_message_tokens_count.context_management)
 
                 - `class BetaCitationCharLocationParam: …`
 
+                  - `type: Literal["char_location"]`
+
                   - `cited_text: str`
 
                   - `document_index: int`
@@ -36399,9 +36440,9 @@ print(beta_message_tokens_count.context_management)
 
                     minimum: 0
 
-                  - `type: Literal["char_location"]`
-
                 - `class BetaCitationPageLocationParam: …`
+
+                  - `type: Literal["page_location"]`
 
                   - `cited_text: str`
 
@@ -36419,9 +36460,9 @@ print(beta_message_tokens_count.context_management)
 
                     minimum: 1
 
-                  - `type: Literal["page_location"]`
-
                 - `class BetaCitationContentBlockLocationParam: …`
+
+                  - `type: Literal["content_block_location"]`
 
                   - `cited_text: str`
 
@@ -36449,9 +36490,9 @@ print(beta_message_tokens_count.context_management)
 
                     minimum: 0
 
-                  - `type: Literal["content_block_location"]`
-
                 - `class BetaCitationWebSearchResultLocationParam: …`
+
+                  - `type: Literal["web_search_result_location"]`
 
                   - `cited_text: str`
 
@@ -36461,13 +36502,13 @@ print(beta_message_tokens_count.context_management)
 
                     maxLength: 512, minLength: 1
 
-                  - `type: Literal["web_search_result_location"]`
-
                   - `url: str`
 
                     minLength: 1
 
                 - `class BetaCitationSearchResultLocationParam: …`
+
+                  - `type: Literal["search_result_location"]`
 
                   - `cited_text: str`
 
@@ -36499,13 +36540,15 @@ print(beta_message_tokens_count.context_management)
 
                   - `title: Optional[str]`
 
-                  - `type: Literal["search_result_location"]`
-
             - `class BetaImageBlockParam: …`
+
+              - `type: Literal["image"]`
 
               - `source: Source`
 
                 - `class BetaBase64ImageSource: …`
+
+                  - `type: Literal["base64"]`
 
                   - `data: str`
 
@@ -36521,8 +36564,6 @@ print(beta_message_tokens_count.context_management)
 
                     - `"image/webp"`
 
-                  - `type: Literal["base64"]`
-
                 - `class BetaURLImageSource: …`
 
                   - `type: Literal["url"]`
@@ -36531,11 +36572,9 @@ print(beta_message_tokens_count.context_management)
 
                 - `class BetaFileImageSource: …`
 
-                  - `file_id: str`
-
                   - `type: Literal["file"]`
 
-              - `type: Literal["image"]`
+                  - `file_id: str`
 
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -36553,8 +36592,6 @@ print(beta_message_tokens_count.context_management)
 
                   - `"error"`
 
-        - `type: Literal["content"]`
-
       - `class BetaURLPDFSource: …`
 
         - `type: Literal["url"]`
@@ -36563,11 +36600,9 @@ print(beta_message_tokens_count.context_management)
 
       - `class BetaFileDocumentSource: …`
 
-        - `file_id: str`
-
         - `type: Literal["file"]`
 
-    - `type: Literal["document"]`
+        - `file_id: str`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -36585,8 +36620,6 @@ print(beta_message_tokens_count.context_management)
 
       maxLength: 500, minLength: 1
 
-  - `type: Literal["web_fetch_result"]`
-
   - `url: str`
 
     Fetched content URL
@@ -36599,13 +36632,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebFetchTool20250910: …`
 
+  - `type: Literal["web_fetch_20250910"]`
+
   - `name: Literal["web_fetch"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_fetch_20250910"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -36676,13 +36709,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebFetchTool20260209: …`
 
+  - `type: Literal["web_fetch_20260209"]`
+
   - `name: Literal["web_fetch"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_fetch_20260209"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -36755,13 +36788,13 @@ print(beta_message_tokens_count.context_management)
 
   Web fetch tool with use_cache parameter for bypassing cached content.
 
+  - `type: Literal["web_fetch_20260309"]`
+
   - `name: Literal["web_fetch"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_fetch_20260309"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -36836,13 +36869,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebFetchTool20260318: …`
 
+  - `type: Literal["web_fetch_20260318"]`
+
   - `name: Literal["web_fetch"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_fetch_20260318"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -36925,9 +36958,17 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebFetchToolResultBlock: …`
 
+  - `type: Literal["web_fetch_tool_result"]`
+
+    default: web_fetch_tool_result
+
   - `content: Content`
 
     - `class BetaWebFetchToolResultErrorBlock: …`
+
+      - `type: Literal["web_fetch_tool_result_error"]`
+
+        default: web_fetch_tool_result_error
 
       - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -36949,13 +36990,19 @@ print(beta_message_tokens_count.context_management)
 
         - `"unavailable"`
 
-      - `type: Literal["web_fetch_tool_result_error"]`
-
-        default: web_fetch_tool_result_error
+        - `"content_too_large"`
 
     - `class BetaWebFetchBlock: …`
 
+      - `type: Literal["web_fetch_result"]`
+
+        default: web_fetch_result
+
       - `content: BetaDocumentBlock`
+
+        - `type: Literal["document"]`
+
+          default: document
 
         - `citations: Optional[BetaCitationConfig]`
 
@@ -36969,37 +37016,29 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaBase64PDFSource: …`
 
+            - `type: Literal["base64"]`
+
             - `data: str`
 
               format: byte
 
             - `media_type: Literal["application/pdf"]`
 
-            - `type: Literal["base64"]`
-
           - `class BetaPlainTextSource: …`
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
             - `media_type: Literal["text/plain"]`
 
-            - `type: Literal["text"]`
-
         - `title: Optional[str]`
 
           The title of the document
 
-        - `type: Literal["document"]`
-
-          default: document
-
       - `retrieved_at: Optional[str]`
 
         ISO 8601 timestamp when the content was retrieved
-
-      - `type: Literal["web_fetch_result"]`
-
-        default: web_fetch_result
 
       - `url: str`
 
@@ -37008,10 +37047,6 @@ print(beta_message_tokens_count.context_management)
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["web_fetch_tool_result"]`
-
-    default: web_fetch_tool_result
 
   - `caller: Optional[Caller]`
 
@@ -37027,27 +37062,31 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
 ### Beta Web Fetch Tool Result Block Param
 
 - `class BetaWebFetchToolResultBlockParam: …`
 
+  - `type: Literal["web_fetch_tool_result"]`
+
   - `content: Content`
 
     - `class BetaWebFetchToolResultErrorBlockParam: …`
+
+      - `type: Literal["web_fetch_tool_result_error"]`
 
       - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -37069,15 +37108,21 @@ print(beta_message_tokens_count.context_management)
 
         - `"unavailable"`
 
-      - `type: Literal["web_fetch_tool_result_error"]`
+        - `"content_too_large"`
 
     - `class BetaWebFetchBlockParam: …`
 
+      - `type: Literal["web_fetch_result"]`
+
       - `content: BetaRequestDocumentBlock`
+
+        - `type: Literal["document"]`
 
         - `source: Source`
 
           - `class BetaBase64PDFSource: …`
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -37085,17 +37130,17 @@ print(beta_message_tokens_count.context_management)
 
             - `media_type: Literal["application/pdf"]`
 
-            - `type: Literal["base64"]`
-
           - `class BetaPlainTextSource: …`
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
             - `media_type: Literal["text/plain"]`
 
-            - `type: Literal["text"]`
-
           - `class BetaContentBlockSource: …`
+
+            - `type: Literal["content"]`
 
             - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -37105,11 +37150,11 @@ print(beta_message_tokens_count.context_management)
 
                 - `class BetaTextBlockParam: …`
 
+                  - `type: Literal["text"]`
+
                   - `text: str`
 
                     minLength: 1
-
-                  - `type: Literal["text"]`
 
                   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -37136,6 +37181,8 @@ print(beta_message_tokens_count.context_management)
 
                     - `class BetaCitationCharLocationParam: …`
 
+                      - `type: Literal["char_location"]`
+
                       - `cited_text: str`
 
                       - `document_index: int`
@@ -37152,9 +37199,9 @@ print(beta_message_tokens_count.context_management)
 
                         minimum: 0
 
-                      - `type: Literal["char_location"]`
-
                     - `class BetaCitationPageLocationParam: …`
+
+                      - `type: Literal["page_location"]`
 
                       - `cited_text: str`
 
@@ -37172,9 +37219,9 @@ print(beta_message_tokens_count.context_management)
 
                         minimum: 1
 
-                      - `type: Literal["page_location"]`
-
                     - `class BetaCitationContentBlockLocationParam: …`
+
+                      - `type: Literal["content_block_location"]`
 
                       - `cited_text: str`
 
@@ -37202,9 +37249,9 @@ print(beta_message_tokens_count.context_management)
 
                         minimum: 0
 
-                      - `type: Literal["content_block_location"]`
-
                     - `class BetaCitationWebSearchResultLocationParam: …`
+
+                      - `type: Literal["web_search_result_location"]`
 
                       - `cited_text: str`
 
@@ -37214,13 +37261,13 @@ print(beta_message_tokens_count.context_management)
 
                         maxLength: 512, minLength: 1
 
-                      - `type: Literal["web_search_result_location"]`
-
                       - `url: str`
 
                         minLength: 1
 
                     - `class BetaCitationSearchResultLocationParam: …`
+
+                      - `type: Literal["search_result_location"]`
 
                       - `cited_text: str`
 
@@ -37252,13 +37299,15 @@ print(beta_message_tokens_count.context_management)
 
                       - `title: Optional[str]`
 
-                      - `type: Literal["search_result_location"]`
-
                 - `class BetaImageBlockParam: …`
+
+                  - `type: Literal["image"]`
 
                   - `source: Source`
 
                     - `class BetaBase64ImageSource: …`
+
+                      - `type: Literal["base64"]`
 
                       - `data: str`
 
@@ -37274,8 +37323,6 @@ print(beta_message_tokens_count.context_management)
 
                         - `"image/webp"`
 
-                      - `type: Literal["base64"]`
-
                     - `class BetaURLImageSource: …`
 
                       - `type: Literal["url"]`
@@ -37284,11 +37331,9 @@ print(beta_message_tokens_count.context_management)
 
                     - `class BetaFileImageSource: …`
 
-                      - `file_id: str`
-
                       - `type: Literal["file"]`
 
-                  - `type: Literal["image"]`
+                      - `file_id: str`
 
                   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -37306,8 +37351,6 @@ print(beta_message_tokens_count.context_management)
 
                       - `"error"`
 
-            - `type: Literal["content"]`
-
           - `class BetaURLPDFSource: …`
 
             - `type: Literal["url"]`
@@ -37316,11 +37359,9 @@ print(beta_message_tokens_count.context_management)
 
           - `class BetaFileDocumentSource: …`
 
-            - `file_id: str`
-
             - `type: Literal["file"]`
 
-        - `type: Literal["document"]`
+            - `file_id: str`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -37338,8 +37379,6 @@ print(beta_message_tokens_count.context_management)
 
           maxLength: 500, minLength: 1
 
-      - `type: Literal["web_fetch_result"]`
-
       - `url: str`
 
         Fetched content URL
@@ -37351,8 +37390,6 @@ print(beta_message_tokens_count.context_management)
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["web_fetch_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -37372,24 +37409,28 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
 ### Beta Web Fetch Tool Result Error Block
 
 - `class BetaWebFetchToolResultErrorBlock: …`
 
+  - `type: Literal["web_fetch_tool_result_error"]`
+
+    default: web_fetch_tool_result_error
+
   - `error_code: BetaWebFetchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -37410,14 +37451,14 @@ print(beta_message_tokens_count.context_management)
 
     - `"unavailable"`
 
-  - `type: Literal["web_fetch_tool_result_error"]`
-
-    default: web_fetch_tool_result_error
+    - `"content_too_large"`
 
 ### Beta Web Fetch Tool Result Error Block Param
 
 - `class BetaWebFetchToolResultErrorBlockParam: …`
 
+  - `type: Literal["web_fetch_tool_result_error"]`
+
   - `error_code: BetaWebFetchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -37438,11 +37479,11 @@ print(beta_message_tokens_count.context_management)
 
     - `"unavailable"`
 
-  - `type: Literal["web_fetch_tool_result_error"]`
+    - `"content_too_large"`
 
 ### Beta Web Fetch Tool Result Error Code
 
-- `Literal["invalid_tool_input", "url_too_long", "url_not_allowed", 6 more]`
+- `Literal["invalid_tool_input", "url_too_long", "url_not_allowed", 7 more]`
 
   - `"invalid_tool_input"`
 
@@ -37462,9 +37503,15 @@ print(beta_message_tokens_count.context_management)
 
   - `"unavailable"`
 
+  - `"content_too_large"`
+
 ### Beta Web Search Result Block
 
 - `class BetaWebSearchResultBlock: …`
+
+  - `type: Literal["web_search_result"]`
+
+    default: web_search_result
 
   - `encrypted_content: str`
 
@@ -37472,21 +37519,17 @@ print(beta_message_tokens_count.context_management)
 
   - `title: str`
 
-  - `type: Literal["web_search_result"]`
-
-    default: web_search_result
-
   - `url: str`
 
 ### Beta Web Search Result Block Param
 
 - `class BetaWebSearchResultBlockParam: …`
 
+  - `type: Literal["web_search_result"]`
+
   - `encrypted_content: str`
 
   - `title: str`
-
-  - `type: Literal["web_search_result"]`
 
   - `url: str`
 
@@ -37496,13 +37539,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebSearchTool20250305: …`
 
+  - `type: Literal["web_search_20250305"]`
+
   - `name: Literal["web_search"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_search_20250305"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -37591,13 +37634,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebSearchTool20260209: …`
 
+  - `type: Literal["web_search_20260209"]`
+
   - `name: Literal["web_search"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_search_20260209"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -37686,13 +37729,13 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebSearchTool20260318: …`
 
+  - `type: Literal["web_search_20260318"]`
+
   - `name: Literal["web_search"]`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: Literal["web_search_20260318"]`
 
   - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -37789,6 +37832,8 @@ print(beta_message_tokens_count.context_management)
 
 - `class BetaWebSearchToolRequestError: …`
 
+  - `type: Literal["web_search_tool_result_error"]`
+
   - `error_code: BetaWebSearchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -37803,15 +37848,21 @@ print(beta_message_tokens_count.context_management)
 
     - `"request_too_large"`
 
-  - `type: Literal["web_search_tool_result_error"]`
-
 ### Beta Web Search Tool Result Block
 
 - `class BetaWebSearchToolResultBlock: …`
 
+  - `type: Literal["web_search_tool_result"]`
+
+    default: web_search_tool_result
+
   - `content: BetaWebSearchToolResultBlockContent`
 
     - `class BetaWebSearchToolResultError: …`
+
+      - `type: Literal["web_search_tool_result_error"]`
+
+        default: web_search_tool_result_error
 
       - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -37827,11 +37878,11 @@ print(beta_message_tokens_count.context_management)
 
         - `"request_too_large"`
 
-      - `type: Literal["web_search_tool_result_error"]`
-
-        default: web_search_tool_result_error
-
     - `List[BetaWebSearchResultBlock]`
+
+      - `type: Literal["web_search_result"]`
+
+        default: web_search_result
 
       - `encrypted_content: str`
 
@@ -37839,19 +37890,11 @@ print(beta_message_tokens_count.context_management)
 
       - `title: str`
 
-      - `type: Literal["web_search_result"]`
-
-        default: web_search_result
-
       - `url: str`
 
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["web_search_tool_result"]`
-
-    default: web_search_tool_result
 
   - `caller: Optional[Caller]`
 
@@ -37867,25 +37910,29 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
 ### Beta Web Search Tool Result Block Content
 
 - `BetaWebSearchToolResultBlockContent`
 
   - `class BetaWebSearchToolResultError: …`
+
+    - `type: Literal["web_search_tool_result_error"]`
+
+      default: web_search_tool_result_error
 
     - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -37901,11 +37948,11 @@ print(beta_message_tokens_count.context_management)
 
       - `"request_too_large"`
 
-    - `type: Literal["web_search_tool_result_error"]`
-
-      default: web_search_tool_result_error
-
   - `List[BetaWebSearchResultBlock]`
+
+    - `type: Literal["web_search_result"]`
+
+      default: web_search_result
 
     - `encrypted_content: str`
 
@@ -37913,31 +37960,31 @@ print(beta_message_tokens_count.context_management)
 
     - `title: str`
 
-    - `type: Literal["web_search_result"]`
-
-      default: web_search_result
-
     - `url: str`
 
 ### Beta Web Search Tool Result Block Param
 
 - `class BetaWebSearchToolResultBlockParam: …`
 
+  - `type: Literal["web_search_tool_result"]`
+
   - `content: BetaWebSearchToolResultBlockParamContent`
 
     - `List[BetaWebSearchResultBlockParam]`
 
+      - `type: Literal["web_search_result"]`
+
       - `encrypted_content: str`
 
       - `title: str`
-
-      - `type: Literal["web_search_result"]`
 
       - `url: str`
 
       - `page_age: Optional[str]`
 
     - `class BetaWebSearchToolRequestError: …`
+
+      - `type: Literal["web_search_tool_result_error"]`
 
       - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -37953,13 +38000,9 @@ print(beta_message_tokens_count.context_management)
 
         - `"request_too_large"`
 
-      - `type: Literal["web_search_tool_result_error"]`
-
   - `tool_use_id: str`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: Literal["web_search_tool_result"]`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -37996,19 +38039,19 @@ print(beta_message_tokens_count.context_management)
 
       Tool invocation generated by a server-side tool.
 
+      - `type: Literal["code_execution_20250825"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20250825"]`
 
     - `class BetaServerToolCaller20260120: …`
 
+      - `type: Literal["code_execution_20260120"]`
+
       - `tool_id: str`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: Literal["code_execution_20260120"]`
 
 ### Beta Web Search Tool Result Block Param Content
 
@@ -38016,17 +38059,19 @@ print(beta_message_tokens_count.context_management)
 
   - `List[BetaWebSearchResultBlockParam]`
 
+    - `type: Literal["web_search_result"]`
+
     - `encrypted_content: str`
 
     - `title: str`
-
-    - `type: Literal["web_search_result"]`
 
     - `url: str`
 
     - `page_age: Optional[str]`
 
   - `class BetaWebSearchToolRequestError: …`
+
+    - `type: Literal["web_search_tool_result_error"]`
 
     - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -38042,11 +38087,13 @@ print(beta_message_tokens_count.context_management)
 
       - `"request_too_large"`
 
-    - `type: Literal["web_search_tool_result_error"]`
-
 ### Beta Web Search Tool Result Error
 
 - `class BetaWebSearchToolResultError: …`
+
+  - `type: Literal["web_search_tool_result_error"]`
+
+    default: web_search_tool_result_error
 
   - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -38061,10 +38108,6 @@ print(beta_message_tokens_count.context_management)
     - `"query_too_long"`
 
     - `"request_too_large"`
-
-  - `type: Literal["web_search_tool_result_error"]`
-
-    default: web_search_tool_result_error
 
 ### Beta Web Search Tool Result Error Code
 
@@ -38189,11 +38232,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaTextBlockParam: …`
 
+            - `type: Literal["text"]`
+
             - `text: str`
 
               minLength: 1
-
-            - `type: Literal["text"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38220,6 +38263,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaCitationCharLocationParam: …`
 
+                - `type: Literal["char_location"]`
+
                 - `cited_text: str`
 
                 - `document_index: int`
@@ -38236,9 +38281,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: Literal["char_location"]`
-
               - `class BetaCitationPageLocationParam: …`
+
+                - `type: Literal["page_location"]`
 
                 - `cited_text: str`
 
@@ -38256,9 +38301,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `type: Literal["page_location"]`
-
               - `class BetaCitationContentBlockLocationParam: …`
+
+                - `type: Literal["content_block_location"]`
 
                 - `cited_text: str`
 
@@ -38286,9 +38331,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: Literal["content_block_location"]`
-
               - `class BetaCitationWebSearchResultLocationParam: …`
+
+                - `type: Literal["web_search_result_location"]`
 
                 - `cited_text: str`
 
@@ -38298,13 +38343,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512, minLength: 1
 
-                - `type: Literal["web_search_result_location"]`
-
                 - `url: str`
 
                   minLength: 1
 
               - `class BetaCitationSearchResultLocationParam: …`
+
+                - `type: Literal["search_result_location"]`
 
                 - `cited_text: str`
 
@@ -38336,13 +38381,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: Optional[str]`
 
-                - `type: Literal["search_result_location"]`
-
           - `class BetaImageBlockParam: …`
+
+            - `type: Literal["image"]`
 
             - `source: Source`
 
               - `class BetaBase64ImageSource: …`
+
+                - `type: Literal["base64"]`
 
                 - `data: str`
 
@@ -38358,8 +38405,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"image/webp"`
 
-                - `type: Literal["base64"]`
-
               - `class BetaURLImageSource: …`
 
                 - `type: Literal["url"]`
@@ -38368,11 +38413,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaFileImageSource: …`
 
-                - `file_id: str`
-
                 - `type: Literal["file"]`
 
-            - `type: Literal["image"]`
+                - `file_id: str`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38392,9 +38435,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaRequestDocumentBlock: …`
 
+            - `type: Literal["document"]`
+
             - `source: Source`
 
               - `class BetaBase64PDFSource: …`
+
+                - `type: Literal["base64"]`
 
                 - `data: str`
 
@@ -38402,17 +38449,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `media_type: Literal["application/pdf"]`
 
-                - `type: Literal["base64"]`
-
               - `class BetaPlainTextSource: …`
+
+                - `type: Literal["text"]`
 
                 - `data: str`
 
                 - `media_type: Literal["text/plain"]`
 
-                - `type: Literal["text"]`
-
               - `class BetaContentBlockSource: …`
+
+                - `type: Literal["content"]`
 
                 - `content: Union[str, List[BetaContentBlockSourceContent]]`
 
@@ -38424,8 +38471,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `class BetaImageBlockParam: …`
 
-                - `type: Literal["content"]`
-
               - `class BetaURLPDFSource: …`
 
                 - `type: Literal["url"]`
@@ -38434,11 +38479,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaFileDocumentSource: …`
 
-                - `file_id: str`
-
                 - `type: Literal["file"]`
 
-            - `type: Literal["document"]`
+                - `file_id: str`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38458,13 +38501,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaSearchResultBlockParam: …`
 
+            - `type: Literal["search_result"]`
+
             - `content: List[BetaTextBlockParam]`
+
+              - `type: Literal["text"]`
 
               - `text: str`
 
                 minLength: 1
-
-              - `type: Literal["text"]`
 
               - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38476,8 +38521,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `title: str`
 
-            - `type: Literal["search_result"]`
-
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
@@ -38485,6 +38528,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `citations: Optional[BetaCitationsConfigParam]`
 
           - `class BetaThinkingBlockParam: …`
+
+            - `type: Literal["thinking"]`
 
             - `signature: str`
 
@@ -38496,17 +38541,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The `thinking` text of this block as returned by the API.
 
-            - `type: Literal["thinking"]`
-
           - `class BetaRedactedThinkingBlockParam: …`
+
+            - `type: Literal["redacted_thinking"]`
 
             - `data: str`
 
               The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `type: Literal["redacted_thinking"]`
-
           - `class BetaToolUseBlockParam: …`
+
+            - `type: Literal["tool_use"]`
 
             - `id: str`
 
@@ -38517,8 +38562,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `name: str`
 
               maxLength: 200, minLength: 1
-
-            - `type: Literal["tool_use"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38538,19 +38581,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `type: Literal["code_execution_20250825"]`
+
                 - `tool_id: str`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: Literal["code_execution_20250825"]`
 
               - `class BetaServerToolCaller20260120: …`
 
+                - `type: Literal["code_execution_20260120"]`
+
                 - `tool_id: str`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: Literal["code_execution_20260120"]`
 
             - `toolset_name: Optional[str]`
 
@@ -38560,11 +38603,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaToolResultBlockParam: …`
 
+            - `type: Literal["tool_result"]`
+
             - `tool_use_id: str`
 
               pattern: ^[a-zA-Z0-9_-]+$
-
-            - `type: Literal["tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38588,11 +38631,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool reference block that can be included in tool_result content.
 
+                  - `type: Literal["tool_reference"]`
+
                   - `tool_name: str`
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `type: Literal["tool_reference"]`
 
                   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38607,6 +38650,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   At most one per `tool_result`, only on a non-error result answering a
                   browser toolset member `tool_use`. The server renders the
                   model-visible text from it; the model never sees the raw fields.
+
+                  - `type: Literal["browser_state"]`
 
                   - `tabs: List[BetaBrowserStateTabEntry]`
 
@@ -38636,8 +38681,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                  - `type: Literal["browser_state"]`
-
                   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                     Create a cache control breakpoint at this content block.
@@ -38658,25 +38701,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                       during a failed call gets no deferred `tab_opened`; it simply appears
                       in the next result's `tabs` inventory.
 
+                      - `type: Literal["tab_opened"]`
+
                       - `tab_id: str`
 
                         The `tab_id` of the opened tab, present in `tabs`.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `type: Literal["tab_opened"]`
-
                     - `class BetaBrowserStateChangeDownloadStarted: …`
 
                       A file download that started during this call.
+
+                      - `type: Literal["download_started"]`
 
                       - `download_id: str`
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                      - `type: Literal["download_started"]`
 
                       - `url: str`
 
@@ -38691,13 +38734,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                       `download_started`, when the download finished during the call that
                       started it (at most one state change per `download_id` per result).
 
+                      - `type: Literal["download_completed"]`
+
                       - `download_id: str`
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                      - `type: Literal["download_completed"]`
 
                       - `url: str`
 
@@ -38721,13 +38764,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       A file download that failed — or was cancelled — during this call.
 
+                      - `type: Literal["download_failed"]`
+
                       - `download_id: str`
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                      - `type: Literal["download_failed"]`
 
                       - `url: str`
 
@@ -38750,6 +38793,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaServerToolUseBlockParam: …`
+
+            - `type: Literal["server_tool_use"]`
 
             - `id: str`
 
@@ -38775,8 +38820,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_search_tool_bm25"`
 
-            - `type: Literal["server_tool_use"]`
-
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
@@ -38797,21 +38840,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaWebSearchToolResultBlockParam: …`
 
+            - `type: Literal["web_search_tool_result"]`
+
             - `content: BetaWebSearchToolResultBlockParamContent`
 
               - `List[BetaWebSearchResultBlockParam]`
 
+                - `type: Literal["web_search_result"]`
+
                 - `encrypted_content: str`
 
                 - `title: str`
-
-                - `type: Literal["web_search_result"]`
 
                 - `url: str`
 
                 - `page_age: Optional[str]`
 
               - `class BetaWebSearchToolRequestError: …`
+
+                - `type: Literal["web_search_tool_result_error"]`
 
                 - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -38827,13 +38874,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"request_too_large"`
 
-                - `type: Literal["web_search_tool_result_error"]`
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["web_search_tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38855,9 +38898,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaWebFetchToolResultBlockParam: …`
 
+            - `type: Literal["web_fetch_tool_result"]`
+
             - `content: Content`
 
               - `class BetaWebFetchToolResultErrorBlockParam: …`
+
+                - `type: Literal["web_fetch_tool_result_error"]`
 
                 - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -38879,13 +38926,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"unavailable"`
 
-                - `type: Literal["web_fetch_tool_result_error"]`
+                  - `"content_too_large"`
 
               - `class BetaWebFetchBlockParam: …`
 
-                - `content: BetaRequestDocumentBlock`
-
                 - `type: Literal["web_fetch_result"]`
+
+                - `content: BetaRequestDocumentBlock`
 
                 - `url: str`
 
@@ -38898,8 +38945,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["web_fetch_tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -38921,9 +38966,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaAdvisorToolResultBlockParam: …`
 
+            - `type: Literal["advisor_tool_result"]`
+
             - `content: Content`
 
               - `class BetaAdvisorToolResultErrorParam: …`
+
+                - `type: Literal["advisor_tool_result_error"]`
 
                 - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -38941,23 +38990,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"model_not_found"`
 
-                - `type: Literal["advisor_tool_result_error"]`
-
               - `class BetaAdvisorResultBlockParam: …`
 
-                - `text: str`
-
                 - `type: Literal["advisor_result"]`
+
+                - `text: str`
 
                 - `stop_reason: Optional[str]`
 
               - `class BetaAdvisorRedactedResultBlockParam: …`
 
+                - `type: Literal["advisor_redacted_result"]`
+
                 - `encrypted_content: str`
 
                   Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-                - `type: Literal["advisor_redacted_result"]`
 
                 - `stop_reason: Optional[str]`
 
@@ -38965,19 +39012,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["advisor_tool_result"]`
-
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
 
           - `class BetaCodeExecutionToolResultBlockParam: …`
 
+            - `type: Literal["code_execution_tool_result"]`
+
             - `content: BetaCodeExecutionToolResultBlockParamContent`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class BetaCodeExecutionToolResultErrorParam: …`
+
+                - `type: Literal["code_execution_tool_result_error"]`
 
                 - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -38989,15 +39038,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: Literal["code_execution_tool_result_error"]`
-
               - `class BetaCodeExecutionResultBlockParam: …`
+
+                - `type: Literal["code_execution_result"]`
 
                 - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-                  - `file_id: str`
-
                   - `type: Literal["code_execution_output"]`
+
+                  - `file_id: str`
 
                 - `return_code: int`
 
@@ -39005,17 +39054,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: str`
 
-                - `type: Literal["code_execution_result"]`
-
               - `class BetaEncryptedCodeExecutionResultBlockParam: …`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
+                - `type: Literal["encrypted_code_execution_result"]`
+
                 - `content: List[BetaCodeExecutionOutputBlockParam]`
 
-                  - `file_id: str`
-
                   - `type: Literal["code_execution_output"]`
+
+                  - `file_id: str`
 
                 - `encrypted_stdout: str`
 
@@ -39023,13 +39072,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stderr: str`
 
-                - `type: Literal["encrypted_code_execution_result"]`
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["code_execution_tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39037,9 +39082,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaBashCodeExecutionToolResultBlockParam: …`
 
+            - `type: Literal["bash_code_execution_tool_result"]`
+
             - `content: Content`
 
               - `class BetaBashCodeExecutionToolResultErrorParam: …`
+
+                - `type: Literal["bash_code_execution_tool_result_error"]`
 
                 - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -39053,15 +39102,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"output_file_too_large"`
 
-                - `type: Literal["bash_code_execution_tool_result_error"]`
-
               - `class BetaBashCodeExecutionResultBlockParam: …`
+
+                - `type: Literal["bash_code_execution_result"]`
 
                 - `content: List[BetaBashCodeExecutionOutputBlockParam]`
 
-                  - `file_id: str`
-
                   - `type: Literal["bash_code_execution_output"]`
+
+                  - `file_id: str`
 
                 - `return_code: int`
 
@@ -39069,13 +39118,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: str`
 
-                - `type: Literal["bash_code_execution_result"]`
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["bash_code_execution_tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39083,9 +39128,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
 
+            - `type: Literal["text_editor_code_execution_tool_result"]`
+
             - `content: Content`
 
               - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+
+                - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
                 - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -39099,11 +39148,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"file_not_found"`
 
-                - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
                 - `error_message: Optional[str]`
 
               - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+
+                - `type: Literal["text_editor_code_execution_view_result"]`
 
                 - `content: str`
 
@@ -39115,8 +39164,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"pdf"`
 
-                - `type: Literal["text_editor_code_execution_view_result"]`
-
                 - `num_lines: Optional[int]`
 
                 - `start_line: Optional[int]`
@@ -39125,9 +39172,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
 
-                - `is_file_update: bool`
-
                 - `type: Literal["text_editor_code_execution_create_result"]`
+
+                - `is_file_update: bool`
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
@@ -39147,17 +39194,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["text_editor_code_execution_tool_result"]`
-
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
 
           - `class BetaToolSearchToolResultBlockParam: …`
 
+            - `type: Literal["tool_search_tool_result"]`
+
             - `content: Content`
 
               - `class BetaToolSearchToolResultErrorParam: …`
+
+                - `type: Literal["tool_search_tool_result_error"]`
 
                 - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -39169,37 +39218,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: Literal["tool_search_tool_result_error"]`
-
                 - `error_message: Optional[str]`
 
               - `class BetaToolSearchToolSearchResultBlockParam: …`
 
+                - `type: Literal["tool_search_tool_search_result"]`
+
                 - `tool_references: List[BetaToolReferenceBlockParam]`
+
+                  - `type: Literal["tool_reference"]`
 
                   - `tool_name: str`
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `type: Literal["tool_reference"]`
-
                   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
                     Create a cache control breakpoint at this content block.
 
-                - `type: Literal["tool_search_tool_search_result"]`
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["tool_search_tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
 
           - `class BetaMCPToolUseBlockParam: …`
+
+            - `type: Literal["mcp_tool_use"]`
 
             - `id: str`
 
@@ -39213,19 +39260,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-            - `type: Literal["mcp_tool_use"]`
-
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
 
           - `class BetaRequestMCPToolResultBlockParam: …`
 
+            - `type: Literal["mcp_tool_result"]`
+
             - `tool_use_id: str`
 
               pattern: ^[a-zA-Z0-9_-]+$
-
-            - `type: Literal["mcp_tool_result"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39237,11 +39282,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `List[BetaTextBlockParam]`
 
+                - `type: Literal["text"]`
+
                 - `text: str`
 
                   minLength: 1
-
-                - `type: Literal["text"]`
 
                 - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39256,9 +39301,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             A content block that represents a file to be uploaded to the container
             Files uploaded via this block will be available in the container's input directory.
 
-            - `file_id: str`
-
             - `type: Literal["container_upload"]`
+
+            - `file_id: str`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39296,6 +39341,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             `tools`; it is offered to the model from this point in the
             conversation onward.
 
+            - `type: Literal["tool_addition"]`
+
             - `tool: Tool`
 
               Reference to a single tool the caller declared directly in
@@ -39310,32 +39357,30 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 server assigns to MCP-resolved tools — use `mcp_tool_reference` or
                 `mcp_toolset_reference` for those.
 
+                - `type: Literal["tool_reference"]`
+
                 - `name: str`
 
                   pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-                - `type: Literal["tool_reference"]`
 
               - `class BetaToolChangeMCPToolReference: …`
 
                 Reference to a single MCP tool by its server and remote name — the
                 same `server_name`/`name` pair `mcp_tool_use` carries.
 
+                - `type: Literal["mcp_tool_reference"]`
+
                 - `name: str`
 
                 - `server_name: str`
-
-                - `type: Literal["mcp_tool_reference"]`
 
               - `class BetaToolChangeMCPToolsetReference: …`
 
                 Reference to every tool in the named MCP server's toolset.
 
-                - `server_name: str`
-
                 - `type: Literal["mcp_toolset_reference"]`
 
-            - `type: Literal["tool_addition"]`
+                - `server_name: str`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39349,6 +39394,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             `tools`; it is no longer offered to the model from this point in the
             conversation onward.
 
+            - `type: Literal["tool_removal"]`
+
             - `tool: Tool`
 
               Reference to a single tool the caller declared directly in
@@ -39371,8 +39418,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `class BetaToolChangeMCPToolsetReference: …`
 
                 Reference to every tool in the named MCP server's toolset.
-
-            - `type: Literal["tool_removal"]`
 
             - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -39393,6 +39438,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             request is rejected), and moving it into the middle of a single run is
             likewise rejected; between non-thinking blocks the block's placement has
             no validation effect.
+
+            - `type: Literal["fallback"]`
 
             - `from_: BetaFallbackInfoParam`
 
@@ -39502,8 +39549,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Identifies one hop of a fallback transition.
 
-            - `type: Literal["fallback"]`
-
             - `trigger: Optional[object]`
 
               The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -39574,12 +39619,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           maxItems: 20
 
-          - `skill_id: str`
-
-            Skill ID
-
-            maxLength: 64, minLength: 1
-
           - `type: Literal["anthropic", "custom"]`
 
             Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -39587,6 +39626,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `"anthropic"`
 
             - `"custom"`
+
+          - `skill_id: str`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `version: Optional[str]`
 
@@ -39798,25 +39843,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+            - `type: Literal["json_schema"]`
+
             - `schema: Dict[str, object]`
 
               The JSON schema of the format
 
-            - `type: Literal["json_schema"]`
-
           - `task_budget: Optional[BetaTokenTaskBudget]`
 
             User-configurable total token budget across contexts.
+
+            - `type: Literal["tokens"]`
+
+              The budget type. Currently only 'tokens' is supported.
 
             - `total: int`
 
               Total token budget across all contexts in the session.
 
               minimum: 1024
-
-            - `type: Literal["tokens"]`
-
-              The budget type. Currently only 'tokens' is supported.
 
             - `remaining: Optional[int]`
 
@@ -39836,6 +39881,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaThinkingConfigEnabled: …`
 
+            - `type: Literal["enabled"]`
+
             - `budget_tokens: int`
 
               Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -39845,8 +39892,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
               minimum: 1024
-
-            - `type: Literal["enabled"]`
 
             - `block_binding: Optional[BetaThinkingBlockBinding]`
 
@@ -39912,9 +39957,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       maxItems: 20
 
-      - `name: str`
-
       - `type: Literal["url"]`
+
+      - `name: str`
 
       - `url: str`
 
@@ -39984,11 +40029,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `Iterable[BetaTextBlockParam]`
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           minLength: 1
-
-        - `type: Literal["text"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -40042,11 +40087,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         The model will use the specified tool with `tool_choice.name`.
 
+        - `type: Literal["tool"]`
+
         - `name: str`
 
           The name of the tool to use.
-
-        - `type: Literal["tool"]`
 
         - `disable_parallel_tool_use: Optional[bool]`
 
@@ -40126,6 +40171,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaTool: …`
 
+        - `type: Optional[Literal["custom"]]`
+
         - `input_schema: InputSchema`
 
           [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -40180,17 +40227,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-        - `type: Optional[Literal["custom"]]`
-
       - `class BetaToolBash20241022: …`
+
+        - `type: Literal["bash_20241022"]`
 
         - `name: Literal["bash"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["bash_20241022"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40218,13 +40263,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolBash20250124: …`
 
+        - `type: Literal["bash_20250124"]`
+
         - `name: Literal["bash"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["bash_20250124"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40252,13 +40297,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaCodeExecutionTool20250522: …`
 
+        - `type: Literal["code_execution_20250522"]`
+
         - `name: Literal["code_execution"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["code_execution_20250522"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40284,13 +40329,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaCodeExecutionTool20250825: …`
 
+        - `type: Literal["code_execution_20250825"]`
+
         - `name: Literal["code_execution"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["code_execution_20250825"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40318,13 +40363,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+        - `type: Literal["code_execution_20260120"]`
+
         - `name: Literal["code_execution"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["code_execution_20260120"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40352,13 +40397,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Code execution tool with REPL state persistence.
 
+        - `type: Literal["code_execution_20260521"]`
+
         - `name: Literal["code_execution"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["code_execution_20260521"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40403,6 +40448,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           accepted key, and a member's defaults apply wherever its key is
           absent. Unknown keys are rejected: the field set is this toolset
           version's complete member set.
+
+          - `type: Optional[BetaBrowserTypeConfig]`
+
+            `type`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
           - `close_tab: Optional[BetaBrowserCloseTabConfig]`
 
@@ -40740,18 +40797,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-          - `type: Optional[BetaBrowserTypeConfig]`
-
-            `type`'s config overrides.
-
-            - `defer_loading: Optional[bool]`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled: Optional[bool]`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
           - `wait: Optional[BetaBrowserWaitConfig]`
 
             `wait`'s config overrides.
@@ -40778,6 +40823,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolComputerUse20241022: …`
 
+        - `type: Literal["computer_20241022"]`
+
         - `display_height_px: int`
 
           The height of the display in pixels.
@@ -40795,8 +40842,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["computer_20241022"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40830,13 +40875,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaMemoryTool20250818: …`
 
+        - `type: Literal["memory_20250818"]`
+
         - `name: Literal["memory"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["memory_20250818"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40864,6 +40909,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolComputerUse20250124: …`
 
+        - `type: Literal["computer_20250124"]`
+
         - `display_height_px: int`
 
           The height of the display in pixels.
@@ -40881,8 +40928,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["computer_20250124"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40916,13 +40961,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolTextEditor20241022: …`
 
+        - `type: Literal["text_editor_20241022"]`
+
         - `name: Literal["str_replace_editor"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["text_editor_20241022"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -40950,6 +40995,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolComputerUse20251124: …`
 
+        - `type: Literal["computer_20251124"]`
+
         - `display_height_px: int`
 
           The height of the display in pixels.
@@ -40967,8 +41014,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["computer_20251124"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41029,6 +41074,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           accepted key, and a member's defaults apply wherever its key is
           absent. Unknown keys are rejected: the field set is this toolset
           version's complete member set.
+
+          - `type: Optional[BetaComputerTypeConfig]`
+
+            `type`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
           - `cursor_position: Optional[BetaComputerCursorPositionConfig]`
 
@@ -41198,18 +41255,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-          - `type: Optional[BetaComputerTypeConfig]`
-
-            `type`'s config overrides.
-
-            - `defer_loading: Optional[bool]`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled: Optional[bool]`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
           - `wait: Optional[BetaComputerWaitConfig]`
 
             `wait`'s config overrides.
@@ -41236,13 +41281,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolTextEditor20250124: …`
 
+        - `type: Literal["text_editor_20250124"]`
+
         - `name: Literal["str_replace_editor"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["text_editor_20250124"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41270,13 +41315,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolTextEditor20250429: …`
 
+        - `type: Literal["text_editor_20250429"]`
+
         - `name: Literal["str_replace_based_edit_tool"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["text_editor_20250429"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41304,13 +41349,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolTextEditor20250728: …`
 
+        - `type: Literal["text_editor_20250728"]`
+
         - `name: Literal["str_replace_based_edit_tool"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["text_editor_20250728"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41344,13 +41389,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaWebSearchTool20250305: …`
 
+        - `type: Literal["web_search_20250305"]`
+
         - `name: Literal["web_search"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_search_20250305"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41420,13 +41465,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaWebFetchTool20250910: …`
 
+        - `type: Literal["web_fetch_20250910"]`
+
         - `name: Literal["web_fetch"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_fetch_20250910"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41476,13 +41521,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaWebSearchTool20260209: …`
 
+        - `type: Literal["web_search_20260209"]`
+
         - `name: Literal["web_search"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_search_20260209"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41526,13 +41571,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaWebFetchTool20260209: …`
 
+        - `type: Literal["web_fetch_20260209"]`
+
         - `name: Literal["web_fetch"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_fetch_20260209"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41584,13 +41629,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Web fetch tool with use_cache parameter for bypassing cached content.
 
+        - `type: Literal["web_fetch_20260309"]`
+
         - `name: Literal["web_fetch"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_fetch_20260309"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41644,13 +41689,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaWebSearchTool20260318: …`
 
+        - `type: Literal["web_search_20260318"]`
+
         - `name: Literal["web_search"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_search_20260318"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41702,13 +41747,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaWebFetchTool20260318: …`
 
+        - `type: Literal["web_fetch_20260318"]`
+
         - `name: Literal["web_fetch"]`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["web_fetch_20260318"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41770,6 +41815,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaAdvisorTool20260301: …`
 
+        - `type: Literal["advisor_20260301"]`
+
         - `model: Model`
 
           The model that will complete your prompt.
@@ -41781,8 +41828,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: Literal["advisor_20260301"]`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41824,17 +41869,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolSearchToolBm25_20251119: …`
 
-        - `name: Literal["tool_search_tool_bm25"]`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
         - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
           - `"tool_search_tool_bm25_20251119"`
 
           - `"tool_search_tool_bm25"`
+
+        - `name: Literal["tool_search_tool_bm25"]`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41860,17 +41905,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaToolSearchToolRegex20251119: …`
 
-        - `name: Literal["tool_search_tool_regex"]`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
         - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
           - `"tool_search_tool_regex_20251119"`
 
           - `"tool_search_tool_regex"`
+
+        - `name: Literal["tool_search_tool_regex"]`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -41901,13 +41946,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         Allows configuring enabled status and defer_loading for all tools
         from an MCP server, with optional per-tool overrides.
 
+        - `type: Literal["mcp_toolset"]`
+
         - `mcp_server_name: str`
 
           Name of the MCP server to configure tools for
 
           maxLength: 255, minLength: 1
-
-        - `type: Literal["mcp_toolset"]`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -41935,7 +41980,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -41983,6 +42028,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -42029,9 +42076,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaMessageBatch: …`
+
+  - `type: Literal["message_batch"]`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: str`
 
@@ -42130,14 +42187,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: Literal["message_batch"]`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 #### Example
 
@@ -42215,7 +42264,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -42263,6 +42312,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -42305,9 +42356,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaMessageBatch: …`
+
+  - `type: Literal["message_batch"]`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: str`
 
@@ -42406,14 +42467,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: Literal["message_batch"]`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 #### Example
 
@@ -42489,7 +42542,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -42537,6 +42590,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -42579,9 +42634,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaMessageBatch: …`
+
+  - `type: Literal["message_batch"]`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: str`
 
@@ -42680,14 +42745,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: Literal["message_batch"]`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 #### Example
 
@@ -42759,7 +42816,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -42807,6 +42864,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -42849,9 +42908,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaMessageBatch: …`
+
+  - `type: Literal["message_batch"]`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: str`
 
@@ -42951,14 +43020,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `type: Literal["message_batch"]`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
-
 #### Example
 
 ```python
@@ -43023,7 +43084,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -43071,6 +43132,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -43113,13 +43176,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaDeletedMessageBatch: …`
-
-  - `id: str`
-
-    ID of the Message Batch.
 
   - `type: Literal["message_batch_deleted"]`
 
@@ -43128,6 +43189,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     For Message Batches, this is always `"message_batch_deleted"`.
 
     default: message_batch_deleted
+
+  - `id: str`
+
+    ID of the Message Batch.
 
 #### Example
 
@@ -43179,7 +43244,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -43227,6 +43292,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -43269,6 +43336,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaMessageBatchIndividualResponse: …`
@@ -43289,7 +43358,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `class BetaMessageBatchSucceededResult: …`
 
+      - `type: Literal["succeeded"]`
+
+        default: succeeded
+
       - `message: BetaMessage`
+
+        - `type: Literal["message"]`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
+
+          default: message
 
         - `id: str`
 
@@ -43315,12 +43396,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `skill_id: str`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `type: Literal["anthropic", "custom"]`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -43328,6 +43403,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `"anthropic"`
 
               - `"custom"`
+
+            - `skill_id: str`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `version: str`
 
@@ -43366,6 +43447,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaTextBlock: …`
 
+            - `type: Literal["text"]`
+
+              default: text
+
             - `citations: Optional[List[BetaTextCitation]]`
 
               Citations supporting the text block.
@@ -43373,6 +43458,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `class BetaCitationCharLocation: …`
+
+                - `type: Literal["char_location"]`
+
+                  default: char_location
 
                 - `cited_text: str`
 
@@ -43390,11 +43479,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: Literal["char_location"]`
-
-                  default: char_location
-
               - `class BetaCitationPageLocation: …`
+
+                - `type: Literal["page_location"]`
+
+                  default: page_location
 
                 - `cited_text: str`
 
@@ -43412,11 +43501,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `type: Literal["page_location"]`
-
-                  default: page_location
-
               - `class BetaCitationContentBlockLocation: …`
+
+                - `type: Literal["content_block_location"]`
+
+                  default: content_block_location
 
                 - `cited_text: str`
 
@@ -43444,11 +43533,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: Literal["content_block_location"]`
-
-                  default: content_block_location
-
               - `class BetaCitationsWebSearchResultLocation: …`
+
+                - `type: Literal["web_search_result_location"]`
+
+                  default: web_search_result_location
 
                 - `cited_text: str`
 
@@ -43458,13 +43547,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `type: Literal["web_search_result_location"]`
-
-                  default: web_search_result_location
-
                 - `url: str`
 
               - `class BetaCitationSearchResultLocation: …`
+
+                - `type: Literal["search_result_location"]`
+
+                  default: search_result_location
 
                 - `cited_text: str`
 
@@ -43496,19 +43585,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: Optional[str]`
 
-                - `type: Literal["search_result_location"]`
-
-                  default: search_result_location
-
             - `text: str`
 
-              maxLength: 5000000, minLength: 0
-
-            - `type: Literal["text"]`
-
-              default: text
+              minLength: 0
 
           - `class BetaThinkingBlock: …`
+
+            - `type: Literal["thinking"]`
+
+              default: thinking
 
             - `signature: str`
 
@@ -43522,11 +43607,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `type: Literal["thinking"]`
-
-              default: thinking
-
           - `class BetaRedactedThinkingBlock: …`
+
+            - `type: Literal["redacted_thinking"]`
+
+              default: redacted_thinking
 
             - `data: str`
 
@@ -43536,11 +43621,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `type: Literal["redacted_thinking"]`
-
-              default: redacted_thinking
-
           - `class BetaToolUseBlock: …`
+
+            - `type: Literal["tool_use"]`
+
+              default: tool_use
 
             - `id: str`
 
@@ -43551,10 +43636,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `name: str`
 
               minLength: 1
-
-            - `type: Literal["tool_use"]`
-
-              default: tool_use
 
             - `caller: Optional[Caller]`
 
@@ -43570,19 +43651,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `type: Literal["code_execution_20250825"]`
+
                 - `tool_id: str`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: Literal["code_execution_20250825"]`
 
               - `class BetaServerToolCaller20260120: …`
 
+                - `type: Literal["code_execution_20260120"]`
+
                 - `tool_id: str`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: Literal["code_execution_20260120"]`
 
             - `toolset_name: Optional[str]`
 
@@ -43591,6 +43672,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaServerToolUseBlock: …`
+
+            - `type: Literal["server_tool_use"]`
+
+              default: server_tool_use
 
             - `id: str`
 
@@ -43616,10 +43701,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_search_tool_bm25"`
 
-            - `type: Literal["server_tool_use"]`
-
-              default: server_tool_use
-
             - `caller: Optional[Caller]`
 
               Tool invocation directly from the model.
@@ -43636,9 +43717,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaWebSearchToolResultBlock: …`
 
+            - `type: Literal["web_search_tool_result"]`
+
+              default: web_search_tool_result
+
             - `content: BetaWebSearchToolResultBlockContent`
 
               - `class BetaWebSearchToolResultError: …`
+
+                - `type: Literal["web_search_tool_result_error"]`
+
+                  default: web_search_tool_result_error
 
                 - `error_code: BetaWebSearchToolResultErrorCode`
 
@@ -43654,11 +43743,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"request_too_large"`
 
-                - `type: Literal["web_search_tool_result_error"]`
-
-                  default: web_search_tool_result_error
-
               - `List[BetaWebSearchResultBlock]`
+
+                - `type: Literal["web_search_result"]`
+
+                  default: web_search_result
 
                 - `encrypted_content: str`
 
@@ -43666,19 +43755,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: str`
 
-                - `type: Literal["web_search_result"]`
-
-                  default: web_search_result
-
                 - `url: str`
 
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["web_search_tool_result"]`
-
-              default: web_search_tool_result
 
             - `caller: Optional[Caller]`
 
@@ -43696,9 +43777,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaWebFetchToolResultBlock: …`
 
+            - `type: Literal["web_fetch_tool_result"]`
+
+              default: web_fetch_tool_result
+
             - `content: Content`
 
               - `class BetaWebFetchToolResultErrorBlock: …`
+
+                - `type: Literal["web_fetch_tool_result_error"]`
+
+                  default: web_fetch_tool_result_error
 
                 - `error_code: BetaWebFetchToolResultErrorCode`
 
@@ -43720,13 +43809,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"unavailable"`
 
-                - `type: Literal["web_fetch_tool_result_error"]`
-
-                  default: web_fetch_tool_result_error
+                  - `"content_too_large"`
 
               - `class BetaWebFetchBlock: …`
 
+                - `type: Literal["web_fetch_result"]`
+
+                  default: web_fetch_result
+
                 - `content: BetaDocumentBlock`
+
+                  - `type: Literal["document"]`
+
+                    default: document
 
                   - `citations: Optional[BetaCitationConfig]`
 
@@ -43740,37 +43835,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `class BetaBase64PDFSource: …`
 
+                      - `type: Literal["base64"]`
+
                       - `data: str`
 
                         format: byte
 
                       - `media_type: Literal["application/pdf"]`
 
-                      - `type: Literal["base64"]`
-
                     - `class BetaPlainTextSource: …`
+
+                      - `type: Literal["text"]`
 
                       - `data: str`
 
                       - `media_type: Literal["text/plain"]`
 
-                      - `type: Literal["text"]`
-
                   - `title: Optional[str]`
 
                     The title of the document
 
-                  - `type: Literal["document"]`
-
-                    default: document
-
                 - `retrieved_at: Optional[str]`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `type: Literal["web_fetch_result"]`
-
-                  default: web_fetch_result
 
                 - `url: str`
 
@@ -43779,10 +43866,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: Literal["web_fetch_tool_result"]`
-
-              default: web_fetch_tool_result
 
             - `caller: Optional[Caller]`
 
@@ -43800,9 +43883,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class BetaAdvisorToolResultBlock: …`
 
+            - `type: Literal["advisor_tool_result"]`
+
+              default: advisor_tool_result
+
             - `content: Content`
 
               - `class BetaAdvisorToolResultError: …`
+
+                - `type: Literal["advisor_tool_result_error"]`
+
+                  default: advisor_tool_result_error
 
                 - `error_code: Literal["max_uses_exceeded", "prompt_too_long", "too_many_requests", 4 more]`
 
@@ -43820,11 +43911,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"model_not_found"`
 
-                - `type: Literal["advisor_tool_result_error"]`
-
-                  default: advisor_tool_result_error
-
               - `class BetaAdvisorResultBlock: …`
+
+                - `type: Literal["advisor_result"]`
+
+                  default: advisor_result
 
                 - `stop_reason: Optional[str]`
 
@@ -43832,11 +43923,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `text: str`
 
-                - `type: Literal["advisor_result"]`
-
-                  default: advisor_result
-
               - `class BetaAdvisorRedactedResultBlock: …`
+
+                - `type: Literal["advisor_redacted_result"]`
+
+                  default: advisor_redacted_result
 
                 - `encrypted_content: str`
 
@@ -43846,25 +43937,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `type: Literal["advisor_redacted_result"]`
-
-                  default: advisor_redacted_result
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["advisor_tool_result"]`
-
-              default: advisor_tool_result
-
           - `class BetaCodeExecutionToolResultBlock: …`
+
+            - `type: Literal["code_execution_tool_result"]`
+
+              default: code_execution_tool_result
 
             - `content: BetaCodeExecutionToolResultBlockContent`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class BetaCodeExecutionToolResultError: …`
+
+                - `type: Literal["code_execution_tool_result_error"]`
+
+                  default: code_execution_tool_result_error
 
                 - `error_code: BetaCodeExecutionToolResultErrorCode`
 
@@ -43876,19 +43967,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: Literal["code_execution_tool_result_error"]`
-
-                  default: code_execution_tool_result_error
-
               - `class BetaCodeExecutionResultBlock: …`
 
-                - `content: List[BetaCodeExecutionOutputBlock]`
+                - `type: Literal["code_execution_result"]`
 
-                  - `file_id: str`
+                  default: code_execution_result
+
+                - `content: List[BetaCodeExecutionOutputBlock]`
 
                   - `type: Literal["code_execution_output"]`
 
                     default: code_execution_output
+
+                  - `file_id: str`
 
                 - `return_code: int`
 
@@ -43896,21 +43987,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: str`
 
-                - `type: Literal["code_execution_result"]`
-
-                  default: code_execution_result
-
               - `class BetaEncryptedCodeExecutionResultBlock: …`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
-                - `content: List[BetaCodeExecutionOutputBlock]`
+                - `type: Literal["encrypted_code_execution_result"]`
 
-                  - `file_id: str`
+                  default: encrypted_code_execution_result
+
+                - `content: List[BetaCodeExecutionOutputBlock]`
 
                   - `type: Literal["code_execution_output"]`
 
                     default: code_execution_output
+
+                  - `file_id: str`
 
                 - `encrypted_stdout: str`
 
@@ -43918,23 +44009,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stderr: str`
 
-                - `type: Literal["encrypted_code_execution_result"]`
-
-                  default: encrypted_code_execution_result
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["code_execution_tool_result"]`
-
-              default: code_execution_tool_result
-
           - `class BetaBashCodeExecutionToolResultBlock: …`
+
+            - `type: Literal["bash_code_execution_tool_result"]`
+
+              default: bash_code_execution_tool_result
 
             - `content: Content`
 
               - `class BetaBashCodeExecutionToolResultError: …`
+
+                - `type: Literal["bash_code_execution_tool_result_error"]`
+
+                  default: bash_code_execution_tool_result_error
 
                 - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -43948,19 +44039,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"output_file_too_large"`
 
-                - `type: Literal["bash_code_execution_tool_result_error"]`
-
-                  default: bash_code_execution_tool_result_error
-
               - `class BetaBashCodeExecutionResultBlock: …`
 
-                - `content: List[BetaBashCodeExecutionOutputBlock]`
+                - `type: Literal["bash_code_execution_result"]`
 
-                  - `file_id: str`
+                  default: bash_code_execution_result
+
+                - `content: List[BetaBashCodeExecutionOutputBlock]`
 
                   - `type: Literal["bash_code_execution_output"]`
 
                     default: bash_code_execution_output
+
+                  - `file_id: str`
 
                 - `return_code: int`
 
@@ -43968,23 +44059,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: str`
 
-                - `type: Literal["bash_code_execution_result"]`
-
-                  default: bash_code_execution_result
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["bash_code_execution_tool_result"]`
-
-              default: bash_code_execution_tool_result
-
           - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+
+            - `type: Literal["text_editor_code_execution_tool_result"]`
+
+              default: text_editor_code_execution_tool_result
 
             - `content: Content`
 
               - `class BetaTextEditorCodeExecutionToolResultError: …`
+
+                - `type: Literal["text_editor_code_execution_tool_result_error"]`
+
+                  default: text_editor_code_execution_tool_result_error
 
                 - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
 
@@ -44000,11 +44091,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `error_message: Optional[str]`
 
-                - `type: Literal["text_editor_code_execution_tool_result_error"]`
-
-                  default: text_editor_code_execution_tool_result_error
-
               - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+
+                - `type: Literal["text_editor_code_execution_view_result"]`
+
+                  default: text_editor_code_execution_view_result
 
                 - `content: str`
 
@@ -44022,19 +44113,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `total_lines: Optional[int]`
 
-                - `type: Literal["text_editor_code_execution_view_result"]`
-
-                  default: text_editor_code_execution_view_result
-
               - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
-
-                - `is_file_update: bool`
 
                 - `type: Literal["text_editor_code_execution_create_result"]`
 
                   default: text_editor_code_execution_create_result
 
+                - `is_file_update: bool`
+
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+
+                - `type: Literal["text_editor_code_execution_str_replace_result"]`
+
+                  default: text_editor_code_execution_str_replace_result
 
                 - `lines: Optional[List[str]]`
 
@@ -44046,23 +44137,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `old_start: Optional[int]`
 
-                - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-                  default: text_editor_code_execution_str_replace_result
-
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["text_editor_code_execution_tool_result"]`
-
-              default: text_editor_code_execution_tool_result
-
           - `class BetaToolSearchToolResultBlock: …`
+
+            - `type: Literal["tool_search_tool_result"]`
+
+              default: tool_search_tool_result
 
             - `content: Content`
 
               - `class BetaToolSearchToolResultError: …`
+
+                - `type: Literal["tool_search_tool_result_error"]`
+
+                  default: tool_search_tool_result_error
 
                 - `error_code: Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
 
@@ -44076,35 +44167,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `error_message: Optional[str]`
 
-                - `type: Literal["tool_search_tool_result_error"]`
-
-                  default: tool_search_tool_result_error
-
               - `class BetaToolSearchToolSearchResultBlock: …`
-
-                - `tool_references: List[BetaToolReferenceBlock]`
-
-                  - `tool_name: str`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `type: Literal["tool_reference"]`
-
-                    default: tool_reference
 
                 - `type: Literal["tool_search_tool_search_result"]`
 
                   default: tool_search_tool_search_result
 
+                - `tool_references: List[BetaToolReferenceBlock]`
+
+                  - `type: Literal["tool_reference"]`
+
+                    default: tool_reference
+
+                  - `tool_name: str`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `tool_use_id: str`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: Literal["tool_search_tool_result"]`
-
-              default: tool_search_tool_result
-
           - `class BetaMCPToolUseBlock: …`
+
+            - `type: Literal["mcp_tool_use"]`
+
+              default: mcp_tool_use
 
             - `id: str`
 
@@ -44120,17 +44207,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-            - `type: Literal["mcp_tool_use"]`
-
-              default: mcp_tool_use
-
           - `class BetaMCPToolResultBlock: …`
+
+            - `type: Literal["mcp_tool_result"]`
+
+              default: mcp_tool_result
 
             - `content: Union[str, List[BetaTextBlock]]`
 
               - `str`
 
               - `List[BetaTextBlock]`
+
+                - `type: Literal["text"]`
+
+                  default: text
 
                 - `citations: Optional[List[BetaTextCitation]]`
 
@@ -44140,11 +44231,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `text: str`
 
-                  maxLength: 5000000, minLength: 0
-
-                - `type: Literal["text"]`
-
-                  default: text
+                  minLength: 0
 
             - `is_error: bool`
 
@@ -44154,19 +44241,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `type: Literal["mcp_tool_result"]`
-
-              default: mcp_tool_result
-
           - `class BetaContainerUploadBlock: …`
 
             Response model for a file uploaded to the container.
 
-            - `file_id: str`
-
             - `type: Literal["container_upload"]`
 
               default: container_upload
+
+            - `file_id: str`
 
           - `class BetaCompactionBlock: …`
 
@@ -44176,6 +44259,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             summary (e.g., malformed output from the model). Clients may round-trip
             compaction blocks with null content; the server treats them as no-ops.
 
+            - `type: Literal["compaction"]`
+
+              default: compaction
+
             - `content: Optional[str]`
 
               Summary of compacted content, or null if compaction failed
@@ -44183,10 +44270,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `encrypted_content: Optional[str]`
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
-
-            - `type: Literal["compaction"]`
-
-              default: compaction
 
           - `class BetaFallbackBlock: …`
 
@@ -44201,6 +44284,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             The block is treated like a server-tool content block for streaming: it
             arrives via the standard `content_block_start` / `content_block_stop`
             pair and carries no deltas.
+
+            - `type: Literal["fallback"]`
+
+              default: fallback
 
             - `from_: BetaFallbackInfo`
 
@@ -44314,6 +44401,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               What caused the `from` model to hand over at this hop.
 
+              - `type: Literal["refusal"]`
+
+                default: refusal
+
               - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
                 The policy category that triggered a refusal.
@@ -44344,14 +44435,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `type: Literal["refusal"]`
-
-                default: refusal
-
-            - `type: Literal["fallback"]`
-
-              default: fallback
-
         - `context_management: Optional[BetaContextManagementResponse]`
 
           Context management response.
@@ -44363,6 +44446,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             List of context management edits that were applied.
 
             - `class BetaClearToolUses20250919EditResponse: …`
+
+              - `type: Literal["clear_tool_uses_20250919"]`
+
+                The type of context management edit applied.
+
+                default: clear_tool_uses_20250919
 
               - `cleared_input_tokens: int`
 
@@ -44376,13 +44465,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `type: Literal["clear_tool_uses_20250919"]`
+            - `class BetaClearThinking20251015EditResponse: …`
+
+              - `type: Literal["clear_thinking_20251015"]`
 
                 The type of context management edit applied.
 
-                default: clear_tool_uses_20250919
-
-            - `class BetaClearThinking20251015EditResponse: …`
+                default: clear_thinking_20251015
 
               - `cleared_input_tokens: int`
 
@@ -44396,12 +44485,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `type: Literal["clear_thinking_20251015"]`
-
-                The type of context management edit applied.
-
-                default: clear_thinking_20251015
-
         - `diagnostics: Optional[BetaDiagnostics]`
 
           Response envelope for request-level diagnostics. Present (possibly
@@ -44413,43 +44496,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `class BetaCacheMissModelChanged: …`
 
-              - `cache_missed_input_tokens: int`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
               - `type: Literal["model_changed"]`
 
                 default: model_changed
 
-            - `class BetaCacheMissSystemChanged: …`
-
               - `cache_missed_input_tokens: int`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `class BetaCacheMissSystemChanged: …`
 
               - `type: Literal["system_changed"]`
 
                 default: system_changed
 
-            - `class BetaCacheMissToolsChanged: …`
-
               - `cache_missed_input_tokens: int`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `class BetaCacheMissToolsChanged: …`
 
               - `type: Literal["tools_changed"]`
 
                 default: tools_changed
 
-            - `class BetaCacheMissMessagesChanged: …`
-
               - `cache_missed_input_tokens: int`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+            - `class BetaCacheMissMessagesChanged: …`
+
               - `type: Literal["messages_changed"]`
 
                 default: messages_changed
+
+              - `cache_missed_input_tokens: int`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `class BetaCacheMissPreviousMessageNotFound: …`
 
@@ -44480,6 +44563,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `stop_details: Optional[BetaRefusalStopDetails]`
 
           Structured information about a refusal.
+
+          - `type: Literal["refusal"]`
+
+            default: refusal
 
           - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
@@ -44566,10 +44653,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `type: Literal["refusal"]`
-
-            default: refusal
-
         - `stop_reason: Optional[BetaStopReason]`
 
           The reason that we stopped.
@@ -44607,14 +44690,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `type: Literal["message"]`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          default: message
 
         - `usage: BetaUsage`
 
@@ -44682,6 +44757,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 No reprice was applied; `reason` says why.
 
+                - `type: Literal["not_applied"]`
+
+                  default: not_applied
+
                 - `reason: Literal["body_mismatch", "continuation_excluded", "continuation_only", 9 more]`
 
                   Why the reprice was not applied.
@@ -44712,10 +44791,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `"wrong_platform"`
 
                   - `"wrong_workspace"`
-
-                - `type: Literal["not_applied"]`
-
-                  default: not_applied
 
                 - `remove_to_redeem: Optional[List[str]]`
 
@@ -44754,6 +44829,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for a sampling iteration.
 
+              - `type: Literal["message"]`
+
+                Usage for a sampling iteration
+
+                default: message
+
               - `cache_creation: Optional[BetaCacheCreation]`
 
                 Breakdown of cached tokens by TTL
@@ -44788,43 +44869,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `type: Literal["message"]`
-
-                Usage for a sampling iteration
-
-                default: message
-
             - `class BetaCompactionIterationUsage: …`
 
               Token usage for a compaction iteration.
-
-              - `cache_creation: Optional[BetaCacheCreation]`
-
-                Breakdown of cached tokens by TTL
-
-              - `cache_creation_input_tokens: int`
-
-                The number of input tokens used to create the cache entry.
-
-                default: 0, minimum: 0
-
-              - `cache_read_input_tokens: int`
-
-                The number of input tokens read from the cache.
-
-                default: 0, minimum: 0
-
-              - `input_tokens: int`
-
-                The number of input tokens which were used.
-
-                minimum: 0
-
-              - `output_tokens: int`
-
-                The number of output tokens which were used.
-
-                minimum: 0
 
               - `type: Literal["compaction"]`
 
@@ -44832,9 +44879,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 default: compaction
 
+              - `cache_creation: Optional[BetaCacheCreation]`
+
+                Breakdown of cached tokens by TTL
+
+              - `cache_creation_input_tokens: int`
+
+                The number of input tokens used to create the cache entry.
+
+                default: 0, minimum: 0
+
+              - `cache_read_input_tokens: int`
+
+                The number of input tokens read from the cache.
+
+                default: 0, minimum: 0
+
+              - `input_tokens: int`
+
+                The number of input tokens which were used.
+
+                minimum: 0
+
+              - `output_tokens: int`
+
+                The number of output tokens which were used.
+
+                minimum: 0
+
             - `class BetaAdvisorMessageIterationUsage: …`
 
               Token usage for an advisor sub-inference iteration.
+
+              - `type: Literal["advisor_message"]`
+
+                Usage for an advisor sub-inference iteration
+
+                default: advisor_message
 
               - `cache_creation: Optional[BetaCacheCreation]`
 
@@ -44869,12 +44950,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `type: Literal["advisor_message"]`
-
-                Usage for an advisor sub-inference iteration
-
-                default: advisor_message
 
             - `class BetaFallbackMessageIterationUsage: …`
 
@@ -44885,6 +44960,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               a fallback model served the response is signalled by the presence of this
               entry in `usage.iterations`.
 
+              - `type: Literal["fallback_message"]`
+
+                Usage for the fallback-model attempt that served the response
+
+                default: fallback_message
+
               - `cache_creation: Optional[BetaCacheCreation]`
 
                 Breakdown of cached tokens by TTL
@@ -44918,12 +44999,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `type: Literal["fallback_message"]`
-
-                Usage for the fallback-model attempt that served the response
-
-                default: fallback_message
 
           - `output_tokens: int`
 
@@ -45005,6 +45080,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           fallback happened mid-stream, in which case it holds the serving model's
           entries and replaces the one in `message_start`.
 
+          - `type: Literal["thinking_dropped"]`
+
+            Always `thinking_dropped` for this entry type.
+
+            default: thinking_dropped
+
           - `path: str`
 
             Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -45035,121 +45116,111 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"end_user_binding_mismatch"`
 
-          - `type: Literal["thinking_dropped"]`
-
-            Always `thinking_dropped` for this entry type.
-
-            default: thinking_dropped
-
-      - `type: Literal["succeeded"]`
-
-        default: succeeded
-
     - `class BetaMessageBatchErroredResult: …`
 
+      - `type: Literal["errored"]`
+
+        default: errored
+
       - `error: BetaErrorResponse`
-
-        - `error: BetaError`
-
-          - `class BetaInvalidRequestError: …`
-
-            - `message: str`
-
-              default: Invalid request
-
-            - `type: Literal["invalid_request_error"]`
-
-              default: invalid_request_error
-
-          - `class BetaAuthenticationError: …`
-
-            - `message: str`
-
-              default: Authentication error
-
-            - `type: Literal["authentication_error"]`
-
-              default: authentication_error
-
-          - `class BetaBillingError: …`
-
-            - `message: str`
-
-              default: Billing error
-
-            - `type: Literal["billing_error"]`
-
-              default: billing_error
-
-          - `class BetaPermissionError: …`
-
-            - `message: str`
-
-              default: Permission denied
-
-            - `type: Literal["permission_error"]`
-
-              default: permission_error
-
-          - `class BetaNotFoundError: …`
-
-            - `message: str`
-
-              default: Not found
-
-            - `type: Literal["not_found_error"]`
-
-              default: not_found_error
-
-          - `class BetaRateLimitError: …`
-
-            - `message: str`
-
-              default: Rate limited
-
-            - `type: Literal["rate_limit_error"]`
-
-              default: rate_limit_error
-
-          - `class BetaGatewayTimeoutError: …`
-
-            - `message: str`
-
-              default: Request timeout
-
-            - `type: Literal["timeout_error"]`
-
-              default: timeout_error
-
-          - `class BetaAPIError: …`
-
-            - `message: str`
-
-              default: Internal server error
-
-            - `type: Literal["api_error"]`
-
-              default: api_error
-
-          - `class BetaOverloadedError: …`
-
-            - `message: str`
-
-              default: Overloaded
-
-            - `type: Literal["overloaded_error"]`
-
-              default: overloaded_error
-
-        - `request_id: Optional[str]`
 
         - `type: Literal["error"]`
 
           default: error
 
-      - `type: Literal["errored"]`
+        - `error: BetaError`
 
-        default: errored
+          - `class BetaInvalidRequestError: …`
+
+            - `type: Literal["invalid_request_error"]`
+
+              default: invalid_request_error
+
+            - `message: str`
+
+              default: Invalid request
+
+          - `class BetaAuthenticationError: …`
+
+            - `type: Literal["authentication_error"]`
+
+              default: authentication_error
+
+            - `message: str`
+
+              default: Authentication error
+
+          - `class BetaBillingError: …`
+
+            - `type: Literal["billing_error"]`
+
+              default: billing_error
+
+            - `message: str`
+
+              default: Billing error
+
+          - `class BetaPermissionError: …`
+
+            - `type: Literal["permission_error"]`
+
+              default: permission_error
+
+            - `message: str`
+
+              default: Permission denied
+
+          - `class BetaNotFoundError: …`
+
+            - `type: Literal["not_found_error"]`
+
+              default: not_found_error
+
+            - `message: str`
+
+              default: Not found
+
+          - `class BetaRateLimitError: …`
+
+            - `type: Literal["rate_limit_error"]`
+
+              default: rate_limit_error
+
+            - `message: str`
+
+              default: Rate limited
+
+          - `class BetaGatewayTimeoutError: …`
+
+            - `type: Literal["timeout_error"]`
+
+              default: timeout_error
+
+            - `message: str`
+
+              default: Request timeout
+
+          - `class BetaAPIError: …`
+
+            - `type: Literal["api_error"]`
+
+              default: api_error
+
+            - `message: str`
+
+              default: Internal server error
+
+          - `class BetaOverloadedError: …`
+
+            - `type: Literal["overloaded_error"]`
+
+              default: overloaded_error
+
+            - `message: str`
+
+              default: Overloaded
+
+        - `request_id: Optional[str]`
 
     - `class BetaMessageBatchCanceledResult: …`
 

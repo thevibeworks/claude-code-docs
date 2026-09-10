@@ -1,3 +1,8 @@
+---
+title: Deployment Runs
+url: https://platform.claude.com/docs/en/api/python/beta/deployment_runs
+---
+
 # Deployment Runs
 
 ## List Deployment Runs
@@ -66,7 +71,7 @@ List Deployment Runs
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -114,6 +119,8 @@ List Deployment Runs
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -156,11 +163,15 @@ List Deployment Runs
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsDeploymentRun: …`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
+
+  - `type: Literal["deployment_run"]`
 
   - `id: str`
 
@@ -170,9 +181,9 @@ List Deployment Runs
 
     A resolved agent reference with a concrete version.
 
-    - `id: str`
-
     - `type: Literal["agent"]`
+
+    - `id: str`
 
     - `version: int`
 
@@ -196,161 +207,161 @@ List Deployment Runs
 
       The deployment's environment was archived.
 
+      - `type: Literal["environment_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["environment_archived_error"]`
 
     - `class BetaManagedAgentsAgentArchivedRunError: …`
 
       The deployment's agent was archived.
 
+      - `type: Literal["agent_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["agent_archived_error"]`
 
     - `class BetaManagedAgentsEnvironmentNotFoundRunError: …`
 
       The deployment's environment no longer exists.
 
+      - `type: Literal["environment_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["environment_not_found_error"]`
 
     - `class BetaManagedAgentsVaultNotFoundRunError: …`
 
       A vault referenced by the deployment no longer exists.
 
+      - `type: Literal["vault_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["vault_not_found_error"]`
 
     - `class BetaManagedAgentsVaultArchivedRunError: …`
 
       A vault referenced by the deployment is archived.
 
+      - `type: Literal["vault_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["vault_archived_error"]`
 
     - `class BetaManagedAgentsFileNotFoundRunError: …`
 
       A file resource referenced by the deployment no longer exists.
 
+      - `type: Literal["file_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["file_not_found_error"]`
 
     - `class BetaManagedAgentsMemoryStoreArchivedRunError: …`
 
       A memory store referenced by the deployment is archived.
 
+      - `type: Literal["memory_store_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["memory_store_archived_error"]`
 
     - `class BetaManagedAgentsSkillNotFoundRunError: …`
 
       A skill referenced by the deployment's agent no longer exists.
 
+      - `type: Literal["skill_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["skill_not_found_error"]`
 
     - `class BetaManagedAgentsSessionResourceNotFoundRunError: …`
 
       A referenced resource no longer exists and its kind was not reported.
 
+      - `type: Literal["session_resource_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_resource_not_found_error"]`
 
     - `class BetaManagedAgentsWorkspaceArchivedRunError: …`
 
       The deployment's workspace was archived.
 
+      - `type: Literal["workspace_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["workspace_archived_error"]`
 
     - `class BetaManagedAgentsOrganizationDisabledRunError: …`
 
       The deployment's organization is disabled.
 
+      - `type: Literal["organization_disabled_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["organization_disabled_error"]`
 
     - `class BetaManagedAgentsSessionRateLimitedRunError: …`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
+      - `type: Literal["session_rate_limited_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_rate_limited_error"]`
 
     - `class BetaManagedAgentsSessionCreationRejectedRunError: …`
 
       The session create request was rejected with a non-retryable validation error.
 
+      - `type: Literal["session_creation_rejected_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_creation_rejected_error"]`
 
     - `class BetaManagedAgentsUnknownRunError: …`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
+      - `type: Literal["unknown_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["unknown_error"]`
 
     - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError: …`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
+      - `type: Literal["self_hosted_resources_unsupported_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["self_hosted_resources_unsupported_error"]`
 
     - `class BetaManagedAgentsMCPEgressBlockedRunError: …`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
+      - `type: Literal["mcp_egress_blocked_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["mcp_egress_blocked_error"]`
 
   - `session_id: Optional[str]`
 
@@ -364,21 +375,19 @@ List Deployment Runs
 
       The run was fired by the deployment's cron schedule.
 
+      - `type: Literal["schedule"]`
+
       - `scheduled_at: datetime`
 
         A timestamp in RFC 3339 format
 
         format: date-time
 
-      - `type: Literal["schedule"]`
-
     - `class BetaManagedAgentsManualTriggerContext: …`
 
       The run was started manually by creating a session directly against the deployment.
 
       - `type: Literal["manual"]`
-
-  - `type: Literal["deployment_run"]`
 
 ### Example
 
@@ -444,7 +453,7 @@ Get Deployment Run
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -492,6 +501,8 @@ Get Deployment Run
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -534,11 +545,15 @@ Get Deployment Run
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsDeploymentRun: …`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
+
+  - `type: Literal["deployment_run"]`
 
   - `id: str`
 
@@ -548,9 +563,9 @@ Get Deployment Run
 
     A resolved agent reference with a concrete version.
 
-    - `id: str`
-
     - `type: Literal["agent"]`
+
+    - `id: str`
 
     - `version: int`
 
@@ -574,161 +589,161 @@ Get Deployment Run
 
       The deployment's environment was archived.
 
+      - `type: Literal["environment_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["environment_archived_error"]`
 
     - `class BetaManagedAgentsAgentArchivedRunError: …`
 
       The deployment's agent was archived.
 
+      - `type: Literal["agent_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["agent_archived_error"]`
 
     - `class BetaManagedAgentsEnvironmentNotFoundRunError: …`
 
       The deployment's environment no longer exists.
 
+      - `type: Literal["environment_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["environment_not_found_error"]`
 
     - `class BetaManagedAgentsVaultNotFoundRunError: …`
 
       A vault referenced by the deployment no longer exists.
 
+      - `type: Literal["vault_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["vault_not_found_error"]`
 
     - `class BetaManagedAgentsVaultArchivedRunError: …`
 
       A vault referenced by the deployment is archived.
 
+      - `type: Literal["vault_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["vault_archived_error"]`
 
     - `class BetaManagedAgentsFileNotFoundRunError: …`
 
       A file resource referenced by the deployment no longer exists.
 
+      - `type: Literal["file_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["file_not_found_error"]`
 
     - `class BetaManagedAgentsMemoryStoreArchivedRunError: …`
 
       A memory store referenced by the deployment is archived.
 
+      - `type: Literal["memory_store_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["memory_store_archived_error"]`
 
     - `class BetaManagedAgentsSkillNotFoundRunError: …`
 
       A skill referenced by the deployment's agent no longer exists.
 
+      - `type: Literal["skill_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["skill_not_found_error"]`
 
     - `class BetaManagedAgentsSessionResourceNotFoundRunError: …`
 
       A referenced resource no longer exists and its kind was not reported.
 
+      - `type: Literal["session_resource_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_resource_not_found_error"]`
 
     - `class BetaManagedAgentsWorkspaceArchivedRunError: …`
 
       The deployment's workspace was archived.
 
+      - `type: Literal["workspace_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["workspace_archived_error"]`
 
     - `class BetaManagedAgentsOrganizationDisabledRunError: …`
 
       The deployment's organization is disabled.
 
+      - `type: Literal["organization_disabled_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["organization_disabled_error"]`
 
     - `class BetaManagedAgentsSessionRateLimitedRunError: …`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
+      - `type: Literal["session_rate_limited_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_rate_limited_error"]`
 
     - `class BetaManagedAgentsSessionCreationRejectedRunError: …`
 
       The session create request was rejected with a non-retryable validation error.
 
+      - `type: Literal["session_creation_rejected_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_creation_rejected_error"]`
 
     - `class BetaManagedAgentsUnknownRunError: …`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
+      - `type: Literal["unknown_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["unknown_error"]`
 
     - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError: …`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
+      - `type: Literal["self_hosted_resources_unsupported_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["self_hosted_resources_unsupported_error"]`
 
     - `class BetaManagedAgentsMCPEgressBlockedRunError: …`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
+      - `type: Literal["mcp_egress_blocked_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["mcp_egress_blocked_error"]`
 
   - `session_id: Optional[str]`
 
@@ -742,21 +757,19 @@ Get Deployment Run
 
       The run was fired by the deployment's cron schedule.
 
+      - `type: Literal["schedule"]`
+
       - `scheduled_at: datetime`
 
         A timestamp in RFC 3339 format
 
         format: date-time
 
-      - `type: Literal["schedule"]`
-
     - `class BetaManagedAgentsManualTriggerContext: …`
 
       The run was started manually by creating a session directly against the deployment.
 
       - `type: Literal["manual"]`
-
-  - `type: Literal["deployment_run"]`
 
 ### Example
 
@@ -808,17 +821,19 @@ print(beta_managed_agents_deployment_run.id)
 
   The deployment's agent was archived.
 
+  - `type: Literal["agent_archived_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["agent_archived_error"]`
 
 ### Beta Managed Agents Deployment Run
 
 - `class BetaManagedAgentsDeploymentRun: …`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
+
+  - `type: Literal["deployment_run"]`
 
   - `id: str`
 
@@ -828,9 +843,9 @@ print(beta_managed_agents_deployment_run.id)
 
     A resolved agent reference with a concrete version.
 
-    - `id: str`
-
     - `type: Literal["agent"]`
+
+    - `id: str`
 
     - `version: int`
 
@@ -854,161 +869,161 @@ print(beta_managed_agents_deployment_run.id)
 
       The deployment's environment was archived.
 
+      - `type: Literal["environment_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["environment_archived_error"]`
 
     - `class BetaManagedAgentsAgentArchivedRunError: …`
 
       The deployment's agent was archived.
 
+      - `type: Literal["agent_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["agent_archived_error"]`
 
     - `class BetaManagedAgentsEnvironmentNotFoundRunError: …`
 
       The deployment's environment no longer exists.
 
+      - `type: Literal["environment_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["environment_not_found_error"]`
 
     - `class BetaManagedAgentsVaultNotFoundRunError: …`
 
       A vault referenced by the deployment no longer exists.
 
+      - `type: Literal["vault_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["vault_not_found_error"]`
 
     - `class BetaManagedAgentsVaultArchivedRunError: …`
 
       A vault referenced by the deployment is archived.
 
+      - `type: Literal["vault_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["vault_archived_error"]`
 
     - `class BetaManagedAgentsFileNotFoundRunError: …`
 
       A file resource referenced by the deployment no longer exists.
 
+      - `type: Literal["file_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["file_not_found_error"]`
 
     - `class BetaManagedAgentsMemoryStoreArchivedRunError: …`
 
       A memory store referenced by the deployment is archived.
 
+      - `type: Literal["memory_store_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["memory_store_archived_error"]`
 
     - `class BetaManagedAgentsSkillNotFoundRunError: …`
 
       A skill referenced by the deployment's agent no longer exists.
 
+      - `type: Literal["skill_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["skill_not_found_error"]`
 
     - `class BetaManagedAgentsSessionResourceNotFoundRunError: …`
 
       A referenced resource no longer exists and its kind was not reported.
 
+      - `type: Literal["session_resource_not_found_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_resource_not_found_error"]`
 
     - `class BetaManagedAgentsWorkspaceArchivedRunError: …`
 
       The deployment's workspace was archived.
 
+      - `type: Literal["workspace_archived_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["workspace_archived_error"]`
 
     - `class BetaManagedAgentsOrganizationDisabledRunError: …`
 
       The deployment's organization is disabled.
 
+      - `type: Literal["organization_disabled_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["organization_disabled_error"]`
 
     - `class BetaManagedAgentsSessionRateLimitedRunError: …`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
+      - `type: Literal["session_rate_limited_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_rate_limited_error"]`
 
     - `class BetaManagedAgentsSessionCreationRejectedRunError: …`
 
       The session create request was rejected with a non-retryable validation error.
 
+      - `type: Literal["session_creation_rejected_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["session_creation_rejected_error"]`
 
     - `class BetaManagedAgentsUnknownRunError: …`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
+      - `type: Literal["unknown_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["unknown_error"]`
 
     - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError: …`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
+      - `type: Literal["self_hosted_resources_unsupported_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["self_hosted_resources_unsupported_error"]`
 
     - `class BetaManagedAgentsMCPEgressBlockedRunError: …`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
+      - `type: Literal["mcp_egress_blocked_error"]`
+
       - `message: str`
 
         Human-readable error description.
-
-      - `type: Literal["mcp_egress_blocked_error"]`
 
   - `session_id: Optional[str]`
 
@@ -1022,13 +1037,13 @@ print(beta_managed_agents_deployment_run.id)
 
       The run was fired by the deployment's cron schedule.
 
+      - `type: Literal["schedule"]`
+
       - `scheduled_at: datetime`
 
         A timestamp in RFC 3339 format
 
         format: date-time
-
-      - `type: Literal["schedule"]`
 
     - `class BetaManagedAgentsManualTriggerContext: …`
 
@@ -1036,19 +1051,17 @@ print(beta_managed_agents_deployment_run.id)
 
       - `type: Literal["manual"]`
 
-  - `type: Literal["deployment_run"]`
-
 ### Beta Managed Agents Environment Archived Run Error
 
 - `class BetaManagedAgentsEnvironmentArchivedRunError: …`
 
   The deployment's environment was archived.
 
+  - `type: Literal["environment_archived_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["environment_archived_error"]`
 
 ### Beta Managed Agents Environment Not Found Run Error
 
@@ -1056,11 +1069,11 @@ print(beta_managed_agents_deployment_run.id)
 
   The deployment's environment no longer exists.
 
+  - `type: Literal["environment_not_found_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["environment_not_found_error"]`
 
 ### Beta Managed Agents File Not Found Run Error
 
@@ -1068,11 +1081,11 @@ print(beta_managed_agents_deployment_run.id)
 
   A file resource referenced by the deployment no longer exists.
 
+  - `type: Literal["file_not_found_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["file_not_found_error"]`
 
 ### Beta Managed Agents Manual Trigger Context
 
@@ -1088,11 +1101,11 @@ print(beta_managed_agents_deployment_run.id)
 
   An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
+  - `type: Literal["mcp_egress_blocked_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["mcp_egress_blocked_error"]`
 
 ### Beta Managed Agents Memory Store Archived Run Error
 
@@ -1100,11 +1113,11 @@ print(beta_managed_agents_deployment_run.id)
 
   A memory store referenced by the deployment is archived.
 
+  - `type: Literal["memory_store_archived_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["memory_store_archived_error"]`
 
 ### Beta Managed Agents Organization Disabled Run Error
 
@@ -1112,11 +1125,11 @@ print(beta_managed_agents_deployment_run.id)
 
   The deployment's organization is disabled.
 
+  - `type: Literal["organization_disabled_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["organization_disabled_error"]`
 
 ### Beta Managed Agents Schedule Trigger Context
 
@@ -1124,13 +1137,13 @@ print(beta_managed_agents_deployment_run.id)
 
   The run was fired by the deployment's cron schedule.
 
+  - `type: Literal["schedule"]`
+
   - `scheduled_at: datetime`
 
     A timestamp in RFC 3339 format
 
     format: date-time
-
-  - `type: Literal["schedule"]`
 
 ### Beta Managed Agents Self Hosted Resources Unsupported Run Error
 
@@ -1138,11 +1151,11 @@ print(beta_managed_agents_deployment_run.id)
 
   The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
+  - `type: Literal["self_hosted_resources_unsupported_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["self_hosted_resources_unsupported_error"]`
 
 ### Beta Managed Agents Session Creation Rejected Run Error
 
@@ -1150,11 +1163,11 @@ print(beta_managed_agents_deployment_run.id)
 
   The session create request was rejected with a non-retryable validation error.
 
+  - `type: Literal["session_creation_rejected_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["session_creation_rejected_error"]`
 
 ### Beta Managed Agents Session Rate Limited Run Error
 
@@ -1162,11 +1175,11 @@ print(beta_managed_agents_deployment_run.id)
 
   Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
+  - `type: Literal["session_rate_limited_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["session_rate_limited_error"]`
 
 ### Beta Managed Agents Session Resource Not Found Run Error
 
@@ -1174,11 +1187,11 @@ print(beta_managed_agents_deployment_run.id)
 
   A referenced resource no longer exists and its kind was not reported.
 
+  - `type: Literal["session_resource_not_found_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["session_resource_not_found_error"]`
 
 ### Beta Managed Agents Skill Not Found Run Error
 
@@ -1186,11 +1199,11 @@ print(beta_managed_agents_deployment_run.id)
 
   A skill referenced by the deployment's agent no longer exists.
 
+  - `type: Literal["skill_not_found_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["skill_not_found_error"]`
 
 ### Beta Managed Agents Trigger Context
 
@@ -1202,13 +1215,13 @@ print(beta_managed_agents_deployment_run.id)
 
     The run was fired by the deployment's cron schedule.
 
+    - `type: Literal["schedule"]`
+
     - `scheduled_at: datetime`
 
       A timestamp in RFC 3339 format
 
       format: date-time
-
-    - `type: Literal["schedule"]`
 
   - `class BetaManagedAgentsManualTriggerContext: …`
 
@@ -1232,11 +1245,11 @@ print(beta_managed_agents_deployment_run.id)
 
   An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
+  - `type: Literal["unknown_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["unknown_error"]`
 
 ### Beta Managed Agents Vault Archived Run Error
 
@@ -1244,11 +1257,11 @@ print(beta_managed_agents_deployment_run.id)
 
   A vault referenced by the deployment is archived.
 
+  - `type: Literal["vault_archived_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["vault_archived_error"]`
 
 ### Beta Managed Agents Vault Not Found Run Error
 
@@ -1256,11 +1269,11 @@ print(beta_managed_agents_deployment_run.id)
 
   A vault referenced by the deployment no longer exists.
 
+  - `type: Literal["vault_not_found_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["vault_not_found_error"]`
 
 ### Beta Managed Agents Workspace Archived Run Error
 
@@ -1268,8 +1281,8 @@ print(beta_managed_agents_deployment_run.id)
 
   The deployment's workspace was archived.
 
+  - `type: Literal["workspace_archived_error"]`
+
   - `message: str`
 
     Human-readable error description.
-
-  - `type: Literal["workspace_archived_error"]`

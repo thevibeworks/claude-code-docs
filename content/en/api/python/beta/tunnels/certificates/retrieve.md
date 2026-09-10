@@ -1,3 +1,8 @@
+---
+title: Get Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/python/beta/tunnels/certificates/retrieve
+---
+
 # Get Tunnel Certificate
 
 `beta.tunnels.certificates.retrieve(certificate_id, **kwargs)  -> BetaTunnelCertificate`
@@ -20,7 +25,7 @@ Fetches a tunnel certificate by ID.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -68,6 +73,8 @@ Fetches a tunnel certificate by ID.
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -110,11 +117,15 @@ Fetches a tunnel certificate by ID.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaTunnelCertificate: …`
 
   A CA certificate attached to a tunnel.
+
+  - `type: Literal["tunnel_certificate"]`
 
   - `id: str`
 
@@ -145,8 +156,6 @@ Fetches a tunnel certificate by ID.
   - `tunnel_id: str`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: Literal["tunnel_certificate"]`
 
 ## Example
 

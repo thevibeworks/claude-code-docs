@@ -1,3 +1,8 @@
+---
+title: Delete a memory
+url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memories/delete
+---
+
 # Delete a memory
 
 `beta.memory_stores.memories.delete(memory_id, **kwargs)  -> BetaManagedAgentsDeletedMemory`
@@ -22,7 +27,7 @@ Delete a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -70,6 +75,8 @@ Delete a memory
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -112,17 +119,19 @@ Delete a memory
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsDeletedMemory: …`
 
   Tombstone returned by [Delete a memory](/docs/en/api/beta/memory_stores/memories/delete). Deleting a memory does not erase its version history: its versions remain listable via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
 
+  - `type: Literal["memory_deleted"]`
+
   - `id: str`
 
     ID of the deleted memory (a `mem_...` value).
-
-  - `type: Literal["memory_deleted"]`
 
 ## Example
 

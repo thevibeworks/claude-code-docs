@@ -1,3 +1,8 @@
+---
+title: List Federation Rules
+url: https://platform.claude.com/docs/en/api/beta/organization/federation/rules/list
+---
+
 # List Federation Rules
 
 **GET** `/v1/organizations/federation_rules`
@@ -39,7 +44,7 @@ unless `include_archived=true`.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -87,6 +92,8 @@ unless `include_archived=true`.
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -132,6 +139,10 @@ unless `include_archived=true`.
 ## Returns
 
 - `data: array of BetaFederationRule`
+
+  - `type: "federation_rule"`
+
+    default: federation_rule
 
   - `id: string`
 
@@ -215,11 +226,11 @@ unless `include_archived=true`.
 
     Identity that tokens minted via this rule act as. Currently always a `service_account` target.
 
+    - `type: "service_account"`
+
     - `service_account_id: string`
 
       Tagged ID of the service account to mint tokens for.
-
-    - `type: "service_account"`
 
     - `service_account_name: optional string or null`
 
@@ -228,10 +239,6 @@ unless `include_archived=true`.
   - `token_lifetime_seconds: number`
 
     Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-
-  - `type: "federation_rule"`
-
-    default: federation_rule
 
   - `updated_at: string`
 

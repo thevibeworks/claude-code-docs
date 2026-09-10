@@ -1,6 +1,11 @@
+---
+title: Send Events
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/events/send
+---
+
 # Send Events
 
-`$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas): ManagedAgentsSendSessionEvents`
+`$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsSendSessionEvents`
 
 **POST** `/v1/sessions/{session_id}/events`
 
@@ -17,6 +22,8 @@ Send Events
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
+
+- `workspaceID?:optional string`
 
 ## Returns
 
@@ -44,6 +51,7 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
     ],
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSendSessionEvents);

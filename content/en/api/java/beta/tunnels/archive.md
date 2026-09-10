@@ -1,3 +1,8 @@
+---
+title: Archive Tunnel
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/archive
+---
+
 # Archive Tunnel
 
 `BetaTunnel beta().tunnels().archive(params = TunnelArchiveParams.none(), requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,11 +113,15 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonValue type = "tunnel"`
 
   - `String id`
 
@@ -135,8 +146,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
   - `String domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonValue type = "tunnel"`
 
 ## Example
 

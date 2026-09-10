@@ -1,3 +1,8 @@
+---
+title: List Tunnel Certificates
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/certificates/list
+---
+
 # List Tunnel Certificates
 
 `CertificateListPage beta().tunnels().certificates().list(params = CertificateListParams.none(), requestOptions = RequestOptions.none())`
@@ -78,6 +83,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -120,11 +127,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -155,8 +166,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 ## Example
 

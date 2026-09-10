@@ -1,3 +1,8 @@
+---
+title: Update Environment
+url: https://platform.claude.com/docs/en/api/go/beta/environments/update
+---
+
 # Update Environment
 
 `client.Beta.Environments.Update(ctx, environmentID, params) (*BetaEnvironment, error)`
@@ -70,6 +75,12 @@ Update an existing environment's configuration.
 
         Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+        - `Type BetaPackagesParamsType Optional`
+
+          Package configuration type
+
+          default: packages
+
         - `Apt []string Optional`
 
           Ubuntu/Debian packages to install
@@ -93,12 +104,6 @@ Update an existing environment's configuration.
         - `Pip []string Optional`
 
           Python packages to install
-
-        - `Type BetaPackagesParamsType Optional`
-
-          Package configuration type
-
-          default: packages
 
     - `type BetaSelfHostedConfigParamsResp struct{…}`
 
@@ -186,6 +191,8 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -228,11 +235,23 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -250,6 +269,10 @@ Update an existing environment's configuration.
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -266,6 +289,10 @@ Update an existing environment's configuration.
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -278,13 +305,15 @@ Update an existing environment's configuration.
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -310,16 +339,6 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -343,12 +362,6 @@ Update an existing environment's configuration.
   - `Name string`
 
     Human-readable name for the environment
-
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `UpdatedAt string`
 

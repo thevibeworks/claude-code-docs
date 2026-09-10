@@ -1,8 +1,13 @@
+---
+title: Vaults
+url: https://platform.claude.com/docs/en/api/php/beta/vaults
+---
+
 # Vaults
 
 ## Create Vault
 
-`$client->beta->vaults->create(string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->create(string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults`
 
@@ -22,9 +27,13 @@ Create Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -46,8 +55,6 @@ Create Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -65,6 +72,7 @@ $betaManagedAgentsVault = $client->beta->vaults->create(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -88,7 +96,7 @@ var_dump($betaManagedAgentsVault);
 
 ## List Vaults
 
-`$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsVault>`
+`$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsVault>`
 
 **GET** `/v1/vaults`
 
@@ -112,9 +120,13 @@ List Vaults
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -136,8 +148,6 @@ List Vaults
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -156,6 +166,7 @@ $page = $client->beta->vaults->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -184,7 +195,7 @@ var_dump($page);
 
 ## Get Vault
 
-`$client->beta->vaults->retrieve(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->retrieve(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **GET** `/v1/vaults/{vault_id}`
 
@@ -198,9 +209,13 @@ Get Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -222,8 +237,6 @@ Get Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -240,6 +253,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->retrieve(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -263,7 +277,7 @@ var_dump($betaManagedAgentsVault);
 
 ## Update Vault
 
-`$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}`
 
@@ -285,9 +299,13 @@ Update Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -309,8 +327,6 @@ Update Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -329,6 +345,7 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -352,7 +369,7 @@ var_dump($betaManagedAgentsVault);
 
 ## Delete Vault
 
-`$client->beta->vaults->delete(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedVault`
+`$client->beta->vaults->delete(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeletedVault`
 
 **DELETE** `/v1/vaults/{vault_id}`
 
@@ -366,15 +383,17 @@ Delete Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsDeletedVault`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted vault.
-
-  - `Type type`
 
 ### Example
 
@@ -388,6 +407,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeletedVault = $client->beta->vaults->delete(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedVault);
@@ -404,7 +424,7 @@ var_dump($betaManagedAgentsDeletedVault);
 
 ## Archive Vault
 
-`$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 
@@ -418,9 +438,13 @@ Archive Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -442,8 +466,6 @@ Archive Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -460,6 +482,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->archive(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -487,15 +510,17 @@ var_dump($betaManagedAgentsVault);
 
 - `BetaManagedAgentsDeletedVault`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted vault.
 
-  - `Type type`
-
 ### Beta Managed Agents Vault
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -517,8 +542,6 @@ var_dump($betaManagedAgentsVault);
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -527,7 +550,7 @@ var_dump($betaManagedAgentsVault);
 
 ### Create Credential
 
-`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
@@ -553,9 +576,13 @@ Create Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -576,8 +603,6 @@ Create Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -610,6 +635,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -638,7 +664,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### List Credentials
 
-`$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsCredential>`
+`$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsCredential>`
 
 **GET** `/v1/vaults/{vault_id}/credentials`
 
@@ -664,9 +690,13 @@ List Credentials
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -687,8 +717,6 @@ List Credentials
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -717,6 +745,7 @@ $page = $client->beta->vaults->credentials->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -750,7 +779,7 @@ var_dump($page);
 
 ### Get Credential
 
-`$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -766,9 +795,13 @@ Get Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -789,8 +822,6 @@ Get Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -817,6 +848,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -845,7 +877,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### Update Credential
 
-`$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -873,9 +905,13 @@ Update Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -896,8 +932,6 @@ Update Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -938,6 +972,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -966,7 +1001,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### Delete Credential
 
-`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsDeletedCredential`
+`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -982,15 +1017,17 @@ Delete Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsDeletedCredential`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted credential.
-
-  - `Type type`
 
 #### Example
 
@@ -1009,6 +1046,7 @@ $betaManagedAgentsDeletedCredential = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedCredential);
@@ -1025,7 +1063,7 @@ var_dump($betaManagedAgentsDeletedCredential);
 
 ### Archive Credential
 
-`$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
@@ -1041,9 +1079,13 @@ Archive Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -1064,8 +1106,6 @@ Archive Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -1092,6 +1132,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -1120,7 +1161,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### Validate Credential
 
-`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredentialValidation`
+`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
@@ -1136,9 +1177,13 @@ Validate Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredentialValidation`
+
+  - `Type type`
 
   - `string credentialID`
 
@@ -1159,8 +1204,6 @@ Validate Credential
   - `ManagedAgentsCredentialValidationStatus status`
 
     Overall verdict of a credential validation probe.
-
-  - `Type type`
 
   - `\Datetime validatedAt`
 
@@ -1187,6 +1230,7 @@ $betaManagedAgentsCredentialValidation = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredentialValidation);

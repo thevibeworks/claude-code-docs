@@ -72,7 +72,7 @@ To validate your design system, create a test project and see if the output matc
 
 Once you’re satisfied with the design system quality, make sure the “Published” toggle is switched on. After publishing, any projects created from the Claude Design homescreen while in your organization will use your design system instead of the default.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287527007/b1c46cb8dba4cd7e8bbea85fb0c3/2819c6cf-9ce1-4df5-84c8-feae0164bf2e?expires=1789053300&amp;signature=aa06481f9a068fb5e61b35d67731a8e06a8cf9c7a59e46f2e30968fe4b4ada6d&amp;req=diIvEcx8moFfXvMW1HO4zWNHF%2FuLCzgUIQKNMXlu0T%2Fvrar4RwlrHCY3lnqk%0AUwprYVPUy0IWaGfzxAc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287527007/b1c46cb8dba4cd7e8bbea85fb0c3/2819c6cf-9ce1-4df5-84c8-feae0164bf2e?expires=1789067700&amp;signature=c948b482dbdd65f67fab1c488644ad4bd7391fcca3d75eb2fa481b3ee0f929fe&amp;req=diIvEcx8moFfXvMW1HO4zWNHF%2FuLCDwQIQKNMXlu0T9wJZ7k%2FnqB%2FwhFWXfe%0AiA9x%2FZkfi9%2Fh2fghGBY%3D%0A)
 
 ---
 

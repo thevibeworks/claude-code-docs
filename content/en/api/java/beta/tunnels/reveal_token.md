@@ -1,3 +1,8 @@
+---
+title: Reveal Tunnel Token
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/reveal_token
+---
+
 # Reveal Tunnel Token
 
 `BetaTunnelToken beta().tunnels().revealToken(params = TunnelRevealTokenParams.none(), requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,11 +113,15 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonValue type = "tunnel_token"`
 
   - `String id`
 
@@ -119,8 +130,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `String tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonValue type = "tunnel_token"`
 
 ## Example
 

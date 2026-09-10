@@ -1,6 +1,11 @@
+---
+title: Archive Vault
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/archive
+---
+
 # Archive Vault
 
-`$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 
@@ -14,9 +19,13 @@ Archive Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -38,8 +47,6 @@ Archive Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -56,6 +63,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->archive(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);

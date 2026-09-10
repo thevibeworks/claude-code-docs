@@ -1,3 +1,8 @@
+---
+title: Files
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/files
+---
+
 # Files
 
 ## Get file metadata
@@ -15,6 +20,12 @@ download the bytes.
   The file ID (tagged ID, e.g., claude_file_abc123)
 
 ### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -95,19 +106,25 @@ operation that cannot be undone.
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ### Returns
-
-- `id: string`
-
-  The ID of the file that was deleted
 
 - `type: optional "claude_file_deleted"`
 
   Constant string confirming deletion
 
   default: claude_file_deleted
+
+- `id: string`
+
+  The ID of the file that was deleted
 
 ### Example
 
@@ -139,6 +156,12 @@ Downloads the binary content of a file referenced in chat messages.
   The file ID (tagged ID, e.g., claude_file_abc123)
 
 ### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -200,12 +223,12 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID/co
 
   Response for deleting a compliance file.
 
-  - `id: string`
-
-    The ID of the file that was deleted
-
   - `type: optional "claude_file_deleted"`
 
     Constant string confirming deletion
 
     default: claude_file_deleted
+
+  - `id: string`
+
+    The ID of the file that was deleted

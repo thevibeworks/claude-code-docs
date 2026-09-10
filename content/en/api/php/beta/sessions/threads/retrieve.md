@@ -1,6 +1,11 @@
+---
+title: Get Session Thread
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/threads/retrieve
+---
+
 # Get Session Thread
 
-`$client->beta->sessions->threads->retrieve(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsSessionThread`
+`$client->beta->sessions->threads->retrieve(string threadID, string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsSessionThread`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
@@ -16,9 +21,13 @@ Get Session Thread
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ManagedAgentsSessionThread`
+
+  - `Type type`
 
   - `string id`
 
@@ -52,8 +61,6 @@ Get Session Thread
 
     SessionThreadStatus enum
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -75,6 +82,7 @@ $betaManagedAgentsSessionThread = $client->beta->sessions->threads->retrieve(
   'sthr_011CZkZVWa6oIjw0rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSessionThread);

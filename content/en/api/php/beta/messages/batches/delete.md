@@ -1,6 +1,11 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/php/beta/messages/batches/delete
+---
+
 # Delete a Message Batch
 
-`$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas): DeletedMessageBatch`
+`$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): DeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -20,19 +25,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
 
   - `"message_batch_deleted" type`
 
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
+
+  - `string id`
+
+    ID of the Message Batch.
 
 ## Example
 
@@ -44,7 +51,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
-  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'message_batch_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedMessageBatch);

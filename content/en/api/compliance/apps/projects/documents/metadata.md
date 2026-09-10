@@ -1,3 +1,8 @@
+---
+title: Get project document metadata
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/metadata
+---
+
 # Get project document metadata
 
 **GET** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
@@ -16,6 +21,12 @@ consumer can dedupe or match hashes without downloading every document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 ## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 

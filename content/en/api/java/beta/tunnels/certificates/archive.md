@@ -1,3 +1,8 @@
+---
+title: Archive Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/certificates/archive
+---
+
 # Archive Tunnel Certificate
 
 `BetaTunnelCertificate beta().tunnels().certificates().archive(params, requestOptions = RequestOptions.none())`
@@ -66,6 +71,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -108,11 +115,15 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -143,8 +154,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 ## Example
 

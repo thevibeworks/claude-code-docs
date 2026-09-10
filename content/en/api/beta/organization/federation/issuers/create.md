@@ -1,3 +1,8 @@
+---
+title: Create Federation Issuer
+url: https://platform.claude.com/docs/en/api/beta/organization/federation/issuers/create
+---
+
 # Create Federation Issuer
 
 **POST** `/v1/organizations/federation_issuers`
@@ -24,7 +29,7 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -71,6 +76,8 @@ matched as the JWT's `iss` claim and is not fetched.
     - `"user-profiles-2026-03-24"`
 
     - `"user-profiles-2026-08-18"`
+
+    - `"user-profiles-2026-09-04"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -174,13 +181,13 @@ matched as the JWT's `iss` claim and is not fetched.
 
     JWKS supplied directly; no network fetch.
 
+    - `type: "inline"`
+
     - `keys: array of map[unknown]`
 
       Inline JWK objects.
 
       minItems: 1
-
-    - `type: "inline"`
 
 - `max_jwt_lifetime_seconds: optional number or null`
 
@@ -196,6 +203,10 @@ matched as the JWT's `iss` claim and is not fetched.
 
   Records an external IdP the organization trusts for the RFC 7523
   jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
+
+  - `type: "federation_issuer"`
+
+    default: federation_issuer
 
   - `id: string`
 
@@ -271,13 +282,13 @@ matched as the JWT's `iss` claim and is not fetched.
 
       JWKS supplied directly; no network fetch.
 
+      - `type: "inline"`
+
       - `keys: array of map[unknown]`
 
         Inline JWK objects.
 
         minItems: 1
-
-      - `type: "inline"`
 
   - `jwks_polling_disabled_at: string or null`
 
@@ -316,10 +327,6 @@ matched as the JWT's `iss` claim and is not fetched.
       When the next fetch is scheduled. Null if paused.
 
       format: date-time
-
-  - `type: "federation_issuer"`
-
-    default: federation_issuer
 
   - `updated_at: string`
 

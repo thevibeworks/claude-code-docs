@@ -1,3 +1,8 @@
+---
+title: Agents
+url: https://platform.claude.com/docs/en/api/python/beta/agents
+---
+
 # Agents
 
 ## Create Agent
@@ -204,13 +209,13 @@ Create Agent
 
   MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
+  - `type: Literal["url"]`
+
   - `name: str`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: Literal["url"]`
 
   - `url: str`
 
@@ -226,6 +231,8 @@ Create Agent
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
+  - `type: Literal["coordinator"]`
+
   - `agents: Sequence[BetaManagedAgentsMultiagentRosterEntryParams]`
 
     Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
@@ -236,13 +243,13 @@ Create Agent
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `type: Literal["agent"]`
+
       - `id: str`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `type: Literal["agent"]`
 
       - `version: Optional[int]`
 
@@ -260,15 +267,13 @@ Create Agent
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `type: Literal["advisor"]`
+
       - `model: str`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `type: Literal["advisor"]`
-
-  - `type: Literal["coordinator"]`
 
 - `skills: Optional[Iterable[BetaManagedAgentsSkillParams]]`
 
@@ -278,13 +283,13 @@ Create Agent
 
     An Anthropic-managed skill.
 
+    - `type: Literal["anthropic"]`
+
     - `skill_id: str`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `type: Literal["anthropic"]`
 
     - `version: Optional[str]`
 
@@ -296,13 +301,13 @@ Create Agent
 
     A user-created custom skill.
 
+    - `type: Literal["custom"]`
+
     - `skill_id: str`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `type: Literal["custom"]`
 
     - `version: Optional[str]`
 
@@ -334,6 +339,8 @@ Create Agent
 
         Configuration override for the bash tool.
 
+        - `type: Optional[Literal["bash"]]`
+
         - `name: Literal["bash"]`
 
           Must be "bash".
@@ -358,11 +365,17 @@ Create Agent
 
             - `type: Literal["always_ask"]`
 
-        - `type: Optional[Literal["bash"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `type: Literal["auto"]`
 
       - `class BetaManagedAgentsEditToolConfigParams: …`
 
         Configuration override for the edit tool.
+
+        - `type: Optional[Literal["edit"]]`
 
         - `name: Literal["edit"]`
 
@@ -384,11 +397,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["edit"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsReadToolConfigParams: …`
 
         Configuration override for the read tool.
+
+        - `type: Optional[Literal["read"]]`
 
         - `name: Literal["read"]`
 
@@ -410,11 +427,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["read"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWriteToolConfigParams: …`
 
         Configuration override for the write tool.
+
+        - `type: Optional[Literal["write"]]`
 
         - `name: Literal["write"]`
 
@@ -436,11 +457,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["write"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGlobToolConfigParams: …`
 
         Configuration override for the glob tool.
+
+        - `type: Optional[Literal["glob"]]`
 
         - `name: Literal["glob"]`
 
@@ -462,11 +487,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["glob"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGrepToolConfigParams: …`
 
         Configuration override for the grep tool.
+
+        - `type: Optional[Literal["grep"]]`
 
         - `name: Literal["grep"]`
 
@@ -488,11 +517,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["grep"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebFetchToolConfigParams: …`
 
         Configuration override for the web_fetch tool.
+
+        - `type: Optional[Literal["web_fetch"]]`
 
         - `name: Literal["web_fetch"]`
 
@@ -528,11 +561,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["web_fetch"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebSearchToolConfigParams: …`
 
         Configuration override for the web_search tool.
+
+        - `type: Optional[Literal["web_search"]]`
 
         - `name: Literal["web_search"]`
 
@@ -562,7 +599,9 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["web_search"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `user_location: Optional[BetaManagedAgentsUserLocation]`
 
@@ -614,17 +653,21 @@ Create Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsMCPToolsetParams: …`
 
     Configuration for tools from an MCP server defined in `mcp_servers`.
+
+    - `type: Literal["mcp_toolset"]`
 
     - `mcp_server_name: str`
 
       Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
       minLength: 1, maxLength: 255
-
-    - `type: Literal["mcp_toolset"]`
 
     - `configs: Optional[List[BetaManagedAgentsMCPToolConfigParams]]`
 
@@ -652,6 +695,10 @@ Create Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
     - `default_config: Optional[BetaManagedAgentsMCPToolsetDefaultConfigParams]`
 
       Default configuration for all tools from an MCP server.
@@ -672,9 +719,15 @@ Create Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsCustomToolParams: …`
 
     A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+    - `type: Literal["custom"]`
 
     - `description: str`
 
@@ -698,15 +751,13 @@ Create Agent
 
       minLength: 1, maxLength: 128
 
-    - `type: Literal["custom"]`
-
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -754,6 +805,8 @@ Create Agent
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -796,11 +849,15 @@ Create Agent
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -820,9 +877,9 @@ Create Agent
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -967,6 +1024,8 @@ Create Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -975,9 +1034,9 @@ Create Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -987,13 +1046,11 @@ Create Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -1003,9 +1060,9 @@ Create Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -1013,9 +1070,9 @@ Create Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -1025,11 +1082,15 @@ Create Agent
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -1051,11 +1112,17 @@ Create Agent
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -1073,11 +1140,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -1095,11 +1166,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -1117,11 +1192,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -1139,11 +1218,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -1161,11 +1244,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -1183,7 +1270,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -1196,6 +1285,8 @@ Create Agent
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -1213,7 +1304,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -1267,9 +1360,13 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -1289,6 +1386,10 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -1307,13 +1408,17 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -1328,10 +1433,6 @@ Create Agent
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 
@@ -1482,7 +1583,7 @@ List Agents
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1530,6 +1631,8 @@ List Agents
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -1572,11 +1675,15 @@ List Agents
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -1596,9 +1703,9 @@ List Agents
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -1743,6 +1850,8 @@ List Agents
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -1751,9 +1860,9 @@ List Agents
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -1763,13 +1872,11 @@ List Agents
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -1779,9 +1886,9 @@ List Agents
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -1789,9 +1896,9 @@ List Agents
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -1801,11 +1908,15 @@ List Agents
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -1827,11 +1938,17 @@ List Agents
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -1849,11 +1966,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -1871,11 +1992,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -1893,11 +2018,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -1915,11 +2044,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -1937,11 +2070,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -1959,7 +2096,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -1972,6 +2111,8 @@ List Agents
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -1989,7 +2130,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -2043,9 +2186,13 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -2065,6 +2212,10 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -2083,13 +2234,17 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -2104,10 +2259,6 @@ List Agents
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 
@@ -2243,7 +2394,7 @@ Get Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2291,6 +2442,8 @@ Get Agent
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -2333,11 +2486,15 @@ Get Agent
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -2357,9 +2514,9 @@ Get Agent
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -2504,6 +2661,8 @@ Get Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -2512,9 +2671,9 @@ Get Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -2524,13 +2683,11 @@ Get Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -2540,9 +2697,9 @@ Get Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -2550,9 +2707,9 @@ Get Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -2562,11 +2719,15 @@ Get Agent
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -2588,11 +2749,17 @@ Get Agent
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -2610,11 +2777,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -2632,11 +2803,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -2654,11 +2829,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -2676,11 +2855,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -2698,11 +2881,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -2720,7 +2907,9 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -2733,6 +2922,8 @@ Get Agent
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -2750,7 +2941,9 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -2804,9 +2997,13 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -2826,6 +3023,10 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -2844,13 +3045,17 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -2865,10 +3070,6 @@ Get Agent
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 
@@ -2998,13 +3199,13 @@ Update Agent
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
+  - `type: Literal["url"]`
+
   - `name: str`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: Literal["url"]`
 
   - `url: str`
 
@@ -3198,6 +3399,8 @@ Update Agent
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
+  - `type: Literal["coordinator"]`
+
   - `agents: Sequence[BetaManagedAgentsMultiagentRosterEntryParams]`
 
     Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
@@ -3208,13 +3411,13 @@ Update Agent
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `type: Literal["agent"]`
+
       - `id: str`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `type: Literal["agent"]`
 
       - `version: Optional[int]`
 
@@ -3232,15 +3435,13 @@ Update Agent
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `type: Literal["advisor"]`
+
       - `model: str`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `type: Literal["advisor"]`
-
-  - `type: Literal["coordinator"]`
 
 - `name: Optional[str]`
 
@@ -3256,13 +3457,13 @@ Update Agent
 
     An Anthropic-managed skill.
 
+    - `type: Literal["anthropic"]`
+
     - `skill_id: str`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `type: Literal["anthropic"]`
 
     - `version: Optional[str]`
 
@@ -3274,13 +3475,13 @@ Update Agent
 
     A user-created custom skill.
 
+    - `type: Literal["custom"]`
+
     - `skill_id: str`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `type: Literal["custom"]`
 
     - `version: Optional[str]`
 
@@ -3312,6 +3513,8 @@ Update Agent
 
         Configuration override for the bash tool.
 
+        - `type: Optional[Literal["bash"]]`
+
         - `name: Literal["bash"]`
 
           Must be "bash".
@@ -3336,11 +3539,17 @@ Update Agent
 
             - `type: Literal["always_ask"]`
 
-        - `type: Optional[Literal["bash"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `type: Literal["auto"]`
 
       - `class BetaManagedAgentsEditToolConfigParams: …`
 
         Configuration override for the edit tool.
+
+        - `type: Optional[Literal["edit"]]`
 
         - `name: Literal["edit"]`
 
@@ -3362,11 +3571,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["edit"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsReadToolConfigParams: …`
 
         Configuration override for the read tool.
+
+        - `type: Optional[Literal["read"]]`
 
         - `name: Literal["read"]`
 
@@ -3388,11 +3601,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["read"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWriteToolConfigParams: …`
 
         Configuration override for the write tool.
+
+        - `type: Optional[Literal["write"]]`
 
         - `name: Literal["write"]`
 
@@ -3414,11 +3631,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["write"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGlobToolConfigParams: …`
 
         Configuration override for the glob tool.
+
+        - `type: Optional[Literal["glob"]]`
 
         - `name: Literal["glob"]`
 
@@ -3440,11 +3661,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["glob"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsGrepToolConfigParams: …`
 
         Configuration override for the grep tool.
+
+        - `type: Optional[Literal["grep"]]`
 
         - `name: Literal["grep"]`
 
@@ -3466,11 +3691,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["grep"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebFetchToolConfigParams: …`
 
         Configuration override for the web_fetch tool.
+
+        - `type: Optional[Literal["web_fetch"]]`
 
         - `name: Literal["web_fetch"]`
 
@@ -3506,11 +3735,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["web_fetch"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `class BetaManagedAgentsWebSearchToolConfigParams: …`
 
         Configuration override for the web_search tool.
+
+        - `type: Optional[Literal["web_search"]]`
 
         - `name: Literal["web_search"]`
 
@@ -3540,7 +3773,9 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-        - `type: Optional[Literal["web_search"]]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `user_location: Optional[BetaManagedAgentsUserLocation]`
 
@@ -3592,17 +3827,21 @@ Update Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsMCPToolsetParams: …`
 
     Configuration for tools from an MCP server defined in `mcp_servers`.
+
+    - `type: Literal["mcp_toolset"]`
 
     - `mcp_server_name: str`
 
       Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
       minLength: 1, maxLength: 255
-
-    - `type: Literal["mcp_toolset"]`
 
     - `configs: Optional[List[BetaManagedAgentsMCPToolConfigParams]]`
 
@@ -3630,6 +3869,10 @@ Update Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
     - `default_config: Optional[BetaManagedAgentsMCPToolsetDefaultConfigParams]`
 
       Default configuration for all tools from an MCP server.
@@ -3650,9 +3893,15 @@ Update Agent
 
           Tool calls require user confirmation before execution.
 
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
   - `class BetaManagedAgentsCustomToolParams: …`
 
     A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+    - `type: Literal["custom"]`
 
     - `description: str`
 
@@ -3676,8 +3925,6 @@ Update Agent
 
       minLength: 1, maxLength: 128
 
-    - `type: Literal["custom"]`
-
 - `version: Optional[int]`
 
   The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
@@ -3690,7 +3937,7 @@ Update Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3738,6 +3985,8 @@ Update Agent
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -3780,11 +4029,15 @@ Update Agent
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -3804,9 +4057,9 @@ Update Agent
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -3951,6 +4204,8 @@ Update Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -3959,9 +4214,9 @@ Update Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -3971,13 +4226,11 @@ Update Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -3987,9 +4240,9 @@ Update Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -3997,9 +4250,9 @@ Update Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -4009,11 +4262,15 @@ Update Agent
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -4035,11 +4292,17 @@ Update Agent
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -4057,11 +4320,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -4079,11 +4346,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -4101,11 +4372,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -4123,11 +4398,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -4145,11 +4424,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -4167,7 +4450,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -4180,6 +4465,8 @@ Update Agent
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -4197,7 +4484,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -4251,9 +4540,13 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -4273,6 +4566,10 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -4291,13 +4588,17 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -4312,10 +4613,6 @@ Update Agent
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 
@@ -4442,7 +4739,7 @@ Archive Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -4490,6 +4787,8 @@ Archive Agent
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -4532,11 +4831,15 @@ Archive Agent
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ### Returns
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -4556,9 +4859,9 @@ Archive Agent
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -4703,6 +5006,8 @@ Archive Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -4711,9 +5016,9 @@ Archive Agent
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -4723,13 +5028,11 @@ Archive Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -4739,9 +5042,9 @@ Archive Agent
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -4749,9 +5052,9 @@ Archive Agent
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -4761,11 +5064,15 @@ Archive Agent
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -4787,11 +5094,17 @@ Archive Agent
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -4809,11 +5122,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -4831,11 +5148,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -4853,11 +5174,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -4875,11 +5200,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -4897,11 +5226,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -4919,7 +5252,9 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -4932,6 +5267,8 @@ Archive Agent
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -4949,7 +5286,9 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -5003,9 +5342,13 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -5025,6 +5368,10 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -5043,13 +5390,17 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -5064,10 +5415,6 @@ Archive Agent
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 
@@ -5183,17 +5530,19 @@ print(beta_managed_agents_agent.id)
 
   Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+  - `type: Literal["advisor"]`
+
   - `model: str`
 
     The advisor model id.
-
-  - `type: Literal["advisor"]`
 
 ### Beta Managed Agents Agent
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -5213,9 +5562,9 @@ print(beta_managed_agents_agent.id)
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -5360,6 +5709,8 @@ print(beta_managed_agents_agent.id)
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -5368,9 +5719,9 @@ print(beta_managed_agents_agent.id)
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -5380,13 +5731,11 @@ print(beta_managed_agents_agent.id)
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -5396,9 +5745,9 @@ print(beta_managed_agents_agent.id)
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -5406,9 +5755,9 @@ print(beta_managed_agents_agent.id)
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -5418,11 +5767,15 @@ print(beta_managed_agents_agent.id)
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -5444,11 +5797,17 @@ print(beta_managed_agents_agent.id)
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -5466,11 +5825,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -5488,11 +5851,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -5510,11 +5877,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -5532,11 +5903,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -5554,11 +5929,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -5576,7 +5955,9 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -5589,6 +5970,8 @@ print(beta_managed_agents_agent.id)
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -5606,7 +5989,9 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -5660,9 +6045,13 @@ print(beta_managed_agents_agent.id)
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -5682,6 +6071,10 @@ print(beta_managed_agents_agent.id)
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -5700,13 +6093,17 @@ print(beta_managed_agents_agent.id)
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -5721,10 +6118,6 @@ print(beta_managed_agents_agent.id)
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 
@@ -5744,9 +6137,9 @@ print(beta_managed_agents_agent.id)
 
   A resolved agent reference with a concrete version.
 
-  - `id: str`
-
   - `type: Literal["agent"]`
+
+  - `id: str`
 
   - `version: int`
 
@@ -5761,6 +6154,8 @@ print(beta_managed_agents_agent.id)
   - `class BetaManagedAgentsBashToolConfig: …`
 
     Configuration for the bash tool.
+
+    - `type: Literal["bash"]`
 
     - `enabled: bool`
 
@@ -5782,11 +6177,17 @@ print(beta_managed_agents_agent.id)
 
         - `type: Literal["always_ask"]`
 
-    - `type: Literal["bash"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: Literal["auto"]`
 
   - `class BetaManagedAgentsEditToolConfig: …`
 
     Configuration for the edit tool.
+
+    - `type: Literal["edit"]`
 
     - `enabled: bool`
 
@@ -5804,11 +6205,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["edit"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsReadToolConfig: …`
 
     Configuration for the read tool.
+
+    - `type: Literal["read"]`
 
     - `enabled: bool`
 
@@ -5826,11 +6231,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["read"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWriteToolConfig: …`
 
     Configuration for the write tool.
+
+    - `type: Literal["write"]`
 
     - `enabled: bool`
 
@@ -5848,11 +6257,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["write"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGlobToolConfig: …`
 
     Configuration for the glob tool.
+
+    - `type: Literal["glob"]`
 
     - `enabled: bool`
 
@@ -5870,11 +6283,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["glob"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGrepToolConfig: …`
 
     Configuration for the grep tool.
+
+    - `type: Literal["grep"]`
 
     - `enabled: bool`
 
@@ -5892,11 +6309,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["grep"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebFetchToolConfig: …`
 
     Configuration for the web_fetch tool.
+
+    - `type: Literal["web_fetch"]`
 
     - `enabled: bool`
 
@@ -5914,7 +6335,9 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["web_fetch"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -5927,6 +6350,8 @@ print(beta_managed_agents_agent.id)
   - `class BetaManagedAgentsWebSearchToolConfig: …`
 
     Configuration for the web_search tool.
+
+    - `type: Literal["web_search"]`
 
     - `enabled: bool`
 
@@ -5944,7 +6369,9 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Literal["web_search"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -5990,6 +6417,8 @@ print(beta_managed_agents_agent.id)
 
     Configuration override for the bash tool.
 
+    - `type: Optional[Literal["bash"]]`
+
     - `name: Literal["bash"]`
 
       Must be "bash".
@@ -6014,11 +6443,17 @@ print(beta_managed_agents_agent.id)
 
         - `type: Literal["always_ask"]`
 
-    - `type: Optional[Literal["bash"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: Literal["auto"]`
 
   - `class BetaManagedAgentsEditToolConfigParams: …`
 
     Configuration override for the edit tool.
+
+    - `type: Optional[Literal["edit"]]`
 
     - `name: Literal["edit"]`
 
@@ -6040,11 +6475,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["edit"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsReadToolConfigParams: …`
 
     Configuration override for the read tool.
+
+    - `type: Optional[Literal["read"]]`
 
     - `name: Literal["read"]`
 
@@ -6066,11 +6505,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["read"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWriteToolConfigParams: …`
 
     Configuration override for the write tool.
+
+    - `type: Optional[Literal["write"]]`
 
     - `name: Literal["write"]`
 
@@ -6092,11 +6535,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["write"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGlobToolConfigParams: …`
 
     Configuration override for the glob tool.
+
+    - `type: Optional[Literal["glob"]]`
 
     - `name: Literal["glob"]`
 
@@ -6118,11 +6565,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["glob"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGrepToolConfigParams: …`
 
     Configuration override for the grep tool.
+
+    - `type: Optional[Literal["grep"]]`
 
     - `name: Literal["grep"]`
 
@@ -6144,11 +6595,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["grep"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebFetchToolConfigParams: …`
 
     Configuration override for the web_fetch tool.
+
+    - `type: Optional[Literal["web_fetch"]]`
 
     - `name: Literal["web_fetch"]`
 
@@ -6184,11 +6639,15 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["web_fetch"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebSearchToolConfigParams: …`
 
     Configuration override for the web_search tool.
+
+    - `type: Optional[Literal["web_search"]]`
 
     - `name: Literal["web_search"]`
 
@@ -6218,7 +6677,9 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-    - `type: Optional[Literal["web_search"]]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `user_location: Optional[BetaManagedAgentsUserLocation]`
 
@@ -6274,6 +6735,12 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
+
 ### Beta Managed Agents Agent Toolset Default Config Params
 
 - `class BetaManagedAgentsAgentToolsetDefaultConfigParams: …`
@@ -6300,15 +6767,25 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
+
 ### Beta Managed Agents Agent Toolset20260401
 
 - `class BetaManagedAgentsAgentToolset20260401: …`
+
+  - `type: Literal["agent_toolset_20260401"]`
 
   - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
     - `class BetaManagedAgentsBashToolConfig: …`
 
       Configuration for the bash tool.
+
+      - `type: Literal["bash"]`
 
       - `enabled: bool`
 
@@ -6330,11 +6807,17 @@ print(beta_managed_agents_agent.id)
 
           - `type: Literal["always_ask"]`
 
-      - `type: Literal["bash"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `type: Literal["auto"]`
 
     - `class BetaManagedAgentsEditToolConfig: …`
 
       Configuration for the edit tool.
+
+      - `type: Literal["edit"]`
 
       - `enabled: bool`
 
@@ -6352,11 +6835,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["edit"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsReadToolConfig: …`
 
       Configuration for the read tool.
+
+      - `type: Literal["read"]`
 
       - `enabled: bool`
 
@@ -6374,11 +6861,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["read"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWriteToolConfig: …`
 
       Configuration for the write tool.
+
+      - `type: Literal["write"]`
 
       - `enabled: bool`
 
@@ -6396,11 +6887,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["write"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGlobToolConfig: …`
 
       Configuration for the glob tool.
+
+      - `type: Literal["glob"]`
 
       - `enabled: bool`
 
@@ -6418,11 +6913,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["glob"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGrepToolConfig: …`
 
       Configuration for the grep tool.
+
+      - `type: Literal["grep"]`
 
       - `enabled: bool`
 
@@ -6440,11 +6939,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["grep"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebFetchToolConfig: …`
 
       Configuration for the web_fetch tool.
+
+      - `type: Literal["web_fetch"]`
 
       - `enabled: bool`
 
@@ -6462,7 +6965,9 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["web_fetch"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `allowed_domains: Optional[List[str]]`
 
@@ -6475,6 +6980,8 @@ print(beta_managed_agents_agent.id)
     - `class BetaManagedAgentsWebSearchToolConfig: …`
 
       Configuration for the web_search tool.
+
+      - `type: Literal["web_search"]`
 
       - `enabled: bool`
 
@@ -6492,7 +6999,9 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Literal["web_search"]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `allowed_domains: Optional[List[str]]`
 
@@ -6546,7 +7055,9 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-  - `type: Literal["agent_toolset_20260401"]`
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Agent Toolset20260401 Bash Input
 
@@ -6649,6 +7160,8 @@ print(beta_managed_agents_agent.id)
 
       Configuration override for the bash tool.
 
+      - `type: Optional[Literal["bash"]]`
+
       - `name: Literal["bash"]`
 
         Must be "bash".
@@ -6673,11 +7186,17 @@ print(beta_managed_agents_agent.id)
 
           - `type: Literal["always_ask"]`
 
-      - `type: Optional[Literal["bash"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `type: Literal["auto"]`
 
     - `class BetaManagedAgentsEditToolConfigParams: …`
 
       Configuration override for the edit tool.
+
+      - `type: Optional[Literal["edit"]]`
 
       - `name: Literal["edit"]`
 
@@ -6699,11 +7218,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["edit"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsReadToolConfigParams: …`
 
       Configuration override for the read tool.
+
+      - `type: Optional[Literal["read"]]`
 
       - `name: Literal["read"]`
 
@@ -6725,11 +7248,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["read"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWriteToolConfigParams: …`
 
       Configuration override for the write tool.
+
+      - `type: Optional[Literal["write"]]`
 
       - `name: Literal["write"]`
 
@@ -6751,11 +7278,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["write"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGlobToolConfigParams: …`
 
       Configuration override for the glob tool.
+
+      - `type: Optional[Literal["glob"]]`
 
       - `name: Literal["glob"]`
 
@@ -6777,11 +7308,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["glob"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGrepToolConfigParams: …`
 
       Configuration override for the grep tool.
+
+      - `type: Optional[Literal["grep"]]`
 
       - `name: Literal["grep"]`
 
@@ -6803,11 +7338,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["grep"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebFetchToolConfigParams: …`
 
       Configuration override for the web_fetch tool.
+
+      - `type: Optional[Literal["web_fetch"]]`
 
       - `name: Literal["web_fetch"]`
 
@@ -6843,11 +7382,15 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["web_fetch"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebSearchToolConfigParams: …`
 
       Configuration override for the web_search tool.
+
+      - `type: Optional[Literal["web_search"]]`
 
       - `name: Literal["web_search"]`
 
@@ -6877,7 +7420,9 @@ print(beta_managed_agents_agent.id)
 
           Tool calls require user confirmation before execution.
 
-      - `type: Optional[Literal["web_search"]]`
+        - `class BetaManagedAgentsAutoPolicy: …`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `user_location: Optional[BetaManagedAgentsUserLocation]`
 
@@ -6928,6 +7473,10 @@ print(beta_managed_agents_agent.id)
       - `class BetaManagedAgentsAlwaysAskPolicy: …`
 
         Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Agent Toolset20260401 Read Input
 
@@ -6986,9 +7535,9 @@ print(beta_managed_agents_agent.id)
 
   A resolved Anthropic-managed skill.
 
-  - `skill_id: str`
-
   - `type: Literal["anthropic"]`
+
+  - `skill_id: str`
 
   - `version: str`
 
@@ -6998,13 +7547,13 @@ print(beta_managed_agents_agent.id)
 
   An Anthropic-managed skill.
 
+  - `type: Literal["anthropic"]`
+
   - `skill_id: str`
 
     Identifier of the Anthropic skill (e.g., "xlsx").
 
     minLength: 1, maxLength: 64
-
-  - `type: Literal["anthropic"]`
 
   - `version: Optional[str]`
 
@@ -7012,11 +7561,21 @@ print(beta_managed_agents_agent.id)
 
     minLength: 1, maxLength: 64
 
+### Beta Managed Agents Auto Policy
+
+- `class BetaManagedAgentsAutoPolicy: …`
+
+  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+  - `type: Literal["auto"]`
+
 ### Beta Managed Agents Bash Tool Config
 
 - `class BetaManagedAgentsBashToolConfig: …`
 
   Configuration for the bash tool.
+
+  - `type: Literal["bash"]`
 
   - `enabled: bool`
 
@@ -7038,13 +7597,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["bash"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Bash Tool Config Params
 
 - `class BetaManagedAgentsBashToolConfigParams: …`
 
   Configuration override for the bash tool.
+
+  - `type: Optional[Literal["bash"]]`
 
   - `name: Literal["bash"]`
 
@@ -7070,7 +7635,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["bash"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Custom Skill
 
@@ -7078,9 +7647,9 @@ print(beta_managed_agents_agent.id)
 
   A resolved user-created custom skill.
 
-  - `skill_id: str`
-
   - `type: Literal["custom"]`
+
+  - `skill_id: str`
 
   - `version: str`
 
@@ -7090,13 +7659,13 @@ print(beta_managed_agents_agent.id)
 
   A user-created custom skill.
 
+  - `type: Literal["custom"]`
+
   - `skill_id: str`
 
     Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
     minLength: 1, maxLength: 64
-
-  - `type: Literal["custom"]`
 
   - `version: Optional[str]`
 
@@ -7109,6 +7678,8 @@ print(beta_managed_agents_agent.id)
 - `class BetaManagedAgentsCustomTool: …`
 
   A custom tool as returned in API responses.
+
+  - `type: Literal["custom"]`
 
   - `description: str`
 
@@ -7123,8 +7694,6 @@ print(beta_managed_agents_agent.id)
     - `required: Optional[List[str]]`
 
   - `name: str`
-
-  - `type: Literal["custom"]`
 
 ### Beta Managed Agents Custom Tool Input Schema
 
@@ -7143,6 +7712,8 @@ print(beta_managed_agents_agent.id)
 - `class BetaManagedAgentsCustomToolParams: …`
 
   A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+  - `type: Literal["custom"]`
 
   - `description: str`
 
@@ -7166,13 +7737,13 @@ print(beta_managed_agents_agent.id)
 
     minLength: 1, maxLength: 128
 
-  - `type: Literal["custom"]`
-
 ### Beta Managed Agents Edit Tool Config
 
 - `class BetaManagedAgentsEditToolConfig: …`
 
   Configuration for the edit tool.
+
+  - `type: Literal["edit"]`
 
   - `enabled: bool`
 
@@ -7194,13 +7765,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["edit"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Edit Tool Config Params
 
 - `class BetaManagedAgentsEditToolConfigParams: …`
 
   Configuration override for the edit tool.
+
+  - `type: Optional[Literal["edit"]]`
 
   - `name: Literal["edit"]`
 
@@ -7226,7 +7803,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["edit"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Effort High
 
@@ -7274,6 +7855,8 @@ print(beta_managed_agents_agent.id)
 
   Configuration for the glob tool.
 
+  - `type: Literal["glob"]`
+
   - `enabled: bool`
 
   - `name: Literal["glob"]`
@@ -7294,13 +7877,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["glob"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Glob Tool Config Params
 
 - `class BetaManagedAgentsGlobToolConfigParams: …`
 
   Configuration override for the glob tool.
+
+  - `type: Optional[Literal["glob"]]`
 
   - `name: Literal["glob"]`
 
@@ -7326,13 +7915,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["glob"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Grep Tool Config
 
 - `class BetaManagedAgentsGrepToolConfig: …`
 
   Configuration for the grep tool.
+
+  - `type: Literal["grep"]`
 
   - `enabled: bool`
 
@@ -7354,13 +7949,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["grep"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Grep Tool Config Params
 
 - `class BetaManagedAgentsGrepToolConfigParams: …`
 
   Configuration override for the grep tool.
+
+  - `type: Optional[Literal["grep"]]`
 
   - `name: Literal["grep"]`
 
@@ -7386,7 +7987,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["grep"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents MCP Server URL Definition
 
@@ -7394,9 +7999,9 @@ print(beta_managed_agents_agent.id)
 
   URL-based MCP server connection as returned in API responses.
 
-  - `name: str`
-
   - `type: Literal["url"]`
+
+  - `name: str`
 
   - `url: str`
 
@@ -7425,6 +8030,12 @@ print(beta_managed_agents_agent.id)
       Tool calls require user confirmation before execution.
 
       - `type: Literal["always_ask"]`
+
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents MCP Tool Config Params
 
@@ -7458,9 +8069,17 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
+
 ### Beta Managed Agents MCP Toolset
 
 - `class BetaManagedAgentsMCPToolset: …`
+
+  - `type: Literal["mcp_toolset"]`
 
   - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -7484,6 +8103,12 @@ print(beta_managed_agents_agent.id)
 
         - `type: Literal["always_ask"]`
 
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: Literal["auto"]`
+
   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
     Resolved default configuration for all tools from an MCP server.
@@ -7502,9 +8127,11 @@ print(beta_managed_agents_agent.id)
 
         Tool calls require user confirmation before execution.
 
-  - `mcp_server_name: str`
+      - `class BetaManagedAgentsAutoPolicy: …`
 
-  - `type: Literal["mcp_toolset"]`
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+  - `mcp_server_name: str`
 
 ### Beta Managed Agents MCP Toolset Default Config
 
@@ -7529,6 +8156,12 @@ print(beta_managed_agents_agent.id)
       Tool calls require user confirmation before execution.
 
       - `type: Literal["always_ask"]`
+
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents MCP Toolset Default Config Params
 
@@ -7556,19 +8189,25 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
+
 ### Beta Managed Agents MCP Toolset Params
 
 - `class BetaManagedAgentsMCPToolsetParams: …`
 
   Configuration for tools from an MCP server defined in `mcp_servers`.
 
+  - `type: Literal["mcp_toolset"]`
+
   - `mcp_server_name: str`
 
     Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: Literal["mcp_toolset"]`
 
   - `configs: Optional[List[BetaManagedAgentsMCPToolConfigParams]]`
 
@@ -7600,6 +8239,12 @@ print(beta_managed_agents_agent.id)
 
         - `type: Literal["always_ask"]`
 
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `type: Literal["auto"]`
+
   - `default_config: Optional[BetaManagedAgentsMCPToolsetDefaultConfigParams]`
 
     Default configuration for all tools from an MCP server.
@@ -7619,6 +8264,10 @@ print(beta_managed_agents_agent.id)
       - `class BetaManagedAgentsAlwaysAskPolicy: …`
 
         Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsAutoPolicy: …`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Model
 
@@ -8001,6 +8650,8 @@ print(beta_managed_agents_agent.id)
 
   Resolved coordinator topology with a concrete agent roster.
 
+  - `type: Literal["coordinator"]`
+
   - `agents: List[Agent]`
 
     Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -8009,9 +8660,9 @@ print(beta_managed_agents_agent.id)
 
       A resolved agent reference with a concrete version.
 
-      - `id: str`
-
       - `type: Literal["agent"]`
+
+      - `id: str`
 
       - `version: int`
 
@@ -8021,19 +8672,19 @@ print(beta_managed_agents_agent.id)
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+      - `type: Literal["advisor"]`
+
       - `model: str`
 
         The advisor model id.
-
-      - `type: Literal["advisor"]`
-
-  - `type: Literal["coordinator"]`
 
 ### Beta Managed Agents Multiagent Coordinator Params
 
 - `class BetaManagedAgentsMultiagentCoordinatorParams: …`
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+
+  - `type: Literal["coordinator"]`
 
   - `agents: List[BetaManagedAgentsMultiagentRosterEntryParams]`
 
@@ -8045,13 +8696,13 @@ print(beta_managed_agents_agent.id)
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `type: Literal["agent"]`
+
       - `id: str`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `type: Literal["agent"]`
 
       - `version: Optional[int]`
 
@@ -8069,15 +8720,13 @@ print(beta_managed_agents_agent.id)
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `type: Literal["advisor"]`
+
       - `model: str`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `type: Literal["advisor"]`
-
-  - `type: Literal["coordinator"]`
 
 ### Beta Managed Agents Multiagent Self Params
 
@@ -8092,6 +8741,8 @@ print(beta_managed_agents_agent.id)
 - `class BetaManagedAgentsReadToolConfig: …`
 
   Configuration for the read tool.
+
+  - `type: Literal["read"]`
 
   - `enabled: bool`
 
@@ -8113,13 +8764,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["read"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Read Tool Config Params
 
 - `class BetaManagedAgentsReadToolConfigParams: …`
 
   Configuration override for the read tool.
+
+  - `type: Optional[Literal["read"]]`
 
   - `name: Literal["read"]`
 
@@ -8145,7 +8802,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["read"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Session Thread Agent
 
@@ -8153,15 +8814,17 @@ print(beta_managed_agents_agent.id)
 
   Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+  - `type: Literal["agent"]`
+
   - `id: str`
 
   - `description: Optional[str]`
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -8308,9 +8971,9 @@ print(beta_managed_agents_agent.id)
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -8318,9 +8981,9 @@ print(beta_managed_agents_agent.id)
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -8330,11 +8993,15 @@ print(beta_managed_agents_agent.id)
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -8356,11 +9023,17 @@ print(beta_managed_agents_agent.id)
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -8378,11 +9051,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -8400,11 +9077,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -8422,11 +9103,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -8444,11 +9129,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -8466,11 +9155,15 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -8488,7 +9181,9 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -8501,6 +9196,8 @@ print(beta_managed_agents_agent.id)
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -8518,7 +9215,9 @@ print(beta_managed_agents_agent.id)
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -8572,9 +9271,13 @@ print(beta_managed_agents_agent.id)
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -8594,6 +9297,10 @@ print(beta_managed_agents_agent.id)
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -8612,13 +9319,17 @@ print(beta_managed_agents_agent.id)
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -8634,10 +9345,6 @@ print(beta_managed_agents_agent.id)
 
       - `name: str`
 
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
-
   - `version: int`
 
     format: int32
@@ -8652,13 +9359,13 @@ print(beta_managed_agents_agent.id)
 
     An Anthropic-managed skill.
 
+    - `type: Literal["anthropic"]`
+
     - `skill_id: str`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `type: Literal["anthropic"]`
 
     - `version: Optional[str]`
 
@@ -8670,13 +9377,13 @@ print(beta_managed_agents_agent.id)
 
     A user-created custom skill.
 
+    - `type: Literal["custom"]`
+
     - `skill_id: str`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `type: Literal["custom"]`
 
     - `version: Optional[str]`
 
@@ -8690,13 +9397,13 @@ print(beta_managed_agents_agent.id)
 
   URL-based MCP server connection.
 
+  - `type: Literal["url"]`
+
   - `name: str`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `type: Literal["url"]`
 
   - `url: str`
 
@@ -8742,6 +9449,8 @@ print(beta_managed_agents_agent.id)
 
   Configuration for the web_fetch tool.
 
+  - `type: Literal["web_fetch"]`
+
   - `enabled: bool`
 
   - `name: Literal["web_fetch"]`
@@ -8762,7 +9471,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["web_fetch"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -8777,6 +9490,8 @@ print(beta_managed_agents_agent.id)
 - `class BetaManagedAgentsWebFetchToolConfigParams: …`
 
   Configuration override for the web_fetch tool.
+
+  - `type: Optional[Literal["web_fetch"]]`
 
   - `name: Literal["web_fetch"]`
 
@@ -8816,13 +9531,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["web_fetch"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Web Search Tool Config
 
 - `class BetaManagedAgentsWebSearchToolConfig: …`
 
   Configuration for the web_search tool.
+
+  - `type: Literal["web_search"]`
 
   - `enabled: bool`
 
@@ -8844,7 +9565,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["web_search"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -8886,6 +9611,8 @@ print(beta_managed_agents_agent.id)
 
   Configuration override for the web_search tool.
 
+  - `type: Optional[Literal["web_search"]]`
+
   - `name: Literal["web_search"]`
 
     Must be "web_search".
@@ -8918,7 +9645,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["web_search"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
   - `user_location: Optional[BetaManagedAgentsUserLocation]`
 
@@ -8956,6 +9687,8 @@ print(beta_managed_agents_agent.id)
 
   Configuration for the write tool.
 
+  - `type: Literal["write"]`
+
   - `enabled: bool`
 
   - `name: Literal["write"]`
@@ -8976,13 +9709,19 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Literal["write"]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ### Beta Managed Agents Write Tool Config Params
 
 - `class BetaManagedAgentsWriteToolConfigParams: …`
 
   Configuration override for the write tool.
+
+  - `type: Optional[Literal["write"]]`
 
   - `name: Literal["write"]`
 
@@ -9008,7 +9747,11 @@ print(beta_managed_agents_agent.id)
 
       - `type: Literal["always_ask"]`
 
-  - `type: Optional[Literal["write"]]`
+    - `class BetaManagedAgentsAutoPolicy: …`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `type: Literal["auto"]`
 
 ## Agents › Versions
 
@@ -9040,7 +9783,7 @@ List Agent Versions
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -9088,6 +9831,8 @@ List Agent Versions
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -9130,11 +9875,15 @@ List Agent Versions
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 #### Returns
 
 - `class BetaManagedAgentsAgent: …`
 
   A Managed Agents `agent`.
+
+  - `type: Literal["agent"]`
 
   - `id: str`
 
@@ -9154,9 +9903,9 @@ List Agent Versions
 
   - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
-    - `name: str`
-
     - `type: Literal["url"]`
+
+    - `name: str`
 
     - `url: str`
 
@@ -9301,6 +10050,8 @@ List Agent Versions
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: Literal["coordinator"]`
+
     - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -9309,9 +10060,9 @@ List Agent Versions
 
         A resolved agent reference with a concrete version.
 
-        - `id: str`
-
         - `type: Literal["agent"]`
+
+        - `id: str`
 
         - `version: int`
 
@@ -9321,13 +10072,11 @@ List Agent Versions
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: Literal["advisor"]`
+
         - `model: str`
 
           The advisor model id.
-
-        - `type: Literal["advisor"]`
-
-    - `type: Literal["coordinator"]`
 
   - `name: str`
 
@@ -9337,9 +10086,9 @@ List Agent Versions
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: str`
-
       - `type: Literal["anthropic"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -9347,9 +10096,9 @@ List Agent Versions
 
       A resolved user-created custom skill.
 
-      - `skill_id: str`
-
       - `type: Literal["custom"]`
+
+      - `skill_id: str`
 
       - `version: str`
 
@@ -9359,11 +10108,15 @@ List Agent Versions
 
     - `class BetaManagedAgentsAgentToolset20260401: …`
 
+      - `type: Literal["agent_toolset_20260401"]`
+
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
         - `class BetaManagedAgentsBashToolConfig: …`
 
           Configuration for the bash tool.
+
+          - `type: Literal["bash"]`
 
           - `enabled: bool`
 
@@ -9385,11 +10138,17 @@ List Agent Versions
 
               - `type: Literal["always_ask"]`
 
-          - `type: Literal["bash"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: Literal["auto"]`
 
         - `class BetaManagedAgentsEditToolConfig: …`
 
           Configuration for the edit tool.
+
+          - `type: Literal["edit"]`
 
           - `enabled: bool`
 
@@ -9407,11 +10166,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["edit"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig: …`
 
           Configuration for the read tool.
+
+          - `type: Literal["read"]`
 
           - `enabled: bool`
 
@@ -9429,11 +10192,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["read"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig: …`
 
           Configuration for the write tool.
+
+          - `type: Literal["write"]`
 
           - `enabled: bool`
 
@@ -9451,11 +10218,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["write"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig: …`
 
           Configuration for the glob tool.
+
+          - `type: Literal["glob"]`
 
           - `enabled: bool`
 
@@ -9473,11 +10244,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["glob"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig: …`
 
           Configuration for the grep tool.
+
+          - `type: Literal["grep"]`
 
           - `enabled: bool`
 
@@ -9495,11 +10270,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["grep"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig: …`
 
           Configuration for the web_fetch tool.
+
+          - `type: Literal["web_fetch"]`
 
           - `enabled: bool`
 
@@ -9517,7 +10296,9 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_fetch"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -9530,6 +10311,8 @@ List Agent Versions
         - `class BetaManagedAgentsWebSearchToolConfig: …`
 
           Configuration for the web_search tool.
+
+          - `type: Literal["web_search"]`
 
           - `enabled: bool`
 
@@ -9547,7 +10330,9 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `type: Literal["web_search"]`
+            - `class BetaManagedAgentsAutoPolicy: …`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: Optional[List[str]]`
 
@@ -9601,9 +10386,13 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
-      - `type: Literal["agent_toolset_20260401"]`
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMCPToolset: …`
+
+      - `type: Literal["mcp_toolset"]`
 
       - `configs: List[BetaManagedAgentsMCPToolConfig]`
 
@@ -9623,6 +10412,10 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy: …`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -9641,13 +10434,17 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: str`
+          - `class BetaManagedAgentsAutoPolicy: …`
 
-      - `type: Literal["mcp_toolset"]`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: str`
 
     - `class BetaManagedAgentsCustomTool: …`
 
       A custom tool as returned in API responses.
+
+      - `type: Literal["custom"]`
 
       - `description: str`
 
@@ -9662,10 +10459,6 @@ List Agent Versions
         - `required: Optional[List[str]]`
 
       - `name: str`
-
-      - `type: Literal["custom"]`
-
-  - `type: Literal["agent"]`
 
   - `updated_at: datetime`
 

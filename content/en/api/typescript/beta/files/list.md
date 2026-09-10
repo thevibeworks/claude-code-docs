@@ -1,3 +1,8 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/typescript/beta/files/list
+---
+
 # List Files
 
 `client.beta.files.list(params?, options?): PageCursor<BetaFileMetadata>`
@@ -36,7 +41,7 @@ List Files
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 41 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -84,6 +89,8 @@ List Files
 
       - `"user-profiles-2026-08-18"`
 
+      - `"user-profiles-2026-09-04"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
@@ -126,9 +133,21 @@ List Files
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaFileMetadata`
+
+  - `type: "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: string`
 
@@ -160,12 +179,6 @@ List Files
 
     minimum: 0
 
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
@@ -182,13 +195,13 @@ List Files
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-    - `id: string`
-
-      The ID of the scoping resource (e.g., the session ID).
-
     - `type: "session"`
 
       The type of scope (e.g., `"session"`).
+
+    - `id: string`
+
+      The ID of the scoping resource (e.g., the session ID).
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: Retrieve Message Batch results
+url: https://platform.claude.com/docs/en/api/go/beta/messages/batches/results
+---
+
 # Retrieve Message Batch results
 
 `client.Beta.Messages.Batches.Results(ctx, messageBatchID, query) (*BetaMessageBatchIndividualResponse, error)`
@@ -72,6 +77,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -114,6 +121,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaMessageBatchIndividualResponse struct{…}`
@@ -134,7 +147,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `type BetaMessageBatchSucceededResult struct{…}`
 
+      - `Type Succeeded`
+
+        default: succeeded
+
       - `Message BetaMessage`
+
+        - `Type Message`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
+
+          default: message
 
         - `ID string`
 
@@ -160,12 +185,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `SkillID string`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `Type BetaContainerSkillType`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -173,6 +192,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
               - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
+
+            - `SkillID string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `Version string`
 
@@ -211,6 +236,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type BetaTextBlock struct{…}`
 
+            - `Type Text`
+
+              default: text
+
             - `Citations []BetaTextCitationUnion`
 
               Citations supporting the text block.
@@ -218,6 +247,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `type BetaCitationCharLocation struct{…}`
+
+                - `Type CharLocation`
+
+                  default: char_location
 
                 - `CitedText string`
 
@@ -235,11 +268,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `Type CharLocation`
-
-                  default: char_location
-
               - `type BetaCitationPageLocation struct{…}`
+
+                - `Type PageLocation`
+
+                  default: page_location
 
                 - `CitedText string`
 
@@ -257,11 +290,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `Type PageLocation`
-
-                  default: page_location
-
               - `type BetaCitationContentBlockLocation struct{…}`
+
+                - `Type ContentBlockLocation`
+
+                  default: content_block_location
 
                 - `CitedText string`
 
@@ -289,11 +322,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `Type ContentBlockLocation`
-
-                  default: content_block_location
-
               - `type BetaCitationsWebSearchResultLocation struct{…}`
+
+                - `Type WebSearchResultLocation`
+
+                  default: web_search_result_location
 
                 - `CitedText string`
 
@@ -303,13 +336,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `Type WebSearchResultLocation`
-
-                  default: web_search_result_location
-
                 - `URL string`
 
               - `type BetaCitationSearchResultLocation struct{…}`
+
+                - `Type SearchResultLocation`
+
+                  default: search_result_location
 
                 - `CitedText string`
 
@@ -341,19 +374,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Title string`
 
-                - `Type SearchResultLocation`
-
-                  default: search_result_location
-
             - `Text string`
 
-              maxLength: 5000000, minLength: 0
-
-            - `Type Text`
-
-              default: text
+              minLength: 0
 
           - `type BetaThinkingBlock struct{…}`
+
+            - `Type Thinking`
+
+              default: thinking
 
             - `Signature string`
 
@@ -367,11 +396,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `Type Thinking`
-
-              default: thinking
-
           - `type BetaRedactedThinkingBlock struct{…}`
+
+            - `Type RedactedThinking`
+
+              default: redacted_thinking
 
             - `Data string`
 
@@ -381,11 +410,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `Type RedactedThinking`
-
-              default: redacted_thinking
-
           - `type BetaToolUseBlock struct{…}`
+
+            - `Type ToolUse`
+
+              default: tool_use
 
             - `ID string`
 
@@ -396,10 +425,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `Name string`
 
               minLength: 1
-
-            - `Type ToolUse`
-
-              default: tool_use
 
             - `Caller BetaToolUseBlockCallerUnion Optional`
 
@@ -415,19 +440,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `Type CodeExecution20250825`
+
                 - `ToolID string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `Type CodeExecution20250825`
 
               - `type BetaServerToolCaller20260120 struct{…}`
 
+                - `Type CodeExecution20260120`
+
                 - `ToolID string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `Type CodeExecution20260120`
 
             - `ToolsetName string Optional`
 
@@ -436,6 +461,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `type BetaServerToolUseBlock struct{…}`
+
+            - `Type ServerToolUse`
+
+              default: server_tool_use
 
             - `ID string`
 
@@ -461,10 +490,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `const BetaServerToolUseBlockNameToolSearchToolBm25 BetaServerToolUseBlockName = "tool_search_tool_bm25"`
 
-            - `Type ServerToolUse`
-
-              default: server_tool_use
-
             - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
               Tool invocation directly from the model.
@@ -481,9 +506,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type BetaWebSearchToolResultBlock struct{…}`
 
+            - `Type WebSearchToolResult`
+
+              default: web_search_tool_result
+
             - `Content BetaWebSearchToolResultBlockContentUnion`
 
               - `type BetaWebSearchToolResultError struct{…}`
+
+                - `Type WebSearchToolResultError`
+
+                  default: web_search_tool_result_error
 
                 - `ErrorCode BetaWebSearchToolResultErrorCode`
 
@@ -499,11 +532,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const BetaWebSearchToolResultErrorCodeRequestTooLarge BetaWebSearchToolResultErrorCode = "request_too_large"`
 
-                - `Type WebSearchToolResultError`
-
-                  default: web_search_tool_result_error
-
               - `type BetaWebSearchToolResultBlockContentArray []BetaWebSearchResultBlock`
+
+                - `Type WebSearchResult`
+
+                  default: web_search_result
 
                 - `EncryptedContent string`
 
@@ -511,19 +544,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Title string`
 
-                - `Type WebSearchResult`
-
-                  default: web_search_result
-
                 - `URL string`
 
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `Type WebSearchToolResult`
-
-              default: web_search_tool_result
 
             - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
 
@@ -541,9 +566,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type BetaWebFetchToolResultBlock struct{…}`
 
+            - `Type WebFetchToolResult`
+
+              default: web_fetch_tool_result
+
             - `Content BetaWebFetchToolResultBlockContentUnion`
 
               - `type BetaWebFetchToolResultErrorBlock struct{…}`
+
+                - `Type WebFetchToolResultError`
+
+                  default: web_fetch_tool_result_error
 
                 - `ErrorCode BetaWebFetchToolResultErrorCode`
 
@@ -565,13 +598,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const BetaWebFetchToolResultErrorCodeUnavailable BetaWebFetchToolResultErrorCode = "unavailable"`
 
-                - `Type WebFetchToolResultError`
-
-                  default: web_fetch_tool_result_error
+                  - `const BetaWebFetchToolResultErrorCodeContentTooLarge BetaWebFetchToolResultErrorCode = "content_too_large"`
 
               - `type BetaWebFetchBlock struct{…}`
 
+                - `Type WebFetchResult`
+
+                  default: web_fetch_result
+
                 - `Content BetaDocumentBlock`
+
+                  - `Type Document`
+
+                    default: document
 
                   - `Citations BetaCitationConfig`
 
@@ -585,37 +624,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `type BetaBase64PDFSource struct{…}`
 
+                      - `Type Base64`
+
                       - `Data string`
 
                         format: byte
 
                       - `MediaType ApplicationPDF`
 
-                      - `Type Base64`
-
                     - `type BetaPlainTextSource struct{…}`
+
+                      - `Type Text`
 
                       - `Data string`
 
                       - `MediaType TextPlain`
 
-                      - `Type Text`
-
                   - `Title string`
 
                     The title of the document
 
-                  - `Type Document`
-
-                    default: document
-
                 - `RetrievedAt string`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `Type WebFetchResult`
-
-                  default: web_fetch_result
 
                 - `URL string`
 
@@ -624,10 +655,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `Type WebFetchToolResult`
-
-              default: web_fetch_tool_result
 
             - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
@@ -645,9 +672,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type BetaAdvisorToolResultBlock struct{…}`
 
+            - `Type AdvisorToolResult`
+
+              default: advisor_tool_result
+
             - `Content BetaAdvisorToolResultBlockContentUnion`
 
               - `type BetaAdvisorToolResultError struct{…}`
+
+                - `Type AdvisorToolResultError`
+
+                  default: advisor_tool_result_error
 
                 - `ErrorCode BetaAdvisorToolResultErrorErrorCode`
 
@@ -665,11 +700,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const BetaAdvisorToolResultErrorErrorCodeModelNotFound BetaAdvisorToolResultErrorErrorCode = "model_not_found"`
 
-                - `Type AdvisorToolResultError`
-
-                  default: advisor_tool_result_error
-
               - `type BetaAdvisorResultBlock struct{…}`
+
+                - `Type AdvisorResult`
+
+                  default: advisor_result
 
                 - `StopReason string`
 
@@ -677,11 +712,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Text string`
 
-                - `Type AdvisorResult`
-
-                  default: advisor_result
-
               - `type BetaAdvisorRedactedResultBlock struct{…}`
+
+                - `Type AdvisorRedactedResult`
+
+                  default: advisor_redacted_result
 
                 - `EncryptedContent string`
 
@@ -691,25 +726,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-                - `Type AdvisorRedactedResult`
-
-                  default: advisor_redacted_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type AdvisorToolResult`
-
-              default: advisor_tool_result
-
           - `type BetaCodeExecutionToolResultBlock struct{…}`
+
+            - `Type CodeExecutionToolResult`
+
+              default: code_execution_tool_result
 
             - `Content BetaCodeExecutionToolResultBlockContentUnion`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `type BetaCodeExecutionToolResultError struct{…}`
+
+                - `Type CodeExecutionToolResultError`
+
+                  default: code_execution_tool_result_error
 
                 - `ErrorCode BetaCodeExecutionToolResultErrorCode`
 
@@ -721,19 +756,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const BetaCodeExecutionToolResultErrorCodeExecutionTimeExceeded BetaCodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-                - `Type CodeExecutionToolResultError`
-
-                  default: code_execution_tool_result_error
-
               - `type BetaCodeExecutionResultBlock struct{…}`
 
-                - `Content []BetaCodeExecutionOutputBlock`
+                - `Type CodeExecutionResult`
 
-                  - `FileID string`
+                  default: code_execution_result
+
+                - `Content []BetaCodeExecutionOutputBlock`
 
                   - `Type CodeExecutionOutput`
 
                     default: code_execution_output
+
+                  - `FileID string`
 
                 - `ReturnCode int64`
 
@@ -741,21 +776,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Stdout string`
 
-                - `Type CodeExecutionResult`
-
-                  default: code_execution_result
-
               - `type BetaEncryptedCodeExecutionResultBlock struct{…}`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
-                - `Content []BetaCodeExecutionOutputBlock`
+                - `Type EncryptedCodeExecutionResult`
 
-                  - `FileID string`
+                  default: encrypted_code_execution_result
+
+                - `Content []BetaCodeExecutionOutputBlock`
 
                   - `Type CodeExecutionOutput`
 
                     default: code_execution_output
+
+                  - `FileID string`
 
                 - `EncryptedStdout string`
 
@@ -763,23 +798,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Stderr string`
 
-                - `Type EncryptedCodeExecutionResult`
-
-                  default: encrypted_code_execution_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type CodeExecutionToolResult`
-
-              default: code_execution_tool_result
-
           - `type BetaBashCodeExecutionToolResultBlock struct{…}`
+
+            - `Type BashCodeExecutionToolResult`
+
+              default: bash_code_execution_tool_result
 
             - `Content BetaBashCodeExecutionToolResultBlockContentUnion`
 
               - `type BetaBashCodeExecutionToolResultError struct{…}`
+
+                - `Type BashCodeExecutionToolResultError`
+
+                  default: bash_code_execution_tool_result_error
 
                 - `ErrorCode BetaBashCodeExecutionToolResultErrorErrorCode`
 
@@ -793,19 +828,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const BetaBashCodeExecutionToolResultErrorErrorCodeOutputFileTooLarge BetaBashCodeExecutionToolResultErrorErrorCode = "output_file_too_large"`
 
-                - `Type BashCodeExecutionToolResultError`
-
-                  default: bash_code_execution_tool_result_error
-
               - `type BetaBashCodeExecutionResultBlock struct{…}`
 
-                - `Content []BetaBashCodeExecutionOutputBlock`
+                - `Type BashCodeExecutionResult`
 
-                  - `FileID string`
+                  default: bash_code_execution_result
+
+                - `Content []BetaBashCodeExecutionOutputBlock`
 
                   - `Type BashCodeExecutionOutput`
 
                     default: bash_code_execution_output
+
+                  - `FileID string`
 
                 - `ReturnCode int64`
 
@@ -813,23 +848,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Stdout string`
 
-                - `Type BashCodeExecutionResult`
-
-                  default: bash_code_execution_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type BashCodeExecutionToolResult`
-
-              default: bash_code_execution_tool_result
-
           - `type BetaTextEditorCodeExecutionToolResultBlock struct{…}`
+
+            - `Type TextEditorCodeExecutionToolResult`
+
+              default: text_editor_code_execution_tool_result
 
             - `Content BetaTextEditorCodeExecutionToolResultBlockContentUnion`
 
               - `type BetaTextEditorCodeExecutionToolResultError struct{…}`
+
+                - `Type TextEditorCodeExecutionToolResultError`
+
+                  default: text_editor_code_execution_tool_result_error
 
                 - `ErrorCode BetaTextEditorCodeExecutionToolResultErrorErrorCode`
 
@@ -845,11 +880,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `ErrorMessage string`
 
-                - `Type TextEditorCodeExecutionToolResultError`
-
-                  default: text_editor_code_execution_tool_result_error
-
               - `type BetaTextEditorCodeExecutionViewResultBlock struct{…}`
+
+                - `Type TextEditorCodeExecutionViewResult`
+
+                  default: text_editor_code_execution_view_result
 
                 - `Content string`
 
@@ -867,19 +902,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `TotalLines int64`
 
-                - `Type TextEditorCodeExecutionViewResult`
-
-                  default: text_editor_code_execution_view_result
-
               - `type BetaTextEditorCodeExecutionCreateResultBlock struct{…}`
-
-                - `IsFileUpdate bool`
 
                 - `Type TextEditorCodeExecutionCreateResult`
 
                   default: text_editor_code_execution_create_result
 
+                - `IsFileUpdate bool`
+
               - `type BetaTextEditorCodeExecutionStrReplaceResultBlock struct{…}`
+
+                - `Type TextEditorCodeExecutionStrReplaceResult`
+
+                  default: text_editor_code_execution_str_replace_result
 
                 - `Lines []string`
 
@@ -891,23 +926,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `OldStart int64`
 
-                - `Type TextEditorCodeExecutionStrReplaceResult`
-
-                  default: text_editor_code_execution_str_replace_result
-
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type TextEditorCodeExecutionToolResult`
-
-              default: text_editor_code_execution_tool_result
-
           - `type BetaToolSearchToolResultBlock struct{…}`
+
+            - `Type ToolSearchToolResult`
+
+              default: tool_search_tool_result
 
             - `Content BetaToolSearchToolResultBlockContentUnion`
 
               - `type BetaToolSearchToolResultError struct{…}`
+
+                - `Type ToolSearchToolResultError`
+
+                  default: tool_search_tool_result_error
 
                 - `ErrorCode BetaToolSearchToolResultErrorErrorCode`
 
@@ -921,35 +956,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `ErrorMessage string`
 
-                - `Type ToolSearchToolResultError`
-
-                  default: tool_search_tool_result_error
-
               - `type BetaToolSearchToolSearchResultBlock struct{…}`
-
-                - `ToolReferences []BetaToolReferenceBlock`
-
-                  - `ToolName string`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `Type ToolReference`
-
-                    default: tool_reference
 
                 - `Type ToolSearchToolSearchResult`
 
                   default: tool_search_tool_search_result
 
+                - `ToolReferences []BetaToolReferenceBlock`
+
+                  - `Type ToolReference`
+
+                    default: tool_reference
+
+                  - `ToolName string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `ToolUseID string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Type ToolSearchToolResult`
-
-              default: tool_search_tool_result
-
           - `type BetaMCPToolUseBlock struct{…}`
+
+            - `Type MCPToolUse`
+
+              default: mcp_tool_use
 
             - `ID string`
 
@@ -965,17 +996,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-            - `Type MCPToolUse`
-
-              default: mcp_tool_use
-
           - `type BetaMCPToolResultBlock struct{…}`
+
+            - `Type MCPToolResult`
+
+              default: mcp_tool_result
 
             - `Content BetaMCPToolResultBlockContentUnion`
 
               - `string`
 
               - `type BetaMCPToolResultBlockContentBetaMCPToolResultBlockContent []BetaTextBlock`
+
+                - `Type Text`
+
+                  default: text
 
                 - `Citations []BetaTextCitationUnion`
 
@@ -985,11 +1020,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Text string`
 
-                  maxLength: 5000000, minLength: 0
-
-                - `Type Text`
-
-                  default: text
+                  minLength: 0
 
             - `IsError bool`
 
@@ -999,19 +1030,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `Type MCPToolResult`
-
-              default: mcp_tool_result
-
           - `type BetaContainerUploadBlock struct{…}`
 
             Response model for a file uploaded to the container.
 
-            - `FileID string`
-
             - `Type ContainerUpload`
 
               default: container_upload
+
+            - `FileID string`
 
           - `type BetaCompactionBlock struct{…}`
 
@@ -1021,6 +1048,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             summary (e.g., malformed output from the model). Clients may round-trip
             compaction blocks with null content; the server treats them as no-ops.
 
+            - `Type Compaction`
+
+              default: compaction
+
             - `Content string`
 
               Summary of compacted content, or null if compaction failed
@@ -1028,10 +1059,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `EncryptedContent string`
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
-
-            - `Type Compaction`
-
-              default: compaction
 
           - `type BetaFallbackBlock struct{…}`
 
@@ -1046,6 +1073,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             The block is treated like a server-tool content block for streaming: it
             arrives via the standard `content_block_start` / `content_block_stop`
             pair and carries no deltas.
+
+            - `Type Fallback`
+
+              default: fallback
 
             - `From BetaFallbackInfo`
 
@@ -1141,6 +1172,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               What caused the `from` model to hand over at this hop.
 
+              - `Type Refusal`
+
+                default: refusal
+
               - `Category BetaFallbackRefusalTriggerCategory`
 
                 The policy category that triggered a refusal.
@@ -1165,14 +1200,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-              - `Type Refusal`
-
-                default: refusal
-
-            - `Type Fallback`
-
-              default: fallback
-
         - `ContextManagement BetaContextManagementResponse`
 
           Context management response.
@@ -1184,6 +1211,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             List of context management edits that were applied.
 
             - `type BetaClearToolUses20250919EditResponse struct{…}`
+
+              - `Type ClearToolUses20250919`
+
+                The type of context management edit applied.
+
+                default: clear_tool_uses_20250919
 
               - `ClearedInputTokens int64`
 
@@ -1197,13 +1230,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `Type ClearToolUses20250919`
+            - `type BetaClearThinking20251015EditResponse struct{…}`
+
+              - `Type ClearThinking20251015`
 
                 The type of context management edit applied.
 
-                default: clear_tool_uses_20250919
-
-            - `type BetaClearThinking20251015EditResponse struct{…}`
+                default: clear_thinking_20251015
 
               - `ClearedInputTokens int64`
 
@@ -1217,12 +1250,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `Type ClearThinking20251015`
-
-                The type of context management edit applied.
-
-                default: clear_thinking_20251015
-
         - `Diagnostics BetaDiagnostics`
 
           Response envelope for request-level diagnostics. Present (possibly
@@ -1234,43 +1261,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type BetaCacheMissModelChanged struct{…}`
 
-              - `CacheMissedInputTokens int64`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
               - `Type ModelChanged`
 
                 default: model_changed
 
-            - `type BetaCacheMissSystemChanged struct{…}`
-
               - `CacheMissedInputTokens int64`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `type BetaCacheMissSystemChanged struct{…}`
 
               - `Type SystemChanged`
 
                 default: system_changed
 
-            - `type BetaCacheMissToolsChanged struct{…}`
-
               - `CacheMissedInputTokens int64`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `type BetaCacheMissToolsChanged struct{…}`
 
               - `Type ToolsChanged`
 
                 default: tools_changed
 
-            - `type BetaCacheMissMessagesChanged struct{…}`
-
               - `CacheMissedInputTokens int64`
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+            - `type BetaCacheMissMessagesChanged struct{…}`
+
               - `Type MessagesChanged`
 
                 default: messages_changed
+
+              - `CacheMissedInputTokens int64`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `type BetaCacheMissPreviousMessageNotFound struct{…}`
 
@@ -1301,6 +1328,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `StopDetails BetaRefusalStopDetails`
 
           Structured information about a refusal.
+
+          - `Type Refusal`
+
+            default: refusal
 
           - `Category BetaRefusalStopDetailsCategory`
 
@@ -1381,10 +1412,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-          - `Type Refusal`
-
-            default: refusal
-
         - `StopReason BetaStopReason`
 
           The reason that we stopped.
@@ -1422,14 +1449,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `Type Message`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          default: message
 
         - `Usage BetaUsage`
 
@@ -1497,6 +1516,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 No reprice was applied; `reason` says why.
 
+                - `Type NotApplied`
+
+                  default: not_applied
+
                 - `Reason BetaFallbackCreditNotAppliedReason`
 
                   Why the reprice was not applied.
@@ -1527,10 +1550,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `const BetaFallbackCreditNotAppliedReasonWrongPlatform BetaFallbackCreditNotAppliedReason = "wrong_platform"`
 
                   - `const BetaFallbackCreditNotAppliedReasonWrongWorkspace BetaFallbackCreditNotAppliedReason = "wrong_workspace"`
-
-                - `Type NotApplied`
-
-                  default: not_applied
 
                 - `RemoveToRedeem []string Optional`
 
@@ -1569,6 +1588,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for a sampling iteration.
 
+              - `Type Message`
+
+                Usage for a sampling iteration
+
+                default: message
+
               - `CacheCreation BetaCacheCreation`
 
                 Breakdown of cached tokens by TTL
@@ -1603,43 +1628,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `Type Message`
-
-                Usage for a sampling iteration
-
-                default: message
-
             - `type BetaCompactionIterationUsage struct{…}`
 
               Token usage for a compaction iteration.
-
-              - `CacheCreation BetaCacheCreation`
-
-                Breakdown of cached tokens by TTL
-
-              - `CacheCreationInputTokens int64`
-
-                The number of input tokens used to create the cache entry.
-
-                default: 0, minimum: 0
-
-              - `CacheReadInputTokens int64`
-
-                The number of input tokens read from the cache.
-
-                default: 0, minimum: 0
-
-              - `InputTokens int64`
-
-                The number of input tokens which were used.
-
-                minimum: 0
-
-              - `OutputTokens int64`
-
-                The number of output tokens which were used.
-
-                minimum: 0
 
               - `Type Compaction`
 
@@ -1647,9 +1638,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 default: compaction
 
+              - `CacheCreation BetaCacheCreation`
+
+                Breakdown of cached tokens by TTL
+
+              - `CacheCreationInputTokens int64`
+
+                The number of input tokens used to create the cache entry.
+
+                default: 0, minimum: 0
+
+              - `CacheReadInputTokens int64`
+
+                The number of input tokens read from the cache.
+
+                default: 0, minimum: 0
+
+              - `InputTokens int64`
+
+                The number of input tokens which were used.
+
+                minimum: 0
+
+              - `OutputTokens int64`
+
+                The number of output tokens which were used.
+
+                minimum: 0
+
             - `type BetaAdvisorMessageIterationUsage struct{…}`
 
               Token usage for an advisor sub-inference iteration.
+
+              - `Type AdvisorMessage`
+
+                Usage for an advisor sub-inference iteration
+
+                default: advisor_message
 
               - `CacheCreation BetaCacheCreation`
 
@@ -1684,12 +1709,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `Type AdvisorMessage`
-
-                Usage for an advisor sub-inference iteration
-
-                default: advisor_message
 
             - `type BetaFallbackMessageIterationUsage struct{…}`
 
@@ -1700,6 +1719,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               a fallback model served the response is signalled by the presence of this
               entry in `usage.iterations`.
 
+              - `Type FallbackMessage`
+
+                Usage for the fallback-model attempt that served the response
+
+                default: fallback_message
+
               - `CacheCreation BetaCacheCreation`
 
                 Breakdown of cached tokens by TTL
@@ -1733,12 +1758,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 The number of output tokens which were used.
 
                 minimum: 0
-
-              - `Type FallbackMessage`
-
-                Usage for the fallback-model attempt that served the response
-
-                default: fallback_message
 
           - `OutputTokens int64`
 
@@ -1820,6 +1839,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           fallback happened mid-stream, in which case it holds the serving model's
           entries and replaces the one in `message_start`.
 
+          - `Type ThinkingDropped`
+
+            Always `thinking_dropped` for this entry type.
+
+            default: thinking_dropped
+
           - `Path string`
 
             Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -1850,121 +1875,111 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const BetaThinkingDroppedInputTransformationReasonEndUserBindingMismatch BetaThinkingDroppedInputTransformationReason = "end_user_binding_mismatch"`
 
-          - `Type ThinkingDropped`
-
-            Always `thinking_dropped` for this entry type.
-
-            default: thinking_dropped
-
-      - `Type Succeeded`
-
-        default: succeeded
-
     - `type BetaMessageBatchErroredResult struct{…}`
 
+      - `Type Errored`
+
+        default: errored
+
       - `Error BetaErrorResponse`
-
-        - `Error BetaErrorUnion`
-
-          - `type BetaInvalidRequestError struct{…}`
-
-            - `Message string`
-
-              default: Invalid request
-
-            - `Type InvalidRequestError`
-
-              default: invalid_request_error
-
-          - `type BetaAuthenticationError struct{…}`
-
-            - `Message string`
-
-              default: Authentication error
-
-            - `Type AuthenticationError`
-
-              default: authentication_error
-
-          - `type BetaBillingError struct{…}`
-
-            - `Message string`
-
-              default: Billing error
-
-            - `Type BillingError`
-
-              default: billing_error
-
-          - `type BetaPermissionError struct{…}`
-
-            - `Message string`
-
-              default: Permission denied
-
-            - `Type PermissionError`
-
-              default: permission_error
-
-          - `type BetaNotFoundError struct{…}`
-
-            - `Message string`
-
-              default: Not found
-
-            - `Type NotFoundError`
-
-              default: not_found_error
-
-          - `type BetaRateLimitError struct{…}`
-
-            - `Message string`
-
-              default: Rate limited
-
-            - `Type RateLimitError`
-
-              default: rate_limit_error
-
-          - `type BetaGatewayTimeoutError struct{…}`
-
-            - `Message string`
-
-              default: Request timeout
-
-            - `Type TimeoutError`
-
-              default: timeout_error
-
-          - `type BetaAPIError struct{…}`
-
-            - `Message string`
-
-              default: Internal server error
-
-            - `Type APIError`
-
-              default: api_error
-
-          - `type BetaOverloadedError struct{…}`
-
-            - `Message string`
-
-              default: Overloaded
-
-            - `Type OverloadedError`
-
-              default: overloaded_error
-
-        - `RequestID string`
 
         - `Type Error`
 
           default: error
 
-      - `Type Errored`
+        - `Error BetaErrorUnion`
 
-        default: errored
+          - `type BetaInvalidRequestError struct{…}`
+
+            - `Type InvalidRequestError`
+
+              default: invalid_request_error
+
+            - `Message string`
+
+              default: Invalid request
+
+          - `type BetaAuthenticationError struct{…}`
+
+            - `Type AuthenticationError`
+
+              default: authentication_error
+
+            - `Message string`
+
+              default: Authentication error
+
+          - `type BetaBillingError struct{…}`
+
+            - `Type BillingError`
+
+              default: billing_error
+
+            - `Message string`
+
+              default: Billing error
+
+          - `type BetaPermissionError struct{…}`
+
+            - `Type PermissionError`
+
+              default: permission_error
+
+            - `Message string`
+
+              default: Permission denied
+
+          - `type BetaNotFoundError struct{…}`
+
+            - `Type NotFoundError`
+
+              default: not_found_error
+
+            - `Message string`
+
+              default: Not found
+
+          - `type BetaRateLimitError struct{…}`
+
+            - `Type RateLimitError`
+
+              default: rate_limit_error
+
+            - `Message string`
+
+              default: Rate limited
+
+          - `type BetaGatewayTimeoutError struct{…}`
+
+            - `Type TimeoutError`
+
+              default: timeout_error
+
+            - `Message string`
+
+              default: Request timeout
+
+          - `type BetaAPIError struct{…}`
+
+            - `Type APIError`
+
+              default: api_error
+
+            - `Message string`
+
+              default: Internal server error
+
+          - `type BetaOverloadedError struct{…}`
+
+            - `Type OverloadedError`
+
+              default: overloaded_error
+
+            - `Message string`
+
+              default: Overloaded
+
+        - `RequestID string`
 
     - `type BetaMessageBatchCanceledResult struct{…}`
 

@@ -1,3 +1,8 @@
+---
+title: Rotate Tunnel Token
+url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/rotate_token
+---
+
 # Rotate Tunnel Token
 
 `client.beta.tunnels.rotateToken(tunnelID, params, options?): BetaTunnelToken`
@@ -26,7 +31,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 41 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -74,6 +79,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
       - `"user-profiles-2026-08-18"`
 
+      - `"user-profiles-2026-09-04"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
@@ -116,11 +123,19 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaTunnelToken`
 
   A tunnel's connector token.
+
+  - `type: "tunnel_token"`
 
   - `id: string`
 
@@ -129,8 +144,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `tunnel_token: string`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `type: "tunnel_token"`
 
 ## Example
 

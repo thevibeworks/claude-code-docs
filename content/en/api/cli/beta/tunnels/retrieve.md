@@ -1,3 +1,8 @@
+---
+title: Get Tunnel
+url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/retrieve
+---
+
 # Get Tunnel
 
 `$ ant beta:tunnels retrieve`
@@ -18,11 +23,19 @@ Fetches a tunnel by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_tunnel: object`
 
   An MCP tunnel.
+
+  - `type: "tunnel"`
 
   - `id: string`
 
@@ -47,8 +60,6 @@ Fetches a tunnel by ID.
   - `domain: string`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `type: "tunnel"`
 
 ## Example
 

@@ -1,8 +1,13 @@
+---
+title: Credentials
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials
+---
+
 # Credentials
 
 ## Create Credential
 
-`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
@@ -28,9 +33,13 @@ Create Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -51,8 +60,6 @@ Create Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -85,6 +92,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -113,7 +121,7 @@ var_dump($betaManagedAgentsCredential);
 
 ## List Credentials
 
-`$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsCredential>`
+`$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsCredential>`
 
 **GET** `/v1/vaults/{vault_id}/credentials`
 
@@ -139,9 +147,13 @@ List Credentials
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -162,8 +174,6 @@ List Credentials
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -192,6 +202,7 @@ $page = $client->beta->vaults->credentials->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -225,7 +236,7 @@ var_dump($page);
 
 ## Get Credential
 
-`$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -241,9 +252,13 @@ Get Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -264,8 +279,6 @@ Get Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -292,6 +305,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -320,7 +334,7 @@ var_dump($betaManagedAgentsCredential);
 
 ## Update Credential
 
-`$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -348,9 +362,13 @@ Update Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -371,8 +389,6 @@ Update Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -413,6 +429,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -441,7 +458,7 @@ var_dump($betaManagedAgentsCredential);
 
 ## Delete Credential
 
-`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsDeletedCredential`
+`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -457,15 +474,17 @@ Delete Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsDeletedCredential`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted credential.
-
-  - `Type type`
 
 ### Example
 
@@ -484,6 +503,7 @@ $betaManagedAgentsDeletedCredential = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedCredential);
@@ -500,7 +520,7 @@ var_dump($betaManagedAgentsDeletedCredential);
 
 ## Archive Credential
 
-`$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
@@ -516,9 +536,13 @@ Archive Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -539,8 +563,6 @@ Archive Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -567,6 +589,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -595,7 +618,7 @@ var_dump($betaManagedAgentsCredential);
 
 ## Validate Credential
 
-`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredentialValidation`
+`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
@@ -611,9 +634,13 @@ Validate Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `ManagedAgentsCredentialValidation`
+
+  - `Type type`
 
   - `string credentialID`
 
@@ -634,8 +661,6 @@ Validate Credential
   - `ManagedAgentsCredentialValidationStatus status`
 
     Overall verdict of a credential validation probe.
-
-  - `Type type`
 
   - `\Datetime validatedAt`
 
@@ -662,6 +687,7 @@ $betaManagedAgentsCredentialValidation = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredentialValidation);
@@ -704,6 +730,8 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsCredential`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier for the credential.
@@ -723,8 +751,6 @@ var_dump($betaManagedAgentsCredentialValidation);
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -748,15 +774,17 @@ var_dump($betaManagedAgentsCredentialValidation);
 
   - `ManagedAgentsLimitedCredentialNetworkingParams`
 
+    - `Type type`
+
     - `list<string> allowedHosts`
 
       Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
 
-    - `Type type`
-
 ### Beta Managed Agents Credential Validation
 
 - `ManagedAgentsCredentialValidation`
+
+  - `Type type`
 
   - `string credentialID`
 
@@ -777,8 +805,6 @@ var_dump($betaManagedAgentsCredentialValidation);
   - `ManagedAgentsCredentialValidationStatus status`
 
     Overall verdict of a credential validation probe.
-
-  - `Type type`
 
   - `\Datetime validatedAt`
 
@@ -802,15 +828,17 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsDeletedCredential`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted credential.
 
-  - `Type type`
-
 ### Beta Managed Agents Environment Variable Auth Response
 
 - `ManagedAgentsEnvironmentVariableAuthResponse`
+
+  - `Type type`
 
   - `ManagedAgentsInjectionLocationResponse injectionLocation`
 
@@ -824,11 +852,11 @@ var_dump($betaManagedAgentsCredentialValidation);
 
     Name of the environment variable.
 
-  - `Type type`
-
 ### Beta Managed Agents Environment Variable Create Params
 
 - `ManagedAgentsEnvironmentVariableCreateParams`
+
+  - `Type type`
 
   - `ManagedAgentsCredentialNetworkingParams networking`
 
@@ -841,8 +869,6 @@ var_dump($betaManagedAgentsCredentialValidation);
   - `string secretValue`
 
     Secret value. Write-only; never returned in responses.
-
-  - `Type type`
 
   - `?ManagedAgentsInjectionLocationParams injectionLocation`
 
@@ -906,31 +932,31 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsLimitedCredentialNetworkingParams`
 
+  - `Type type`
+
   - `list<string> allowedHosts`
 
     Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-  - `Type type`
 
 ### Beta Managed Agents Limited Credential Networking Response
 
 - `ManagedAgentsLimitedCredentialNetworkingResponse`
 
+  - `Type type`
+
   - `list<string> allowedHosts`
 
     Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
-
-  - `Type type`
 
 ### Beta Managed Agents MCP OAuth Auth Response
 
 - `ManagedAgentsMCPOAuthAuthResponse`
 
+  - `Type type`
+
   - `string mcpServerURL`
 
     URL of the MCP server this credential authenticates against.
-
-  - `Type type`
 
   - `?\Datetime expiresAt`
 
@@ -944,6 +970,8 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsMCPOAuthCreateParams`
 
+  - `Type type`
+
   - `string accessToken`
 
     OAuth access token.
@@ -951,8 +979,6 @@ var_dump($betaManagedAgentsCredentialValidation);
   - `string mcpServerURL`
 
     URL of the MCP server this credential authenticates against.
-
-  - `Type type`
 
   - `?\Datetime expiresAt`
 
@@ -1096,15 +1122,17 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsStaticBearerAuthResponse`
 
+  - `Type type`
+
   - `string mcpServerURL`
 
     URL of the MCP server this credential authenticates against.
 
-  - `Type type`
-
 ### Beta Managed Agents Static Bearer Create Params
 
 - `ManagedAgentsStaticBearerCreateParams`
+
+  - `Type type`
 
   - `string token`
 
@@ -1113,8 +1141,6 @@ var_dump($betaManagedAgentsCredentialValidation);
   - `string mcpServerURL`
 
     URL of the MCP server this credential authenticates against.
-
-  - `Type type`
 
 ### Beta Managed Agents Static Bearer Update Params
 
@@ -1130,11 +1156,11 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsTokenEndpointAuthBasicParam`
 
+  - `Type type`
+
   - `string clientSecret`
 
     OAuth client secret.
-
-  - `Type type`
 
 ### Beta Managed Agents Token Endpoint Auth Basic Response
 
@@ -1168,11 +1194,11 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 - `ManagedAgentsTokenEndpointAuthPostParam`
 
+  - `Type type`
+
   - `string clientSecret`
 
     OAuth client secret.
-
-  - `Type type`
 
 ### Beta Managed Agents Token Endpoint Auth Post Response
 

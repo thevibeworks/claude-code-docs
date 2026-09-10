@@ -1,3 +1,8 @@
+---
+title: Add Session Resource
+url: https://platform.claude.com/docs/en/api/csharp/beta/sessions/resources/add
+---
+
 # Add Session Resource
 
 `BetaManagedAgentsFileResource Beta.Sessions.Resources.Add(parameters, cancellationToken = default)`
@@ -10,6 +15,12 @@ Add Session Resource
 
 - `ResourceAddParams parameters`
 
+  - `required Type type`
+
+    Body param
+
+    - `File("file")`
+
   - `required string sessionID`
 
     Path param: Path parameter session_id
@@ -19,12 +30,6 @@ Add Session Resource
     Body param: ID of a previously uploaded file.
 
     minLength: 1, maxLength: 128
-
-  - `required Type type`
-
-    Body param
-
-    - `File("file")`
 
   - `string? mountPath`
 
@@ -82,6 +87,8 @@ Add Session Resource
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -124,9 +131,17 @@ Add Session Resource
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsFileResource:`
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -139,8 +154,6 @@ Add Session Resource
   - `required string FileID`
 
   - `required string MountPath`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 

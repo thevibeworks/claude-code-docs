@@ -1,8 +1,13 @@
+---
+title: Tunnels
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels
+---
+
 # Tunnels
 
 ## Create Tunnel
 
-`$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **POST** `/v1/tunnels`
 
@@ -20,9 +25,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -44,8 +53,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ### Example
 
 ```php
@@ -56,7 +63,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->create(
-  displayName: 'x', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  displayName: 'x',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);
@@ -77,7 +86,7 @@ var_dump($betaTunnel);
 
 ## Get Tunnel
 
-`$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **GET** `/v1/tunnels/{tunnel_id}`
 
@@ -93,9 +102,13 @@ Fetches a tunnel by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -117,8 +130,6 @@ Fetches a tunnel by ID.
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ### Example
 
 ```php
@@ -129,7 +140,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->retrieve(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);
@@ -150,7 +163,7 @@ var_dump($betaTunnel);
 
 ## List Tunnels
 
-`$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTunnel>`
+`$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaTunnel>`
 
 **GET** `/v1/tunnels`
 
@@ -176,9 +189,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -200,8 +217,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ### Example
 
 ```php
@@ -216,6 +231,7 @@ $page = $client->beta->tunnels->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -241,7 +257,7 @@ var_dump($page);
 
 ## Archive Tunnel
 
-`$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **POST** `/v1/tunnels/{tunnel_id}/archive`
 
@@ -257,9 +273,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -281,8 +301,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ### Example
 
 ```php
@@ -293,7 +311,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->archive(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);
@@ -314,7 +334,7 @@ var_dump($betaTunnel);
 
 ## Reveal Tunnel Token
 
-`$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnelToken`
+`$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
@@ -330,9 +350,13 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaTunnelToken`
+
+  - `"tunnel_token" type`
 
   - `string id`
 
@@ -341,8 +365,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `string tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `"tunnel_token" type`
 
 ### Example
 
@@ -354,7 +376,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnelToken = $client->beta->tunnels->revealToken(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelToken);
@@ -372,7 +396,7 @@ var_dump($betaTunnelToken);
 
 ## Rotate Tunnel Token
 
-`$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas): BetaTunnelToken`
+`$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
@@ -392,9 +416,13 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaTunnelToken`
+
+  - `"tunnel_token" type`
 
   - `string id`
 
@@ -403,8 +431,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `string tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `"tunnel_token" type`
 
 ### Example
 
@@ -419,6 +445,7 @@ $betaTunnelToken = $client->beta->tunnels->rotateToken(
   'tunnel_id',
   reason: 'reason',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelToken);
@@ -440,6 +467,8 @@ var_dump($betaTunnelToken);
 
 - `BetaTunnel`
 
+  - `"tunnel" type`
+
   - `string id`
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
@@ -460,11 +489,11 @@ var_dump($betaTunnelToken);
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ### Beta Tunnel Token
 
 - `BetaTunnelToken`
+
+  - `"tunnel_token" type`
 
   - `string id`
 
@@ -474,13 +503,11 @@ var_dump($betaTunnelToken);
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `"tunnel_token" type`
-
 ## Tunnels › Certificates
 
 ### Create Tunnel Certificate
 
-`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -500,9 +527,13 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -528,8 +559,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -543,6 +572,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
   'tunnel_id',
   caCertificatePEM: 'ca_certificate_pem',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -564,7 +594,7 @@ var_dump($betaTunnelCertificate);
 
 ### Get Tunnel Certificate
 
-`$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
@@ -582,9 +612,13 @@ Fetches a tunnel certificate by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -610,8 +644,6 @@ Fetches a tunnel certificate by ID.
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -625,6 +657,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -646,7 +679,7 @@ var_dump($betaTunnelCertificate);
 
 ### List Tunnel Certificates
 
-`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
+`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<TunnelCertificate>`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -674,9 +707,13 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -702,8 +739,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -719,6 +754,7 @@ $page = $client->beta->tunnels->certificates->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -745,7 +781,7 @@ var_dump($page);
 
 ### Archive Tunnel Certificate
 
-`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
@@ -763,9 +799,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -791,8 +831,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -806,6 +844,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);

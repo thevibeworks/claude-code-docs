@@ -1,3 +1,8 @@
+---
+title: Add Session Resource
+url: https://platform.claude.com/docs/en/api/cli/beta/sessions/resources/add
+---
+
 # Add Session Resource
 
 `$ ant beta:sessions:resources add`
@@ -32,9 +37,17 @@ Add Session Resource
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_managed_agents_file_resource: object`
+
+  - `type: "file"`
 
   - `id: string`
 
@@ -47,8 +60,6 @@ Add Session Resource
   - `file_id: string`
 
   - `mount_path: string`
-
-  - `type: "file"`
 
   - `updated_at: string`
 

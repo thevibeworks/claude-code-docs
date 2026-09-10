@@ -1,3 +1,8 @@
+---
+title: List memories
+url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memories/list
+---
+
 # List memories
 
 `client.Beta.MemoryStores.Memories.List(ctx, memoryStoreID, params) (*PageCursor[BetaManagedAgentsMemoryListItemUnion], error)`
@@ -90,6 +95,8 @@ List memories
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -132,6 +139,12 @@ List memories
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaManagedAgentsMemoryListItemUnion interface{…}`
@@ -141,6 +154,8 @@ List memories
   - `type BetaManagedAgentsMemory struct{…}`
 
     A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+
+    - `Type BetaManagedAgentsMemoryType`
 
     - `ID string`
 
@@ -174,8 +189,6 @@ List memories
 
       Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-    - `Type BetaManagedAgentsMemoryType`
-
     - `UpdatedAt Time`
 
       A timestamp in RFC 3339 format
@@ -190,11 +203,11 @@ List memories
 
     A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
+    - `Type BetaManagedAgentsMemoryPrefixType`
+
     - `Path string`
 
       The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-    - `Type BetaManagedAgentsMemoryPrefixType`
 
 ## Example
 

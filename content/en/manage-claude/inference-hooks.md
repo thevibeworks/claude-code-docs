@@ -5,7 +5,7 @@ description: Send each governed prompt to your organization's AI security server
 ---
 
 <Note>
-  Inference hooks are in beta and available to Claude Enterprise organizations. Configuring them requires the `organization:manage` permission in claude.ai, which the built-in Admin, Owner, and Primary owner roles hold; see [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration).
+  Inference hooks are in beta and available to Claude Enterprise organizations. Configuring them requires the `organization:manage` permission in claude.ai, which only the Owner and Primary owner roles hold; see [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration).
 </Note>
 
 Inference hooks let a Claude Enterprise organization route every governed prompt through an AI security server, an HTTPS service that the organization or its security vendor operates, before inference runs. When a user submits a prompt, Anthropic sends the conversation transcript to your AI security server and waits for an allow or deny verdict; a denied request never reaches the model. Security and compliance teams use Inference hooks to enforce data policies inline, and developers build the AI security server that evaluates each request.
@@ -58,7 +58,7 @@ For the full request and response schemas, signature verification, and operation
 
 ## Availability
 
-Inference hooks are available to Claude Enterprise organizations. Configuring them requires the `organization:manage` permission, which the built-in Admin, Owner, and Primary owner roles hold, as does any custom role granted it.
+Inference hooks are available to Claude Enterprise organizations. Configuring them requires the `organization:manage` permission, which only the Owner and Primary owner roles hold.
 
 One hook governs conversations across claude.ai, Cowork, and Claude Code sessions in your Claude Enterprise organization, whether they run on the web, in the desktop or mobile apps, or in the CLI. Inference hooks are not available on Amazon Bedrock or Google Cloud.
 

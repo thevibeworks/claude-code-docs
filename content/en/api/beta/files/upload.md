@@ -1,3 +1,8 @@
+---
+title: Upload File
+url: https://platform.claude.com/docs/en/api/beta/files/upload
+---
+
 # Upload File
 
 **POST** `/v1/files`
@@ -12,7 +17,7 @@ Upload File
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -60,6 +65,8 @@ Upload File
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -102,11 +109,13 @@ Upload File
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Body parameters (form-data)
 
 - `file: string`
 
-  The file to upload
+  The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 
   format: binary
 
@@ -119,6 +128,12 @@ Upload File
 ## Returns
 
 - `BetaFileMetadata object`
+
+  - `type: "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: string`
 
@@ -150,12 +165,6 @@ Upload File
 
     minimum: 0
 
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `downloadable: optional boolean`
 
     Whether the file can be downloaded.
@@ -172,13 +181,13 @@ Upload File
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-    - `id: string`
-
-      The ID of the scoping resource (e.g., the session ID).
-
     - `type: "session"`
 
       The type of scope (e.g., `"session"`).
+
+    - `id: string`
+
+      The ID of the scoping resource (e.g., the session ID).
 
 ## Example
 

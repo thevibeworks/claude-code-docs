@@ -1,3 +1,8 @@
+---
+title: Update Session Resource
+url: https://platform.claude.com/docs/en/api/csharp/beta/sessions/resources/update
+---
+
 # Update Session Resource
 
 `ResourceUpdateResponse Beta.Sessions.Resources.Update(parameters, cancellationToken = default)`
@@ -74,6 +79,8 @@ Update Session Resource
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -116,6 +123,12 @@ Update Session Resource
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class ResourceUpdateResponse: union`
@@ -123,6 +136,8 @@ Update Session Resource
   The updated session resource.
 
   - `class BetaManagedAgentsGitHubRepositoryResource:`
+
+    - `required Type Type`
 
     - `required string ID`
 
@@ -133,8 +148,6 @@ Update Session Resource
       format: date-time
 
     - `required string MountPath`
-
-    - `required Type Type`
 
     - `required DateTimeOffset UpdatedAt`
 
@@ -148,15 +161,17 @@ Update Session Resource
 
       - `class BetaManagedAgentsBranchCheckout:`
 
+        - `required Type Type`
+
         - `required string Name`
 
           Branch name to check out.
 
           minLength: 1, maxLength: 255
 
-        - `required Type Type`
-
       - `class BetaManagedAgentsCommitCheckout:`
+
+        - `required Type Type`
 
         - `required string Sha`
 
@@ -164,9 +179,9 @@ Update Session Resource
 
           minLength: 7, maxLength: 64
 
-        - `required Type Type`
-
   - `class BetaManagedAgentsFileResource:`
+
+    - `required Type Type`
 
     - `required string ID`
 
@@ -180,8 +195,6 @@ Update Session Resource
 
     - `required string MountPath`
 
-    - `required Type Type`
-
     - `required DateTimeOffset UpdatedAt`
 
       A timestamp in RFC 3339 format
@@ -192,11 +205,11 @@ Update Session Resource
 
     A memory store attached to an agent session.
 
+    - `required Type Type`
+
     - `required string MemoryStoreID`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `required Type Type`
 
     - `Access? Access`
 

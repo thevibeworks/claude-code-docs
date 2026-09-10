@@ -1,6 +1,11 @@
+---
+title: List Skills
+url: https://platform.claude.com/docs/en/api/php/beta/skills/list
+---
+
 # List Skills
 
-`$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas): PageCursor<BetaSkill>`
+`$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaSkill>`
 
 **GET** `/v1/skills`
 
@@ -35,9 +40,17 @@ List Skills
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaSkill`
+
+  - `"skill" type`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
 
   - `string id`
 
@@ -70,12 +83,6 @@ List Skills
     * `"anthropic_example"`: Anthropic-published sample Skill
     * `"plugin"`: resolved from an installed plugin
 
-  - `"skill" type`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
   - `\Datetime updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -94,6 +101,7 @@ $page = $client->beta->skills->list(
   page: 'page',
   source: 'source',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

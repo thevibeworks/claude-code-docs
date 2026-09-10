@@ -1,3 +1,8 @@
+---
+title: List Work Items
+url: https://platform.claude.com/docs/en/api/beta/environments/work/list
+---
+
 # List Work Items
 
 **GET** `/v1/environments/{environment_id}/work`
@@ -30,7 +35,7 @@ List work items in an environment.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -77,6 +82,8 @@ List work items in an environment.
     - `"user-profiles-2026-03-24"`
 
     - `"user-profiles-2026-08-18"`
+
+    - `"user-profiles-2026-09-04"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -130,6 +137,12 @@ List work items in an environment.
 
     List of work items
 
+    - `type: "work"`
+
+      The type of object (always 'work')
+
+      default: work
+
     - `id: string`
 
       Work identifier (e.g., 'work_...')
@@ -146,13 +159,13 @@ List work items in an environment.
 
       The actual work to be performed
 
-      - `id: string`
-
-        Session identifier (e.g., 'session_...')
-
       - `type: "session"`
 
         Type of work data
+
+      - `id: string`
+
+        Session identifier (e.g., 'session_...')
 
     - `environment_id: string`
 
@@ -195,12 +208,6 @@ List work items in an environment.
     - `stopped_at: string or null`
 
       RFC 3339 timestamp when work execution stopped
-
-    - `type: "work"`
-
-      The type of object (always 'work')
-
-      default: work
 
   - `next_page: string or null`
 

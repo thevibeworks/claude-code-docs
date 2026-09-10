@@ -1,3 +1,8 @@
+---
+title: Get Session Thread
+url: https://platform.claude.com/docs/en/api/beta/sessions/threads/retrieve
+---
+
 # Get Session Thread
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}`
@@ -18,7 +23,7 @@ Get Session Thread
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -66,6 +71,8 @@ Get Session Thread
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -108,11 +115,15 @@ Get Session Thread
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `BetaManagedAgentsSessionThread object`
 
   An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
+
+  - `type: "session_thread"`
 
   - `id: string`
 
@@ -126,15 +137,17 @@ Get Session Thread
 
       Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+      - `type: "agent"`
+
       - `id: string`
 
       - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-        - `name: string`
-
         - `type: "url"`
+
+        - `name: string`
 
         - `url: string`
 
@@ -266,9 +279,9 @@ Get Session Thread
 
           A resolved Anthropic-managed skill.
 
-          - `skill_id: string`
-
           - `type: "anthropic"`
+
+          - `skill_id: string`
 
           - `version: string`
 
@@ -276,9 +289,9 @@ Get Session Thread
 
           A resolved user-created custom skill.
 
-          - `skill_id: string`
-
           - `type: "custom"`
+
+          - `skill_id: string`
 
           - `version: string`
 
@@ -288,17 +301,21 @@ Get Session Thread
 
         - `BetaManagedAgentsAgentToolset20260401 object`
 
+          - `type: "agent_toolset_20260401"`
+
           - `configs: array of BetaManagedAgentsAgentToolConfig`
 
             - `BetaManagedAgentsBashToolConfig object`
 
               Configuration for the bash tool.
 
+              - `type: "bash"`
+
               - `enabled: boolean`
 
               - `name: "bash"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -314,17 +331,23 @@ Get Session Thread
 
                   - `type: "always_ask"`
 
-              - `type: "bash"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `type: "auto"`
 
             - `BetaManagedAgentsEditToolConfig object`
 
               Configuration for the edit tool.
 
+              - `type: "edit"`
+
               - `enabled: boolean`
 
               - `name: "edit"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -336,17 +359,21 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "edit"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `BetaManagedAgentsReadToolConfig object`
 
               Configuration for the read tool.
 
+              - `type: "read"`
+
               - `enabled: boolean`
 
               - `name: "read"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -358,17 +385,21 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "read"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `BetaManagedAgentsWriteToolConfig object`
 
               Configuration for the write tool.
 
+              - `type: "write"`
+
               - `enabled: boolean`
 
               - `name: "write"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -380,17 +411,21 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "write"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `BetaManagedAgentsGlobToolConfig object`
 
               Configuration for the glob tool.
 
+              - `type: "glob"`
+
               - `enabled: boolean`
 
               - `name: "glob"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -402,17 +437,21 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "glob"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `BetaManagedAgentsGrepToolConfig object`
 
               Configuration for the grep tool.
 
+              - `type: "grep"`
+
               - `enabled: boolean`
 
               - `name: "grep"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -424,17 +463,21 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "grep"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `BetaManagedAgentsWebFetchToolConfig object`
 
               Configuration for the web_fetch tool.
 
+              - `type: "web_fetch"`
+
               - `enabled: boolean`
 
               - `name: "web_fetch"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -446,7 +489,9 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "web_fetch"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `allowed_domains: optional array of string`
 
@@ -460,11 +505,13 @@ Get Session Thread
 
               Configuration for the web_search tool.
 
+              - `type: "web_search"`
+
               - `enabled: boolean`
 
               - `name: "web_search"`
 
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
                 Permission policy for tool execution.
 
@@ -476,7 +523,9 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `type: "web_search"`
+                - `BetaManagedAgentsAutoPolicy object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `allowed_domains: optional array of string`
 
@@ -518,7 +567,7 @@ Get Session Thread
 
             - `enabled: boolean`
 
-            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
               Permission policy for tool execution.
 
@@ -530,9 +579,13 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
-          - `type: "agent_toolset_20260401"`
+              - `BetaManagedAgentsAutoPolicy object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `BetaManagedAgentsMCPToolset object`
+
+          - `type: "mcp_toolset"`
 
           - `configs: array of BetaManagedAgentsMCPToolConfig`
 
@@ -540,7 +593,7 @@ Get Session Thread
 
             - `name: string`
 
-            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
               Permission policy for tool execution.
 
@@ -551,6 +604,10 @@ Get Session Thread
               - `BetaManagedAgentsAlwaysAskPolicy object`
 
                 Tool calls require user confirmation before execution.
+
+              - `BetaManagedAgentsAutoPolicy object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -558,7 +615,7 @@ Get Session Thread
 
             - `enabled: boolean`
 
-            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
               Permission policy for tool execution.
 
@@ -570,13 +627,17 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
-          - `mcp_server_name: string`
+              - `BetaManagedAgentsAutoPolicy object`
 
-          - `type: "mcp_toolset"`
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `mcp_server_name: string`
 
         - `BetaManagedAgentsCustomTool object`
 
           A custom tool as returned in API responses.
+
+          - `type: "custom"`
 
           - `description: string`
 
@@ -592,10 +653,6 @@ Get Session Thread
 
           - `name: string`
 
-          - `type: "custom"`
-
-      - `type: "agent"`
-
       - `version: number`
 
         format: int32
@@ -604,11 +661,11 @@ Get Session Thread
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+      - `type: "advisor"`
+
       - `model: string`
 
         The advisor model id.
-
-      - `type: "advisor"`
 
   - `archived_at: string or null`
 
@@ -663,8 +720,6 @@ Get Session Thread
     - `"rescheduling"`
 
     - `"terminated"`
-
-  - `type: "session_thread"`
 
   - `updated_at: string`
 

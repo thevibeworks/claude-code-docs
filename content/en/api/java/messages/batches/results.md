@@ -1,3 +1,8 @@
+---
+title: Retrieve Message Batch results
+url: https://platform.claude.com/docs/en/api/java/messages/batches/results
+---
+
 # Retrieve Message Batch results
 
 `MessageBatchIndividualResponse messages().batches().resultsStreaming(params = BatchResultsParams.none(), requestOptions = RequestOptions.none())`
@@ -17,6 +22,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `Optional<String> messageBatchId`
 
     ID of the Message Batch.
+
+  - `Optional<String> workspaceId`
 
 ## Returns
 
@@ -38,7 +45,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `class MessageBatchSucceededResult:`
 
+      - `JsonValue type = "succeeded"`
+
       - `Message message`
+
+        - `JsonValue type = "message"`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
 
         - `String id`
 
@@ -64,12 +79,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `String skillId`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `Type type`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -77,6 +86,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `ANTHROPIC("anthropic")`
 
               - `CUSTOM("custom")`
+
+            - `String skillId`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `String version`
 
@@ -115,6 +130,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `class TextBlock:`
 
+            - `JsonValue type = "text"`
+
             - `Optional<List<TextCitation>> citations`
 
               Citations supporting the text block.
@@ -122,6 +139,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `class CitationCharLocation:`
+
+                - `JsonValue type = "char_location"`
 
                 - `String citedText`
 
@@ -139,9 +158,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type = "char_location"`
-
               - `class CitationPageLocation:`
+
+                - `JsonValue type = "page_location"`
 
                 - `String citedText`
 
@@ -159,9 +178,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `JsonValue type = "page_location"`
-
               - `class CitationContentBlockLocation:`
+
+                - `JsonValue type = "content_block_location"`
 
                 - `String citedText`
 
@@ -189,9 +208,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `JsonValue type = "content_block_location"`
-
               - `class CitationsWebSearchResultLocation:`
+
+                - `JsonValue type = "web_search_result_location"`
 
                 - `String citedText`
 
@@ -201,11 +220,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `JsonValue type = "web_search_result_location"`
-
                 - `String url`
 
               - `class CitationsSearchResultLocation:`
+
+                - `JsonValue type = "search_result_location"`
 
                 - `String citedText`
 
@@ -237,15 +256,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> title`
 
-                - `JsonValue type = "search_result_location"`
-
             - `String text`
 
-              maxLength: 5000000, minLength: 0
-
-            - `JsonValue type = "text"`
+              minLength: 0
 
           - `class ThinkingBlock:`
+
+            - `JsonValue type = "thinking"`
 
             - `String signature`
 
@@ -259,9 +276,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `JsonValue type = "thinking"`
-
           - `class RedactedThinkingBlock:`
+
+            - `JsonValue type = "redacted_thinking"`
 
             - `String data`
 
@@ -271,9 +288,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonValue type = "redacted_thinking"`
-
           - `class ToolUseBlock:`
+
+            - `JsonValue type = "tool_use"`
 
             - `String id`
 
@@ -293,27 +310,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `JsonValue type = "code_execution_20250825"`
+
                 - `String toolId`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `JsonValue type = "code_execution_20250825"`
 
               - `class ServerToolCaller20260120:`
 
+                - `JsonValue type = "code_execution_20260120"`
+
                 - `String toolId`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `JsonValue type = "code_execution_20260120"`
 
             - `Input input`
 
             - `String name`
 
               minLength: 1
-
-            - `JsonValue type = "tool_use"`
 
             - `Optional<String> toolsetName`
 
@@ -322,6 +337,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class ServerToolUseBlock:`
+
+            - `JsonValue type = "server_tool_use"`
 
             - `String id`
 
@@ -359,9 +376,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-            - `JsonValue type = "server_tool_use"`
-
           - `class WebSearchToolResultBlock:`
+
+            - `JsonValue type = "web_search_tool_result"`
 
             - `Caller caller`
 
@@ -381,6 +398,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class WebSearchToolResultError:`
 
+                - `JsonValue type = "web_search_tool_result_error"`
+
                 - `WebSearchToolResultErrorCode errorCode`
 
                   - `INVALID_TOOL_INPUT("invalid_tool_input")`
@@ -395,9 +414,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `REQUEST_TOO_LARGE("request_too_large")`
 
-                - `JsonValue type = "web_search_tool_result_error"`
-
               - `List<WebSearchResultBlock>`
+
+                - `JsonValue type = "web_search_result"`
 
                 - `String encryptedContent`
 
@@ -405,17 +424,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String title`
 
-                - `JsonValue type = "web_search_result"`
-
                 - `String url`
 
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "web_search_tool_result"`
-
           - `class WebFetchToolResultBlock:`
+
+            - `JsonValue type = "web_fetch_tool_result"`
 
             - `Caller caller`
 
@@ -434,6 +451,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `Content content`
 
               - `class WebFetchToolResultErrorBlock:`
+
+                - `JsonValue type = "web_fetch_tool_result_error"`
 
                 - `WebFetchToolResultErrorCode errorCode`
 
@@ -455,11 +474,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `UNAVAILABLE("unavailable")`
 
-                - `JsonValue type = "web_fetch_tool_result_error"`
+                  - `CONTENT_TOO_LARGE("content_too_large")`
 
               - `class WebFetchBlock:`
 
+                - `JsonValue type = "web_fetch_result"`
+
                 - `DocumentBlock content`
+
+                  - `JsonValue type = "document"`
 
                   - `Optional<CitationsConfig> citations`
 
@@ -471,33 +494,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `class Base64PdfSource:`
 
+                      - `JsonValue type = "base64"`
+
                       - `String data`
 
                         format: byte
 
                       - `JsonValue mediaType = "application/pdf"`
 
-                      - `JsonValue type = "base64"`
-
                     - `class PlainTextSource:`
+
+                      - `JsonValue type = "text"`
 
                       - `String data`
 
                       - `JsonValue mediaType = "text/plain"`
 
-                      - `JsonValue type = "text"`
-
                   - `Optional<String> title`
 
                     The title of the document
 
-                  - `JsonValue type = "document"`
-
                 - `Optional<String> retrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `JsonValue type = "web_fetch_result"`
 
                 - `String url`
 
@@ -507,15 +526,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "web_fetch_tool_result"`
-
           - `class CodeExecutionToolResultBlock:`
+
+            - `JsonValue type = "code_execution_tool_result"`
 
             - `CodeExecutionToolResultBlockContent content`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class CodeExecutionToolResultError:`
+
+                - `JsonValue type = "code_execution_tool_result_error"`
 
                 - `CodeExecutionToolResultErrorCode errorCode`
 
@@ -527,15 +548,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                - `JsonValue type = "code_execution_tool_result_error"`
-
               - `class CodeExecutionResultBlock:`
+
+                - `JsonValue type = "code_execution_result"`
 
                 - `List<CodeExecutionOutputBlock> content`
 
-                  - `String fileId`
-
                   - `JsonValue type = "code_execution_output"`
+
+                  - `String fileId`
 
                 - `long returnCode`
 
@@ -543,17 +564,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type = "code_execution_result"`
-
               - `class EncryptedCodeExecutionResultBlock:`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
+                - `JsonValue type = "encrypted_code_execution_result"`
+
                 - `List<CodeExecutionOutputBlock> content`
 
-                  - `String fileId`
-
                   - `JsonValue type = "code_execution_output"`
+
+                  - `String fileId`
 
                 - `String encryptedStdout`
 
@@ -561,19 +582,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stderr`
 
-                - `JsonValue type = "encrypted_code_execution_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "code_execution_tool_result"`
-
           - `class BashCodeExecutionToolResultBlock:`
+
+            - `JsonValue type = "bash_code_execution_tool_result"`
 
             - `Content content`
 
               - `class BashCodeExecutionToolResultError:`
+
+                - `JsonValue type = "bash_code_execution_tool_result_error"`
 
                 - `BashCodeExecutionToolResultErrorCode errorCode`
 
@@ -587,15 +608,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                - `JsonValue type = "bash_code_execution_tool_result_error"`
-
               - `class BashCodeExecutionResultBlock:`
+
+                - `JsonValue type = "bash_code_execution_result"`
 
                 - `List<BashCodeExecutionOutputBlock> content`
 
-                  - `String fileId`
-
                   - `JsonValue type = "bash_code_execution_output"`
+
+                  - `String fileId`
 
                 - `long returnCode`
 
@@ -603,19 +624,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-                - `JsonValue type = "bash_code_execution_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "bash_code_execution_tool_result"`
-
           - `class TextEditorCodeExecutionToolResultBlock:`
+
+            - `JsonValue type = "text_editor_code_execution_tool_result"`
 
             - `Content content`
 
               - `class TextEditorCodeExecutionToolResultError:`
+
+                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
                 - `TextEditorCodeExecutionToolResultErrorCode errorCode`
 
@@ -631,9 +652,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type = "text_editor_code_execution_tool_result_error"`
-
               - `class TextEditorCodeExecutionViewResultBlock:`
+
+                - `JsonValue type = "text_editor_code_execution_view_result"`
 
                 - `String content`
 
@@ -651,15 +672,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> totalLines`
 
-                - `JsonValue type = "text_editor_code_execution_view_result"`
-
               - `class TextEditorCodeExecutionCreateResultBlock:`
-
-                - `boolean isFileUpdate`
 
                 - `JsonValue type = "text_editor_code_execution_create_result"`
 
+                - `boolean isFileUpdate`
+
               - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+
+                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
                 - `Optional<List<String>> lines`
 
@@ -671,19 +692,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> oldStart`
 
-                - `JsonValue type = "text_editor_code_execution_str_replace_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `JsonValue type = "text_editor_code_execution_tool_result"`
-
           - `class ToolSearchToolResultBlock:`
+
+            - `JsonValue type = "tool_search_tool_result"`
 
             - `Content content`
 
               - `class ToolSearchToolResultError:`
+
+                - `JsonValue type = "tool_search_tool_result_error"`
 
                 - `ToolSearchToolResultErrorCode errorCode`
 
@@ -697,33 +718,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-                - `JsonValue type = "tool_search_tool_result_error"`
-
               - `class ToolSearchToolSearchResultBlock:`
 
+                - `JsonValue type = "tool_search_tool_search_result"`
+
                 - `List<ToolReferenceBlock> toolReferences`
+
+                  - `JsonValue type = "tool_reference"`
 
                   - `String toolName`
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `JsonValue type = "tool_reference"`
-
-                - `JsonValue type = "tool_search_tool_search_result"`
-
             - `String toolUseId`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `JsonValue type = "tool_search_tool_result"`
 
           - `class ContainerUploadBlock:`
 
             Response model for a file uploaded to the container.
 
-            - `String fileId`
-
             - `JsonValue type = "container_upload"`
+
+            - `String fileId`
 
         - `Model model`
 
@@ -809,6 +826,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Structured information about a refusal.
 
+          - `JsonValue type = "refusal"`
+
           - `Optional<Category> category`
 
             The policy category that triggered a refusal.
@@ -838,8 +857,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Human-readable explanation of the refusal.
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-          - `JsonValue type = "refusal"`
 
         - `Optional<StopReason> stopReason`
 
@@ -876,12 +893,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `JsonValue type = "message"`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
 
         - `Usage usage`
 
@@ -987,73 +998,71 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `BATCH("batch")`
 
-      - `JsonValue type = "succeeded"`
-
     - `class MessageBatchErroredResult:`
 
+      - `JsonValue type = "errored"`
+
       - `ErrorResponse error`
+
+        - `JsonValue type = "error"`
 
         - `ErrorObject error`
 
           - `class InvalidRequestError:`
 
-            - `String message`
-
             - `JsonValue type = "invalid_request_error"`
+
+            - `String message`
 
           - `class AuthenticationError:`
 
-            - `String message`
-
             - `JsonValue type = "authentication_error"`
+
+            - `String message`
 
           - `class BillingError:`
 
-            - `String message`
-
             - `JsonValue type = "billing_error"`
+
+            - `String message`
 
           - `class PermissionError:`
 
-            - `String message`
-
             - `JsonValue type = "permission_error"`
+
+            - `String message`
 
           - `class NotFoundError:`
 
-            - `String message`
-
             - `JsonValue type = "not_found_error"`
+
+            - `String message`
 
           - `class RateLimitError:`
 
-            - `String message`
-
             - `JsonValue type = "rate_limit_error"`
+
+            - `String message`
 
           - `class GatewayTimeoutError:`
 
-            - `String message`
-
             - `JsonValue type = "timeout_error"`
+
+            - `String message`
 
           - `class ApiErrorObject:`
 
-            - `String message`
-
             - `JsonValue type = "api_error"`
+
+            - `String message`
 
           - `class OverloadedError:`
 
-            - `String message`
-
             - `JsonValue type = "overloaded_error"`
 
+            - `String message`
+
         - `Optional<String> requestId`
-
-        - `JsonValue type = "error"`
-
-      - `JsonValue type = "errored"`
 
     - `class MessageBatchCanceledResult:`
 

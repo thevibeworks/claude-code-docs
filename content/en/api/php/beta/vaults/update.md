@@ -1,6 +1,11 @@
+---
+title: Update Vault
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/update
+---
+
 # Update Vault
 
-`$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}`
 
@@ -22,9 +27,13 @@ Update Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -46,8 +55,6 @@ Update Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -66,6 +73,7 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);

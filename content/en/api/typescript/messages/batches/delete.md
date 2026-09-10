@@ -1,6 +1,11 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/typescript/messages/batches/delete
+---
+
 # Delete a Message Batch
 
-`client.messages.batches.delete(messageBatchID, options?): DeletedMessageBatch`
+`client.messages.batches.delete(messageBatchID, params?, options?): DeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -16,13 +21,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+- `params: BatchDeleteParams`
+
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `DeletedMessageBatch`
-
-  - `id: string`
-
-    ID of the Message Batch.
 
   - `type: "message_batch_deleted"`
 
@@ -31,6 +40,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     For Message Batches, this is always `"message_batch_deleted"`.
 
     default: message_batch_deleted
+
+  - `id: string`
+
+    ID of the Message Batch.
 
 ## Example
 

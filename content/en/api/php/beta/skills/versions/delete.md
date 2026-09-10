@@ -1,6 +1,11 @@
+---
+title: Delete Skill Version
+url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/delete
+---
+
 # Delete Skill Version
 
-`$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): DeletedSkillVersion`
+`$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): DeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -24,20 +29,22 @@ Delete Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `DeletedSkillVersion`
-
-  - `string id`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
 
   - `"skill_version_deleted" type`
 
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+  - `string id`
+
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
 ## Example
 
@@ -52,6 +59,7 @@ $betaDeletedSkillVersion = $client->beta->skills->versions->delete(
   'version',
   skillID: 'skill_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedSkillVersion);

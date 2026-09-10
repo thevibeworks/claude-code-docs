@@ -1,6 +1,11 @@
+---
+title: Rotate Tunnel Token
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/rotate_token
+---
+
 # Rotate Tunnel Token
 
-`$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas): BetaTunnelToken`
+`$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
@@ -20,9 +25,13 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaTunnelToken`
+
+  - `"tunnel_token" type`
 
   - `string id`
 
@@ -31,8 +40,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `string tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `"tunnel_token" type`
 
 ## Example
 
@@ -47,6 +54,7 @@ $betaTunnelToken = $client->beta->tunnels->rotateToken(
   'tunnel_id',
   reason: 'reason',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelToken);

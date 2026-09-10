@@ -1,6 +1,11 @@
+---
+title: Update Session Resource
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/update
+---
+
 # Update Session Resource
 
-`$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
+`$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas, ?string workspaceID): ResourceUpdateResponse`
 
 **POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -20,11 +25,15 @@ Update Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ResourceUpdateResponse`
 
   - `ManagedAgentsGitHubRepositoryResource`
+
+    - `Type type`
 
     - `string id`
 
@@ -33,8 +42,6 @@ Update Session Resource
       A timestamp in RFC 3339 format
 
     - `string mountPath`
-
-    - `Type type`
 
     - `\Datetime updatedAt`
 
@@ -46,6 +53,8 @@ Update Session Resource
 
   - `ManagedAgentsFileResource`
 
+    - `Type type`
+
     - `string id`
 
     - `\Datetime createdAt`
@@ -56,19 +65,17 @@ Update Session Resource
 
     - `string mountPath`
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsMemoryStoreResource`
 
+    - `Type type`
+
     - `string memoryStoreID`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
 
     - `?Access access`
 
@@ -104,6 +111,7 @@ $resource = $client->beta->sessions->resources->update(
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   authorizationToken: 'ghp_exampletoken',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($resource);

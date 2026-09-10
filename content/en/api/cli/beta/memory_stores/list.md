@@ -1,3 +1,8 @@
+---
+title: List memory stores
+url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/list
+---
+
 # List memory stores
 
 `$ ant beta:memory-stores list`
@@ -38,6 +43,12 @@ List memory stores
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaManagedAgentsListMemoryStoresResponse: object`
@@ -47,6 +58,8 @@ List memory stores
   - `data: optional array of BetaManagedAgentsMemoryStore`
 
     Memory stores on this page, newest first. Empty when there are no stores matching the filters.
+
+    - `type: "memory_store"`
 
     - `id: string`
 
@@ -61,8 +74,6 @@ List memory stores
     - `name: string`
 
       Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-    - `type: "memory_store"`
 
     - `updated_at: string`
 

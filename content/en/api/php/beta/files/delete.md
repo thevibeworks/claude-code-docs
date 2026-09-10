@@ -1,6 +1,11 @@
+---
+title: Delete File
+url: https://platform.claude.com/docs/en/api/php/beta/files/delete
+---
+
 # Delete File
 
-`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
+`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDeletedFile`
 
 **DELETE** `/v1/files/{file_id}`
 
@@ -16,19 +21,21 @@ Delete File
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaDeletedFile`
-
-  - `string id`
-
-    ID of the deleted file.
 
   - `?Type type`
 
     Deleted object type.
 
     For file deletion, this is always `"file_deleted"`.
+
+  - `string id`
+
+    ID of the deleted file.
 
 ## Example
 
@@ -40,7 +47,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedFile = $client->beta->files->delete(
-  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'file_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedFile);

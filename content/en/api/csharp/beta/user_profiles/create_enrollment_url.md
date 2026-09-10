@@ -1,3 +1,8 @@
+---
+title: Create Enrollment URL
+url: https://platform.claude.com/docs/en/api/csharp/beta/user_profiles/create_enrollment_url
+---
+
 # Create Enrollment URL
 
 `BetaUserProfileEnrollmentUrl Beta.UserProfiles.CreateEnrollmentUrl(parameters, cancellationToken = default)`
@@ -64,6 +69,8 @@ Create Enrollment URL
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -110,15 +117,15 @@ Create Enrollment URL
 
 - `class BetaUserProfileEnrollmentUrl:`
 
+  - `required Type Type`
+
+    Object type. Always `enrollment_url`.
+
   - `required DateTimeOffset ExpiresAt`
 
     A timestamp in RFC 3339 format
 
     format: date-time
-
-  - `required Type Type`
-
-    Object type. Always `enrollment_url`.
 
   - `required string Url`
 

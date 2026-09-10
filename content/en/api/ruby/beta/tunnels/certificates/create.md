@@ -1,3 +1,8 @@
+---
+title: Create Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/certificates/create
+---
+
 # Create Tunnel Certificate
 
 `beta.tunnels.certificates.create(tunnel_id, **kwargs) -> BetaTunnelCertificate`
@@ -24,7 +29,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -72,6 +77,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -114,11 +121,15 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
+
+  - `type: :tunnel_certificate`
 
   - `id: String`
 
@@ -149,8 +160,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `tunnel_id: String`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`
 
 ## Example
 

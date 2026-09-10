@@ -64,11 +64,11 @@ Per-channel limits and the per-channel spend breakdown are on the same usage pag
 
 ## Attribute costs by channel
 
-Channel work can't be attributed to individual users. It bills to your organization's usage balance, not to any user's seat, and often has no single requesting user (several people contribute to one thread, and scheduled jobs run without anyone asking). The channel is the unit you can attribute.
-
-The usage page at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag) shows spend broken down by channel.
+In claude.ai you see spend per channel, not per user. The usage page at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag) shows each channel's spend. Channel work bills to your organization's usage balance, not to any user's seat.
 
 To attribute spend to teams or departments for showback or chargeback reporting, structure channels so each maps to one team or department, and give those channels [their own scopes](/docs/claude-tag/admins/attach-to-scope). The per-channel breakdown then reads as your per-team report, and per-channel spend limits act as team-level budgets.
+
+Organizations on a Claude Enterprise plan can also pull channel spend per Slack user from the Analytics API, which attributes Claude's channel work to individual Slack users. See [Attribute costs to users](/docs/claude-tag/admins/attribute-costs).
 
 DMs are separate. A DM bills to the sender's own seat, not to the organization's usage balance.
 

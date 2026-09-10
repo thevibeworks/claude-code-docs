@@ -1,3 +1,8 @@
+---
+title: Poll for Work
+url: https://platform.claude.com/docs/en/api/ruby/beta/environments/work/poll
+---
+
 # Poll for Work
 
 `beta.environments.work.poll(environment_id, **kwargs) -> BetaSelfHostedWork`
@@ -30,7 +35,7 @@ Long poll for work items in the queue.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -77,6 +82,8 @@ Long poll for work items in the queue.
     - `:"user-profiles-2026-03-24"`
 
     - `:"user-profiles-2026-08-18"`
+
+    - `:"user-profiles-2026-09-04"`
 
     - `:"advisor-tool-2026-03-01"`
 
@@ -134,6 +141,10 @@ Long poll for work items in the queue.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `type: :work`
+
+    The type of object (always 'work')
+
   - `id: String`
 
     Work identifier (e.g., 'work_...')
@@ -150,13 +161,13 @@ Long poll for work items in the queue.
 
     The actual work to be performed
 
-    - `id: String`
-
-      Session identifier (e.g., 'session_...')
-
     - `type: :session`
 
       Type of work data
+
+    - `id: String`
+
+      Session identifier (e.g., 'session_...')
 
   - `environment_id: String`
 
@@ -199,10 +210,6 @@ Long poll for work items in the queue.
   - `stopped_at: String`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `type: :work`
-
-    The type of object (always 'work')
 
 ## Example
 

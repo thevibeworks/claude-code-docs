@@ -6,6 +6,13 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.10.1">
+  * Fixed importing Claude for Government Web chats into Claude Desktop failing with "This account doesn't match your organization" for members of tenants that use directory provisioning (SCIM) now but did not on Claude for Government Web.
+  * Added the "Let members add plugin marketplaces" and "Let members add their own plugins" settings under Config > Integrations at the tenant, organization, and group levels, both off by default: members on Claude Desktop 1.37937.0 or later can no longer add plugin marketplaces or their own plugins unless an admin turns these on, while marketplaces and plugins they already added keep working.
+  * Changed the "Claude Code" and "Claude for Microsoft 365" switches under Config > Product availability so that turning a product off takes effect at once for members already signed in to it, instead of waiting for the product to re-read its settings; a member who signs in to Claude for Microsoft 365 while it is off is now told so on the sign-in page.
+  * Added the "IPv6 in the sandbox" setting under Config > Access and models at the tenant, organization, and group levels, off by default: when it is on, Claude Desktop on macOS and Windows lets tools in its sandbox reach IPv6-only hosts during Cowork tasks, which takes effect once a Claude Desktop release that supports the setting is available.
+</Update>
+
 <Update label="2026.09.09.1">
   * Changed how the "Telemetry headers" setting and your connectors are delivered to Claude Desktop, ahead of Claude Desktop retiring the older formats: nothing changes in your settings or for members, and the notice about deprecated configuration fields that Claude Desktop 1.40609.0 or later can show no longer lists them.
 </Update>

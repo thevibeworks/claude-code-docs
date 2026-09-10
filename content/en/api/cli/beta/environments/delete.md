@@ -1,3 +1,8 @@
+---
+title: Delete Environment
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/delete
+---
+
 # Delete Environment
 
 `$ ant beta:environments delete`
@@ -14,19 +19,25 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_environment_delete_response: object`
 
   Response after deleting an environment.
 
-  - `id: string`
-
-    Environment identifier
-
   - `type: "environment_deleted"`
 
     The type of response
+
+  - `id: string`
+
+    Environment identifier
 
 ## Example
 

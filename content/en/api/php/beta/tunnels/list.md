@@ -1,6 +1,11 @@
+---
+title: List Tunnels
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/list
+---
+
 # List Tunnels
 
-`$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTunnel>`
+`$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaTunnel>`
 
 **GET** `/v1/tunnels`
 
@@ -26,9 +31,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -50,8 +59,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ## Example
 
 ```php
@@ -66,6 +73,7 @@ $page = $client->beta->tunnels->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

@@ -1,3 +1,8 @@
+---
+title: List Agents
+url: https://platform.claude.com/docs/en/api/beta/agents/list
+---
+
 # List Agents
 
 **GET** `/v1/agents`
@@ -40,7 +45,7 @@ List Agents
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -88,6 +93,8 @@ List Agents
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -130,11 +137,15 @@ List Agents
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `data: array of BetaManagedAgentsAgent`
 
   List of agents.
+
+  - `type: "agent"`
 
   - `id: string`
 
@@ -154,9 +165,9 @@ List Agents
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-    - `name: string`
-
     - `type: "url"`
+
+    - `name: string`
 
     - `url: string`
 
@@ -286,6 +297,8 @@ List Agents
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `type: "coordinator"`
+
     - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -294,9 +307,9 @@ List Agents
 
         A resolved agent reference with a concrete version.
 
-        - `id: string`
-
         - `type: "agent"`
+
+        - `id: string`
 
         - `version: number`
 
@@ -306,13 +319,11 @@ List Agents
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `type: "advisor"`
+
         - `model: string`
 
           The advisor model id.
-
-        - `type: "advisor"`
-
-    - `type: "coordinator"`
 
   - `name: string`
 
@@ -322,9 +333,9 @@ List Agents
 
       A resolved Anthropic-managed skill.
 
-      - `skill_id: string`
-
       - `type: "anthropic"`
+
+      - `skill_id: string`
 
       - `version: string`
 
@@ -332,9 +343,9 @@ List Agents
 
       A resolved user-created custom skill.
 
-      - `skill_id: string`
-
       - `type: "custom"`
+
+      - `skill_id: string`
 
       - `version: string`
 
@@ -344,17 +355,21 @@ List Agents
 
     - `BetaManagedAgentsAgentToolset20260401 object`
 
+      - `type: "agent_toolset_20260401"`
+
       - `configs: array of BetaManagedAgentsAgentToolConfig`
 
         - `BetaManagedAgentsBashToolConfig object`
 
           Configuration for the bash tool.
 
+          - `type: "bash"`
+
           - `enabled: boolean`
 
           - `name: "bash"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -370,17 +385,23 @@ List Agents
 
               - `type: "always_ask"`
 
-          - `type: "bash"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `type: "auto"`
 
         - `BetaManagedAgentsEditToolConfig object`
 
           Configuration for the edit tool.
 
+          - `type: "edit"`
+
           - `enabled: boolean`
 
           - `name: "edit"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -392,17 +413,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "edit"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `BetaManagedAgentsReadToolConfig object`
 
           Configuration for the read tool.
 
+          - `type: "read"`
+
           - `enabled: boolean`
 
           - `name: "read"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -414,17 +439,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "read"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `BetaManagedAgentsWriteToolConfig object`
 
           Configuration for the write tool.
 
+          - `type: "write"`
+
           - `enabled: boolean`
 
           - `name: "write"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -436,17 +465,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "write"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `BetaManagedAgentsGlobToolConfig object`
 
           Configuration for the glob tool.
 
+          - `type: "glob"`
+
           - `enabled: boolean`
 
           - `name: "glob"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -458,17 +491,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "glob"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `BetaManagedAgentsGrepToolConfig object`
 
           Configuration for the grep tool.
 
+          - `type: "grep"`
+
           - `enabled: boolean`
 
           - `name: "grep"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -480,17 +517,21 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "grep"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `BetaManagedAgentsWebFetchToolConfig object`
 
           Configuration for the web_fetch tool.
 
+          - `type: "web_fetch"`
+
           - `enabled: boolean`
 
           - `name: "web_fetch"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -502,7 +543,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "web_fetch"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: optional array of string`
 
@@ -516,11 +559,13 @@ List Agents
 
           Configuration for the web_search tool.
 
+          - `type: "web_search"`
+
           - `enabled: boolean`
 
           - `name: "web_search"`
 
-          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
             Permission policy for tool execution.
 
@@ -532,7 +577,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `type: "web_search"`
+            - `BetaManagedAgentsAutoPolicy object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `allowed_domains: optional array of string`
 
@@ -574,7 +621,7 @@ List Agents
 
         - `enabled: boolean`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -586,9 +633,13 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `type: "agent_toolset_20260401"`
+          - `BetaManagedAgentsAutoPolicy object`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `BetaManagedAgentsMCPToolset object`
+
+      - `type: "mcp_toolset"`
 
       - `configs: array of BetaManagedAgentsMCPToolConfig`
 
@@ -596,7 +647,7 @@ List Agents
 
         - `name: string`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -607,6 +658,10 @@ List Agents
           - `BetaManagedAgentsAlwaysAskPolicy object`
 
             Tool calls require user confirmation before execution.
+
+          - `BetaManagedAgentsAutoPolicy object`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -614,7 +669,7 @@ List Agents
 
         - `enabled: boolean`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
 
           Permission policy for tool execution.
 
@@ -626,13 +681,17 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `mcp_server_name: string`
+          - `BetaManagedAgentsAutoPolicy object`
 
-      - `type: "mcp_toolset"`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `mcp_server_name: string`
 
     - `BetaManagedAgentsCustomTool object`
 
       A custom tool as returned in API responses.
+
+      - `type: "custom"`
 
       - `description: string`
 
@@ -647,10 +706,6 @@ List Agents
         - `required: optional array of string or null`
 
       - `name: string`
-
-      - `type: "custom"`
-
-  - `type: "agent"`
 
   - `updated_at: string`
 

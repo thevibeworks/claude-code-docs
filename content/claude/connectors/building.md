@@ -60,7 +60,7 @@ Claude supports both Streamable HTTP and the legacy HTTP+SSE transport. The lega
 | Claude.ai/Desktop max tool result size | \~150,000 characters                                     |
 | Claude Code max tool result size       | 25,000 tokens (configurable via `MAX_MCP_OUTPUT_TOKENS`) |
 | Claude Code timeout                    | Configurable via `MCP_TOOL_TIMEOUT`                      |
-| Claude.ai/Desktop timeout              | 300 seconds (5 minutes)                                  |
+| Claude.ai/Desktop tool call timeout    | 240 seconds (4 minutes) per tool call                    |
 | Transport protocol                     | Streamable HTTP (legacy HTTP+SSE being deprecated)       |
 
 ## Testing your server

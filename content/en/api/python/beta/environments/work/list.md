@@ -1,3 +1,8 @@
+---
+title: List Work Items
+url: https://platform.claude.com/docs/en/api/python/beta/environments/work/list
+---
+
 # List Work Items
 
 `beta.environments.work.list(environment_id, **kwargs)  -> SyncPageCursor[BetaSelfHostedWork]`
@@ -28,7 +33,7 @@ List work items in an environment.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -75,6 +80,8 @@ List work items in an environment.
     - `"user-profiles-2026-03-24"`
 
     - `"user-profiles-2026-08-18"`
+
+    - `"user-profiles-2026-09-04"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -128,6 +135,12 @@ List work items in an environment.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `type: Literal["work"]`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `id: str`
 
     Work identifier (e.g., 'work_...')
@@ -144,13 +157,13 @@ List work items in an environment.
 
     The actual work to be performed
 
-    - `id: str`
-
-      Session identifier (e.g., 'session_...')
-
     - `type: Literal["session"]`
 
       Type of work data
+
+    - `id: str`
+
+      Session identifier (e.g., 'session_...')
 
   - `environment_id: str`
 
@@ -193,12 +206,6 @@ List work items in an environment.
   - `stopped_at: Optional[str]`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `type: Literal["work"]`
-
-    The type of object (always 'work')
-
-    default: work
 
 ## Example
 

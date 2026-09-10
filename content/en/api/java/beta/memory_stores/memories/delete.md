@@ -1,3 +1,8 @@
+---
+title: Delete a memory
+url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memories/delete
+---
+
 # Delete a memory
 
 `BetaManagedAgentsDeletedMemory beta().memoryStores().memories().delete(params, requestOptions = RequestOptions.none())`
@@ -68,6 +73,8 @@ Delete a memory
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -110,17 +117,19 @@ Delete a memory
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaManagedAgentsDeletedMemory:`
 
   Tombstone returned by [Delete a memory](/docs/en/api/beta/memory_stores/memories/delete). Deleting a memory does not erase its version history: its versions remain listable via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
 
+  - `Type type`
+
   - `String id`
 
     ID of the deleted memory (a `mem_...` value).
-
-  - `Type type`
 
 ## Example
 

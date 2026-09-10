@@ -1,3 +1,8 @@
+---
+title: Update a memory
+url: https://platform.claude.com/docs/en/api/beta/memory_stores/memories/update
+---
+
 # Update a memory
 
 **POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
@@ -28,7 +33,7 @@ Update a memory
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -76,6 +81,8 @@ Update a memory
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -118,6 +125,8 @@ Update a memory
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Body parameters
 
 - `content: optional string or null`
@@ -145,6 +154,8 @@ Update a memory
 - `BetaManagedAgentsMemory object`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+
+  - `type: "memory"`
 
   - `id: string`
 
@@ -177,8 +188,6 @@ Update a memory
   - `path: string`
 
     Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-
-  - `type: "memory"`
 
   - `updated_at: string`
 

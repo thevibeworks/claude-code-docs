@@ -1,6 +1,11 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/go/messages/batches/delete
+---
+
 # Delete a Message Batch
 
-`client.Messages.Batches.Delete(ctx, messageBatchID) (*DeletedMessageBatch, error)`
+`client.Messages.Batches.Delete(ctx, messageBatchID, body) (*DeletedMessageBatch, error)`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -16,13 +21,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+- `body MessageBatchDeleteParams`
+
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type DeletedMessageBatch struct{…}`
-
-  - `ID string`
-
-    ID of the Message Batch.
 
   - `Type MessageBatchDeleted`
 
@@ -31,6 +40,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     For Message Batches, this is always `"message_batch_deleted"`.
 
     default: message_batch_deleted
+
+  - `ID string`
+
+    ID of the Message Batch.
 
 ## Example
 
@@ -49,7 +62,11 @@ func main() {
 	client := anthropic.NewClient(
 		option.WithAPIKey("my-anthropic-api-key"),
 	)
-	deletedMessageBatch, err := client.Messages.Batches.Delete(context.TODO(), "message_batch_id")
+	deletedMessageBatch, err := client.Messages.Batches.Delete(
+		context.TODO(),
+		"message_batch_id",
+		anthropic.MessageBatchDeleteParams{},
+	)
 	if err != nil {
 		panic(err.Error())
 	}

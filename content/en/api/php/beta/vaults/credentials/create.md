@@ -1,6 +1,11 @@
+---
+title: Create Credential
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/create
+---
+
 # Create Credential
 
-`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
@@ -26,9 +31,13 @@ Create Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -49,8 +58,6 @@ Create Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -83,6 +90,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);

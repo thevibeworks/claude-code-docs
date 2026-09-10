@@ -1,6 +1,11 @@
+---
+title: List Environments
+url: https://platform.claude.com/docs/en/api/php/beta/environments/list
+---
+
 # List Environments
 
-`$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaEnvironment>`
+`$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaEnvironment>`
 
 **GET** `/v1/environments`
 
@@ -28,9 +33,15 @@ List environments with pagination support.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -60,10 +71,6 @@ List environments with pagination support.
 
     Human-readable name for the environment
 
-  - `"environment" type`
-
-    The type of object (always 'environment')
-
   - `string updatedAt`
 
     RFC 3339 timestamp when environment was last updated
@@ -86,6 +93,7 @@ $page = $client->beta->environments->list(
   limit: 1,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

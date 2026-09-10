@@ -1,6 +1,11 @@
+---
+title: Update Deployment
+url: https://platform.claude.com/docs/en/api/php/beta/deployments/update
+---
+
 # Update Deployment
 
-`$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}`
 
@@ -54,9 +59,13 @@ Update Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -110,8 +119,6 @@ Update Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -164,6 +171,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->update(
   ],
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);

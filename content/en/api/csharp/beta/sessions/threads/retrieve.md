@@ -1,3 +1,8 @@
+---
+title: Get Session Thread
+url: https://platform.claude.com/docs/en/api/csharp/beta/sessions/threads/retrieve
+---
+
 # Get Session Thread
 
 `BetaManagedAgentsSessionThread Beta.Sessions.Threads.Retrieve(parameters, cancellationToken = default)`
@@ -68,6 +73,8 @@ Get Session Thread
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -110,11 +117,19 @@ Get Session Thread
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsSessionThread:`
 
   An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -128,15 +143,17 @@ Get Session Thread
 
       Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+      - `required Type Type`
+
       - `required string ID`
 
       - `required string? Description`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-        - `required string Name`
-
         - `required Type Type`
+
+        - `required string Name`
 
         - `required string Url`
 
@@ -260,9 +277,9 @@ Get Session Thread
 
           A resolved Anthropic-managed skill.
 
-          - `required string SkillID`
-
           - `required Type Type`
+
+          - `required string SkillID`
 
           - `required string Version`
 
@@ -270,9 +287,9 @@ Get Session Thread
 
           A resolved user-created custom skill.
 
-          - `required string SkillID`
-
           - `required Type Type`
+
+          - `required string SkillID`
 
           - `required string Version`
 
@@ -282,11 +299,15 @@ Get Session Thread
 
         - `class BetaManagedAgentsAgentToolset20260401:`
 
+          - `required Type Type`
+
           - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
             - `class BetaManagedAgentsBashToolConfig:`
 
               Configuration for the bash tool.
+
+              - `JsonElement Type = "bash"`
 
               - `required bool Enabled`
 
@@ -308,11 +329,17 @@ Get Session Thread
 
                   - `required Type Type`
 
-              - `JsonElement Type = "bash"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `JsonElement Type = "auto"`
 
             - `class BetaManagedAgentsEditToolConfig:`
 
               Configuration for the edit tool.
+
+              - `JsonElement Type = "edit"`
 
               - `required bool Enabled`
 
@@ -330,11 +357,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "edit"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsReadToolConfig:`
 
               Configuration for the read tool.
+
+              - `JsonElement Type = "read"`
 
               - `required bool Enabled`
 
@@ -352,11 +383,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "read"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsWriteToolConfig:`
 
               Configuration for the write tool.
+
+              - `JsonElement Type = "write"`
 
               - `required bool Enabled`
 
@@ -374,11 +409,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "write"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsGlobToolConfig:`
 
               Configuration for the glob tool.
+
+              - `JsonElement Type = "glob"`
 
               - `required bool Enabled`
 
@@ -396,11 +435,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "glob"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsGrepToolConfig:`
 
               Configuration for the grep tool.
+
+              - `JsonElement Type = "grep"`
 
               - `required bool Enabled`
 
@@ -418,11 +461,15 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "grep"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsWebFetchToolConfig:`
 
               Configuration for the web_fetch tool.
+
+              - `JsonElement Type = "web_fetch"`
 
               - `required bool Enabled`
 
@@ -440,7 +487,9 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "web_fetch"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `IReadOnlyList<string> AllowedDomains`
 
@@ -453,6 +502,8 @@ Get Session Thread
             - `class BetaManagedAgentsWebSearchToolConfig:`
 
               Configuration for the web_search tool.
+
+              - `JsonElement Type = "web_search"`
 
               - `required bool Enabled`
 
@@ -470,7 +521,9 @@ Get Session Thread
 
                   Tool calls require user confirmation before execution.
 
-              - `JsonElement Type = "web_search"`
+                - `class BetaManagedAgentsAutoPolicy:`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `IReadOnlyList<string> AllowedDomains`
 
@@ -524,9 +577,13 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
-          - `required Type Type`
+              - `class BetaManagedAgentsAutoPolicy:`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsMcpToolset:`
+
+          - `required Type Type`
 
           - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -546,6 +603,10 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
+              - `class BetaManagedAgentsAutoPolicy:`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
           - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
             Resolved default configuration for all tools from an MCP server.
@@ -564,13 +625,17 @@ Get Session Thread
 
                 Tool calls require user confirmation before execution.
 
-          - `required string McpServerName`
+              - `class BetaManagedAgentsAutoPolicy:`
 
-          - `required Type Type`
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `required string McpServerName`
 
         - `class BetaManagedAgentsCustomTool:`
 
           A custom tool as returned in API responses.
+
+          - `required Type Type`
 
           - `required string Description`
 
@@ -586,10 +651,6 @@ Get Session Thread
 
           - `required string Name`
 
-          - `required Type Type`
-
-      - `required Type Type`
-
       - `required int Version`
 
         format: int32
@@ -598,11 +659,11 @@ Get Session Thread
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+      - `required Type Type`
+
       - `required string Model`
 
         The advisor model id.
-
-      - `required Type Type`
 
   - `required DateTimeOffset? ArchivedAt`
 
@@ -657,8 +718,6 @@ Get Session Thread
     - `Rescheduling("rescheduling")`
 
     - `Terminated("terminated")`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 

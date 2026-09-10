@@ -1,6 +1,11 @@
+---
+title: Get Session Resource
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/retrieve
+---
+
 # Get Session Resource
 
-`$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ResourceGetResponse`
+`$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): ResourceGetResponse`
 
 **GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -16,11 +21,15 @@ Get Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ResourceGetResponse`
 
   - `ManagedAgentsGitHubRepositoryResource`
+
+    - `Type type`
 
     - `string id`
 
@@ -29,8 +38,6 @@ Get Session Resource
       A timestamp in RFC 3339 format
 
     - `string mountPath`
-
-    - `Type type`
 
     - `\Datetime updatedAt`
 
@@ -42,6 +49,8 @@ Get Session Resource
 
   - `ManagedAgentsFileResource`
 
+    - `Type type`
+
     - `string id`
 
     - `\Datetime createdAt`
@@ -52,19 +61,17 @@ Get Session Resource
 
     - `string mountPath`
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsMemoryStoreResource`
 
+    - `Type type`
+
     - `string memoryStoreID`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
 
     - `?Access access`
 
@@ -99,6 +106,7 @@ $resource = $client->beta->sessions->resources->retrieve(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($resource);

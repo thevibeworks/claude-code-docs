@@ -1,3 +1,8 @@
+---
+title: Agents
+url: https://platform.claude.com/docs/en/api/csharp/beta/agents
+---
+
 # Agents
 
 ## Create Agent
@@ -220,13 +225,13 @@ Create Agent
 
     Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
+    - `required Type Type`
+
     - `required string Name`
 
       Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
       minLength: 1, maxLength: 255
-
-    - `required Type Type`
 
     - `required string Url`
 
@@ -250,13 +255,13 @@ Create Agent
 
       An Anthropic-managed skill.
 
+      - `required Type Type`
+
       - `required string SkillID`
 
         Identifier of the Anthropic skill (e.g., "xlsx").
 
         minLength: 1, maxLength: 64
-
-      - `required Type Type`
 
       - `string? Version`
 
@@ -268,13 +273,13 @@ Create Agent
 
       A user-created custom skill.
 
+      - `required Type Type`
+
       - `required string SkillID`
 
         Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
         minLength: 1, maxLength: 64
-
-      - `required Type Type`
 
       - `string? Version`
 
@@ -306,6 +311,8 @@ Create Agent
 
           Configuration override for the bash tool.
 
+          - `Type Type`
+
           - `JsonElement Name = "bash"`
 
             Must be "bash".
@@ -330,11 +337,17 @@ Create Agent
 
               - `required Type Type`
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfigParams:`
 
           Configuration override for the edit tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "edit"`
 
@@ -356,11 +369,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfigParams:`
 
           Configuration override for the read tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "read"`
 
@@ -382,11 +399,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfigParams:`
 
           Configuration override for the write tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "write"`
 
@@ -408,11 +429,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfigParams:`
 
           Configuration override for the glob tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "glob"`
 
@@ -434,11 +459,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfigParams:`
 
           Configuration override for the grep tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "grep"`
 
@@ -460,11 +489,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfigParams:`
 
           Configuration override for the web_fetch tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "web_fetch"`
 
@@ -500,11 +533,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebSearchToolConfigParams:`
 
           Configuration override for the web_search tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "web_search"`
 
@@ -534,7 +571,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `BetaManagedAgentsUserLocation? UserLocation`
 
@@ -586,17 +625,21 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
     - `class BetaManagedAgentsMcpToolsetParams:`
 
       Configuration for tools from an MCP server defined in `mcp_servers`.
+
+      - `required Type Type`
 
       - `required string McpServerName`
 
         Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
         minLength: 1, maxLength: 255
-
-      - `required Type Type`
 
       - `IReadOnlyList<BetaManagedAgentsMcpToolConfigParams> Configs`
 
@@ -624,6 +667,10 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `BetaManagedAgentsMcpToolsetDefaultConfigParams? DefaultConfig`
 
         Default configuration for all tools from an MCP server.
@@ -644,9 +691,15 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
     - `class BetaManagedAgentsCustomToolParams:`
 
       A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -669,8 +722,6 @@ Create Agent
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
         minLength: 1, maxLength: 128
-
-      - `required Type Type`
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -722,6 +773,8 @@ Create Agent
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -764,11 +817,19 @@ Create Agent
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -788,9 +849,9 @@ Create Agent
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -912,6 +973,8 @@ Create Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -920,9 +983,9 @@ Create Agent
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -932,13 +995,11 @@ Create Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -948,9 +1009,9 @@ Create Agent
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -958,9 +1019,9 @@ Create Agent
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -970,11 +1031,15 @@ Create Agent
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -996,11 +1061,17 @@ Create Agent
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -1018,11 +1089,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -1040,11 +1115,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -1062,11 +1141,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -1084,11 +1167,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -1106,11 +1193,15 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -1128,7 +1219,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1141,6 +1234,8 @@ Create Agent
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -1158,7 +1253,9 @@ Create Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1212,9 +1309,13 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -1234,6 +1335,10 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -1252,13 +1357,17 @@ Create Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -1273,10 +1382,6 @@ Create Agent
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 
@@ -1469,6 +1574,8 @@ List Agents
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1511,11 +1618,19 @@ List Agents
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -1535,9 +1650,9 @@ List Agents
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -1659,6 +1774,8 @@ List Agents
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -1667,9 +1784,9 @@ List Agents
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -1679,13 +1796,11 @@ List Agents
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -1695,9 +1810,9 @@ List Agents
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -1705,9 +1820,9 @@ List Agents
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -1717,11 +1832,15 @@ List Agents
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -1743,11 +1862,17 @@ List Agents
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -1765,11 +1890,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -1787,11 +1916,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -1809,11 +1942,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -1831,11 +1968,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -1853,11 +1994,15 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -1875,7 +2020,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1888,6 +2035,8 @@ List Agents
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -1905,7 +2054,9 @@ List Agents
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -1959,9 +2110,13 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -1981,6 +2136,10 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -1999,13 +2158,17 @@ List Agents
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -2020,10 +2183,6 @@ List Agents
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 
@@ -2203,6 +2362,8 @@ Get Agent
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -2245,11 +2406,19 @@ Get Agent
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -2269,9 +2438,9 @@ Get Agent
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -2393,6 +2562,8 @@ Get Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -2401,9 +2572,9 @@ Get Agent
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -2413,13 +2584,11 @@ Get Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -2429,9 +2598,9 @@ Get Agent
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -2439,9 +2608,9 @@ Get Agent
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -2451,11 +2620,15 @@ Get Agent
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -2477,11 +2650,17 @@ Get Agent
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -2499,11 +2678,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -2521,11 +2704,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -2543,11 +2730,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -2565,11 +2756,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -2587,11 +2782,15 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -2609,7 +2808,9 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -2622,6 +2823,8 @@ Get Agent
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -2639,7 +2842,9 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -2693,9 +2898,13 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -2715,6 +2924,10 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -2733,13 +2946,17 @@ Get Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -2754,10 +2971,6 @@ Get Agent
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 
@@ -2887,13 +3100,13 @@ Update Agent
 
     Body param: MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
+    - `required Type Type`
+
     - `required string Name`
 
       Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
       minLength: 1, maxLength: 255
-
-    - `required Type Type`
 
     - `required string Url`
 
@@ -3115,13 +3328,13 @@ Update Agent
 
       An Anthropic-managed skill.
 
+      - `required Type Type`
+
       - `required string SkillID`
 
         Identifier of the Anthropic skill (e.g., "xlsx").
 
         minLength: 1, maxLength: 64
-
-      - `required Type Type`
 
       - `string? Version`
 
@@ -3133,13 +3346,13 @@ Update Agent
 
       A user-created custom skill.
 
+      - `required Type Type`
+
       - `required string SkillID`
 
         Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
         minLength: 1, maxLength: 64
-
-      - `required Type Type`
 
       - `string? Version`
 
@@ -3171,6 +3384,8 @@ Update Agent
 
           Configuration override for the bash tool.
 
+          - `Type Type`
+
           - `JsonElement Name = "bash"`
 
             Must be "bash".
@@ -3195,11 +3410,17 @@ Update Agent
 
               - `required Type Type`
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfigParams:`
 
           Configuration override for the edit tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "edit"`
 
@@ -3221,11 +3442,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfigParams:`
 
           Configuration override for the read tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "read"`
 
@@ -3247,11 +3472,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfigParams:`
 
           Configuration override for the write tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "write"`
 
@@ -3273,11 +3502,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfigParams:`
 
           Configuration override for the glob tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "glob"`
 
@@ -3299,11 +3532,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfigParams:`
 
           Configuration override for the grep tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "grep"`
 
@@ -3325,11 +3562,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfigParams:`
 
           Configuration override for the web_fetch tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "web_fetch"`
 
@@ -3365,11 +3606,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebSearchToolConfigParams:`
 
           Configuration override for the web_search tool.
+
+          - `Type Type`
 
           - `JsonElement Name = "web_search"`
 
@@ -3399,7 +3644,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `Type Type`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `BetaManagedAgentsUserLocation? UserLocation`
 
@@ -3451,17 +3698,21 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
     - `class BetaManagedAgentsMcpToolsetParams:`
 
       Configuration for tools from an MCP server defined in `mcp_servers`.
+
+      - `required Type Type`
 
       - `required string McpServerName`
 
         Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
         minLength: 1, maxLength: 255
-
-      - `required Type Type`
 
       - `IReadOnlyList<BetaManagedAgentsMcpToolConfigParams> Configs`
 
@@ -3489,6 +3740,10 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `BetaManagedAgentsMcpToolsetDefaultConfigParams? DefaultConfig`
 
         Default configuration for all tools from an MCP server.
@@ -3509,9 +3764,15 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
     - `class BetaManagedAgentsCustomToolParams:`
 
       A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -3534,8 +3795,6 @@ Update Agent
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
         minLength: 1, maxLength: 128
-
-      - `required Type Type`
 
   - `int version`
 
@@ -3593,6 +3852,8 @@ Update Agent
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -3635,11 +3896,19 @@ Update Agent
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -3659,9 +3928,9 @@ Update Agent
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -3783,6 +4052,8 @@ Update Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -3791,9 +4062,9 @@ Update Agent
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -3803,13 +4074,11 @@ Update Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -3819,9 +4088,9 @@ Update Agent
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -3829,9 +4098,9 @@ Update Agent
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -3841,11 +4110,15 @@ Update Agent
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -3867,11 +4140,17 @@ Update Agent
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -3889,11 +4168,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -3911,11 +4194,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -3933,11 +4220,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -3955,11 +4246,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -3977,11 +4272,15 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -3999,7 +4298,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4012,6 +4313,8 @@ Update Agent
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -4029,7 +4332,9 @@ Update Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4083,9 +4388,13 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -4105,6 +4414,10 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -4123,13 +4436,17 @@ Update Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -4144,10 +4461,6 @@ Update Agent
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 
@@ -4317,6 +4630,8 @@ Archive Agent
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -4359,11 +4674,19 @@ Archive Agent
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -4383,9 +4706,9 @@ Archive Agent
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -4507,6 +4830,8 @@ Archive Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -4515,9 +4840,9 @@ Archive Agent
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -4527,13 +4852,11 @@ Archive Agent
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -4543,9 +4866,9 @@ Archive Agent
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -4553,9 +4876,9 @@ Archive Agent
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -4565,11 +4888,15 @@ Archive Agent
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -4591,11 +4918,17 @@ Archive Agent
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -4613,11 +4946,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -4635,11 +4972,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -4657,11 +4998,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -4679,11 +5024,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -4701,11 +5050,15 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -4723,7 +5076,9 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4736,6 +5091,8 @@ Archive Agent
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -4753,7 +5110,9 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -4807,9 +5166,13 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -4829,6 +5192,10 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -4847,13 +5214,17 @@ Archive Agent
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -4868,10 +5239,6 @@ Archive Agent
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 
@@ -4983,17 +5350,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+  - `required Type Type`
+
   - `required string Model`
 
     The advisor model id.
-
-  - `required Type Type`
 
 ### Beta Managed Agents Agent
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -5013,9 +5382,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -5137,6 +5506,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -5145,9 +5516,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -5157,13 +5528,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -5173,9 +5542,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -5183,9 +5552,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -5195,11 +5564,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -5221,11 +5594,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -5243,11 +5622,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -5265,11 +5648,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -5287,11 +5674,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -5309,11 +5700,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -5331,11 +5726,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -5353,7 +5752,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -5366,6 +5767,8 @@ Console.WriteLine(betaManagedAgentsAgent);
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -5383,7 +5786,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -5437,9 +5842,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -5459,6 +5868,10 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -5477,13 +5890,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -5498,10 +5915,6 @@ Console.WriteLine(betaManagedAgentsAgent);
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 
@@ -5521,9 +5934,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   A resolved agent reference with a concrete version.
 
-  - `required string ID`
-
   - `required Type Type`
+
+  - `required string ID`
 
   - `required int Version`
 
@@ -5538,6 +5951,8 @@ Console.WriteLine(betaManagedAgentsAgent);
   - `class BetaManagedAgentsBashToolConfig:`
 
     Configuration for the bash tool.
+
+    - `JsonElement Type = "bash"`
 
     - `required bool Enabled`
 
@@ -5559,11 +5974,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         - `required Type Type`
 
-    - `JsonElement Type = "bash"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `JsonElement Type = "auto"`
 
   - `class BetaManagedAgentsEditToolConfig:`
 
     Configuration for the edit tool.
+
+    - `JsonElement Type = "edit"`
 
     - `required bool Enabled`
 
@@ -5581,11 +6002,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "edit"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsReadToolConfig:`
 
     Configuration for the read tool.
+
+    - `JsonElement Type = "read"`
 
     - `required bool Enabled`
 
@@ -5603,11 +6028,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "read"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWriteToolConfig:`
 
     Configuration for the write tool.
+
+    - `JsonElement Type = "write"`
 
     - `required bool Enabled`
 
@@ -5625,11 +6054,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "write"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGlobToolConfig:`
 
     Configuration for the glob tool.
+
+    - `JsonElement Type = "glob"`
 
     - `required bool Enabled`
 
@@ -5647,11 +6080,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "glob"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGrepToolConfig:`
 
     Configuration for the grep tool.
+
+    - `JsonElement Type = "grep"`
 
     - `required bool Enabled`
 
@@ -5669,11 +6106,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "grep"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebFetchToolConfig:`
 
     Configuration for the web_fetch tool.
+
+    - `JsonElement Type = "web_fetch"`
 
     - `required bool Enabled`
 
@@ -5691,7 +6132,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "web_fetch"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `IReadOnlyList<string> AllowedDomains`
 
@@ -5704,6 +6147,8 @@ Console.WriteLine(betaManagedAgentsAgent);
   - `class BetaManagedAgentsWebSearchToolConfig:`
 
     Configuration for the web_search tool.
+
+    - `JsonElement Type = "web_search"`
 
     - `required bool Enabled`
 
@@ -5721,7 +6166,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `JsonElement Type = "web_search"`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `IReadOnlyList<string> AllowedDomains`
 
@@ -5767,6 +6214,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     Configuration override for the bash tool.
 
+    - `Type Type`
+
     - `JsonElement Name = "bash"`
 
       Must be "bash".
@@ -5791,11 +6240,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         - `required Type Type`
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `JsonElement Type = "auto"`
 
   - `class BetaManagedAgentsEditToolConfigParams:`
 
     Configuration override for the edit tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "edit"`
 
@@ -5817,11 +6272,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsReadToolConfigParams:`
 
     Configuration override for the read tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "read"`
 
@@ -5843,11 +6302,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWriteToolConfigParams:`
 
     Configuration override for the write tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "write"`
 
@@ -5869,11 +6332,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGlobToolConfigParams:`
 
     Configuration override for the glob tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "glob"`
 
@@ -5895,11 +6362,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsGrepToolConfigParams:`
 
     Configuration override for the grep tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "grep"`
 
@@ -5921,11 +6392,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebFetchToolConfigParams:`
 
     Configuration override for the web_fetch tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "web_fetch"`
 
@@ -5961,11 +6436,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
   - `class BetaManagedAgentsWebSearchToolConfigParams:`
 
     Configuration override for the web_search tool.
+
+    - `Type Type`
 
     - `JsonElement Name = "web_search"`
 
@@ -5995,7 +6474,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-    - `Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `BetaManagedAgentsUserLocation? UserLocation`
 
@@ -6051,6 +6532,12 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
+
 ### Beta Managed Agents Agent Toolset Default Config Params
 
 - `class BetaManagedAgentsAgentToolsetDefaultConfigParams:`
@@ -6077,15 +6564,25 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
+
 ### Beta Managed Agents Agent Toolset20260401
 
 - `class BetaManagedAgentsAgentToolset20260401:`
+
+  - `required Type Type`
 
   - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
     - `class BetaManagedAgentsBashToolConfig:`
 
       Configuration for the bash tool.
+
+      - `JsonElement Type = "bash"`
 
       - `required bool Enabled`
 
@@ -6107,11 +6604,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required Type Type`
 
-      - `JsonElement Type = "bash"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `JsonElement Type = "auto"`
 
     - `class BetaManagedAgentsEditToolConfig:`
 
       Configuration for the edit tool.
+
+      - `JsonElement Type = "edit"`
 
       - `required bool Enabled`
 
@@ -6129,11 +6632,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "edit"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsReadToolConfig:`
 
       Configuration for the read tool.
+
+      - `JsonElement Type = "read"`
 
       - `required bool Enabled`
 
@@ -6151,11 +6658,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "read"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWriteToolConfig:`
 
       Configuration for the write tool.
+
+      - `JsonElement Type = "write"`
 
       - `required bool Enabled`
 
@@ -6173,11 +6684,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "write"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGlobToolConfig:`
 
       Configuration for the glob tool.
+
+      - `JsonElement Type = "glob"`
 
       - `required bool Enabled`
 
@@ -6195,11 +6710,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "glob"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGrepToolConfig:`
 
       Configuration for the grep tool.
+
+      - `JsonElement Type = "grep"`
 
       - `required bool Enabled`
 
@@ -6217,11 +6736,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "grep"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebFetchToolConfig:`
 
       Configuration for the web_fetch tool.
+
+      - `JsonElement Type = "web_fetch"`
 
       - `required bool Enabled`
 
@@ -6239,7 +6762,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "web_fetch"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `IReadOnlyList<string> AllowedDomains`
 
@@ -6252,6 +6777,8 @@ Console.WriteLine(betaManagedAgentsAgent);
     - `class BetaManagedAgentsWebSearchToolConfig:`
 
       Configuration for the web_search tool.
+
+      - `JsonElement Type = "web_search"`
 
       - `required bool Enabled`
 
@@ -6269,7 +6796,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `JsonElement Type = "web_search"`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `IReadOnlyList<string> AllowedDomains`
 
@@ -6323,7 +6852,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-  - `required Type Type`
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Agent Toolset20260401 Bash Input
 
@@ -6426,6 +6957,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Configuration override for the bash tool.
 
+      - `Type Type`
+
       - `JsonElement Name = "bash"`
 
         Must be "bash".
@@ -6450,11 +6983,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           - `required Type Type`
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `JsonElement Type = "auto"`
 
     - `class BetaManagedAgentsEditToolConfigParams:`
 
       Configuration override for the edit tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "edit"`
 
@@ -6476,11 +7015,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsReadToolConfigParams:`
 
       Configuration override for the read tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "read"`
 
@@ -6502,11 +7045,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWriteToolConfigParams:`
 
       Configuration override for the write tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "write"`
 
@@ -6528,11 +7075,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGlobToolConfigParams:`
 
       Configuration override for the glob tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "glob"`
 
@@ -6554,11 +7105,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsGrepToolConfigParams:`
 
       Configuration override for the grep tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "grep"`
 
@@ -6580,11 +7135,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebFetchToolConfigParams:`
 
       Configuration override for the web_fetch tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "web_fetch"`
 
@@ -6620,11 +7179,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsWebSearchToolConfigParams:`
 
       Configuration override for the web_search tool.
+
+      - `Type Type`
 
       - `JsonElement Name = "web_search"`
 
@@ -6654,7 +7217,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
           Tool calls require user confirmation before execution.
 
-      - `Type Type`
+        - `class BetaManagedAgentsAutoPolicy:`
+
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
       - `BetaManagedAgentsUserLocation? UserLocation`
 
@@ -6705,6 +7270,10 @@ Console.WriteLine(betaManagedAgentsAgent);
       - `class BetaManagedAgentsAlwaysAskPolicy:`
 
         Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Agent Toolset20260401 Read Input
 
@@ -6763,9 +7332,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   A resolved Anthropic-managed skill.
 
-  - `required string SkillID`
-
   - `required Type Type`
+
+  - `required string SkillID`
 
   - `required string Version`
 
@@ -6775,13 +7344,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   An Anthropic-managed skill.
 
+  - `required Type Type`
+
   - `required string SkillID`
 
     Identifier of the Anthropic skill (e.g., "xlsx").
 
     minLength: 1, maxLength: 64
-
-  - `required Type Type`
 
   - `string? Version`
 
@@ -6789,11 +7358,21 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     minLength: 1, maxLength: 64
 
+### Beta Managed Agents Auto Policy
+
+- `class BetaManagedAgentsAutoPolicy:`
+
+  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+  - `JsonElement Type = "auto"`
+
 ### Beta Managed Agents Bash Tool Config
 
 - `class BetaManagedAgentsBashToolConfig:`
 
   Configuration for the bash tool.
+
+  - `JsonElement Type = "bash"`
 
   - `required bool Enabled`
 
@@ -6815,13 +7394,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "bash"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Bash Tool Config Params
 
 - `class BetaManagedAgentsBashToolConfigParams:`
 
   Configuration override for the bash tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "bash"`
 
@@ -6847,7 +7432,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Custom Skill
 
@@ -6855,9 +7444,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   A resolved user-created custom skill.
 
-  - `required string SkillID`
-
   - `required Type Type`
+
+  - `required string SkillID`
 
   - `required string Version`
 
@@ -6867,13 +7456,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   A user-created custom skill.
 
+  - `required Type Type`
+
   - `required string SkillID`
 
     Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
     minLength: 1, maxLength: 64
-
-  - `required Type Type`
 
   - `string? Version`
 
@@ -6886,6 +7475,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 - `class BetaManagedAgentsCustomTool:`
 
   A custom tool as returned in API responses.
+
+  - `required Type Type`
 
   - `required string Description`
 
@@ -6900,8 +7491,6 @@ Console.WriteLine(betaManagedAgentsAgent);
     - `IReadOnlyList<string>? Required`
 
   - `required string Name`
-
-  - `required Type Type`
 
 ### Beta Managed Agents Custom Tool Input Schema
 
@@ -6920,6 +7509,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 - `class BetaManagedAgentsCustomToolParams:`
 
   A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+  - `required Type Type`
 
   - `required string Description`
 
@@ -6943,13 +7534,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     minLength: 1, maxLength: 128
 
-  - `required Type Type`
-
 ### Beta Managed Agents Edit Tool Config
 
 - `class BetaManagedAgentsEditToolConfig:`
 
   Configuration for the edit tool.
+
+  - `JsonElement Type = "edit"`
 
   - `required bool Enabled`
 
@@ -6971,13 +7562,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "edit"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Edit Tool Config Params
 
 - `class BetaManagedAgentsEditToolConfigParams:`
 
   Configuration override for the edit tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "edit"`
 
@@ -7003,7 +7600,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Effort High
 
@@ -7051,6 +7652,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration for the glob tool.
 
+  - `JsonElement Type = "glob"`
+
   - `required bool Enabled`
 
   - `JsonElement Name = "glob"`
@@ -7071,13 +7674,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "glob"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Glob Tool Config Params
 
 - `class BetaManagedAgentsGlobToolConfigParams:`
 
   Configuration override for the glob tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "glob"`
 
@@ -7103,13 +7712,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Grep Tool Config
 
 - `class BetaManagedAgentsGrepToolConfig:`
 
   Configuration for the grep tool.
+
+  - `JsonElement Type = "grep"`
 
   - `required bool Enabled`
 
@@ -7131,13 +7746,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "grep"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Grep Tool Config Params
 
 - `class BetaManagedAgentsGrepToolConfigParams:`
 
   Configuration override for the grep tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "grep"`
 
@@ -7163,7 +7784,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents MCP Server URL Definition
 
@@ -7171,9 +7796,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   URL-based MCP server connection as returned in API responses.
 
-  - `required string Name`
-
   - `required Type Type`
+
+  - `required string Name`
 
   - `required string Url`
 
@@ -7202,6 +7827,12 @@ Console.WriteLine(betaManagedAgentsAgent);
       Tool calls require user confirmation before execution.
 
       - `required Type Type`
+
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents MCP Tool Config Params
 
@@ -7235,9 +7866,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
+
 ### Beta Managed Agents MCP Toolset
 
 - `class BetaManagedAgentsMcpToolset:`
+
+  - `required Type Type`
 
   - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -7261,6 +7900,12 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         - `required Type Type`
 
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `JsonElement Type = "auto"`
+
   - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
     Resolved default configuration for all tools from an MCP server.
@@ -7279,9 +7924,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         Tool calls require user confirmation before execution.
 
-  - `required string McpServerName`
+      - `class BetaManagedAgentsAutoPolicy:`
 
-  - `required Type Type`
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+  - `required string McpServerName`
 
 ### Beta Managed Agents MCP Toolset Default Config
 
@@ -7306,6 +7953,12 @@ Console.WriteLine(betaManagedAgentsAgent);
       Tool calls require user confirmation before execution.
 
       - `required Type Type`
+
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents MCP Toolset Default Config Params
 
@@ -7333,19 +7986,25 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
+
 ### Beta Managed Agents MCP Toolset Params
 
 - `class BetaManagedAgentsMcpToolsetParams:`
 
   Configuration for tools from an MCP server defined in `mcp_servers`.
 
+  - `required Type Type`
+
   - `required string McpServerName`
 
     Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `required Type Type`
 
   - `IReadOnlyList<BetaManagedAgentsMcpToolConfigParams> Configs`
 
@@ -7377,6 +8036,12 @@ Console.WriteLine(betaManagedAgentsAgent);
 
         - `required Type Type`
 
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `JsonElement Type = "auto"`
+
   - `BetaManagedAgentsMcpToolsetDefaultConfigParams? DefaultConfig`
 
     Default configuration for all tools from an MCP server.
@@ -7396,6 +8061,10 @@ Console.WriteLine(betaManagedAgentsAgent);
       - `class BetaManagedAgentsAlwaysAskPolicy:`
 
         Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsAutoPolicy:`
+
+        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
 ### Beta Managed Agents Model Config
 
@@ -7645,6 +8314,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Resolved coordinator topology with a concrete agent roster.
 
+  - `required Type Type`
+
   - `required IReadOnlyList<Agent> Agents`
 
     Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -7653,9 +8324,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       A resolved agent reference with a concrete version.
 
-      - `required string ID`
-
       - `required Type Type`
+
+      - `required string ID`
 
       - `required int Version`
 
@@ -7665,19 +8336,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+      - `required Type Type`
+
       - `required string Model`
 
         The advisor model id.
-
-      - `required Type Type`
-
-  - `required Type Type`
 
 ### Beta Managed Agents Multiagent Coordinator Params
 
 - `class BetaManagedAgentsMultiagentCoordinatorParams:`
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+
+  - `required Type Type`
 
   - `required IReadOnlyList<BetaManagedAgentsMultiagentRosterEntryParams> Agents`
 
@@ -7689,13 +8360,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `required Type Type`
+
       - `required string ID`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `required Type Type`
 
       - `int Version`
 
@@ -7713,15 +8384,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
+      - `required Type Type`
+
       - `required string Model`
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
         minLength: 1, maxLength: 256
-
-      - `required Type Type`
-
-  - `required Type Type`
 
 ### Beta Managed Agents Multiagent Self Params
 
@@ -7736,6 +8405,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 - `class BetaManagedAgentsReadToolConfig:`
 
   Configuration for the read tool.
+
+  - `JsonElement Type = "read"`
 
   - `required bool Enabled`
 
@@ -7757,13 +8428,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "read"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Read Tool Config Params
 
 - `class BetaManagedAgentsReadToolConfigParams:`
 
   Configuration override for the read tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "read"`
 
@@ -7789,7 +8466,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Session Thread Agent
 
@@ -7797,15 +8478,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+  - `required Type Type`
+
   - `required string ID`
 
   - `required string? Description`
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -7929,9 +8612,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -7939,9 +8622,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -7951,11 +8634,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -7977,11 +8664,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -7999,11 +8692,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -8021,11 +8718,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -8043,11 +8744,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -8065,11 +8770,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -8087,11 +8796,15 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -8109,7 +8822,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -8122,6 +8837,8 @@ Console.WriteLine(betaManagedAgentsAgent);
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -8139,7 +8856,9 @@ Console.WriteLine(betaManagedAgentsAgent);
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -8193,9 +8912,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -8215,6 +8938,10 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -8233,13 +8960,17 @@ Console.WriteLine(betaManagedAgentsAgent);
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -8255,10 +8986,6 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required string Name`
 
-      - `required Type Type`
-
-  - `required Type Type`
-
   - `required int Version`
 
     format: int32
@@ -8273,13 +9000,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     An Anthropic-managed skill.
 
+    - `required Type Type`
+
     - `required string SkillID`
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
       minLength: 1, maxLength: 64
-
-    - `required Type Type`
 
     - `string? Version`
 
@@ -8291,13 +9018,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     A user-created custom skill.
 
+    - `required Type Type`
+
     - `required string SkillID`
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
       minLength: 1, maxLength: 64
-
-    - `required Type Type`
 
     - `string? Version`
 
@@ -8311,13 +9038,13 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   URL-based MCP server connection.
 
+  - `required Type Type`
+
   - `required string Name`
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `required Type Type`
 
   - `required string Url`
 
@@ -8363,6 +9090,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration for the web_fetch tool.
 
+  - `JsonElement Type = "web_fetch"`
+
   - `required bool Enabled`
 
   - `JsonElement Name = "web_fetch"`
@@ -8383,7 +9112,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "web_fetch"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
   - `IReadOnlyList<string> AllowedDomains`
 
@@ -8398,6 +9131,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 - `class BetaManagedAgentsWebFetchToolConfigParams:`
 
   Configuration override for the web_fetch tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "web_fetch"`
 
@@ -8437,13 +9172,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Web Search Tool Config
 
 - `class BetaManagedAgentsWebSearchToolConfig:`
 
   Configuration for the web_search tool.
+
+  - `JsonElement Type = "web_search"`
 
   - `required bool Enabled`
 
@@ -8465,7 +9206,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "web_search"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
   - `IReadOnlyList<string> AllowedDomains`
 
@@ -8507,6 +9252,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration override for the web_search tool.
 
+  - `Type Type`
+
   - `JsonElement Name = "web_search"`
 
     Must be "web_search".
@@ -8539,7 +9286,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
   - `BetaManagedAgentsUserLocation? UserLocation`
 
@@ -8577,6 +9328,8 @@ Console.WriteLine(betaManagedAgentsAgent);
 
   Configuration for the write tool.
 
+  - `JsonElement Type = "write"`
+
   - `required bool Enabled`
 
   - `JsonElement Name = "write"`
@@ -8597,13 +9350,19 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `JsonElement Type = "write"`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ### Beta Managed Agents Write Tool Config Params
 
 - `class BetaManagedAgentsWriteToolConfigParams:`
 
   Configuration override for the write tool.
+
+  - `Type Type`
 
   - `JsonElement Name = "write"`
 
@@ -8629,7 +9388,11 @@ Console.WriteLine(betaManagedAgentsAgent);
 
       - `required Type Type`
 
-  - `Type Type`
+    - `class BetaManagedAgentsAutoPolicy:`
+
+      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `JsonElement Type = "auto"`
 
 ## Agents › Versions
 
@@ -8709,6 +9472,8 @@ List Agent Versions
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -8751,11 +9516,19 @@ List Agent Versions
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaManagedAgentsAgent:`
 
   A Managed Agents `agent`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -8775,9 +9548,9 @@ List Agent Versions
 
   - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-    - `required string Name`
-
     - `required Type Type`
+
+    - `required string Name`
 
     - `required string Url`
 
@@ -8899,6 +9672,8 @@ List Agent Versions
 
     Resolved coordinator topology with a concrete agent roster.
 
+    - `required Type Type`
+
     - `required IReadOnlyList<Agent> Agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
@@ -8907,9 +9682,9 @@ List Agent Versions
 
         A resolved agent reference with a concrete version.
 
-        - `required string ID`
-
         - `required Type Type`
+
+        - `required string ID`
 
         - `required int Version`
 
@@ -8919,13 +9694,11 @@ List Agent Versions
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+        - `required Type Type`
+
         - `required string Model`
 
           The advisor model id.
-
-        - `required Type Type`
-
-    - `required Type Type`
 
   - `required string Name`
 
@@ -8935,9 +9708,9 @@ List Agent Versions
 
       A resolved Anthropic-managed skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -8945,9 +9718,9 @@ List Agent Versions
 
       A resolved user-created custom skill.
 
-      - `required string SkillID`
-
       - `required Type Type`
+
+      - `required string SkillID`
 
       - `required string Version`
 
@@ -8957,11 +9730,15 @@ List Agent Versions
 
     - `class BetaManagedAgentsAgentToolset20260401:`
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
         - `class BetaManagedAgentsBashToolConfig:`
 
           Configuration for the bash tool.
+
+          - `JsonElement Type = "bash"`
 
           - `required bool Enabled`
 
@@ -8983,11 +9760,17 @@ List Agent Versions
 
               - `required Type Type`
 
-          - `JsonElement Type = "bash"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `JsonElement Type = "auto"`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
           Configuration for the edit tool.
+
+          - `JsonElement Type = "edit"`
 
           - `required bool Enabled`
 
@@ -9005,11 +9788,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "edit"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsReadToolConfig:`
 
           Configuration for the read tool.
+
+          - `JsonElement Type = "read"`
 
           - `required bool Enabled`
 
@@ -9027,11 +9814,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "read"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
           Configuration for the write tool.
+
+          - `JsonElement Type = "write"`
 
           - `required bool Enabled`
 
@@ -9049,11 +9840,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "write"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
           Configuration for the glob tool.
+
+          - `JsonElement Type = "glob"`
 
           - `required bool Enabled`
 
@@ -9071,11 +9866,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "glob"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
           Configuration for the grep tool.
+
+          - `JsonElement Type = "grep"`
 
           - `required bool Enabled`
 
@@ -9093,11 +9892,15 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "grep"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
           Configuration for the web_fetch tool.
+
+          - `JsonElement Type = "web_fetch"`
 
           - `required bool Enabled`
 
@@ -9115,7 +9918,9 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_fetch"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -9128,6 +9933,8 @@ List Agent Versions
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
+
+          - `JsonElement Type = "web_search"`
 
           - `required bool Enabled`
 
@@ -9145,7 +9952,9 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonElement Type = "web_search"`
+            - `class BetaManagedAgentsAutoPolicy:`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
           - `IReadOnlyList<string> AllowedDomains`
 
@@ -9199,9 +10008,13 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
-      - `required Type Type`
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
     - `class BetaManagedAgentsMcpToolset:`
+
+      - `required Type Type`
 
       - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -9221,6 +10034,10 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
+          - `class BetaManagedAgentsAutoPolicy:`
+
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
       - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
         Resolved default configuration for all tools from an MCP server.
@@ -9239,13 +10056,17 @@ List Agent Versions
 
             Tool calls require user confirmation before execution.
 
-      - `required string McpServerName`
+          - `class BetaManagedAgentsAutoPolicy:`
 
-      - `required Type Type`
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `required string McpServerName`
 
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -9260,10 +10081,6 @@ List Agent Versions
         - `IReadOnlyList<string>? Required`
 
       - `required string Name`
-
-      - `required Type Type`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 

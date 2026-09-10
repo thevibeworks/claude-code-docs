@@ -1,3 +1,8 @@
+---
+title: Get Queue Statistics
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/stats
+---
+
 # Get Queue Statistics
 
 `$ ant beta:environments:work stats`
@@ -14,6 +19,12 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_self_hosted_work_queue_stats: object`
@@ -21,6 +32,10 @@ Get statistics about the work queue for an environment.
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `type: "work_queue_stats"`
+
+    The type of object
 
   - `depth: number`
 
@@ -33,10 +48,6 @@ Get statistics about the work queue for an environment.
   - `pending: number`
 
     Number of work items being processed (polled but not acknowledged)
-
-  - `type: "work_queue_stats"`
-
-    The type of object
 
   - `workers_polling: number`
 

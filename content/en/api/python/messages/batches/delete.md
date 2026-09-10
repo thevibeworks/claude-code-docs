@@ -1,6 +1,11 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/python/messages/batches/delete
+---
+
 # Delete a Message Batch
 
-`messages.batches.delete(message_batch_id)  -> DeletedMessageBatch`
+`messages.batches.delete(message_batch_id, **kwargs)  -> DeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -16,13 +21,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class DeletedMessageBatch: …`
-
-  - `id: str`
-
-    ID of the Message Batch.
 
   - `type: Literal["message_batch_deleted"]`
 
@@ -31,6 +34,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     For Message Batches, this is always `"message_batch_deleted"`.
 
     default: message_batch_deleted
+
+  - `id: str`
+
+    ID of the Message Batch.
 
 ## Example
 
@@ -44,7 +51,7 @@ client = Anthropic(
     ),  # This is the default and can be omitted
 )
 deleted_message_batch = client.messages.batches.delete(
-    "message_batch_id",
+    message_batch_id="message_batch_id",
 )
 print(deleted_message_batch.id)
 ```

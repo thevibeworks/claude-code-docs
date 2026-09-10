@@ -1,3 +1,8 @@
+---
+title: Delete File
+url: https://platform.claude.com/docs/en/api/files/delete
+---
+
 # Delete File
 
 **DELETE** `/v1/files/{file_id}`
@@ -10,13 +15,13 @@ Delete File
 
   ID of the File.
 
+## Headers
+
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `DeletedFile object`
-
-  - `id: string`
-
-    ID of the deleted file.
 
   - `type: optional "file_deleted"`
 
@@ -25,6 +30,10 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     default: file_deleted
+
+  - `id: string`
+
+    ID of the deleted file.
 
 ## Example
 

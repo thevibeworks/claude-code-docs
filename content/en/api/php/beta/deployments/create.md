@@ -1,6 +1,11 @@
+---
+title: Create Deployment
+url: https://platform.claude.com/docs/en/api/php/beta/deployments/create
+---
+
 # Create Deployment
 
-`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments`
 
@@ -52,9 +57,13 @@ Create Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -108,8 +117,6 @@ Create Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -161,6 +168,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
   ],
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);

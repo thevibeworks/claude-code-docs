@@ -1,3 +1,8 @@
+---
+title: Get project document content
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/retrieve
+---
+
 # Get project document content
 
 **GET** `/v1/compliance/apps/projects/documents/{document_id}`
@@ -11,6 +16,12 @@ Get detailed information for a specific project document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 ## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 

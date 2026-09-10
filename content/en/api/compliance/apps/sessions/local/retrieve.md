@@ -1,3 +1,8 @@
+---
+title: Retrieve a local session
+url: https://platform.claude.com/docs/en/api/compliance/apps/sessions/local/retrieve
+---
+
 # Retrieve a local session
 
 **GET** `/v1/compliance/apps/sessions/local/{local_session_id}`
@@ -15,9 +20,19 @@ inference call has aged out returns 404.
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ## Returns
+
+- `type: "compliance_local_session"`
+
+  default: compliance_local_session
 
 - `id: string`
 
@@ -37,9 +52,11 @@ inference call has aged out returns 404.
 
   The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-- `type: "compliance_local_session"`
+- `truncated: boolean`
 
-  default: compliance_local_session
+  True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+  default: false
 
 - `updated_at: string`
 

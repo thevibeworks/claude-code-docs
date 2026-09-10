@@ -1,3 +1,8 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/cli/beta/messages/count_tokens
+---
+
 # Count tokens in a Message
 
 `$ ant beta:messages count-tokens`
@@ -188,6 +193,12 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `--user-profile-id: optional string`
 
   Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

@@ -1,3 +1,8 @@
+---
+title: Get Session Resource
+url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/resources/retrieve
+---
+
 # Get Session Resource
 
 `beta.sessions.resources.retrieve(resource_id, **kwargs) -> ResourceRetrieveResponse`
@@ -18,7 +23,7 @@ Get Session Resource
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -66,6 +71,8 @@ Get Session Resource
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -108,6 +115,8 @@ Get Session Resource
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `ResourceRetrieveResponse = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
@@ -115,6 +124,8 @@ Get Session Resource
   The requested session resource.
 
   - `class BetaManagedAgentsGitHubRepositoryResource`
+
+    - `type: :github_repository`
 
     - `id: String`
 
@@ -125,8 +136,6 @@ Get Session Resource
       format: date-time
 
     - `mount_path: String`
-
-    - `type: :github_repository`
 
     - `updated_at: Time`
 
@@ -140,15 +149,17 @@ Get Session Resource
 
       - `class BetaManagedAgentsBranchCheckout`
 
+        - `type: :branch`
+
         - `name: String`
 
           Branch name to check out.
 
           minLength: 1, maxLength: 255
 
-        - `type: :branch`
-
       - `class BetaManagedAgentsCommitCheckout`
+
+        - `type: :commit`
 
         - `sha: String`
 
@@ -156,9 +167,9 @@ Get Session Resource
 
           minLength: 7, maxLength: 64
 
-        - `type: :commit`
-
   - `class BetaManagedAgentsFileResource`
+
+    - `type: :file`
 
     - `id: String`
 
@@ -172,8 +183,6 @@ Get Session Resource
 
     - `mount_path: String`
 
-    - `type: :file`
-
     - `updated_at: Time`
 
       A timestamp in RFC 3339 format
@@ -184,11 +193,11 @@ Get Session Resource
 
     A memory store attached to an agent session.
 
+    - `type: :memory_store`
+
     - `memory_store_id: String`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `type: :memory_store`
 
     - `access: :read_write | :read_only`
 

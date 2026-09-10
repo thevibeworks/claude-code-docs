@@ -1,3 +1,8 @@
+---
+title: Certificates
+url: https://platform.claude.com/docs/en/api/csharp/beta/tunnels/certificates
+---
+
 # Certificates
 
 ## Create Tunnel Certificate
@@ -74,6 +79,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -116,11 +123,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -151,8 +166,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 ### Example
 
@@ -254,6 +267,8 @@ Fetches a tunnel certificate by ID.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -296,11 +311,19 @@ Fetches a tunnel certificate by ID.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -331,8 +354,6 @@ Fetches a tunnel certificate by ID.
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 ### Example
 
@@ -444,6 +465,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -486,11 +509,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -521,8 +552,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 ### Example
 
@@ -627,6 +656,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -669,11 +700,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -704,8 +743,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 ### Example
 
@@ -743,6 +780,8 @@ Console.WriteLine(betaTunnelCertificate);
 
   A CA certificate attached to a tunnel.
 
+  - `JsonElement Type = "tunnel_certificate"`
+
   - `required string ID`
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
@@ -772,5 +811,3 @@ Console.WriteLine(betaTunnelCertificate);
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`

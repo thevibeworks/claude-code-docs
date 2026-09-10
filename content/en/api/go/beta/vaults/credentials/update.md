@@ -1,3 +1,8 @@
+---
+title: Update Credential
+url: https://platform.claude.com/docs/en/api/go/beta/vaults/credentials/update
+---
+
 # Update Credential
 
 `client.Beta.Vaults.Credentials.Update(ctx, credentialID, params) (*BetaManagedAgentsCredential, error)`
@@ -46,7 +51,7 @@ Update Credential
 
           Updated OAuth refresh token.
 
-          minLength: 1, maxLength: 4096
+          minLength: 1, maxLength: 8192
 
         - `Scope string Optional`
 
@@ -126,11 +131,11 @@ Update Credential
 
           Substitute the secret only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
       - `SecretValue string Optional`
 
@@ -202,6 +207,8 @@ Update Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -244,11 +251,19 @@ Update Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type BetaManagedAgentsCredentialType`
 
   - `ID string`
 
@@ -268,11 +283,11 @@ Update Credential
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -326,15 +341,17 @@ Update Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -362,17 +379,15 @@ Update Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -383,8 +398,6 @@ Update Credential
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 

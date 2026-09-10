@@ -1,3 +1,8 @@
+---
+title: Validate Credential
+url: https://platform.claude.com/docs/en/api/go/beta/vaults/credentials/mcp_oauth_validate
+---
+
 # Validate Credential
 
 `client.Beta.Vaults.Credentials.MCPOAuthValidate(ctx, credentialID, params) (*BetaManagedAgentsCredentialValidation, error)`
@@ -70,6 +75,8 @@ Validate Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -112,11 +119,19 @@ Validate Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaManagedAgentsCredentialValidation struct{…}`
 
   Result of live-probing a credential against its configured MCP server.
+
+  - `Type BetaManagedAgentsCredentialValidationType`
 
   - `CredentialID string`
 
@@ -185,8 +200,6 @@ Validate Credential
     - `const BetaManagedAgentsCredentialValidationStatusInvalid BetaManagedAgentsCredentialValidationStatus = "invalid"`
 
     - `const BetaManagedAgentsCredentialValidationStatusUnknown BetaManagedAgentsCredentialValidationStatus = "unknown"`
-
-  - `Type BetaManagedAgentsCredentialValidationType`
 
   - `ValidatedAt Time`
 

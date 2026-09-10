@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/java/messages/batches/list
+---
+
 # List Message Batches
 
 `BatchListPage messages().batches().list(params = BatchListParams.none(), requestOptions = RequestOptions.none())`
@@ -28,9 +33,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     maximum: 1000, minimum: 1
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class MessageBatch:`
+
+  - `JsonValue type = "message_batch"`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `String id`
 
@@ -119,12 +132,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `JsonValue type = "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
 
 ## Example
 

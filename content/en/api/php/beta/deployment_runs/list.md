@@ -1,6 +1,11 @@
+---
+title: List Deployment Runs
+url: https://platform.claude.com/docs/en/api/php/beta/deployment_runs/list
+---
+
 # List Deployment Runs
 
-`$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
+`$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsDeploymentRun>`
 
 **GET** `/v1/deployment_runs`
 
@@ -48,9 +53,13 @@ List Deployment Runs
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -80,8 +89,6 @@ List Deployment Runs
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 ## Example
 
 ```php
@@ -102,6 +109,7 @@ $page = $client->beta->deploymentRuns->list(
   page: 'page',
   triggerType: BetaManagedAgentsTriggerType::SCHEDULE,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

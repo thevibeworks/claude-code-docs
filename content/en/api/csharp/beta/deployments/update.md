@@ -1,3 +1,8 @@
+---
+title: Update Deployment
+url: https://platform.claude.com/docs/en/api/csharp/beta/deployments/update
+---
+
 # Update Deployment
 
 `BetaManagedAgentsDeployment Beta.Deployments.Update(parameters, cancellationToken = default)`
@@ -24,13 +29,13 @@ Update Deployment
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+      - `required Type Type`
+
       - `required string ID`
 
         The `agent` ID.
 
         minLength: 1, maxLength: 128
-
-      - `required Type Type`
 
       - `int Version`
 
@@ -62,6 +67,8 @@ Update Deployment
 
       Parameters for sending a user message to the session.
 
+      - `required Type Type`
+
       - `required IReadOnlyList<Content> Content`
 
         Array of content blocks for the user message.
@@ -70,17 +77,19 @@ Update Deployment
 
           Regular text content.
 
+          - `required Type Type`
+
           - `required string Text`
 
             The text content.
 
             minLength: 1
 
-          - `required Type Type`
-
         - `class BetaManagedAgentsImageBlock:`
 
           Image content specified directly as base64 data or as a reference via a URL.
+
+          - `required Type Type`
 
           - `required Source Source`
 
@@ -89,6 +98,8 @@ Update Deployment
             - `class BetaManagedAgentsBase64ImageSource:`
 
               Base64-encoded image data.
+
+              - `required Type Type`
 
               - `required string Data`
 
@@ -101,8 +112,6 @@ Update Deployment
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
                 minLength: 1
-
-              - `required Type Type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -120,19 +129,19 @@ Update Deployment
 
               Image referenced by file ID.
 
+              - `required Type Type`
+
               - `required string FileID`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
 
-              - `required Type Type`
-
-          - `required Type Type`
-
         - `class BetaManagedAgentsDocumentBlock:`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+          - `required Type Type`
 
           - `required Source Source`
 
@@ -141,6 +150,8 @@ Update Deployment
             - `class BetaManagedAgentsBase64DocumentSource:`
 
               Base64-encoded document data.
+
+              - `required Type Type`
 
               - `required string Data`
 
@@ -154,11 +165,11 @@ Update Deployment
 
                 minLength: 1
 
-              - `required Type Type`
-
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
               Plain text document content.
+
+              - `required Type Type`
 
               - `required string Data`
 
@@ -169,8 +180,6 @@ Update Deployment
               - `required MediaType MediaType`
 
                 MIME type of the text content. Must be "text/plain".
-
-              - `required Type Type`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -188,15 +197,13 @@ Update Deployment
 
               Document referenced by file ID.
 
+              - `required Type Type`
+
               - `required string FileID`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
-
-              - `required Type Type`
-
-          - `required Type Type`
 
           - `string? Context`
 
@@ -212,11 +219,11 @@ Update Deployment
 
           - `required Type Type`
 
-      - `required Type Type`
-
     - `class BetaManagedAgentsUserDefineOutcomeEventParams:`
 
       Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -230,25 +237,23 @@ Update Deployment
 
           Rubric referenced by a file uploaded via the Files API.
 
+          - `required Type Type`
+
           - `required string FileID`
 
             ID of the rubric file.
 
-          - `required Type Type`
-
         - `class BetaManagedAgentsTextRubricParams:`
 
           Rubric content provided inline as text.
+
+          - `required Type Type`
 
           - `required string Content`
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
             maxLength: 262144
-
-          - `required Type Type`
-
-      - `required Type Type`
 
       - `int? MaxIterations`
 
@@ -260,19 +265,19 @@ Update Deployment
 
       Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. At most one per request: it must be the final event and immediately follow the `user.message`, `user.tool_result`, or `user.custom_tool_result` it accompanies. Only supported on models that accept mid-conversation system messages.
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsSystemContentBlock> Content`
 
         System content blocks to append. Text-only.
+
+        - `required Type Type`
 
         - `required string Text`
 
           The text content.
 
           minLength: 1
-
-        - `required Type Type`
-
-      - `required Type Type`
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
@@ -292,12 +297,6 @@ Update Deployment
 
       Mount a GitHub repository into the session's container.
 
-      - `required string AuthorizationToken`
-
-        GitHub authorization token used to clone the repository.
-
-        minLength: 1, maxLength: 4096
-
       - `required Type Type`
 
       - `required string Url`
@@ -306,11 +305,19 @@ Update Deployment
 
         minLength: 1, maxLength: 2048
 
+      - `string AuthorizationToken`
+
+        GitHub authorization token used to clone the repository. Required for private repositories; optional for public ones.
+
+        minLength: 1, maxLength: 4096
+
       - `Checkout? Checkout`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
         - `class BetaManagedAgentsBranchCheckout:`
+
+          - `required Type Type`
 
           - `required string Name`
 
@@ -318,17 +325,15 @@ Update Deployment
 
             minLength: 1, maxLength: 255
 
-          - `required Type Type`
-
         - `class BetaManagedAgentsCommitCheckout:`
+
+          - `required Type Type`
 
           - `required string Sha`
 
             Full commit SHA to check out.
 
             minLength: 7, maxLength: 64
-
-          - `required Type Type`
 
       - `string? MountPath`
 
@@ -340,13 +345,13 @@ Update Deployment
 
       Mount a file uploaded via the Files API into the session.
 
+      - `required Type Type`
+
       - `required string FileID`
 
         ID of a previously uploaded file.
 
         minLength: 1, maxLength: 128
-
-      - `required Type Type`
 
       - `string? MountPath`
 
@@ -358,11 +363,11 @@ Update Deployment
 
       Parameters for attaching a memory store to an agent session.
 
+      - `required Type Type`
+
       - `required string MemoryStoreID`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `required Type Type`
 
       - `Access? Access`
 
@@ -436,6 +441,8 @@ Update Deployment
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -478,11 +485,19 @@ Update Deployment
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsDeployment:`
 
   A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -492,9 +507,9 @@ Update Deployment
 
     A resolved agent reference with a concrete version.
 
-    - `required string ID`
-
     - `required Type Type`
+
+    - `required string ID`
 
     - `required int Version`
 
@@ -528,6 +543,8 @@ Update Deployment
 
       A user message sent to the session.
 
+      - `required Type Type`
+
       - `required IReadOnlyList<Content> Content`
 
         Array of content blocks for the user message.
@@ -536,17 +553,19 @@ Update Deployment
 
           Regular text content.
 
+          - `required Type Type`
+
           - `required string Text`
 
             The text content.
 
             minLength: 1
 
-          - `required Type Type`
-
         - `class BetaManagedAgentsImageBlock:`
 
           Image content specified directly as base64 data or as a reference via a URL.
+
+          - `required Type Type`
 
           - `required Source Source`
 
@@ -555,6 +574,8 @@ Update Deployment
             - `class BetaManagedAgentsBase64ImageSource:`
 
               Base64-encoded image data.
+
+              - `required Type Type`
 
               - `required string Data`
 
@@ -567,8 +588,6 @@ Update Deployment
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
                 minLength: 1
-
-              - `required Type Type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -586,19 +605,19 @@ Update Deployment
 
               Image referenced by file ID.
 
+              - `required Type Type`
+
               - `required string FileID`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
 
-              - `required Type Type`
-
-          - `required Type Type`
-
         - `class BetaManagedAgentsDocumentBlock:`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+          - `required Type Type`
 
           - `required Source Source`
 
@@ -607,6 +626,8 @@ Update Deployment
             - `class BetaManagedAgentsBase64DocumentSource:`
 
               Base64-encoded document data.
+
+              - `required Type Type`
 
               - `required string Data`
 
@@ -620,11 +641,11 @@ Update Deployment
 
                 minLength: 1
 
-              - `required Type Type`
-
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
               Plain text document content.
+
+              - `required Type Type`
 
               - `required string Data`
 
@@ -635,8 +656,6 @@ Update Deployment
               - `required MediaType MediaType`
 
                 MIME type of the text content. Must be "text/plain".
-
-              - `required Type Type`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -654,15 +673,13 @@ Update Deployment
 
               Document referenced by file ID.
 
+              - `required Type Type`
+
               - `required string FileID`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
-
-              - `required Type Type`
-
-          - `required Type Type`
 
           - `string? Context`
 
@@ -678,11 +695,11 @@ Update Deployment
 
           - `required Type Type`
 
-      - `required Type Type`
-
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent:`
 
       An outcome the agent should work toward. The agent begins work on receipt.
+
+      - `required Type Type`
 
       - `required string Description`
 
@@ -696,23 +713,21 @@ Update Deployment
 
           Rubric referenced by a file uploaded via the Files API.
 
+          - `required Type Type`
+
           - `required string FileID`
 
             ID of the rubric file.
-
-          - `required Type Type`
 
         - `class BetaManagedAgentsTextRubric:`
 
           Rubric content provided inline as text.
 
+          - `required Type Type`
+
           - `required string Content`
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-          - `required Type Type`
-
-      - `required Type Type`
 
       - `int? MaxIterations`
 
@@ -724,19 +739,19 @@ Update Deployment
 
       Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
 
+      - `required Type Type`
+
       - `required IReadOnlyList<BetaManagedAgentsSystemContentBlock> Content`
 
         System content blocks to append. Text-only.
+
+        - `required Type Type`
 
         - `required string Text`
 
           The text content.
 
           minLength: 1
-
-        - `required Type Type`
-
-      - `required Type Type`
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -759,6 +774,8 @@ Update Deployment
     - `class BetaManagedAgentsErrorDeploymentPausedReason:`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
+
+      - `required Type Type`
 
       - `required BetaManagedAgentsDeploymentPausedReasonError Error`
 
@@ -848,8 +865,6 @@ Update Deployment
 
           - `required Type Type`
 
-      - `required Type Type`
-
   - `required IReadOnlyList<BetaManagedAgentsSessionResourceConfig> Resources`
 
     Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
@@ -870,23 +885,23 @@ Update Deployment
 
         - `class BetaManagedAgentsBranchCheckout:`
 
+          - `required Type Type`
+
           - `required string Name`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `required Type Type`
-
         - `class BetaManagedAgentsCommitCheckout:`
+
+          - `required Type Type`
 
           - `required string Sha`
 
             Full commit SHA to check out.
 
             minLength: 7, maxLength: 64
-
-          - `required Type Type`
 
       - `string? MountPath`
 
@@ -896,11 +911,11 @@ Update Deployment
 
       A file mounted into each session's container.
 
+      - `required Type Type`
+
       - `required string FileID`
 
         ID of a previously uploaded file.
-
-      - `required Type Type`
 
       - `string? MountPath`
 
@@ -910,11 +925,11 @@ Update Deployment
 
       A memory store attached to each session created from this deployment.
 
+      - `required Type Type`
+
       - `required string MemoryStoreID`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `required Type Type`
 
       - `Access? Access`
 
@@ -932,6 +947,8 @@ Update Deployment
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
+    - `required Type Type`
+
     - `required string Expression`
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
@@ -943,8 +960,6 @@ Update Deployment
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
       minLength: 1
-
-    - `required Type Type`
 
     - `DateTimeOffset? LastRunAt`
 
@@ -964,8 +979,6 @@ Update Deployment
 
     - `Paused("paused")`
 
-  - `required Type Type`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
@@ -980,6 +993,8 @@ Update Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `required Type Type`
+
     - `required BetaMonetaryAmount MaxListCost`
 
       A monetary amount in a specific currency.
@@ -991,8 +1006,6 @@ Update Deployment
       - `required BetaCurrency Currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `required Type Type`
 
 ## Example
 

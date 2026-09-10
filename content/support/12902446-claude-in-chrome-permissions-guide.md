@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789053300&amp;signature=2f7697e8896772773fae89209ad19cf84e883e2065dbc5f81f2b69a4bdf8c3ad&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctN%2BYG0gN0ADj5oqFDUe2LenCIeMln5LMIs%0AOLPMTfX72tx0nkVlWu0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789067700&amp;signature=31b7d4fb169ba214ab4de6770264a9e90fd3907c7e4c40bc824582350bab01f8&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctN%2BoWwgN0ADj5oqFDl4%2B6kfvKLhXOLdAQd%0Amb8bzuboPxgBy1gyyXk%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789053300&amp;signature=84c16a5a673d61df065958691d6868710ac065fe3fd459b71903246cc687ac38&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9wjS%2Fv7A4lHPBihAUhXnCmq1p%2BpgrMzvpd%0AjT0MQFq27axTTS71pm0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789067700&amp;signature=317c30b1bc5a189379058ffacdd08425617abe4913b90c1838a9a112235fa6bf&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9wjivr7A4lHPBihAVeSRmoZp16sNQUDk2H%0A2jsteGyRqK0eeVgEug0%3D%0A)
 
 ### Permission options
 

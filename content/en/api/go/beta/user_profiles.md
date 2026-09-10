@@ -1,3 +1,8 @@
+---
+title: User Profiles
+url: https://platform.claude.com/docs/en/api/go/beta/user_profiles
+---
+
 # User Profiles
 
 ## Create User Profile
@@ -22,9 +27,13 @@ Create User Profile
 
   - `ExternalID param.Field[string] Optional`
 
-    Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+    Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
 
     minLength: 1, maxLength: 255
+
+  - `ExternalUserDetails param.Field[BetaUserProfileExternalUserDetailsParamsResp] Optional`
+
+    Body param: Details about the entity this profile represents, as the platform states them. Every field is optional. Accepted under the `user-profiles-2026-09-04` beta header only.
 
   - `ExternalUserOnboardedAt param.Field[Time] Optional`
 
@@ -96,6 +105,8 @@ Create User Profile
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -142,6 +153,10 @@ Create User Profile
 
 - `type BetaUserProfile struct{…}`
 
+  - `Type BetaUserProfileType`
+
+    Object type. Always `user_profile`.
+
   - `ID string`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -170,10 +185,6 @@ Create User Profile
 
       - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
-  - `Type BetaUserProfileType`
-
-    Object type. Always `user_profile`.
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -190,7 +201,55 @@ Create User Profile
 
   - `ExternalID string Optional`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `ExternalUserDetails BetaUserProfileExternalUserDetails Optional`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+    - `Country string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `EmailHash string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+    - `NameHash string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `OnboardedAt Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `ReferenceID string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `ExternalUserOnboardedAt Time Optional`
 
@@ -243,6 +302,15 @@ func main() {
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -340,6 +408,8 @@ List User Profiles
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -386,6 +456,10 @@ List User Profiles
 
 - `type BetaUserProfile struct{…}`
 
+  - `Type BetaUserProfileType`
+
+    Object type. Always `user_profile`.
+
   - `ID string`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -414,10 +488,6 @@ List User Profiles
 
       - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
-  - `Type BetaUserProfileType`
-
-    Object type. Always `user_profile`.
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -434,7 +504,55 @@ List User Profiles
 
   - `ExternalID string Optional`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `ExternalUserDetails BetaUserProfileExternalUserDetails Optional`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+    - `Country string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `EmailHash string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+    - `NameHash string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `OnboardedAt Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `ReferenceID string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `ExternalUserOnboardedAt Time Optional`
 
@@ -489,6 +607,15 @@ func main() {
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
+      "external_user_details": {
+        "account_status": "active",
+        "country": "country",
+        "email_hash": "email_hash",
+        "entity_type": "individual",
+        "name_hash": "name_hash",
+        "onboarded_at": "2019-12-27T18:11:19.117Z",
+        "reference_id": "reference_id"
+      },
       "external_user_onboarded_at": "2024-11-02T08:15:00Z",
       "name": "Example User"
     }
@@ -565,6 +692,8 @@ Get User Profile
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -611,6 +740,10 @@ Get User Profile
 
 - `type BetaUserProfile struct{…}`
 
+  - `Type BetaUserProfileType`
+
+    Object type. Always `user_profile`.
+
   - `ID string`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -639,10 +772,6 @@ Get User Profile
 
       - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
-  - `Type BetaUserProfileType`
-
-    Object type. Always `user_profile`.
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -659,7 +788,55 @@ Get User Profile
 
   - `ExternalID string Optional`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `ExternalUserDetails BetaUserProfileExternalUserDetails Optional`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+    - `Country string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `EmailHash string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+    - `NameHash string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `OnboardedAt Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `ReferenceID string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `ExternalUserOnboardedAt Time Optional`
 
@@ -716,6 +893,15 @@ func main() {
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -745,9 +931,13 @@ Update User Profile
 
   - `ExternalID param.Field[string] Optional`
 
-    Body param: If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
+    Body param: If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
 
     minLength: 1, maxLength: 255
+
+  - `ExternalUserDetails param.Field[BetaUserProfileExternalUserDetailsParamsResp] Optional`
+
+    Body param: Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Accepted under the `user-profiles-2026-09-04` beta header only.
 
   - `ExternalUserOnboardedAt param.Field[Time] Optional`
 
@@ -819,6 +1009,8 @@ Update User Profile
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -865,6 +1057,10 @@ Update User Profile
 
 - `type BetaUserProfile struct{…}`
 
+  - `Type BetaUserProfileType`
+
+    Object type. Always `user_profile`.
+
   - `ID string`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -893,10 +1089,6 @@ Update User Profile
 
       - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
-  - `Type BetaUserProfileType`
-
-    Object type. Always `user_profile`.
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -913,7 +1105,55 @@ Update User Profile
 
   - `ExternalID string Optional`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `ExternalUserDetails BetaUserProfileExternalUserDetails Optional`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+    - `Country string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `EmailHash string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+    - `NameHash string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `OnboardedAt Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `ReferenceID string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `ExternalUserOnboardedAt Time Optional`
 
@@ -970,6 +1210,15 @@ func main() {
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -1043,6 +1292,8 @@ Create Enrollment URL
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1089,15 +1340,15 @@ Create Enrollment URL
 
 - `type BetaUserProfileEnrollmentURL struct{…}`
 
+  - `Type BetaUserProfileEnrollmentURLType`
+
+    Object type. Always `enrollment_url`.
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
 
     format: date-time
-
-  - `Type BetaUserProfileEnrollmentURLType`
-
-    Object type. Always `enrollment_url`.
 
   - `URL string`
 
@@ -1148,6 +1399,10 @@ func main() {
 
 - `type BetaUserProfile struct{…}`
 
+  - `Type BetaUserProfileType`
+
+    Object type. Always `user_profile`.
+
   - `ID string`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -1176,10 +1431,6 @@ func main() {
 
       - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
-  - `Type BetaUserProfileType`
-
-    Object type. Always `user_profile`.
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -1196,7 +1447,55 @@ func main() {
 
   - `ExternalID string Optional`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `ExternalUserDetails BetaUserProfileExternalUserDetails Optional`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+      - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+    - `Country string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `EmailHash string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+      - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+    - `NameHash string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `OnboardedAt Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `ReferenceID string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `ExternalUserOnboardedAt Time Optional`
 
@@ -1212,19 +1511,123 @@ func main() {
 
 - `type BetaUserProfileEnrollmentURL struct{…}`
 
+  - `Type BetaUserProfileEnrollmentURLType`
+
+    Object type. Always `enrollment_url`.
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
 
     format: date-time
 
-  - `Type BetaUserProfileEnrollmentURLType`
-
-    Object type. Always `enrollment_url`.
-
   - `URL string`
 
     Enrollment URL to send to the end user. Valid until `expires_at`.
+
+### Beta User Profile External User Details
+
+- `type BetaUserProfileExternalUserDetails struct{…}`
+
+  Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+  - `AccountStatus BetaUserProfileExternalUserDetailsAccountStatus`
+
+    The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+    - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
+
+    - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
+
+    - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+  - `Country string`
+
+    The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+  - `EmailHash string`
+
+    The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+  - `EntityType BetaUserProfileExternalUserDetailsEntityType`
+
+    What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+    - `const BetaUserProfileExternalUserDetailsEntityTypeIndividual BetaUserProfileExternalUserDetailsEntityType = "individual"`
+
+    - `const BetaUserProfileExternalUserDetailsEntityTypeBusiness BetaUserProfileExternalUserDetailsEntityType = "business"`
+
+    - `const BetaUserProfileExternalUserDetailsEntityTypeNonProfit BetaUserProfileExternalUserDetailsEntityType = "non_profit"`
+
+    - `const BetaUserProfileExternalUserDetailsEntityTypeGovernment BetaUserProfileExternalUserDetailsEntityType = "government"`
+
+  - `NameHash string`
+
+    The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+  - `OnboardedAt Time`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `ReferenceID string`
+
+    The platform's own reference for the entity. `null` until the platform supplies one.
+
+### Beta User Profile External User Details Params
+
+- `type BetaUserProfileExternalUserDetailsParamsResp struct{…}`
+
+  - `AccountStatus BetaUserProfileExternalUserDetailsParamsAccountStatus Optional`
+
+    The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+    - `const BetaUserProfileExternalUserDetailsParamsAccountStatusActive BetaUserProfileExternalUserDetailsParamsAccountStatus = "active"`
+
+    - `const BetaUserProfileExternalUserDetailsParamsAccountStatusSuspended BetaUserProfileExternalUserDetailsParamsAccountStatus = "suspended"`
+
+    - `const BetaUserProfileExternalUserDetailsParamsAccountStatusBlocked BetaUserProfileExternalUserDetailsParamsAccountStatus = "blocked"`
+
+  - `Country string Optional`
+
+    The country of the entity (not of the platform), as the platform determines it: an ISO 3166-1 alpha-2 code in upper case, for example `US`. Only the form, two uppercase ASCII letters, is checked.
+
+  - `EmailHash string Optional`
+
+    A hash of the entity's email address, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
+
+    minLength: 1, maxLength: 255
+
+  - `EntityType BetaUserProfileExternalUserDetailsParamsEntityType Optional`
+
+    What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+    - `const BetaUserProfileExternalUserDetailsParamsEntityTypeIndividual BetaUserProfileExternalUserDetailsParamsEntityType = "individual"`
+
+    - `const BetaUserProfileExternalUserDetailsParamsEntityTypeBusiness BetaUserProfileExternalUserDetailsParamsEntityType = "business"`
+
+    - `const BetaUserProfileExternalUserDetailsParamsEntityTypeNonProfit BetaUserProfileExternalUserDetailsParamsEntityType = "non_profit"`
+
+    - `const BetaUserProfileExternalUserDetailsParamsEntityTypeGovernment BetaUserProfileExternalUserDetailsParamsEntityType = "government"`
+
+  - `NameHash string Optional`
+
+    A hash of the entity's name, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
+
+    minLength: 1, maxLength: 255
+
+  - `OnboardedAt Time Optional`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `ReferenceID string Optional`
+
+    The platform's own reference for the entity, for example the key of the end-user's row in the platform's database. Not interpreted by Anthropic and not enforced unique. 1 to 255 characters.
+
+    minLength: 1, maxLength: 255
 
 ### Beta User Profile Trust Grant
 

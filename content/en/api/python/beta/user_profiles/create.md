@@ -1,3 +1,8 @@
+---
+title: Create User Profile
+url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/create
+---
+
 # Create User Profile
 
 `beta.user_profiles.create(**kwargs)  -> BetaUserProfile`
@@ -18,9 +23,63 @@ Create User Profile
 
 - `external_id: Optional[str]`
 
-  Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+  Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
 
   minLength: 1, maxLength: 255
+
+- `external_user_details: Optional[BetaUserProfileExternalUserDetailsParams]`
+
+  Details about the entity this profile represents, as the platform states them. Every field is optional. Accepted under the `user-profiles-2026-09-04` beta header only.
+
+  - `account_status: Optional[Literal["active", "suspended", "blocked"]]`
+
+    The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+    - `"active"`
+
+    - `"suspended"`
+
+    - `"blocked"`
+
+  - `country: Optional[str]`
+
+    The country of the entity (not of the platform), as the platform determines it: an ISO 3166-1 alpha-2 code in upper case, for example `US`. Only the form, two uppercase ASCII letters, is checked.
+
+  - `email_hash: Optional[str]`
+
+    A hash of the entity's email address, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
+
+    minLength: 1, maxLength: 255
+
+  - `entity_type: Optional[Literal["individual", "business", "non_profit", "government"]]`
+
+    What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+    - `"individual"`
+
+    - `"business"`
+
+    - `"non_profit"`
+
+    - `"government"`
+
+  - `name_hash: Optional[str]`
+
+    A hash of the entity's name, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
+
+    minLength: 1, maxLength: 255
+
+  - `onboarded_at: Optional[datetime]`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `reference_id: Optional[str]`
+
+    The platform's own reference for the entity, for example the key of the end-user's row in the platform's database. Not interpreted by Anthropic and not enforced unique. 1 to 255 characters.
+
+    minLength: 1, maxLength: 255
 
 - `external_user_onboarded_at: Optional[Union[str, datetime]]`
 
@@ -44,7 +103,7 @@ Create User Profile
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -92,6 +151,8 @@ Create User Profile
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -138,6 +199,10 @@ Create User Profile
 
 - `class BetaUserProfile: …`
 
+  - `type: Literal["user_profile"]`
+
+    Object type. Always `user_profile`.
+
   - `id: str`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -166,10 +231,6 @@ Create User Profile
 
       - `"rejected"`
 
-  - `type: Literal["user_profile"]`
-
-    Object type. Always `user_profile`.
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
@@ -186,7 +247,55 @@ Create User Profile
 
   - `external_id: Optional[str]`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `external_user_details: Optional[BetaUserProfileExternalUserDetails]`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `account_status: Optional[Literal["active", "suspended", "blocked"]]`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `"active"`
+
+      - `"suspended"`
+
+      - `"blocked"`
+
+    - `country: Optional[str]`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `email_hash: Optional[str]`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `entity_type: Optional[Literal["individual", "business", "non_profit", "government"]]`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `"individual"`
+
+      - `"business"`
+
+      - `"non_profit"`
+
+      - `"government"`
+
+    - `name_hash: Optional[str]`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `onboarded_at: Optional[datetime]`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `reference_id: Optional[str]`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `external_user_onboarded_at: Optional[datetime]`
 
@@ -229,6 +338,15 @@ print(beta_user_profile.id)
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }

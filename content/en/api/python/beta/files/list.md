@@ -1,3 +1,8 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/python/beta/files/list
+---
+
 # List Files
 
 `beta.files.list(**kwargs)  -> SyncPageCursor[BetaFileMetadata]`
@@ -34,7 +39,7 @@ List Files
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -82,6 +87,8 @@ List Files
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -124,9 +131,17 @@ List Files
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaFileMetadata: …`
+
+  - `type: Literal["file"]`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: str`
 
@@ -158,12 +173,6 @@ List Files
 
     minimum: 0
 
-  - `type: Literal["file"]`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
@@ -180,13 +189,13 @@ List Files
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-    - `id: str`
-
-      The ID of the scoping resource (e.g., the session ID).
-
     - `type: Literal["session"]`
 
       The type of scope (e.g., `"session"`).
+
+    - `id: str`
+
+      The ID of the scoping resource (e.g., the session ID).
 
 ## Example
 

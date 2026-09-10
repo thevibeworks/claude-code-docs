@@ -1,3 +1,8 @@
+---
+title: Get Credential
+url: https://platform.claude.com/docs/en/api/csharp/beta/vaults/credentials/retrieve
+---
+
 # Get Credential
 
 `BetaManagedAgentsCredential Beta.Vaults.Credentials.Retrieve(parameters, cancellationToken = default)`
@@ -68,6 +73,8 @@ Get Credential
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -110,11 +117,19 @@ Get Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsCredential:`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -134,11 +149,11 @@ Get Credential
 
       OAuth credential details for an MCP server.
 
+      - `required Type Type`
+
       - `required string McpServerUrl`
 
         URL of the MCP server this credential authenticates against.
-
-      - `required Type Type`
 
       - `DateTimeOffset? ExpiresAt`
 
@@ -192,15 +207,17 @@ Get Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `required Type Type`
+
       - `required string McpServerUrl`
 
         URL of the MCP server this credential authenticates against.
 
-      - `required Type Type`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `required Type Type`
 
       - `required BetaManagedAgentsInjectionLocationResponse InjectionLocation`
 
@@ -228,17 +245,15 @@ Get Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `required Type Type`
+
           - `required IReadOnlyList<string> AllowedHosts`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `required Type Type`
-
       - `required string SecretName`
 
         Name of the environment variable.
-
-      - `required Type Type`
 
   - `required DateTimeOffset CreatedAt`
 
@@ -249,8 +264,6 @@ Get Credential
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 

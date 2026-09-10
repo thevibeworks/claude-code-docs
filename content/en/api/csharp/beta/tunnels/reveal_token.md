@@ -1,3 +1,8 @@
+---
+title: Reveal Tunnel Token
+url: https://platform.claude.com/docs/en/api/csharp/beta/tunnels/reveal_token
+---
+
 # Reveal Tunnel Token
 
 `BetaTunnelToken Beta.Tunnels.RevealToken(parameters, cancellationToken = default)`
@@ -66,6 +71,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -108,11 +115,19 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonElement Type = "tunnel_token"`
 
   - `required string ID`
 
@@ -121,8 +136,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `required string TunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonElement Type = "tunnel_token"`
 
 ## Example
 

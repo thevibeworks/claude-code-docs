@@ -1,3 +1,8 @@
+---
+title: Create Tunnel
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/create
+---
+
 # Create Tunnel
 
 `BetaTunnel beta().tunnels().create(params = TunnelCreateParams.none(), requestOptions = RequestOptions.none())`
@@ -62,6 +67,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -104,6 +111,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `Optional<String> displayName`
 
     Optional human-readable name for the tunnel (1-255 characters).
@@ -115,6 +124,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonValue type = "tunnel"`
 
   - `String id`
 
@@ -139,8 +150,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
   - `String domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonValue type = "tunnel"`
 
 ## Example
 

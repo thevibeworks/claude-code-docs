@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/ruby/messages/batches/list
+---
+
 # List Message Batches
 
 `messages.batches.list(**kwargs) -> Page<MessageBatch>`
@@ -26,9 +31,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   maximum: 1000, minimum: 1
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class MessageBatch`
+
+  - `type: :message_batch`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `id: String`
 
@@ -117,12 +130,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: :message_batch`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
 
 ## Example
 

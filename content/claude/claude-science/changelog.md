@@ -6,6 +6,11 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.47" description="September 10, 2026">
+  * Claude Science is now available for Windows: download it from [claude.com/product/claude-science](https://claude.com/product/claude-science), and see [Run on Windows](/docs/claude-science/run-on-windows) for requirements and setup
+  * Various bug fixes and improvements
+</Update>
+
 <Update label="0.1.43" description="August 31, 2026">
   * On Linux, commands, notebook cells, and local connectors work again on systems with bubblewrap's recent security update
   * Cloud storage in Settings (Amazon S3, S3-compatible services, and Google Cloud Storage with HMAC keys) now works behind a TLS-inspecting proxy such as Zscaler or Netskope, trusting the same corporate root certificate as sign-in and the Claude API

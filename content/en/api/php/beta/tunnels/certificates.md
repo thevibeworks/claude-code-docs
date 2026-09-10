@@ -1,8 +1,13 @@
+---
+title: Certificates
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates
+---
+
 # Certificates
 
 ## Create Tunnel Certificate
 
-`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -22,9 +27,13 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -50,8 +59,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ### Example
 
 ```php
@@ -65,6 +72,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
   'tunnel_id',
   caCertificatePEM: 'ca_certificate_pem',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -86,7 +94,7 @@ var_dump($betaTunnelCertificate);
 
 ## Get Tunnel Certificate
 
-`$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
@@ -104,9 +112,13 @@ Fetches a tunnel certificate by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -132,8 +144,6 @@ Fetches a tunnel certificate by ID.
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ### Example
 
 ```php
@@ -147,6 +157,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -168,7 +179,7 @@ var_dump($betaTunnelCertificate);
 
 ## List Tunnel Certificates
 
-`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
+`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<TunnelCertificate>`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -196,9 +207,13 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -224,8 +239,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ### Example
 
 ```php
@@ -241,6 +254,7 @@ $page = $client->beta->tunnels->certificates->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -267,7 +281,7 @@ var_dump($page);
 
 ## Archive Tunnel Certificate
 
-`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
@@ -285,9 +299,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -313,8 +331,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ### Example
 
 ```php
@@ -328,6 +344,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -353,6 +370,8 @@ var_dump($betaTunnelCertificate);
 
 - `TunnelCertificate`
 
+  - `"tunnel_certificate" type`
+
   - `string id`
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
@@ -376,5 +395,3 @@ var_dump($betaTunnelCertificate);
   - `string tunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `"tunnel_certificate" type`
