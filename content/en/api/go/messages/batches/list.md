@@ -1,6 +1,11 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/go/messages/batches/list
+---
+
 # List Message Batches
 
-`client.Messages.Batches.List(ctx, query) (*Page[MessageBatch], error)`
+`client.Messages.Batches.List(ctx, params) (*Page[MessageBatch], error)`
 
 **GET** `/v1/messages/batches`
 
@@ -10,27 +15,41 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ## Parameters
 
-- `query MessageBatchListParams`
+- `params MessageBatchListParams`
 
   - `AfterID param.Field[string] Optional`
 
-    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+    Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
   - `BeforeID param.Field[string] Optional`
 
-    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+    Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
   - `Limit param.Field[int64] Optional`
 
-    Number of items to return per page.
+    Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
     maximum: 1000, minimum: 1
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type MessageBatch struct{…}`
+
+  - `Type MessageBatch`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `ID string`
 
@@ -129,14 +148,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `Type MessageBatch`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: Update Session
+url: https://platform.claude.com/docs/en/api/go/beta/sessions/update
+---
+
 # Update Session
 
 `client.Beta.Sessions.Update(ctx, sessionID, params) (*BetaManagedAgentsSession, error)`
@@ -88,6 +93,8 @@ Update Session
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -130,11 +137,19 @@ Update Session
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaManagedAgentsSession struct{…}`
 
   A Managed Agents `session`.
+
+  - `Type BetaManagedAgentsSessionType`
 
   - `ID string`
 
@@ -142,15 +157,17 @@ Update Session
 
     Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `Type BetaManagedAgentsSessionAgentType`
+
     - `ID string`
 
     - `Description string`
 
     - `MCPServers []BetaManagedAgentsMCPServerURLDefinition`
 
-      - `Name string`
-
       - `Type BetaManagedAgentsMCPServerURLDefinitionType`
+
+      - `Name string`
 
       - `URL string`
 
@@ -278,6 +295,8 @@ Update Session
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
+      - `Type BetaManagedAgentsSessionMultiagentCoordinatorType`
+
       - `Agents []BetaManagedAgentsSessionMultiagentCoordinatorAgentUnion`
 
         Full `agent` definitions the coordinator may spawn as session threads.
@@ -286,15 +305,17 @@ Update Session
 
           Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+          - `Type BetaManagedAgentsSessionThreadAgentType`
+
           - `ID string`
 
           - `Description string`
 
           - `MCPServers []BetaManagedAgentsMCPServerURLDefinition`
 
-            - `Name string`
-
             - `Type BetaManagedAgentsMCPServerURLDefinitionType`
+
+            - `Name string`
 
             - `URL string`
 
@@ -310,9 +331,9 @@ Update Session
 
               A resolved Anthropic-managed skill.
 
-              - `SkillID string`
-
               - `Type BetaManagedAgentsAnthropicSkillType`
+
+              - `SkillID string`
 
               - `Version string`
 
@@ -320,9 +341,9 @@ Update Session
 
               A resolved user-created custom skill.
 
-              - `SkillID string`
-
               - `Type BetaManagedAgentsCustomSkillType`
+
+              - `SkillID string`
 
               - `Version string`
 
@@ -332,11 +353,15 @@ Update Session
 
             - `type BetaManagedAgentsAgentToolset20260401 struct{…}`
 
+              - `Type BetaManagedAgentsAgentToolset20260401Type`
+
               - `Configs []BetaManagedAgentsAgentToolConfigUnion`
 
                 - `type BetaManagedAgentsBashToolConfig struct{…}`
 
                   Configuration for the bash tool.
+
+                  - `Type Bash`
 
                   - `Enabled bool`
 
@@ -358,11 +383,17 @@ Update Session
 
                       - `Type BetaManagedAgentsAlwaysAskPolicyType`
 
-                  - `Type Bash`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `Type Auto`
 
                 - `type BetaManagedAgentsEditToolConfig struct{…}`
 
                   Configuration for the edit tool.
+
+                  - `Type Edit`
 
                   - `Enabled bool`
 
@@ -380,11 +411,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type Edit`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `type BetaManagedAgentsReadToolConfig struct{…}`
 
                   Configuration for the read tool.
+
+                  - `Type Read`
 
                   - `Enabled bool`
 
@@ -402,11 +437,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type Read`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `type BetaManagedAgentsWriteToolConfig struct{…}`
 
                   Configuration for the write tool.
+
+                  - `Type Write`
 
                   - `Enabled bool`
 
@@ -424,11 +463,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type Write`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `type BetaManagedAgentsGlobToolConfig struct{…}`
 
                   Configuration for the glob tool.
+
+                  - `Type Glob`
 
                   - `Enabled bool`
 
@@ -446,11 +489,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type Glob`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `type BetaManagedAgentsGrepToolConfig struct{…}`
 
                   Configuration for the grep tool.
+
+                  - `Type Grep`
 
                   - `Enabled bool`
 
@@ -468,11 +515,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type Grep`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `type BetaManagedAgentsWebFetchToolConfig struct{…}`
 
                   Configuration for the web_fetch tool.
+
+                  - `Type WebFetch`
 
                   - `Enabled bool`
 
@@ -490,7 +541,9 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type WebFetch`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `AllowedDomains []string Optional`
 
@@ -503,6 +556,8 @@ Update Session
                 - `type BetaManagedAgentsWebSearchToolConfig struct{…}`
 
                   Configuration for the web_search tool.
+
+                  - `Type WebSearch`
 
                   - `Enabled bool`
 
@@ -520,7 +575,9 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `Type WebSearch`
+                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `AllowedDomains []string Optional`
 
@@ -574,9 +631,13 @@ Update Session
 
                     Tool calls require user confirmation before execution.
 
-              - `Type BetaManagedAgentsAgentToolset20260401Type`
+                  - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `type BetaManagedAgentsMCPToolset struct{…}`
+
+              - `Type BetaManagedAgentsMCPToolsetType`
 
               - `Configs []BetaManagedAgentsMCPToolConfig`
 
@@ -596,6 +657,10 @@ Update Session
 
                     Tool calls require user confirmation before execution.
 
+                  - `type BetaManagedAgentsAutoPolicy struct{…}`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
               - `DefaultConfig BetaManagedAgentsMCPToolsetDefaultConfig`
 
                 Resolved default configuration for all tools from an MCP server.
@@ -614,13 +679,17 @@ Update Session
 
                     Tool calls require user confirmation before execution.
 
-              - `MCPServerName string`
+                  - `type BetaManagedAgentsAutoPolicy struct{…}`
 
-              - `Type BetaManagedAgentsMCPToolsetType`
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `MCPServerName string`
 
             - `type BetaManagedAgentsCustomTool struct{…}`
 
               A custom tool as returned in API responses.
+
+              - `Type BetaManagedAgentsCustomToolType`
 
               - `Description string`
 
@@ -636,10 +705,6 @@ Update Session
 
               - `Name string`
 
-              - `Type BetaManagedAgentsCustomToolType`
-
-          - `Type BetaManagedAgentsSessionThreadAgentType`
-
           - `Version int64`
 
             format: int32
@@ -648,13 +713,11 @@ Update Session
 
           Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+          - `Type BetaManagedAgentsAdvisorType`
+
           - `Model string`
 
             The advisor model id.
-
-          - `Type BetaManagedAgentsAdvisorType`
-
-      - `Type BetaManagedAgentsSessionMultiagentCoordinatorType`
 
     - `Name string`
 
@@ -680,8 +743,6 @@ Update Session
 
         A custom tool as returned in API responses.
 
-    - `Type BetaManagedAgentsSessionAgentType`
-
     - `Version int64`
 
       format: int32
@@ -696,6 +757,8 @@ Update Session
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `Type BetaManagedAgentsBudgetLimitType`
+
     - `MaxListCost BetaMonetaryAmount`
 
       A monetary amount in a specific currency.
@@ -707,8 +770,6 @@ Update Session
       - `Currency BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `Type BetaManagedAgentsBudgetLimitType`
 
   - `CreatedAt Time`
 
@@ -723,6 +784,8 @@ Update Session
   - `OutcomeEvaluations []BetaManagedAgentsOutcomeEvaluationResource`
 
     Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
+
+    - `Type BetaManagedAgentsOutcomeEvaluationResourceType`
 
     - `CompletedAt Time`
 
@@ -752,11 +815,11 @@ Update Session
 
       Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
 
-    - `Type BetaManagedAgentsOutcomeEvaluationResourceType`
-
   - `Resources []BetaManagedAgentsSessionResourceUnion`
 
     - `type BetaManagedAgentsGitHubRepositoryResource struct{…}`
+
+      - `Type BetaManagedAgentsGitHubRepositoryResourceType`
 
       - `ID string`
 
@@ -767,8 +830,6 @@ Update Session
         format: date-time
 
       - `MountPath string`
-
-      - `Type BetaManagedAgentsGitHubRepositoryResourceType`
 
       - `UpdatedAt Time`
 
@@ -782,15 +843,17 @@ Update Session
 
         - `type BetaManagedAgentsBranchCheckout struct{…}`
 
+          - `Type BetaManagedAgentsBranchCheckoutType`
+
           - `Name string`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `Type BetaManagedAgentsBranchCheckoutType`
-
         - `type BetaManagedAgentsCommitCheckout struct{…}`
+
+          - `Type BetaManagedAgentsCommitCheckoutType`
 
           - `Sha string`
 
@@ -798,9 +861,9 @@ Update Session
 
             minLength: 7, maxLength: 64
 
-          - `Type BetaManagedAgentsCommitCheckoutType`
-
     - `type BetaManagedAgentsFileResource struct{…}`
+
+      - `Type BetaManagedAgentsFileResourceType`
 
       - `ID string`
 
@@ -814,8 +877,6 @@ Update Session
 
       - `MountPath string`
 
-      - `Type BetaManagedAgentsFileResourceType`
-
       - `UpdatedAt Time`
 
         A timestamp in RFC 3339 format
@@ -826,11 +887,11 @@ Update Session
 
       A memory store attached to an agent session.
 
+      - `Type BetaManagedAgentsMemoryStoreResourceType`
+
       - `MemoryStoreID string`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `Type BetaManagedAgentsMemoryStoreResourceType`
 
       - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
@@ -887,8 +948,6 @@ Update Session
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
 
   - `Title string`
-
-  - `Type BetaManagedAgentsSessionType`
 
   - `UpdatedAt Time`
 

@@ -1,3 +1,8 @@
+---
+title: Beta
+url: https://platform.claude.com/docs/en/api/php/beta
+---
+
 # Beta
 
 ## Domain types
@@ -52,6 +57,8 @@
 
   - `"user-profiles-2026-08-18"`
 
+  - `"user-profiles-2026-09-04"`
+
   - `"advisor-tool-2026-03-01"`
 
   - `"managed-agents-2026-04-01"`
@@ -98,25 +105,25 @@
 
 - `BetaAPIError`
 
-  - `string message`
-
   - `"api_error" type`
+
+  - `string message`
 
 ### Beta Authentication Error
 
 - `BetaAuthenticationError`
 
-  - `string message`
-
   - `"authentication_error" type`
+
+  - `string message`
 
 ### Beta Billing Error
 
 - `BetaBillingError`
 
-  - `string message`
-
   - `"billing_error" type`
+
+  - `string message`
 
 ### Beta Currency
 
@@ -128,83 +135,83 @@
 
   - `BetaInvalidRequestError`
 
-    - `string message`
-
     - `"invalid_request_error" type`
+
+    - `string message`
 
   - `BetaAuthenticationError`
 
-    - `string message`
-
     - `"authentication_error" type`
+
+    - `string message`
 
   - `BetaBillingError`
 
-    - `string message`
-
     - `"billing_error" type`
+
+    - `string message`
 
   - `BetaPermissionError`
 
-    - `string message`
-
     - `"permission_error" type`
+
+    - `string message`
 
   - `BetaNotFoundError`
 
-    - `string message`
-
     - `"not_found_error" type`
+
+    - `string message`
 
   - `BetaRateLimitError`
 
-    - `string message`
-
     - `"rate_limit_error" type`
+
+    - `string message`
 
   - `BetaGatewayTimeoutError`
 
-    - `string message`
-
     - `"timeout_error" type`
+
+    - `string message`
 
   - `BetaAPIError`
 
-    - `string message`
-
     - `"api_error" type`
+
+    - `string message`
 
   - `BetaOverloadedError`
 
-    - `string message`
-
     - `"overloaded_error" type`
+
+    - `string message`
 
 ### Beta Error Response
 
 - `BetaErrorResponse`
 
+  - `"error" type`
+
   - `BetaError error`
 
   - `?string requestID`
-
-  - `"error" type`
 
 ### Beta Gateway Timeout Error
 
 - `BetaGatewayTimeoutError`
 
-  - `string message`
-
   - `"timeout_error" type`
+
+  - `string message`
 
 ### Beta Invalid Request Error
 
 - `BetaInvalidRequestError`
 
-  - `string message`
-
   - `"invalid_request_error" type`
+
+  - `string message`
 
 ### Beta Monetary Amount
 
@@ -222,39 +229,39 @@
 
 - `BetaNotFoundError`
 
-  - `string message`
-
   - `"not_found_error" type`
+
+  - `string message`
 
 ### Beta Overloaded Error
 
 - `BetaOverloadedError`
 
-  - `string message`
-
   - `"overloaded_error" type`
+
+  - `string message`
 
 ### Beta Permission Error
 
 - `BetaPermissionError`
 
-  - `string message`
-
   - `"permission_error" type`
+
+  - `string message`
 
 ### Beta Rate Limit Error
 
 - `BetaRateLimitError`
 
-  - `string message`
-
   - `"rate_limit_error" type`
+
+  - `string message`
 
 ## Beta › Models
 
 ### List Models
 
-`$client->beta->models->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<BetaModelInfo>`
+`$client->beta->models->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas, ?string workspaceID): Page<BetaModelInfo>`
 
 **GET** `/v1/models`
 
@@ -284,9 +291,17 @@ The Models API response can be used to determine which models are available for 
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaModelInfo`
+
+  - `"model" type`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `string id`
 
@@ -316,12 +331,6 @@ The Models API response can be used to determine which models are available for 
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `"model" type`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
 #### Example
 
 ```php
@@ -336,6 +345,7 @@ $page = $client->beta->models->list(
   beforeID: 'before_id',
   limit: 1,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -427,7 +437,7 @@ var_dump($page);
 
 ### Get a Model
 
-`$client->beta->models->retrieve(string modelID, ?list<AnthropicBeta> betas): BetaModelInfo`
+`$client->beta->models->retrieve(string modelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaModelInfo`
 
 **GET** `/v1/models/{model_id}`
 
@@ -445,9 +455,17 @@ The Models API response can be used to determine information about a specific mo
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaModelInfo`
+
+  - `"model" type`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `string id`
 
@@ -477,12 +495,6 @@ The Models API response can be used to determine information about a specific mo
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `"model" type`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
 #### Example
 
 ```php
@@ -493,7 +505,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaModelInfo = $client->beta->models->retrieve(
-  'model_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'model_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaModelInfo);
@@ -580,7 +594,7 @@ var_dump($betaModelInfo);
 
 ### Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -835,6 +849,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `workspaceID?:optional string`
+
 - `outputFormat?:optional BetaJSONOutputFormat`
 
   **Deprecated**
@@ -876,6 +892,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 #### Returns
 
 - `BetaMessage`
+
+  - `"message" type`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
 
   - `string id`
 
@@ -965,12 +987,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This value will be a non-null string if one of your custom stop sequences was generated.
 
-  - `"message" type`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
   - `BetaUsage usage`
 
     Billing and rate-limit usage.
@@ -1005,19 +1021,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `BetaRawMessageStartEvent`
 
-    - `BetaMessage message`
-
     - `"message_start" type`
 
+    - `BetaMessage message`
+
   - `BetaRawMessageDeltaEvent`
+
+    - `"message_delta" type`
 
     - `?BetaContextManagementResponse contextManagement`
 
       Information about context management strategies applied during the request
 
     - `Delta delta`
-
-    - `"message_delta" type`
 
     - `BetaMessageDeltaUsage usage`
 
@@ -1055,27 +1071,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `BetaRawContentBlockStartEvent`
 
+    - `"content_block_start" type`
+
     - `ContentBlock contentBlock`
 
       Response model for a file uploaded to the container.
 
     - `int index`
 
-    - `"content_block_start" type`
-
   - `BetaRawContentBlockDeltaEvent`
+
+    - `"content_block_delta" type`
 
     - `BetaRawContentBlockDelta delta`
 
     - `int index`
 
-    - `"content_block_delta" type`
-
   - `BetaRawContentBlockStopEvent`
 
-    - `int index`
-
     - `"content_block_stop" type`
+
+    - `int index`
 
 #### Example
 
@@ -1187,6 +1203,7 @@ $betaMessage = $client->beta->messages->create(
   topP: 0.7,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessage);
@@ -1304,7 +1321,7 @@ var_dump($betaMessage);
 
 ### Count tokens in a Message
 
-`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessageTokensCount`
+`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -1485,6 +1502,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `workspaceID?:optional string`
+
 - `outputFormat?:optional BetaJSONOutputFormat`
 
   **Deprecated**
@@ -1598,6 +1617,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessageTokensCount);
@@ -1618,7 +1638,7 @@ var_dump($betaMessageTokensCount);
 
 ### Create a Message Batch
 
-`$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID): MessageBatch`
+`$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): MessageBatch`
 
 **POST** `/v1/messages/batches`
 
@@ -1642,9 +1662,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `MessageBatch`
+
+  - `"message_batch" type`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `string id`
 
@@ -1689,12 +1717,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
 
 #### Example
 
@@ -1820,6 +1842,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessageBatch);
@@ -1850,7 +1873,7 @@ var_dump($betaMessageBatch);
 
 ### Retrieve a Message Batch
 
-`$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
+`$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): MessageBatch`
 
 **GET** `/v1/messages/batches/{message_batch_id}`
 
@@ -1868,9 +1891,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `MessageBatch`
+
+  - `"message_batch" type`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `string id`
 
@@ -1916,12 +1947,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
 #### Example
 
 ```php
@@ -1932,7 +1957,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->retrieve(
-  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'message_batch_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessageBatch);
@@ -1963,7 +1990,7 @@ var_dump($betaMessageBatch);
 
 ### List Message Batches
 
-`$client->beta->messages->batches->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<MessageBatch>`
+`$client->beta->messages->batches->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas, ?string workspaceID): Page<MessageBatch>`
 
 **GET** `/v1/messages/batches`
 
@@ -1993,9 +2020,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `MessageBatch`
+
+  - `"message_batch" type`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `string id`
 
@@ -2041,12 +2076,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
 #### Example
 
 ```php
@@ -2061,6 +2090,7 @@ $page = $client->beta->messages->batches->list(
   beforeID: 'before_id',
   limit: 1,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -2098,7 +2128,7 @@ var_dump($page);
 
 ### Cancel a Message Batch
 
-`$client->beta->messages->batches->cancel(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
+`$client->beta->messages->batches->cancel(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): MessageBatch`
 
 **POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
@@ -2118,9 +2148,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `MessageBatch`
+
+  - `"message_batch" type`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `string id`
 
@@ -2166,12 +2204,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
 #### Example
 
 ```php
@@ -2182,7 +2214,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->cancel(
-  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'message_batch_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessageBatch);
@@ -2213,7 +2247,7 @@ var_dump($betaMessageBatch);
 
 ### Delete a Message Batch
 
-`$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas): DeletedMessageBatch`
+`$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): DeletedMessageBatch`
 
 **DELETE** `/v1/messages/batches/{message_batch_id}`
 
@@ -2233,19 +2267,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
 
   - `"message_batch_deleted" type`
 
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
+
+  - `string id`
+
+    ID of the Message Batch.
 
 #### Example
 
@@ -2257,7 +2293,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
-  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'message_batch_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedMessageBatch);
@@ -2274,7 +2312,7 @@ var_dump($betaDeletedMessageBatch);
 
 ### Retrieve Message Batch results
 
-`$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatchIndividualResponse`
+`$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): MessageBatchIndividualResponse`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -2293,6 +2331,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
+
+- `workspaceID?:optional string`
 
 #### Returns
 
@@ -2324,7 +2364,9 @@ $betaMessageBatchIndividualResponse = $client
   ->messages
   ->batches
   ->resultsStream(
-  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'message_batch_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaMessageBatchIndividualResponse);
@@ -2334,7 +2376,7 @@ var_dump($betaMessageBatchIndividualResponse);
 
 ### Create Agent
 
-`$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
+`$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents`
 
@@ -2382,9 +2424,13 @@ Create Agent
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -2417,8 +2463,6 @@ Create Agent
   - `?string system`
 
   - `list<Tool> tools`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -2472,6 +2516,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
     ],
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsAgent);
@@ -2556,7 +2601,7 @@ var_dump($betaManagedAgentsAgent);
 
 ### List Agents
 
-`$client->beta->agents->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
+`$client->beta->agents->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsAgent>`
 
 **GET** `/v1/agents`
 
@@ -2588,9 +2633,13 @@ List Agents
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -2624,8 +2673,6 @@ List Agents
 
   - `list<Tool> tools`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -2650,6 +2697,7 @@ $page = $client->beta->agents->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -2739,7 +2787,7 @@ var_dump($page);
 
 ### Get Agent
 
-`$client->beta->agents->retrieve(string agentID, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
+`$client->beta->agents->retrieve(string agentID, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **GET** `/v1/agents/{agent_id}`
 
@@ -2757,9 +2805,13 @@ Get Agent
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -2793,8 +2845,6 @@ Get Agent
 
   - `list<Tool> tools`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -2816,6 +2866,7 @@ $betaManagedAgentsAgent = $client->beta->agents->retrieve(
   'agent_011CZkYpogX7uDKUyvBTophP',
   version: 0,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsAgent);
@@ -2900,7 +2951,7 @@ var_dump($betaManagedAgentsAgent);
 
 ### Update Agent
 
-`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
+`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}`
 
@@ -2954,9 +3005,13 @@ Update Agent
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -2989,8 +3044,6 @@ Update Agent
   - `?string system`
 
   - `list<Tool> tools`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -3051,6 +3104,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
   ],
   version: 1,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsAgent);
@@ -3135,7 +3189,7 @@ var_dump($betaManagedAgentsAgent);
 
 ### Archive Agent
 
-`$client->beta->agents->archive(string agentID, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
+`$client->beta->agents->archive(string agentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}/archive`
 
@@ -3149,9 +3203,13 @@ Archive Agent
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -3185,8 +3243,6 @@ Archive Agent
 
   - `list<Tool> tools`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -3207,6 +3263,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->archive(
   'agent_011CZkYpogX7uDKUyvBTophP',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsAgent);
@@ -3293,7 +3350,7 @@ var_dump($betaManagedAgentsAgent);
 
 ### List Agent Versions
 
-`$client->beta->agents->versions->list(string agentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
+`$client->beta->agents->versions->list(string agentID, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsAgent>`
 
 **GET** `/v1/agents/{agent_id}/versions`
 
@@ -3315,9 +3372,13 @@ List Agent Versions
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -3351,8 +3412,6 @@ List Agent Versions
 
   - `list<Tool> tools`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -3375,6 +3434,7 @@ $page = $client->beta->agents->versions->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -3466,7 +3526,7 @@ var_dump($page);
 
 ### Create Environment
 
-`$client->beta->environments->create(string name, ?Config config, ?string description, ?array<string,string> metadata, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
+`$client->beta->environments->create(string name, ?Config config, ?string description, ?array<string,string> metadata, ?Scope scope, ?list<AnthropicBeta> betas, ?string workspaceID): BetaEnvironment`
 
 **POST** `/v1/environments`
 
@@ -3492,15 +3552,21 @@ Create a new environment with the specified configuration.
 
 - `scope?:optional Scope`
 
-  The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
+  The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -3529,10 +3595,6 @@ Create a new environment with the specified configuration.
   - `string name`
 
     Human-readable name for the environment
-
-  - `"environment" type`
-
-    The type of object (always 'environment')
 
   - `string updatedAt`
 
@@ -3575,6 +3637,7 @@ $betaEnvironment = $client->beta->environments->create(
   metadata: ['foo' => 'string'],
   scope: 'organization',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaEnvironment);
@@ -3631,7 +3694,7 @@ var_dump($betaEnvironment);
 
 ### List Environments
 
-`$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaEnvironment>`
+`$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaEnvironment>`
 
 **GET** `/v1/environments`
 
@@ -3659,9 +3722,15 @@ List environments with pagination support.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -3691,10 +3760,6 @@ List environments with pagination support.
 
     Human-readable name for the environment
 
-  - `"environment" type`
-
-    The type of object (always 'environment')
-
   - `string updatedAt`
 
     RFC 3339 timestamp when environment was last updated
@@ -3717,6 +3782,7 @@ $page = $client->beta->environments->list(
   limit: 1,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -3778,7 +3844,7 @@ var_dump($page);
 
 ### Get Environment
 
-`$client->beta->environments->retrieve(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironment`
+`$client->beta->environments->retrieve(string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaEnvironment`
 
 **GET** `/v1/environments/{environment_id}`
 
@@ -3792,9 +3858,15 @@ Retrieve a specific environment by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -3824,10 +3896,6 @@ Retrieve a specific environment by ID.
 
     Human-readable name for the environment
 
-  - `"environment" type`
-
-    The type of object (always 'environment')
-
   - `string updatedAt`
 
     RFC 3339 timestamp when environment was last updated
@@ -3848,6 +3916,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaEnvironment = $client->beta->environments->retrieve(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaEnvironment);
@@ -3904,7 +3973,7 @@ var_dump($betaEnvironment);
 
 ### Update Environment
 
-`$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
+`$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas, ?string workspaceID): BetaEnvironment`
 
 **POST** `/v1/environments/{environment_id}`
 
@@ -3938,9 +4007,15 @@ Update an existing environment's configuration.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -3969,10 +4044,6 @@ Update an existing environment's configuration.
   - `string name`
 
     Human-readable name for the environment
-
-  - `"environment" type`
-
-    The type of object (always 'environment')
 
   - `string updatedAt`
 
@@ -4016,6 +4087,7 @@ $betaEnvironment = $client->beta->environments->update(
   name: 'x',
   scope: 'organization',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaEnvironment);
@@ -4072,7 +4144,7 @@ var_dump($betaEnvironment);
 
 ### Delete Environment
 
-`$client->beta->environments->delete(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironmentDeleteResponse`
+`$client->beta->environments->delete(string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaEnvironmentDeleteResponse`
 
 **DELETE** `/v1/environments/{environment_id}`
 
@@ -4086,17 +4158,19 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaEnvironmentDeleteResponse`
 
-  - `string id`
-
-    Environment identifier
-
   - `Type type`
 
     The type of response
+
+  - `string id`
+
+    Environment identifier
 
 #### Example
 
@@ -4110,6 +4184,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaEnvironmentDeleteResponse = $client->beta->environments->delete(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaEnvironmentDeleteResponse);
@@ -4126,7 +4201,7 @@ var_dump($betaEnvironmentDeleteResponse);
 
 ### Archive Environment
 
-`$client->beta->environments->archive(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironment`
+`$client->beta->environments->archive(string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaEnvironment`
 
 **POST** `/v1/environments/{environment_id}/archive`
 
@@ -4140,9 +4215,15 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -4172,10 +4253,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Human-readable name for the environment
 
-  - `"environment" type`
-
-    The type of object (always 'environment')
-
   - `string updatedAt`
 
     RFC 3339 timestamp when environment was last updated
@@ -4196,6 +4273,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaEnvironment = $client->beta->environments->archive(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaEnvironment);
@@ -4254,7 +4332,7 @@ var_dump($betaEnvironment);
 
 ### Get Work Item
 
-`$client->beta->environments->work->retrieve(string workID, string environmentID, ?list<AnthropicBeta> betas): SelfHostedWork`
+`$client->beta->environments->work->retrieve(string workID, string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWork`
 
 **GET** `/v1/environments/{environment_id}/work/{work_id}`
 
@@ -4272,9 +4350,15 @@ Retrieve detailed information about a specific work item.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SelfHostedWork`
+
+  - `"work" type`
+
+    The type of object (always 'work')
 
   - `string id`
 
@@ -4324,10 +4408,6 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `"work" type`
-
-    The type of object (always 'work')
-
 #### Example
 
 ```php
@@ -4341,6 +4421,7 @@ $betaSelfHostedWork = $client->beta->environments->work->retrieve(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWork);
@@ -4405,6 +4486,10 @@ Long poll for work items in the queue.
 
 - `SelfHostedWork`
 
+  - `"work" type`
+
+    The type of object (always 'work')
+
   - `string id`
 
     Work identifier (e.g., 'work_...')
@@ -4452,10 +4537,6 @@ Long poll for work items in the queue.
   - `?string stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `"work" type`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -4526,6 +4607,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 - `SelfHostedWork`
 
+  - `"work" type`
+
+    The type of object (always 'work')
+
   - `string id`
 
     Work identifier (e.g., 'work_...')
@@ -4573,10 +4658,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `?string stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `"work" type`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -4653,6 +4734,10 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `SelfHostedWorkHeartbeatResponse`
 
+  - `"work_heartbeat" type`
+
+    The type of response
+
   - `string lastHeartbeat`
 
     RFC 3339 timestamp of the actual heartbeat from DB
@@ -4668,10 +4753,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `int ttlSeconds`
 
     Effective TTL applied to the lease
-
-  - `"work_heartbeat" type`
-
-    The type of response
 
 #### Example
 
@@ -4711,7 +4792,7 @@ var_dump($betaSelfHostedWorkHeartbeatResponse);
 
 ### Stop Work
 
-`$client->beta->environments->work->stop(string workID, string environmentID, ?bool force, ?list<AnthropicBeta> betas): SelfHostedWork`
+`$client->beta->environments->work->stop(string workID, string environmentID, ?bool force, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
@@ -4735,9 +4816,15 @@ Stop a work item, initiating graceful or forced shutdown.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SelfHostedWork`
+
+  - `"work" type`
+
+    The type of object (always 'work')
 
   - `string id`
 
@@ -4787,10 +4874,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `"work" type`
-
-    The type of object (always 'work')
-
 #### Example
 
 ```php
@@ -4805,6 +4888,7 @@ $betaSelfHostedWork = $client->beta->environments->work->stop(
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   force: true,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWork);
@@ -4867,6 +4951,10 @@ List work items in an environment.
 
 - `SelfHostedWork`
 
+  - `"work" type`
+
+    The type of object (always 'work')
+
   - `string id`
 
     Work identifier (e.g., 'work_...')
@@ -4914,10 +5002,6 @@ List work items in an environment.
   - `?string stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `"work" type`
-
-    The type of object (always 'work')
 
 #### Example
 
@@ -4970,7 +5054,7 @@ var_dump($page);
 
 ### Update Work Item
 
-`$client->beta->environments->work->update(string workID, string environmentID, array<string,string> metadata, ?list<AnthropicBeta> betas): SelfHostedWork`
+`$client->beta->environments->work->update(string workID, string environmentID, array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}`
 
@@ -4992,9 +5076,15 @@ Update work item metadata with merge semantics.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SelfHostedWork`
+
+  - `"work" type`
+
+    The type of object (always 'work')
 
   - `string id`
 
@@ -5044,10 +5134,6 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `"work" type`
-
-    The type of object (always 'work')
-
 #### Example
 
 ```php
@@ -5062,6 +5148,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   metadata: ['foo' => 'string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWork);
@@ -5094,7 +5181,7 @@ var_dump($betaSelfHostedWork);
 
 ### Get Queue Statistics
 
-`$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas): SelfHostedWorkQueueStats`
+`$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWorkQueueStats`
 
 **GET** `/v1/environments/{environment_id}/work/stats`
 
@@ -5108,9 +5195,15 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SelfHostedWorkQueueStats`
+
+  - `"work_queue_stats" type`
+
+    The type of object
 
   - `int depth`
 
@@ -5123,10 +5216,6 @@ Get statistics about the work queue for an environment.
   - `int pending`
 
     Number of work items being processed (polled but not acknowledged)
-
-  - `"work_queue_stats" type`
-
-    The type of object
 
   - `?int workersPolling`
 
@@ -5144,6 +5233,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWorkQueueStats);
@@ -5165,7 +5255,7 @@ var_dump($betaSelfHostedWorkQueueStats);
 
 ### Create Session
 
-`$client->beta->sessions->create(Agent agent, string environmentID, ?BetaManagedAgentsBudgetLimit budget, ?list<InitialEvent> initialEvents, ?array<string,string> metadata, ?list<Resource> resources, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
+`$client->beta->sessions->create(Agent agent, string environmentID, ?BetaManagedAgentsBudgetLimit budget, ?list<InitialEvent> initialEvents, ?array<string,string> metadata, ?list<Resource> resources, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsSession`
 
 **POST** `/v1/sessions`
 
@@ -5209,9 +5299,13 @@ Create Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -5250,8 +5344,6 @@ Create Session
     SessionStatus enum
 
   - `?string title`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -5302,6 +5394,7 @@ $betaManagedAgentsSession = $client->beta->sessions->create(
   title: 'Order #1234 inquiry',
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSession);
@@ -5503,7 +5596,7 @@ var_dump($betaManagedAgentsSession);
 
 ### List Sessions
 
-`$client->beta->sessions->list(?string agentID, ?int agentVersion, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool includeArchived, ?int limit, ?string memoryStoreID, ?Order order, ?string page, ?list<Status> statuses, ?list<AnthropicBeta> betas): BidirectionalPageCursor<BetaManagedAgentsSession>`
+`$client->beta->sessions->list(?string agentID, ?int agentVersion, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool includeArchived, ?int limit, ?string memoryStoreID, ?Order order, ?string page, ?list<Status> statuses, ?list<AnthropicBeta> betas, ?string workspaceID): BidirectionalPageCursor<BetaManagedAgentsSession>`
 
 **GET** `/v1/sessions`
 
@@ -5567,9 +5660,13 @@ List Sessions
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -5608,8 +5705,6 @@ List Sessions
     SessionStatus enum
 
   - `?string title`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -5651,6 +5746,7 @@ $page = $client->beta->sessions->list(
   page: 'page',
   statuses: ['rescheduling'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -5858,7 +5954,7 @@ var_dump($page);
 
 ### Get Session
 
-`$client->beta->sessions->retrieve(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
+`$client->beta->sessions->retrieve(string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsSession`
 
 **GET** `/v1/sessions/{session_id}`
 
@@ -5872,9 +5968,13 @@ Get Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -5914,8 +6014,6 @@ Get Session
 
   - `?string title`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -5944,6 +6042,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSession = $client->beta->sessions->retrieve(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSession);
@@ -6145,7 +6244,7 @@ var_dump($betaManagedAgentsSession);
 
 ### Update Session
 
-`$client->beta->sessions->update(string sessionID, ?BetaManagedAgentsSessionAgentUpdate agent, ?BetaManagedAgentsBudgetLimit budget, ?array<string,string> metadata, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
+`$client->beta->sessions->update(string sessionID, ?BetaManagedAgentsSessionAgentUpdate agent, ?BetaManagedAgentsBudgetLimit budget, ?array<string,string> metadata, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsSession`
 
 **POST** `/v1/sessions/{session_id}`
 
@@ -6179,9 +6278,13 @@ Update Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -6220,8 +6323,6 @@ Update Session
     SessionStatus enum
 
   - `?string title`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -6283,6 +6384,7 @@ $betaManagedAgentsSession = $client->beta->sessions->update(
   title: 'Order #1234 inquiry',
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSession);
@@ -6484,7 +6586,7 @@ var_dump($betaManagedAgentsSession);
 
 ### Delete Session
 
-`$client->beta->sessions->delete(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedSession`
+`$client->beta->sessions->delete(string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeletedSession`
 
 **DELETE** `/v1/sessions/{session_id}`
 
@@ -6498,13 +6600,15 @@ Delete Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeletedSession`
 
-  - `string id`
-
   - `Type type`
+
+  - `string id`
 
 #### Example
 
@@ -6518,6 +6622,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeletedSession = $client->beta->sessions->delete(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedSession);
@@ -6534,7 +6639,7 @@ var_dump($betaManagedAgentsDeletedSession);
 
 ### Archive Session
 
-`$client->beta->sessions->archive(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
+`$client->beta->sessions->archive(string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsSession`
 
 **POST** `/v1/sessions/{session_id}/archive`
 
@@ -6548,9 +6653,13 @@ Archive Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -6590,8 +6699,6 @@ Archive Session
 
   - `?string title`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -6620,6 +6727,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSession = $client->beta->sessions->archive(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSession);
@@ -6823,7 +6931,7 @@ var_dump($betaManagedAgentsSession);
 
 ### List Events
 
-`$client->beta->sessions->events->list(string sessionID, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?Order order, ?string page, ?list<string> types, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionEvent>`
+`$client->beta->sessions->events->list(string sessionID, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?Order order, ?string page, ?list<string> types, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsSessionEvent>`
 
 **GET** `/v1/sessions/{session_id}/events`
 
@@ -6869,11 +6977,15 @@ List Events
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsSessionEvent`
 
   - `ManagedAgentsUserMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -6883,19 +6995,17 @@ List Events
 
       Array of content blocks comprising the user message.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsUserInterruptEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
-
-    - `Type type`
 
     - `?\Datetime processedAt`
 
@@ -6906,6 +7016,8 @@ List Events
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
   - `ManagedAgentsUserToolConfirmationEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -6918,8 +7030,6 @@ List Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?string denyMessage`
 
@@ -6935,6 +7045,8 @@ List Events
 
   - `ManagedAgentsUserCustomToolResultEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -6942,8 +7054,6 @@ List Events
     - `string customToolUseID`
 
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -6963,6 +7073,8 @@ List Events
 
   - `ManagedAgentsAgentCustomToolUseEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -6979,13 +7091,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
   - `ManagedAgentsAgentMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -6999,9 +7111,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentThinkingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7011,9 +7123,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentMCPToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7035,17 +7147,21 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentMCPToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7059,8 +7175,6 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -7070,6 +7184,8 @@ List Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7087,17 +7203,21 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7111,8 +7231,6 @@ List Events
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -7122,6 +7240,8 @@ List Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentThreadMessageReceivedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7139,13 +7259,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string fromAgentName`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
   - `ManagedAgentsAgentThreadMessageSentEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7163,13 +7283,13 @@ List Events
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `Type type`
-
     - `?string toAgentName`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
   - `ManagedAgentsAgentThreadContextCompactedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7179,9 +7299,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionErrorEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7195,9 +7315,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusRescheduledEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7206,11 +7326,11 @@ List Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
   - `ManagedAgentsSessionStatusRunningEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -7219,9 +7339,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7235,9 +7355,9 @@ List Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7247,9 +7367,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadCreatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7267,9 +7387,9 @@ List Events
 
       Public `sthr_` ID of the newly created thread.
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7287,9 +7407,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7319,13 +7439,13 @@ List Events
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
-    - `Type type`
-
     - `ManagedAgentsSpanModelUsage usage`
 
       Token usage for a single model request.
 
   - `ManagedAgentsSpanModelRequestStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7335,9 +7455,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanModelRequestEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7359,9 +7479,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7379,9 +7499,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsUserDefineOutcomeEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7407,9 +7527,9 @@ List Events
 
       Rubric for grading the quality of an outcome.
 
-    - `Type type`
-
   - `ManagedAgentsSessionDeletedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7419,9 +7539,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusRunningEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7439,9 +7559,9 @@ List Events
 
       Public sthr_ ID of the thread that started running.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7463,9 +7583,9 @@ List Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7483,9 +7603,9 @@ List Events
 
       Public sthr_ ID of the thread that terminated.
 
-    - `Type type`
-
   - `BetaManagedAgentsUserToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7494,8 +7614,6 @@ List Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -7515,6 +7633,8 @@ List Events
 
   - `ManagedAgentsSessionThreadStatusRescheduledEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -7531,9 +7651,9 @@ List Events
 
       Public sthr_ ID of the thread that is retrying.
 
-    - `Type type`
-
   - `BetaManagedAgentsSessionUpdatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7542,8 +7662,6 @@ List Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `?BetaManagedAgentsSessionAgent agent`
 
@@ -7563,6 +7681,8 @@ List Events
 
   - `BetaManagedAgentsSystemMessageEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -7571,13 +7691,13 @@ List Events
 
       System content blocks. Text-only.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `BetaManagedAgentsSessionUsageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7586,8 +7706,6 @@ List Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
@@ -7617,6 +7735,7 @@ $page = $client->beta->sessions->events->list(
   page: 'page',
   types: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -7656,7 +7775,7 @@ var_dump($page);
 
 ### Send Events
 
-`$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas): ManagedAgentsSendSessionEvents`
+`$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsSendSessionEvents`
 
 **POST** `/v1/sessions/{session_id}/events`
 
@@ -7673,6 +7792,8 @@ Send Events
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
+
+- `workspaceID?:optional string`
 
 #### Returns
 
@@ -7700,6 +7821,7 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
     ],
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSendSessionEvents);
@@ -7727,7 +7849,7 @@ var_dump($betaManagedAgentsSendSessionEvents);
 
 ### Stream Events
 
-`$client->beta->sessions->events->stream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionEvents`
+`$client->beta->sessions->events->stream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsStreamSessionEvents`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 
@@ -7745,11 +7867,15 @@ Stream Events
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsStreamSessionEvents`
 
   - `ManagedAgentsUserMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7759,19 +7885,17 @@ Stream Events
 
       Array of content blocks comprising the user message.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsUserInterruptEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
-
-    - `Type type`
 
     - `?\Datetime processedAt`
 
@@ -7782,6 +7906,8 @@ Stream Events
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
   - `ManagedAgentsUserToolConfirmationEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7794,8 +7920,6 @@ Stream Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?string denyMessage`
 
@@ -7811,6 +7935,8 @@ Stream Events
 
   - `ManagedAgentsUserCustomToolResultEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -7818,8 +7944,6 @@ Stream Events
     - `string customToolUseID`
 
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -7839,6 +7963,8 @@ Stream Events
 
   - `ManagedAgentsAgentCustomToolUseEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -7855,13 +7981,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
   - `ManagedAgentsAgentMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7875,9 +8001,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentThinkingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7887,9 +8013,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentMCPToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7911,17 +8037,21 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentMCPToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7935,8 +8065,6 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -7946,6 +8074,8 @@ Stream Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7963,17 +8093,21 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -7987,8 +8121,6 @@ Stream Events
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -7998,6 +8130,8 @@ Stream Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentThreadMessageReceivedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8015,13 +8149,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string fromAgentName`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
   - `ManagedAgentsAgentThreadMessageSentEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8039,13 +8173,13 @@ Stream Events
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `Type type`
-
     - `?string toAgentName`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
   - `ManagedAgentsAgentThreadContextCompactedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8055,9 +8189,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionErrorEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8071,9 +8205,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusRescheduledEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8082,11 +8216,11 @@ Stream Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
   - `ManagedAgentsSessionStatusRunningEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -8095,9 +8229,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8111,9 +8245,9 @@ Stream Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8123,9 +8257,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadCreatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8143,9 +8277,9 @@ Stream Events
 
       Public `sthr_` ID of the newly created thread.
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8163,9 +8297,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8195,13 +8329,13 @@ Stream Events
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
-    - `Type type`
-
     - `ManagedAgentsSpanModelUsage usage`
 
       Token usage for a single model request.
 
   - `ManagedAgentsSpanModelRequestStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8211,9 +8345,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanModelRequestEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8235,9 +8369,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8255,9 +8389,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsUserDefineOutcomeEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8283,9 +8417,9 @@ Stream Events
 
       Rubric for grading the quality of an outcome.
 
-    - `Type type`
-
   - `ManagedAgentsSessionDeletedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8295,9 +8429,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusRunningEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8315,9 +8449,9 @@ Stream Events
 
       Public sthr_ ID of the thread that started running.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8339,9 +8473,9 @@ Stream Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8359,9 +8493,9 @@ Stream Events
 
       Public sthr_ ID of the thread that terminated.
 
-    - `Type type`
-
   - `BetaManagedAgentsUserToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8370,8 +8504,6 @@ Stream Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -8391,6 +8523,8 @@ Stream Events
 
   - `ManagedAgentsSessionThreadStatusRescheduledEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -8407,9 +8541,9 @@ Stream Events
 
       Public sthr_ ID of the thread that is retrying.
 
-    - `Type type`
-
   - `BetaManagedAgentsSessionUpdatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8418,8 +8552,6 @@ Stream Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `?BetaManagedAgentsSessionAgent agent`
 
@@ -8439,13 +8571,15 @@ Stream Events
 
   - `BetaManagedAgentsStartEvent`
 
+    - `Type type`
+
     - `BetaManagedAgentsStartEventPreview event`
 
       The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
 
-    - `Type type`
-
   - `BetaManagedAgentsDeltaEvent`
+
+    - `Type type`
 
     - `BetaManagedAgentsDeltaContent delta`
 
@@ -8455,9 +8589,9 @@ Stream Events
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
-    - `Type type`
-
   - `BetaManagedAgentsSystemMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8467,13 +8601,13 @@ Stream Events
 
       System content blocks. Text-only.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `BetaManagedAgentsSessionUsageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -8482,8 +8616,6 @@ Stream Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
@@ -8510,6 +8642,7 @@ $betaManagedAgentsStreamSessionEvents = $client
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsStreamSessionEvents);
@@ -8535,7 +8668,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
 ### Add Session Resource
 
-`$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas): ManagedAgentsFileResource`
+`$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsFileResource`
 
 **POST** `/v1/sessions/{session_id}/resources`
 
@@ -8559,9 +8692,13 @@ Add Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsFileResource`
+
+  - `Type type`
 
   - `string id`
 
@@ -8572,8 +8709,6 @@ Add Session Resource
   - `string fileID`
 
   - `string mountPath`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -8594,6 +8729,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
   type: 'file',
   mountPath: '/uploads/receipt.pdf',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsFileResource);
@@ -8614,7 +8750,7 @@ var_dump($betaManagedAgentsFileResource);
 
 ### List Session Resources
 
-`$client->beta->sessions->resources->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionResource>`
+`$client->beta->sessions->resources->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsSessionResource>`
 
 **GET** `/v1/sessions/{session_id}/resources`
 
@@ -8636,11 +8772,15 @@ List Session Resources
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsSessionResource`
 
   - `ManagedAgentsGitHubRepositoryResource`
+
+    - `Type type`
 
     - `string id`
 
@@ -8649,8 +8789,6 @@ List Session Resources
       A timestamp in RFC 3339 format
 
     - `string mountPath`
-
-    - `Type type`
 
     - `\Datetime updatedAt`
 
@@ -8662,6 +8800,8 @@ List Session Resources
 
   - `ManagedAgentsFileResource`
 
+    - `Type type`
+
     - `string id`
 
     - `\Datetime createdAt`
@@ -8672,19 +8812,17 @@ List Session Resources
 
     - `string mountPath`
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsMemoryStoreResource`
 
+    - `Type type`
+
     - `string memoryStoreID`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
 
     - `?Access access`
 
@@ -8720,6 +8858,7 @@ $page = $client->beta->sessions->resources->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -8757,7 +8896,7 @@ var_dump($page);
 
 ### Get Session Resource
 
-`$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ResourceGetResponse`
+`$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): ResourceGetResponse`
 
 **GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -8773,11 +8912,15 @@ Get Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ResourceGetResponse`
 
   - `ManagedAgentsGitHubRepositoryResource`
+
+    - `Type type`
 
     - `string id`
 
@@ -8786,8 +8929,6 @@ Get Session Resource
       A timestamp in RFC 3339 format
 
     - `string mountPath`
-
-    - `Type type`
 
     - `\Datetime updatedAt`
 
@@ -8799,6 +8940,8 @@ Get Session Resource
 
   - `ManagedAgentsFileResource`
 
+    - `Type type`
+
     - `string id`
 
     - `\Datetime createdAt`
@@ -8809,19 +8952,17 @@ Get Session Resource
 
     - `string mountPath`
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsMemoryStoreResource`
 
+    - `Type type`
+
     - `string memoryStoreID`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
 
     - `?Access access`
 
@@ -8856,6 +8997,7 @@ $resource = $client->beta->sessions->resources->retrieve(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($resource);
@@ -8880,7 +9022,7 @@ var_dump($resource);
 
 ### Update Session Resource
 
-`$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
+`$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas, ?string workspaceID): ResourceUpdateResponse`
 
 **POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -8900,11 +9042,15 @@ Update Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ResourceUpdateResponse`
 
   - `ManagedAgentsGitHubRepositoryResource`
+
+    - `Type type`
 
     - `string id`
 
@@ -8913,8 +9059,6 @@ Update Session Resource
       A timestamp in RFC 3339 format
 
     - `string mountPath`
-
-    - `Type type`
 
     - `\Datetime updatedAt`
 
@@ -8926,6 +9070,8 @@ Update Session Resource
 
   - `ManagedAgentsFileResource`
 
+    - `Type type`
+
     - `string id`
 
     - `\Datetime createdAt`
@@ -8936,19 +9082,17 @@ Update Session Resource
 
     - `string mountPath`
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsMemoryStoreResource`
 
+    - `Type type`
+
     - `string memoryStoreID`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
 
     - `?Access access`
 
@@ -8984,6 +9128,7 @@ $resource = $client->beta->sessions->resources->update(
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   authorizationToken: 'ghp_exampletoken',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($resource);
@@ -9008,7 +9153,7 @@ var_dump($resource);
 
 ### Delete Session Resource
 
-`$client->beta->sessions->resources->delete(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsDeleteSessionResource`
+`$client->beta->sessions->resources->delete(string resourceID, string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeleteSessionResource`
 
 **DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
@@ -9024,13 +9169,15 @@ Delete Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsDeleteSessionResource`
 
-  - `string id`
-
   - `Type type`
+
+  - `string id`
 
 #### Example
 
@@ -9049,6 +9196,7 @@ $betaManagedAgentsDeleteSessionResource = $client
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeleteSessionResource);
@@ -9067,7 +9215,7 @@ var_dump($betaManagedAgentsDeleteSessionResource);
 
 ### List Session Threads
 
-`$client->beta->sessions->threads->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionThread>`
+`$client->beta->sessions->threads->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsSessionThread>`
 
 **GET** `/v1/sessions/{session_id}/threads`
 
@@ -9089,9 +9237,13 @@ List Session Threads
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsSessionThread`
+
+  - `Type type`
 
   - `string id`
 
@@ -9125,8 +9277,6 @@ List Session Threads
 
     SessionThreadStatus enum
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -9149,6 +9299,7 @@ $page = $client->beta->sessions->threads->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -9250,7 +9401,7 @@ var_dump($page);
 
 ### Get Session Thread
 
-`$client->beta->sessions->threads->retrieve(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsSessionThread`
+`$client->beta->sessions->threads->retrieve(string threadID, string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsSessionThread`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
@@ -9266,9 +9417,13 @@ Get Session Thread
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsSessionThread`
+
+  - `Type type`
 
   - `string id`
 
@@ -9302,8 +9457,6 @@ Get Session Thread
 
     SessionThreadStatus enum
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -9325,6 +9478,7 @@ $betaManagedAgentsSessionThread = $client->beta->sessions->threads->retrieve(
   'sthr_011CZkZVWa6oIjw0rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSessionThread);
@@ -9421,7 +9575,7 @@ var_dump($betaManagedAgentsSessionThread);
 
 ### Archive Session Thread
 
-`$client->beta->sessions->threads->archive(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsSessionThread`
+`$client->beta->sessions->threads->archive(string threadID, string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsSessionThread`
 
 **POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 
@@ -9437,9 +9591,13 @@ Archive Session Thread
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsSessionThread`
+
+  - `Type type`
 
   - `string id`
 
@@ -9473,8 +9631,6 @@ Archive Session Thread
 
     SessionThreadStatus enum
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -9496,6 +9652,7 @@ $betaManagedAgentsSessionThread = $client->beta->sessions->threads->archive(
   'sthr_011CZkZVWa6oIjw0rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSessionThread);
@@ -9594,7 +9751,7 @@ var_dump($betaManagedAgentsSessionThread);
 
 ### List Session Thread Events
 
-`$client->beta->sessions->threads->events->list(string threadID, string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionEvent>`
+`$client->beta->sessions->threads->events->list(string threadID, string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsSessionEvent>`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
@@ -9618,11 +9775,15 @@ List Session Thread Events
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsSessionEvent`
 
   - `ManagedAgentsUserMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9632,19 +9793,17 @@ List Session Thread Events
 
       Array of content blocks comprising the user message.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsUserInterruptEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
-
-    - `Type type`
 
     - `?\Datetime processedAt`
 
@@ -9655,6 +9814,8 @@ List Session Thread Events
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
   - `ManagedAgentsUserToolConfirmationEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9667,8 +9828,6 @@ List Session Thread Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?string denyMessage`
 
@@ -9684,6 +9843,8 @@ List Session Thread Events
 
   - `ManagedAgentsUserCustomToolResultEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -9691,8 +9852,6 @@ List Session Thread Events
     - `string customToolUseID`
 
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -9712,6 +9871,8 @@ List Session Thread Events
 
   - `ManagedAgentsAgentCustomToolUseEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -9728,13 +9889,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
   - `ManagedAgentsAgentMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9748,9 +9909,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentThinkingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9760,9 +9921,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentMCPToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9784,17 +9945,21 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentMCPToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9808,8 +9973,6 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -9819,6 +9982,8 @@ List Session Thread Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9836,17 +10001,21 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9860,8 +10029,6 @@ List Session Thread Events
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -9871,6 +10038,8 @@ List Session Thread Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentThreadMessageReceivedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9888,13 +10057,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string fromAgentName`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
   - `ManagedAgentsAgentThreadMessageSentEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9912,13 +10081,13 @@ List Session Thread Events
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `Type type`
-
     - `?string toAgentName`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
   - `ManagedAgentsAgentThreadContextCompactedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9928,9 +10097,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionErrorEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9944,9 +10113,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusRescheduledEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9955,11 +10124,11 @@ List Session Thread Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
   - `ManagedAgentsSessionStatusRunningEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -9968,9 +10137,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9984,9 +10153,9 @@ List Session Thread Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -9996,9 +10165,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadCreatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10016,9 +10185,9 @@ List Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10036,9 +10205,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10068,13 +10237,13 @@ List Session Thread Events
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
-    - `Type type`
-
     - `ManagedAgentsSpanModelUsage usage`
 
       Token usage for a single model request.
 
   - `ManagedAgentsSpanModelRequestStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10084,9 +10253,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanModelRequestEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10108,9 +10277,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10128,9 +10297,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsUserDefineOutcomeEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10156,9 +10325,9 @@ List Session Thread Events
 
       Rubric for grading the quality of an outcome.
 
-    - `Type type`
-
   - `ManagedAgentsSessionDeletedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10168,9 +10337,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusRunningEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10188,9 +10357,9 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that started running.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10212,9 +10381,9 @@ List Session Thread Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10232,9 +10401,9 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that terminated.
 
-    - `Type type`
-
   - `BetaManagedAgentsUserToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10243,8 +10412,6 @@ List Session Thread Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -10264,6 +10431,8 @@ List Session Thread Events
 
   - `ManagedAgentsSessionThreadStatusRescheduledEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -10280,9 +10449,9 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that is retrying.
 
-    - `Type type`
-
   - `BetaManagedAgentsSessionUpdatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10291,8 +10460,6 @@ List Session Thread Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `?BetaManagedAgentsSessionAgent agent`
 
@@ -10312,6 +10479,8 @@ List Session Thread Events
 
   - `BetaManagedAgentsSystemMessageEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -10320,13 +10489,13 @@ List Session Thread Events
 
       System content blocks. Text-only.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `BetaManagedAgentsSessionUsageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10335,8 +10504,6 @@ List Session Thread Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
@@ -10361,6 +10528,7 @@ $page = $client->beta->sessions->threads->events->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -10389,7 +10557,7 @@ var_dump($page);
 
 ### Stream Session Thread Events
 
-`$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionThreadEvents`
+`$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsStreamSessionThreadEvents`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
@@ -10409,11 +10577,15 @@ Stream Session Thread Events
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsStreamSessionThreadEvents`
 
   - `ManagedAgentsUserMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10423,19 +10595,17 @@ Stream Session Thread Events
 
       Array of content blocks comprising the user message.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `ManagedAgentsUserInterruptEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
-
-    - `Type type`
 
     - `?\Datetime processedAt`
 
@@ -10446,6 +10616,8 @@ Stream Session Thread Events
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
   - `ManagedAgentsUserToolConfirmationEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10458,8 +10630,6 @@ Stream Session Thread Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?string denyMessage`
 
@@ -10475,6 +10645,8 @@ Stream Session Thread Events
 
   - `ManagedAgentsUserCustomToolResultEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -10482,8 +10654,6 @@ Stream Session Thread Events
     - `string customToolUseID`
 
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -10503,6 +10673,8 @@ Stream Session Thread Events
 
   - `ManagedAgentsAgentCustomToolUseEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -10519,13 +10691,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
   - `ManagedAgentsAgentMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10539,9 +10711,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentThinkingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10551,9 +10723,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsAgentMCPToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10575,17 +10747,21 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentMCPToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10599,8 +10775,6 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -10610,6 +10784,8 @@ Stream Session Thread Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentToolUseEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10627,17 +10803,21 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?EvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
+
+    - `?ManagedAgentsAgentToolEvaluation evaluation`
+
+      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
     - `?string sessionThreadID`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
   - `ManagedAgentsAgentToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10651,8 +10831,6 @@ Stream Session Thread Events
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `Type type`
-
     - `?list<Content> content`
 
       The result content returned by the tool.
@@ -10662,6 +10840,8 @@ Stream Session Thread Events
       Whether the tool execution resulted in an error.
 
   - `ManagedAgentsAgentThreadMessageReceivedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10679,13 +10859,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
     - `?string fromAgentName`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
   - `ManagedAgentsAgentThreadMessageSentEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10703,13 +10883,13 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the thread the message was sent to.
 
-    - `Type type`
-
     - `?string toAgentName`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
   - `ManagedAgentsAgentThreadContextCompactedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10719,9 +10899,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionErrorEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10735,9 +10915,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusRescheduledEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10746,11 +10926,11 @@ Stream Session Thread Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
   - `ManagedAgentsSessionStatusRunningEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -10759,9 +10939,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10775,9 +10955,9 @@ Stream Session Thread Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10787,9 +10967,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadCreatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10807,9 +10987,9 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10827,9 +11007,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10859,13 +11039,13 @@ Stream Session Thread Events
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
-    - `Type type`
-
     - `ManagedAgentsSpanModelUsage usage`
 
       Token usage for a single model request.
 
   - `ManagedAgentsSpanModelRequestStartEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10875,9 +11055,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanModelRequestEndEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10899,9 +11079,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10919,9 +11099,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsUserDefineOutcomeEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10947,9 +11127,9 @@ Stream Session Thread Events
 
       Rubric for grading the quality of an outcome.
 
-    - `Type type`
-
   - `ManagedAgentsSessionDeletedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10959,9 +11139,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusRunningEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -10979,9 +11159,9 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that started running.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusIdleEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -11003,9 +11183,9 @@ Stream Session Thread Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-    - `Type type`
-
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -11023,9 +11203,9 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that terminated.
 
-    - `Type type`
-
   - `BetaManagedAgentsUserToolResultEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -11034,8 +11214,6 @@ Stream Session Thread Events
     - `string toolUseID`
 
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
 
     - `?list<Content> content`
 
@@ -11055,6 +11233,8 @@ Stream Session Thread Events
 
   - `ManagedAgentsSessionThreadStatusRescheduledEvent`
 
+    - `Type type`
+
     - `string id`
 
       Unique identifier for this event.
@@ -11071,9 +11251,9 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that is retrying.
 
-    - `Type type`
-
   - `BetaManagedAgentsSessionUpdatedEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -11082,8 +11262,6 @@ Stream Session Thread Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `?BetaManagedAgentsSessionAgent agent`
 
@@ -11103,13 +11281,15 @@ Stream Session Thread Events
 
   - `BetaManagedAgentsStartEvent`
 
+    - `Type type`
+
     - `BetaManagedAgentsStartEventPreview event`
 
       The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
 
-    - `Type type`
-
   - `BetaManagedAgentsDeltaEvent`
+
+    - `Type type`
 
     - `BetaManagedAgentsDeltaContent delta`
 
@@ -11119,9 +11299,9 @@ Stream Session Thread Events
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
-    - `Type type`
-
   - `BetaManagedAgentsSystemMessageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -11131,13 +11311,13 @@ Stream Session Thread Events
 
       System content blocks. Text-only.
 
-    - `Type type`
-
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
 
   - `BetaManagedAgentsSessionUsageEvent`
+
+    - `Type type`
 
     - `string id`
 
@@ -11146,8 +11326,6 @@ Stream Session Thread Events
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
@@ -11176,6 +11354,7 @@ $betaManagedAgentsStreamSessionThreadEvents = $client
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsStreamSessionThreadEvents);
@@ -11201,7 +11380,7 @@ var_dump($betaManagedAgentsStreamSessionThreadEvents);
 
 ### Create Deployment
 
-`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments`
 
@@ -11253,9 +11432,13 @@ Create Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -11309,8 +11492,6 @@ Create Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -11362,6 +11543,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
   ],
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -11436,7 +11618,7 @@ var_dump($betaManagedAgentsDeployment);
 
 ### List Deployments
 
-`$client->beta->deployments->list(?string agentID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?BetaManagedAgentsDeploymentStatus status, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeployment>`
+`$client->beta->deployments->list(?string agentID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?BetaManagedAgentsDeploymentStatus status, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsDeployment>`
 
 **GET** `/v1/deployments`
 
@@ -11476,9 +11658,13 @@ List Deployments
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -11532,8 +11718,6 @@ List Deployments
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -11564,6 +11748,7 @@ $page = $client->beta->deployments->list(
   page: 'page',
   status: BetaManagedAgentsDeploymentStatus::ACTIVE,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -11643,7 +11828,7 @@ var_dump($page);
 
 ### Get Deployment
 
-`$client->beta->deployments->retrieve(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->retrieve(string deploymentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **GET** `/v1/deployments/{deployment_id}`
 
@@ -11657,9 +11842,13 @@ Get Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -11713,8 +11902,6 @@ Get Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -11739,6 +11926,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeployment = $client->beta->deployments->retrieve(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -11813,7 +12001,7 @@ var_dump($betaManagedAgentsDeployment);
 
 ### Update Deployment
 
-`$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}`
 
@@ -11867,9 +12055,13 @@ Update Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -11923,8 +12115,6 @@ Update Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -11977,6 +12167,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->update(
   ],
   vaultIDs: ['string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -12051,7 +12242,7 @@ var_dump($betaManagedAgentsDeployment);
 
 ### Archive Deployment
 
-`$client->beta->deployments->archive(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->archive(string deploymentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}/archive`
 
@@ -12065,9 +12256,13 @@ Archive Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -12121,8 +12316,6 @@ Archive Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -12147,6 +12340,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeployment = $client->beta->deployments->archive(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -12221,7 +12415,7 @@ var_dump($betaManagedAgentsDeployment);
 
 ### Run Deployment Now
 
-`$client->beta->deployments->run(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
+`$client->beta->deployments->run(string deploymentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeploymentRun`
 
 **POST** `/v1/deployments/{deployment_id}/run`
 
@@ -12235,9 +12429,13 @@ Run Deployment Now
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -12267,8 +12465,6 @@ Run Deployment Now
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 #### Example
 
 ```php
@@ -12281,6 +12477,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeploymentRun);
@@ -12313,7 +12510,7 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 ### Pause Deployment
 
-`$client->beta->deployments->pause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->pause(string deploymentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}/pause`
 
@@ -12327,9 +12524,13 @@ Pause Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -12383,8 +12584,6 @@ Pause Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -12409,6 +12608,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeployment = $client->beta->deployments->pause(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -12483,7 +12683,7 @@ var_dump($betaManagedAgentsDeployment);
 
 ### Unpause Deployment
 
-`$client->beta->deployments->unpause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->unpause(string deploymentID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeployment`
 
 **POST** `/v1/deployments/{deployment_id}/unpause`
 
@@ -12497,9 +12697,13 @@ Unpause Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeployment`
+
+  - `Type type`
 
   - `string id`
 
@@ -12553,8 +12757,6 @@ Unpause Deployment
 
     Lifecycle status of a deployment.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -12579,6 +12781,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeployment = $client->beta->deployments->unpause(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -12655,7 +12858,7 @@ var_dump($betaManagedAgentsDeployment);
 
 ### List Deployment Runs
 
-`$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
+`$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsDeploymentRun>`
 
 **GET** `/v1/deployment_runs`
 
@@ -12703,9 +12906,13 @@ List Deployment Runs
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -12735,8 +12942,6 @@ List Deployment Runs
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 #### Example
 
 ```php
@@ -12757,6 +12962,7 @@ $page = $client->beta->deploymentRuns->list(
   page: 'page',
   triggerType: BetaManagedAgentsTriggerType::SCHEDULE,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -12794,7 +13000,7 @@ var_dump($page);
 
 ### Get Deployment Run
 
-`$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
+`$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeploymentRun`
 
 **GET** `/v1/deployment_runs/{deployment_run_id}`
 
@@ -12808,9 +13014,13 @@ Get Deployment Run
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -12840,8 +13050,6 @@ Get Deployment Run
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 #### Example
 
 ```php
@@ -12852,7 +13060,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
-  'deployment_run_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'deployment_run_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeploymentRun);
@@ -12887,7 +13097,7 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 ### Create Vault
 
-`$client->beta->vaults->create(string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->create(string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults`
 
@@ -12907,9 +13117,13 @@ Create Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -12931,8 +13145,6 @@ Create Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -12950,6 +13162,7 @@ $betaManagedAgentsVault = $client->beta->vaults->create(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -12973,7 +13186,7 @@ var_dump($betaManagedAgentsVault);
 
 ### List Vaults
 
-`$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsVault>`
+`$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsVault>`
 
 **GET** `/v1/vaults`
 
@@ -12997,9 +13210,13 @@ List Vaults
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -13021,8 +13238,6 @@ List Vaults
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -13041,6 +13256,7 @@ $page = $client->beta->vaults->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -13069,7 +13285,7 @@ var_dump($page);
 
 ### Get Vault
 
-`$client->beta->vaults->retrieve(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->retrieve(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **GET** `/v1/vaults/{vault_id}`
 
@@ -13083,9 +13299,13 @@ Get Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -13107,8 +13327,6 @@ Get Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -13125,6 +13343,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->retrieve(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -13148,7 +13367,7 @@ var_dump($betaManagedAgentsVault);
 
 ### Update Vault
 
-`$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}`
 
@@ -13170,9 +13389,13 @@ Update Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -13194,8 +13417,6 @@ Update Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -13214,6 +13435,7 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -13237,7 +13459,7 @@ var_dump($betaManagedAgentsVault);
 
 ### Delete Vault
 
-`$client->beta->vaults->delete(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedVault`
+`$client->beta->vaults->delete(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeletedVault`
 
 **DELETE** `/v1/vaults/{vault_id}`
 
@@ -13251,15 +13473,17 @@ Delete Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeletedVault`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted vault.
-
-  - `Type type`
 
 #### Example
 
@@ -13273,6 +13497,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeletedVault = $client->beta->vaults->delete(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedVault);
@@ -13289,7 +13514,7 @@ var_dump($betaManagedAgentsDeletedVault);
 
 ### Archive Vault
 
-`$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
+`$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 
@@ -13303,9 +13528,13 @@ Archive Vault
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsVault`
+
+  - `Type type`
 
   - `string id`
 
@@ -13327,8 +13556,6 @@ Archive Vault
 
     Arbitrary key-value metadata attached to the vault.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -13345,6 +13572,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->archive(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsVault);
@@ -13370,7 +13598,7 @@ var_dump($betaManagedAgentsVault);
 
 ### Create Credential
 
-`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
@@ -13396,9 +13624,13 @@ Create Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -13419,8 +13651,6 @@ Create Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -13453,6 +13683,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -13481,7 +13712,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### List Credentials
 
-`$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsCredential>`
+`$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsCredential>`
 
 **GET** `/v1/vaults/{vault_id}/credentials`
 
@@ -13507,9 +13738,13 @@ List Credentials
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -13530,8 +13765,6 @@ List Credentials
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -13560,6 +13793,7 @@ $page = $client->beta->vaults->credentials->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -13593,7 +13827,7 @@ var_dump($page);
 
 ### Get Credential
 
-`$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -13609,9 +13843,13 @@ Get Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -13632,8 +13870,6 @@ Get Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -13660,6 +13896,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -13688,7 +13925,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### Update Credential
 
-`$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -13716,9 +13953,13 @@ Update Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -13739,8 +13980,6 @@ Update Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -13781,6 +14020,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -13809,7 +14049,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### Delete Credential
 
-`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsDeletedCredential`
+`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -13825,15 +14065,17 @@ Delete Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsDeletedCredential`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted credential.
-
-  - `Type type`
 
 #### Example
 
@@ -13852,6 +14094,7 @@ $betaManagedAgentsDeletedCredential = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedCredential);
@@ -13868,7 +14111,7 @@ var_dump($betaManagedAgentsDeletedCredential);
 
 ### Archive Credential
 
-`$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
+`$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
@@ -13884,9 +14127,13 @@ Archive Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredential`
+
+  - `Type type`
 
   - `string id`
 
@@ -13907,8 +14154,6 @@ Archive Credential
   - `array<string,string> metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -13935,6 +14180,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -13963,7 +14209,7 @@ var_dump($betaManagedAgentsCredential);
 
 ### Validate Credential
 
-`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredentialValidation`
+`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
@@ -13979,9 +14225,13 @@ Validate Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsCredentialValidation`
+
+  - `Type type`
 
   - `string credentialID`
 
@@ -14002,8 +14252,6 @@ Validate Credential
   - `ManagedAgentsCredentialValidationStatus status`
 
     Overall verdict of a credential validation probe.
-
-  - `Type type`
 
   - `\Datetime validatedAt`
 
@@ -14030,6 +14278,7 @@ $betaManagedAgentsCredentialValidation = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredentialValidation);
@@ -14070,7 +14319,7 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 ### Create a memory store
 
-`$client->beta->memoryStores->create(string name, ?string description, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
+`$client->beta->memoryStores->create(string name, ?string description, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores`
 
@@ -14094,9 +14343,13 @@ Create a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -14109,8 +14362,6 @@ Create a memory store
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -14142,6 +14393,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->create(
   description: 'description',
   metadata: ['foo' => 'string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryStore);
@@ -14166,7 +14418,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 ### List memory stores
 
-`$client->beta->memoryStores->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsMemoryStore>`
+`$client->beta->memoryStores->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsMemoryStore>`
 
 **GET** `/v1/memory_stores`
 
@@ -14198,9 +14450,13 @@ List memory stores
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -14213,8 +14469,6 @@ List memory stores
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -14248,6 +14502,7 @@ $page = $client->beta->memoryStores->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -14277,7 +14532,7 @@ var_dump($page);
 
 ### Retrieve a memory store
 
-`$client->beta->memoryStores->retrieve(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
+`$client->beta->memoryStores->retrieve(string memoryStoreID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsMemoryStore`
 
 **GET** `/v1/memory_stores/{memory_store_id}`
 
@@ -14291,9 +14546,13 @@ Retrieve a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -14306,8 +14565,6 @@ Retrieve a memory store
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -14335,7 +14592,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->retrieve(
-  'memory_store_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'memory_store_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryStore);
@@ -14360,7 +14619,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 ### Update a memory store
 
-`$client->beta->memoryStores->update(string memoryStoreID, ?string description, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
+`$client->beta->memoryStores->update(string memoryStoreID, ?string description, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores/{memory_store_id}`
 
@@ -14386,9 +14645,13 @@ Update a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -14401,8 +14664,6 @@ Update a memory store
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -14435,6 +14696,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->update(
   metadata: ['foo' => 'string'],
   name: 'x',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryStore);
@@ -14459,7 +14721,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 ### Delete a memory store
 
-`$client->beta->memoryStores->delete(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedMemoryStore`
+`$client->beta->memoryStores->delete(string memoryStoreID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeletedMemoryStore`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}`
 
@@ -14473,15 +14735,17 @@ Delete a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsDeletedMemoryStore`
 
+  - `Type type`
+
   - `string id`
 
     ID of the deleted memory store (a `memstore_...` identifier). The store and all its memories and versions are no longer retrievable.
-
-  - `Type type`
 
 #### Example
 
@@ -14493,7 +14757,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedMemoryStore = $client->beta->memoryStores->delete(
-  'memory_store_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'memory_store_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedMemoryStore);
@@ -14510,7 +14776,7 @@ var_dump($betaManagedAgentsDeletedMemoryStore);
 
 ### Archive a memory store
 
-`$client->beta->memoryStores->archive(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
+`$client->beta->memoryStores->archive(string memoryStoreID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores/{memory_store_id}/archive`
 
@@ -14524,9 +14790,13 @@ Archive a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -14539,8 +14809,6 @@ Archive a memory store
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -14568,7 +14836,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
-  'memory_store_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'memory_store_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryStore);
@@ -14595,7 +14865,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 ### Create a memory
 
-`$client->beta->memoryStores->memories->create(string memoryStoreID, ?string content, string path, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
+`$client->beta->memoryStores->memories->create(string memoryStoreID, ?string content, string path, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemory`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -14621,9 +14891,13 @@ Create a memory
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemory`
+
+  - `Type type`
 
   - `string id`
 
@@ -14653,8 +14927,6 @@ Create a memory
 
     Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -14678,6 +14950,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
   path: 'xx',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemory);
@@ -14702,7 +14975,7 @@ var_dump($betaManagedAgentsMemory);
 
 ### List memories
 
-`$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryListItem>`
+`$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsMemoryListItem>`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -14736,11 +15009,15 @@ List memories
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemoryListItem`
 
   - `ManagedAgentsMemory`
+
+    - `Type type`
 
     - `string id`
 
@@ -14770,8 +15047,6 @@ List memories
 
       Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-    - `Type type`
-
     - `\Datetime updatedAt`
 
       A timestamp in RFC 3339 format
@@ -14782,11 +15057,11 @@ List memories
 
   - `ManagedAgentsMemoryPrefix`
 
+    - `Type type`
+
     - `string path`
 
       The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-    - `Type type`
 
 #### Example
 
@@ -14805,6 +15080,7 @@ $page = $client->beta->memoryStores->memories->list(
   pathPrefix: 'path_prefix',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -14834,7 +15110,7 @@ var_dump($page);
 
 ### Retrieve a memory
 
-`$client->beta->memoryStores->memories->retrieve(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
+`$client->beta->memoryStores->memories->retrieve(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemory`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
@@ -14854,9 +15130,13 @@ Retrieve a memory
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemory`
+
+  - `Type type`
 
   - `string id`
 
@@ -14886,8 +15166,6 @@ Retrieve a memory
 
     Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -14910,6 +15188,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->retrieve(
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemory);
@@ -14934,7 +15213,7 @@ var_dump($betaManagedAgentsMemory);
 
 ### Update a memory
 
-`$client->beta->memoryStores->memories->update(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?string content, ?string path, ?ManagedAgentsPrecondition precondition, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
+`$client->beta->memoryStores->memories->update(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?string content, ?string path, ?ManagedAgentsPrecondition precondition, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemory`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
@@ -14966,9 +15245,13 @@ Update a memory
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemory`
+
+  - `Type type`
 
   - `string id`
 
@@ -14998,8 +15281,6 @@ Update a memory
 
     Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -15027,6 +15308,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
     'type' => 'content_sha256', 'contentSha256' => 'content_sha256'
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemory);
@@ -15051,7 +15333,7 @@ var_dump($betaManagedAgentsMemory);
 
 ### Delete a memory
 
-`$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas): ManagedAgentsDeletedMemory`
+`$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeletedMemory`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
@@ -15071,15 +15353,17 @@ Delete a memory
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsDeletedMemory`
 
+  - `Type type`
+
   - `string id`
 
     ID of the deleted memory (a `mem_...` value).
-
-  - `Type type`
 
 #### Example
 
@@ -15095,6 +15379,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
   memoryStoreID: 'memory_store_id',
   expectedContentSha256: 'expected_content_sha256',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedMemory);
@@ -15113,7 +15398,7 @@ var_dump($betaManagedAgentsDeletedMemory);
 
 ### List memory versions
 
-`$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryVersion>`
+`$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsMemoryVersion>`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
@@ -15167,9 +15452,13 @@ List memory versions
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemoryVersion`
+
+  - `Type type`
 
   - `string id`
 
@@ -15191,8 +15480,6 @@ List memory versions
 
     The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
 
-  - `Type type`
-
   - `?string content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -15207,7 +15494,7 @@ List memory versions
 
   - `?ManagedAgentsActor createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `?string path`
 
@@ -15219,7 +15506,7 @@ List memory versions
 
   - `?ManagedAgentsActor redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 #### Example
 
@@ -15243,6 +15530,7 @@ $page = $client->beta->memoryStores->memoryVersions->list(
   sessionID: 'session_id',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -15281,7 +15569,7 @@ var_dump($page);
 
 ### Retrieve a memory version
 
-`$client->beta->memoryStores->memoryVersions->retrieve(string memoryVersionID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
+`$client->beta->memoryStores->memoryVersions->retrieve(string memoryVersionID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemoryVersion`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
@@ -15301,9 +15589,13 @@ Retrieve a memory version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemoryVersion`
+
+  - `Type type`
 
   - `string id`
 
@@ -15325,8 +15617,6 @@ Retrieve a memory version
 
     The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
 
-  - `Type type`
-
   - `?string content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -15341,7 +15631,7 @@ Retrieve a memory version
 
   - `?ManagedAgentsActor createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `?string path`
 
@@ -15353,7 +15643,7 @@ Retrieve a memory version
 
   - `?ManagedAgentsActor redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 #### Example
 
@@ -15373,6 +15663,7 @@ $betaManagedAgentsMemoryVersion = $client
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryVersion);
@@ -15406,7 +15697,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Redact a memory version
 
-`$client->beta->memoryStores->memoryVersions->redact(string memoryVersionID, string memoryStoreID, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
+`$client->beta->memoryStores->memoryVersions->redact(string memoryVersionID, string memoryStoreID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemoryVersion`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 
@@ -15422,9 +15713,13 @@ Redact a memory version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `ManagedAgentsMemoryVersion`
+
+  - `Type type`
 
   - `string id`
 
@@ -15446,8 +15741,6 @@ Redact a memory version
 
     The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
 
-  - `Type type`
-
   - `?string content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -15462,7 +15755,7 @@ Redact a memory version
 
   - `?ManagedAgentsActor createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `?string path`
 
@@ -15474,7 +15767,7 @@ Redact a memory version
 
   - `?ManagedAgentsActor redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 #### Example
 
@@ -15493,6 +15786,7 @@ $betaManagedAgentsMemoryVersion = $client
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryVersion);
@@ -15528,7 +15822,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Upload File
 
-`$client->beta->files->upload(string file, ?int expiresInSeconds, ?list<AnthropicBeta> betas): BetaFileMetadata`
+`$client->beta->files->upload(string file, ?int expiresInSeconds, ?list<AnthropicBeta> betas, ?string workspaceID): BetaFileMetadata`
 
 **POST** `/v1/files`
 
@@ -15538,7 +15832,7 @@ Upload File
 
 - `file: string`
 
-  The file to upload
+  The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 
 - `expiresInSeconds?:optional int`
 
@@ -15548,9 +15842,17 @@ Upload File
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaFileMetadata`
+
+  - `"file" type`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `string id`
 
@@ -15573,12 +15875,6 @@ Upload File
   - `int sizeBytes`
 
     Size of the file in bytes.
-
-  - `"file" type`
-
-    Object type.
-
-    For files, this is always `"file"`.
 
   - `?bool downloadable`
 
@@ -15605,6 +15901,7 @@ $betaFileMetadata = $client->beta->files->upload(
   file: FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   expiresInSeconds: 3600,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaFileMetadata);
@@ -15631,7 +15928,7 @@ var_dump($betaFileMetadata);
 
 ### List Files
 
-`$client->beta->files->list(?list<string> ids, ?int limit, ?string page, ?string scopeID, ?list<AnthropicBeta> betas): PageCursor<BetaFileMetadata>`
+`$client->beta->files->list(?list<string> ids, ?int limit, ?string page, ?string scopeID, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaFileMetadata>`
 
 **GET** `/v1/files`
 
@@ -15663,9 +15960,17 @@ List Files
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaFileMetadata`
+
+  - `"file" type`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `string id`
 
@@ -15688,12 +15993,6 @@ List Files
   - `int sizeBytes`
 
     Size of the file in bytes.
-
-  - `"file" type`
-
-    Object type.
-
-    For files, this is always `"file"`.
 
   - `?bool downloadable`
 
@@ -15722,6 +16021,7 @@ $page = $client->beta->files->list(
   page: 'page',
   scopeID: 'scope_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -15753,7 +16053,7 @@ var_dump($page);
 
 ### Download File
 
-`$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas): download`
+`$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas, ?string workspaceID): download`
 
 **GET** `/v1/files/{file_id}/content`
 
@@ -15769,6 +16069,8 @@ Download File
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `mixed`
@@ -15783,7 +16085,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->files->download(
-  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'file_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($response);
@@ -15791,7 +16095,7 @@ var_dump($response);
 
 ### Get File Metadata
 
-`$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): BetaFileMetadata`
+`$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaFileMetadata`
 
 **GET** `/v1/files/{file_id}`
 
@@ -15807,9 +16111,17 @@ Get File Metadata
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaFileMetadata`
+
+  - `"file" type`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `string id`
 
@@ -15833,12 +16145,6 @@ Get File Metadata
 
     Size of the file in bytes.
 
-  - `"file" type`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `?bool downloadable`
 
     Whether the file can be downloaded.
@@ -15861,7 +16167,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaFileMetadata = $client->beta->files->retrieveMetadata(
-  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'file_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaFileMetadata);
@@ -15888,7 +16196,7 @@ var_dump($betaFileMetadata);
 
 ### Delete File
 
-`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
+`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDeletedFile`
 
 **DELETE** `/v1/files/{file_id}`
 
@@ -15904,19 +16212,21 @@ Delete File
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDeletedFile`
-
-  - `string id`
-
-    ID of the deleted file.
 
   - `?Type type`
 
     Deleted object type.
 
     For file deletion, this is always `"file_deleted"`.
+
+  - `string id`
+
+    ID of the deleted file.
 
 #### Example
 
@@ -15928,7 +16238,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedFile = $client->beta->files->delete(
-  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'file_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedFile);
@@ -15947,7 +16259,7 @@ var_dump($betaDeletedFile);
 
 ### Create Skill
 
-`$client->beta->skills->create(list<string> files, ?string displayName, ?list<AnthropicBeta> betas): BetaSkill`
+`$client->beta->skills->create(list<string> files, ?string displayName, ?list<AnthropicBeta> betas, ?string workspaceID): BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -15971,9 +16283,17 @@ Create Skill
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaSkill`
+
+  - `"skill" type`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
 
   - `string id`
 
@@ -16006,12 +16326,6 @@ Create Skill
     * `"anthropic_example"`: Anthropic-published sample Skill
     * `"plugin"`: resolved from an installed plugin
 
-  - `"skill" type`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
   - `\Datetime updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -16031,6 +16345,7 @@ $betaSkill = $client->beta->skills->create(
   ],
   displayName: 'display_name',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSkill);
@@ -16054,7 +16369,7 @@ var_dump($betaSkill);
 
 ### List Skills
 
-`$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas): PageCursor<BetaSkill>`
+`$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaSkill>`
 
 **GET** `/v1/skills`
 
@@ -16089,9 +16404,17 @@ List Skills
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaSkill`
+
+  - `"skill" type`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
 
   - `string id`
 
@@ -16124,12 +16447,6 @@ List Skills
     * `"anthropic_example"`: Anthropic-published sample Skill
     * `"plugin"`: resolved from an installed plugin
 
-  - `"skill" type`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
   - `\Datetime updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -16148,6 +16465,7 @@ $page = $client->beta->skills->list(
   page: 'page',
   source: 'source',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -16176,7 +16494,7 @@ var_dump($page);
 
 ### Get Skill
 
-`$client->beta->skills->retrieve(string skillID, ?list<AnthropicBeta> betas): BetaSkill`
+`$client->beta->skills->retrieve(string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -16194,9 +16512,17 @@ Get Skill
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaSkill`
+
+  - `"skill" type`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
 
   - `string id`
 
@@ -16229,12 +16555,6 @@ Get Skill
     * `"anthropic_example"`: Anthropic-published sample Skill
     * `"plugin"`: resolved from an installed plugin
 
-  - `"skill" type`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
   - `\Datetime updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -16249,7 +16569,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkill = $client->beta->skills->retrieve(
-  'skill_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSkill);
@@ -16273,7 +16595,7 @@ var_dump($betaSkill);
 
 ### Delete Skill
 
-`$client->beta->skills->delete(string skillID, ?list<AnthropicBeta> betas): BetaDeletedSkill`
+`$client->beta->skills->delete(string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDeletedSkill`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -16291,21 +16613,23 @@ Delete Skill
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDeletedSkill`
-
-  - `string id`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
 
   - `"skill_deleted" type`
 
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
+
+  - `string id`
+
+    Unique identifier for the skill.
+
+    The format and length of IDs may change over time.
 
 #### Example
 
@@ -16317,7 +16641,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedSkill = $client->beta->skills->delete(
-  'skill_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedSkill);
@@ -16336,7 +16662,7 @@ var_dump($betaDeletedSkill);
 
 ### Create Skill Version
 
-`$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas): SkillVersion`
+`$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -16360,9 +16686,17 @@ Create Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SkillVersion`
+
+  - `"skill_version" type`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
 
   - `string id`
 
@@ -16392,12 +16726,6 @@ Create Skill Version
 
     The format and length of IDs may change over time.
 
-  - `"skill_version" type`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
 #### Example
 
 ```php
@@ -16413,6 +16741,7 @@ $betaSkillVersion = $client->beta->skills->versions->create(
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSkillVersion);
@@ -16433,7 +16762,7 @@ var_dump($betaSkillVersion);
 
 ### List Skill Versions
 
-`$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<SkillVersion>`
+`$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<SkillVersion>`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -16463,9 +16792,17 @@ List Skill Versions
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SkillVersion`
+
+  - `"skill_version" type`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
 
   - `string id`
 
@@ -16495,12 +16832,6 @@ List Skill Versions
 
     The format and length of IDs may change over time.
 
-  - `"skill_version" type`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
 #### Example
 
 ```php
@@ -16515,6 +16846,7 @@ $page = $client->beta->skills->versions->list(
   limit: 1,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -16540,7 +16872,7 @@ var_dump($page);
 
 ### Download Skill Version Content
 
-`$client->beta->skills->versions->download(string version, string skillID, ?list<AnthropicBeta> betas): download`
+`$client->beta->skills->versions->download(string version, string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): download`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
@@ -16564,6 +16896,8 @@ Download a skill version's content as a zip archive.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `mixed`
@@ -16581,6 +16915,7 @@ $response = $client->beta->skills->versions->download(
   'version',
   skillID: 'skill_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($response);
@@ -16588,7 +16923,7 @@ var_dump($response);
 
 ### Get Skill Version
 
-`$client->beta->skills->versions->retrieve(string version, string skillID, ?list<AnthropicBeta> betas): SkillVersion`
+`$client->beta->skills->versions->retrieve(string version, string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -16612,9 +16947,17 @@ Get Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `SkillVersion`
+
+  - `"skill_version" type`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
 
   - `string id`
 
@@ -16644,12 +16987,6 @@ Get Skill Version
 
     The format and length of IDs may change over time.
 
-  - `"skill_version" type`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
 #### Example
 
 ```php
@@ -16663,6 +17000,7 @@ $betaSkillVersion = $client->beta->skills->versions->retrieve(
   'version',
   skillID: 'skill_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSkillVersion);
@@ -16683,7 +17021,7 @@ var_dump($betaSkillVersion);
 
 ### Delete Skill Version
 
-`$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): DeletedSkillVersion`
+`$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas, ?string workspaceID): DeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -16707,20 +17045,22 @@ Delete Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `DeletedSkillVersion`
-
-  - `string id`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
 
   - `"skill_version_deleted" type`
 
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+  - `string id`
+
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
 #### Example
 
@@ -16735,6 +17075,7 @@ $betaDeletedSkillVersion = $client->beta->skills->versions->delete(
   'version',
   skillID: 'skill_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDeletedSkillVersion);
@@ -16798,7 +17139,7 @@ var_dump($result);
 
 ### Create User Profile
 
-`$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
+`$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?BetaUserProfileExternalUserDetailsParams externalUserDetails, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
 
 **POST** `/v1/user_profiles`
 
@@ -16812,7 +17153,11 @@ Create User Profile
 
 - `externalID?:optional string`
 
-  Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+  Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
+
+- `externalUserDetails?:optional BetaUserProfileExternalUserDetailsParams`
+
+  Details about the entity this profile represents, as the platform states them. Every field is optional. Accepted under the `user-profiles-2026-09-04` beta header only.
 
 - `externalUserOnboardedAt?:optional \Datetime`
 
@@ -16834,6 +17179,10 @@ Create User Profile
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -16850,10 +17199,6 @@ Create User Profile
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -16864,7 +17209,11 @@ Create User Profile
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -16886,6 +17235,15 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaUserProfile = $client->beta->userProfiles->create(
   accessType: 'application',
   externalID: 'user_12345',
+  externalUserDetails: [
+    'accountStatus' => 'active',
+    'country' => 'country',
+    'emailHash' => 'x',
+    'entityType' => 'individual',
+    'nameHash' => 'x',
+    'onboardedAt' => new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+    'referenceID' => 'x',
+  ],
   externalUserOnboardedAt: new \DateTimeImmutable('2024-11-02T08:15:00Z'),
   metadata: [],
   name: 'x',
@@ -16911,6 +17269,15 @@ var_dump($betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -16950,6 +17317,10 @@ List User Profiles
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -16966,10 +17337,6 @@ List User Profiles
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -16980,7 +17347,11 @@ List User Profiles
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -17028,6 +17399,15 @@ var_dump($page);
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
+      "external_user_details": {
+        "account_status": "active",
+        "country": "country",
+        "email_hash": "email_hash",
+        "entity_type": "individual",
+        "name_hash": "name_hash",
+        "onboarded_at": "2019-12-27T18:11:19.117Z",
+        "reference_id": "reference_id"
+      },
       "external_user_onboarded_at": "2024-11-02T08:15:00Z",
       "name": "Example User"
     }
@@ -17056,6 +17436,10 @@ Get User Profile
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -17072,10 +17456,6 @@ Get User Profile
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -17086,7 +17466,11 @@ Get User Profile
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -17129,6 +17513,15 @@ var_dump($betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -17136,7 +17529,7 @@ var_dump($betaUserProfile);
 
 ### Update User Profile
 
-`$client->beta->userProfiles->update(string userProfileID, ?AccessType accessType, ?string externalID, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
+`$client->beta->userProfiles->update(string userProfileID, ?AccessType accessType, ?string externalID, ?BetaUserProfileExternalUserDetailsParams externalUserDetails, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaUserProfile`
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 
@@ -17152,7 +17545,11 @@ Update User Profile
 
 - `externalID?:optional string`
 
-  If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
+  If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
+
+- `externalUserDetails?:optional BetaUserProfileExternalUserDetailsParams`
+
+  Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Accepted under the `user-profiles-2026-09-04` beta header only.
 
 - `externalUserOnboardedAt?:optional \Datetime`
 
@@ -17174,6 +17571,10 @@ Update User Profile
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -17190,10 +17591,6 @@ Update User Profile
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -17204,7 +17601,11 @@ Update User Profile
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -17227,6 +17628,15 @@ $betaUserProfile = $client->beta->userProfiles->update(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
   accessType: 'application',
   externalID: 'user_12345',
+  externalUserDetails: [
+    'accountStatus' => 'active',
+    'country' => 'country',
+    'emailHash' => 'x',
+    'entityType' => 'individual',
+    'nameHash' => 'x',
+    'onboardedAt' => new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+    'referenceID' => 'x',
+  ],
   externalUserOnboardedAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
   metadata: ['foo' => 'string'],
   name: 'x',
@@ -17252,6 +17662,15 @@ var_dump($betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }
@@ -17277,13 +17696,13 @@ Create Enrollment URL
 
 - `BetaUserProfileEnrollmentURL`
 
-  - `\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
   - `Type type`
 
     Object type. Always `enrollment_url`.
+
+  - `\Datetime expiresAt`
+
+    A timestamp in RFC 3339 format
 
   - `string url`
 
@@ -17323,7 +17742,7 @@ var_dump($betaUserProfileEnrollmentURL);
 
 ### Create a Dream
 
-`$client->beta->dreams->create(list<BetaDreamInput> inputs, Model model, ?string instructions, ?BetaOutputBehavior outputBehavior, ?list<AnthropicBeta> betas): BetaDream`
+`$client->beta->dreams->create(list<BetaDreamInput> inputs, Model model, ?string instructions, ?BetaOutputBehavior outputBehavior, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDream`
 
 **POST** `/v1/dreams`
 
@@ -17347,9 +17766,13 @@ Create a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDream`
+
+  - `Type type`
 
   - `string id`
 
@@ -17389,8 +17812,6 @@ Create a Dream
 
     Lifecycle status of a Dream.
 
-  - `Type type`
-
   - `BetaDreamUsage usage`
 
     Cumulative token usage for the dream across every pipeline stage.
@@ -17410,6 +17831,7 @@ $betaDream = $client->beta->dreams->create(
   instructions: 'x',
   outputBehavior: ['type' => 'create_new'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDream);
@@ -17461,7 +17883,7 @@ var_dump($betaDream);
 
 ### List Dreams
 
-`$client->beta->dreams->list(?\Datetime createdAtGt, ?\Datetime createdAtLt, ?bool includeArchived, ?int limit, ?string page, ?list<BetaDreamStatus> statuses, ?list<AnthropicBeta> betas): PageCursor<BetaDream>`
+`$client->beta->dreams->list(?\Datetime createdAtGt, ?\Datetime createdAtLt, ?bool includeArchived, ?int limit, ?string page, ?list<BetaDreamStatus> statuses, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaDream>`
 
 **GET** `/v1/dreams`
 
@@ -17497,9 +17919,13 @@ List Dreams
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDream`
+
+  - `Type type`
 
   - `string id`
 
@@ -17539,8 +17965,6 @@ List Dreams
 
     Lifecycle status of a Dream.
 
-  - `Type type`
-
   - `BetaDreamUsage usage`
 
     Cumulative token usage for the dream across every pipeline stage.
@@ -17562,6 +17986,7 @@ $page = $client->beta->dreams->list(
   page: 'page',
   statuses: [BetaDreamStatus::PENDING],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -17618,7 +18043,7 @@ var_dump($page);
 
 ### Get a Dream
 
-`$client->beta->dreams->retrieve(string dreamID, ?list<AnthropicBeta> betas): BetaDream`
+`$client->beta->dreams->retrieve(string dreamID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDream`
 
 **GET** `/v1/dreams/{dream_id}`
 
@@ -17632,9 +18057,13 @@ Get a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDream`
+
+  - `Type type`
 
   - `string id`
 
@@ -17674,8 +18103,6 @@ Get a Dream
 
     Lifecycle status of a Dream.
 
-  - `Type type`
-
   - `BetaDreamUsage usage`
 
     Cumulative token usage for the dream across every pipeline stage.
@@ -17690,7 +18117,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDream = $client->beta->dreams->retrieve(
-  'dream_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'dream_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDream);
@@ -17742,7 +18171,7 @@ var_dump($betaDream);
 
 ### Cancel a Dream
 
-`$client->beta->dreams->cancel(string dreamID, ?list<AnthropicBeta> betas): BetaDream`
+`$client->beta->dreams->cancel(string dreamID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDream`
 
 **POST** `/v1/dreams/{dream_id}/cancel`
 
@@ -17756,9 +18185,13 @@ Cancel a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDream`
+
+  - `Type type`
 
   - `string id`
 
@@ -17798,8 +18231,6 @@ Cancel a Dream
 
     Lifecycle status of a Dream.
 
-  - `Type type`
-
   - `BetaDreamUsage usage`
 
     Cumulative token usage for the dream across every pipeline stage.
@@ -17814,7 +18245,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDream = $client->beta->dreams->cancel(
-  'dream_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'dream_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDream);
@@ -17866,7 +18299,7 @@ var_dump($betaDream);
 
 ### Archive a Dream
 
-`$client->beta->dreams->archive(string dreamID, ?list<AnthropicBeta> betas): BetaDream`
+`$client->beta->dreams->archive(string dreamID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaDream`
 
 **POST** `/v1/dreams/{dream_id}/archive`
 
@@ -17880,9 +18313,13 @@ Archive a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaDream`
+
+  - `Type type`
 
   - `string id`
 
@@ -17922,8 +18359,6 @@ Archive a Dream
 
     Lifecycle status of a Dream.
 
-  - `Type type`
-
   - `BetaDreamUsage usage`
 
     Cumulative token usage for the dream across every pipeline stage.
@@ -17938,7 +18373,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDream = $client->beta->dreams->archive(
-  'dream_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'dream_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaDream);
@@ -17992,7 +18429,7 @@ var_dump($betaDream);
 
 ### Create Tunnel
 
-`$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **POST** `/v1/tunnels`
 
@@ -18010,9 +18447,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -18034,8 +18475,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 #### Example
 
 ```php
@@ -18046,7 +18485,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->create(
-  displayName: 'x', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  displayName: 'x',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);
@@ -18067,7 +18508,7 @@ var_dump($betaTunnel);
 
 ### Get Tunnel
 
-`$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **GET** `/v1/tunnels/{tunnel_id}`
 
@@ -18083,9 +18524,13 @@ Fetches a tunnel by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -18107,8 +18552,6 @@ Fetches a tunnel by ID.
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 #### Example
 
 ```php
@@ -18119,7 +18562,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->retrieve(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);
@@ -18140,7 +18585,7 @@ var_dump($betaTunnel);
 
 ### List Tunnels
 
-`$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTunnel>`
+`$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaTunnel>`
 
 **GET** `/v1/tunnels`
 
@@ -18166,9 +18611,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -18190,8 +18639,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 #### Example
 
 ```php
@@ -18206,6 +18653,7 @@ $page = $client->beta->tunnels->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -18231,7 +18679,7 @@ var_dump($page);
 
 ### Archive Tunnel
 
-`$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **POST** `/v1/tunnels/{tunnel_id}/archive`
 
@@ -18247,9 +18695,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -18271,8 +18723,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 #### Example
 
 ```php
@@ -18283,7 +18733,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->archive(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);
@@ -18304,7 +18756,7 @@ var_dump($betaTunnel);
 
 ### Reveal Tunnel Token
 
-`$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnelToken`
+`$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
@@ -18320,9 +18772,13 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaTunnelToken`
+
+  - `"tunnel_token" type`
 
   - `string id`
 
@@ -18331,8 +18787,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `string tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `"tunnel_token" type`
 
 #### Example
 
@@ -18344,7 +18798,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnelToken = $client->beta->tunnels->revealToken(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelToken);
@@ -18362,7 +18818,7 @@ var_dump($betaTunnelToken);
 
 ### Rotate Tunnel Token
 
-`$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas): BetaTunnelToken`
+`$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnelToken`
 
 **POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
@@ -18382,9 +18838,13 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `BetaTunnelToken`
+
+  - `"tunnel_token" type`
 
   - `string id`
 
@@ -18393,8 +18853,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `string tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `"tunnel_token" type`
 
 #### Example
 
@@ -18409,6 +18867,7 @@ $betaTunnelToken = $client->beta->tunnels->rotateToken(
   'tunnel_id',
   reason: 'reason',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelToken);
@@ -18428,7 +18887,7 @@ var_dump($betaTunnelToken);
 
 ### Create Tunnel Certificate
 
-`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -18448,9 +18907,13 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -18476,8 +18939,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -18491,6 +18952,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
   'tunnel_id',
   caCertificatePEM: 'ca_certificate_pem',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -18512,7 +18974,7 @@ var_dump($betaTunnelCertificate);
 
 ### Get Tunnel Certificate
 
-`$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
@@ -18530,9 +18992,13 @@ Fetches a tunnel certificate by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -18558,8 +19024,6 @@ Fetches a tunnel certificate by ID.
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -18573,6 +19037,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -18594,7 +19059,7 @@ var_dump($betaTunnelCertificate);
 
 ### List Tunnel Certificates
 
-`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
+`$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<TunnelCertificate>`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -18622,9 +19087,13 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -18650,8 +19119,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -18667,6 +19134,7 @@ $page = $client->beta->tunnels->certificates->list(
   limit: 0,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -18693,7 +19161,7 @@ var_dump($page);
 
 ### Archive Tunnel Certificate
 
-`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
@@ -18711,9 +19179,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 #### Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -18739,8 +19211,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 #### Example
 
 ```php
@@ -18754,6 +19224,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);
@@ -18787,6 +19258,12 @@ Retrieve information about the organization associated with the authenticated AP
 
 - `BetaOrganization`
 
+  - `"organization" type`
+
+    Object type.
+
+    For Organizations, this is always `"organization"`.
+
   - `string id`
 
     ID of the Organization.
@@ -18794,12 +19271,6 @@ Retrieve information about the organization associated with the authenticated AP
   - `string name`
 
     Name of the Organization.
-
-  - `"organization" type`
-
-    Object type.
-
-    For Organizations, this is always `"organization"`.
 
 #### Example
 
@@ -18869,6 +19340,12 @@ List API Keys
 
 - `APIKey`
 
+  - `"api_key" type`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
   - `string id`
 
     ID of the API key.
@@ -18906,12 +19383,6 @@ List API Keys
   - `Status status`
 
     Status of the API key.
-
-  - `"api_key" type`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
 
   - `?string workspaceID`
 
@@ -18974,13 +19445,13 @@ var_dump($page);
 }
 ```
 
-### Get API Key
+### Retrieve API Key (Admin API)
 
 `$client->beta->organization->apiKeys->retrieve(string apiKeyID): APIKey`
 
 **GET** `/v1/organizations/api_keys/{api_key_id}`
 
-Get API Key
+Retrieve information about a single API key in your organization, looked up by its ID. This Admin API endpoint requires an Admin API key, is intended for programmatic key management, and never returns the key's secret value. To view or create your own API keys, go to [API keys](https://platform.claude.com/settings/keys) in the Claude Console.
 
 #### Parameters
 
@@ -18991,6 +19462,12 @@ Get API Key
 #### Returns
 
 - `APIKey`
+
+  - `"api_key" type`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
 
   - `string id`
 
@@ -19029,12 +19506,6 @@ Get API Key
   - `Status status`
 
     Status of the API key.
-
-  - `"api_key" type`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
 
   - `?string workspaceID`
 
@@ -19109,6 +19580,12 @@ Update API Key
 
 - `APIKey`
 
+  - `"api_key" type`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
   - `string id`
 
     ID of the API key.
@@ -19146,12 +19623,6 @@ Update API Key
   - `Status status`
 
     Status of the API key.
-
-  - `"api_key" type`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
 
   - `?string workspaceID`
 
@@ -19230,6 +19701,8 @@ Create an external key config owned by the caller's organization.
 
 - `ExternalKey`
 
+  - `"external_key" type`
+
   - `string id`
 
     Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
@@ -19251,8 +19724,6 @@ Create an external key config owned by the caller's organization.
   - `ProviderConfig providerConfig`
 
     KMS provider identity and auth coordinates.
-
-  - `"external_key" type`
 
   - `\Datetime updatedAt`
 
@@ -19328,6 +19799,8 @@ Results are ordered by creation time (newest first). Use the
 
 - `ExternalKey`
 
+  - `"external_key" type`
+
   - `string id`
 
     Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
@@ -19349,8 +19822,6 @@ Results are ordered by creation time (newest first). Use the
   - `ProviderConfig providerConfig`
 
     KMS provider identity and auth coordinates.
-
-  - `"external_key" type`
 
   - `\Datetime updatedAt`
 
@@ -19413,6 +19884,8 @@ Retrieve a single external key config in the caller's organization by ID.
 
 - `ExternalKey`
 
+  - `"external_key" type`
+
   - `string id`
 
     Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
@@ -19434,8 +19907,6 @@ Retrieve a single external key config in the caller's organization by ID.
   - `ProviderConfig providerConfig`
 
     KMS provider identity and auth coordinates.
-
-  - `"external_key" type`
 
   - `\Datetime updatedAt`
 
@@ -19511,6 +19982,8 @@ encrypted data requires the original key identity to decrypt.
 
 - `ExternalKey`
 
+  - `"external_key" type`
+
   - `string id`
 
     Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
@@ -19532,8 +20005,6 @@ encrypted data requires the original key identity to decrypt.
   - `ProviderConfig providerConfig`
 
     KMS provider identity and auth coordinates.
-
-  - `"external_key" type`
 
   - `\Datetime updatedAt`
 
@@ -19603,11 +20074,11 @@ The request is rejected if any workspace still references this config.
 
 - `ExternalKeyDeleteResponse`
 
+  - `"external_key_deleted" type`
+
   - `string id`
 
     ID of the deleted External Key.
-
-  - `"external_key_deleted" type`
 
 #### Example
 
@@ -19657,6 +20128,8 @@ message if it failed or timed out.
 
 - `ExternalKeyValidateResponse`
 
+  - `"external_key_validation" type`
+
   - `?string error`
 
     Error message when status is `failure`. Null otherwise.
@@ -19664,8 +20137,6 @@ message if it failed or timed out.
   - `Status status`
 
     `success` — encrypt/decrypt roundtrip succeeded. `failure` — the roundtrip failed or timed out; see `error`.
-
-  - `"external_key_validation" type`
 
 #### Example
 
@@ -19745,6 +20216,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
 - `BetaFederationIssuer`
 
+  - `"federation_issuer" type`
+
   - `string id`
 
     Tagged ID of the federation issuer.
@@ -19796,8 +20269,6 @@ matched as the JWT's `iss` claim and is not fetched.
     Anthropic periodically fetches the issuer's signing keys in the
     background. These fields summarize the most recent fetches so the
     health of the JWKS endpoint can be monitored.
-
-  - `"federation_issuer" type`
 
   - `\Datetime updatedAt`
 
@@ -19905,6 +20376,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
 - `BetaFederationIssuer`
 
+  - `"federation_issuer" type`
+
   - `string id`
 
     Tagged ID of the federation issuer.
@@ -19956,8 +20429,6 @@ Archived issuers are excluded unless `include_archived=true`.
     Anthropic periodically fetches the issuer's signing keys in the
     background. These fields summarize the most recent fetches so the
     health of the JWKS endpoint can be monitored.
-
-  - `"federation_issuer" type`
 
   - `\Datetime updatedAt`
 
@@ -20045,6 +20516,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
 - `BetaFederationIssuer`
 
+  - `"federation_issuer" type`
+
   - `string id`
 
     Tagged ID of the federation issuer.
@@ -20096,8 +20569,6 @@ Retrieve a federation issuer by its ID (`fdis_...`).
     Anthropic periodically fetches the issuer's signing keys in the
     background. These fields summarize the most recent fetches so the
     health of the JWKS endpoint can be monitored.
-
-  - `"federation_issuer" type`
 
   - `\Datetime updatedAt`
 
@@ -20213,6 +20684,8 @@ session.
 
 - `BetaFederationIssuer`
 
+  - `"federation_issuer" type`
+
   - `string id`
 
     Tagged ID of the federation issuer.
@@ -20264,8 +20737,6 @@ session.
     Anthropic periodically fetches the issuer's signing keys in the
     background. These fields summarize the most recent fetches so the
     health of the JWKS endpoint can be monitored.
-
-  - `"federation_issuer" type`
 
   - `\Datetime updatedAt`
 
@@ -20366,6 +20837,8 @@ issuer cannot be changed), or recreate them against another issuer.
 
 - `BetaFederationIssuer`
 
+  - `"federation_issuer" type`
+
   - `string id`
 
     Tagged ID of the federation issuer.
@@ -20417,8 +20890,6 @@ issuer cannot be changed), or recreate them against another issuer.
     Anthropic periodically fetches the issuer's signing keys in the
     background. These fields summarize the most recent fetches so the
     health of the JWKS endpoint can be monitored.
-
-  - `"federation_issuer" type`
 
   - `\Datetime updatedAt`
 
@@ -20555,6 +21026,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
 - `BetaFederationRule`
 
+  - `"federation_rule" type`
+
   - `string id`
 
     Tagged ID of the federation rule.
@@ -20614,8 +21087,6 @@ manage rules whose `oauth_scope` is `workspace:developer` or
   - `int tokenLifetimeSeconds`
 
     Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-
-  - `"federation_rule" type`
 
   - `\Datetime updatedAt`
 
@@ -20753,6 +21224,8 @@ unless `include_archived=true`.
 
 - `BetaFederationRule`
 
+  - `"federation_rule" type`
+
   - `string id`
 
     Tagged ID of the federation rule.
@@ -20812,8 +21285,6 @@ unless `include_archived=true`.
   - `int tokenLifetimeSeconds`
 
     Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-
-  - `"federation_rule" type`
 
   - `\Datetime updatedAt`
 
@@ -20922,6 +21393,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
 - `BetaFederationRule`
 
+  - `"federation_rule" type`
+
   - `string id`
 
     Tagged ID of the federation rule.
@@ -20981,8 +21454,6 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `int tokenLifetimeSeconds`
 
     Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-
-  - `"federation_rule" type`
 
   - `\Datetime updatedAt`
 
@@ -21138,6 +21609,8 @@ Console session.
 
 - `BetaFederationRule`
 
+  - `"federation_rule" type`
+
   - `string id`
 
     Tagged ID of the federation rule.
@@ -21197,8 +21670,6 @@ Console session.
   - `int tokenLifetimeSeconds`
 
     Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-
-  - `"federation_rule" type`
 
   - `\Datetime updatedAt`
 
@@ -21325,6 +21796,8 @@ other scopes require a Console session.
 
 - `BetaFederationRule`
 
+  - `"federation_rule" type`
+
   - `string id`
 
     Tagged ID of the federation rule.
@@ -21384,8 +21857,6 @@ other scopes require a Console session.
   - `int tokenLifetimeSeconds`
 
     Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
-
-  - `"federation_rule" type`
 
   - `\Datetime updatedAt`
 
@@ -21500,6 +21971,8 @@ other scopes require a Console session.
 
 - `BetaFederationRuleWorkspace`
 
+  - `"federation_rule_workspace" type`
+
   - `\Datetime createdAt`
 
     When this workspace was enabled for the rule.
@@ -21511,8 +21984,6 @@ other scopes require a Console session.
   - `string federationRuleID`
 
     Tagged ID of the federation rule.
-
-  - `"federation_rule_workspace" type`
 
   - `string workspaceID`
 
@@ -21599,6 +22070,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
 - `BetaFederationRuleWorkspace`
 
+  - `"federation_rule_workspace" type`
+
   - `\Datetime createdAt`
 
     When this workspace was enabled for the rule.
@@ -21610,8 +22083,6 @@ rules with `applies_to_all_workspaces` or a legacy single
   - `string federationRuleID`
 
     Tagged ID of the federation rule.
-
-  - `"federation_rule_workspace" type`
 
   - `string workspaceID`
 
@@ -21691,11 +22162,11 @@ Console session.
 
 - `WorkspaceRemoveResponse`
 
+  - `"federation_rule_workspace_deleted" type`
+
   - `string federationRuleID`
 
     Tagged ID of the federation rule.
-
-  - `"federation_rule_workspace_deleted" type`
 
   - `string workspaceID`
 
@@ -21761,6 +22232,12 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
 - `OrganizationInvite`
 
+  - `"invite" type`
+
+    Object type.
+
+    For Invites, this is always `"invite"`.
+
   - `string id`
 
     ID of the Invite.
@@ -21792,12 +22269,6 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
   - `Status status`
 
     Status of the Invite.
-
-  - `"invite" type`
-
-    Object type.
-
-    For Invites, this is always `"invite"`.
 
 #### Example
 
@@ -21877,6 +22348,12 @@ List the organization's invites.
 
 - `OrganizationInvite`
 
+  - `"invite" type`
+
+    Object type.
+
+    For Invites, this is always `"invite"`.
+
   - `string id`
 
     ID of the Invite.
@@ -21908,12 +22385,6 @@ List the organization's invites.
   - `Status status`
 
     Status of the Invite.
-
-  - `"invite" type`
-
-    Object type.
-
-    For Invites, this is always `"invite"`.
 
 #### Example
 
@@ -21979,6 +22450,12 @@ Retrieve an invite by ID.
 
 - `OrganizationInvite`
 
+  - `"invite" type`
+
+    Object type.
+
+    For Invites, this is always `"invite"`.
+
   - `string id`
 
     ID of the Invite.
@@ -22010,12 +22487,6 @@ Retrieve an invite by ID.
   - `Status status`
 
     Status of the Invite.
-
-  - `"invite" type`
-
-    Object type.
-
-    For Invites, this is always `"invite"`.
 
 #### Example
 
@@ -22069,15 +22540,15 @@ Delete a pending invite.
 
 - `InviteDeleteResponse`
 
-  - `string id`
-
-    ID of the Invite.
-
   - `"invite_deleted" type`
 
     Deleted object type.
 
     For Invites, this is always `"invite_deleted"`.
+
+  - `string id`
+
+    ID of the Invite.
 
 #### Example
 
@@ -22144,6 +22615,8 @@ accounts.
 
 - `ServiceAccount`
 
+  - `"service_account" type`
+
   - `string id`
 
     Tagged ID of the service account.
@@ -22175,8 +22648,6 @@ accounts.
   - `OrganizationRole organizationRole`
 
     Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
-
-  - `"service_account" type`
 
   - `\Datetime updatedAt`
 
@@ -22263,6 +22734,8 @@ archived service accounts.
 
 - `ServiceAccount`
 
+  - `"service_account" type`
+
   - `string id`
 
     Tagged ID of the service account.
@@ -22294,8 +22767,6 @@ archived service accounts.
   - `OrganizationRole organizationRole`
 
     Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
-
-  - `"service_account" type`
 
   - `\Datetime updatedAt`
 
@@ -22371,6 +22842,8 @@ Retrieve a service account by its ID (`svac_...`).
 
 - `ServiceAccount`
 
+  - `"service_account" type`
+
   - `string id`
 
     Tagged ID of the service account.
@@ -22402,8 +22875,6 @@ Retrieve a service account by its ID (`svac_...`).
   - `OrganizationRole organizationRole`
 
     Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
-
-  - `"service_account" type`
 
   - `\Datetime updatedAt`
 
@@ -22484,6 +22955,8 @@ interactive credential (a user OAuth token or a Console session).
 
 - `ServiceAccount`
 
+  - `"service_account" type`
+
   - `string id`
 
     Tagged ID of the service account.
@@ -22515,8 +22988,6 @@ interactive credential (a user OAuth token or a Console session).
   - `OrganizationRole organizationRole`
 
     Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
-
-  - `"service_account" type`
 
   - `\Datetime updatedAt`
 
@@ -22592,6 +23063,8 @@ those rules first or change their target to another service account.
 
 - `ServiceAccount`
 
+  - `"service_account" type`
+
   - `string id`
 
     Tagged ID of the service account.
@@ -22623,8 +23096,6 @@ those rules first or change their target to another service account.
   - `OrganizationRole organizationRole`
 
     Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
-
-  - `"service_account" type`
 
   - `\Datetime updatedAt`
 
@@ -22709,6 +23180,8 @@ rejected.
 
 - `ServiceAccountWorkspaceMember`
 
+  - `"service_account_workspace_member" type`
+
   - `?string createdByActorID`
 
     Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
@@ -22720,8 +23193,6 @@ rejected.
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`).
-
-  - `"service_account_workspace_member" type`
 
   - `string workspaceID`
 
@@ -22816,6 +23287,8 @@ page to recover.
 
 - `ServiceAccountWorkspaceMember`
 
+  - `"service_account_workspace_member" type`
+
   - `?string createdByActorID`
 
     Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
@@ -22827,8 +23300,6 @@ page to recover.
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`).
-
-  - `"service_account_workspace_member" type`
 
   - `string workspaceID`
 
@@ -22911,11 +23382,11 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
 - `WorkspaceRemoveResponse`
 
+  - `"service_account_workspace_member_deleted" type`
+
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
-
-  - `"service_account_workspace_member_deleted" type`
 
   - `string workspaceID`
 
@@ -22991,6 +23462,12 @@ List the organization's members.
 
 - `OrganizationUser`
 
+  - `"user" type`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
   - `string id`
 
     ID of the User.
@@ -23010,12 +23487,6 @@ List the organization's members.
   - `BetaOrganizationRole role`
 
     Organization role of the User.
-
-  - `"user" type`
-
-    Object type.
-
-    For Users, this is always `"user"`.
 
 #### Example
 
@@ -23075,6 +23546,12 @@ Retrieve a member of the organization by user ID.
 
 - `OrganizationUser`
 
+  - `"user" type`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
   - `string id`
 
     ID of the User.
@@ -23094,12 +23571,6 @@ Retrieve a member of the organization by user ID.
   - `BetaOrganizationRole role`
 
     Organization role of the User.
-
-  - `"user" type`
-
-    Object type.
-
-    For Users, this is always `"user"`.
 
 #### Example
 
@@ -23152,6 +23623,12 @@ Update a member's organization role.
 
 - `OrganizationUser`
 
+  - `"user" type`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
   - `string id`
 
     ID of the User.
@@ -23171,12 +23648,6 @@ Update a member's organization role.
   - `BetaOrganizationRole role`
 
     Organization role of the User.
-
-  - `"user" type`
-
-    Object type.
-
-    For Users, this is always `"user"`.
 
 #### Example
 
@@ -23225,15 +23696,15 @@ Remove a member from the organization.
 
 - `UserRemoveResponse`
 
-  - `string id`
-
-    ID of the User.
-
   - `"user_deleted" type`
 
     Deleted object type.
 
     For Users, this is always `"user_deleted"`.
+
+  - `string id`
+
+    ID of the User.
 
 #### Example
 
@@ -23296,6 +23767,12 @@ List Workspaces
 
 - `Workspace`
 
+  - `"workspace" type`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
   - `string id`
 
     ID of the Workspace.
@@ -23351,12 +23828,6 @@ List Workspaces
   - `array<string,string> tags`
 
     User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-  - `"workspace" type`
-
-    Object type.
-
-    For Workspaces, this is always `"workspace"`.
 
 #### Example
 
@@ -23453,6 +23924,12 @@ Create Workspace
 
 - `Workspace`
 
+  - `"workspace" type`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
   - `string id`
 
     ID of the Workspace.
@@ -23508,12 +23985,6 @@ Create Workspace
   - `array<string,string> tags`
 
     User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-  - `"workspace" type`
-
-    Object type.
-
-    For Workspaces, this is always `"workspace"`.
 
 #### Example
 
@@ -23582,6 +24053,12 @@ Get Workspace
 
 - `Workspace`
 
+  - `"workspace" type`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
   - `string id`
 
     ID of the Workspace.
@@ -23637,12 +24114,6 @@ Get Workspace
   - `array<string,string> tags`
 
     User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-  - `"workspace" type`
-
-    Object type.
-
-    For Workspaces, this is always `"workspace"`.
 
 #### Example
 
@@ -23730,6 +24201,12 @@ Update Workspace
 
 - `Workspace`
 
+  - `"workspace" type`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
   - `string id`
 
     ID of the Workspace.
@@ -23785,12 +24262,6 @@ Update Workspace
   - `array<string,string> tags`
 
     User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-  - `"workspace" type`
-
-    Object type.
-
-    For Workspaces, this is always `"workspace"`.
 
 #### Example
 
@@ -23855,6 +24326,12 @@ Archive Workspace
 
 - `Workspace`
 
+  - `"workspace" type`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
   - `string id`
 
     ID of the Workspace.
@@ -23910,12 +24387,6 @@ Archive Workspace
   - `array<string,string> tags`
 
     User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-  - `"workspace" type`
-
-    Object type.
-
-    For Workspaces, this is always `"workspace"`.
 
 #### Example
 
@@ -23999,6 +24470,10 @@ the remaining entries.
 
 - `BetaWorkspaceRateLimit`
 
+  - `"workspace_rate_limit" type`
+
+    Object type. Always `workspace_rate_limit` for workspace rate-limit entries.
+
   - `GroupType groupType`
 
     The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`.
@@ -24014,10 +24489,6 @@ the remaining entries.
   - `string rateLimitID`
 
     The `id` of the RateLimit group this override applies to.
-
-  - `"workspace_rate_limit" type`
-
-    Object type. Always `workspace_rate_limit` for workspace rate-limit entries.
 
   - `string workspaceID`
 
@@ -24474,6 +24945,8 @@ omitted from the results.
 
 - `ServiceAccountWorkspaceMember`
 
+  - `"service_account_workspace_member" type`
+
   - `?string createdByActorID`
 
     Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
@@ -24485,8 +24958,6 @@ omitted from the results.
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`).
-
-  - `"service_account_workspace_member" type`
 
   - `string workspaceID`
 
@@ -24574,6 +25045,8 @@ accounts cannot be added and are rejected.
 
 - `ServiceAccountWorkspaceMember`
 
+  - `"service_account_workspace_member" type`
+
   - `?string createdByActorID`
 
     Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
@@ -24585,8 +25058,6 @@ accounts cannot be added and are rejected.
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`).
-
-  - `"service_account_workspace_member" type`
 
   - `string workspaceID`
 
@@ -24668,6 +25139,8 @@ account returns 404.
 
 - `ServiceAccountWorkspaceMember`
 
+  - `"service_account_workspace_member" type`
+
   - `?string createdByActorID`
 
     Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
@@ -24679,8 +25152,6 @@ account returns 404.
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`).
-
-  - `"service_account_workspace_member" type`
 
   - `string workspaceID`
 
@@ -24765,6 +25236,8 @@ rejected.
 
 - `ServiceAccountWorkspaceMember`
 
+  - `"service_account_workspace_member" type`
+
   - `?string createdByActorID`
 
     Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
@@ -24776,8 +25249,6 @@ rejected.
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`).
-
-  - `"service_account_workspace_member" type`
 
   - `string workspaceID`
 
@@ -24858,11 +25329,11 @@ membership. Archived workspaces return 400.
 
 - `ServiceAccountRemoveResponse`
 
+  - `"service_account_workspace_member_deleted" type`
+
   - `string serviceAccountID`
 
     Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
-
-  - `"service_account_workspace_member_deleted" type`
 
   - `string workspaceID`
 
@@ -24943,6 +25414,10 @@ the remaining entries.
 
 - `OrganizationRateLimit`
 
+  - `"rate_limit" type`
+
+    Object type. Always `rate_limit` for organization rate-limit entries.
+
   - `string id`
 
     Stable identifier for this rate-limit group within the organization.
@@ -24958,10 +25433,6 @@ the remaining entries.
   - `?list<string> models`
 
     Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
-
-  - `"rate_limit" type`
-
-    Object type. Always `rate_limit` for organization rate-limit entries.
 
 #### Example
 
@@ -25022,11 +25493,11 @@ organization reads the state inherited from the parent's configuration.
 
 - `ComplianceSettings`
 
-  - `State state`
+  - `"compliance_settings" type`
+
+  - `ComplianceSettingsState state`
 
     Whether the Compliance API is enabled for this organization.
-
-  - `"compliance_settings" type`
 
 #### Example
 
@@ -25059,7 +25530,7 @@ var_dump($betaComplianceSettings);
 
 ### Update Compliance Settings
 
-`$client->beta->organization->complianceSettings->update(State state): ComplianceSettings`
+`$client->beta->organization->complianceSettings->update(ComplianceSettingsStateParam state): ComplianceSettings`
 
 **POST** `/v1/organizations/compliance_settings`
 
@@ -25080,7 +25551,7 @@ compliance settings.
 
 #### Parameters
 
-- `state: State`
+- `state: ComplianceSettingsStateParam`
 
   Desired state. Accepts the string shorthand "enabled" or "disabled" in place of the object form; the response always returns the canonical object form.
 
@@ -25088,11 +25559,11 @@ compliance settings.
 
 - `ComplianceSettings`
 
-  - `State state`
+  - `"compliance_settings" type`
+
+  - `ComplianceSettingsState state`
 
     Whether the Compliance API is enabled for this organization.
-
-  - `"compliance_settings" type`
 
 #### Example
 

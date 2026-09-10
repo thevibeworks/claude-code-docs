@@ -1,6 +1,11 @@
+---
+title: Create Skill Version
+url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/create
+---
+
 # Create Skill Version
 
-`$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas): SkillVersion`
+`$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas, ?string workspaceID): SkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -24,9 +29,17 @@ Create Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `SkillVersion`
+
+  - `"skill_version" type`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
 
   - `string id`
 
@@ -56,12 +69,6 @@ Create Skill Version
 
     The format and length of IDs may change over time.
 
-  - `"skill_version" type`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
 ## Example
 
 ```php
@@ -77,6 +84,7 @@ $betaSkillVersion = $client->beta->skills->versions->create(
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSkillVersion);

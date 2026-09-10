@@ -1,6 +1,11 @@
+---
+title: Get Queue Statistics
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/stats
+---
+
 # Get Queue Statistics
 
-`$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas): SelfHostedWorkQueueStats`
+`$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWorkQueueStats`
 
 **GET** `/v1/environments/{environment_id}/work/stats`
 
@@ -14,9 +19,15 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `SelfHostedWorkQueueStats`
+
+  - `"work_queue_stats" type`
+
+    The type of object
 
   - `int depth`
 
@@ -29,10 +40,6 @@ Get statistics about the work queue for an environment.
   - `int pending`
 
     Number of work items being processed (polled but not acknowledged)
-
-  - `"work_queue_stats" type`
-
-    The type of object
 
   - `?int workersPolling`
 
@@ -50,6 +57,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWorkQueueStats);

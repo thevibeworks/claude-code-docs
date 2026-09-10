@@ -1,3 +1,8 @@
+---
+title: Reveal Tunnel Token
+url: https://platform.claude.com/docs/en/api/python/beta/tunnels/reveal_token
+---
+
 # Reveal Tunnel Token
 
 `beta.tunnels.reveal_token(tunnel_id, **kwargs)  -> BetaTunnelToken`
@@ -18,7 +23,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -66,6 +71,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -108,11 +115,15 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaTunnelToken: …`
 
   A tunnel's connector token.
+
+  - `type: Literal["tunnel_token"]`
 
   - `id: str`
 
@@ -121,8 +132,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `tunnel_token: str`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `type: Literal["tunnel_token"]`
 
 ## Example
 

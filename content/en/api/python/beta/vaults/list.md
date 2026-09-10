@@ -1,3 +1,8 @@
+---
+title: List Vaults
+url: https://platform.claude.com/docs/en/api/python/beta/vaults/list
+---
+
 # List Vaults
 
 `beta.vaults.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsVault]`
@@ -28,7 +33,7 @@ List Vaults
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -76,6 +81,8 @@ List Vaults
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -118,11 +125,15 @@ List Vaults
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsVault: …`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: Literal["vault"]`
 
   - `id: str`
 
@@ -147,8 +158,6 @@ List Vaults
   - `metadata: Dict[str, str]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: Literal["vault"]`
 
   - `updated_at: datetime`
 

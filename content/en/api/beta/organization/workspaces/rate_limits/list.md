@@ -1,3 +1,8 @@
+---
+title: List Workspace Rate Limits
+url: https://platform.claude.com/docs/en/api/beta/organization/workspaces/rate_limits/list
+---
+
 # List Workspace Rate Limits
 
 **GET** `/v1/organizations/workspaces/{workspace_id}/rate_limits`
@@ -54,6 +59,12 @@ the remaining entries.
 
   Rate-limit entries for the workspace, one per group that has at least one override.
 
+  - `type: "workspace_rate_limit"`
+
+    Object type. Always `workspace_rate_limit` for workspace rate-limit entries.
+
+    default: workspace_rate_limit
+
   - `group_type: "batch" or "files" or "model_group" or 3 more`
 
     The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`.
@@ -74,13 +85,13 @@ the remaining entries.
 
     The limiter values overridden for this group in this workspace. Limiter types without a workspace override are omitted and inherit the organization value.
 
-    - `org_limit: number or null`
-
-      The organization-level value for the same limiter type, for reference. `null` when the organization has no limit configured for this limiter type.
-
     - `type: string`
 
       The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute`).
+
+    - `org_limit: number or null`
+
+      The organization-level value for the same limiter type, for reference. `null` when the organization has no limit configured for this limiter type.
 
     - `value: number`
 
@@ -93,12 +104,6 @@ the remaining entries.
   - `rate_limit_id: string`
 
     The `id` of the RateLimit group this override applies to.
-
-  - `type: "workspace_rate_limit"`
-
-    Object type. Always `workspace_rate_limit` for workspace rate-limit entries.
-
-    default: workspace_rate_limit
 
   - `workspace_id: string`
 

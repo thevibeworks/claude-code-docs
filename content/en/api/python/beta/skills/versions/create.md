@@ -1,3 +1,8 @@
+---
+title: Create Skill Version
+url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/create
+---
+
 # Create Skill Version
 
 `beta.skills.versions.create(skill_id, **kwargs)  -> BetaSkillVersion`
@@ -26,7 +31,7 @@ Create Skill Version
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -74,6 +79,8 @@ Create Skill Version
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -116,9 +123,19 @@ Create Skill Version
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaSkillVersion: …`
+
+  - `type: Literal["skill_version"]`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
+
+    default: skill_version
 
   - `id: str`
 
@@ -149,14 +166,6 @@ Create Skill Version
     Unique identifier for the skill.
 
     The format and length of IDs may change over time.
-
-  - `type: Literal["skill_version"]`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-    default: skill_version
 
 ## Example
 

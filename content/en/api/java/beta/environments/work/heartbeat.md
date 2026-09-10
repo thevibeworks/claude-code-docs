@@ -1,3 +1,8 @@
+---
+title: Record Heartbeat
+url: https://platform.claude.com/docs/en/api/java/beta/environments/work/heartbeat
+---
+
 # Record Heartbeat
 
 `BetaSelfHostedWorkHeartbeatResponse beta().environments().work().heartbeat(params, requestOptions = RequestOptions.none())`
@@ -74,6 +79,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -122,6 +129,10 @@ Record a heartbeat for a work item to maintain the lease.
 
   Response after recording a heartbeat for a work item.
 
+  - `JsonValue type = "work_heartbeat"`
+
+    The type of response
+
   - `String lastHeartbeat`
 
     RFC 3339 timestamp of the actual heartbeat from DB
@@ -147,10 +158,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `long ttlSeconds`
 
     Effective TTL applied to the lease
-
-  - `JsonValue type = "work_heartbeat"`
-
-    The type of response
 
 ## Example
 

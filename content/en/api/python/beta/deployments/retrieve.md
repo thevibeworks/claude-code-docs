@@ -1,3 +1,8 @@
+---
+title: Get Deployment
+url: https://platform.claude.com/docs/en/api/python/beta/deployments/retrieve
+---
+
 # Get Deployment
 
 `beta.deployments.retrieve(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
@@ -16,7 +21,7 @@ Get Deployment
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,6 +69,8 @@ Get Deployment
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -106,11 +113,15 @@ Get Deployment
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsDeployment: …`
 
   A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
+
+  - `type: Literal["deployment"]`
 
   - `id: str`
 
@@ -120,9 +131,9 @@ Get Deployment
 
     A resolved agent reference with a concrete version.
 
-    - `id: str`
-
     - `type: Literal["agent"]`
+
+    - `id: str`
 
     - `version: int`
 
@@ -156,6 +167,8 @@ Get Deployment
 
       A user message sent to the session.
 
+      - `type: Literal["user.message"]`
+
       - `content: List[Content]`
 
         Array of content blocks for the user message.
@@ -164,17 +177,19 @@ Get Deployment
 
           Regular text content.
 
+          - `type: Literal["text"]`
+
           - `text: str`
 
             The text content.
 
             minLength: 1
 
-          - `type: Literal["text"]`
-
         - `class BetaManagedAgentsImageBlock: …`
 
           Image content specified directly as base64 data or as a reference via a URL.
+
+          - `type: Literal["image"]`
 
           - `source: Source`
 
@@ -183,6 +198,8 @@ Get Deployment
             - `class BetaManagedAgentsBase64ImageSource: …`
 
               Base64-encoded image data.
+
+              - `type: Literal["base64"]`
 
               - `data: str`
 
@@ -195,8 +212,6 @@ Get Deployment
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
                 minLength: 1
-
-              - `type: Literal["base64"]`
 
             - `class BetaManagedAgentsURLImageSource: …`
 
@@ -214,19 +229,19 @@ Get Deployment
 
               Image referenced by file ID.
 
+              - `type: Literal["file"]`
+
               - `file_id: str`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
 
-              - `type: Literal["file"]`
-
-          - `type: Literal["image"]`
-
         - `class BetaManagedAgentsDocumentBlock: …`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+          - `type: Literal["document"]`
 
           - `source: Source`
 
@@ -235,6 +250,8 @@ Get Deployment
             - `class BetaManagedAgentsBase64DocumentSource: …`
 
               Base64-encoded document data.
+
+              - `type: Literal["base64"]`
 
               - `data: str`
 
@@ -248,11 +265,11 @@ Get Deployment
 
                 minLength: 1
 
-              - `type: Literal["base64"]`
-
             - `class BetaManagedAgentsPlainTextDocumentSource: …`
 
               Plain text document content.
+
+              - `type: Literal["text"]`
 
               - `data: str`
 
@@ -263,8 +280,6 @@ Get Deployment
               - `media_type: Literal["text/plain"]`
 
                 MIME type of the text content. Must be "text/plain".
-
-              - `type: Literal["text"]`
 
             - `class BetaManagedAgentsURLDocumentSource: …`
 
@@ -282,15 +297,13 @@ Get Deployment
 
               Document referenced by file ID.
 
+              - `type: Literal["file"]`
+
               - `file_id: str`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
-
-              - `type: Literal["file"]`
-
-          - `type: Literal["document"]`
 
           - `context: Optional[str]`
 
@@ -306,11 +319,11 @@ Get Deployment
 
           - `type: Literal["redacted"]`
 
-      - `type: Literal["user.message"]`
-
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent: …`
 
       An outcome the agent should work toward. The agent begins work on receipt.
+
+      - `type: Literal["user.define_outcome"]`
 
       - `description: str`
 
@@ -324,23 +337,21 @@ Get Deployment
 
           Rubric referenced by a file uploaded via the Files API.
 
+          - `type: Literal["file"]`
+
           - `file_id: str`
 
             ID of the rubric file.
-
-          - `type: Literal["file"]`
 
         - `class BetaManagedAgentsTextRubric: …`
 
           Rubric content provided inline as text.
 
+          - `type: Literal["text"]`
+
           - `content: str`
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-          - `type: Literal["text"]`
-
-      - `type: Literal["user.define_outcome"]`
 
       - `max_iterations: Optional[int]`
 
@@ -352,19 +363,19 @@ Get Deployment
 
       Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
 
+      - `type: Literal["system.message"]`
+
       - `content: List[BetaManagedAgentsSystemContentBlock]`
 
         System content blocks to append. Text-only.
+
+        - `type: Literal["text"]`
 
         - `text: str`
 
           The text content.
 
           minLength: 1
-
-        - `type: Literal["text"]`
-
-      - `type: Literal["system.message"]`
 
   - `metadata: Dict[str, str]`
 
@@ -387,6 +398,8 @@ Get Deployment
     - `class BetaManagedAgentsErrorDeploymentPausedReason: …`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
+
+      - `type: Literal["error"]`
 
       - `error: BetaManagedAgentsDeploymentPausedReasonError`
 
@@ -476,8 +489,6 @@ Get Deployment
 
           - `type: Literal["mcp_egress_blocked_error"]`
 
-      - `type: Literal["error"]`
-
   - `resources: List[BetaManagedAgentsSessionResourceConfig]`
 
     Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
@@ -498,23 +509,23 @@ Get Deployment
 
         - `class BetaManagedAgentsBranchCheckout: …`
 
+          - `type: Literal["branch"]`
+
           - `name: str`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `type: Literal["branch"]`
-
         - `class BetaManagedAgentsCommitCheckout: …`
+
+          - `type: Literal["commit"]`
 
           - `sha: str`
 
             Full commit SHA to check out.
 
             minLength: 7, maxLength: 64
-
-          - `type: Literal["commit"]`
 
       - `mount_path: Optional[str]`
 
@@ -524,11 +535,11 @@ Get Deployment
 
       A file mounted into each session's container.
 
+      - `type: Literal["file"]`
+
       - `file_id: str`
 
         ID of a previously uploaded file.
-
-      - `type: Literal["file"]`
 
       - `mount_path: Optional[str]`
 
@@ -538,11 +549,11 @@ Get Deployment
 
       A memory store attached to each session created from this deployment.
 
+      - `type: Literal["memory_store"]`
+
       - `memory_store_id: str`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `type: Literal["memory_store"]`
 
       - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -560,6 +571,8 @@ Get Deployment
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
+    - `type: Literal["cron"]`
+
     - `expression: str`
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
@@ -571,8 +584,6 @@ Get Deployment
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
       minLength: 1
-
-    - `type: Literal["cron"]`
 
     - `last_run_at: Optional[datetime]`
 
@@ -592,8 +603,6 @@ Get Deployment
 
     - `"paused"`
 
-  - `type: Literal["deployment"]`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
@@ -608,6 +617,8 @@ Get Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `type: Literal["limit"]`
+
     - `max_list_cost: BetaMonetaryAmount`
 
       A monetary amount in a specific currency.
@@ -619,8 +630,6 @@ Get Deployment
       - `currency: BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `type: Literal["limit"]`
 
 ## Example
 

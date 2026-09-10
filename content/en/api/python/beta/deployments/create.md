@@ -1,3 +1,8 @@
+---
+title: Create Deployment
+url: https://platform.claude.com/docs/en/api/python/beta/deployments/create
+---
+
 # Create Deployment
 
 `beta.deployments.create(**kwargs)  -> BetaManagedAgentsDeployment`
@@ -18,13 +23,13 @@ Create Deployment
 
     Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
+    - `type: Literal["agent"]`
+
     - `id: str`
 
       The `agent` ID.
 
       minLength: 1, maxLength: 128
-
-    - `type: Literal["agent"]`
 
     - `version: Optional[int]`
 
@@ -46,6 +51,8 @@ Create Deployment
 
     Parameters for sending a user message to the session.
 
+    - `type: Literal["user.message"]`
+
     - `content: Iterable[Content]`
 
       Array of content blocks for the user message.
@@ -54,17 +61,19 @@ Create Deployment
 
         Regular text content.
 
+        - `type: Literal["text"]`
+
         - `text: str`
 
           The text content.
 
           minLength: 1
 
-        - `type: Literal["text"]`
-
       - `class BetaManagedAgentsImageBlock: …`
 
         Image content specified directly as base64 data or as a reference via a URL.
+
+        - `type: Literal["image"]`
 
         - `source: Source`
 
@@ -73,6 +82,8 @@ Create Deployment
           - `class BetaManagedAgentsBase64ImageSource: …`
 
             Base64-encoded image data.
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -85,8 +96,6 @@ Create Deployment
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
               minLength: 1
-
-            - `type: Literal["base64"]`
 
           - `class BetaManagedAgentsURLImageSource: …`
 
@@ -104,19 +113,19 @@ Create Deployment
 
             Image referenced by file ID.
 
+            - `type: Literal["file"]`
+
             - `file_id: str`
 
               ID of a previously uploaded file.
 
               minLength: 1
 
-            - `type: Literal["file"]`
-
-        - `type: Literal["image"]`
-
       - `class BetaManagedAgentsDocumentBlock: …`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+        - `type: Literal["document"]`
 
         - `source: Source`
 
@@ -125,6 +134,8 @@ Create Deployment
           - `class BetaManagedAgentsBase64DocumentSource: …`
 
             Base64-encoded document data.
+
+            - `type: Literal["base64"]`
 
             - `data: str`
 
@@ -138,11 +149,11 @@ Create Deployment
 
               minLength: 1
 
-            - `type: Literal["base64"]`
-
           - `class BetaManagedAgentsPlainTextDocumentSource: …`
 
             Plain text document content.
+
+            - `type: Literal["text"]`
 
             - `data: str`
 
@@ -153,8 +164,6 @@ Create Deployment
             - `media_type: Literal["text/plain"]`
 
               MIME type of the text content. Must be "text/plain".
-
-            - `type: Literal["text"]`
 
           - `class BetaManagedAgentsURLDocumentSource: …`
 
@@ -172,15 +181,13 @@ Create Deployment
 
             Document referenced by file ID.
 
+            - `type: Literal["file"]`
+
             - `file_id: str`
 
               ID of a previously uploaded file.
 
               minLength: 1
-
-            - `type: Literal["file"]`
-
-        - `type: Literal["document"]`
 
         - `context: Optional[str]`
 
@@ -196,11 +203,11 @@ Create Deployment
 
         - `type: Literal["redacted"]`
 
-    - `type: Literal["user.message"]`
-
   - `class BetaManagedAgentsUserDefineOutcomeEventParams: …`
 
     Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
+
+    - `type: Literal["user.define_outcome"]`
 
     - `description: str`
 
@@ -214,25 +221,23 @@ Create Deployment
 
         Rubric referenced by a file uploaded via the Files API.
 
+        - `type: Literal["file"]`
+
         - `file_id: str`
 
           ID of the rubric file.
 
-        - `type: Literal["file"]`
-
       - `class BetaManagedAgentsTextRubricParams: …`
 
         Rubric content provided inline as text.
+
+        - `type: Literal["text"]`
 
         - `content: str`
 
           Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
           maxLength: 262144
-
-        - `type: Literal["text"]`
-
-    - `type: Literal["user.define_outcome"]`
 
     - `max_iterations: Optional[int]`
 
@@ -244,19 +249,19 @@ Create Deployment
 
     Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. At most one per request: it must be the final event and immediately follow the `user.message`, `user.tool_result`, or `user.custom_tool_result` it accompanies. Only supported on models that accept mid-conversation system messages.
 
+    - `type: Literal["system.message"]`
+
     - `content: List[BetaManagedAgentsSystemContentBlock]`
 
       System content blocks to append. Text-only.
+
+      - `type: Literal["text"]`
 
       - `text: str`
 
         The text content.
 
         minLength: 1
-
-      - `type: Literal["text"]`
-
-    - `type: Literal["system.message"]`
 
 - `name: str`
 
@@ -267,6 +272,8 @@ Create Deployment
 - `budget: Optional[BetaManagedAgentsBudgetLimitParam]`
 
   A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+  - `type: Literal["limit"]`
 
   - `max_list_cost: BetaMonetaryAmount`
 
@@ -279,8 +286,6 @@ Create Deployment
     - `currency: BetaCurrency`
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-  - `type: Literal["limit"]`
 
 - `description: Optional[str]`
 
@@ -300,12 +305,6 @@ Create Deployment
 
     Mount a GitHub repository into the session's container.
 
-    - `authorization_token: str`
-
-      GitHub authorization token used to clone the repository.
-
-      minLength: 1, maxLength: 4096
-
     - `type: Literal["github_repository"]`
 
     - `url: str`
@@ -314,11 +313,19 @@ Create Deployment
 
       minLength: 1, maxLength: 2048
 
+    - `authorization_token: Optional[str]`
+
+      GitHub authorization token used to clone the repository. Required for private repositories; optional for public ones.
+
+      minLength: 1, maxLength: 4096
+
     - `checkout: Optional[Checkout]`
 
       Branch or commit to check out. Defaults to the repository's default branch.
 
       - `class BetaManagedAgentsBranchCheckout: …`
+
+        - `type: Literal["branch"]`
 
         - `name: str`
 
@@ -326,17 +333,15 @@ Create Deployment
 
           minLength: 1, maxLength: 255
 
-        - `type: Literal["branch"]`
-
       - `class BetaManagedAgentsCommitCheckout: …`
+
+        - `type: Literal["commit"]`
 
         - `sha: str`
 
           Full commit SHA to check out.
 
           minLength: 7, maxLength: 64
-
-        - `type: Literal["commit"]`
 
     - `mount_path: Optional[str]`
 
@@ -348,13 +353,13 @@ Create Deployment
 
     Mount a file uploaded via the Files API into the session.
 
+    - `type: Literal["file"]`
+
     - `file_id: str`
 
       ID of a previously uploaded file.
 
       minLength: 1, maxLength: 128
-
-    - `type: Literal["file"]`
 
     - `mount_path: Optional[str]`
 
@@ -366,11 +371,11 @@ Create Deployment
 
     Parameters for attaching a memory store to an agent session.
 
+    - `type: Literal["memory_store"]`
+
     - `memory_store_id: str`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `type: Literal["memory_store"]`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -390,6 +395,8 @@ Create Deployment
 
   5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
 
+  - `type: Literal["cron"]`
+
   - `expression: str`
 
     5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
@@ -402,8 +409,6 @@ Create Deployment
 
     minLength: 1
 
-  - `type: Literal["cron"]`
-
 - `vault_ids: Optional[Sequence[str]]`
 
   Vault IDs for stored credentials the agent can use during sessions created from this deployment. Maximum 50.
@@ -414,7 +419,7 @@ Create Deployment
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -462,6 +467,8 @@ Create Deployment
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -504,11 +511,15 @@ Create Deployment
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsDeployment: …`
 
   A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
+
+  - `type: Literal["deployment"]`
 
   - `id: str`
 
@@ -518,9 +529,9 @@ Create Deployment
 
     A resolved agent reference with a concrete version.
 
-    - `id: str`
-
     - `type: Literal["agent"]`
+
+    - `id: str`
 
     - `version: int`
 
@@ -554,6 +565,8 @@ Create Deployment
 
       A user message sent to the session.
 
+      - `type: Literal["user.message"]`
+
       - `content: List[Content]`
 
         Array of content blocks for the user message.
@@ -562,17 +575,19 @@ Create Deployment
 
           Regular text content.
 
+          - `type: Literal["text"]`
+
           - `text: str`
 
             The text content.
 
             minLength: 1
 
-          - `type: Literal["text"]`
-
         - `class BetaManagedAgentsImageBlock: …`
 
           Image content specified directly as base64 data or as a reference via a URL.
+
+          - `type: Literal["image"]`
 
           - `source: Source`
 
@@ -581,6 +596,8 @@ Create Deployment
             - `class BetaManagedAgentsBase64ImageSource: …`
 
               Base64-encoded image data.
+
+              - `type: Literal["base64"]`
 
               - `data: str`
 
@@ -593,8 +610,6 @@ Create Deployment
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
                 minLength: 1
-
-              - `type: Literal["base64"]`
 
             - `class BetaManagedAgentsURLImageSource: …`
 
@@ -612,19 +627,19 @@ Create Deployment
 
               Image referenced by file ID.
 
+              - `type: Literal["file"]`
+
               - `file_id: str`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
 
-              - `type: Literal["file"]`
-
-          - `type: Literal["image"]`
-
         - `class BetaManagedAgentsDocumentBlock: …`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+          - `type: Literal["document"]`
 
           - `source: Source`
 
@@ -633,6 +648,8 @@ Create Deployment
             - `class BetaManagedAgentsBase64DocumentSource: …`
 
               Base64-encoded document data.
+
+              - `type: Literal["base64"]`
 
               - `data: str`
 
@@ -646,11 +663,11 @@ Create Deployment
 
                 minLength: 1
 
-              - `type: Literal["base64"]`
-
             - `class BetaManagedAgentsPlainTextDocumentSource: …`
 
               Plain text document content.
+
+              - `type: Literal["text"]`
 
               - `data: str`
 
@@ -661,8 +678,6 @@ Create Deployment
               - `media_type: Literal["text/plain"]`
 
                 MIME type of the text content. Must be "text/plain".
-
-              - `type: Literal["text"]`
 
             - `class BetaManagedAgentsURLDocumentSource: …`
 
@@ -680,15 +695,13 @@ Create Deployment
 
               Document referenced by file ID.
 
+              - `type: Literal["file"]`
+
               - `file_id: str`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
-
-              - `type: Literal["file"]`
-
-          - `type: Literal["document"]`
 
           - `context: Optional[str]`
 
@@ -704,11 +717,11 @@ Create Deployment
 
           - `type: Literal["redacted"]`
 
-      - `type: Literal["user.message"]`
-
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent: …`
 
       An outcome the agent should work toward. The agent begins work on receipt.
+
+      - `type: Literal["user.define_outcome"]`
 
       - `description: str`
 
@@ -722,23 +735,21 @@ Create Deployment
 
           Rubric referenced by a file uploaded via the Files API.
 
+          - `type: Literal["file"]`
+
           - `file_id: str`
 
             ID of the rubric file.
-
-          - `type: Literal["file"]`
 
         - `class BetaManagedAgentsTextRubric: …`
 
           Rubric content provided inline as text.
 
+          - `type: Literal["text"]`
+
           - `content: str`
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-          - `type: Literal["text"]`
-
-      - `type: Literal["user.define_outcome"]`
 
       - `max_iterations: Optional[int]`
 
@@ -750,19 +761,19 @@ Create Deployment
 
       Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
 
+      - `type: Literal["system.message"]`
+
       - `content: List[BetaManagedAgentsSystemContentBlock]`
 
         System content blocks to append. Text-only.
+
+        - `type: Literal["text"]`
 
         - `text: str`
 
           The text content.
 
           minLength: 1
-
-        - `type: Literal["text"]`
-
-      - `type: Literal["system.message"]`
 
   - `metadata: Dict[str, str]`
 
@@ -785,6 +796,8 @@ Create Deployment
     - `class BetaManagedAgentsErrorDeploymentPausedReason: …`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
+
+      - `type: Literal["error"]`
 
       - `error: BetaManagedAgentsDeploymentPausedReasonError`
 
@@ -874,8 +887,6 @@ Create Deployment
 
           - `type: Literal["mcp_egress_blocked_error"]`
 
-      - `type: Literal["error"]`
-
   - `resources: List[BetaManagedAgentsSessionResourceConfig]`
 
     Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
@@ -896,23 +907,23 @@ Create Deployment
 
         - `class BetaManagedAgentsBranchCheckout: …`
 
+          - `type: Literal["branch"]`
+
           - `name: str`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `type: Literal["branch"]`
-
         - `class BetaManagedAgentsCommitCheckout: …`
+
+          - `type: Literal["commit"]`
 
           - `sha: str`
 
             Full commit SHA to check out.
 
             minLength: 7, maxLength: 64
-
-          - `type: Literal["commit"]`
 
       - `mount_path: Optional[str]`
 
@@ -922,11 +933,11 @@ Create Deployment
 
       A file mounted into each session's container.
 
+      - `type: Literal["file"]`
+
       - `file_id: str`
 
         ID of a previously uploaded file.
-
-      - `type: Literal["file"]`
 
       - `mount_path: Optional[str]`
 
@@ -936,11 +947,11 @@ Create Deployment
 
       A memory store attached to each session created from this deployment.
 
+      - `type: Literal["memory_store"]`
+
       - `memory_store_id: str`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `type: Literal["memory_store"]`
 
       - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -958,6 +969,8 @@ Create Deployment
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
+    - `type: Literal["cron"]`
+
     - `expression: str`
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
@@ -969,8 +982,6 @@ Create Deployment
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
       minLength: 1
-
-    - `type: Literal["cron"]`
 
     - `last_run_at: Optional[datetime]`
 
@@ -990,8 +1001,6 @@ Create Deployment
 
     - `"paused"`
 
-  - `type: Literal["deployment"]`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
@@ -1006,6 +1015,8 @@ Create Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `type: Literal["limit"]`
+
     - `max_list_cost: BetaMonetaryAmount`
 
       A monetary amount in a specific currency.
@@ -1017,8 +1028,6 @@ Create Deployment
       - `currency: BetaCurrency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `type: Literal["limit"]`
 
 ## Example
 

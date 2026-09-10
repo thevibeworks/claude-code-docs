@@ -1,6 +1,11 @@
+---
+title: Archive Session
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/archive
+---
+
 # Archive Session
 
-`$client->beta->sessions->archive(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
+`$client->beta->sessions->archive(string sessionID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsSession`
 
 **POST** `/v1/sessions/{session_id}/archive`
 
@@ -14,9 +19,13 @@ Archive Session
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -56,8 +65,6 @@ Archive Session
 
   - `?string title`
 
-  - `Type type`
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -86,6 +93,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSession = $client->beta->sessions->archive(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsSession);

@@ -1,3 +1,8 @@
+---
+title: Get File Metadata
+url: https://platform.claude.com/docs/en/api/files/retrieve_metadata
+---
+
 # Get File Metadata
 
 **GET** `/v1/files/{file_id}`
@@ -10,9 +15,19 @@ Get File Metadata
 
   ID of the File.
 
+## Headers
+
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `FileMetadata object`
+
+  - `type: "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: string`
 
@@ -43,12 +58,6 @@ Get File Metadata
     Size of the file in bytes.
 
     minimum: 0
-
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
 
   - `downloadable: optional boolean`
 

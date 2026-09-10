@@ -1,6 +1,11 @@
+---
+title: Update Environment
+url: https://platform.claude.com/docs/en/api/php/beta/environments/update
+---
+
 # Update Environment
 
-`$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
+`$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas, ?string workspaceID): BetaEnvironment`
 
 **POST** `/v1/environments/{environment_id}`
 
@@ -34,9 +39,15 @@ Update an existing environment's configuration.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaEnvironment`
+
+  - `"environment" type`
+
+    The type of object (always 'environment')
 
   - `string id`
 
@@ -65,10 +76,6 @@ Update an existing environment's configuration.
   - `string name`
 
     Human-readable name for the environment
-
-  - `"environment" type`
-
-    The type of object (always 'environment')
 
   - `string updatedAt`
 
@@ -112,6 +119,7 @@ $betaEnvironment = $client->beta->environments->update(
   name: 'x',
   scope: 'organization',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaEnvironment);

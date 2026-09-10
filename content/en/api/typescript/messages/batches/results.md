@@ -1,6 +1,11 @@
+---
+title: Retrieve Message Batch results
+url: https://platform.claude.com/docs/en/api/typescript/messages/batches/results
+---
+
 # Retrieve Message Batch results
 
-`client.messages.batches.results(messageBatchID, options?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
+`client.messages.batches.results(messageBatchID, params?, options?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -15,6 +20,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 - `messageBatchID: string`
 
   ID of the Message Batch.
+
+- `params: BatchResultsParams`
+
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 
@@ -36,7 +49,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MessageBatchSucceededResult`
 
+      - `type: "succeeded"`
+
+        default: succeeded
+
       - `message: Message`
+
+        - `type: "message"`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
+
+          default: message
 
         - `id: string`
 
@@ -62,12 +87,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `skill_id: string`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `type: "anthropic" | "custom"`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -75,6 +94,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `"anthropic"`
 
               - `"custom"`
+
+            - `skill_id: string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `version: string`
 
@@ -113,6 +138,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `TextBlock`
 
+            - `type: "text"`
+
+              default: text
+
             - `citations: Array<TextCitation> | null`
 
               Citations supporting the text block.
@@ -120,6 +149,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `CitationCharLocation`
+
+                - `type: "char_location"`
+
+                  default: char_location
 
                 - `cited_text: string`
 
@@ -137,11 +170,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: "char_location"`
-
-                  default: char_location
-
               - `CitationPageLocation`
+
+                - `type: "page_location"`
+
+                  default: page_location
 
                 - `cited_text: string`
 
@@ -159,11 +192,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `type: "page_location"`
-
-                  default: page_location
-
               - `CitationContentBlockLocation`
+
+                - `type: "content_block_location"`
+
+                  default: content_block_location
 
                 - `cited_text: string`
 
@@ -191,11 +224,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: "content_block_location"`
-
-                  default: content_block_location
-
               - `CitationsWebSearchResultLocation`
+
+                - `type: "web_search_result_location"`
+
+                  default: web_search_result_location
 
                 - `cited_text: string`
 
@@ -205,13 +238,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `type: "web_search_result_location"`
-
-                  default: web_search_result_location
-
                 - `url: string`
 
               - `CitationsSearchResultLocation`
+
+                - `type: "search_result_location"`
+
+                  default: search_result_location
 
                 - `cited_text: string`
 
@@ -243,19 +276,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string | null`
 
-                - `type: "search_result_location"`
-
-                  default: search_result_location
-
             - `text: string`
 
-              maxLength: 5000000, minLength: 0
-
-            - `type: "text"`
-
-              default: text
+              minLength: 0
 
           - `ThinkingBlock`
+
+            - `type: "thinking"`
+
+              default: thinking
 
             - `signature: string`
 
@@ -269,11 +298,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `type: "thinking"`
-
-              default: thinking
-
           - `RedactedThinkingBlock`
+
+            - `type: "redacted_thinking"`
+
+              default: redacted_thinking
 
             - `data: string`
 
@@ -283,11 +312,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `type: "redacted_thinking"`
-
-              default: redacted_thinking
-
           - `ToolUseBlock`
+
+            - `type: "tool_use"`
+
+              default: tool_use
 
             - `id: string`
 
@@ -309,29 +338,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `type: "code_execution_20250825"`
+
                 - `tool_id: string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120`
 
+                - `type: "code_execution_20260120"`
+
                 - `tool_id: string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: "code_execution_20260120"`
 
             - `input: Record<string, unknown>`
 
             - `name: string`
 
               minLength: 1
-
-            - `type: "tool_use"`
-
-              default: tool_use
 
             - `toolset_name?: string | null`
 
@@ -340,6 +365,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ServerToolUseBlock`
+
+            - `type: "server_tool_use"`
+
+              default: server_tool_use
 
             - `id: string`
 
@@ -379,11 +408,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_search_tool_bm25"`
 
-            - `type: "server_tool_use"`
-
-              default: server_tool_use
-
           - `WebSearchToolResultBlock`
+
+            - `type: "web_search_tool_result"`
+
+              default: web_search_tool_result
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
@@ -405,6 +434,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `WebSearchToolResultError`
 
+                - `type: "web_search_tool_result_error"`
+
+                  default: web_search_tool_result_error
+
                 - `error_code: WebSearchToolResultErrorCode`
 
                   - `"invalid_tool_input"`
@@ -419,11 +452,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"request_too_large"`
 
-                - `type: "web_search_tool_result_error"`
-
-                  default: web_search_tool_result_error
-
               - `Array<WebSearchResultBlock>`
+
+                - `type: "web_search_result"`
+
+                  default: web_search_result
 
                 - `encrypted_content: string`
 
@@ -431,21 +464,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string`
 
-                - `type: "web_search_result"`
-
-                  default: web_search_result
-
                 - `url: string`
 
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "web_search_tool_result"`
-
-              default: web_search_tool_result
-
           - `WebFetchToolResultBlock`
+
+            - `type: "web_fetch_tool_result"`
+
+              default: web_fetch_tool_result
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
@@ -467,6 +496,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `WebFetchToolResultErrorBlock`
 
+                - `type: "web_fetch_tool_result_error"`
+
+                  default: web_fetch_tool_result_error
+
                 - `error_code: WebFetchToolResultErrorCode`
 
                   - `"invalid_tool_input"`
@@ -487,13 +520,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"unavailable"`
 
-                - `type: "web_fetch_tool_result_error"`
-
-                  default: web_fetch_tool_result_error
+                  - `"content_too_large"`
 
               - `WebFetchBlock`
 
+                - `type: "web_fetch_result"`
+
+                  default: web_fetch_result
+
                 - `content: DocumentBlock`
+
+                  - `type: "document"`
+
+                    default: document
 
                   - `citations: CitationsConfig | null`
 
@@ -507,37 +546,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `Base64PDFSource`
 
+                      - `type: "base64"`
+
                       - `data: string`
 
                         format: byte
 
                       - `media_type: "application/pdf"`
 
-                      - `type: "base64"`
-
                     - `PlainTextSource`
+
+                      - `type: "text"`
 
                       - `data: string`
 
                       - `media_type: "text/plain"`
 
-                      - `type: "text"`
-
                   - `title: string | null`
 
                     The title of the document
 
-                  - `type: "document"`
-
-                    default: document
-
                 - `retrieved_at: string | null`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `type: "web_fetch_result"`
-
-                  default: web_fetch_result
 
                 - `url: string`
 
@@ -547,17 +578,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "web_fetch_tool_result"`
-
-              default: web_fetch_tool_result
-
           - `CodeExecutionToolResultBlock`
+
+            - `type: "code_execution_tool_result"`
+
+              default: code_execution_tool_result
 
             - `content: CodeExecutionToolResultBlockContent`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `CodeExecutionToolResultError`
+
+                - `type: "code_execution_tool_result_error"`
+
+                  default: code_execution_tool_result_error
 
                 - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -569,19 +604,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: "code_execution_tool_result_error"`
-
-                  default: code_execution_tool_result_error
-
               - `CodeExecutionResultBlock`
 
-                - `content: Array<CodeExecutionOutputBlock>`
+                - `type: "code_execution_result"`
 
-                  - `file_id: string`
+                  default: code_execution_result
+
+                - `content: Array<CodeExecutionOutputBlock>`
 
                   - `type: "code_execution_output"`
 
                     default: code_execution_output
+
+                  - `file_id: string`
 
                 - `return_code: number`
 
@@ -589,21 +624,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: string`
 
-                - `type: "code_execution_result"`
-
-                  default: code_execution_result
-
               - `EncryptedCodeExecutionResultBlock`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
-                - `content: Array<CodeExecutionOutputBlock>`
+                - `type: "encrypted_code_execution_result"`
 
-                  - `file_id: string`
+                  default: encrypted_code_execution_result
+
+                - `content: Array<CodeExecutionOutputBlock>`
 
                   - `type: "code_execution_output"`
 
                     default: code_execution_output
+
+                  - `file_id: string`
 
                 - `encrypted_stdout: string`
 
@@ -611,23 +646,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stderr: string`
 
-                - `type: "encrypted_code_execution_result"`
-
-                  default: encrypted_code_execution_result
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "code_execution_tool_result"`
-
-              default: code_execution_tool_result
-
           - `BashCodeExecutionToolResultBlock`
+
+            - `type: "bash_code_execution_tool_result"`
+
+              default: bash_code_execution_tool_result
 
             - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
 
               - `BashCodeExecutionToolResultError`
+
+                - `type: "bash_code_execution_tool_result_error"`
+
+                  default: bash_code_execution_tool_result_error
 
                 - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -641,19 +676,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"output_file_too_large"`
 
-                - `type: "bash_code_execution_tool_result_error"`
-
-                  default: bash_code_execution_tool_result_error
-
               - `BashCodeExecutionResultBlock`
 
-                - `content: Array<BashCodeExecutionOutputBlock>`
+                - `type: "bash_code_execution_result"`
 
-                  - `file_id: string`
+                  default: bash_code_execution_result
+
+                - `content: Array<BashCodeExecutionOutputBlock>`
 
                   - `type: "bash_code_execution_output"`
 
                     default: bash_code_execution_output
+
+                  - `file_id: string`
 
                 - `return_code: number`
 
@@ -661,23 +696,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: string`
 
-                - `type: "bash_code_execution_result"`
-
-                  default: bash_code_execution_result
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "bash_code_execution_tool_result"`
-
-              default: bash_code_execution_tool_result
-
           - `TextEditorCodeExecutionToolResultBlock`
+
+            - `type: "text_editor_code_execution_tool_result"`
+
+              default: text_editor_code_execution_tool_result
 
             - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
               - `TextEditorCodeExecutionToolResultError`
+
+                - `type: "text_editor_code_execution_tool_result_error"`
+
+                  default: text_editor_code_execution_tool_result_error
 
                 - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -693,11 +728,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `error_message: string | null`
 
-                - `type: "text_editor_code_execution_tool_result_error"`
-
-                  default: text_editor_code_execution_tool_result_error
-
               - `TextEditorCodeExecutionViewResultBlock`
+
+                - `type: "text_editor_code_execution_view_result"`
+
+                  default: text_editor_code_execution_view_result
 
                 - `content: string`
 
@@ -715,19 +750,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `total_lines: number | null`
 
-                - `type: "text_editor_code_execution_view_result"`
-
-                  default: text_editor_code_execution_view_result
-
               - `TextEditorCodeExecutionCreateResultBlock`
-
-                - `is_file_update: boolean`
 
                 - `type: "text_editor_code_execution_create_result"`
 
                   default: text_editor_code_execution_create_result
 
+                - `is_file_update: boolean`
+
               - `TextEditorCodeExecutionStrReplaceResultBlock`
+
+                - `type: "text_editor_code_execution_str_replace_result"`
+
+                  default: text_editor_code_execution_str_replace_result
 
                 - `lines: Array<string> | null`
 
@@ -739,23 +774,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `old_start: number | null`
 
-                - `type: "text_editor_code_execution_str_replace_result"`
-
-                  default: text_editor_code_execution_str_replace_result
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "text_editor_code_execution_tool_result"`
-
-              default: text_editor_code_execution_tool_result
-
           - `ToolSearchToolResultBlock`
+
+            - `type: "tool_search_tool_result"`
+
+              default: tool_search_tool_result
 
             - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
 
               - `ToolSearchToolResultError`
+
+                - `type: "tool_search_tool_result_error"`
+
+                  default: tool_search_tool_result_error
 
                 - `error_code: ToolSearchToolResultErrorCode`
 
@@ -769,43 +804,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `error_message: string | null`
 
-                - `type: "tool_search_tool_result_error"`
-
-                  default: tool_search_tool_result_error
-
               - `ToolSearchToolSearchResultBlock`
-
-                - `tool_references: Array<ToolReferenceBlock>`
-
-                  - `tool_name: string`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `type: "tool_reference"`
-
-                    default: tool_reference
 
                 - `type: "tool_search_tool_search_result"`
 
                   default: tool_search_tool_search_result
 
+                - `tool_references: Array<ToolReferenceBlock>`
+
+                  - `type: "tool_reference"`
+
+                    default: tool_reference
+
+                  - `tool_name: string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "tool_search_tool_result"`
-
-              default: tool_search_tool_result
 
           - `ContainerUploadBlock`
 
             Response model for a file uploaded to the container.
 
-            - `file_id: string`
-
             - `type: "container_upload"`
 
               default: container_upload
+
+            - `file_id: string`
 
         - `model: Model`
 
@@ -897,6 +924,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Structured information about a refusal.
 
+          - `type: "refusal"`
+
+            default: refusal
+
           - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
             The policy category that triggered a refusal.
@@ -933,10 +964,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-          - `type: "refusal"`
-
-            default: refusal
-
         - `stop_reason: StopReason | null`
 
           The reason that we stopped.
@@ -972,14 +999,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `type: "message"`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          default: message
 
         - `usage: Usage`
 
@@ -1085,115 +1104,111 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"batch"`
 
-      - `type: "succeeded"`
-
-        default: succeeded
-
     - `MessageBatchErroredResult`
 
+      - `type: "errored"`
+
+        default: errored
+
       - `error: ErrorResponse`
-
-        - `error: ErrorObject`
-
-          - `InvalidRequestError`
-
-            - `message: string`
-
-              default: Invalid request
-
-            - `type: "invalid_request_error"`
-
-              default: invalid_request_error
-
-          - `AuthenticationError`
-
-            - `message: string`
-
-              default: Authentication error
-
-            - `type: "authentication_error"`
-
-              default: authentication_error
-
-          - `BillingError`
-
-            - `message: string`
-
-              default: Billing error
-
-            - `type: "billing_error"`
-
-              default: billing_error
-
-          - `PermissionError`
-
-            - `message: string`
-
-              default: Permission denied
-
-            - `type: "permission_error"`
-
-              default: permission_error
-
-          - `NotFoundError`
-
-            - `message: string`
-
-              default: Not found
-
-            - `type: "not_found_error"`
-
-              default: not_found_error
-
-          - `RateLimitError`
-
-            - `message: string`
-
-              default: Rate limited
-
-            - `type: "rate_limit_error"`
-
-              default: rate_limit_error
-
-          - `GatewayTimeoutError`
-
-            - `message: string`
-
-              default: Request timeout
-
-            - `type: "timeout_error"`
-
-              default: timeout_error
-
-          - `APIErrorObject`
-
-            - `message: string`
-
-              default: Internal server error
-
-            - `type: "api_error"`
-
-              default: api_error
-
-          - `OverloadedError`
-
-            - `message: string`
-
-              default: Overloaded
-
-            - `type: "overloaded_error"`
-
-              default: overloaded_error
-
-        - `request_id: string | null`
 
         - `type: "error"`
 
           default: error
 
-      - `type: "errored"`
+        - `error: ErrorObject`
 
-        default: errored
+          - `InvalidRequestError`
+
+            - `type: "invalid_request_error"`
+
+              default: invalid_request_error
+
+            - `message: string`
+
+              default: Invalid request
+
+          - `AuthenticationError`
+
+            - `type: "authentication_error"`
+
+              default: authentication_error
+
+            - `message: string`
+
+              default: Authentication error
+
+          - `BillingError`
+
+            - `type: "billing_error"`
+
+              default: billing_error
+
+            - `message: string`
+
+              default: Billing error
+
+          - `PermissionError`
+
+            - `type: "permission_error"`
+
+              default: permission_error
+
+            - `message: string`
+
+              default: Permission denied
+
+          - `NotFoundError`
+
+            - `type: "not_found_error"`
+
+              default: not_found_error
+
+            - `message: string`
+
+              default: Not found
+
+          - `RateLimitError`
+
+            - `type: "rate_limit_error"`
+
+              default: rate_limit_error
+
+            - `message: string`
+
+              default: Rate limited
+
+          - `GatewayTimeoutError`
+
+            - `type: "timeout_error"`
+
+              default: timeout_error
+
+            - `message: string`
+
+              default: Request timeout
+
+          - `APIErrorObject`
+
+            - `type: "api_error"`
+
+              default: api_error
+
+            - `message: string`
+
+              default: Internal server error
+
+          - `OverloadedError`
+
+            - `type: "overloaded_error"`
+
+              default: overloaded_error
+
+            - `message: string`
+
+              default: Overloaded
+
+        - `request_id: string | null`
 
     - `MessageBatchCanceledResult`
 

@@ -1,3 +1,8 @@
+---
+title: Run Deployment Now
+url: https://platform.claude.com/docs/en/api/go/beta/deployments/run
+---
+
 # Run Deployment Now
 
 `client.Beta.Deployments.Run(ctx, deploymentID, body) (*BetaManagedAgentsDeploymentRun, error)`
@@ -66,6 +71,8 @@ Run Deployment Now
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -108,11 +115,19 @@ Run Deployment Now
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaManagedAgentsDeploymentRun struct{…}`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
+
+  - `Type BetaManagedAgentsDeploymentRunType`
 
   - `ID string`
 
@@ -122,9 +137,9 @@ Run Deployment Now
 
     A resolved agent reference with a concrete version.
 
-    - `ID string`
-
     - `Type BetaManagedAgentsAgentReferenceType`
+
+    - `ID string`
 
     - `Version int64`
 
@@ -148,161 +163,161 @@ Run Deployment Now
 
       The deployment's environment was archived.
 
+      - `Type BetaManagedAgentsEnvironmentArchivedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsEnvironmentArchivedRunErrorType`
 
     - `type BetaManagedAgentsAgentArchivedRunError struct{…}`
 
       The deployment's agent was archived.
 
+      - `Type BetaManagedAgentsAgentArchivedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsAgentArchivedRunErrorType`
 
     - `type BetaManagedAgentsEnvironmentNotFoundRunError struct{…}`
 
       The deployment's environment no longer exists.
 
+      - `Type BetaManagedAgentsEnvironmentNotFoundRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsEnvironmentNotFoundRunErrorType`
 
     - `type BetaManagedAgentsVaultNotFoundRunError struct{…}`
 
       A vault referenced by the deployment no longer exists.
 
+      - `Type BetaManagedAgentsVaultNotFoundRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsVaultNotFoundRunErrorType`
 
     - `type BetaManagedAgentsVaultArchivedRunError struct{…}`
 
       A vault referenced by the deployment is archived.
 
+      - `Type BetaManagedAgentsVaultArchivedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsVaultArchivedRunErrorType`
 
     - `type BetaManagedAgentsFileNotFoundRunError struct{…}`
 
       A file resource referenced by the deployment no longer exists.
 
+      - `Type BetaManagedAgentsFileNotFoundRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsFileNotFoundRunErrorType`
 
     - `type BetaManagedAgentsMemoryStoreArchivedRunError struct{…}`
 
       A memory store referenced by the deployment is archived.
 
+      - `Type BetaManagedAgentsMemoryStoreArchivedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsMemoryStoreArchivedRunErrorType`
 
     - `type BetaManagedAgentsSkillNotFoundRunError struct{…}`
 
       A skill referenced by the deployment's agent no longer exists.
 
+      - `Type BetaManagedAgentsSkillNotFoundRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsSkillNotFoundRunErrorType`
 
     - `type BetaManagedAgentsSessionResourceNotFoundRunError struct{…}`
 
       A referenced resource no longer exists and its kind was not reported.
 
+      - `Type BetaManagedAgentsSessionResourceNotFoundRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsSessionResourceNotFoundRunErrorType`
 
     - `type BetaManagedAgentsWorkspaceArchivedRunError struct{…}`
 
       The deployment's workspace was archived.
 
+      - `Type BetaManagedAgentsWorkspaceArchivedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsWorkspaceArchivedRunErrorType`
 
     - `type BetaManagedAgentsOrganizationDisabledRunError struct{…}`
 
       The deployment's organization is disabled.
 
+      - `Type BetaManagedAgentsOrganizationDisabledRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsOrganizationDisabledRunErrorType`
 
     - `type BetaManagedAgentsSessionRateLimitedRunError struct{…}`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
+      - `Type BetaManagedAgentsSessionRateLimitedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsSessionRateLimitedRunErrorType`
 
     - `type BetaManagedAgentsSessionCreationRejectedRunError struct{…}`
 
       The session create request was rejected with a non-retryable validation error.
 
+      - `Type BetaManagedAgentsSessionCreationRejectedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsSessionCreationRejectedRunErrorType`
 
     - `type BetaManagedAgentsUnknownRunError struct{…}`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
+      - `Type BetaManagedAgentsUnknownRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsUnknownRunErrorType`
 
     - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError struct{…}`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
+      - `Type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorType`
 
     - `type BetaManagedAgentsMCPEgressBlockedRunError struct{…}`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
+      - `Type BetaManagedAgentsMCPEgressBlockedRunErrorType`
+
       - `Message string`
 
         Human-readable error description.
-
-      - `Type BetaManagedAgentsMCPEgressBlockedRunErrorType`
 
   - `SessionID string`
 
@@ -316,21 +331,19 @@ Run Deployment Now
 
       The run was fired by the deployment's cron schedule.
 
+      - `Type BetaManagedAgentsScheduleTriggerContextType`
+
       - `ScheduledAt Time`
 
         A timestamp in RFC 3339 format
 
         format: date-time
 
-      - `Type BetaManagedAgentsScheduleTriggerContextType`
-
     - `type BetaManagedAgentsManualTriggerContext struct{…}`
 
       The run was started manually by creating a session directly against the deployment.
 
       - `Type BetaManagedAgentsManualTriggerContextType`
-
-  - `Type BetaManagedAgentsDeploymentRunType`
 
 ## Example
 

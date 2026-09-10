@@ -1,6 +1,11 @@
+---
+title: Delete Credential
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/delete
+---
+
 # Delete Credential
 
-`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsDeletedCredential`
+`$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
@@ -16,15 +21,17 @@ Delete Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ManagedAgentsDeletedCredential`
 
+  - `Type type`
+
   - `string id`
 
     Unique identifier of the deleted credential.
-
-  - `Type type`
 
 ## Example
 
@@ -43,6 +50,7 @@ $betaManagedAgentsDeletedCredential = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeletedCredential);

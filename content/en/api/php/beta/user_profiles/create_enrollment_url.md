@@ -1,3 +1,8 @@
+---
+title: Create Enrollment URL
+url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/create_enrollment_url
+---
+
 # Create Enrollment URL
 
 `$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfileEnrollmentURL`
@@ -18,13 +23,13 @@ Create Enrollment URL
 
 - `BetaUserProfileEnrollmentURL`
 
-  - `\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
   - `Type type`
 
     Object type. Always `enrollment_url`.
+
+  - `\Datetime expiresAt`
+
+    A timestamp in RFC 3339 format
 
   - `string url`
 

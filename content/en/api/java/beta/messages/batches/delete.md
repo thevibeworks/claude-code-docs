@@ -1,3 +1,8 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/java/beta/messages/batches/delete
+---
+
 # Delete a Message Batch
 
 `BetaDeletedMessageBatch beta().messages().batches().delete(params = BatchDeleteParams.none(), requestOptions = RequestOptions.none())`
@@ -68,6 +73,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -110,19 +117,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaDeletedMessageBatch:`
-
-  - `String id`
-
-    ID of the Message Batch.
 
   - `JsonValue type = "message_batch_deleted"`
 
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
+
+  - `String id`
+
+    ID of the Message Batch.
 
 ## Example
 

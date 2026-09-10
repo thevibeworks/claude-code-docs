@@ -1,3 +1,8 @@
+---
+title: Stop Work
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/stop
+---
+
 # Stop Work
 
 `$ ant beta:environments:work stop`
@@ -26,6 +31,12 @@ Stop a work item, initiating graceful or forced shutdown.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_self_hosted_work: object`
@@ -35,6 +46,10 @@ Stop a work item, initiating graceful or forced shutdown.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `type: "work"`
+
+    The type of object (always 'work')
 
   - `id: string`
 
@@ -52,13 +67,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The actual work to be performed
 
-    - `id: string`
-
-      Session identifier (e.g., 'session_...')
-
     - `type: "session"`
 
       Type of work data
+
+    - `id: string`
+
+      Session identifier (e.g., 'session_...')
 
   - `environment_id: string`
 
@@ -101,10 +116,6 @@ Stop a work item, initiating graceful or forced shutdown.
   - `stopped_at: string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `type: "work"`
-
-    The type of object (always 'work')
 
 ## Example
 

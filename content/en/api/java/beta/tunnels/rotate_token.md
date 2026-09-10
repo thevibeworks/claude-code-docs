@@ -1,3 +1,8 @@
+---
+title: Rotate Tunnel Token
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/rotate_token
+---
+
 # Rotate Tunnel Token
 
 `BetaTunnelToken beta().tunnels().rotateToken(params = TunnelRotateTokenParams.none(), requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,6 +113,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `Optional<String> reason`
 
     Optional free-text reason for the rotation, recorded for audit.
@@ -118,6 +127,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   A tunnel's connector token.
 
+  - `JsonValue type = "tunnel_token"`
+
   - `String id`
 
     Stable identifier for the current token value. Changes when the token is rotated.
@@ -125,8 +136,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `String tunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonValue type = "tunnel_token"`
 
 ## Example
 

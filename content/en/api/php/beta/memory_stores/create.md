@@ -1,6 +1,11 @@
+---
+title: Create a memory store
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/create
+---
+
 # Create a memory store
 
-`$client->beta->memoryStores->create(string name, ?string description, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
+`$client->beta->memoryStores->create(string name, ?string description, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsMemoryStore`
 
 **POST** `/v1/memory_stores`
 
@@ -24,9 +29,13 @@ Create a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsMemoryStore`
+
+  - `Type type`
 
   - `string id`
 
@@ -39,8 +48,6 @@ Create a memory store
   - `string name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -72,6 +79,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->create(
   description: 'description',
   metadata: ['foo' => 'string'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsMemoryStore);

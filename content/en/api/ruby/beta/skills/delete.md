@@ -1,3 +1,8 @@
+---
+title: Delete Skill
+url: https://platform.claude.com/docs/en/api/ruby/beta/skills/delete
+---
+
 # Delete Skill
 
 `beta.skills.delete(skill_id, **kwargs) -> BetaDeletedSkill`
@@ -20,7 +25,7 @@ Delete Skill
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -68,6 +73,8 @@ Delete Skill
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -110,21 +117,23 @@ Delete Skill
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaDeletedSkill`
-
-  - `id: String`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
 
   - `type: :skill_deleted`
 
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
+
+  - `id: String`
+
+    Unique identifier for the skill.
+
+    The format and length of IDs may change over time.
 
 ## Example
 

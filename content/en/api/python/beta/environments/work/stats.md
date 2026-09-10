@@ -1,3 +1,8 @@
+---
+title: Get Queue Statistics
+url: https://platform.claude.com/docs/en/api/python/beta/environments/work/stats
+---
+
 # Get Queue Statistics
 
 `beta.environments.work.stats(environment_id, **kwargs)  -> BetaSelfHostedWorkQueueStats`
@@ -16,7 +21,7 @@ Get statistics about the work queue for an environment.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,6 +69,8 @@ Get statistics about the work queue for an environment.
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -106,6 +113,8 @@ Get statistics about the work queue for an environment.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaSelfHostedWorkQueueStats: …`
@@ -113,6 +122,12 @@ Get statistics about the work queue for an environment.
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `type: Literal["work_queue_stats"]`
+
+    The type of object
+
+    default: work_queue_stats
 
   - `depth: int`
 
@@ -127,12 +142,6 @@ Get statistics about the work queue for an environment.
     Number of work items being processed (polled but not acknowledged)
 
     default: 0
-
-  - `type: Literal["work_queue_stats"]`
-
-    The type of object
-
-    default: work_queue_stats
 
   - `workers_polling: Optional[int]`
 

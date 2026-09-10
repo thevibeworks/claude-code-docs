@@ -1,3 +1,8 @@
+---
+title: Update Session Resource
+url: https://platform.claude.com/docs/en/api/java/beta/sessions/resources/update
+---
+
 # Update Session Resource
 
 `ResourceUpdateResponse beta().sessions().resources().update(params, requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Update Session Resource
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,6 +113,8 @@ Update Session Resource
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `String authorizationToken`
 
     New authorization token for the resource. Currently only `github_repository` resources support token rotation.
@@ -120,6 +129,8 @@ Update Session Resource
 
   - `class BetaManagedAgentsGitHubRepositoryResource:`
 
+    - `Type type`
+
     - `String id`
 
     - `LocalDateTime createdAt`
@@ -129,8 +140,6 @@ Update Session Resource
       format: date-time
 
     - `String mountPath`
-
-    - `Type type`
 
     - `LocalDateTime updatedAt`
 
@@ -144,15 +153,17 @@ Update Session Resource
 
       - `class BetaManagedAgentsBranchCheckout:`
 
+        - `Type type`
+
         - `String name`
 
           Branch name to check out.
 
           minLength: 1, maxLength: 255
 
-        - `Type type`
-
       - `class BetaManagedAgentsCommitCheckout:`
+
+        - `Type type`
 
         - `String sha`
 
@@ -160,9 +171,9 @@ Update Session Resource
 
           minLength: 7, maxLength: 64
 
-        - `Type type`
-
   - `class BetaManagedAgentsFileResource:`
+
+    - `Type type`
 
     - `String id`
 
@@ -176,8 +187,6 @@ Update Session Resource
 
     - `String mountPath`
 
-    - `Type type`
-
     - `LocalDateTime updatedAt`
 
       A timestamp in RFC 3339 format
@@ -188,11 +197,11 @@ Update Session Resource
 
     A memory store attached to an agent session.
 
+    - `Type type`
+
     - `String memoryStoreId`
 
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
 
     - `Optional<Access> access`
 

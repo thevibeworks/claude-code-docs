@@ -1,3 +1,8 @@
+---
+title: Delete Session
+url: https://platform.claude.com/docs/en/api/typescript/beta/sessions/delete
+---
+
 # Delete Session
 
 `client.beta.sessions.delete(sessionID, params?, options?): BetaManagedAgentsDeletedSession`
@@ -18,7 +23,7 @@ Delete Session
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 41 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -66,6 +71,8 @@ Delete Session
 
       - `"user-profiles-2026-08-18"`
 
+      - `"user-profiles-2026-09-04"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
@@ -108,15 +115,21 @@ Delete Session
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaManagedAgentsDeletedSession`
 
   Confirmation that a `session` has been permanently deleted.
 
-  - `id: string`
-
   - `type: "session_deleted"`
+
+  - `id: string`
 
 ## Example
 

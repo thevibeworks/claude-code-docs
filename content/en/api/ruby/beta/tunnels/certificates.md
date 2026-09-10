@@ -1,3 +1,8 @@
+---
+title: Certificates
+url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/certificates
+---
+
 # Certificates
 
 ## Create Tunnel Certificate
@@ -26,7 +31,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -74,6 +79,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -116,11 +123,15 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
+
+  - `type: :tunnel_certificate`
 
   - `id: String`
 
@@ -151,8 +162,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `tunnel_id: String`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`
 
 ### Example
 
@@ -202,7 +211,7 @@ Fetches a tunnel certificate by ID.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -250,6 +259,8 @@ Fetches a tunnel certificate by ID.
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -292,11 +303,15 @@ Fetches a tunnel certificate by ID.
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
+
+  - `type: :tunnel_certificate`
 
   - `id: String`
 
@@ -327,8 +342,6 @@ Fetches a tunnel certificate by ID.
   - `tunnel_id: String`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`
 
 ### Example
 
@@ -390,7 +403,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -438,6 +451,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -480,11 +495,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
+
+  - `type: :tunnel_certificate`
 
   - `id: String`
 
@@ -515,8 +534,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `tunnel_id: String`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`
 
 ### Example
 
@@ -571,7 +588,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -619,6 +636,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -661,11 +680,15 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
+
+  - `type: :tunnel_certificate`
 
   - `id: String`
 
@@ -696,8 +719,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `tunnel_id: String`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`
 
 ### Example
 
@@ -733,6 +754,8 @@ puts(beta_tunnel_certificate)
 
   A CA certificate attached to a tunnel.
 
+  - `type: :tunnel_certificate`
+
   - `id: String`
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
@@ -762,5 +785,3 @@ puts(beta_tunnel_certificate)
   - `tunnel_id: String`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`

@@ -1,3 +1,8 @@
+---
+title: Run Deployment Now
+url: https://platform.claude.com/docs/en/api/csharp/beta/deployments/run
+---
+
 # Run Deployment Now
 
 `BetaManagedAgentsDeploymentRun Beta.Deployments.Run(parameters, cancellationToken = default)`
@@ -64,6 +69,8 @@ Run Deployment Now
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -106,11 +113,19 @@ Run Deployment Now
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsDeploymentRun:`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -120,9 +135,9 @@ Run Deployment Now
 
     A resolved agent reference with a concrete version.
 
-    - `required string ID`
-
     - `required Type Type`
+
+    - `required string ID`
 
     - `required int Version`
 
@@ -146,161 +161,161 @@ Run Deployment Now
 
       The deployment's environment was archived.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsAgentArchivedRunError:`
 
       The deployment's agent was archived.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsEnvironmentNotFoundRunError:`
 
       The deployment's environment no longer exists.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsVaultNotFoundRunError:`
 
       A vault referenced by the deployment no longer exists.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsVaultArchivedRunError:`
 
       A vault referenced by the deployment is archived.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsFileNotFoundRunError:`
 
       A file resource referenced by the deployment no longer exists.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsMemoryStoreArchivedRunError:`
 
       A memory store referenced by the deployment is archived.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsSkillNotFoundRunError:`
 
       A skill referenced by the deployment's agent no longer exists.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsSessionResourceNotFoundRunError:`
 
       A referenced resource no longer exists and its kind was not reported.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsWorkspaceArchivedRunError:`
 
       The deployment's workspace was archived.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsOrganizationDisabledRunError:`
 
       The deployment's organization is disabled.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsSessionRateLimitedRunError:`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsSessionCreationRejectedRunError:`
 
       The session create request was rejected with a non-retryable validation error.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsUnknownRunError:`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError:`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
     - `class BetaManagedAgentsMcpEgressBlockedRunError:`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
+      - `required Type Type`
+
       - `required string Message`
 
         Human-readable error description.
-
-      - `required Type Type`
 
   - `required string? SessionID`
 
@@ -314,21 +329,19 @@ Run Deployment Now
 
       The run was fired by the deployment's cron schedule.
 
+      - `required Type Type`
+
       - `required DateTimeOffset ScheduledAt`
 
         A timestamp in RFC 3339 format
 
         format: date-time
 
-      - `required Type Type`
-
     - `class BetaManagedAgentsManualTriggerContext:`
 
       The run was started manually by creating a session directly against the deployment.
 
       - `required Type Type`
-
-  - `required Type Type`
 
 ## Example
 

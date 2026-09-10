@@ -1,3 +1,8 @@
+---
+title: List API Keys
+url: https://platform.claude.com/docs/en/api/beta/organization/api_keys/list
+---
+
 # List API Keys
 
 **GET** `/v1/organizations/api_keys`
@@ -46,6 +51,14 @@ List API Keys
 
 - `data: array of BetaAPIKey`
 
+  - `type: "api_key"`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+    default: api_key
+
   - `id: string`
 
     ID of the API key.
@@ -62,10 +75,6 @@ List API Keys
     creator is not recorded (legacy, workload-identity-federated, or
     system-created keys).
 
-    - `id: string`
-
-      ID of the actor that created the object.
-
     - `type: "service_account" or "user"`
 
       Type of the actor that created the object.
@@ -73,6 +82,10 @@ List API Keys
       - `"service_account"`
 
       - `"user"`
+
+    - `id: string`
+
+      ID of the actor that created the object.
 
   - `expires_at: string or null`
 
@@ -106,15 +119,15 @@ List API Keys
 
     - `BetaAPIKeyServiceAccountActor object`
 
-      - `service_account_id: string`
-
-        ID of the Service Account the API key acts as.
-
       - `type: "service_account_actor"`
 
         Principal type. Always `"service_account_actor"` for a Service Account.
 
         default: service_account_actor
+
+      - `service_account_id: string`
+
+        ID of the Service Account the API key acts as.
 
   - `scope: BetaAPIKeyOrganizationScope or BetaAPIKeyWorkspaceScope`
 
@@ -151,14 +164,6 @@ List API Keys
     - `"expired"`
 
     - `"inactive"`
-
-  - `type: "api_key"`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
-
-    default: api_key
 
   - `workspace_id: string or null`
 

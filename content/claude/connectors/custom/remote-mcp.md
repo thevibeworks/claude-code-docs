@@ -69,18 +69,18 @@ Use the "+" button in your chat interface to access "Connectors," where you can 
 
 **Name**: the display name shown in the connectors list.
 
-**Remote MCP server URL**: the HTTPS address where the server accepts MCP requests, for example `https://mcp.example.com/mcp`. After you continue, Claude checks the URL and pre-fills the authentication settings it detects, marked "Detected."
+**MCP server URL**: the HTTPS address where the server accepts MCP requests, for example `https://mcp.example.com/mcp`. After you continue, Claude checks the URL and pre-fills the authentication settings it detects, marked "Detected."
 
 **Authentication**: how people connect to the server.
 
-* **Always required**: each user signs in through the server's OAuth flow before using it.
-* **Required when the server asks**: Claude connects without credentials and prompts users to sign in when the server asks.
-* **None**: no sign-in. Anyone with access to the server URL can use the connector. If the server uses an API key, choose None and add the key under **Request headers**; Claude stores it as the connector's credential.
+* **Sign in now**: each user signs in through the server's OAuth flow before using it.
+* **Sign in when needed**: Claude connects without credentials and prompts users to sign in when the server asks.
+* **No sign-in**: anyone with access to the server URL can use the connector. If the server uses an API key, choose **No sign-in** and add the key under **Request headers**; Claude stores it as the connector's credential.
 
-**OAuth client** (shown unless you chose None): how Claude identifies itself to the server's authorization server.
+**OAuth client** (shown unless you chose **No sign-in**): how Claude identifies itself to the server's authorization server.
 
-* **Use Anthropic's hosted client metadata** (recommended): the server reads Claude's client details from a URL Anthropic hosts (Client ID Metadata Document). Nothing to set up; the server must support it.
-* **No client ID — register one automatically**: Claude registers OAuth clients with the server as users connect (Dynamic Client Registration). Works with most servers, but adds client registrations over time.
+* **Use Claude's published identity** (recommended): the server reads Claude's client details from a URL Anthropic hosts (Client ID Metadata Document). Nothing to set up; the server must support it.
+* **Register automatically**: Claude registers OAuth clients with the server as users connect (Dynamic Client Registration). Works with most servers, but adds client registrations over time.
 * **Use your own OAuth client**: enter a client ID you registered with the server. Leave the secret blank unless your authorization server requires one. See [Authentication for connectors](/docs/connectors/building/authentication).
 
 **Request headers**: fixed credentials such as API keys, sent on every request. See [Authenticating with request headers](#authenticating-with-request-headers).

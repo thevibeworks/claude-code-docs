@@ -1,3 +1,8 @@
+---
+title: Create a Message Batch
+url: https://platform.claude.com/docs/en/api/go/messages/batches/create
+---
+
 # Create a Message Batch
 
 `client.Messages.Batches.New(ctx, params) (*MessageBatch, error)`
@@ -103,11 +108,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type TextBlockParamResp struct{…}`
 
+              - `Type Text`
+
               - `Text string`
 
                 minLength: 1
-
-              - `Type Text`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -134,6 +139,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type CitationCharLocationParamResp struct{…}`
 
+                  - `Type CharLocation`
+
                   - `CitedText string`
 
                   - `DocumentIndex int64`
@@ -150,9 +157,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `Type CharLocation`
-
                 - `type CitationPageLocationParamResp struct{…}`
+
+                  - `Type PageLocation`
 
                   - `CitedText string`
 
@@ -170,9 +177,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                  - `Type PageLocation`
-
                 - `type CitationContentBlockLocationParamResp struct{…}`
+
+                  - `Type ContentBlockLocation`
 
                   - `CitedText string`
 
@@ -200,9 +207,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                  - `Type ContentBlockLocation`
-
                 - `type CitationWebSearchResultLocationParamResp struct{…}`
+
+                  - `Type WebSearchResultLocation`
 
                   - `CitedText string`
 
@@ -212,13 +219,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     maxLength: 512, minLength: 1
 
-                  - `Type WebSearchResultLocation`
-
                   - `URL string`
 
                     minLength: 1
 
                 - `type CitationSearchResultLocationParamResp struct{…}`
+
+                  - `Type SearchResultLocation`
 
                   - `CitedText string`
 
@@ -250,13 +257,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Title string`
 
-                  - `Type SearchResultLocation`
-
             - `type ImageBlockParamResp struct{…}`
+
+              - `Type Image`
 
               - `Source ImageBlockParamSourceUnionResp`
 
                 - `type Base64ImageSource struct{…}`
+
+                  - `Type Base64`
 
                   - `Data string`
 
@@ -272,8 +281,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const Base64ImageSourceMediaTypeImageWebP Base64ImageSourceMediaType = "image/webp"`
 
-                  - `Type Base64`
-
                 - `type URLImageSource struct{…}`
 
                   - `Type URL`
@@ -282,11 +289,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type FileImageSource struct{…}`
 
-                  - `FileID string`
-
                   - `Type File`
 
-              - `Type Image`
+                  - `FileID string`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -306,9 +311,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type DocumentBlockParamResp struct{…}`
 
+              - `Type Document`
+
               - `Source DocumentBlockParamSourceUnionResp`
 
                 - `type Base64PDFSource struct{…}`
+
+                  - `Type Base64`
 
                   - `Data string`
 
@@ -316,17 +325,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `MediaType ApplicationPDF`
 
-                  - `Type Base64`
-
                 - `type PlainTextSource struct{…}`
+
+                  - `Type Text`
 
                   - `Data string`
 
                   - `MediaType TextPlain`
 
-                  - `Type Text`
-
                 - `type ContentBlockSource struct{…}`
+
+                  - `Type Content`
 
                   - `Content ContentBlockSourceContentUnion`
 
@@ -338,8 +347,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `type ImageBlockParamResp struct{…}`
 
-                  - `Type Content`
-
                 - `type URLPDFSource struct{…}`
 
                   - `Type URL`
@@ -348,11 +355,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type FileDocumentSource struct{…}`
 
-                  - `FileID string`
-
                   - `Type File`
 
-              - `Type Document`
+                  - `FileID string`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -372,13 +377,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type SearchResultBlockParamResp struct{…}`
 
+              - `Type SearchResult`
+
               - `Content []TextBlockParamResp`
+
+                - `Type Text`
 
                 - `Text string`
 
                   minLength: 1
-
-                - `Type Text`
 
                 - `CacheControl CacheControlEphemeral Optional`
 
@@ -390,8 +397,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Title string`
 
-              - `Type SearchResult`
-
               - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
@@ -399,6 +404,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `Citations CitationsConfigParamResp Optional`
 
             - `type ThinkingBlockParamResp struct{…}`
+
+              - `Type Thinking`
 
               - `Signature string`
 
@@ -410,17 +417,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-              - `Type Thinking`
-
             - `type RedactedThinkingBlockParamResp struct{…}`
+
+              - `Type RedactedThinking`
 
               - `Data string`
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-              - `Type RedactedThinking`
-
             - `type ToolUseBlockParamResp struct{…}`
+
+              - `Type ToolUse`
 
               - `ID string`
 
@@ -431,8 +438,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `Name string`
 
                 maxLength: 200, minLength: 1
-
-              - `Type ToolUse`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -452,19 +457,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool invocation generated by a server-side tool.
 
+                  - `Type CodeExecution20250825`
+
                   - `ToolID string`
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                  - `Type CodeExecution20250825`
 
                 - `type ServerToolCaller20260120 struct{…}`
 
+                  - `Type CodeExecution20260120`
+
                   - `ToolID string`
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                  - `Type CodeExecution20260120`
 
               - `ToolsetName string Optional`
 
@@ -474,11 +479,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type ToolResultBlockParamResp struct{…}`
 
+              - `Type ToolResult`
+
               - `ToolUseID string`
 
                 pattern: ^[a-zA-Z0-9_-]+$
-
-              - `Type ToolResult`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -500,11 +505,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Tool reference block that can be included in tool_result content.
 
+                    - `Type ToolReference`
+
                     - `ToolName string`
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                    - `Type ToolReference`
 
                     - `CacheControl CacheControlEphemeral Optional`
 
@@ -519,6 +524,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                     At most one per `tool_result`, only on a non-error result answering a
                     browser toolset member `tool_use`. The server renders the
                     model-visible text from it; the model never sees the raw fields.
+
+                    - `Type BrowserState`
 
                     - `Tabs []BrowserStateTabEntry`
 
@@ -548,8 +555,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `Type BrowserState`
-
                     - `CacheControl CacheControlEphemeral Optional`
 
                       Create a cache control breakpoint at this content block.
@@ -570,25 +575,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         during a failed call gets no deferred `tab_opened`; it simply appears
                         in the next result's `tabs` inventory.
 
+                        - `Type TabOpened`
+
                         - `TabID string`
 
                           The `tab_id` of the opened tab, present in `tabs`.
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `Type TabOpened`
-
                       - `type BrowserStateChangeDownloadStarted struct{…}`
 
                         A file download that started during this call.
+
+                        - `Type DownloadStarted`
 
                         - `DownloadID string`
 
                           The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                        - `Type DownloadStarted`
 
                         - `URL string`
 
@@ -603,13 +608,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                         `download_started`, when the download finished during the call that
                         started it (at most one state change per `download_id` per result).
 
+                        - `Type DownloadCompleted`
+
                         - `DownloadID string`
 
                           The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                        - `Type DownloadCompleted`
 
                         - `URL string`
 
@@ -633,13 +638,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         A file download that failed — or was cancelled — during this call.
 
+                        - `Type DownloadFailed`
+
                         - `DownloadID string`
 
                           The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                        - `Type DownloadFailed`
 
                         - `URL string`
 
@@ -663,6 +668,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type ServerToolUseBlockParamResp struct{…}`
 
+              - `Type ServerToolUse`
+
               - `ID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -685,8 +692,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `const ServerToolUseBlockParamNameToolSearchToolBm25 ServerToolUseBlockParamName = "tool_search_tool_bm25"`
 
-              - `Type ServerToolUse`
-
               - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
@@ -707,21 +712,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type WebSearchToolResultBlockParamResp struct{…}`
 
+              - `Type WebSearchToolResult`
+
               - `Content WebSearchToolResultBlockParamContentUnionResp`
 
                 - `[]WebSearchResultBlockParamResp`
 
+                  - `Type WebSearchResult`
+
                   - `EncryptedContent string`
 
                   - `Title string`
-
-                  - `Type WebSearchResult`
 
                   - `URL string`
 
                   - `PageAge string Optional`
 
                 - `type WebSearchToolRequestError struct{…}`
+
+                  - `Type WebSearchToolResultError`
 
                   - `ErrorCode WebSearchToolResultErrorCode`
 
@@ -737,13 +746,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const WebSearchToolResultErrorCodeRequestTooLarge WebSearchToolResultErrorCode = "request_too_large"`
 
-                  - `Type WebSearchToolResultError`
-
               - `ToolUseID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type WebSearchToolResult`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -765,9 +770,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type WebFetchToolResultBlockParamResp struct{…}`
 
+              - `Type WebFetchToolResult`
+
               - `Content WebFetchToolResultBlockParamContentUnionResp`
 
                 - `type WebFetchToolResultErrorBlockParamResp struct{…}`
+
+                  - `Type WebFetchToolResultError`
 
                   - `ErrorCode WebFetchToolResultErrorCode`
 
@@ -789,13 +798,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const WebFetchToolResultErrorCodeUnavailable WebFetchToolResultErrorCode = "unavailable"`
 
-                  - `Type WebFetchToolResultError`
+                    - `const WebFetchToolResultErrorCodeContentTooLarge WebFetchToolResultErrorCode = "content_too_large"`
 
                 - `type WebFetchBlockParamResp struct{…}`
 
-                  - `Content DocumentBlockParamResp`
-
                   - `Type WebFetchResult`
+
+                  - `Content DocumentBlockParamResp`
 
                   - `URL string`
 
@@ -808,8 +817,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `ToolUseID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type WebFetchToolResult`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -831,11 +838,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type CodeExecutionToolResultBlockParamResp struct{…}`
 
+              - `Type CodeExecutionToolResult`
+
               - `Content CodeExecutionToolResultBlockParamContentUnionResp`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
                 - `type CodeExecutionToolResultErrorParamResp struct{…}`
+
+                  - `Type CodeExecutionToolResultError`
 
                   - `ErrorCode CodeExecutionToolResultErrorCode`
 
@@ -847,15 +858,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const CodeExecutionToolResultErrorCodeExecutionTimeExceeded CodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-                  - `Type CodeExecutionToolResultError`
-
                 - `type CodeExecutionResultBlockParamResp struct{…}`
+
+                  - `Type CodeExecutionResult`
 
                   - `Content []CodeExecutionOutputBlockParamResp`
 
-                    - `FileID string`
-
                     - `Type CodeExecutionOutput`
+
+                    - `FileID string`
 
                   - `ReturnCode int64`
 
@@ -863,17 +874,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Stdout string`
 
-                  - `Type CodeExecutionResult`
-
                 - `type EncryptedCodeExecutionResultBlockParamResp struct{…}`
 
                   Code execution result with encrypted stdout for PFC + web_search results.
 
+                  - `Type EncryptedCodeExecutionResult`
+
                   - `Content []CodeExecutionOutputBlockParamResp`
 
-                    - `FileID string`
-
                     - `Type CodeExecutionOutput`
+
+                    - `FileID string`
 
                   - `EncryptedStdout string`
 
@@ -881,13 +892,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Stderr string`
 
-                  - `Type EncryptedCodeExecutionResult`
-
               - `ToolUseID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type CodeExecutionToolResult`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -895,9 +902,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type BashCodeExecutionToolResultBlockParamResp struct{…}`
 
+              - `Type BashCodeExecutionToolResult`
+
               - `Content BashCodeExecutionToolResultBlockParamContentUnionResp`
 
                 - `type BashCodeExecutionToolResultErrorParamResp struct{…}`
+
+                  - `Type BashCodeExecutionToolResultError`
 
                   - `ErrorCode BashCodeExecutionToolResultErrorCode`
 
@@ -911,15 +922,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const BashCodeExecutionToolResultErrorCodeOutputFileTooLarge BashCodeExecutionToolResultErrorCode = "output_file_too_large"`
 
-                  - `Type BashCodeExecutionToolResultError`
-
                 - `type BashCodeExecutionResultBlockParamResp struct{…}`
+
+                  - `Type BashCodeExecutionResult`
 
                   - `Content []BashCodeExecutionOutputBlockParamResp`
 
-                    - `FileID string`
-
                     - `Type BashCodeExecutionOutput`
+
+                    - `FileID string`
 
                   - `ReturnCode int64`
 
@@ -927,13 +938,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Stdout string`
 
-                  - `Type BashCodeExecutionResult`
-
               - `ToolUseID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type BashCodeExecutionToolResult`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -941,9 +948,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type TextEditorCodeExecutionToolResultBlockParamResp struct{…}`
 
+              - `Type TextEditorCodeExecutionToolResult`
+
               - `Content TextEditorCodeExecutionToolResultBlockParamContentUnionResp`
 
                 - `type TextEditorCodeExecutionToolResultErrorParamResp struct{…}`
+
+                  - `Type TextEditorCodeExecutionToolResultError`
 
                   - `ErrorCode TextEditorCodeExecutionToolResultErrorCode`
 
@@ -957,11 +968,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const TextEditorCodeExecutionToolResultErrorCodeFileNotFound TextEditorCodeExecutionToolResultErrorCode = "file_not_found"`
 
-                  - `Type TextEditorCodeExecutionToolResultError`
-
                   - `ErrorMessage string Optional`
 
                 - `type TextEditorCodeExecutionViewResultBlockParamResp struct{…}`
+
+                  - `Type TextEditorCodeExecutionViewResult`
 
                   - `Content string`
 
@@ -973,8 +984,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const TextEditorCodeExecutionViewResultBlockParamFileTypePDF TextEditorCodeExecutionViewResultBlockParamFileType = "pdf"`
 
-                  - `Type TextEditorCodeExecutionViewResult`
-
                   - `NumLines int64 Optional`
 
                   - `StartLine int64 Optional`
@@ -983,9 +992,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type TextEditorCodeExecutionCreateResultBlockParamResp struct{…}`
 
-                  - `IsFileUpdate bool`
-
                   - `Type TextEditorCodeExecutionCreateResult`
+
+                  - `IsFileUpdate bool`
 
                 - `type TextEditorCodeExecutionStrReplaceResultBlockParamResp struct{…}`
 
@@ -1005,17 +1014,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `Type TextEditorCodeExecutionToolResult`
-
               - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
             - `type ToolSearchToolResultBlockParamResp struct{…}`
 
+              - `Type ToolSearchToolResult`
+
               - `Content ToolSearchToolResultBlockParamContentUnionResp`
 
                 - `type ToolSearchToolResultErrorParamResp struct{…}`
+
+                  - `Type ToolSearchToolResultError`
 
                   - `ErrorCode ToolSearchToolResultErrorCode`
 
@@ -1027,31 +1038,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const ToolSearchToolResultErrorCodeExecutionTimeExceeded ToolSearchToolResultErrorCode = "execution_time_exceeded"`
 
-                  - `Type ToolSearchToolResultError`
-
                   - `ErrorMessage string Optional`
 
                 - `type ToolSearchToolSearchResultBlockParamResp struct{…}`
 
+                  - `Type ToolSearchToolSearchResult`
+
                   - `ToolReferences []ToolReferenceBlockParamResp`
+
+                    - `Type ToolReference`
 
                     - `ToolName string`
 
                       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `Type ToolReference`
-
                     - `CacheControl CacheControlEphemeral Optional`
 
                       Create a cache control breakpoint at this content block.
 
-                  - `Type ToolSearchToolSearchResult`
-
               - `ToolUseID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type ToolSearchToolResult`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -1062,9 +1069,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               A content block that represents a file to be uploaded to the container
               Files uploaded via this block will be available in the container's input directory.
 
-              - `FileID string`
-
               - `Type ContainerUpload`
+
+              - `FileID string`
 
               - `CacheControl CacheControlEphemeral Optional`
 
@@ -1182,12 +1189,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             maxItems: 20
 
-            - `SkillID string`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `Type SkillParamsType`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -1195,6 +1196,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `const SkillParamsTypeAnthropic SkillParamsType = "anthropic"`
 
               - `const SkillParamsTypeCustom SkillParamsType = "custom"`
+
+            - `SkillID string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `Version string Optional`
 
@@ -1242,11 +1249,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+          - `Type JSONSchema`
+
           - `Schema map[string, any]`
 
             The JSON schema of the format
-
-          - `Type JSONSchema`
 
       - `ServiceTier string Optional`
 
@@ -1280,11 +1287,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `[]TextBlockParam`
 
+          - `Type Text`
+
           - `Text string`
 
             minLength: 1
-
-          - `Type Text`
 
           - `CacheControl CacheControlEphemeral Optional`
 
@@ -1302,6 +1309,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type ThinkingConfigEnabled struct{…}`
 
+          - `Type Enabled`
+
           - `BudgetTokens int64`
 
             Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -1311,8 +1320,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
             minimum: 1024
-
-          - `Type Enabled`
 
           - `Display ThinkingConfigEnabledDisplay Optional`
 
@@ -1370,11 +1377,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will use the specified tool with `tool_choice.name`.
 
+          - `Type Tool`
+
           - `Name string`
 
             The name of the tool to use.
-
-          - `Type Tool`
 
           - `DisableParallelToolUse bool Optional`
 
@@ -1454,6 +1461,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type Tool struct{…}`
 
+          - `Type ToolType Optional`
+
           - `InputSchema ToolInputSchema`
 
             [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -1508,17 +1517,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `Type ToolType Optional`
-
         - `type ToolBash20250124 struct{…}`
+
+          - `Type Bash20250124`
 
           - `Name Bash`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type Bash20250124`
 
           - `AllowedCallers []string Optional`
 
@@ -1546,13 +1553,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type CodeExecutionTool20250522 struct{…}`
 
+          - `Type CodeExecution20250522`
+
           - `Name CodeExecution`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type CodeExecution20250522`
 
           - `AllowedCallers []string Optional`
 
@@ -1578,13 +1585,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type CodeExecutionTool20250825 struct{…}`
 
+          - `Type CodeExecution20250825`
+
           - `Name CodeExecution`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type CodeExecution20250825`
 
           - `AllowedCallers []string Optional`
 
@@ -1612,13 +1619,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+          - `Type CodeExecution20260120`
+
           - `Name CodeExecution`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type CodeExecution20260120`
 
           - `AllowedCallers []string Optional`
 
@@ -1646,13 +1653,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence.
 
+          - `Type CodeExecution20260521`
+
           - `Name CodeExecution`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type CodeExecution20260521`
 
           - `AllowedCallers []string Optional`
 
@@ -1697,6 +1704,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             accepted key, and a member's defaults apply wherever its key is
             absent. Unknown keys are rejected: the field set is this toolset
             version's complete member set.
+
+            - `Type BrowserTypeConfig Optional`
+
+              `type`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
             - `CloseTab BrowserCloseTabConfig Optional`
 
@@ -2034,18 +2053,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Type BrowserTypeConfig Optional`
-
-              `type`'s config overrides.
-
-              - `DeferLoading bool Optional`
-
-                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-              - `Enabled bool Optional`
-
-                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
             - `Wait BrowserWaitConfig Optional`
 
               `wait`'s config overrides.
@@ -2072,13 +2079,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type MemoryTool20250818 struct{…}`
 
+          - `Type Memory20250818`
+
           - `Name Memory`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type Memory20250818`
 
           - `AllowedCallers []string Optional`
 
@@ -2129,6 +2136,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             accepted key, and a member's defaults apply wherever its key is
             absent. Unknown keys are rejected: the field set is this toolset
             version's complete member set.
+
+            - `Type ComputerTypeConfig Optional`
+
+              `type`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
             - `CursorPosition ComputerCursorPositionConfig Optional`
 
@@ -2298,18 +2317,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Type ComputerTypeConfig Optional`
-
-              `type`'s config overrides.
-
-              - `DeferLoading bool Optional`
-
-                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-              - `Enabled bool Optional`
-
-                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
             - `Wait ComputerWaitConfig Optional`
 
               `wait`'s config overrides.
@@ -2336,13 +2343,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type ToolTextEditor20250124 struct{…}`
 
+          - `Type TextEditor20250124`
+
           - `Name StrReplaceEditor`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type TextEditor20250124`
 
           - `AllowedCallers []string Optional`
 
@@ -2370,13 +2377,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type ToolTextEditor20250429 struct{…}`
 
+          - `Type TextEditor20250429`
+
           - `Name StrReplaceBasedEditTool`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type TextEditor20250429`
 
           - `AllowedCallers []string Optional`
 
@@ -2404,13 +2411,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type ToolTextEditor20250728 struct{…}`
 
+          - `Type TextEditor20250728`
+
           - `Name StrReplaceBasedEditTool`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type TextEditor20250728`
 
           - `AllowedCallers []string Optional`
 
@@ -2444,13 +2451,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type WebSearchTool20250305 struct{…}`
 
+          - `Type WebSearch20250305`
+
           - `Name WebSearch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebSearch20250305`
 
           - `AllowedCallers []string Optional`
 
@@ -2520,13 +2527,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type WebFetchTool20250910 struct{…}`
 
+          - `Type WebFetch20250910`
+
           - `Name WebFetch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebFetch20250910`
 
           - `AllowedCallers []string Optional`
 
@@ -2576,13 +2583,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type WebSearchTool20260209 struct{…}`
 
+          - `Type WebSearch20260209`
+
           - `Name WebSearch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebSearch20260209`
 
           - `AllowedCallers []string Optional`
 
@@ -2626,13 +2633,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type WebFetchTool20260209 struct{…}`
 
+          - `Type WebFetch20260209`
+
           - `Name WebFetch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebFetch20260209`
 
           - `AllowedCallers []string Optional`
 
@@ -2684,13 +2691,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
+          - `Type WebFetch20260309`
+
           - `Name WebFetch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebFetch20260309`
 
           - `AllowedCallers []string Optional`
 
@@ -2744,13 +2751,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type WebSearchTool20260318 struct{…}`
 
+          - `Type WebSearch20260318`
+
           - `Name WebSearch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebSearch20260318`
 
           - `AllowedCallers []string Optional`
 
@@ -2802,13 +2809,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type WebFetchTool20260318 struct{…}`
 
+          - `Type WebFetch20260318`
+
           - `Name WebFetch`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `Type WebFetch20260318`
 
           - `AllowedCallers []string Optional`
 
@@ -2870,17 +2877,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type ToolSearchToolBm25_20251119 struct{…}`
 
-          - `Name ToolSearchToolBm25`
-
-            Name of the tool.
-
-            This is how the tool will be called by the model and in `tool_use` blocks.
-
           - `Type ToolSearchToolBm25_20251119Type`
 
             - `const ToolSearchToolBm25_20251119TypeToolSearchToolBm25_20251119 ToolSearchToolBm25_20251119Type = "tool_search_tool_bm25_20251119"`
 
             - `const ToolSearchToolBm25_20251119TypeToolSearchToolBm25 ToolSearchToolBm25_20251119Type = "tool_search_tool_bm25"`
+
+          - `Name ToolSearchToolBm25`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
 
           - `AllowedCallers []string Optional`
 
@@ -2906,17 +2913,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type ToolSearchToolRegex20251119 struct{…}`
 
-          - `Name ToolSearchToolRegex`
-
-            Name of the tool.
-
-            This is how the tool will be called by the model and in `tool_use` blocks.
-
           - `Type ToolSearchToolRegex20251119Type`
 
             - `const ToolSearchToolRegex20251119TypeToolSearchToolRegex20251119 ToolSearchToolRegex20251119Type = "tool_search_tool_regex_20251119"`
 
             - `const ToolSearchToolRegex20251119TypeToolSearchToolRegex ToolSearchToolRegex20251119Type = "tool_search_tool_regex"`
+
+          - `Name ToolSearchToolRegex`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
 
           - `AllowedCallers []string Optional`
 
@@ -2980,9 +2987,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type MessageBatch struct{…}`
+
+  - `Type MessageBatch`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `ID string`
 
@@ -3081,14 +3102,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `Type MessageBatch`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 ## Example
 

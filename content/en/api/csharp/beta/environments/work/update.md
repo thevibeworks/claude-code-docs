@@ -1,3 +1,8 @@
+---
+title: Update Work Item
+url: https://platform.claude.com/docs/en/api/csharp/beta/environments/work/update
+---
+
 # Update Work Item
 
 `BetaSelfHostedWork Beta.Environments.Work.Update(parameters, cancellationToken = default)`
@@ -74,6 +79,8 @@ Update work item metadata with merge semantics.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -116,6 +123,12 @@ Update work item metadata with merge semantics.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaSelfHostedWork:`
@@ -125,6 +138,10 @@ Update work item metadata with merge semantics.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonElement Type = "work"`
+
+    The type of object (always 'work')
 
   - `required string ID`
 
@@ -142,13 +159,13 @@ Update work item metadata with merge semantics.
 
     The actual work to be performed
 
-    - `required string ID`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonElement Type = "session"`
 
       Type of work data
+
+    - `required string ID`
+
+      Session identifier (e.g., 'session_...')
 
   - `required string EnvironmentID`
 
@@ -191,10 +208,6 @@ Update work item metadata with merge semantics.
   - `required string? StoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonElement Type = "work"`
-
-    The type of object (always 'work')
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: Completions
+url: https://platform.claude.com/docs/en/api/ruby/completions
+---
+
 # Completions
 
 ## Create a Text Completion
@@ -158,7 +163,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -206,6 +211,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -248,6 +255,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 - `temperature: Float`
 
   **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
@@ -288,6 +297,12 @@ Future models and features will not be compatible with Text Completions. See our
 
 - `class Completion`
 
+  - `type: :completion`
+
+    Object type.
+
+    For Text Completions, this is always `"completion"`.
+
   - `id: String`
 
     Unique object identifier.
@@ -388,12 +403,6 @@ Future models and features will not be compatible with Text Completions. See our
 
     * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
     * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
-
-  - `type: :completion`
-
-    Object type.
-
-    For Text Completions, this is always `"completion"`.
 
 ### Example
 
@@ -429,6 +438,12 @@ puts(completion)
 
 - `class Completion`
 
+  - `type: :completion`
+
+    Object type.
+
+    For Text Completions, this is always `"completion"`.
+
   - `id: String`
 
     Unique object identifier.
@@ -529,9 +544,3 @@ puts(completion)
 
     * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
     * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
-
-  - `type: :completion`
-
-    Object type.
-
-    For Text Completions, this is always `"completion"`.

@@ -1,3 +1,8 @@
+---
+title: Get User Profile
+url: https://platform.claude.com/docs/en/api/java/beta/user_profiles/retrieve
+---
+
 # Get User Profile
 
 `BetaUserProfile beta().userProfiles().retrieve(params = UserProfileRetrieveParams.none(), requestOptions = RequestOptions.none())`
@@ -62,6 +67,8 @@ Get User Profile
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -108,6 +115,10 @@ Get User Profile
 
 - `class BetaUserProfile:`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `String id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -136,10 +147,6 @@ Get User Profile
 
       - `REJECTED("rejected")`
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -156,7 +163,55 @@ Get User Profile
 
   - `Optional<String> externalId`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `Optional<BetaUserProfileExternalUserDetails> externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `Optional<AccountStatus> accountStatus`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `ACTIVE("active")`
+
+      - `SUSPENDED("suspended")`
+
+      - `BLOCKED("blocked")`
+
+    - `Optional<String> country`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `Optional<String> emailHash`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `Optional<EntityType> entityType`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `INDIVIDUAL("individual")`
+
+      - `BUSINESS("business")`
+
+      - `NON_PROFIT("non_profit")`
+
+      - `GOVERNMENT("government")`
+
+    - `Optional<String> nameHash`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `Optional<LocalDateTime> onboardedAt`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `Optional<String> referenceId`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `Optional<LocalDateTime> externalUserOnboardedAt`
 
@@ -205,6 +260,15 @@ public final class Main {
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }

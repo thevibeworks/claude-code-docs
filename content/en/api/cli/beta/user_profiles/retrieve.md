@@ -1,3 +1,8 @@
+---
+title: Get User Profile
+url: https://platform.claude.com/docs/en/api/cli/beta/user_profiles/retrieve
+---
+
 # Get User Profile
 
 `$ ant beta:user-profiles retrieve`
@@ -19,6 +24,10 @@ Get User Profile
 ## Returns
 
 - `beta_user_profile: object`
+
+  - `type: "user_profile"`
+
+    Object type. Always `user_profile`.
 
   - `id: string`
 
@@ -48,10 +57,6 @@ Get User Profile
 
       - `"rejected"`
 
-  - `type: "user_profile"`
-
-    Object type. Always `user_profile`.
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
@@ -68,7 +73,55 @@ Get User Profile
 
   - `external_id: optional string`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `external_user_details: optional object`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+
+    - `account_status: "active" or "suspended" or "blocked"`
+
+      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
+
+      - `"active"`
+
+      - `"suspended"`
+
+      - `"blocked"`
+
+    - `country: string`
+
+      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
+
+    - `email_hash: string`
+
+      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
+
+    - `entity_type: "individual" or "business" or "non_profit" or "government"`
+
+      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+
+      - `"individual"`
+
+      - `"business"`
+
+      - `"non_profit"`
+
+      - `"government"`
+
+    - `name_hash: string`
+
+      The platform-computed hash of the entity's name. `null` until the platform supplies one.
+
+    - `onboarded_at: string`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `reference_id: string`
+
+      The platform's own reference for the entity. `null` until the platform supplies one.
 
   - `external_user_onboarded_at: optional string`
 
@@ -104,6 +157,15 @@ ant beta:user-profiles retrieve \
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
+  "external_user_details": {
+    "account_status": "active",
+    "country": "country",
+    "email_hash": "email_hash",
+    "entity_type": "individual",
+    "name_hash": "name_hash",
+    "onboarded_at": "2019-12-27T18:11:19.117Z",
+    "reference_id": "reference_id"
+  },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z",
   "name": "Example User"
 }

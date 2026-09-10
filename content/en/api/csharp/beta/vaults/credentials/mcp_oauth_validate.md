@@ -1,3 +1,8 @@
+---
+title: Validate Credential
+url: https://platform.claude.com/docs/en/api/csharp/beta/vaults/credentials/mcp_oauth_validate
+---
+
 # Validate Credential
 
 `BetaManagedAgentsCredentialValidation Beta.Vaults.Credentials.McpOAuthValidate(parameters, cancellationToken = default)`
@@ -68,6 +73,8 @@ Validate Credential
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -110,11 +117,19 @@ Validate Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsCredentialValidation:`
 
   Result of live-probing a credential against its configured MCP server.
+
+  - `required Type Type`
 
   - `required string CredentialID`
 
@@ -183,8 +198,6 @@ Validate Credential
     - `Invalid("invalid")`
 
     - `Unknown("unknown")`
-
-  - `required Type Type`
 
   - `required DateTimeOffset ValidatedAt`
 

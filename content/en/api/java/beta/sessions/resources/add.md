@@ -1,3 +1,8 @@
+---
+title: Add Session Resource
+url: https://platform.claude.com/docs/en/api/java/beta/sessions/resources/add
+---
+
 # Add Session Resource
 
 `BetaManagedAgentsFileResource beta().sessions().resources().add(params, requestOptions = RequestOptions.none())`
@@ -62,6 +67,8 @@ Add Session Resource
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -104,6 +111,8 @@ Add Session Resource
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `BetaManagedAgentsFileResourceParams betaManagedAgentsFileResourceParams`
 
     Mount a file uploaded via the Files API into the session.
@@ -111,6 +120,8 @@ Add Session Resource
 ## Returns
 
 - `class BetaManagedAgentsFileResource:`
+
+  - `Type type`
 
   - `String id`
 
@@ -123,8 +134,6 @@ Add Session Resource
   - `String fileId`
 
   - `String mountPath`
-
-  - `Type type`
 
   - `LocalDateTime updatedAt`
 

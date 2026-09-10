@@ -1,3 +1,8 @@
+---
+title: Environments
+url: https://platform.claude.com/docs/en/api/go/beta/environments
+---
+
 # Environments
 
 ## Create Environment
@@ -76,6 +81,12 @@ Create a new environment with the specified configuration.
 
         Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+        - `Type BetaPackagesParamsType Optional`
+
+          Package configuration type
+
+          default: packages
+
         - `Apt []string Optional`
 
           Ubuntu/Debian packages to install
@@ -100,12 +111,6 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesParamsType Optional`
-
-          Package configuration type
-
-          default: packages
-
     - `type BetaSelfHostedConfigParamsResp struct{…}`
 
       Request params for `self_hosted` environment configuration.
@@ -126,7 +131,7 @@ Create a new environment with the specified configuration.
 
   - `Scope param.Field[BetaEnvironmentNewParamsScope] Optional`
 
-    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
+    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
     - `const BetaEnvironmentNewParamsScopeOrganization BetaEnvironmentNewParamsScope = "organization"`
 
@@ -186,6 +191,8 @@ Create a new environment with the specified configuration.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -228,11 +235,23 @@ Create a new environment with the specified configuration.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -250,6 +269,10 @@ Create a new environment with the specified configuration.
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -266,6 +289,10 @@ Create a new environment with the specified configuration.
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -278,13 +305,15 @@ Create a new environment with the specified configuration.
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -310,16 +339,6 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -343,12 +362,6 @@ Create a new environment with the specified configuration.
   - `Name string`
 
     Human-readable name for the environment
-
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `UpdatedAt string`
 
@@ -518,6 +531,8 @@ List environments with pagination support.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -560,11 +575,23 @@ List environments with pagination support.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -582,6 +609,10 @@ List environments with pagination support.
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -598,6 +629,10 @@ List environments with pagination support.
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -610,13 +645,15 @@ List environments with pagination support.
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -642,16 +679,6 @@ List environments with pagination support.
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -675,12 +702,6 @@ List environments with pagination support.
   - `Name string`
 
     Human-readable name for the environment
-
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `UpdatedAt string`
 
@@ -841,6 +862,8 @@ Retrieve a specific environment by ID.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -883,11 +906,23 @@ Retrieve a specific environment by ID.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -905,6 +940,10 @@ Retrieve a specific environment by ID.
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -921,6 +960,10 @@ Retrieve a specific environment by ID.
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -933,13 +976,15 @@ Retrieve a specific environment by ID.
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -965,16 +1010,6 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -998,12 +1033,6 @@ Retrieve a specific environment by ID.
   - `Name string`
 
     Human-readable name for the environment
-
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `UpdatedAt string`
 
@@ -1167,6 +1196,12 @@ Update an existing environment's configuration.
 
         Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+        - `Type BetaPackagesParamsType Optional`
+
+          Package configuration type
+
+          default: packages
+
         - `Apt []string Optional`
 
           Ubuntu/Debian packages to install
@@ -1190,12 +1225,6 @@ Update an existing environment's configuration.
         - `Pip []string Optional`
 
           Python packages to install
-
-        - `Type BetaPackagesParamsType Optional`
-
-          Package configuration type
-
-          default: packages
 
     - `type BetaSelfHostedConfigParamsResp struct{…}`
 
@@ -1283,6 +1312,8 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1325,11 +1356,23 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -1347,6 +1390,10 @@ Update an existing environment's configuration.
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -1363,6 +1410,10 @@ Update an existing environment's configuration.
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -1375,13 +1426,15 @@ Update an existing environment's configuration.
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -1407,16 +1460,6 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -1440,12 +1483,6 @@ Update an existing environment's configuration.
   - `Name string`
 
     Human-readable name for the environment
-
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `UpdatedAt string`
 
@@ -1605,6 +1642,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1647,21 +1686,27 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaEnvironmentDeleteResponse struct{…}`
 
   Response after deleting an environment.
 
-  - `ID string`
-
-    Environment identifier
-
   - `Type BetaEnvironmentDeleteResponseType`
 
     The type of response
 
     default: environment_deleted
+
+  - `ID string`
+
+    Environment identifier
 
 ### Example
 
@@ -1769,6 +1814,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1811,11 +1858,23 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -1833,6 +1892,10 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -1849,6 +1912,10 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -1861,13 +1928,15 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -1893,16 +1962,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -1926,12 +1985,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
   - `Name string`
 
     Human-readable name for the environment
-
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `UpdatedAt string`
 
@@ -2031,6 +2084,10 @@ func main() {
 
   `cloud` environment configuration.
 
+  - `Type Cloud`
+
+    Environment type
+
   - `Networking BetaCloudConfigNetworkingUnion`
 
     Network configuration policy.
@@ -2047,6 +2104,10 @@ func main() {
 
       Limited network access.
 
+      - `Type Limited`
+
+        Network policy type
+
       - `AllowMCPServers bool`
 
         Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -2059,13 +2120,15 @@ func main() {
 
         Specifies domains the container can reach.
 
-      - `Type Limited`
-
-        Network policy type
-
   - `Packages BetaPackages`
 
     Package manager configuration.
+
+    - `Type BetaPackagesType Optional`
+
+      Package configuration type
+
+      default: packages
 
     - `Apt []string`
 
@@ -2090,16 +2153,6 @@ func main() {
     - `Pip []string`
 
       Python packages to install
-
-    - `Type BetaPackagesType Optional`
-
-      Package configuration type
-
-      default: packages
-
-  - `Type Cloud`
-
-    Environment type
 
 ### Beta Cloud Config Params
 
@@ -2157,6 +2210,12 @@ func main() {
 
     Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+    - `Type BetaPackagesParamsType Optional`
+
+      Package configuration type
+
+      default: packages
+
     - `Apt []string Optional`
 
       Ubuntu/Debian packages to install
@@ -2181,17 +2240,17 @@ func main() {
 
       Python packages to install
 
-    - `Type BetaPackagesParamsType Optional`
-
-      Package configuration type
-
-      default: packages
-
 ### Beta Environment
 
 - `type BetaEnvironment struct{…}`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `Type Environment`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `ID string`
 
@@ -2209,6 +2268,10 @@ func main() {
 
       `cloud` environment configuration.
 
+      - `Type Cloud`
+
+        Environment type
+
       - `Networking BetaCloudConfigNetworkingUnion`
 
         Network configuration policy.
@@ -2225,6 +2288,10 @@ func main() {
 
           Limited network access.
 
+          - `Type Limited`
+
+            Network policy type
+
           - `AllowMCPServers bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -2237,13 +2304,15 @@ func main() {
 
             Specifies domains the container can reach.
 
-          - `Type Limited`
-
-            Network policy type
-
       - `Packages BetaPackages`
 
         Package manager configuration.
+
+        - `Type BetaPackagesType Optional`
+
+          Package configuration type
+
+          default: packages
 
         - `Apt []string`
 
@@ -2269,16 +2338,6 @@ func main() {
 
           Python packages to install
 
-        - `Type BetaPackagesType Optional`
-
-          Package configuration type
-
-          default: packages
-
-      - `Type Cloud`
-
-        Environment type
-
     - `type BetaSelfHostedConfig struct{…}`
 
       Configuration for self-hosted environments.
@@ -2303,12 +2362,6 @@ func main() {
 
     Human-readable name for the environment
 
-  - `Type Environment`
-
-    The type of object (always 'environment')
-
-    default: environment
-
   - `UpdatedAt string`
 
     RFC 3339 timestamp when environment was last updated
@@ -2327,21 +2380,25 @@ func main() {
 
   Response after deleting an environment.
 
-  - `ID string`
-
-    Environment identifier
-
   - `Type BetaEnvironmentDeleteResponseType`
 
     The type of response
 
     default: environment_deleted
 
+  - `ID string`
+
+    Environment identifier
+
 ### Beta Limited Network
 
 - `type BetaLimitedNetwork struct{…}`
 
   Limited network access.
+
+  - `Type Limited`
+
+    Network policy type
 
   - `AllowMCPServers bool`
 
@@ -2354,10 +2411,6 @@ func main() {
   - `AllowedHosts []string`
 
     Specifies domains the container can reach.
-
-  - `Type Limited`
-
-    Network policy type
 
 ### Beta Limited Network Params
 
@@ -2390,6 +2443,12 @@ func main() {
 
   Packages (and their versions) available in this environment.
 
+  - `Type BetaPackagesType Optional`
+
+    Package configuration type
+
+    default: packages
+
   - `Apt []string`
 
     Ubuntu/Debian packages to install
@@ -2414,12 +2473,6 @@ func main() {
 
     Python packages to install
 
-  - `Type BetaPackagesType Optional`
-
-    Package configuration type
-
-    default: packages
-
 ### Beta Packages Params
 
 - `type BetaPackagesParamsResp struct{…}`
@@ -2429,6 +2482,12 @@ func main() {
   When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
   Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
+
+  - `Type BetaPackagesParamsType Optional`
+
+    Package configuration type
+
+    default: packages
 
   - `Apt []string Optional`
 
@@ -2453,12 +2512,6 @@ func main() {
   - `Pip []string Optional`
 
     Python packages to install
-
-  - `Type BetaPackagesParamsType Optional`
-
-    Package configuration type
-
-    default: packages
 
 ### Beta Self Hosted Config
 
@@ -2566,6 +2619,8 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -2608,6 +2663,12 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -2617,6 +2678,12 @@ Retrieve detailed information about a specific work item.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -2634,13 +2701,13 @@ Retrieve detailed information about a specific work item.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -2683,12 +2750,6 @@ Retrieve detailed information about a specific work item.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 #### Example
 
@@ -2828,6 +2889,8 @@ Long poll for work items in the queue.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -2884,6 +2947,12 @@ Long poll for work items in the queue.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -2900,13 +2969,13 @@ Long poll for work items in the queue.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -2949,12 +3018,6 @@ Long poll for work items in the queue.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 #### Example
 
@@ -3084,6 +3147,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -3136,6 +3201,12 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -3152,13 +3223,13 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -3201,12 +3272,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 #### Example
 
@@ -3346,6 +3411,8 @@ Record a heartbeat for a work item to maintain the lease.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -3394,6 +3461,12 @@ Record a heartbeat for a work item to maintain the lease.
 
   Response after recording a heartbeat for a work item.
 
+  - `Type WorkHeartbeat`
+
+    The type of response
+
+    default: work_heartbeat
+
   - `LastHeartbeat string`
 
     RFC 3339 timestamp of the actual heartbeat from DB
@@ -3419,12 +3492,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `TTLSeconds int64`
 
     Effective TTL applied to the lease
-
-  - `Type WorkHeartbeat`
-
-    The type of response
-
-    default: work_heartbeat
 
 #### Example
 
@@ -3547,6 +3614,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -3589,6 +3658,12 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -3598,6 +3673,12 @@ Stop a work item, initiating graceful or forced shutdown.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -3615,13 +3696,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -3664,12 +3745,6 @@ Stop a work item, initiating graceful or forced shutdown.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 #### Example
 
@@ -3808,6 +3883,8 @@ List work items in an environment.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -3860,6 +3937,12 @@ List work items in an environment.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -3876,13 +3959,13 @@ List work items in an environment.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -3925,12 +4008,6 @@ List work items in an environment.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 #### Example
 
@@ -4069,6 +4146,8 @@ Update work item metadata with merge semantics.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -4111,6 +4190,12 @@ Update work item metadata with merge semantics.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -4120,6 +4205,12 @@ Update work item metadata with merge semantics.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -4137,13 +4228,13 @@ Update work item metadata with merge semantics.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -4186,12 +4277,6 @@ Update work item metadata with merge semantics.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 #### Example
 
@@ -4322,6 +4407,8 @@ Get statistics about the work queue for an environment.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -4364,6 +4451,12 @@ Get statistics about the work queue for an environment.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `type BetaSelfHostedWorkQueueStats struct{…}`
@@ -4371,6 +4464,12 @@ Get statistics about the work queue for an environment.
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `Type WorkQueueStats`
+
+    The type of object
+
+    default: work_queue_stats
 
   - `Depth int64`
 
@@ -4385,12 +4484,6 @@ Get statistics about the work queue for an environment.
     Number of work items being processed (polled but not acknowledged)
 
     default: 0
-
-  - `Type WorkQueueStats`
-
-    The type of object
-
-    default: work_queue_stats
 
   - `WorkersPolling int64`
 

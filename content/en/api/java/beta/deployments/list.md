@@ -1,3 +1,8 @@
+---
+title: List Deployments
+url: https://platform.claude.com/docs/en/api/java/beta/deployments/list
+---
+
 # List Deployments
 
 `DeploymentListPage beta().deployments().list(params = DeploymentListParams.none(), requestOptions = RequestOptions.none())`
@@ -94,6 +99,8 @@ List Deployments
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -136,11 +143,15 @@ List Deployments
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaManagedAgentsDeployment:`
 
   A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
+
+  - `Type type`
 
   - `String id`
 
@@ -150,9 +161,9 @@ List Deployments
 
     A resolved agent reference with a concrete version.
 
-    - `String id`
-
     - `Type type`
+
+    - `String id`
 
     - `long version`
 
@@ -186,6 +197,8 @@ List Deployments
 
       A user message sent to the session.
 
+      - `Type type`
+
       - `List<Content> content`
 
         Array of content blocks for the user message.
@@ -194,17 +207,19 @@ List Deployments
 
           Regular text content.
 
+          - `Type type`
+
           - `String text`
 
             The text content.
 
             minLength: 1
 
-          - `Type type`
-
         - `class BetaManagedAgentsImageBlock:`
 
           Image content specified directly as base64 data or as a reference via a URL.
+
+          - `Type type`
 
           - `Source source`
 
@@ -213,6 +228,8 @@ List Deployments
             - `class BetaManagedAgentsBase64ImageSource:`
 
               Base64-encoded image data.
+
+              - `Type type`
 
               - `String data`
 
@@ -225,8 +242,6 @@ List Deployments
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
                 minLength: 1
-
-              - `Type type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -244,19 +259,19 @@ List Deployments
 
               Image referenced by file ID.
 
+              - `Type type`
+
               - `String fileId`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
 
-              - `Type type`
-
-          - `Type type`
-
         - `class BetaManagedAgentsDocumentBlock:`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
+
+          - `Type type`
 
           - `Source source`
 
@@ -265,6 +280,8 @@ List Deployments
             - `class BetaManagedAgentsBase64DocumentSource:`
 
               Base64-encoded document data.
+
+              - `Type type`
 
               - `String data`
 
@@ -278,11 +295,11 @@ List Deployments
 
                 minLength: 1
 
-              - `Type type`
-
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
               Plain text document content.
+
+              - `Type type`
 
               - `String data`
 
@@ -293,8 +310,6 @@ List Deployments
               - `MediaType mediaType`
 
                 MIME type of the text content. Must be "text/plain".
-
-              - `Type type`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -312,15 +327,13 @@ List Deployments
 
               Document referenced by file ID.
 
+              - `Type type`
+
               - `String fileId`
 
                 ID of a previously uploaded file.
 
                 minLength: 1
-
-              - `Type type`
-
-          - `Type type`
 
           - `Optional<String> context`
 
@@ -336,11 +349,11 @@ List Deployments
 
           - `Type type`
 
-      - `Type type`
-
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent:`
 
       An outcome the agent should work toward. The agent begins work on receipt.
+
+      - `Type type`
 
       - `String description`
 
@@ -354,23 +367,21 @@ List Deployments
 
           Rubric referenced by a file uploaded via the Files API.
 
+          - `Type type`
+
           - `String fileId`
 
             ID of the rubric file.
-
-          - `Type type`
 
         - `class BetaManagedAgentsTextRubric:`
 
           Rubric content provided inline as text.
 
+          - `Type type`
+
           - `String content`
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-          - `Type type`
-
-      - `Type type`
 
       - `Optional<Long> maxIterations`
 
@@ -382,19 +393,19 @@ List Deployments
 
       Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
 
+      - `Type type`
+
       - `List<BetaManagedAgentsSystemContentBlock> content`
 
         System content blocks to append. Text-only.
+
+        - `Type type`
 
         - `String text`
 
           The text content.
 
           minLength: 1
-
-        - `Type type`
-
-      - `Type type`
 
   - `Metadata metadata`
 
@@ -417,6 +428,8 @@ List Deployments
     - `class BetaManagedAgentsErrorDeploymentPausedReason:`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
+
+      - `Type type`
 
       - `BetaManagedAgentsDeploymentPausedReasonError error`
 
@@ -506,8 +519,6 @@ List Deployments
 
           - `Type type`
 
-      - `Type type`
-
   - `List<BetaManagedAgentsSessionResourceConfig> resources`
 
     Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
@@ -528,23 +539,23 @@ List Deployments
 
         - `class BetaManagedAgentsBranchCheckout:`
 
+          - `Type type`
+
           - `String name`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `Type type`
-
         - `class BetaManagedAgentsCommitCheckout:`
+
+          - `Type type`
 
           - `String sha`
 
             Full commit SHA to check out.
 
             minLength: 7, maxLength: 64
-
-          - `Type type`
 
       - `Optional<String> mountPath`
 
@@ -554,11 +565,11 @@ List Deployments
 
       A file mounted into each session's container.
 
+      - `Type type`
+
       - `String fileId`
 
         ID of a previously uploaded file.
-
-      - `Type type`
 
       - `Optional<String> mountPath`
 
@@ -568,11 +579,11 @@ List Deployments
 
       A memory store attached to each session created from this deployment.
 
+      - `Type type`
+
       - `String memoryStoreId`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `Type type`
 
       - `Optional<Access> access`
 
@@ -590,6 +601,8 @@ List Deployments
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
+    - `Type type`
+
     - `String expression`
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
@@ -601,8 +614,6 @@ List Deployments
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
       minLength: 1
-
-    - `Type type`
 
     - `Optional<LocalDateTime> lastRunAt`
 
@@ -622,8 +633,6 @@ List Deployments
 
     - `PAUSED("paused")`
 
-  - `Type type`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -638,6 +647,8 @@ List Deployments
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `Type type`
+
     - `BetaMonetaryAmount maxListCost`
 
       A monetary amount in a specific currency.
@@ -649,8 +660,6 @@ List Deployments
       - `BetaCurrency currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `Type type`
 
 ## Example
 

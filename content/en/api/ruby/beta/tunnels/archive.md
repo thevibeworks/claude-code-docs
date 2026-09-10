@@ -1,3 +1,8 @@
+---
+title: Archive Tunnel
+url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/archive
+---
+
 # Archive Tunnel
 
 `beta.tunnels.archive(tunnel_id, **kwargs) -> BetaTunnel`
@@ -18,7 +23,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -66,6 +71,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -108,11 +115,15 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaTunnel`
 
   An MCP tunnel.
+
+  - `type: :tunnel`
 
   - `id: String`
 
@@ -137,8 +148,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
   - `domain: String`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `type: :tunnel`
 
 ## Example
 

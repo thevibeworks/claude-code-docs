@@ -1,3 +1,8 @@
+---
+title: Create a Message
+url: https://platform.claude.com/docs/en/api/go/beta/messages/create
+---
+
 # Create a Message
 
 `client.Beta.Messages.New(ctx, params) (*BetaMessage, error)`
@@ -83,11 +88,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaTextBlockParamResp struct{…}`
 
+          - `Type Text`
+
           - `Text string`
 
             minLength: 1
-
-          - `Type Text`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -114,6 +119,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type BetaCitationCharLocationParamResp struct{…}`
 
+              - `Type CharLocation`
+
               - `CitedText string`
 
               - `DocumentIndex int64`
@@ -130,9 +137,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `Type CharLocation`
-
             - `type BetaCitationPageLocationParamResp struct{…}`
+
+              - `Type PageLocation`
 
               - `CitedText string`
 
@@ -150,9 +157,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 1
 
-              - `Type PageLocation`
-
             - `type BetaCitationContentBlockLocationParamResp struct{…}`
+
+              - `Type ContentBlockLocation`
 
               - `CitedText string`
 
@@ -180,9 +187,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-              - `Type ContentBlockLocation`
-
             - `type BetaCitationWebSearchResultLocationParamResp struct{…}`
+
+              - `Type WebSearchResultLocation`
 
               - `CitedText string`
 
@@ -192,13 +199,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 maxLength: 512, minLength: 1
 
-              - `Type WebSearchResultLocation`
-
               - `URL string`
 
                 minLength: 1
 
             - `type BetaCitationSearchResultLocationParamResp struct{…}`
+
+              - `Type SearchResultLocation`
 
               - `CitedText string`
 
@@ -230,13 +237,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Title string`
 
-              - `Type SearchResultLocation`
-
         - `type BetaImageBlockParamResp struct{…}`
+
+          - `Type Image`
 
           - `Source BetaImageBlockParamSourceUnionResp`
 
             - `type BetaBase64ImageSource struct{…}`
+
+              - `Type Base64`
 
               - `Data string`
 
@@ -252,8 +261,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaBase64ImageSourceMediaTypeImageWebP BetaBase64ImageSourceMediaType = "image/webp"`
 
-              - `Type Base64`
-
             - `type BetaURLImageSource struct{…}`
 
               - `Type URL`
@@ -262,11 +269,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type BetaFileImageSource struct{…}`
 
-              - `FileID string`
-
               - `Type File`
 
-          - `Type Image`
+              - `FileID string`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -286,9 +291,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaRequestDocumentBlock struct{…}`
 
+          - `Type Document`
+
           - `Source BetaRequestDocumentBlockSourceUnion`
 
             - `type BetaBase64PDFSource struct{…}`
+
+              - `Type Base64`
 
               - `Data string`
 
@@ -296,17 +305,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `MediaType ApplicationPDF`
 
-              - `Type Base64`
-
             - `type BetaPlainTextSource struct{…}`
+
+              - `Type Text`
 
               - `Data string`
 
               - `MediaType TextPlain`
 
-              - `Type Text`
-
             - `type BetaContentBlockSource struct{…}`
+
+              - `Type Content`
 
               - `Content BetaContentBlockSourceContentUnion`
 
@@ -318,8 +327,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `type BetaImageBlockParamResp struct{…}`
 
-              - `Type Content`
-
             - `type BetaURLPDFSource struct{…}`
 
               - `Type URL`
@@ -328,11 +335,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type BetaFileDocumentSource struct{…}`
 
-              - `FileID string`
-
               - `Type File`
 
-          - `Type Document`
+              - `FileID string`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -352,13 +357,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaSearchResultBlockParamResp struct{…}`
 
+          - `Type SearchResult`
+
           - `Content []BetaTextBlockParamResp`
+
+            - `Type Text`
 
             - `Text string`
 
               minLength: 1
-
-            - `Type Text`
 
             - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -370,8 +377,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Title string`
 
-          - `Type SearchResult`
-
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
@@ -379,6 +384,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `Citations BetaCitationsConfigParamResp Optional`
 
         - `type BetaThinkingBlockParamResp struct{…}`
+
+          - `Type Thinking`
 
           - `Signature string`
 
@@ -390,17 +397,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `thinking` text of this block as returned by the API.
 
-          - `Type Thinking`
-
         - `type BetaRedactedThinkingBlockParamResp struct{…}`
+
+          - `Type RedactedThinking`
 
           - `Data string`
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `Type RedactedThinking`
-
         - `type BetaToolUseBlockParamResp struct{…}`
+
+          - `Type ToolUse`
 
           - `ID string`
 
@@ -411,8 +418,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `Name string`
 
             maxLength: 200, minLength: 1
-
-          - `Type ToolUse`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -432,19 +437,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Tool invocation generated by a server-side tool.
 
+              - `Type CodeExecution20250825`
+
               - `ToolID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type CodeExecution20250825`
 
             - `type BetaServerToolCaller20260120 struct{…}`
 
+              - `Type CodeExecution20260120`
+
               - `ToolID string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `Type CodeExecution20260120`
 
           - `ToolsetName string Optional`
 
@@ -454,11 +459,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaToolResultBlockParamResp struct{…}`
 
+          - `Type ToolResult`
+
           - `ToolUseID string`
 
             pattern: ^[a-zA-Z0-9_-]+$
-
-          - `Type ToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -480,11 +485,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 Tool reference block that can be included in tool_result content.
 
+                - `Type ToolReference`
+
                 - `ToolName string`
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                - `Type ToolReference`
 
                 - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -499,6 +504,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                 At most one per `tool_result`, only on a non-error result answering a
                 browser toolset member `tool_use`. The server renders the
                 model-visible text from it; the model never sees the raw fields.
+
+                - `Type BrowserState`
 
                 - `Tabs []BetaBrowserStateTabEntry`
 
@@ -528,8 +535,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                - `Type BrowserState`
-
                 - `CacheControl BetaCacheControlEphemeral Optional`
 
                   Create a cache control breakpoint at this content block.
@@ -550,25 +555,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                     during a failed call gets no deferred `tab_opened`; it simply appears
                     in the next result's `tabs` inventory.
 
+                    - `Type TabOpened`
+
                     - `TabID string`
 
                       The `tab_id` of the opened tab, present in `tabs`.
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `Type TabOpened`
-
                   - `type BetaBrowserStateChangeDownloadStarted struct{…}`
 
                     A file download that started during this call.
+
+                    - `Type DownloadStarted`
 
                     - `DownloadID string`
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                    - `Type DownloadStarted`
 
                     - `URL string`
 
@@ -583,13 +588,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                     `download_started`, when the download finished during the call that
                     started it (at most one state change per `download_id` per result).
 
+                    - `Type DownloadCompleted`
+
                     - `DownloadID string`
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                    - `Type DownloadCompleted`
 
                     - `URL string`
 
@@ -613,13 +618,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     A file download that failed — or was cancelled — during this call.
 
+                    - `Type DownloadFailed`
+
                     - `DownloadID string`
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                    - `Type DownloadFailed`
 
                     - `URL string`
 
@@ -642,6 +647,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `type BetaServerToolUseBlockParamResp struct{…}`
+
+          - `Type ServerToolUse`
 
           - `ID string`
 
@@ -667,8 +674,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `const BetaServerToolUseBlockParamNameToolSearchToolBm25 BetaServerToolUseBlockParamName = "tool_search_tool_bm25"`
 
-          - `Type ServerToolUse`
-
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
@@ -689,21 +694,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaWebSearchToolResultBlockParamResp struct{…}`
 
+          - `Type WebSearchToolResult`
+
           - `Content BetaWebSearchToolResultBlockParamContentUnionResp`
 
             - `[]BetaWebSearchResultBlockParamResp`
 
+              - `Type WebSearchResult`
+
               - `EncryptedContent string`
 
               - `Title string`
-
-              - `Type WebSearchResult`
 
               - `URL string`
 
               - `PageAge string Optional`
 
             - `type BetaWebSearchToolRequestError struct{…}`
+
+              - `Type WebSearchToolResultError`
 
               - `ErrorCode BetaWebSearchToolResultErrorCode`
 
@@ -719,13 +728,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaWebSearchToolResultErrorCodeRequestTooLarge BetaWebSearchToolResultErrorCode = "request_too_large"`
 
-              - `Type WebSearchToolResultError`
-
           - `ToolUseID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type WebSearchToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -747,9 +752,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaWebFetchToolResultBlockParamResp struct{…}`
 
+          - `Type WebFetchToolResult`
+
           - `Content BetaWebFetchToolResultBlockParamContentUnionResp`
 
             - `type BetaWebFetchToolResultErrorBlockParamResp struct{…}`
+
+              - `Type WebFetchToolResultError`
 
               - `ErrorCode BetaWebFetchToolResultErrorCode`
 
@@ -771,13 +780,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaWebFetchToolResultErrorCodeUnavailable BetaWebFetchToolResultErrorCode = "unavailable"`
 
-              - `Type WebFetchToolResultError`
+                - `const BetaWebFetchToolResultErrorCodeContentTooLarge BetaWebFetchToolResultErrorCode = "content_too_large"`
 
             - `type BetaWebFetchBlockParamResp struct{…}`
 
-              - `Content BetaRequestDocumentBlock`
-
               - `Type WebFetchResult`
+
+              - `Content BetaRequestDocumentBlock`
 
               - `URL string`
 
@@ -790,8 +799,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `ToolUseID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type WebFetchToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -813,9 +820,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaAdvisorToolResultBlockParamResp struct{…}`
 
+          - `Type AdvisorToolResult`
+
           - `Content BetaAdvisorToolResultBlockParamContentUnionResp`
 
             - `type BetaAdvisorToolResultErrorParamResp struct{…}`
+
+              - `Type AdvisorToolResultError`
 
               - `ErrorCode BetaAdvisorToolResultErrorParamErrorCode`
 
@@ -833,23 +844,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaAdvisorToolResultErrorParamErrorCodeModelNotFound BetaAdvisorToolResultErrorParamErrorCode = "model_not_found"`
 
-              - `Type AdvisorToolResultError`
-
             - `type BetaAdvisorResultBlockParamResp struct{…}`
 
-              - `Text string`
-
               - `Type AdvisorResult`
+
+              - `Text string`
 
               - `StopReason string Optional`
 
             - `type BetaAdvisorRedactedResultBlockParamResp struct{…}`
 
+              - `Type AdvisorRedactedResult`
+
               - `EncryptedContent string`
 
                 Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-              - `Type AdvisorRedactedResult`
 
               - `StopReason string Optional`
 
@@ -857,19 +866,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `Type AdvisorToolResult`
-
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
         - `type BetaCodeExecutionToolResultBlockParamResp struct{…}`
 
+          - `Type CodeExecutionToolResult`
+
           - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
             - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
+
+              - `Type CodeExecutionToolResultError`
 
               - `ErrorCode BetaCodeExecutionToolResultErrorCode`
 
@@ -881,15 +892,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaCodeExecutionToolResultErrorCodeExecutionTimeExceeded BetaCodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-              - `Type CodeExecutionToolResultError`
-
             - `type BetaCodeExecutionResultBlockParamResp struct{…}`
+
+              - `Type CodeExecutionResult`
 
               - `Content []BetaCodeExecutionOutputBlockParamResp`
 
-                - `FileID string`
-
                 - `Type CodeExecutionOutput`
+
+                - `FileID string`
 
               - `ReturnCode int64`
 
@@ -897,17 +908,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Stdout string`
 
-              - `Type CodeExecutionResult`
-
             - `type BetaEncryptedCodeExecutionResultBlockParamResp struct{…}`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
+              - `Type EncryptedCodeExecutionResult`
+
               - `Content []BetaCodeExecutionOutputBlockParamResp`
 
-                - `FileID string`
-
                 - `Type CodeExecutionOutput`
+
+                - `FileID string`
 
               - `EncryptedStdout string`
 
@@ -915,13 +926,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Stderr string`
 
-              - `Type EncryptedCodeExecutionResult`
-
           - `ToolUseID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type CodeExecutionToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -929,9 +936,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaBashCodeExecutionToolResultBlockParamResp struct{…}`
 
+          - `Type BashCodeExecutionToolResult`
+
           - `Content BetaBashCodeExecutionToolResultBlockParamContentUnionResp`
 
             - `type BetaBashCodeExecutionToolResultErrorParamResp struct{…}`
+
+              - `Type BashCodeExecutionToolResultError`
 
               - `ErrorCode BetaBashCodeExecutionToolResultErrorParamErrorCode`
 
@@ -945,15 +956,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaBashCodeExecutionToolResultErrorParamErrorCodeOutputFileTooLarge BetaBashCodeExecutionToolResultErrorParamErrorCode = "output_file_too_large"`
 
-              - `Type BashCodeExecutionToolResultError`
-
             - `type BetaBashCodeExecutionResultBlockParamResp struct{…}`
+
+              - `Type BashCodeExecutionResult`
 
               - `Content []BetaBashCodeExecutionOutputBlockParamResp`
 
-                - `FileID string`
-
                 - `Type BashCodeExecutionOutput`
+
+                - `FileID string`
 
               - `ReturnCode int64`
 
@@ -961,13 +972,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Stdout string`
 
-              - `Type BashCodeExecutionResult`
-
           - `ToolUseID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type BashCodeExecutionToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -975,9 +982,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type BetaTextEditorCodeExecutionToolResultBlockParamResp struct{…}`
 
+          - `Type TextEditorCodeExecutionToolResult`
+
           - `Content BetaTextEditorCodeExecutionToolResultBlockParamContentUnionResp`
 
             - `type BetaTextEditorCodeExecutionToolResultErrorParamResp struct{…}`
+
+              - `Type TextEditorCodeExecutionToolResultError`
 
               - `ErrorCode BetaTextEditorCodeExecutionToolResultErrorParamErrorCode`
 
@@ -991,11 +1002,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaTextEditorCodeExecutionToolResultErrorParamErrorCodeFileNotFound BetaTextEditorCodeExecutionToolResultErrorParamErrorCode = "file_not_found"`
 
-              - `Type TextEditorCodeExecutionToolResultError`
-
               - `ErrorMessage string Optional`
 
             - `type BetaTextEditorCodeExecutionViewResultBlockParamResp struct{…}`
+
+              - `Type TextEditorCodeExecutionViewResult`
 
               - `Content string`
 
@@ -1007,8 +1018,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaTextEditorCodeExecutionViewResultBlockParamFileTypePDF BetaTextEditorCodeExecutionViewResultBlockParamFileType = "pdf"`
 
-              - `Type TextEditorCodeExecutionViewResult`
-
               - `NumLines int64 Optional`
 
               - `StartLine int64 Optional`
@@ -1017,9 +1026,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type BetaTextEditorCodeExecutionCreateResultBlockParamResp struct{…}`
 
-              - `IsFileUpdate bool`
-
               - `Type TextEditorCodeExecutionCreateResult`
+
+              - `IsFileUpdate bool`
 
             - `type BetaTextEditorCodeExecutionStrReplaceResultBlockParamResp struct{…}`
 
@@ -1039,17 +1048,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `Type TextEditorCodeExecutionToolResult`
-
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
         - `type BetaToolSearchToolResultBlockParamResp struct{…}`
 
+          - `Type ToolSearchToolResult`
+
           - `Content BetaToolSearchToolResultBlockParamContentUnionResp`
 
             - `type BetaToolSearchToolResultErrorParamResp struct{…}`
+
+              - `Type ToolSearchToolResultError`
 
               - `ErrorCode BetaToolSearchToolResultErrorParamErrorCode`
 
@@ -1061,37 +1072,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `const BetaToolSearchToolResultErrorParamErrorCodeExecutionTimeExceeded BetaToolSearchToolResultErrorParamErrorCode = "execution_time_exceeded"`
 
-              - `Type ToolSearchToolResultError`
-
               - `ErrorMessage string Optional`
 
             - `type BetaToolSearchToolSearchResultBlockParamResp struct{…}`
 
+              - `Type ToolSearchToolSearchResult`
+
               - `ToolReferences []BetaToolReferenceBlockParamResp`
+
+                - `Type ToolReference`
 
                 - `ToolName string`
 
                   maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `Type ToolReference`
-
                 - `CacheControl BetaCacheControlEphemeral Optional`
 
                   Create a cache control breakpoint at this content block.
 
-              - `Type ToolSearchToolSearchResult`
-
           - `ToolUseID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type ToolSearchToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
         - `type BetaMCPToolUseBlockParamResp struct{…}`
+
+          - `Type MCPToolUse`
 
           - `ID string`
 
@@ -1105,19 +1114,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The name of the MCP server
 
-          - `Type MCPToolUse`
-
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
         - `type BetaRequestMCPToolResultBlockParamResp struct{…}`
 
+          - `Type MCPToolResult`
+
           - `ToolUseID string`
 
             pattern: ^[a-zA-Z0-9_-]+$
-
-          - `Type MCPToolResult`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -1129,11 +1136,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `[]BetaTextBlockParamResp`
 
+              - `Type Text`
+
               - `Text string`
 
                 minLength: 1
-
-              - `Type Text`
 
               - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -1148,9 +1155,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
 
-          - `FileID string`
-
           - `Type ContainerUpload`
+
+          - `FileID string`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -1188,6 +1195,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           `tools`; it is offered to the model from this point in the
           conversation onward.
 
+          - `Type ToolAddition`
+
           - `Tool BetaRequestToolAdditionBlockToolUnion`
 
             Reference to a single tool the caller declared directly in
@@ -1202,32 +1211,30 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
               server assigns to MCP-resolved tools — use `mcp_tool_reference` or
               `mcp_toolset_reference` for those.
 
+              - `Type ToolReference`
+
               - `Name string`
 
                 pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-              - `Type ToolReference`
 
             - `type BetaToolChangeMCPToolReference struct{…}`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
 
+              - `Type MCPToolReference`
+
               - `Name string`
 
               - `ServerName string`
-
-              - `Type MCPToolReference`
 
             - `type BetaToolChangeMCPToolsetReference struct{…}`
 
               Reference to every tool in the named MCP server's toolset.
 
-              - `ServerName string`
-
               - `Type MCPToolsetReference`
 
-          - `Type ToolAddition`
+              - `ServerName string`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -1240,6 +1247,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           `tool` references a tool (or MCP toolset) by name from the request's
           `tools`; it is no longer offered to the model from this point in the
           conversation onward.
+
+          - `Type ToolRemoval`
 
           - `Tool BetaRequestToolRemovalBlockToolUnion`
 
@@ -1264,8 +1273,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Reference to every tool in the named MCP server's toolset.
 
-          - `Type ToolRemoval`
-
           - `CacheControl BetaCacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
@@ -1285,6 +1292,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           request is rejected), and moving it into the middle of a single run is
           likewise rejected; between non-thinking blocks the block's placement has
           no validation effect.
+
+          - `Type Fallback`
 
           - `From BetaFallbackInfoParamResp`
 
@@ -1376,8 +1385,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Identifies one hop of a fallback transition.
 
-          - `Type Fallback`
-
           - `Trigger any Optional`
 
             The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -1448,12 +1455,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         maxItems: 20
 
-        - `SkillID string`
-
-          Skill ID
-
-          maxLength: 64, minLength: 1
-
         - `Type BetaSkillParamsType`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -1461,6 +1462,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `const BetaSkillParamsTypeAnthropic BetaSkillParamsType = "anthropic"`
 
           - `const BetaSkillParamsTypeCustom BetaSkillParamsType = "custom"`
+
+        - `SkillID string`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `Version string Optional`
 
@@ -1544,9 +1551,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     maxItems: 20
 
-    - `Name string`
-
     - `Type URL`
+
+    - `Name string`
 
     - `URL string`
 
@@ -1600,11 +1607,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `[]BetaTextBlockParam`
 
+      - `Type Text`
+
       - `Text string`
 
         minLength: 1
-
-      - `Type Text`
 
       - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -1690,6 +1697,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaTool struct{…}`
 
+      - `Type BetaToolType Optional`
+
       - `InputSchema BetaToolInputSchema`
 
         [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -1744,17 +1753,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-      - `Type BetaToolType Optional`
-
     - `type BetaToolBash20241022 struct{…}`
+
+      - `Type Bash20241022`
 
       - `Name Bash`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Bash20241022`
 
       - `AllowedCallers []string Optional`
 
@@ -1782,13 +1789,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolBash20250124 struct{…}`
 
+      - `Type Bash20250124`
+
       - `Name Bash`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Bash20250124`
 
       - `AllowedCallers []string Optional`
 
@@ -1816,13 +1823,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaCodeExecutionTool20250522 struct{…}`
 
+      - `Type CodeExecution20250522`
+
       - `Name CodeExecution`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type CodeExecution20250522`
 
       - `AllowedCallers []string Optional`
 
@@ -1848,13 +1855,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaCodeExecutionTool20250825 struct{…}`
 
+      - `Type CodeExecution20250825`
+
       - `Name CodeExecution`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type CodeExecution20250825`
 
       - `AllowedCallers []string Optional`
 
@@ -1882,13 +1889,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+      - `Type CodeExecution20260120`
+
       - `Name CodeExecution`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type CodeExecution20260120`
 
       - `AllowedCallers []string Optional`
 
@@ -1916,13 +1923,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Code execution tool with REPL state persistence.
 
+      - `Type CodeExecution20260521`
+
       - `Name CodeExecution`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type CodeExecution20260521`
 
       - `AllowedCallers []string Optional`
 
@@ -1967,6 +1974,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         accepted key, and a member's defaults apply wherever its key is
         absent. Unknown keys are rejected: the field set is this toolset
         version's complete member set.
+
+        - `Type BetaBrowserTypeConfig Optional`
+
+          `type`'s config overrides.
+
+          - `DeferLoading bool Optional`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `Enabled bool Optional`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
         - `CloseTab BetaBrowserCloseTabConfig Optional`
 
@@ -2304,18 +2323,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `Type BetaBrowserTypeConfig Optional`
-
-          `type`'s config overrides.
-
-          - `DeferLoading bool Optional`
-
-            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-          - `Enabled bool Optional`
-
-            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
         - `Wait BetaBrowserWaitConfig Optional`
 
           `wait`'s config overrides.
@@ -2342,6 +2349,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolComputerUse20241022 struct{…}`
 
+      - `Type Computer20241022`
+
       - `DisplayHeightPx int64`
 
         The height of the display in pixels.
@@ -2359,8 +2368,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Computer20241022`
 
       - `AllowedCallers []string Optional`
 
@@ -2394,13 +2401,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaMemoryTool20250818 struct{…}`
 
+      - `Type Memory20250818`
+
       - `Name Memory`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Memory20250818`
 
       - `AllowedCallers []string Optional`
 
@@ -2428,6 +2435,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolComputerUse20250124 struct{…}`
 
+      - `Type Computer20250124`
+
       - `DisplayHeightPx int64`
 
         The height of the display in pixels.
@@ -2445,8 +2454,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Computer20250124`
 
       - `AllowedCallers []string Optional`
 
@@ -2480,13 +2487,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolTextEditor20241022 struct{…}`
 
+      - `Type TextEditor20241022`
+
       - `Name StrReplaceEditor`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type TextEditor20241022`
 
       - `AllowedCallers []string Optional`
 
@@ -2514,6 +2521,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolComputerUse20251124 struct{…}`
 
+      - `Type Computer20251124`
+
       - `DisplayHeightPx int64`
 
         The height of the display in pixels.
@@ -2531,8 +2540,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Computer20251124`
 
       - `AllowedCallers []string Optional`
 
@@ -2593,6 +2600,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         accepted key, and a member's defaults apply wherever its key is
         absent. Unknown keys are rejected: the field set is this toolset
         version's complete member set.
+
+        - `Type BetaComputerTypeConfig Optional`
+
+          `type`'s config overrides.
+
+          - `DeferLoading bool Optional`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `Enabled bool Optional`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
         - `CursorPosition BetaComputerCursorPositionConfig Optional`
 
@@ -2762,18 +2781,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `Type BetaComputerTypeConfig Optional`
-
-          `type`'s config overrides.
-
-          - `DeferLoading bool Optional`
-
-            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-          - `Enabled bool Optional`
-
-            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
         - `Wait BetaComputerWaitConfig Optional`
 
           `wait`'s config overrides.
@@ -2800,13 +2807,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolTextEditor20250124 struct{…}`
 
+      - `Type TextEditor20250124`
+
       - `Name StrReplaceEditor`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type TextEditor20250124`
 
       - `AllowedCallers []string Optional`
 
@@ -2834,13 +2841,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolTextEditor20250429 struct{…}`
 
+      - `Type TextEditor20250429`
+
       - `Name StrReplaceBasedEditTool`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type TextEditor20250429`
 
       - `AllowedCallers []string Optional`
 
@@ -2868,13 +2875,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolTextEditor20250728 struct{…}`
 
+      - `Type TextEditor20250728`
+
       - `Name StrReplaceBasedEditTool`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type TextEditor20250728`
 
       - `AllowedCallers []string Optional`
 
@@ -2908,13 +2915,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebSearchTool20250305 struct{…}`
 
+      - `Type WebSearch20250305`
+
       - `Name WebSearch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebSearch20250305`
 
       - `AllowedCallers []string Optional`
 
@@ -2984,13 +2991,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebFetchTool20250910 struct{…}`
 
+      - `Type WebFetch20250910`
+
       - `Name WebFetch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebFetch20250910`
 
       - `AllowedCallers []string Optional`
 
@@ -3040,13 +3047,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebSearchTool20260209 struct{…}`
 
+      - `Type WebSearch20260209`
+
       - `Name WebSearch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebSearch20260209`
 
       - `AllowedCallers []string Optional`
 
@@ -3090,13 +3097,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebFetchTool20260209 struct{…}`
 
+      - `Type WebFetch20260209`
+
       - `Name WebFetch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebFetch20260209`
 
       - `AllowedCallers []string Optional`
 
@@ -3148,13 +3155,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
+      - `Type WebFetch20260309`
+
       - `Name WebFetch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebFetch20260309`
 
       - `AllowedCallers []string Optional`
 
@@ -3208,13 +3215,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebSearchTool20260318 struct{…}`
 
+      - `Type WebSearch20260318`
+
       - `Name WebSearch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebSearch20260318`
 
       - `AllowedCallers []string Optional`
 
@@ -3266,13 +3273,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebFetchTool20260318 struct{…}`
 
+      - `Type WebFetch20260318`
+
       - `Name WebFetch`
 
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type WebFetch20260318`
 
       - `AllowedCallers []string Optional`
 
@@ -3334,6 +3341,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaAdvisorTool20260301 struct{…}`
 
+      - `Type Advisor20260301`
+
       - `Model Model`
 
         The model that will complete your prompt.
@@ -3345,8 +3354,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `Type Advisor20260301`
 
       - `AllowedCallers []string Optional`
 
@@ -3388,17 +3395,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolSearchToolBm25_20251119 struct{…}`
 
-      - `Name ToolSearchToolBm25`
-
-        Name of the tool.
-
-        This is how the tool will be called by the model and in `tool_use` blocks.
-
       - `Type BetaToolSearchToolBm25_20251119Type`
 
         - `const BetaToolSearchToolBm25_20251119TypeToolSearchToolBm25_20251119 BetaToolSearchToolBm25_20251119Type = "tool_search_tool_bm25_20251119"`
 
         - `const BetaToolSearchToolBm25_20251119TypeToolSearchToolBm25 BetaToolSearchToolBm25_20251119Type = "tool_search_tool_bm25"`
+
+      - `Name ToolSearchToolBm25`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
 
       - `AllowedCallers []string Optional`
 
@@ -3424,17 +3431,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaToolSearchToolRegex20251119 struct{…}`
 
-      - `Name ToolSearchToolRegex`
-
-        Name of the tool.
-
-        This is how the tool will be called by the model and in `tool_use` blocks.
-
       - `Type BetaToolSearchToolRegex20251119Type`
 
         - `const BetaToolSearchToolRegex20251119TypeToolSearchToolRegex20251119 BetaToolSearchToolRegex20251119Type = "tool_search_tool_regex_20251119"`
 
         - `const BetaToolSearchToolRegex20251119TypeToolSearchToolRegex BetaToolSearchToolRegex20251119Type = "tool_search_tool_regex"`
+
+      - `Name ToolSearchToolRegex`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
 
       - `AllowedCallers []string Optional`
 
@@ -3465,13 +3472,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Allows configuring enabled status and defer_loading for all tools
       from an MCP server, with optional per-tool overrides.
 
+      - `Type MCPToolset`
+
       - `MCPServerName string`
 
         Name of the MCP server to configure tools for
 
         maxLength: 255, minLength: 1
-
-      - `Type MCPToolset`
 
       - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3547,6 +3554,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -3592,6 +3601,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `UserProfileID param.Field[string] Optional`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
   - `OutputFormat param.Field[BetaJSONOutputFormat] Optional`
 
@@ -3641,6 +3656,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `type BetaMessage struct{…}`
 
+  - `Type Message`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
+
+    default: message
+
   - `ID string`
 
     Unique object identifier.
@@ -3665,12 +3688,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Skills loaded in the container
 
-      - `SkillID string`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `Type BetaContainerSkillType`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -3678,6 +3695,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
         - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
+
+      - `SkillID string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `Version string`
 
@@ -3716,6 +3739,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaTextBlock struct{…}`
 
+      - `Type Text`
+
+        default: text
+
       - `Citations []BetaTextCitationUnion`
 
         Citations supporting the text block.
@@ -3723,6 +3750,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `type BetaCitationCharLocation struct{…}`
+
+          - `Type CharLocation`
+
+            default: char_location
 
           - `CitedText string`
 
@@ -3740,11 +3771,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `Type CharLocation`
-
-            default: char_location
-
         - `type BetaCitationPageLocation struct{…}`
+
+          - `Type PageLocation`
+
+            default: page_location
 
           - `CitedText string`
 
@@ -3762,11 +3793,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-          - `Type PageLocation`
-
-            default: page_location
-
         - `type BetaCitationContentBlockLocation struct{…}`
+
+          - `Type ContentBlockLocation`
+
+            default: content_block_location
 
           - `CitedText string`
 
@@ -3794,11 +3825,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `Type ContentBlockLocation`
-
-            default: content_block_location
-
         - `type BetaCitationsWebSearchResultLocation struct{…}`
+
+          - `Type WebSearchResultLocation`
+
+            default: web_search_result_location
 
           - `CitedText string`
 
@@ -3808,13 +3839,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 512
 
-          - `Type WebSearchResultLocation`
-
-            default: web_search_result_location
-
           - `URL string`
 
         - `type BetaCitationSearchResultLocation struct{…}`
+
+          - `Type SearchResultLocation`
+
+            default: search_result_location
 
           - `CitedText string`
 
@@ -3846,19 +3877,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Title string`
 
-          - `Type SearchResultLocation`
-
-            default: search_result_location
-
       - `Text string`
 
-        maxLength: 5000000, minLength: 0
-
-      - `Type Text`
-
-        default: text
+        minLength: 0
 
     - `type BetaThinkingBlock struct{…}`
+
+      - `Type Thinking`
+
+        default: thinking
 
       - `Signature string`
 
@@ -3872,11 +3899,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-      - `Type Thinking`
-
-        default: thinking
-
     - `type BetaRedactedThinkingBlock struct{…}`
+
+      - `Type RedactedThinking`
+
+        default: redacted_thinking
 
       - `Data string`
 
@@ -3886,11 +3913,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `Type RedactedThinking`
-
-        default: redacted_thinking
-
     - `type BetaToolUseBlock struct{…}`
+
+      - `Type ToolUse`
+
+        default: tool_use
 
       - `ID string`
 
@@ -3901,10 +3928,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `Name string`
 
         minLength: 1
-
-      - `Type ToolUse`
-
-        default: tool_use
 
       - `Caller BetaToolUseBlockCallerUnion Optional`
 
@@ -3920,19 +3943,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Tool invocation generated by a server-side tool.
 
+          - `Type CodeExecution20250825`
+
           - `ToolID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type CodeExecution20250825`
 
         - `type BetaServerToolCaller20260120 struct{…}`
 
+          - `Type CodeExecution20260120`
+
           - `ToolID string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `Type CodeExecution20260120`
 
       - `ToolsetName string Optional`
 
@@ -3941,6 +3964,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `type BetaServerToolUseBlock struct{…}`
+
+      - `Type ServerToolUse`
+
+        default: server_tool_use
 
       - `ID string`
 
@@ -3966,10 +3993,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `const BetaServerToolUseBlockNameToolSearchToolBm25 BetaServerToolUseBlockName = "tool_search_tool_bm25"`
 
-      - `Type ServerToolUse`
-
-        default: server_tool_use
-
       - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
         Tool invocation directly from the model.
@@ -3986,9 +4009,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebSearchToolResultBlock struct{…}`
 
+      - `Type WebSearchToolResult`
+
+        default: web_search_tool_result
+
       - `Content BetaWebSearchToolResultBlockContentUnion`
 
         - `type BetaWebSearchToolResultError struct{…}`
+
+          - `Type WebSearchToolResultError`
+
+            default: web_search_tool_result_error
 
           - `ErrorCode BetaWebSearchToolResultErrorCode`
 
@@ -4004,11 +4035,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `const BetaWebSearchToolResultErrorCodeRequestTooLarge BetaWebSearchToolResultErrorCode = "request_too_large"`
 
-          - `Type WebSearchToolResultError`
-
-            default: web_search_tool_result_error
-
         - `type BetaWebSearchToolResultBlockContentArray []BetaWebSearchResultBlock`
+
+          - `Type WebSearchResult`
+
+            default: web_search_result
 
           - `EncryptedContent string`
 
@@ -4016,19 +4047,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Title string`
 
-          - `Type WebSearchResult`
-
-            default: web_search_result
-
           - `URL string`
 
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `Type WebSearchToolResult`
-
-        default: web_search_tool_result
 
       - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
 
@@ -4046,9 +4069,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaWebFetchToolResultBlock struct{…}`
 
+      - `Type WebFetchToolResult`
+
+        default: web_fetch_tool_result
+
       - `Content BetaWebFetchToolResultBlockContentUnion`
 
         - `type BetaWebFetchToolResultErrorBlock struct{…}`
+
+          - `Type WebFetchToolResultError`
+
+            default: web_fetch_tool_result_error
 
           - `ErrorCode BetaWebFetchToolResultErrorCode`
 
@@ -4070,13 +4101,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `const BetaWebFetchToolResultErrorCodeUnavailable BetaWebFetchToolResultErrorCode = "unavailable"`
 
-          - `Type WebFetchToolResultError`
-
-            default: web_fetch_tool_result_error
+            - `const BetaWebFetchToolResultErrorCodeContentTooLarge BetaWebFetchToolResultErrorCode = "content_too_large"`
 
         - `type BetaWebFetchBlock struct{…}`
 
+          - `Type WebFetchResult`
+
+            default: web_fetch_result
+
           - `Content BetaDocumentBlock`
+
+            - `Type Document`
+
+              default: document
 
             - `Citations BetaCitationConfig`
 
@@ -4090,37 +4127,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `type BetaBase64PDFSource struct{…}`
 
+                - `Type Base64`
+
                 - `Data string`
 
                   format: byte
 
                 - `MediaType ApplicationPDF`
 
-                - `Type Base64`
-
               - `type BetaPlainTextSource struct{…}`
+
+                - `Type Text`
 
                 - `Data string`
 
                 - `MediaType TextPlain`
 
-                - `Type Text`
-
             - `Title string`
 
               The title of the document
 
-            - `Type Document`
-
-              default: document
-
           - `RetrievedAt string`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `Type WebFetchResult`
-
-            default: web_fetch_result
 
           - `URL string`
 
@@ -4129,10 +4158,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `Type WebFetchToolResult`
-
-        default: web_fetch_tool_result
 
       - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
@@ -4150,9 +4175,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type BetaAdvisorToolResultBlock struct{…}`
 
+      - `Type AdvisorToolResult`
+
+        default: advisor_tool_result
+
       - `Content BetaAdvisorToolResultBlockContentUnion`
 
         - `type BetaAdvisorToolResultError struct{…}`
+
+          - `Type AdvisorToolResultError`
+
+            default: advisor_tool_result_error
 
           - `ErrorCode BetaAdvisorToolResultErrorErrorCode`
 
@@ -4170,11 +4203,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `const BetaAdvisorToolResultErrorErrorCodeModelNotFound BetaAdvisorToolResultErrorErrorCode = "model_not_found"`
 
-          - `Type AdvisorToolResultError`
-
-            default: advisor_tool_result_error
-
         - `type BetaAdvisorResultBlock struct{…}`
+
+          - `Type AdvisorResult`
+
+            default: advisor_result
 
           - `StopReason string`
 
@@ -4182,11 +4215,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Text string`
 
-          - `Type AdvisorResult`
-
-            default: advisor_result
-
         - `type BetaAdvisorRedactedResultBlock struct{…}`
+
+          - `Type AdvisorRedactedResult`
+
+            default: advisor_redacted_result
 
           - `EncryptedContent string`
 
@@ -4196,25 +4229,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
-          - `Type AdvisorRedactedResult`
-
-            default: advisor_redacted_result
-
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `Type AdvisorToolResult`
-
-        default: advisor_tool_result
-
     - `type BetaCodeExecutionToolResultBlock struct{…}`
+
+      - `Type CodeExecutionToolResult`
+
+        default: code_execution_tool_result
 
       - `Content BetaCodeExecutionToolResultBlockContentUnion`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `type BetaCodeExecutionToolResultError struct{…}`
+
+          - `Type CodeExecutionToolResultError`
+
+            default: code_execution_tool_result_error
 
           - `ErrorCode BetaCodeExecutionToolResultErrorCode`
 
@@ -4226,19 +4259,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `const BetaCodeExecutionToolResultErrorCodeExecutionTimeExceeded BetaCodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-          - `Type CodeExecutionToolResultError`
-
-            default: code_execution_tool_result_error
-
         - `type BetaCodeExecutionResultBlock struct{…}`
 
-          - `Content []BetaCodeExecutionOutputBlock`
+          - `Type CodeExecutionResult`
 
-            - `FileID string`
+            default: code_execution_result
+
+          - `Content []BetaCodeExecutionOutputBlock`
 
             - `Type CodeExecutionOutput`
 
               default: code_execution_output
+
+            - `FileID string`
 
           - `ReturnCode int64`
 
@@ -4246,21 +4279,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Stdout string`
 
-          - `Type CodeExecutionResult`
-
-            default: code_execution_result
-
         - `type BetaEncryptedCodeExecutionResultBlock struct{…}`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `Content []BetaCodeExecutionOutputBlock`
+          - `Type EncryptedCodeExecutionResult`
 
-            - `FileID string`
+            default: encrypted_code_execution_result
+
+          - `Content []BetaCodeExecutionOutputBlock`
 
             - `Type CodeExecutionOutput`
 
               default: code_execution_output
+
+            - `FileID string`
 
           - `EncryptedStdout string`
 
@@ -4268,23 +4301,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Stderr string`
 
-          - `Type EncryptedCodeExecutionResult`
-
-            default: encrypted_code_execution_result
-
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `Type CodeExecutionToolResult`
-
-        default: code_execution_tool_result
-
     - `type BetaBashCodeExecutionToolResultBlock struct{…}`
+
+      - `Type BashCodeExecutionToolResult`
+
+        default: bash_code_execution_tool_result
 
       - `Content BetaBashCodeExecutionToolResultBlockContentUnion`
 
         - `type BetaBashCodeExecutionToolResultError struct{…}`
+
+          - `Type BashCodeExecutionToolResultError`
+
+            default: bash_code_execution_tool_result_error
 
           - `ErrorCode BetaBashCodeExecutionToolResultErrorErrorCode`
 
@@ -4298,19 +4331,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `const BetaBashCodeExecutionToolResultErrorErrorCodeOutputFileTooLarge BetaBashCodeExecutionToolResultErrorErrorCode = "output_file_too_large"`
 
-          - `Type BashCodeExecutionToolResultError`
-
-            default: bash_code_execution_tool_result_error
-
         - `type BetaBashCodeExecutionResultBlock struct{…}`
 
-          - `Content []BetaBashCodeExecutionOutputBlock`
+          - `Type BashCodeExecutionResult`
 
-            - `FileID string`
+            default: bash_code_execution_result
+
+          - `Content []BetaBashCodeExecutionOutputBlock`
 
             - `Type BashCodeExecutionOutput`
 
               default: bash_code_execution_output
+
+            - `FileID string`
 
           - `ReturnCode int64`
 
@@ -4318,23 +4351,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Stdout string`
 
-          - `Type BashCodeExecutionResult`
-
-            default: bash_code_execution_result
-
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `Type BashCodeExecutionToolResult`
-
-        default: bash_code_execution_tool_result
-
     - `type BetaTextEditorCodeExecutionToolResultBlock struct{…}`
+
+      - `Type TextEditorCodeExecutionToolResult`
+
+        default: text_editor_code_execution_tool_result
 
       - `Content BetaTextEditorCodeExecutionToolResultBlockContentUnion`
 
         - `type BetaTextEditorCodeExecutionToolResultError struct{…}`
+
+          - `Type TextEditorCodeExecutionToolResultError`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `ErrorCode BetaTextEditorCodeExecutionToolResultErrorErrorCode`
 
@@ -4350,11 +4383,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `ErrorMessage string`
 
-          - `Type TextEditorCodeExecutionToolResultError`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `type BetaTextEditorCodeExecutionViewResultBlock struct{…}`
+
+          - `Type TextEditorCodeExecutionViewResult`
+
+            default: text_editor_code_execution_view_result
 
           - `Content string`
 
@@ -4372,19 +4405,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `TotalLines int64`
 
-          - `Type TextEditorCodeExecutionViewResult`
-
-            default: text_editor_code_execution_view_result
-
         - `type BetaTextEditorCodeExecutionCreateResultBlock struct{…}`
-
-          - `IsFileUpdate bool`
 
           - `Type TextEditorCodeExecutionCreateResult`
 
             default: text_editor_code_execution_create_result
 
+          - `IsFileUpdate bool`
+
         - `type BetaTextEditorCodeExecutionStrReplaceResultBlock struct{…}`
+
+          - `Type TextEditorCodeExecutionStrReplaceResult`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `Lines []string`
 
@@ -4396,23 +4429,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `OldStart int64`
 
-          - `Type TextEditorCodeExecutionStrReplaceResult`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `Type TextEditorCodeExecutionToolResult`
-
-        default: text_editor_code_execution_tool_result
-
     - `type BetaToolSearchToolResultBlock struct{…}`
+
+      - `Type ToolSearchToolResult`
+
+        default: tool_search_tool_result
 
       - `Content BetaToolSearchToolResultBlockContentUnion`
 
         - `type BetaToolSearchToolResultError struct{…}`
+
+          - `Type ToolSearchToolResultError`
+
+            default: tool_search_tool_result_error
 
           - `ErrorCode BetaToolSearchToolResultErrorErrorCode`
 
@@ -4426,35 +4459,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `ErrorMessage string`
 
-          - `Type ToolSearchToolResultError`
-
-            default: tool_search_tool_result_error
-
         - `type BetaToolSearchToolSearchResultBlock struct{…}`
-
-          - `ToolReferences []BetaToolReferenceBlock`
-
-            - `ToolName string`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `Type ToolReference`
-
-              default: tool_reference
 
           - `Type ToolSearchToolSearchResult`
 
             default: tool_search_tool_search_result
 
+          - `ToolReferences []BetaToolReferenceBlock`
+
+            - `Type ToolReference`
+
+              default: tool_reference
+
+            - `ToolName string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `ToolUseID string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `Type ToolSearchToolResult`
-
-        default: tool_search_tool_result
-
     - `type BetaMCPToolUseBlock struct{…}`
+
+      - `Type MCPToolUse`
+
+        default: mcp_tool_use
 
       - `ID string`
 
@@ -4470,17 +4499,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The name of the MCP server
 
-      - `Type MCPToolUse`
-
-        default: mcp_tool_use
-
     - `type BetaMCPToolResultBlock struct{…}`
+
+      - `Type MCPToolResult`
+
+        default: mcp_tool_result
 
       - `Content BetaMCPToolResultBlockContentUnion`
 
         - `string`
 
         - `type BetaMCPToolResultBlockContentBetaMCPToolResultBlockContent []BetaTextBlock`
+
+          - `Type Text`
+
+            default: text
 
           - `Citations []BetaTextCitationUnion`
 
@@ -4490,11 +4523,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Text string`
 
-            maxLength: 5000000, minLength: 0
-
-          - `Type Text`
-
-            default: text
+            minLength: 0
 
       - `IsError bool`
 
@@ -4504,19 +4533,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `Type MCPToolResult`
-
-        default: mcp_tool_result
-
     - `type BetaContainerUploadBlock struct{…}`
 
       Response model for a file uploaded to the container.
 
-      - `FileID string`
-
       - `Type ContainerUpload`
 
         default: container_upload
+
+      - `FileID string`
 
     - `type BetaCompactionBlock struct{…}`
 
@@ -4526,6 +4551,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
+      - `Type Compaction`
+
+        default: compaction
+
       - `Content string`
 
         Summary of compacted content, or null if compaction failed
@@ -4533,10 +4562,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `EncryptedContent string`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
-
-      - `Type Compaction`
-
-        default: compaction
 
     - `type BetaFallbackBlock struct{…}`
 
@@ -4551,6 +4576,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       The block is treated like a server-tool content block for streaming: it
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
+
+      - `Type Fallback`
+
+        default: fallback
 
       - `From BetaFallbackInfo`
 
@@ -4646,6 +4675,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         What caused the `from` model to hand over at this hop.
 
+        - `Type Refusal`
+
+          default: refusal
+
         - `Category BetaFallbackRefusalTriggerCategory`
 
           The policy category that triggered a refusal.
@@ -4670,14 +4703,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-        - `Type Refusal`
-
-          default: refusal
-
-      - `Type Fallback`
-
-        default: fallback
-
   - `ContextManagement BetaContextManagementResponse`
 
     Context management response.
@@ -4689,6 +4714,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       List of context management edits that were applied.
 
       - `type BetaClearToolUses20250919EditResponse struct{…}`
+
+        - `Type ClearToolUses20250919`
+
+          The type of context management edit applied.
+
+          default: clear_tool_uses_20250919
 
         - `ClearedInputTokens int64`
 
@@ -4702,13 +4733,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `Type ClearToolUses20250919`
+      - `type BetaClearThinking20251015EditResponse struct{…}`
+
+        - `Type ClearThinking20251015`
 
           The type of context management edit applied.
 
-          default: clear_tool_uses_20250919
-
-      - `type BetaClearThinking20251015EditResponse struct{…}`
+          default: clear_thinking_20251015
 
         - `ClearedInputTokens int64`
 
@@ -4722,12 +4753,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `Type ClearThinking20251015`
-
-          The type of context management edit applied.
-
-          default: clear_thinking_20251015
-
   - `Diagnostics BetaDiagnostics`
 
     Response envelope for request-level diagnostics. Present (possibly
@@ -4739,43 +4764,43 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type BetaCacheMissModelChanged struct{…}`
 
-        - `CacheMissedInputTokens int64`
-
-          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
         - `Type ModelChanged`
 
           default: model_changed
 
-      - `type BetaCacheMissSystemChanged struct{…}`
-
         - `CacheMissedInputTokens int64`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type BetaCacheMissSystemChanged struct{…}`
 
         - `Type SystemChanged`
 
           default: system_changed
 
-      - `type BetaCacheMissToolsChanged struct{…}`
-
         - `CacheMissedInputTokens int64`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type BetaCacheMissToolsChanged struct{…}`
 
         - `Type ToolsChanged`
 
           default: tools_changed
 
-      - `type BetaCacheMissMessagesChanged struct{…}`
-
         - `CacheMissedInputTokens int64`
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
+      - `type BetaCacheMissMessagesChanged struct{…}`
+
         - `Type MessagesChanged`
 
           default: messages_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `type BetaCacheMissPreviousMessageNotFound struct{…}`
 
@@ -4806,6 +4831,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `StopDetails BetaRefusalStopDetails`
 
     Structured information about a refusal.
+
+    - `Type Refusal`
+
+      default: refusal
 
     - `Category BetaRefusalStopDetailsCategory`
 
@@ -4886,10 +4915,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
-    - `Type Refusal`
-
-      default: refusal
-
   - `StopReason BetaStopReason`
 
     The reason that we stopped.
@@ -4927,14 +4952,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Which custom stop sequence was generated, if any.
 
     This value will be a non-null string if one of your custom stop sequences was generated.
-
-  - `Type Message`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
-    default: message
 
   - `Usage BetaUsage`
 
@@ -5002,6 +5019,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           No reprice was applied; `reason` says why.
 
+          - `Type NotApplied`
+
+            default: not_applied
+
           - `Reason BetaFallbackCreditNotAppliedReason`
 
             Why the reprice was not applied.
@@ -5032,10 +5053,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             - `const BetaFallbackCreditNotAppliedReasonWrongPlatform BetaFallbackCreditNotAppliedReason = "wrong_platform"`
 
             - `const BetaFallbackCreditNotAppliedReasonWrongWorkspace BetaFallbackCreditNotAppliedReason = "wrong_workspace"`
-
-          - `Type NotApplied`
-
-            default: not_applied
 
           - `RemoveToRedeem []string Optional`
 
@@ -5074,6 +5091,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for a sampling iteration.
 
+        - `Type Message`
+
+          Usage for a sampling iteration
+
+          default: message
+
         - `CacheCreation BetaCacheCreation`
 
           Breakdown of cached tokens by TTL
@@ -5108,43 +5131,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `Type Message`
-
-          Usage for a sampling iteration
-
-          default: message
-
       - `type BetaCompactionIterationUsage struct{…}`
 
         Token usage for a compaction iteration.
-
-        - `CacheCreation BetaCacheCreation`
-
-          Breakdown of cached tokens by TTL
-
-        - `CacheCreationInputTokens int64`
-
-          The number of input tokens used to create the cache entry.
-
-          default: 0, minimum: 0
-
-        - `CacheReadInputTokens int64`
-
-          The number of input tokens read from the cache.
-
-          default: 0, minimum: 0
-
-        - `InputTokens int64`
-
-          The number of input tokens which were used.
-
-          minimum: 0
-
-        - `OutputTokens int64`
-
-          The number of output tokens which were used.
-
-          minimum: 0
 
         - `Type Compaction`
 
@@ -5152,9 +5141,43 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           default: compaction
 
+        - `CacheCreation BetaCacheCreation`
+
+          Breakdown of cached tokens by TTL
+
+        - `CacheCreationInputTokens int64`
+
+          The number of input tokens used to create the cache entry.
+
+          default: 0, minimum: 0
+
+        - `CacheReadInputTokens int64`
+
+          The number of input tokens read from the cache.
+
+          default: 0, minimum: 0
+
+        - `InputTokens int64`
+
+          The number of input tokens which were used.
+
+          minimum: 0
+
+        - `OutputTokens int64`
+
+          The number of output tokens which were used.
+
+          minimum: 0
+
       - `type BetaAdvisorMessageIterationUsage struct{…}`
 
         Token usage for an advisor sub-inference iteration.
+
+        - `Type AdvisorMessage`
+
+          Usage for an advisor sub-inference iteration
+
+          default: advisor_message
 
         - `CacheCreation BetaCacheCreation`
 
@@ -5189,12 +5212,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `Type AdvisorMessage`
-
-          Usage for an advisor sub-inference iteration
-
-          default: advisor_message
 
       - `type BetaFallbackMessageIterationUsage struct{…}`
 
@@ -5205,6 +5222,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
+        - `Type FallbackMessage`
+
+          Usage for the fallback-model attempt that served the response
+
+          default: fallback_message
+
         - `CacheCreation BetaCacheCreation`
 
           Breakdown of cached tokens by TTL
@@ -5238,12 +5261,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           The number of output tokens which were used.
 
           minimum: 0
-
-        - `Type FallbackMessage`
-
-          Usage for the fallback-model attempt that served the response
-
-          default: fallback_message
 
     - `OutputTokens int64`
 
@@ -5325,6 +5342,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     fallback happened mid-stream, in which case it holds the serving model's
     entries and replaces the one in `message_start`.
 
+    - `Type ThinkingDropped`
+
+      Always `thinking_dropped` for this entry type.
+
+      default: thinking_dropped
+
     - `Path string`
 
       Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -5355,23 +5378,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `const BetaThinkingDroppedInputTransformationReasonEndUserBindingMismatch BetaThinkingDroppedInputTransformationReason = "end_user_binding_mismatch"`
 
-    - `Type ThinkingDropped`
-
-      Always `thinking_dropped` for this entry type.
-
-      default: thinking_dropped
-
 - `type BetaRawMessageStreamEventUnion interface{…}`
 
   - `type BetaRawMessageStartEvent struct{…}`
-
-    - `Message BetaMessage`
 
     - `Type MessageStart`
 
       default: message_start
 
+    - `Message BetaMessage`
+
   - `type BetaRawMessageDeltaEvent struct{…}`
+
+    - `Type MessageDelta`
+
+      default: message_delta
 
     - `ContextManagement BetaContextManagementResponse`
 
@@ -5390,10 +5411,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `StopReason BetaStopReason`
 
       - `StopSequence string`
-
-    - `Type MessageDelta`
-
-      default: message_delta
 
     - `Usage BetaMessageDeltaUsage`
 
@@ -5476,6 +5493,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       fallback happened mid-stream, in which case it holds the serving model's
       entries and replaces the one in `message_start`.
 
+      - `Type ThinkingDropped`
+
+        Always `thinking_dropped` for this entry type.
+
+        default: thinking_dropped
+
       - `Path string`
 
         Where the removed block was in your request, as `messages.{i}.content.{j}`:
@@ -5498,12 +5521,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         `organization_binding_mismatch`, `end_user_binding_mismatch`,
         `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `Type ThinkingDropped`
-
-        Always `thinking_dropped` for this entry type.
-
-        default: thinking_dropped
-
   - `type BetaRawMessageStopEvent struct{…}`
 
     - `Type MessageStop`
@@ -5511,6 +5528,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       default: message_stop
 
   - `type BetaRawContentBlockStartEvent struct{…}`
+
+    - `Type ContentBlockStart`
+
+      default: content_block_start
 
     - `ContentBlock BetaRawContentBlockStartEventContentBlockUnion`
 
@@ -5572,31 +5593,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `Index int64`
 
-    - `Type ContentBlockStart`
-
-      default: content_block_start
-
   - `type BetaRawContentBlockDeltaEvent struct{…}`
+
+    - `Type ContentBlockDelta`
+
+      default: content_block_delta
 
     - `Delta BetaRawContentBlockDeltaUnion`
 
       - `type BetaTextDelta struct{…}`
 
-        - `Text string`
-
         - `Type TextDelta`
 
           default: text_delta
 
-      - `type BetaInputJSONDelta struct{…}`
+        - `Text string`
 
-        - `PartialJSON string`
+      - `type BetaInputJSONDelta struct{…}`
 
         - `Type InputJSONDelta`
 
           default: input_json_delta
 
+        - `PartialJSON string`
+
       - `type BetaCitationsDelta struct{…}`
+
+        - `Type CitationsDelta`
+
+          default: citations_delta
 
         - `Citation BetaCitationsDeltaCitationUnion`
 
@@ -5610,11 +5635,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type BetaCitationSearchResultLocation struct{…}`
 
-        - `Type CitationsDelta`
-
-          default: citations_delta
-
       - `type BetaThinkingDelta struct{…}`
+
+        - `Type ThinkingDelta`
+
+          default: thinking_delta
 
         - `EstimatedTokens int64`
 
@@ -5624,21 +5649,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-        - `Type ThinkingDelta`
-
-          default: thinking_delta
-
       - `type BetaSignatureDelta struct{…}`
-
-        - `Signature string`
-
-          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
         - `Type SignatureDelta`
 
           default: signature_delta
 
+        - `Signature string`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
       - `type BetaCompactionContentBlockDelta struct{…}`
+
+        - `Type CompactionDelta`
+
+          default: compaction_delta
 
         - `Content string`
 
@@ -5646,23 +5671,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `Type CompactionDelta`
-
-          default: compaction_delta
-
     - `Index int64`
-
-    - `Type ContentBlockDelta`
-
-      default: content_block_delta
 
   - `type BetaRawContentBlockStopEvent struct{…}`
-
-    - `Index int64`
 
     - `Type ContentBlockStop`
 
       default: content_block_stop
+
+    - `Index int64`
 
 ## Example
 

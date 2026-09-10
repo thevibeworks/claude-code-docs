@@ -1,6 +1,11 @@
+---
+title: Create a Message
+url: https://platform.claude.com/docs/en/api/php/messages/create
+---
+
 # Create a Message
 
-`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
+`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID, ?string workspaceID): Message`
 
 **POST** `/v1/messages`
 
@@ -205,6 +210,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `workspaceID?:optional string`
+
 - `temperature?:optional float`
 
   **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
@@ -238,6 +245,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 ## Returns
 
 - `Message`
+
+  - `"message" type`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
 
   - `string id`
 
@@ -316,12 +329,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This value will be a non-null string if one of your custom stop sequences was generated.
 
-  - `"message" type`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
   - `Usage usage`
 
     Billing and rate-limit usage.
@@ -338,15 +345,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `RawMessageStartEvent`
 
-    - `Message message`
-
     - `"message_start" type`
+
+    - `Message message`
 
   - `RawMessageDeltaEvent`
 
-    - `Delta delta`
-
     - `"message_delta" type`
+
+    - `Delta delta`
 
     - `MessageDeltaUsage usage`
 
@@ -366,27 +373,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `RawContentBlockStartEvent`
 
+    - `"content_block_start" type`
+
     - `ContentBlock contentBlock`
 
       Response model for a file uploaded to the container.
 
     - `int index`
 
-    - `"content_block_start" type`
-
   - `RawContentBlockDeltaEvent`
+
+    - `"content_block_delta" type`
 
     - `RawContentBlockDelta delta`
 
     - `int index`
 
-    - `"content_block_delta" type`
-
   - `RawContentBlockStopEvent`
 
-    - `int index`
-
     - `"content_block_stop" type`
+
+    - `int index`
 
 ## Example
 
@@ -457,6 +464,7 @@ $message = $client->messages->create(
   topK: 5,
   topP: 0.7,
   userProfileID: 'anthropic-user-profile-id',
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($message);

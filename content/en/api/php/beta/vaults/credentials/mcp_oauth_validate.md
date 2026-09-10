@@ -1,6 +1,11 @@
+---
+title: Validate Credential
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/mcp_oauth_validate
+---
+
 # Validate Credential
 
-`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredentialValidation`
+`$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
@@ -16,9 +21,13 @@ Validate Credential
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `ManagedAgentsCredentialValidation`
+
+  - `Type type`
 
   - `string credentialID`
 
@@ -39,8 +48,6 @@ Validate Credential
   - `ManagedAgentsCredentialValidationStatus status`
 
     Overall verdict of a credential validation probe.
-
-  - `Type type`
 
   - `\Datetime validatedAt`
 
@@ -67,6 +74,7 @@ $betaManagedAgentsCredentialValidation = $client
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsCredentialValidation);

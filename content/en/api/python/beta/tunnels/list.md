@@ -1,3 +1,8 @@
+---
+title: List Tunnels
+url: https://platform.claude.com/docs/en/api/python/beta/tunnels/list
+---
+
 # List Tunnels
 
 `beta.tunnels.list(**kwargs)  -> SyncPageCursor[BetaTunnel]`
@@ -30,7 +35,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -78,6 +83,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -120,11 +127,15 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaTunnel: …`
 
   An MCP tunnel.
+
+  - `type: Literal["tunnel"]`
 
   - `id: str`
 
@@ -149,8 +160,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `domain: str`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `type: Literal["tunnel"]`
 
 ## Example
 

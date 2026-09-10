@@ -1,3 +1,8 @@
+---
+title: Get Service Account
+url: https://platform.claude.com/docs/en/api/beta/organization/service_accounts/retrieve
+---
+
 # Get Service Account
 
 **GET** `/v1/organizations/service_accounts/{service_account_id}`
@@ -20,7 +25,7 @@ Retrieve a service account by its ID (`svac_...`).
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -67,6 +72,8 @@ Retrieve a service account by its ID (`svac_...`).
     - `"user-profiles-2026-03-24"`
 
     - `"user-profiles-2026-08-18"`
+
+    - `"user-profiles-2026-09-04"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -119,6 +126,10 @@ Retrieve a service account by its ID (`svac_...`).
   A service account is a pure identity: name + org. Authorization lives on
   whatever references it (federation rules).
 
+  - `type: "service_account"`
+
+    default: service_account
+
   - `id: string`
 
     Tagged ID of the service account.
@@ -158,10 +169,6 @@ Retrieve a service account by its ID (`svac_...`).
     - `"admin"`
 
     - `"developer"`
-
-  - `type: "service_account"`
-
-    default: service_account
 
   - `updated_at: string`
 

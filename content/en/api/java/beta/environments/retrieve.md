@@ -1,3 +1,8 @@
+---
+title: Get Environment
+url: https://platform.claude.com/docs/en/api/java/beta/environments/retrieve
+---
+
 # Get Environment
 
 `BetaEnvironment beta().environments().retrieve(params = EnvironmentRetrieveParams.none(), requestOptions = RequestOptions.none())`
@@ -62,6 +67,8 @@ Retrieve a specific environment by ID.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -104,11 +111,17 @@ Retrieve a specific environment by ID.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaEnvironment:`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `JsonValue type = "environment"`
+
+    The type of object (always 'environment')
 
   - `String id`
 
@@ -126,6 +139,10 @@ Retrieve a specific environment by ID.
 
       `cloud` environment configuration.
 
+      - `JsonValue type = "cloud"`
+
+        Environment type
+
       - `Networking networking`
 
         Network configuration policy.
@@ -142,6 +159,10 @@ Retrieve a specific environment by ID.
 
           Limited network access.
 
+          - `JsonValue type = "limited"`
+
+            Network policy type
+
           - `boolean allowMcpServers`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -154,13 +175,13 @@ Retrieve a specific environment by ID.
 
             Specifies domains the container can reach.
 
-          - `JsonValue type = "limited"`
-
-            Network policy type
-
       - `BetaPackages packages`
 
         Package manager configuration.
+
+        - `Optional<Type> type`
+
+          Package configuration type
 
         - `List<String> apt`
 
@@ -186,14 +207,6 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-        - `Optional<Type> type`
-
-          Package configuration type
-
-      - `JsonValue type = "cloud"`
-
-        Environment type
-
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
@@ -217,10 +230,6 @@ Retrieve a specific environment by ID.
   - `String name`
 
     Human-readable name for the environment
-
-  - `JsonValue type = "environment"`
-
-    The type of object (always 'environment')
 
   - `String updatedAt`
 

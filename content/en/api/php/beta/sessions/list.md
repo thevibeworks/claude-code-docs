@@ -1,6 +1,11 @@
+---
+title: List Sessions
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/list
+---
+
 # List Sessions
 
-`$client->beta->sessions->list(?string agentID, ?int agentVersion, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool includeArchived, ?int limit, ?string memoryStoreID, ?Order order, ?string page, ?list<Status> statuses, ?list<AnthropicBeta> betas): BidirectionalPageCursor<BetaManagedAgentsSession>`
+`$client->beta->sessions->list(?string agentID, ?int agentVersion, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool includeArchived, ?int limit, ?string memoryStoreID, ?Order order, ?string page, ?list<Status> statuses, ?list<AnthropicBeta> betas, ?string workspaceID): BidirectionalPageCursor<BetaManagedAgentsSession>`
 
 **GET** `/v1/sessions`
 
@@ -64,9 +69,13 @@ List Sessions
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsSession`
+
+  - `Type type`
 
   - `string id`
 
@@ -105,8 +114,6 @@ List Sessions
     SessionStatus enum
 
   - `?string title`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -148,6 +155,7 @@ $page = $client->beta->sessions->list(
   page: 'page',
   statuses: ['rescheduling'],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

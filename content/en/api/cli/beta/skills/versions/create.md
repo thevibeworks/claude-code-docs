@@ -1,3 +1,8 @@
+---
+title: Create Skill Version
+url: https://platform.claude.com/docs/en/api/cli/beta/skills/versions/create
+---
+
 # Create Skill Version
 
 `$ ant beta:skills:versions create`
@@ -24,9 +29,21 @@ Create Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_skill_version: object`
+
+  - `type: "skill_version"`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.
 
   - `id: string`
 
@@ -57,12 +74,6 @@ Create Skill Version
     Unique identifier for the skill.
 
     The format and length of IDs may change over time.
-
-  - `type: "skill_version"`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
 
 ## Example
 

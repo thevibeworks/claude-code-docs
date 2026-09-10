@@ -1,3 +1,8 @@
+---
+title: Archive Service Account
+url: https://platform.claude.com/docs/en/api/beta/organization/service_accounts/archive
+---
+
 # Archive Service Account
 
 **POST** `/v1/organizations/service_accounts/{service_account_id}/archive`
@@ -25,7 +30,7 @@ those rules first or change their target to another service account.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -72,6 +77,8 @@ those rules first or change their target to another service account.
     - `"user-profiles-2026-03-24"`
 
     - `"user-profiles-2026-08-18"`
+
+    - `"user-profiles-2026-09-04"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -124,6 +131,10 @@ those rules first or change their target to another service account.
   A service account is a pure identity: name + org. Authorization lives on
   whatever references it (federation rules).
 
+  - `type: "service_account"`
+
+    default: service_account
+
   - `id: string`
 
     Tagged ID of the service account.
@@ -163,10 +174,6 @@ those rules first or change their target to another service account.
     - `"admin"`
 
     - `"developer"`
-
-  - `type: "service_account"`
-
-    default: service_account
 
   - `updated_at: string`
 

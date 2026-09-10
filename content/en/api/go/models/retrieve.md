@@ -1,3 +1,8 @@
+---
+title: Get a Model
+url: https://platform.claude.com/docs/en/api/go/models/retrieve
+---
+
 # Get a Model
 
 `client.Models.Get(ctx, modelID, query) (*ModelInfo, error)`
@@ -70,6 +75,8 @@ The Models API response can be used to determine information about a specific mo
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -112,9 +119,23 @@ The Models API response can be used to determine information about a specific mo
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type ModelInfo struct{…}`
+
+  - `Type Model`
+
+    Object type.
+
+    For Models, this is always `"model"`.
+
+    default: model
 
   - `ID string`
 
@@ -237,14 +258,6 @@ The Models API response can be used to determine information about a specific mo
   - `MaxTokens int64`
 
     Maximum value for the `max_tokens` parameter when using this model.
-
-  - `Type Model`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
-    default: model
 
 ## Example
 

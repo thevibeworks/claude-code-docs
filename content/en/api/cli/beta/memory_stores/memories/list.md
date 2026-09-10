@@ -1,3 +1,8 @@
+---
+title: List memories
+url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/memories/list
+---
+
 # List memories
 
 `$ ant beta:memory-stores:memories list`
@@ -40,6 +45,12 @@ List memories
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaManagedAgentsListMemoriesResult: object`
@@ -53,6 +64,8 @@ List memories
     - `beta_managed_agents_memory: object`
 
       A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+
+      - `type: "memory"`
 
       - `id: string`
 
@@ -86,8 +99,6 @@ List memories
 
         Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-      - `type: "memory"`
-
       - `updated_at: string`
 
         A timestamp in RFC 3339 format
@@ -102,11 +113,11 @@ List memories
 
       A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
+      - `type: "memory_prefix"`
+
       - `path: string`
 
         The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-      - `type: "memory_prefix"`
 
   - `next_page: optional string`
 

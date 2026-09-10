@@ -1,6 +1,11 @@
+---
+title: Get Work Item
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/retrieve
+---
+
 # Get Work Item
 
-`$client->beta->environments->work->retrieve(string workID, string environmentID, ?list<AnthropicBeta> betas): SelfHostedWork`
+`$client->beta->environments->work->retrieve(string workID, string environmentID, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWork`
 
 **GET** `/v1/environments/{environment_id}/work/{work_id}`
 
@@ -18,9 +23,15 @@ Retrieve detailed information about a specific work item.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `SelfHostedWork`
+
+  - `"work" type`
+
+    The type of object (always 'work')
 
   - `string id`
 
@@ -70,10 +81,6 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `"work" type`
-
-    The type of object (always 'work')
-
 ## Example
 
 ```php
@@ -87,6 +94,7 @@ $betaSelfHostedWork = $client->beta->environments->work->retrieve(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWork);

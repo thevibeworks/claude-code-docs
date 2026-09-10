@@ -1,3 +1,8 @@
+---
+title: Create Workspace Member
+url: https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/add
+---
+
 # Create Workspace Member
 
 **POST** `/v1/organizations/workspaces/{workspace_id}/members`

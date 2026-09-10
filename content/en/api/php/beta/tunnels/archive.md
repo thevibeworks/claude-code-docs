@@ -1,6 +1,11 @@
+---
+title: Archive Tunnel
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/archive
+---
+
 # Archive Tunnel
 
-`$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
+`$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaTunnel`
 
 **POST** `/v1/tunnels/{tunnel_id}/archive`
 
@@ -16,9 +21,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaTunnel`
+
+  - `"tunnel" type`
 
   - `string id`
 
@@ -40,8 +49,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `"tunnel" type`
-
 ## Example
 
 ```php
@@ -52,7 +59,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->archive(
-  'tunnel_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'tunnel_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnel);

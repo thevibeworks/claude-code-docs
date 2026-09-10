@@ -1,3 +1,8 @@
+---
+title: Archive Credential
+url: https://platform.claude.com/docs/en/api/java/beta/vaults/credentials/archive
+---
+
 # Archive Credential
 
 `BetaManagedAgentsCredential beta().vaults().credentials().archive(params, requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Archive Credential
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,11 +113,15 @@ Archive Credential
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaManagedAgentsCredential:`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type type`
 
   - `String id`
 
@@ -130,11 +141,11 @@ Archive Credential
 
       OAuth credential details for an MCP server.
 
+      - `Type type`
+
       - `String mcpServerUrl`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type type`
 
       - `Optional<LocalDateTime> expiresAt`
 
@@ -188,15 +199,17 @@ Archive Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `Type type`
+
       - `String mcpServerUrl`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type type`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type type`
 
       - `BetaManagedAgentsInjectionLocationResponse injectionLocation`
 
@@ -224,17 +237,15 @@ Archive Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type type`
+
           - `List<String> allowedHosts`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type type`
-
       - `String secretName`
 
         Name of the environment variable.
-
-      - `Type type`
 
   - `LocalDateTime createdAt`
 
@@ -245,8 +256,6 @@ Archive Credential
   - `Metadata metadata`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
 
   - `LocalDateTime updatedAt`
 

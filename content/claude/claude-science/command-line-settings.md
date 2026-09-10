@@ -7,7 +7,7 @@
 > Reference for the claude-science command: every subcommand, the serve flags, the single-use login link, and the environment variables Claude Science reads.
 
 Reference for the claude-science command: every subcommand, the serve flags, the single-use login link, and the environment variables Claude Science reads.\
-claude-science serve starts Claude Science and opens the web app in your browser at a single-use login link. Everyday use is that one command. The others manage the running program: they mint login links, report status, follow logs, install updates, and merge data directories.
+claude-science serve starts Claude Science and opens the web app in your browser at a single-use login link. Everyday use is that one command. The others manage the running program: they mint login links, report status, follow logs, install updates, and merge data directories. On Windows, the installer adds the command to your PATH for new terminals. There the app window you open from the Start menu is the everyday way in, and the commands below manage the same running program.
 
 ## Commands
 
@@ -21,6 +21,7 @@ claude-science serve starts Claude Science and opens the web app in your browser
 | `claude-science stop`               | Stop the program cleanly.                                                                                                                                                                                 |
 | `claude-science update`             | Check for and install an update. `--check` only reports; --to `<version>` installs a specific version, which is also how you roll back. Updates are signature-verified and replace the binary atomically. |
 | `claude-science import` `<path>`    | Merge another data directory, or its database file, into this one.                                                                                                                                        |
+| `claude-science uninstall`          | Windows only. Remove the app, its shortcuts, and its PATH entry while keeping your data; `--purge` also deletes the data directory. Quit Claude Science first.                                            |
 | `claude-science --version`          | Print the version.                                                                                                                                                                                        |
 | `claude-science` `<command>` --help | Print help for any command.                                                                                                                                                                               |
 
@@ -30,7 +31,7 @@ claude-science serve starts Claude Science and opens the web app in your browser
 
 ## Global flags
 
-These two work on every command.
+These two work on every command. On Windows, `~` in the defaults below is your user profile folder, `%USERPROFILE%`.
 
 | Flag                 | Default                         | What it does                    |
 | -------------------- | ------------------------------- | ------------------------------- |

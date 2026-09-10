@@ -1,3 +1,8 @@
+---
+title: List chats
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/list
+---
+
 # List chats
 
 **GET** `/v1/compliance/apps/chats`
@@ -109,6 +114,12 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ## Returns
@@ -161,7 +172,21 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
   - `user: object or null`
 
-    User information for compliance responses.
+    The user who created the chat.
+
+    Null when the API key is restricted to one organization and the creator
+    is no longer a member of it (for example, after they were removed from
+    it).
+
+    A key for the whole parent organization returns the creator's `id`
+    and current `email_address` for every chat; on the list endpoint, pass
+    `organization_ids[]` to keep the results to one organization. For the
+    email address the creator had when the chat was created, query
+    `GET /v1/compliance/activities` with `activity_types[]=claude_chat_created`
+    and a `created_at` window around the chat's `created_at`, find the event
+    whose `claude_chat_id` matches this chat's `id`, and read
+    `actor.email_address`. These events exist only for chats created after
+    compliance logging was enabled for the organization.
 
     - `id: string`
 

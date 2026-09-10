@@ -1,3 +1,8 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/files/list
+---
+
 # List Files
 
 **GET** `/v1/files`
@@ -22,11 +27,21 @@ List Files
 
   Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
+## Headers
+
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `data: array of FileMetadata`
 
   List of file metadata objects.
+
+  - `type: "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: string`
 
@@ -57,12 +72,6 @@ List Files
     Size of the file in bytes.
 
     minimum: 0
-
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
 
   - `downloadable: optional boolean`
 

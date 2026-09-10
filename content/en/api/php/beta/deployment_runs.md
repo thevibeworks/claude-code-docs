@@ -1,8 +1,13 @@
+---
+title: Deployment Runs
+url: https://platform.claude.com/docs/en/api/php/beta/deployment_runs
+---
+
 # Deployment Runs
 
 ## List Deployment Runs
 
-`$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
+`$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaManagedAgentsDeploymentRun>`
 
 **GET** `/v1/deployment_runs`
 
@@ -50,9 +55,13 @@ List Deployment Runs
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -82,8 +91,6 @@ List Deployment Runs
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 ### Example
 
 ```php
@@ -104,6 +111,7 @@ $page = $client->beta->deploymentRuns->list(
   page: 'page',
   triggerType: BetaManagedAgentsTriggerType::SCHEDULE,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);
@@ -141,7 +149,7 @@ var_dump($page);
 
 ## Get Deployment Run
 
-`$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
+`$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeploymentRun`
 
 **GET** `/v1/deployment_runs/{deployment_run_id}`
 
@@ -155,9 +163,13 @@ Get Deployment Run
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ### Returns
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -187,8 +199,6 @@ Get Deployment Run
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 ### Example
 
 ```php
@@ -199,7 +209,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
-  'deployment_run_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'deployment_run_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsDeploymentRun);
@@ -236,15 +248,17 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 - `BetaManagedAgentsAgentArchivedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
 
-  - `Type type`
-
 ### Beta Managed Agents Deployment Run
 
 - `BetaManagedAgentsDeploymentRun`
+
+  - `Type type`
 
   - `string id`
 
@@ -274,37 +288,35 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `Type type`
-
 ### Beta Managed Agents Environment Archived Run Error
 
 - `BetaManagedAgentsEnvironmentArchivedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Environment Not Found Run Error
 
 - `BetaManagedAgentsEnvironmentNotFoundRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents File Not Found Run Error
 
 - `BetaManagedAgentsFileNotFoundRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Manual Trigger Context
 
@@ -316,91 +328,91 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 - `BetaManagedAgentsMCPEgressBlockedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Memory Store Archived Run Error
 
 - `BetaManagedAgentsMemoryStoreArchivedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Organization Disabled Run Error
 
 - `BetaManagedAgentsOrganizationDisabledRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Schedule Trigger Context
 
 - `BetaManagedAgentsScheduleTriggerContext`
 
+  - `Type type`
+
   - `\Datetime scheduledAt`
 
     A timestamp in RFC 3339 format
-
-  - `Type type`
 
 ### Beta Managed Agents Self Hosted Resources Unsupported Run Error
 
 - `BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Session Creation Rejected Run Error
 
 - `BetaManagedAgentsSessionCreationRejectedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Session Rate Limited Run Error
 
 - `BetaManagedAgentsSessionRateLimitedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Session Resource Not Found Run Error
 
 - `BetaManagedAgentsSessionResourceNotFoundRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Skill Not Found Run Error
 
 - `BetaManagedAgentsSkillNotFoundRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Trigger Context
 
@@ -408,11 +420,11 @@ var_dump($betaManagedAgentsDeploymentRun);
 
   - `BetaManagedAgentsScheduleTriggerContext`
 
+    - `Type type`
+
     - `\Datetime scheduledAt`
 
       A timestamp in RFC 3339 format
-
-    - `Type type`
 
   - `BetaManagedAgentsManualTriggerContext`
 
@@ -430,38 +442,38 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 - `BetaManagedAgentsUnknownRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Vault Archived Run Error
 
 - `BetaManagedAgentsVaultArchivedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Vault Not Found Run Error
 
 - `BetaManagedAgentsVaultNotFoundRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`
 
 ### Beta Managed Agents Workspace Archived Run Error
 
 - `BetaManagedAgentsWorkspaceArchivedRunError`
 
+  - `Type type`
+
   - `string message`
 
     Human-readable error description.
-
-  - `Type type`

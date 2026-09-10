@@ -1,3 +1,8 @@
+---
+title: Models
+url: https://platform.claude.com/docs/en/api/csharp/models
+---
+
 # Models
 
 ## List Models
@@ -80,6 +85,8 @@ The Models API response can be used to determine which models are available for 
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -122,9 +129,21 @@ The Models API response can be used to determine which models are available for 
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class ModelInfo:`
+
+  - `JsonElement Type = "model"`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `required string ID`
 
@@ -247,12 +266,6 @@ The Models API response can be used to determine which models are available for 
   - `required long? MaxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
-
-  - `JsonElement Type = "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
 
 ### Example
 
@@ -415,6 +428,8 @@ The Models API response can be used to determine information about a specific mo
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -457,9 +472,21 @@ The Models API response can be used to determine information about a specific mo
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class ModelInfo:`
+
+  - `JsonElement Type = "model"`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `required string ID`
 
@@ -582,12 +609,6 @@ The Models API response can be used to determine information about a specific mo
   - `required long? MaxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
-
-  - `JsonElement Type = "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
 
 ### Example
 
@@ -851,6 +872,12 @@ Console.WriteLine(modelInfo);
 
 - `class ModelInfo:`
 
+  - `JsonElement Type = "model"`
+
+    Object type.
+
+    For Models, this is always `"model"`.
+
   - `required string ID`
 
     Unique model identifier.
@@ -972,12 +999,6 @@ Console.WriteLine(modelInfo);
   - `required long? MaxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
-
-  - `JsonElement Type = "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
 
 ### Thinking Capability
 

@@ -208,11 +208,11 @@ The connection gallery lists credential types the agent can hold, not the connec
 
 ## Attach plugins
 
-A connection grants access; a plugin teaches Claude how to use it well. A plugin is a bundle of skills, reusable instructions for working with a specific tool or following a specific process, and you attach plugins to the same Access bundle or scope that carries the connection, so the credential arrives with directions for using it.
+A connection grants access; a plugin teaches Claude how to use it well. A plugin is a packaged set of skills: reusable instructions for working with a specific tool or following a specific process. Attach a plugin to the same Access bundle or scope that carries the connection, so the credential arrives with directions for using it.
 
-A Datadog API key, for example, makes the API reachable, and a Datadog plugin tells Claude which endpoints answer which questions. Sessions in covered channels pick up attached plugins automatically; there is nothing for channel members to install or enable.
+A Datadog API key, for example, makes the API reachable, and a Datadog plugin tells Claude which endpoints answer which questions. Sessions in covered channels pick up attached plugins automatically, with nothing to install or enable. Channel members can also add plugins available to your organization from the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions).
 
-Anthropic provides plugins for common tools, and you can add your own from a [skills repository](/docs/claude-tag/admins/skills-repo). To give Claude organization-wide skills, bundle them in a plugin.
+Anthropic provides plugins for common tools and processes, and you can add your own from a [skills repository](/docs/claude-tag/admins/skills-repo). To give Claude organization-wide skills, package them as a plugin.
 
 Plugins attach in two places, and the two behave differently:
 
@@ -224,6 +224,12 @@ Registering a plugin at the organization level makes it available, not active. I
 Adding or removing plugins and skills applies to new threads only. A thread already running keeps the set it began with; start a fresh thread to pick up changes. See [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies).
 
 Claude can't publish a new skill version from inside a thread; that update happens in admin settings.
+
+### Code review with the Security Guidance plugin
+
+Anthropic's **Security Guidance** [plugin](https://code.claude.com/docs/en/plugins) has Claude review the code it writes. With the plugin on in a channel, Claude is warned about risky patterns as it edits files, and the plugin reviews the code changes in the session's repository when Claude commits, pushes, or finishes a reply, checking for vulnerabilities such as injection, cross-site scripting, and hardcoded secrets. Claude addresses the findings or reports them in the thread.
+
+**Security Guidance** is off by default. Add it directly on a scope, or turn it on in a bundle's **Plugins** tab, and new threads in covered channels pick it up. The plugin flags problems and suggests fixes; it doesn't block a commit or a push. To require review before code merges, use your repository's branch protection and required checks.
 
 ## Verify the connection saved
 

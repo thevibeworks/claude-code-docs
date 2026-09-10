@@ -1,6 +1,11 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/php/beta/files/list
+---
+
 # List Files
 
-`$client->beta->files->list(?list<string> ids, ?int limit, ?string page, ?string scopeID, ?list<AnthropicBeta> betas): PageCursor<BetaFileMetadata>`
+`$client->beta->files->list(?list<string> ids, ?int limit, ?string page, ?string scopeID, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaFileMetadata>`
 
 **GET** `/v1/files`
 
@@ -32,9 +37,17 @@ List Files
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaFileMetadata`
+
+  - `"file" type`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `string id`
 
@@ -57,12 +70,6 @@ List Files
   - `int sizeBytes`
 
     Size of the file in bytes.
-
-  - `"file" type`
-
-    Object type.
-
-    For files, this is always `"file"`.
 
   - `?bool downloadable`
 
@@ -91,6 +98,7 @@ $page = $client->beta->files->list(
   page: 'page',
   scopeID: 'scope_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

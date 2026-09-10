@@ -1,3 +1,8 @@
+---
+title: API Keys
+url: https://platform.claude.com/docs/en/api/beta/organization/api_keys
+---
+
 # API Keys
 
 ## List API Keys
@@ -48,6 +53,14 @@ List API Keys
 
 - `data: array of BetaAPIKey`
 
+  - `type: "api_key"`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+    default: api_key
+
   - `id: string`
 
     ID of the API key.
@@ -64,10 +77,6 @@ List API Keys
     creator is not recorded (legacy, workload-identity-federated, or
     system-created keys).
 
-    - `id: string`
-
-      ID of the actor that created the object.
-
     - `type: "service_account" or "user"`
 
       Type of the actor that created the object.
@@ -75,6 +84,10 @@ List API Keys
       - `"service_account"`
 
       - `"user"`
+
+    - `id: string`
+
+      ID of the actor that created the object.
 
   - `expires_at: string or null`
 
@@ -108,15 +121,15 @@ List API Keys
 
     - `BetaAPIKeyServiceAccountActor object`
 
-      - `service_account_id: string`
-
-        ID of the Service Account the API key acts as.
-
       - `type: "service_account_actor"`
 
         Principal type. Always `"service_account_actor"` for a Service Account.
 
         default: service_account_actor
+
+      - `service_account_id: string`
+
+        ID of the Service Account the API key acts as.
 
   - `scope: BetaAPIKeyOrganizationScope or BetaAPIKeyWorkspaceScope`
 
@@ -153,14 +166,6 @@ List API Keys
     - `"expired"`
 
     - `"inactive"`
-
-  - `type: "api_key"`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
-
-    default: api_key
 
   - `workspace_id: string or null`
 
@@ -222,11 +227,11 @@ curl https://api.anthropic.com/v1/organizations/api_keys \
 }
 ```
 
-## Get API Key
+## Retrieve API Key (Admin API)
 
 **GET** `/v1/organizations/api_keys/{api_key_id}`
 
-Get API Key
+Retrieve information about a single API key in your organization, looked up by its ID. This Admin API endpoint requires an Admin API key, is intended for programmatic key management, and never returns the key's secret value. To view or create your own API keys, go to [API keys](https://platform.claude.com/settings/keys) in the Claude Console.
 
 ### Path parameters
 
@@ -237,6 +242,14 @@ Get API Key
 ### Returns
 
 - `BetaAPIKey object`
+
+  - `type: "api_key"`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+    default: api_key
 
   - `id: string`
 
@@ -254,10 +267,6 @@ Get API Key
     creator is not recorded (legacy, workload-identity-federated, or
     system-created keys).
 
-    - `id: string`
-
-      ID of the actor that created the object.
-
     - `type: "service_account" or "user"`
 
       Type of the actor that created the object.
@@ -265,6 +274,10 @@ Get API Key
       - `"service_account"`
 
       - `"user"`
+
+    - `id: string`
+
+      ID of the actor that created the object.
 
   - `expires_at: string or null`
 
@@ -298,15 +311,15 @@ Get API Key
 
     - `BetaAPIKeyServiceAccountActor object`
 
-      - `service_account_id: string`
-
-        ID of the Service Account the API key acts as.
-
       - `type: "service_account_actor"`
 
         Principal type. Always `"service_account_actor"` for a Service Account.
 
         default: service_account_actor
+
+      - `service_account_id: string`
+
+        ID of the Service Account the API key acts as.
 
   - `scope: BetaAPIKeyOrganizationScope or BetaAPIKeyWorkspaceScope`
 
@@ -343,14 +356,6 @@ Get API Key
     - `"expired"`
 
     - `"inactive"`
-
-  - `type: "api_key"`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
-
-    default: api_key
 
   - `workspace_id: string or null`
 
@@ -427,6 +432,14 @@ Update API Key
 
 - `BetaAPIKey object`
 
+  - `type: "api_key"`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+    default: api_key
+
   - `id: string`
 
     ID of the API key.
@@ -443,10 +456,6 @@ Update API Key
     creator is not recorded (legacy, workload-identity-federated, or
     system-created keys).
 
-    - `id: string`
-
-      ID of the actor that created the object.
-
     - `type: "service_account" or "user"`
 
       Type of the actor that created the object.
@@ -454,6 +463,10 @@ Update API Key
       - `"service_account"`
 
       - `"user"`
+
+    - `id: string`
+
+      ID of the actor that created the object.
 
   - `expires_at: string or null`
 
@@ -487,15 +500,15 @@ Update API Key
 
     - `BetaAPIKeyServiceAccountActor object`
 
-      - `service_account_id: string`
-
-        ID of the Service Account the API key acts as.
-
       - `type: "service_account_actor"`
 
         Principal type. Always `"service_account_actor"` for a Service Account.
 
         default: service_account_actor
+
+      - `service_account_id: string`
+
+        ID of the Service Account the API key acts as.
 
   - `scope: BetaAPIKeyOrganizationScope or BetaAPIKeyWorkspaceScope`
 
@@ -532,14 +545,6 @@ Update API Key
     - `"expired"`
 
     - `"inactive"`
-
-  - `type: "api_key"`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
-
-    default: api_key
 
   - `workspace_id: string or null`
 
@@ -590,6 +595,14 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
 
 - `BetaAPIKey object`
 
+  - `type: "api_key"`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+    default: api_key
+
   - `id: string`
 
     ID of the API key.
@@ -606,10 +619,6 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
     creator is not recorded (legacy, workload-identity-federated, or
     system-created keys).
 
-    - `id: string`
-
-      ID of the actor that created the object.
-
     - `type: "service_account" or "user"`
 
       Type of the actor that created the object.
@@ -617,6 +626,10 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
       - `"service_account"`
 
       - `"user"`
+
+    - `id: string`
+
+      ID of the actor that created the object.
 
   - `expires_at: string or null`
 
@@ -650,15 +663,15 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
 
     - `BetaAPIKeyServiceAccountActor object`
 
-      - `service_account_id: string`
-
-        ID of the Service Account the API key acts as.
-
       - `type: "service_account_actor"`
 
         Principal type. Always `"service_account_actor"` for a Service Account.
 
         default: service_account_actor
+
+      - `service_account_id: string`
+
+        ID of the Service Account the API key acts as.
 
   - `scope: BetaAPIKeyOrganizationScope or BetaAPIKeyWorkspaceScope`
 
@@ -696,14 +709,6 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
 
     - `"inactive"`
 
-  - `type: "api_key"`
-
-    Object type.
-
-    For API Keys, this is always `"api_key"`.
-
-    default: api_key
-
   - `workspace_id: string or null`
 
     **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
@@ -714,10 +719,6 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
 
 - `BetaAPIKeyCreatedBy object`
 
-  - `id: string`
-
-    ID of the actor that created the object.
-
   - `type: "service_account" or "user"`
 
     Type of the actor that created the object.
@@ -725,6 +726,10 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
     - `"service_account"`
 
     - `"user"`
+
+  - `id: string`
+
+    ID of the actor that created the object.
 
 ### Beta API Key Organization Scope
 
@@ -740,15 +745,15 @@ curl https://api.anthropic.com/v1/organizations/api_keys/$API_KEY_ID \
 
 - `BetaAPIKeyServiceAccountActor object`
 
-  - `service_account_id: string`
-
-    ID of the Service Account the API key acts as.
-
   - `type: "service_account_actor"`
 
     Principal type. Always `"service_account_actor"` for a Service Account.
 
     default: service_account_actor
+
+  - `service_account_id: string`
+
+    ID of the Service Account the API key acts as.
 
 ### Beta API Key User Actor
 

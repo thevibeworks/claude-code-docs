@@ -1,6 +1,11 @@
+---
+title: Create Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates/create
+---
+
 # Create Tunnel Certificate
 
-`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -20,9 +25,13 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -48,8 +57,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ## Example
 
 ```php
@@ -63,6 +70,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
   'tunnel_id',
   caCertificatePEM: 'ca_certificate_pem',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);

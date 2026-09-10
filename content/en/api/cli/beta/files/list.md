@@ -1,3 +1,8 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/cli/beta/files/list
+---
+
 # List Files
 
 `$ ant beta:files list`
@@ -32,6 +37,12 @@ List Files
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaFileListResponse: object`
@@ -39,6 +50,12 @@ List Files
   - `data: array of BetaFileMetadata`
 
     List of file metadata objects.
+
+    - `type: "file"`
+
+      Object type.
+
+      For files, this is always `"file"`.
 
     - `id: string`
 
@@ -70,12 +87,6 @@ List Files
 
       minimum: 0
 
-    - `type: "file"`
-
-      Object type.
-
-      For files, this is always `"file"`.
-
     - `downloadable: optional boolean`
 
       Whether the file can be downloaded.
@@ -90,13 +101,13 @@ List Files
 
       The scope of this file, indicating the context in which it was created (e.g., a session).
 
-      - `id: string`
-
-        The ID of the scoping resource (e.g., the session ID).
-
       - `type: "session"`
 
         The type of scope (e.g., `"session"`).
+
+      - `id: string`
+
+        The ID of the scoping resource (e.g., the session ID).
 
   - `next_page: optional string`
 

@@ -1,6 +1,11 @@
+---
+title: Stop Work
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/stop
+---
+
 # Stop Work
 
-`$client->beta->environments->work->stop(string workID, string environmentID, ?bool force, ?list<AnthropicBeta> betas): SelfHostedWork`
+`$client->beta->environments->work->stop(string workID, string environmentID, ?bool force, ?list<AnthropicBeta> betas, ?string workspaceID): SelfHostedWork`
 
 **POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
@@ -24,9 +29,15 @@ Stop a work item, initiating graceful or forced shutdown.
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `SelfHostedWork`
+
+  - `"work" type`
+
+    The type of object (always 'work')
 
   - `string id`
 
@@ -76,10 +87,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `"work" type`
-
-    The type of object (always 'work')
-
 ## Example
 
 ```php
@@ -94,6 +101,7 @@ $betaSelfHostedWork = $client->beta->environments->work->stop(
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   force: true,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaSelfHostedWork);

@@ -1,3 +1,8 @@
+---
+title: Update Session Resource
+url: https://platform.claude.com/docs/en/api/beta/sessions/resources/update
+---
+
 # Update Session Resource
 
 **POST** `/v1/sessions/{session_id}/resources/{resource_id}`
@@ -18,7 +23,7 @@ Update Session Resource
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -66,6 +71,8 @@ Update Session Resource
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -108,6 +115,8 @@ Update Session Resource
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Body parameters
 
 - `authorization_token: string`
@@ -120,6 +129,8 @@ Update Session Resource
 
 - `BetaManagedAgentsGitHubRepositoryResource object`
 
+  - `type: "github_repository"`
+
   - `id: string`
 
   - `created_at: string`
@@ -129,8 +140,6 @@ Update Session Resource
     format: date-time
 
   - `mount_path: string`
-
-  - `type: "github_repository"`
 
   - `updated_at: string`
 
@@ -144,15 +153,17 @@ Update Session Resource
 
     - `BetaManagedAgentsBranchCheckout object`
 
+      - `type: "branch"`
+
       - `name: string`
 
         Branch name to check out.
 
         minLength: 1, maxLength: 255
 
-      - `type: "branch"`
-
     - `BetaManagedAgentsCommitCheckout object`
+
+      - `type: "commit"`
 
       - `sha: string`
 
@@ -160,9 +171,9 @@ Update Session Resource
 
         minLength: 7, maxLength: 64
 
-      - `type: "commit"`
-
 - `BetaManagedAgentsFileResource object`
+
+  - `type: "file"`
 
   - `id: string`
 
@@ -176,8 +187,6 @@ Update Session Resource
 
   - `mount_path: string`
 
-  - `type: "file"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
@@ -188,11 +197,11 @@ Update Session Resource
 
   A memory store attached to an agent session.
 
+  - `type: "memory_store"`
+
   - `memory_store_id: string`
 
     The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-  - `type: "memory_store"`
 
   - `access: optional "read_write" or "read_only" or null`
 

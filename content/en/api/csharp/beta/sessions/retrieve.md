@@ -1,3 +1,8 @@
+---
+title: Get Session
+url: https://platform.claude.com/docs/en/api/csharp/beta/sessions/retrieve
+---
+
 # Get Session
 
 `BetaManagedAgentsSession Beta.Sessions.Retrieve(parameters, cancellationToken = default)`
@@ -64,6 +69,8 @@ Get Session
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -106,11 +113,19 @@ Get Session
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsSession:`
 
   A Managed Agents `session`.
+
+  - `required Type Type`
 
   - `required string ID`
 
@@ -118,15 +133,17 @@ Get Session
 
     Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `required Type Type`
+
     - `required string ID`
 
     - `required string? Description`
 
     - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-      - `required string Name`
-
       - `required Type Type`
+
+      - `required string Name`
 
       - `required string Url`
 
@@ -246,6 +263,8 @@ Get Session
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
+      - `required Type Type`
+
       - `required IReadOnlyList<Agent> Agents`
 
         Full `agent` definitions the coordinator may spawn as session threads.
@@ -254,15 +273,17 @@ Get Session
 
           Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
+          - `required Type Type`
+
           - `required string ID`
 
           - `required string? Description`
 
           - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
-            - `required string Name`
-
             - `required Type Type`
+
+            - `required string Name`
 
             - `required string Url`
 
@@ -278,9 +299,9 @@ Get Session
 
               A resolved Anthropic-managed skill.
 
-              - `required string SkillID`
-
               - `required Type Type`
+
+              - `required string SkillID`
 
               - `required string Version`
 
@@ -288,9 +309,9 @@ Get Session
 
               A resolved user-created custom skill.
 
-              - `required string SkillID`
-
               - `required Type Type`
+
+              - `required string SkillID`
 
               - `required string Version`
 
@@ -300,11 +321,15 @@ Get Session
 
             - `class BetaManagedAgentsAgentToolset20260401:`
 
+              - `required Type Type`
+
               - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
                 - `class BetaManagedAgentsBashToolConfig:`
 
                   Configuration for the bash tool.
+
+                  - `JsonElement Type = "bash"`
 
                   - `required bool Enabled`
 
@@ -326,11 +351,17 @@ Get Session
 
                       - `required Type Type`
 
-                  - `JsonElement Type = "bash"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `JsonElement Type = "auto"`
 
                 - `class BetaManagedAgentsEditToolConfig:`
 
                   Configuration for the edit tool.
+
+                  - `JsonElement Type = "edit"`
 
                   - `required bool Enabled`
 
@@ -348,11 +379,15 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "edit"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsReadToolConfig:`
 
                   Configuration for the read tool.
+
+                  - `JsonElement Type = "read"`
 
                   - `required bool Enabled`
 
@@ -370,11 +405,15 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "read"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsWriteToolConfig:`
 
                   Configuration for the write tool.
+
+                  - `JsonElement Type = "write"`
 
                   - `required bool Enabled`
 
@@ -392,11 +431,15 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "write"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsGlobToolConfig:`
 
                   Configuration for the glob tool.
+
+                  - `JsonElement Type = "glob"`
 
                   - `required bool Enabled`
 
@@ -414,11 +457,15 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "glob"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsGrepToolConfig:`
 
                   Configuration for the grep tool.
+
+                  - `JsonElement Type = "grep"`
 
                   - `required bool Enabled`
 
@@ -436,11 +483,15 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "grep"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `class BetaManagedAgentsWebFetchToolConfig:`
 
                   Configuration for the web_fetch tool.
+
+                  - `JsonElement Type = "web_fetch"`
 
                   - `required bool Enabled`
 
@@ -458,7 +509,9 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "web_fetch"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `IReadOnlyList<string> AllowedDomains`
 
@@ -471,6 +524,8 @@ Get Session
                 - `class BetaManagedAgentsWebSearchToolConfig:`
 
                   Configuration for the web_search tool.
+
+                  - `JsonElement Type = "web_search"`
 
                   - `required bool Enabled`
 
@@ -488,7 +543,9 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type = "web_search"`
+                    - `class BetaManagedAgentsAutoPolicy:`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `IReadOnlyList<string> AllowedDomains`
 
@@ -542,9 +599,13 @@ Get Session
 
                     Tool calls require user confirmation before execution.
 
-              - `required Type Type`
+                  - `class BetaManagedAgentsAutoPolicy:`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
             - `class BetaManagedAgentsMcpToolset:`
+
+              - `required Type Type`
 
               - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
@@ -564,6 +625,10 @@ Get Session
 
                     Tool calls require user confirmation before execution.
 
+                  - `class BetaManagedAgentsAutoPolicy:`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
               - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
 
                 Resolved default configuration for all tools from an MCP server.
@@ -582,13 +647,17 @@ Get Session
 
                     Tool calls require user confirmation before execution.
 
-              - `required string McpServerName`
+                  - `class BetaManagedAgentsAutoPolicy:`
 
-              - `required Type Type`
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `required string McpServerName`
 
             - `class BetaManagedAgentsCustomTool:`
 
               A custom tool as returned in API responses.
+
+              - `required Type Type`
 
               - `required string Description`
 
@@ -604,10 +673,6 @@ Get Session
 
               - `required string Name`
 
-              - `required Type Type`
-
-          - `required Type Type`
-
           - `required int Version`
 
             format: int32
@@ -616,13 +681,11 @@ Get Session
 
           Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
+          - `required Type Type`
+
           - `required string Model`
 
             The advisor model id.
-
-          - `required Type Type`
-
-      - `required Type Type`
 
     - `required string Name`
 
@@ -648,8 +711,6 @@ Get Session
 
         A custom tool as returned in API responses.
 
-    - `required Type Type`
-
     - `required int Version`
 
       format: int32
@@ -664,6 +725,8 @@ Get Session
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+    - `required Type Type`
+
     - `required BetaMonetaryAmount MaxListCost`
 
       A monetary amount in a specific currency.
@@ -675,8 +738,6 @@ Get Session
       - `required BetaCurrency Currency`
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `required Type Type`
 
   - `required DateTimeOffset CreatedAt`
 
@@ -691,6 +752,8 @@ Get Session
   - `required IReadOnlyList<BetaManagedAgentsOutcomeEvaluationResource> OutcomeEvaluations`
 
     Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
+
+    - `required Type Type`
 
     - `required DateTimeOffset? CompletedAt`
 
@@ -720,11 +783,11 @@ Get Session
 
       Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
 
-    - `required Type Type`
-
   - `required IReadOnlyList<BetaManagedAgentsSessionResource> Resources`
 
     - `class BetaManagedAgentsGitHubRepositoryResource:`
+
+      - `required Type Type`
 
       - `required string ID`
 
@@ -735,8 +798,6 @@ Get Session
         format: date-time
 
       - `required string MountPath`
-
-      - `required Type Type`
 
       - `required DateTimeOffset UpdatedAt`
 
@@ -750,15 +811,17 @@ Get Session
 
         - `class BetaManagedAgentsBranchCheckout:`
 
+          - `required Type Type`
+
           - `required string Name`
 
             Branch name to check out.
 
             minLength: 1, maxLength: 255
 
-          - `required Type Type`
-
         - `class BetaManagedAgentsCommitCheckout:`
+
+          - `required Type Type`
 
           - `required string Sha`
 
@@ -766,9 +829,9 @@ Get Session
 
             minLength: 7, maxLength: 64
 
-          - `required Type Type`
-
     - `class BetaManagedAgentsFileResource:`
+
+      - `required Type Type`
 
       - `required string ID`
 
@@ -782,8 +845,6 @@ Get Session
 
       - `required string MountPath`
 
-      - `required Type Type`
-
       - `required DateTimeOffset UpdatedAt`
 
         A timestamp in RFC 3339 format
@@ -794,11 +855,11 @@ Get Session
 
       A memory store attached to an agent session.
 
+      - `required Type Type`
+
       - `required string MemoryStoreID`
 
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `required Type Type`
 
       - `Access? Access`
 
@@ -855,8 +916,6 @@ Get Session
     - `Terminated("terminated")`
 
   - `required string? Title`
-
-  - `required Type Type`
 
   - `required DateTimeOffset UpdatedAt`
 

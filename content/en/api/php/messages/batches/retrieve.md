@@ -1,6 +1,11 @@
+---
+title: Retrieve a Message Batch
+url: https://platform.claude.com/docs/en/api/php/messages/batches/retrieve
+---
+
 # Retrieve a Message Batch
 
-`$client->messages->batches->retrieve(string messageBatchID): MessageBatch`
+`$client->messages->batches->retrieve(string messageBatchID, ?string workspaceID): MessageBatch`
 
 **GET** `/v1/messages/batches/{message_batch_id}`
 
@@ -14,9 +19,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `MessageBatch`
+
+  - `"message_batch" type`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `string id`
 
@@ -62,12 +75,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
 ## Example
 
 ```php
@@ -77,7 +84,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$messageBatch = $client->messages->batches->retrieve('message_batch_id');
+$messageBatch = $client->messages->batches->retrieve(
+  'message_batch_id', workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy'
+);
 
 var_dump($messageBatch);
 ```

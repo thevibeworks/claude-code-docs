@@ -1,3 +1,8 @@
+---
+title: Archive Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/certificates/archive
+---
+
 # Archive Tunnel Certificate
 
 `$ ant beta:tunnels:certificates archive`
@@ -22,11 +27,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `beta_tunnel_certificate: object`
 
   A CA certificate attached to a tunnel.
+
+  - `type: "tunnel_certificate"`
 
   - `id: string`
 
@@ -57,8 +70,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `tunnel_id: string`
 
     ID of the tunnel the certificate is registered against.
-
-  - `type: "tunnel_certificate"`
 
 ## Example
 

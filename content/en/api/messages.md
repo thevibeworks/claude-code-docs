@@ -1,3 +1,8 @@
+---
+title: Messages
+url: https://platform.claude.com/docs/en/api/messages
+---
+
 # Messages
 
 ## Create a Message
@@ -15,6 +20,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 - `"anthropic-user-profile-id": optional string`
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `"anthropic-workspace-id": optional string`
 
 ### Body parameters
 
@@ -89,11 +96,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `TextBlockParam object`
 
+        - `type: "text"`
+
         - `text: string`
 
           minLength: 1
-
-        - `type: "text"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -120,6 +127,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `CitationCharLocationParam object`
 
+            - `type: "char_location"`
+
             - `cited_text: string`
 
             - `document_index: number`
@@ -136,9 +145,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 0
 
-            - `type: "char_location"`
-
           - `CitationPageLocationParam object`
+
+            - `type: "page_location"`
 
             - `cited_text: string`
 
@@ -156,9 +165,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 1
 
-            - `type: "page_location"`
-
           - `CitationContentBlockLocationParam object`
+
+            - `type: "content_block_location"`
 
             - `cited_text: string`
 
@@ -186,9 +195,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 0
 
-            - `type: "content_block_location"`
-
           - `CitationWebSearchResultLocationParam object`
+
+            - `type: "web_search_result_location"`
 
             - `cited_text: string`
 
@@ -198,13 +207,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               maxLength: 512, minLength: 1
 
-            - `type: "web_search_result_location"`
-
             - `url: string`
 
               minLength: 1
 
           - `CitationSearchResultLocationParam object`
+
+            - `type: "search_result_location"`
 
             - `cited_text: string`
 
@@ -236,13 +245,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `title: string or null`
 
-            - `type: "search_result_location"`
-
       - `ImageBlockParam object`
+
+        - `type: "image"`
 
         - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
           - `Base64ImageSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -258,8 +269,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"image/webp"`
 
-            - `type: "base64"`
-
           - `URLImageSource object`
 
             - `type: "url"`
@@ -268,11 +277,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `FileImageSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "image"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -292,9 +299,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `DocumentBlockParam object`
 
+        - `type: "document"`
+
         - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
           - `Base64PDFSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -302,17 +313,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `media_type: "application/pdf"`
 
-            - `type: "base64"`
-
           - `PlainTextSource object`
+
+            - `type: "text"`
 
             - `data: string`
 
             - `media_type: "text/plain"`
 
-            - `type: "text"`
-
           - `ContentBlockSource object`
+
+            - `type: "content"`
 
             - `content: string or array of ContentBlockSourceContent`
 
@@ -324,8 +335,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `ImageBlockParam object`
 
-            - `type: "content"`
-
           - `URLPDFSource object`
 
             - `type: "url"`
@@ -334,11 +343,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `FileDocumentSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "document"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -358,13 +365,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `SearchResultBlockParam object`
 
+        - `type: "search_result"`
+
         - `content: array of TextBlockParam`
+
+          - `type: "text"`
 
           - `text: string`
 
             minLength: 1
-
-          - `type: "text"`
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -376,8 +385,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `title: string`
 
-        - `type: "search_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -385,6 +392,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `citations: optional CitationsConfigParam`
 
       - `ThinkingBlockParam object`
+
+        - `type: "thinking"`
 
         - `signature: string`
 
@@ -396,17 +405,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `thinking` text of this block as returned by the API.
 
-        - `type: "thinking"`
-
       - `RedactedThinkingBlockParam object`
+
+        - `type: "redacted_thinking"`
 
         - `data: string`
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type: "redacted_thinking"`
-
       - `ToolUseBlockParam object`
+
+        - `type: "tool_use"`
 
         - `id: string`
 
@@ -417,8 +426,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `name: string`
 
           maxLength: 200, minLength: 1
-
-        - `type: "tool_use"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -438,19 +445,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Tool invocation generated by a server-side tool.
 
+            - `type: "code_execution_20250825"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120 object`
 
+            - `type: "code_execution_20260120"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20260120"`
 
         - `toolset_name: optional string or null`
 
@@ -460,11 +467,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `ToolResultBlockParam object`
 
+        - `type: "tool_result"`
+
         - `tool_use_id: string`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: "tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -488,11 +495,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Tool reference block that can be included in tool_result content.
 
+              - `type: "tool_reference"`
+
               - `tool_name: string`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: "tool_reference"`
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -507,6 +514,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
               At most one per `tool_result`, only on a non-error result answering a
               browser toolset member `tool_use`. The server renders the
               model-visible text from it; the model never sees the raw fields.
+
+              - `type: "browser_state"`
 
               - `tabs: array of BrowserStateTabEntry`
 
@@ -536,8 +545,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `type: "browser_state"`
-
               - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
@@ -558,25 +565,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                   during a failed call gets no deferred `tab_opened`; it simply appears
                   in the next result's `tabs` inventory.
 
+                  - `type: "tab_opened"`
+
                   - `tab_id: string`
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type: "tab_opened"`
-
                 - `BrowserStateChangeDownloadStarted object`
 
                   A file download that started during this call.
+
+                  - `type: "download_started"`
 
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_started"`
 
                   - `url: string`
 
@@ -591,13 +598,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                   `download_started`, when the download finished during the call that
                   started it (at most one state change per `download_id` per result).
 
+                  - `type: "download_completed"`
+
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_completed"`
 
                   - `url: string`
 
@@ -621,13 +628,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   A file download that failed — or was cancelled — during this call.
 
+                  - `type: "download_failed"`
+
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_failed"`
 
                   - `url: string`
 
@@ -651,6 +658,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `ServerToolUseBlockParam object`
 
+        - `type: "server_tool_use"`
+
         - `id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -673,8 +682,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_search_tool_bm25"`
 
-        - `type: "server_tool_use"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -695,21 +702,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `WebSearchToolResultBlockParam object`
 
+        - `type: "web_search_tool_result"`
+
         - `content: WebSearchToolResultBlockParamContent`
 
           - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+            - `type: "web_search_result"`
+
             - `encrypted_content: string`
 
             - `title: string`
-
-            - `type: "web_search_result"`
 
             - `url: string`
 
             - `page_age: optional string or null`
 
           - `WebSearchToolRequestError object`
+
+            - `type: "web_search_tool_result_error"`
 
             - `error_code: WebSearchToolResultErrorCode`
 
@@ -725,13 +736,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"request_too_large"`
 
-            - `type: "web_search_tool_result_error"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "web_search_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -753,9 +760,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `WebFetchToolResultBlockParam object`
 
+        - `type: "web_fetch_tool_result"`
+
         - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
 
           - `WebFetchToolResultErrorBlockParam object`
+
+            - `type: "web_fetch_tool_result_error"`
 
             - `error_code: WebFetchToolResultErrorCode`
 
@@ -777,13 +788,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"unavailable"`
 
-            - `type: "web_fetch_tool_result_error"`
+              - `"content_too_large"`
 
           - `WebFetchBlockParam object`
 
-            - `content: DocumentBlockParam`
-
             - `type: "web_fetch_result"`
+
+            - `content: DocumentBlockParam`
 
             - `url: string`
 
@@ -796,8 +807,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "web_fetch_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -819,11 +828,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `CodeExecutionToolResultBlockParam object`
 
+        - `type: "code_execution_tool_result"`
+
         - `content: CodeExecutionToolResultBlockParamContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `CodeExecutionToolResultErrorParam object`
+
+            - `type: "code_execution_tool_result_error"`
 
             - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -835,15 +848,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"execution_time_exceeded"`
 
-            - `type: "code_execution_tool_result_error"`
-
           - `CodeExecutionResultBlockParam object`
+
+            - `type: "code_execution_result"`
 
             - `content: array of CodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "code_execution_output"`
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -851,17 +864,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stdout: string`
 
-            - `type: "code_execution_result"`
-
           - `EncryptedCodeExecutionResultBlockParam object`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
+            - `type: "encrypted_code_execution_result"`
+
             - `content: array of CodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "code_execution_output"`
+
+              - `file_id: string`
 
             - `encrypted_stdout: string`
 
@@ -869,13 +882,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stderr: string`
 
-            - `type: "encrypted_code_execution_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -883,9 +892,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `BashCodeExecutionToolResultBlockParam object`
 
+        - `type: "bash_code_execution_tool_result"`
+
         - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
 
           - `BashCodeExecutionToolResultErrorParam object`
+
+            - `type: "bash_code_execution_tool_result_error"`
 
             - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -899,15 +912,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"output_file_too_large"`
 
-            - `type: "bash_code_execution_tool_result_error"`
-
           - `BashCodeExecutionResultBlockParam object`
+
+            - `type: "bash_code_execution_result"`
 
             - `content: array of BashCodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "bash_code_execution_output"`
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -915,13 +928,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stdout: string`
 
-            - `type: "bash_code_execution_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "bash_code_execution_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -929,9 +938,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `TextEditorCodeExecutionToolResultBlockParam object`
 
+        - `type: "text_editor_code_execution_tool_result"`
+
         - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
 
           - `TextEditorCodeExecutionToolResultErrorParam object`
+
+            - `type: "text_editor_code_execution_tool_result_error"`
 
             - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -945,11 +958,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"file_not_found"`
 
-            - `type: "text_editor_code_execution_tool_result_error"`
-
             - `error_message: optional string or null`
 
           - `TextEditorCodeExecutionViewResultBlockParam object`
+
+            - `type: "text_editor_code_execution_view_result"`
 
             - `content: string`
 
@@ -961,8 +974,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"pdf"`
 
-            - `type: "text_editor_code_execution_view_result"`
-
             - `num_lines: optional number or null`
 
             - `start_line: optional number or null`
@@ -971,9 +982,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-            - `is_file_update: boolean`
-
             - `type: "text_editor_code_execution_create_result"`
+
+            - `is_file_update: boolean`
 
           - `TextEditorCodeExecutionStrReplaceResultBlockParam object`
 
@@ -993,17 +1004,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "text_editor_code_execution_tool_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
       - `ToolSearchToolResultBlockParam object`
 
+        - `type: "tool_search_tool_result"`
+
         - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
 
           - `ToolSearchToolResultErrorParam object`
+
+            - `type: "tool_search_tool_result_error"`
 
             - `error_code: ToolSearchToolResultErrorCode`
 
@@ -1015,31 +1028,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"execution_time_exceeded"`
 
-            - `type: "tool_search_tool_result_error"`
-
             - `error_message: optional string or null`
 
           - `ToolSearchToolSearchResultBlockParam object`
 
+            - `type: "tool_search_tool_search_result"`
+
             - `tool_references: array of ToolReferenceBlockParam`
+
+              - `type: "tool_reference"`
 
               - `tool_name: string`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `type: "tool_reference"`
-
               - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type: "tool_search_tool_search_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "tool_search_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -1050,9 +1059,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
 
-        - `file_id: string`
-
         - `type: "container_upload"`
+
+        - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -1170,12 +1179,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       maxItems: 20
 
-      - `skill_id: string`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: "anthropic" or "custom"`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -1183,6 +1186,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: optional string`
 
@@ -1230,11 +1239,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+    - `type: "json_schema"`
+
     - `schema: map[unknown]`
 
       The JSON schema of the format
-
-    - `type: "json_schema"`
 
 - `service_tier: optional "auto" or "standard_only"`
 
@@ -1270,11 +1279,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `array of TextBlockParam`
 
+    - `type: "text"`
+
     - `text: string`
 
       minLength: 1
-
-    - `type: "text"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -1292,6 +1301,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `ThinkingConfigEnabled object`
 
+    - `type: "enabled"`
+
     - `budget_tokens: number`
 
       Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -1301,8 +1312,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       minimum: 1024
-
-    - `type: "enabled"`
 
     - `display: optional "summarized" or "omitted" or null`
 
@@ -1360,11 +1369,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The model will use the specified tool with `tool_choice.name`.
 
+    - `type: "tool"`
+
     - `name: string`
 
       The name of the tool to use.
-
-    - `type: "tool"`
 
     - `disable_parallel_tool_use: optional boolean`
 
@@ -1444,6 +1453,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `Tool object`
 
+    - `type: optional "custom" or null`
+
     - `input_schema: object`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -1498,17 +1509,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom" or null`
-
   - `ToolBash20250124 object`
+
+    - `type: "bash_20250124"`
 
     - `name: "bash"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "bash_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -1536,13 +1545,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `CodeExecutionTool20250522 object`
 
+    - `type: "code_execution_20250522"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250522"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -1568,13 +1577,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `CodeExecutionTool20250825 object`
 
+    - `type: "code_execution_20250825"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250825"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -1602,13 +1611,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: "code_execution_20260120"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260120"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -1636,13 +1645,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Code execution tool with REPL state persistence.
 
+    - `type: "code_execution_20260521"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260521"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -1687,6 +1696,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional BrowserTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -2024,18 +2045,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional BrowserTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional BrowserWaitConfig or null`
 
         `wait`'s config overrides.
@@ -2062,13 +2071,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `MemoryTool20250818 object`
 
+    - `type: "memory_20250818"`
+
     - `name: "memory"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "memory_20250818"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2119,6 +2128,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional ComputerTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: optional ComputerCursorPositionConfig or null`
 
@@ -2288,18 +2309,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional ComputerTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional ComputerWaitConfig or null`
 
         `wait`'s config overrides.
@@ -2326,13 +2335,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `ToolTextEditor20250124 object`
 
+    - `type: "text_editor_20250124"`
+
     - `name: "str_replace_editor"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2360,13 +2369,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `ToolTextEditor20250429 object`
 
+    - `type: "text_editor_20250429"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250429"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2394,13 +2403,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `ToolTextEditor20250728 object`
 
+    - `type: "text_editor_20250728"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250728"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2434,13 +2443,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `WebSearchTool20250305 object`
 
+    - `type: "web_search_20250305"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20250305"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2510,13 +2519,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `WebFetchTool20250910 object`
 
+    - `type: "web_fetch_20250910"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20250910"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2566,13 +2575,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `WebSearchTool20260209 object`
 
+    - `type: "web_search_20260209"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2616,13 +2625,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `WebFetchTool20260209 object`
 
+    - `type: "web_fetch_20260209"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2674,13 +2683,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: "web_fetch_20260309"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260309"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2734,13 +2743,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `WebSearchTool20260318 object`
 
+    - `type: "web_search_20260318"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2792,13 +2801,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `WebFetchTool20260318 object`
 
+    - `type: "web_fetch_20260318"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2860,17 +2869,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `ToolSearchToolBm25_20251119 object`
 
-    - `name: "tool_search_tool_bm25"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_bm25_20251119" or "tool_search_tool_bm25"`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: "tool_search_tool_bm25"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2896,17 +2905,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `ToolSearchToolRegex20251119 object`
 
-    - `name: "tool_search_tool_regex"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_regex_20251119" or "tool_search_tool_regex"`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: "tool_search_tool_regex"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2970,6 +2979,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `Message object`
 
+  - `type: "message"`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
+
+    default: message
+
   - `id: string`
 
     Unique object identifier.
@@ -2994,12 +3011,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Skills loaded in the container
 
-      - `skill_id: string`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: "anthropic" or "custom"`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -3007,6 +3018,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: string`
 
@@ -3045,6 +3062,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `TextBlock object`
 
+      - `type: "text"`
+
+        default: text
+
       - `citations: array of TextCitation or null`
 
         Citations supporting the text block.
@@ -3052,6 +3073,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `CitationCharLocation object`
+
+          - `type: "char_location"`
+
+            default: char_location
 
           - `cited_text: string`
 
@@ -3069,11 +3094,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `type: "char_location"`
-
-            default: char_location
-
         - `CitationPageLocation object`
+
+          - `type: "page_location"`
+
+            default: page_location
 
           - `cited_text: string`
 
@@ -3091,11 +3116,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-          - `type: "page_location"`
-
-            default: page_location
-
         - `CitationContentBlockLocation object`
+
+          - `type: "content_block_location"`
+
+            default: content_block_location
 
           - `cited_text: string`
 
@@ -3123,11 +3148,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-          - `type: "content_block_location"`
-
-            default: content_block_location
-
         - `CitationsWebSearchResultLocation object`
+
+          - `type: "web_search_result_location"`
+
+            default: web_search_result_location
 
           - `cited_text: string`
 
@@ -3137,13 +3162,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 512
 
-          - `type: "web_search_result_location"`
-
-            default: web_search_result_location
-
           - `url: string`
 
         - `CitationsSearchResultLocation object`
+
+          - `type: "search_result_location"`
+
+            default: search_result_location
 
           - `cited_text: string`
 
@@ -3175,19 +3200,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: string or null`
 
-          - `type: "search_result_location"`
-
-            default: search_result_location
-
       - `text: string`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: "text"`
-
-        default: text
+        minLength: 0
 
     - `ThinkingBlock object`
+
+      - `type: "thinking"`
+
+        default: thinking
 
       - `signature: string`
 
@@ -3201,11 +3222,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-      - `type: "thinking"`
-
-        default: thinking
-
     - `RedactedThinkingBlock object`
+
+      - `type: "redacted_thinking"`
+
+        default: redacted_thinking
 
       - `data: string`
 
@@ -3215,11 +3236,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `type: "redacted_thinking"`
-
-        default: redacted_thinking
-
     - `ToolUseBlock object`
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string`
 
@@ -3241,29 +3262,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Tool invocation generated by a server-side tool.
 
+          - `type: "code_execution_20250825"`
+
           - `tool_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "code_execution_20250825"`
 
         - `ServerToolCaller20260120 object`
 
+          - `type: "code_execution_20260120"`
+
           - `tool_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "code_execution_20260120"`
 
       - `input: map[unknown]`
 
       - `name: string`
 
         minLength: 1
-
-      - `type: "tool_use"`
-
-        default: tool_use
 
       - `toolset_name: optional string or null`
 
@@ -3272,6 +3289,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock object`
+
+      - `type: "server_tool_use"`
+
+        default: server_tool_use
 
       - `id: string`
 
@@ -3311,11 +3332,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"tool_search_tool_bm25"`
 
-      - `type: "server_tool_use"`
-
-        default: server_tool_use
-
     - `WebSearchToolResultBlock object`
+
+      - `type: "web_search_tool_result"`
+
+        default: web_search_tool_result
 
       - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -3337,6 +3358,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `WebSearchToolResultError object`
 
+          - `type: "web_search_tool_result_error"`
+
+            default: web_search_tool_result_error
+
           - `error_code: WebSearchToolResultErrorCode`
 
             - `"invalid_tool_input"`
@@ -3351,11 +3376,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"request_too_large"`
 
-          - `type: "web_search_tool_result_error"`
-
-            default: web_search_tool_result_error
-
         - `array of WebSearchResultBlock`
+
+          - `type: "web_search_result"`
+
+            default: web_search_result
 
           - `encrypted_content: string`
 
@@ -3363,21 +3388,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: string`
 
-          - `type: "web_search_result"`
-
-            default: web_search_result
-
           - `url: string`
 
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "web_search_tool_result"`
-
-        default: web_search_tool_result
-
     - `WebFetchToolResultBlock object`
+
+      - `type: "web_fetch_tool_result"`
+
+        default: web_fetch_tool_result
 
       - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -3399,6 +3420,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `WebFetchToolResultErrorBlock object`
 
+          - `type: "web_fetch_tool_result_error"`
+
+            default: web_fetch_tool_result_error
+
           - `error_code: WebFetchToolResultErrorCode`
 
             - `"invalid_tool_input"`
@@ -3419,13 +3444,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"unavailable"`
 
-          - `type: "web_fetch_tool_result_error"`
-
-            default: web_fetch_tool_result_error
+            - `"content_too_large"`
 
         - `WebFetchBlock object`
 
+          - `type: "web_fetch_result"`
+
+            default: web_fetch_result
+
           - `content: DocumentBlock`
+
+            - `type: "document"`
+
+              default: document
 
             - `citations: CitationsConfig or null`
 
@@ -3439,37 +3470,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Base64PDFSource object`
 
+                - `type: "base64"`
+
                 - `data: string`
 
                   format: byte
 
                 - `media_type: "application/pdf"`
 
-                - `type: "base64"`
-
               - `PlainTextSource object`
+
+                - `type: "text"`
 
                 - `data: string`
 
                 - `media_type: "text/plain"`
 
-                - `type: "text"`
-
             - `title: string or null`
 
               The title of the document
 
-            - `type: "document"`
-
-              default: document
-
           - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `type: "web_fetch_result"`
-
-            default: web_fetch_result
 
           - `url: string`
 
@@ -3479,17 +3502,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "web_fetch_tool_result"`
-
-        default: web_fetch_tool_result
-
     - `CodeExecutionToolResultBlock object`
+
+      - `type: "code_execution_tool_result"`
+
+        default: code_execution_tool_result
 
       - `content: CodeExecutionToolResultBlockContent`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `CodeExecutionToolResultError object`
+
+          - `type: "code_execution_tool_result_error"`
+
+            default: code_execution_tool_result_error
 
           - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -3501,19 +3528,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"execution_time_exceeded"`
 
-          - `type: "code_execution_tool_result_error"`
-
-            default: code_execution_tool_result_error
-
         - `CodeExecutionResultBlock object`
 
-          - `content: array of CodeExecutionOutputBlock`
+          - `type: "code_execution_result"`
 
-            - `file_id: string`
+            default: code_execution_result
+
+          - `content: array of CodeExecutionOutputBlock`
 
             - `type: "code_execution_output"`
 
               default: code_execution_output
+
+            - `file_id: string`
 
           - `return_code: number`
 
@@ -3521,21 +3548,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stdout: string`
 
-          - `type: "code_execution_result"`
-
-            default: code_execution_result
-
         - `EncryptedCodeExecutionResultBlock object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `content: array of CodeExecutionOutputBlock`
+          - `type: "encrypted_code_execution_result"`
 
-            - `file_id: string`
+            default: encrypted_code_execution_result
+
+          - `content: array of CodeExecutionOutputBlock`
 
             - `type: "code_execution_output"`
 
               default: code_execution_output
+
+            - `file_id: string`
 
           - `encrypted_stdout: string`
 
@@ -3543,23 +3570,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stderr: string`
 
-          - `type: "encrypted_code_execution_result"`
-
-            default: encrypted_code_execution_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "code_execution_tool_result"`
-
-        default: code_execution_tool_result
-
     - `BashCodeExecutionToolResultBlock object`
+
+      - `type: "bash_code_execution_tool_result"`
+
+        default: bash_code_execution_tool_result
 
       - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
         - `BashCodeExecutionToolResultError object`
+
+          - `type: "bash_code_execution_tool_result_error"`
+
+            default: bash_code_execution_tool_result_error
 
           - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -3573,19 +3600,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"output_file_too_large"`
 
-          - `type: "bash_code_execution_tool_result_error"`
-
-            default: bash_code_execution_tool_result_error
-
         - `BashCodeExecutionResultBlock object`
 
-          - `content: array of BashCodeExecutionOutputBlock`
+          - `type: "bash_code_execution_result"`
 
-            - `file_id: string`
+            default: bash_code_execution_result
+
+          - `content: array of BashCodeExecutionOutputBlock`
 
             - `type: "bash_code_execution_output"`
 
               default: bash_code_execution_output
+
+            - `file_id: string`
 
           - `return_code: number`
 
@@ -3593,23 +3620,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stdout: string`
 
-          - `type: "bash_code_execution_result"`
-
-            default: bash_code_execution_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "bash_code_execution_tool_result"`
-
-        default: bash_code_execution_tool_result
-
     - `TextEditorCodeExecutionToolResultBlock object`
+
+      - `type: "text_editor_code_execution_tool_result"`
+
+        default: text_editor_code_execution_tool_result
 
       - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
         - `TextEditorCodeExecutionToolResultError object`
+
+          - `type: "text_editor_code_execution_tool_result_error"`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -3625,11 +3652,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `error_message: string or null`
 
-          - `type: "text_editor_code_execution_tool_result_error"`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `TextEditorCodeExecutionViewResultBlock object`
+
+          - `type: "text_editor_code_execution_view_result"`
+
+            default: text_editor_code_execution_view_result
 
           - `content: string`
 
@@ -3647,19 +3674,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `total_lines: number or null`
 
-          - `type: "text_editor_code_execution_view_result"`
-
-            default: text_editor_code_execution_view_result
-
         - `TextEditorCodeExecutionCreateResultBlock object`
-
-          - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
             default: text_editor_code_execution_create_result
 
+          - `is_file_update: boolean`
+
         - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+          - `type: "text_editor_code_execution_str_replace_result"`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `lines: array of string or null`
 
@@ -3671,23 +3698,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `old_start: number or null`
 
-          - `type: "text_editor_code_execution_str_replace_result"`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "text_editor_code_execution_tool_result"`
-
-        default: text_editor_code_execution_tool_result
-
     - `ToolSearchToolResultBlock object`
+
+      - `type: "tool_search_tool_result"`
+
+        default: tool_search_tool_result
 
       - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
         - `ToolSearchToolResultError object`
+
+          - `type: "tool_search_tool_result_error"`
+
+            default: tool_search_tool_result_error
 
           - `error_code: ToolSearchToolResultErrorCode`
 
@@ -3701,43 +3728,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `error_message: string or null`
 
-          - `type: "tool_search_tool_result_error"`
-
-            default: tool_search_tool_result_error
-
         - `ToolSearchToolSearchResultBlock object`
-
-          - `tool_references: array of ToolReferenceBlock`
-
-            - `tool_name: string`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `type: "tool_reference"`
-
-              default: tool_reference
 
           - `type: "tool_search_tool_search_result"`
 
             default: tool_search_tool_search_result
 
+          - `tool_references: array of ToolReferenceBlock`
+
+            - `type: "tool_reference"`
+
+              default: tool_reference
+
+            - `tool_name: string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "tool_search_tool_result"`
-
-        default: tool_search_tool_result
 
     - `ContainerUploadBlock object`
 
       Response model for a file uploaded to the container.
 
-      - `file_id: string`
-
       - `type: "container_upload"`
 
         default: container_upload
+
+      - `file_id: string`
 
   - `model: Model`
 
@@ -3833,6 +3852,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Structured information about a refusal.
 
+    - `type: "refusal"`
+
+      default: refusal
+
     - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
       The policy category that triggered a refusal.
@@ -3862,10 +3885,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Human-readable explanation of the refusal.
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-    - `type: "refusal"`
-
-      default: refusal
 
   - `stop_reason: StopReason or null`
 
@@ -3902,14 +3921,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Which custom stop sequence was generated, if any.
 
     This value will be a non-null string if one of your custom stop sequences was generated.
-
-  - `type: "message"`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
-    default: message
 
   - `usage: Usage`
 
@@ -4019,13 +4030,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `RawMessageStartEvent object`
 
-    - `message: Message`
-
     - `type: "message_start"`
 
       default: message_start
 
+    - `message: Message`
+
   - `RawMessageDeltaEvent object`
+
+    - `type: "message_delta"`
+
+      default: message_delta
 
     - `delta: object`
 
@@ -4040,10 +4055,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `stop_reason: StopReason or null`
 
       - `stop_sequence: string or null`
-
-    - `type: "message_delta"`
-
-      default: message_delta
 
     - `usage: MessageDeltaUsage`
 
@@ -4100,6 +4111,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `RawContentBlockStartEvent object`
 
+    - `type: "content_block_start"`
+
+      default: content_block_start
+
     - `content_block: TextBlock or ThinkingBlock or RedactedThinkingBlock or 9 more`
 
       Response model for a file uploaded to the container.
@@ -4132,31 +4147,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `index: number`
 
-    - `type: "content_block_start"`
-
-      default: content_block_start
-
   - `RawContentBlockDeltaEvent object`
+
+    - `type: "content_block_delta"`
+
+      default: content_block_delta
 
     - `delta: RawContentBlockDelta`
 
       - `TextDelta object`
 
-        - `text: string`
-
         - `type: "text_delta"`
 
           default: text_delta
 
-      - `InputJSONDelta object`
+        - `text: string`
 
-        - `partial_json: string`
+      - `InputJSONDelta object`
 
         - `type: "input_json_delta"`
 
           default: input_json_delta
 
+        - `partial_json: string`
+
       - `CitationsDelta object`
+
+        - `type: "citations_delta"`
+
+          default: citations_delta
 
         - `citation: CitationCharLocation or CitationPageLocation or CitationContentBlockLocation or 2 more`
 
@@ -4170,43 +4189,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `CitationsSearchResultLocation object`
 
-        - `type: "citations_delta"`
-
-          default: citations_delta
-
       - `ThinkingDelta object`
-
-        - `thinking: string`
-
-          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
         - `type: "thinking_delta"`
 
           default: thinking_delta
 
+        - `thinking: string`
+
+          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
       - `SignatureDelta object`
-
-        - `signature: string`
-
-          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
         - `type: "signature_delta"`
 
           default: signature_delta
 
+        - `signature: string`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
     - `index: number`
-
-    - `type: "content_block_delta"`
-
-      default: content_block_delta
 
   - `RawContentBlockStopEvent object`
-
-    - `index: number`
 
     - `type: "content_block_stop"`
 
       default: content_block_stop
+
+    - `index: number`
 
 ### Example
 
@@ -4337,6 +4348,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `"anthropic-workspace-id": optional string`
+
 ### Body parameters
 
 - `messages: array of MessageParam`
@@ -4398,11 +4411,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `TextBlockParam object`
 
+        - `type: "text"`
+
         - `text: string`
 
           minLength: 1
-
-        - `type: "text"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4429,6 +4442,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `CitationCharLocationParam object`
 
+            - `type: "char_location"`
+
             - `cited_text: string`
 
             - `document_index: number`
@@ -4445,9 +4460,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minimum: 0
 
-            - `type: "char_location"`
-
           - `CitationPageLocationParam object`
+
+            - `type: "page_location"`
 
             - `cited_text: string`
 
@@ -4465,9 +4480,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minimum: 1
 
-            - `type: "page_location"`
-
           - `CitationContentBlockLocationParam object`
+
+            - `type: "content_block_location"`
 
             - `cited_text: string`
 
@@ -4495,9 +4510,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               minimum: 0
 
-            - `type: "content_block_location"`
-
           - `CitationWebSearchResultLocationParam object`
+
+            - `type: "web_search_result_location"`
 
             - `cited_text: string`
 
@@ -4507,13 +4522,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               maxLength: 512, minLength: 1
 
-            - `type: "web_search_result_location"`
-
             - `url: string`
 
               minLength: 1
 
           - `CitationSearchResultLocationParam object`
+
+            - `type: "search_result_location"`
 
             - `cited_text: string`
 
@@ -4545,13 +4560,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: string or null`
 
-            - `type: "search_result_location"`
-
       - `ImageBlockParam object`
+
+        - `type: "image"`
 
         - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
           - `Base64ImageSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -4567,8 +4584,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"image/webp"`
 
-            - `type: "base64"`
-
           - `URLImageSource object`
 
             - `type: "url"`
@@ -4577,11 +4592,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `FileImageSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "image"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4601,9 +4614,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `DocumentBlockParam object`
 
+        - `type: "document"`
+
         - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
           - `Base64PDFSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -4611,17 +4628,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `media_type: "application/pdf"`
 
-            - `type: "base64"`
-
           - `PlainTextSource object`
+
+            - `type: "text"`
 
             - `data: string`
 
             - `media_type: "text/plain"`
 
-            - `type: "text"`
-
           - `ContentBlockSource object`
+
+            - `type: "content"`
 
             - `content: string or array of ContentBlockSourceContent`
 
@@ -4633,8 +4650,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `ImageBlockParam object`
 
-            - `type: "content"`
-
           - `URLPDFSource object`
 
             - `type: "url"`
@@ -4643,11 +4658,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `FileDocumentSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "document"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4667,13 +4680,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `SearchResultBlockParam object`
 
+        - `type: "search_result"`
+
         - `content: array of TextBlockParam`
+
+          - `type: "text"`
 
           - `text: string`
 
             minLength: 1
-
-          - `type: "text"`
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4685,8 +4700,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `title: string`
 
-        - `type: "search_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -4694,6 +4707,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `citations: optional CitationsConfigParam`
 
       - `ThinkingBlockParam object`
+
+        - `type: "thinking"`
 
         - `signature: string`
 
@@ -4705,17 +4720,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           The `thinking` text of this block as returned by the API.
 
-        - `type: "thinking"`
-
       - `RedactedThinkingBlockParam object`
+
+        - `type: "redacted_thinking"`
 
         - `data: string`
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type: "redacted_thinking"`
-
       - `ToolUseBlockParam object`
+
+        - `type: "tool_use"`
 
         - `id: string`
 
@@ -4726,8 +4741,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `name: string`
 
           maxLength: 200, minLength: 1
-
-        - `type: "tool_use"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4747,19 +4760,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Tool invocation generated by a server-side tool.
 
+            - `type: "code_execution_20250825"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120 object`
 
+            - `type: "code_execution_20260120"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20260120"`
 
         - `toolset_name: optional string or null`
 
@@ -4769,11 +4782,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `ToolResultBlockParam object`
 
+        - `type: "tool_result"`
+
         - `tool_use_id: string`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: "tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4797,11 +4810,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Tool reference block that can be included in tool_result content.
 
+              - `type: "tool_reference"`
+
               - `tool_name: string`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: "tool_reference"`
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4816,6 +4829,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               At most one per `tool_result`, only on a non-error result answering a
               browser toolset member `tool_use`. The server renders the
               model-visible text from it; the model never sees the raw fields.
+
+              - `type: "browser_state"`
 
               - `tabs: array of BrowserStateTabEntry`
 
@@ -4845,8 +4860,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `type: "browser_state"`
-
               - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
@@ -4867,25 +4880,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                   during a failed call gets no deferred `tab_opened`; it simply appears
                   in the next result's `tabs` inventory.
 
+                  - `type: "tab_opened"`
+
                   - `tab_id: string`
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type: "tab_opened"`
-
                 - `BrowserStateChangeDownloadStarted object`
 
                   A file download that started during this call.
+
+                  - `type: "download_started"`
 
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_started"`
 
                   - `url: string`
 
@@ -4900,13 +4913,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                   `download_started`, when the download finished during the call that
                   started it (at most one state change per `download_id` per result).
 
+                  - `type: "download_completed"`
+
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_completed"`
 
                   - `url: string`
 
@@ -4930,13 +4943,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   A file download that failed — or was cancelled — during this call.
 
+                  - `type: "download_failed"`
+
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_failed"`
 
                   - `url: string`
 
@@ -4960,6 +4973,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `ServerToolUseBlockParam object`
 
+        - `type: "server_tool_use"`
+
         - `id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -4982,8 +4997,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"tool_search_tool_bm25"`
 
-        - `type: "server_tool_use"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -5004,21 +5017,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `WebSearchToolResultBlockParam object`
 
+        - `type: "web_search_tool_result"`
+
         - `content: WebSearchToolResultBlockParamContent`
 
           - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+            - `type: "web_search_result"`
+
             - `encrypted_content: string`
 
             - `title: string`
-
-            - `type: "web_search_result"`
 
             - `url: string`
 
             - `page_age: optional string or null`
 
           - `WebSearchToolRequestError object`
+
+            - `type: "web_search_tool_result_error"`
 
             - `error_code: WebSearchToolResultErrorCode`
 
@@ -5034,13 +5051,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"request_too_large"`
 
-            - `type: "web_search_tool_result_error"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "web_search_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5062,9 +5075,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `WebFetchToolResultBlockParam object`
 
+        - `type: "web_fetch_tool_result"`
+
         - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
 
           - `WebFetchToolResultErrorBlockParam object`
+
+            - `type: "web_fetch_tool_result_error"`
 
             - `error_code: WebFetchToolResultErrorCode`
 
@@ -5086,13 +5103,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"unavailable"`
 
-            - `type: "web_fetch_tool_result_error"`
+              - `"content_too_large"`
 
           - `WebFetchBlockParam object`
 
-            - `content: DocumentBlockParam`
-
             - `type: "web_fetch_result"`
+
+            - `content: DocumentBlockParam`
 
             - `url: string`
 
@@ -5105,8 +5122,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "web_fetch_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5128,11 +5143,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `CodeExecutionToolResultBlockParam object`
 
+        - `type: "code_execution_tool_result"`
+
         - `content: CodeExecutionToolResultBlockParamContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `CodeExecutionToolResultErrorParam object`
+
+            - `type: "code_execution_tool_result_error"`
 
             - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -5144,15 +5163,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"execution_time_exceeded"`
 
-            - `type: "code_execution_tool_result_error"`
-
           - `CodeExecutionResultBlockParam object`
+
+            - `type: "code_execution_result"`
 
             - `content: array of CodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "code_execution_output"`
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -5160,17 +5179,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `stdout: string`
 
-            - `type: "code_execution_result"`
-
           - `EncryptedCodeExecutionResultBlockParam object`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
+            - `type: "encrypted_code_execution_result"`
+
             - `content: array of CodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "code_execution_output"`
+
+              - `file_id: string`
 
             - `encrypted_stdout: string`
 
@@ -5178,13 +5197,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `stderr: string`
 
-            - `type: "encrypted_code_execution_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5192,9 +5207,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `BashCodeExecutionToolResultBlockParam object`
 
+        - `type: "bash_code_execution_tool_result"`
+
         - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
 
           - `BashCodeExecutionToolResultErrorParam object`
+
+            - `type: "bash_code_execution_tool_result_error"`
 
             - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -5208,15 +5227,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"output_file_too_large"`
 
-            - `type: "bash_code_execution_tool_result_error"`
-
           - `BashCodeExecutionResultBlockParam object`
+
+            - `type: "bash_code_execution_result"`
 
             - `content: array of BashCodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "bash_code_execution_output"`
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -5224,13 +5243,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `stdout: string`
 
-            - `type: "bash_code_execution_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "bash_code_execution_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5238,9 +5253,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `TextEditorCodeExecutionToolResultBlockParam object`
 
+        - `type: "text_editor_code_execution_tool_result"`
+
         - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
 
           - `TextEditorCodeExecutionToolResultErrorParam object`
+
+            - `type: "text_editor_code_execution_tool_result_error"`
 
             - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -5254,11 +5273,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"file_not_found"`
 
-            - `type: "text_editor_code_execution_tool_result_error"`
-
             - `error_message: optional string or null`
 
           - `TextEditorCodeExecutionViewResultBlockParam object`
+
+            - `type: "text_editor_code_execution_view_result"`
 
             - `content: string`
 
@@ -5270,8 +5289,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"pdf"`
 
-            - `type: "text_editor_code_execution_view_result"`
-
             - `num_lines: optional number or null`
 
             - `start_line: optional number or null`
@@ -5280,9 +5297,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-            - `is_file_update: boolean`
-
             - `type: "text_editor_code_execution_create_result"`
+
+            - `is_file_update: boolean`
 
           - `TextEditorCodeExecutionStrReplaceResultBlockParam object`
 
@@ -5302,17 +5319,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "text_editor_code_execution_tool_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
       - `ToolSearchToolResultBlockParam object`
 
+        - `type: "tool_search_tool_result"`
+
         - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
 
           - `ToolSearchToolResultErrorParam object`
+
+            - `type: "tool_search_tool_result_error"`
 
             - `error_code: ToolSearchToolResultErrorCode`
 
@@ -5324,31 +5343,27 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"execution_time_exceeded"`
 
-            - `type: "tool_search_tool_result_error"`
-
             - `error_message: optional string or null`
 
           - `ToolSearchToolSearchResultBlockParam object`
 
+            - `type: "tool_search_tool_search_result"`
+
             - `tool_references: array of ToolReferenceBlockParam`
+
+              - `type: "tool_reference"`
 
               - `tool_name: string`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `type: "tool_reference"`
-
               - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type: "tool_search_tool_search_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "tool_search_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5359,9 +5374,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
 
-        - `file_id: string`
-
         - `type: "container_upload"`
+
+        - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5483,11 +5498,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+    - `type: "json_schema"`
+
     - `schema: map[unknown]`
 
       The JSON schema of the format
-
-    - `type: "json_schema"`
 
 - `system: optional string or array of TextBlockParam`
 
@@ -5499,11 +5514,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `array of TextBlockParam`
 
+    - `type: "text"`
+
     - `text: string`
 
       minLength: 1
-
-    - `type: "text"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5521,6 +5536,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ThinkingConfigEnabled object`
 
+    - `type: "enabled"`
+
     - `budget_tokens: number`
 
       Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -5530,8 +5547,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       minimum: 1024
-
-    - `type: "enabled"`
 
     - `display: optional "summarized" or "omitted" or null`
 
@@ -5589,11 +5604,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The model will use the specified tool with `tool_choice.name`.
 
+    - `type: "tool"`
+
     - `name: string`
 
       The name of the tool to use.
-
-    - `type: "tool"`
 
     - `disable_parallel_tool_use: optional boolean`
 
@@ -5673,6 +5688,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `Tool object`
 
+    - `type: optional "custom" or null`
+
     - `input_schema: object`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -5727,17 +5744,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom" or null`
-
   - `ToolBash20250124 object`
+
+    - `type: "bash_20250124"`
 
     - `name: "bash"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "bash_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -5765,13 +5780,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `CodeExecutionTool20250522 object`
 
+    - `type: "code_execution_20250522"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250522"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -5797,13 +5812,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `CodeExecutionTool20250825 object`
 
+    - `type: "code_execution_20250825"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250825"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -5831,13 +5846,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: "code_execution_20260120"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260120"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -5865,13 +5880,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Code execution tool with REPL state persistence.
 
+    - `type: "code_execution_20260521"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260521"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -5916,6 +5931,18 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional BrowserTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -6253,18 +6280,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional BrowserTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional BrowserWaitConfig or null`
 
         `wait`'s config overrides.
@@ -6291,13 +6306,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `MemoryTool20250818 object`
 
+    - `type: "memory_20250818"`
+
     - `name: "memory"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "memory_20250818"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6348,6 +6363,18 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional ComputerTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: optional ComputerCursorPositionConfig or null`
 
@@ -6517,18 +6544,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional ComputerTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional ComputerWaitConfig or null`
 
         `wait`'s config overrides.
@@ -6555,13 +6570,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ToolTextEditor20250124 object`
 
+    - `type: "text_editor_20250124"`
+
     - `name: "str_replace_editor"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6589,13 +6604,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ToolTextEditor20250429 object`
 
+    - `type: "text_editor_20250429"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250429"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6623,13 +6638,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ToolTextEditor20250728 object`
 
+    - `type: "text_editor_20250728"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250728"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6663,13 +6678,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `WebSearchTool20250305 object`
 
+    - `type: "web_search_20250305"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20250305"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6739,13 +6754,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `WebFetchTool20250910 object`
 
+    - `type: "web_fetch_20250910"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20250910"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6795,13 +6810,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `WebSearchTool20260209 object`
 
+    - `type: "web_search_20260209"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6845,13 +6860,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `WebFetchTool20260209 object`
 
+    - `type: "web_fetch_20260209"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6903,13 +6918,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: "web_fetch_20260309"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260309"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6963,13 +6978,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `WebSearchTool20260318 object`
 
+    - `type: "web_search_20260318"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -7021,13 +7036,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `WebFetchTool20260318 object`
 
+    - `type: "web_fetch_20260318"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -7089,17 +7104,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ToolSearchToolBm25_20251119 object`
 
-    - `name: "tool_search_tool_bm25"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_bm25_20251119" or "tool_search_tool_bm25"`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: "tool_search_tool_bm25"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -7125,17 +7140,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ToolSearchToolRegex20251119 object`
 
-    - `name: "tool_search_tool_regex"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_regex_20251119" or "tool_search_tool_regex"`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: "tool_search_tool_regex"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -7223,6 +7238,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `Base64ImageSource object`
 
+  - `type: "base64"`
+
   - `data: string`
 
     format: byte
@@ -7237,11 +7254,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"image/webp"`
 
-  - `type: "base64"`
-
 ### Base64 PDF Source
 
 - `Base64PDFSource object`
+
+  - `type: "base64"`
 
   - `data: string`
 
@@ -7249,57 +7266,57 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `media_type: "application/pdf"`
 
-  - `type: "base64"`
-
 ### Bash Code Execution Output Block
 
 - `BashCodeExecutionOutputBlock object`
-
-  - `file_id: string`
 
   - `type: "bash_code_execution_output"`
 
     default: bash_code_execution_output
 
+  - `file_id: string`
+
 ### Bash Code Execution Output Block Param
 
 - `BashCodeExecutionOutputBlockParam object`
 
-  - `file_id: string`
-
   - `type: "bash_code_execution_output"`
+
+  - `file_id: string`
 
 ### Bash Code Execution Result Block
 
 - `BashCodeExecutionResultBlock object`
 
-  - `content: array of BashCodeExecutionOutputBlock`
+  - `type: "bash_code_execution_result"`
 
-    - `file_id: string`
+    default: bash_code_execution_result
+
+  - `content: array of BashCodeExecutionOutputBlock`
 
     - `type: "bash_code_execution_output"`
 
       default: bash_code_execution_output
 
+    - `file_id: string`
+
   - `return_code: number`
 
   - `stderr: string`
 
   - `stdout: string`
-
-  - `type: "bash_code_execution_result"`
-
-    default: bash_code_execution_result
 
 ### Bash Code Execution Result Block Param
 
 - `BashCodeExecutionResultBlockParam object`
 
+  - `type: "bash_code_execution_result"`
+
   - `content: array of BashCodeExecutionOutputBlockParam`
 
-    - `file_id: string`
-
     - `type: "bash_code_execution_output"`
+
+    - `file_id: string`
 
   - `return_code: number`
 
@@ -7307,67 +7324,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `stdout: string`
 
-  - `type: "bash_code_execution_result"`
-
 ### Bash Code Execution Tool Result Block
 
 - `BashCodeExecutionToolResultBlock object`
-
-  - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
-
-    - `BashCodeExecutionToolResultError object`
-
-      - `error_code: BashCodeExecutionToolResultErrorCode`
-
-        - `"invalid_tool_input"`
-
-        - `"unavailable"`
-
-        - `"too_many_requests"`
-
-        - `"execution_time_exceeded"`
-
-        - `"output_file_too_large"`
-
-      - `type: "bash_code_execution_tool_result_error"`
-
-        default: bash_code_execution_tool_result_error
-
-    - `BashCodeExecutionResultBlock object`
-
-      - `content: array of BashCodeExecutionOutputBlock`
-
-        - `file_id: string`
-
-        - `type: "bash_code_execution_output"`
-
-          default: bash_code_execution_output
-
-      - `return_code: number`
-
-      - `stderr: string`
-
-      - `stdout: string`
-
-      - `type: "bash_code_execution_result"`
-
-        default: bash_code_execution_result
-
-  - `tool_use_id: string`
-
-    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `type: "bash_code_execution_tool_result"`
 
     default: bash_code_execution_tool_result
 
-### Bash Code Execution Tool Result Block Param
+  - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
-- `BashCodeExecutionToolResultBlockParam object`
+    - `BashCodeExecutionToolResultError object`
 
-  - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
+      - `type: "bash_code_execution_tool_result_error"`
 
-    - `BashCodeExecutionToolResultErrorParam object`
+        default: bash_code_execution_tool_result_error
 
       - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -7381,15 +7352,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"output_file_too_large"`
 
-      - `type: "bash_code_execution_tool_result_error"`
+    - `BashCodeExecutionResultBlock object`
 
-    - `BashCodeExecutionResultBlockParam object`
+      - `type: "bash_code_execution_result"`
 
-      - `content: array of BashCodeExecutionOutputBlockParam`
+        default: bash_code_execution_result
 
-        - `file_id: string`
+      - `content: array of BashCodeExecutionOutputBlock`
 
         - `type: "bash_code_execution_output"`
+
+          default: bash_code_execution_output
+
+        - `file_id: string`
 
       - `return_code: number`
 
@@ -7397,13 +7372,53 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `stdout: string`
 
-      - `type: "bash_code_execution_result"`
-
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
+### Bash Code Execution Tool Result Block Param
+
+- `BashCodeExecutionToolResultBlockParam object`
+
   - `type: "bash_code_execution_tool_result"`
+
+  - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
+
+    - `BashCodeExecutionToolResultErrorParam object`
+
+      - `type: "bash_code_execution_tool_result_error"`
+
+      - `error_code: BashCodeExecutionToolResultErrorCode`
+
+        - `"invalid_tool_input"`
+
+        - `"unavailable"`
+
+        - `"too_many_requests"`
+
+        - `"execution_time_exceeded"`
+
+        - `"output_file_too_large"`
+
+    - `BashCodeExecutionResultBlockParam object`
+
+      - `type: "bash_code_execution_result"`
+
+      - `content: array of BashCodeExecutionOutputBlockParam`
+
+        - `type: "bash_code_execution_output"`
+
+        - `file_id: string`
+
+      - `return_code: number`
+
+      - `stderr: string`
+
+      - `stdout: string`
+
+  - `tool_use_id: string`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -7430,6 +7445,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BashCodeExecutionToolResultError object`
 
+  - `type: "bash_code_execution_tool_result_error"`
+
+    default: bash_code_execution_tool_result_error
+
   - `error_code: BashCodeExecutionToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -7441,10 +7460,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"execution_time_exceeded"`
 
     - `"output_file_too_large"`
-
-  - `type: "bash_code_execution_tool_result_error"`
-
-    default: bash_code_execution_tool_result_error
 
 ### Bash Code Execution Tool Result Error Code
 
@@ -7464,6 +7479,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BashCodeExecutionToolResultErrorParam object`
 
+  - `type: "bash_code_execution_tool_result_error"`
+
   - `error_code: BashCodeExecutionToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -7475,8 +7492,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"execution_time_exceeded"`
 
     - `"output_file_too_large"`
-
-  - `type: "bash_code_execution_tool_result_error"`
 
 ### Browser Close Tab Config
 
@@ -7854,6 +7869,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   browser toolset member `tool_use`. The server renders the
   model-visible text from it; the model never sees the raw fields.
 
+  - `type: "browser_state"`
+
   - `tabs: array of BrowserStateTabEntry`
 
     All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
@@ -7881,8 +7898,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `active: optional boolean`
 
       Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
-
-  - `type: "browser_state"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -7921,25 +7936,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       during a failed call gets no deferred `tab_opened`; it simply appears
       in the next result's `tabs` inventory.
 
+      - `type: "tab_opened"`
+
       - `tab_id: string`
 
         The `tab_id` of the opened tab, present in `tabs`.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `type: "tab_opened"`
-
     - `BrowserStateChangeDownloadStarted object`
 
       A file download that started during this call.
+
+      - `type: "download_started"`
 
       - `download_id: string`
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `type: "download_started"`
 
       - `url: string`
 
@@ -7954,13 +7969,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       `download_started`, when the download finished during the call that
       started it (at most one state change per `download_id` per result).
 
+      - `type: "download_completed"`
+
       - `download_id: string`
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `type: "download_completed"`
 
       - `url: string`
 
@@ -7984,13 +7999,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       A file download that failed — or was cancelled — during this call.
 
+      - `type: "download_failed"`
+
       - `download_id: string`
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-      - `type: "download_failed"`
 
       - `url: string`
 
@@ -8026,25 +8041,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     during a failed call gets no deferred `tab_opened`; it simply appears
     in the next result's `tabs` inventory.
 
+    - `type: "tab_opened"`
+
     - `tab_id: string`
 
       The `tab_id` of the opened tab, present in `tabs`.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `type: "tab_opened"`
-
   - `BrowserStateChangeDownloadStarted object`
 
     A file download that started during this call.
+
+    - `type: "download_started"`
 
     - `download_id: string`
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-    - `type: "download_started"`
 
     - `url: string`
 
@@ -8059,13 +8074,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     `download_started`, when the download finished during the call that
     started it (at most one state change per `download_id` per result).
 
+    - `type: "download_completed"`
+
     - `download_id: string`
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-    - `type: "download_completed"`
 
     - `url: string`
 
@@ -8089,13 +8104,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     A file download that failed — or was cancelled — during this call.
 
+    - `type: "download_failed"`
+
     - `download_id: string`
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-    - `type: "download_failed"`
 
     - `url: string`
 
@@ -8118,13 +8133,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   `download_started`, when the download finished during the call that
   started it (at most one state change per `download_id` per result).
 
+  - `type: "download_completed"`
+
   - `download_id: string`
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: "download_completed"`
 
   - `url: string`
 
@@ -8150,13 +8165,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   A file download that failed — or was cancelled — during this call.
 
+  - `type: "download_failed"`
+
   - `download_id: string`
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: "download_failed"`
 
   - `url: string`
 
@@ -8176,13 +8191,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   A file download that started during this call.
 
+  - `type: "download_started"`
+
   - `download_id: string`
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: "download_started"`
 
   - `url: string`
 
@@ -8202,13 +8217,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   during a failed call gets no deferred `tab_opened`; it simply appears
   in the next result's `tabs` inventory.
 
+  - `type: "tab_opened"`
+
   - `tab_id: string`
 
     The `tab_id` of the opened tab, present in `tabs`.
 
     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-  - `type: "tab_opened"`
 
 ### Browser State Tab Entry
 
@@ -8299,6 +8314,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     accepted key, and a member's defaults apply wherever its key is
     absent. Unknown keys are rejected: the field set is this toolset
     version's complete member set.
+
+    - `type: optional BrowserTypeConfig or null`
+
+      `type`'s config overrides.
+
+      - `defer_loading: optional boolean or null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled: optional boolean or null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
     - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -8636,18 +8663,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type: optional BrowserTypeConfig or null`
-
-      `type`'s config overrides.
-
-      - `defer_loading: optional boolean or null`
-
-        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-      - `enabled: optional boolean or null`
-
-        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
     - `wait: optional BrowserWaitConfig or null`
 
       `wait`'s config overrides.
@@ -8682,6 +8697,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   accepted key, and a member's defaults apply wherever its key is
   absent. Unknown keys are rejected: the field set is this toolset
   version's complete member set.
+
+  - `type: optional BrowserTypeConfig or null`
+
+    `type`'s config overrides.
+
+    - `defer_loading: optional boolean or null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled: optional boolean or null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
   - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -9019,18 +9046,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `type: optional BrowserTypeConfig or null`
-
-    `type`'s config overrides.
-
-    - `defer_loading: optional boolean or null`
-
-      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-    - `enabled: optional boolean or null`
-
-      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
   - `wait: optional BrowserWaitConfig or null`
 
     `wait`'s config overrides.
@@ -9152,6 +9167,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `CitationCharLocation object`
 
+  - `type: "char_location"`
+
+    default: char_location
+
   - `cited_text: string`
 
   - `document_index: number`
@@ -9167,15 +9186,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `start_char_index: number`
 
     minimum: 0
-
-  - `type: "char_location"`
-
-    default: char_location
 
 ### Citation Char Location Param
 
 - `CitationCharLocationParam object`
 
+  - `type: "char_location"`
+
   - `cited_text: string`
 
   - `document_index: number`
@@ -9192,45 +9209,45 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     minimum: 0
 
-  - `type: "char_location"`
-
 ### Citation Content Block Location
 
 - `CitationContentBlockLocation object`
-
-  - `cited_text: string`
-
-    The full text of the cited block range, concatenated.
-
-    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-  - `document_index: number`
-
-    minimum: 0
-
-  - `document_title: string or null`
-
-  - `end_block_index: number`
-
-    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-  - `file_id: string or null`
-
-  - `start_block_index: number`
-
-    0-based index of the first cited block in the source's `content` array.
-
-    minimum: 0
 
   - `type: "content_block_location"`
 
     default: content_block_location
 
+  - `cited_text: string`
+
+    The full text of the cited block range, concatenated.
+
+    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+  - `document_index: number`
+
+    minimum: 0
+
+  - `document_title: string or null`
+
+  - `end_block_index: number`
+
+    Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+  - `file_id: string or null`
+
+  - `start_block_index: number`
+
+    0-based index of the first cited block in the source's `content` array.
+
+    minimum: 0
+
 ### Citation Content Block Location Param
 
 - `CitationContentBlockLocationParam object`
+
+  - `type: "content_block_location"`
 
   - `cited_text: string`
 
@@ -9258,11 +9275,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     minimum: 0
 
-  - `type: "content_block_location"`
-
 ### Citation Page Location
 
 - `CitationPageLocation object`
+
+  - `type: "page_location"`
+
+    default: page_location
 
   - `cited_text: string`
 
@@ -9280,13 +9299,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     minimum: 1
 
-  - `type: "page_location"`
-
-    default: page_location
-
 ### Citation Page Location Param
 
 - `CitationPageLocationParam object`
+
+  - `type: "page_location"`
 
   - `cited_text: string`
 
@@ -9304,11 +9321,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     minimum: 1
 
-  - `type: "page_location"`
-
 ### Citation Search Result Location Param
 
 - `CitationSearchResultLocationParam object`
+
+  - `type: "search_result_location"`
 
   - `cited_text: string`
 
@@ -9340,11 +9357,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `title: string or null`
 
-  - `type: "search_result_location"`
-
 ### Citation Web Search Result Location Param
 
 - `CitationWebSearchResultLocationParam object`
+
+  - `type: "web_search_result_location"`
 
   - `cited_text: string`
 
@@ -9353,8 +9370,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `title: string or null`
 
     maxLength: 512, minLength: 1
-
-  - `type: "web_search_result_location"`
 
   - `url: string`
 
@@ -9378,9 +9393,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `CitationsDelta object`
 
+  - `type: "citations_delta"`
+
+    default: citations_delta
+
   - `citation: CitationCharLocation or CitationPageLocation or CitationContentBlockLocation or 2 more`
 
     - `CitationCharLocation object`
+
+      - `type: "char_location"`
+
+        default: char_location
 
       - `cited_text: string`
 
@@ -9398,11 +9421,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 0
 
-      - `type: "char_location"`
-
-        default: char_location
-
     - `CitationPageLocation object`
+
+      - `type: "page_location"`
+
+        default: page_location
 
       - `cited_text: string`
 
@@ -9420,11 +9443,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 1
 
-      - `type: "page_location"`
-
-        default: page_location
-
     - `CitationContentBlockLocation object`
+
+      - `type: "content_block_location"`
+
+        default: content_block_location
 
       - `cited_text: string`
 
@@ -9452,11 +9475,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 0
 
-      - `type: "content_block_location"`
-
-        default: content_block_location
-
     - `CitationsWebSearchResultLocation object`
+
+      - `type: "web_search_result_location"`
+
+        default: web_search_result_location
 
       - `cited_text: string`
 
@@ -9466,13 +9489,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         maxLength: 512
 
-      - `type: "web_search_result_location"`
-
-        default: web_search_result_location
-
       - `url: string`
 
     - `CitationsSearchResultLocation object`
+
+      - `type: "search_result_location"`
+
+        default: search_result_location
 
       - `cited_text: string`
 
@@ -9504,17 +9527,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `title: string or null`
 
-      - `type: "search_result_location"`
-
-        default: search_result_location
-
-  - `type: "citations_delta"`
-
-    default: citations_delta
-
 ### Citations Search Result Location
 
 - `CitationsSearchResultLocation object`
+
+  - `type: "search_result_location"`
+
+    default: search_result_location
 
   - `cited_text: string`
 
@@ -9546,13 +9565,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `title: string or null`
 
-  - `type: "search_result_location"`
-
-    default: search_result_location
-
 ### Citations Web Search Result Location
 
 - `CitationsWebSearchResultLocation object`
+
+  - `type: "web_search_result_location"`
+
+    default: web_search_result_location
 
   - `cited_text: string`
 
@@ -9562,61 +9581,59 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     maxLength: 512
 
-  - `type: "web_search_result_location"`
-
-    default: web_search_result_location
-
   - `url: string`
 
 ### Code Execution Output Block
 
 - `CodeExecutionOutputBlock object`
 
-  - `file_id: string`
-
   - `type: "code_execution_output"`
 
     default: code_execution_output
+
+  - `file_id: string`
 
 ### Code Execution Output Block Param
 
 - `CodeExecutionOutputBlockParam object`
 
-  - `file_id: string`
-
   - `type: "code_execution_output"`
+
+  - `file_id: string`
 
 ### Code Execution Result Block
 
 - `CodeExecutionResultBlock object`
 
-  - `content: array of CodeExecutionOutputBlock`
+  - `type: "code_execution_result"`
 
-    - `file_id: string`
+    default: code_execution_result
+
+  - `content: array of CodeExecutionOutputBlock`
 
     - `type: "code_execution_output"`
 
       default: code_execution_output
 
+    - `file_id: string`
+
   - `return_code: number`
 
   - `stderr: string`
 
   - `stdout: string`
-
-  - `type: "code_execution_result"`
-
-    default: code_execution_result
 
 ### Code Execution Result Block Param
 
 - `CodeExecutionResultBlockParam object`
 
+  - `type: "code_execution_result"`
+
   - `content: array of CodeExecutionOutputBlockParam`
 
-    - `file_id: string`
-
     - `type: "code_execution_output"`
+
+    - `file_id: string`
 
   - `return_code: number`
 
@@ -9624,19 +9641,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `stdout: string`
 
-  - `type: "code_execution_result"`
-
 ### Code Execution Tool 20250522
 
 - `CodeExecutionTool20250522 object`
+
+  - `type: "code_execution_20250522"`
 
   - `name: "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "code_execution_20250522"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -9681,13 +9696,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `CodeExecutionTool20250825 object`
 
+  - `type: "code_execution_20250825"`
+
   - `name: "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "code_execution_20250825"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -9734,13 +9749,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+  - `type: "code_execution_20260120"`
+
   - `name: "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "code_execution_20260120"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -9787,13 +9802,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Code execution tool with REPL state persistence.
 
+  - `type: "code_execution_20260521"`
+
   - `name: "code_execution"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "code_execution_20260521"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -9838,11 +9853,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `CodeExecutionToolResultBlock object`
 
+  - `type: "code_execution_tool_result"`
+
+    default: code_execution_tool_result
+
   - `content: CodeExecutionToolResultBlockContent`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
     - `CodeExecutionToolResultError object`
+
+      - `type: "code_execution_tool_result_error"`
+
+        default: code_execution_tool_result_error
 
       - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -9854,19 +9877,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"execution_time_exceeded"`
 
-      - `type: "code_execution_tool_result_error"`
-
-        default: code_execution_tool_result_error
-
     - `CodeExecutionResultBlock object`
 
-      - `content: array of CodeExecutionOutputBlock`
+      - `type: "code_execution_result"`
 
-        - `file_id: string`
+        default: code_execution_result
+
+      - `content: array of CodeExecutionOutputBlock`
 
         - `type: "code_execution_output"`
 
           default: code_execution_output
+
+        - `file_id: string`
 
       - `return_code: number`
 
@@ -9874,21 +9897,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `stdout: string`
 
-      - `type: "code_execution_result"`
-
-        default: code_execution_result
-
     - `EncryptedCodeExecutionResultBlock object`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
-      - `content: array of CodeExecutionOutputBlock`
+      - `type: "encrypted_code_execution_result"`
 
-        - `file_id: string`
+        default: encrypted_code_execution_result
+
+      - `content: array of CodeExecutionOutputBlock`
 
         - `type: "code_execution_output"`
 
           default: code_execution_output
+
+        - `file_id: string`
 
       - `encrypted_stdout: string`
 
@@ -9896,17 +9919,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `stderr: string`
 
-      - `type: "encrypted_code_execution_result"`
-
-        default: encrypted_code_execution_result
-
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "code_execution_tool_result"`
-
-    default: code_execution_tool_result
 
 ### Code Execution Tool Result Block Content
 
@@ -9915,6 +9930,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   Code execution result with encrypted stdout for PFC + web_search results.
 
   - `CodeExecutionToolResultError object`
+
+    - `type: "code_execution_tool_result_error"`
+
+      default: code_execution_tool_result_error
 
     - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -9926,19 +9945,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"execution_time_exceeded"`
 
-    - `type: "code_execution_tool_result_error"`
-
-      default: code_execution_tool_result_error
-
   - `CodeExecutionResultBlock object`
 
-    - `content: array of CodeExecutionOutputBlock`
+    - `type: "code_execution_result"`
 
-      - `file_id: string`
+      default: code_execution_result
+
+    - `content: array of CodeExecutionOutputBlock`
 
       - `type: "code_execution_output"`
 
         default: code_execution_output
+
+      - `file_id: string`
 
     - `return_code: number`
 
@@ -9946,21 +9965,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `stdout: string`
 
-    - `type: "code_execution_result"`
-
-      default: code_execution_result
-
   - `EncryptedCodeExecutionResultBlock object`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
-    - `content: array of CodeExecutionOutputBlock`
+    - `type: "encrypted_code_execution_result"`
 
-      - `file_id: string`
+      default: encrypted_code_execution_result
+
+    - `content: array of CodeExecutionOutputBlock`
 
       - `type: "code_execution_output"`
 
         default: code_execution_output
+
+      - `file_id: string`
 
     - `encrypted_stdout: string`
 
@@ -9968,19 +9987,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `stderr: string`
 
-    - `type: "encrypted_code_execution_result"`
-
-      default: encrypted_code_execution_result
-
 ### Code Execution Tool Result Block Param
 
 - `CodeExecutionToolResultBlockParam object`
+
+  - `type: "code_execution_tool_result"`
 
   - `content: CodeExecutionToolResultBlockParamContent`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
     - `CodeExecutionToolResultErrorParam object`
+
+      - `type: "code_execution_tool_result_error"`
 
       - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -9992,15 +10011,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"execution_time_exceeded"`
 
-      - `type: "code_execution_tool_result_error"`
-
     - `CodeExecutionResultBlockParam object`
+
+      - `type: "code_execution_result"`
 
       - `content: array of CodeExecutionOutputBlockParam`
 
-        - `file_id: string`
-
         - `type: "code_execution_output"`
+
+        - `file_id: string`
 
       - `return_code: number`
 
@@ -10008,17 +10027,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `stdout: string`
 
-      - `type: "code_execution_result"`
-
     - `EncryptedCodeExecutionResultBlockParam object`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
+      - `type: "encrypted_code_execution_result"`
+
       - `content: array of CodeExecutionOutputBlockParam`
 
-        - `file_id: string`
-
         - `type: "code_execution_output"`
+
+        - `file_id: string`
 
       - `encrypted_stdout: string`
 
@@ -10026,13 +10045,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `stderr: string`
 
-      - `type: "encrypted_code_execution_result"`
-
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "code_execution_tool_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -10063,6 +10078,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `CodeExecutionToolResultErrorParam object`
 
+    - `type: "code_execution_tool_result_error"`
+
     - `error_code: CodeExecutionToolResultErrorCode`
 
       - `"invalid_tool_input"`
@@ -10073,15 +10090,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"execution_time_exceeded"`
 
-    - `type: "code_execution_tool_result_error"`
-
   - `CodeExecutionResultBlockParam object`
+
+    - `type: "code_execution_result"`
 
     - `content: array of CodeExecutionOutputBlockParam`
 
-      - `file_id: string`
-
       - `type: "code_execution_output"`
+
+      - `file_id: string`
 
     - `return_code: number`
 
@@ -10089,17 +10106,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `stdout: string`
 
-    - `type: "code_execution_result"`
-
   - `EncryptedCodeExecutionResultBlockParam object`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
+    - `type: "encrypted_code_execution_result"`
+
     - `content: array of CodeExecutionOutputBlockParam`
 
-      - `file_id: string`
-
       - `type: "code_execution_output"`
+
+      - `file_id: string`
 
     - `encrypted_stdout: string`
 
@@ -10107,11 +10124,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `stderr: string`
 
-    - `type: "encrypted_code_execution_result"`
-
 ### Code Execution Tool Result Error
 
 - `CodeExecutionToolResultError object`
+
+  - `type: "code_execution_tool_result_error"`
+
+    default: code_execution_tool_result_error
 
   - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -10122,10 +10141,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-  - `type: "code_execution_tool_result_error"`
-
-    default: code_execution_tool_result_error
 
 ### Code Execution Tool Result Error Code
 
@@ -10143,6 +10158,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `CodeExecutionToolResultErrorParam object`
 
+  - `type: "code_execution_tool_result_error"`
+
   - `error_code: CodeExecutionToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -10152,8 +10169,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-  - `type: "code_execution_tool_result_error"`
 
 ### Computer Cursor Position Config
 
@@ -10382,6 +10397,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     absent. Unknown keys are rejected: the field set is this toolset
     version's complete member set.
 
+    - `type: optional ComputerTypeConfig or null`
+
+      `type`'s config overrides.
+
+      - `defer_loading: optional boolean or null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled: optional boolean or null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
     - `cursor_position: optional ComputerCursorPositionConfig or null`
 
       `cursor_position`'s config overrides.
@@ -10550,18 +10577,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type: optional ComputerTypeConfig or null`
-
-      `type`'s config overrides.
-
-      - `defer_loading: optional boolean or null`
-
-        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-      - `enabled: optional boolean or null`
-
-        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
     - `wait: optional ComputerWaitConfig or null`
 
       `wait`'s config overrides.
@@ -10596,6 +10611,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   accepted key, and a member's defaults apply wherever its key is
   absent. Unknown keys are rejected: the field set is this toolset
   version's complete member set.
+
+  - `type: optional ComputerTypeConfig or null`
+
+    `type`'s config overrides.
+
+    - `defer_loading: optional boolean or null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled: optional boolean or null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
   - `cursor_position: optional ComputerCursorPositionConfig or null`
 
@@ -10765,18 +10792,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `type: optional ComputerTypeConfig or null`
-
-    `type`'s config overrides.
-
-    - `defer_loading: optional boolean or null`
-
-      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-    - `enabled: optional boolean or null`
-
-      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
   - `wait: optional ComputerWaitConfig or null`
 
     `wait`'s config overrides.
@@ -10877,12 +10892,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Skills loaded in the container
 
-    - `skill_id: string`
-
-      Skill ID
-
-      maxLength: 64, minLength: 1
-
     - `type: "anthropic" or "custom"`
 
       Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -10890,6 +10899,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       - `"anthropic"`
 
       - `"custom"`
+
+    - `skill_id: string`
+
+      Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `version: string`
 
@@ -10913,12 +10928,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     maxItems: 20
 
-    - `skill_id: string`
-
-      Skill ID
-
-      maxLength: 64, minLength: 1
-
     - `type: "anthropic" or "custom"`
 
       Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -10926,6 +10935,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       - `"anthropic"`
 
       - `"custom"`
+
+    - `skill_id: string`
+
+      Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `version: optional string`
 
@@ -10939,12 +10954,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   A skill that was loaded in a container (response model).
 
-  - `skill_id: string`
-
-    Skill ID
-
-    maxLength: 64, minLength: 1
-
   - `type: "anthropic" or "custom"`
 
     Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -10952,6 +10961,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"anthropic"`
 
     - `"custom"`
+
+  - `skill_id: string`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `version: string`
 
@@ -10965,11 +10980,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Response model for a file uploaded to the container.
 
-  - `file_id: string`
-
   - `type: "container_upload"`
 
     default: container_upload
+
+  - `file_id: string`
 
 ### Container Upload Block Param
 
@@ -10978,9 +10993,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   A content block that represents a file to be uploaded to the container
   Files uploaded via this block will be available in the container's input directory.
 
-  - `file_id: string`
-
   - `type: "container_upload"`
+
+  - `file_id: string`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -11011,6 +11026,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `TextBlock object`
 
+    - `type: "text"`
+
+      default: text
+
     - `citations: array of TextCitation or null`
 
       Citations supporting the text block.
@@ -11018,6 +11037,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
       - `CitationCharLocation object`
+
+        - `type: "char_location"`
+
+          default: char_location
 
         - `cited_text: string`
 
@@ -11035,11 +11058,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "char_location"`
-
-          default: char_location
-
       - `CitationPageLocation object`
+
+        - `type: "page_location"`
+
+          default: page_location
 
         - `cited_text: string`
 
@@ -11057,11 +11080,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 1
 
-        - `type: "page_location"`
-
-          default: page_location
-
       - `CitationContentBlockLocation object`
+
+        - `type: "content_block_location"`
+
+          default: content_block_location
 
         - `cited_text: string`
 
@@ -11089,11 +11112,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "content_block_location"`
-
-          default: content_block_location
-
       - `CitationsWebSearchResultLocation object`
+
+        - `type: "web_search_result_location"`
+
+          default: web_search_result_location
 
         - `cited_text: string`
 
@@ -11103,13 +11126,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           maxLength: 512
 
-        - `type: "web_search_result_location"`
-
-          default: web_search_result_location
-
         - `url: string`
 
       - `CitationsSearchResultLocation object`
+
+        - `type: "search_result_location"`
+
+          default: search_result_location
 
         - `cited_text: string`
 
@@ -11141,19 +11164,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-        - `type: "search_result_location"`
-
-          default: search_result_location
-
     - `text: string`
 
-      maxLength: 5000000, minLength: 0
-
-    - `type: "text"`
-
-      default: text
+      minLength: 0
 
   - `ThinkingBlock object`
+
+    - `type: "thinking"`
+
+      default: thinking
 
     - `signature: string`
 
@@ -11167,11 +11186,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The text of Claude's thinking process for this block.
 
-    - `type: "thinking"`
-
-      default: thinking
-
   - `RedactedThinkingBlock object`
+
+    - `type: "redacted_thinking"`
+
+      default: redacted_thinking
 
     - `data: string`
 
@@ -11181,11 +11200,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `type: "redacted_thinking"`
-
-      default: redacted_thinking
-
   - `ToolUseBlock object`
+
+    - `type: "tool_use"`
+
+      default: tool_use
 
     - `id: string`
 
@@ -11207,29 +11226,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Tool invocation generated by a server-side tool.
 
+        - `type: "code_execution_20250825"`
+
         - `tool_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_20250825"`
 
       - `ServerToolCaller20260120 object`
 
+        - `type: "code_execution_20260120"`
+
         - `tool_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_20260120"`
 
     - `input: map[unknown]`
 
     - `name: string`
 
       minLength: 1
-
-    - `type: "tool_use"`
-
-      default: tool_use
 
     - `toolset_name: optional string or null`
 
@@ -11238,6 +11253,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ServerToolUseBlock object`
+
+    - `type: "server_tool_use"`
+
+      default: server_tool_use
 
     - `id: string`
 
@@ -11277,11 +11296,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tool_search_tool_bm25"`
 
-    - `type: "server_tool_use"`
-
-      default: server_tool_use
-
   - `WebSearchToolResultBlock object`
+
+    - `type: "web_search_tool_result"`
+
+      default: web_search_tool_result
 
     - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -11303,6 +11322,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `WebSearchToolResultError object`
 
+        - `type: "web_search_tool_result_error"`
+
+          default: web_search_tool_result_error
+
         - `error_code: WebSearchToolResultErrorCode`
 
           - `"invalid_tool_input"`
@@ -11317,11 +11340,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"request_too_large"`
 
-        - `type: "web_search_tool_result_error"`
-
-          default: web_search_tool_result_error
-
       - `array of WebSearchResultBlock`
+
+        - `type: "web_search_result"`
+
+          default: web_search_result
 
         - `encrypted_content: string`
 
@@ -11329,21 +11352,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string`
 
-        - `type: "web_search_result"`
-
-          default: web_search_result
-
         - `url: string`
 
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: "web_search_tool_result"`
-
-      default: web_search_tool_result
-
   - `WebFetchToolResultBlock object`
+
+    - `type: "web_fetch_tool_result"`
+
+      default: web_fetch_tool_result
 
     - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -11365,6 +11384,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `WebFetchToolResultErrorBlock object`
 
+        - `type: "web_fetch_tool_result_error"`
+
+          default: web_fetch_tool_result_error
+
         - `error_code: WebFetchToolResultErrorCode`
 
           - `"invalid_tool_input"`
@@ -11385,13 +11408,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"unavailable"`
 
-        - `type: "web_fetch_tool_result_error"`
-
-          default: web_fetch_tool_result_error
+          - `"content_too_large"`
 
       - `WebFetchBlock object`
 
+        - `type: "web_fetch_result"`
+
+          default: web_fetch_result
+
         - `content: DocumentBlock`
+
+          - `type: "document"`
+
+            default: document
 
           - `citations: CitationsConfig or null`
 
@@ -11405,37 +11434,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `Base64PDFSource object`
 
+              - `type: "base64"`
+
               - `data: string`
 
                 format: byte
 
               - `media_type: "application/pdf"`
 
-              - `type: "base64"`
-
             - `PlainTextSource object`
+
+              - `type: "text"`
 
               - `data: string`
 
               - `media_type: "text/plain"`
 
-              - `type: "text"`
-
           - `title: string or null`
 
             The title of the document
 
-          - `type: "document"`
-
-            default: document
-
         - `retrieved_at: string or null`
 
           ISO 8601 timestamp when the content was retrieved
-
-        - `type: "web_fetch_result"`
-
-          default: web_fetch_result
 
         - `url: string`
 
@@ -11445,17 +11466,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: "web_fetch_tool_result"`
-
-      default: web_fetch_tool_result
-
   - `CodeExecutionToolResultBlock object`
+
+    - `type: "code_execution_tool_result"`
+
+      default: code_execution_tool_result
 
     - `content: CodeExecutionToolResultBlockContent`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
       - `CodeExecutionToolResultError object`
+
+        - `type: "code_execution_tool_result_error"`
+
+          default: code_execution_tool_result_error
 
         - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -11467,19 +11492,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"execution_time_exceeded"`
 
-        - `type: "code_execution_tool_result_error"`
-
-          default: code_execution_tool_result_error
-
       - `CodeExecutionResultBlock object`
 
-        - `content: array of CodeExecutionOutputBlock`
+        - `type: "code_execution_result"`
 
-          - `file_id: string`
+          default: code_execution_result
+
+        - `content: array of CodeExecutionOutputBlock`
 
           - `type: "code_execution_output"`
 
             default: code_execution_output
+
+          - `file_id: string`
 
         - `return_code: number`
 
@@ -11487,21 +11512,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `stdout: string`
 
-        - `type: "code_execution_result"`
-
-          default: code_execution_result
-
       - `EncryptedCodeExecutionResultBlock object`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
-        - `content: array of CodeExecutionOutputBlock`
+        - `type: "encrypted_code_execution_result"`
 
-          - `file_id: string`
+          default: encrypted_code_execution_result
+
+        - `content: array of CodeExecutionOutputBlock`
 
           - `type: "code_execution_output"`
 
             default: code_execution_output
+
+          - `file_id: string`
 
         - `encrypted_stdout: string`
 
@@ -11509,23 +11534,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `stderr: string`
 
-        - `type: "encrypted_code_execution_result"`
-
-          default: encrypted_code_execution_result
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: "code_execution_tool_result"`
-
-      default: code_execution_tool_result
-
   - `BashCodeExecutionToolResultBlock object`
+
+    - `type: "bash_code_execution_tool_result"`
+
+      default: bash_code_execution_tool_result
 
     - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
       - `BashCodeExecutionToolResultError object`
+
+        - `type: "bash_code_execution_tool_result_error"`
+
+          default: bash_code_execution_tool_result_error
 
         - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -11539,19 +11564,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"output_file_too_large"`
 
-        - `type: "bash_code_execution_tool_result_error"`
-
-          default: bash_code_execution_tool_result_error
-
       - `BashCodeExecutionResultBlock object`
 
-        - `content: array of BashCodeExecutionOutputBlock`
+        - `type: "bash_code_execution_result"`
 
-          - `file_id: string`
+          default: bash_code_execution_result
+
+        - `content: array of BashCodeExecutionOutputBlock`
 
           - `type: "bash_code_execution_output"`
 
             default: bash_code_execution_output
+
+          - `file_id: string`
 
         - `return_code: number`
 
@@ -11559,23 +11584,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `stdout: string`
 
-        - `type: "bash_code_execution_result"`
-
-          default: bash_code_execution_result
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: "bash_code_execution_tool_result"`
-
-      default: bash_code_execution_tool_result
-
   - `TextEditorCodeExecutionToolResultBlock object`
+
+    - `type: "text_editor_code_execution_tool_result"`
+
+      default: text_editor_code_execution_tool_result
 
     - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
       - `TextEditorCodeExecutionToolResultError object`
+
+        - `type: "text_editor_code_execution_tool_result_error"`
+
+          default: text_editor_code_execution_tool_result_error
 
         - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -11591,11 +11616,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `error_message: string or null`
 
-        - `type: "text_editor_code_execution_tool_result_error"`
-
-          default: text_editor_code_execution_tool_result_error
-
       - `TextEditorCodeExecutionViewResultBlock object`
+
+        - `type: "text_editor_code_execution_view_result"`
+
+          default: text_editor_code_execution_view_result
 
         - `content: string`
 
@@ -11613,19 +11638,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `total_lines: number or null`
 
-        - `type: "text_editor_code_execution_view_result"`
-
-          default: text_editor_code_execution_view_result
-
       - `TextEditorCodeExecutionCreateResultBlock object`
-
-        - `is_file_update: boolean`
 
         - `type: "text_editor_code_execution_create_result"`
 
           default: text_editor_code_execution_create_result
 
+        - `is_file_update: boolean`
+
       - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+        - `type: "text_editor_code_execution_str_replace_result"`
+
+          default: text_editor_code_execution_str_replace_result
 
         - `lines: array of string or null`
 
@@ -11637,23 +11662,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `old_start: number or null`
 
-        - `type: "text_editor_code_execution_str_replace_result"`
-
-          default: text_editor_code_execution_str_replace_result
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: "text_editor_code_execution_tool_result"`
-
-      default: text_editor_code_execution_tool_result
-
   - `ToolSearchToolResultBlock object`
+
+    - `type: "tool_search_tool_result"`
+
+      default: tool_search_tool_result
 
     - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
       - `ToolSearchToolResultError object`
+
+        - `type: "tool_search_tool_result_error"`
+
+          default: tool_search_tool_result_error
 
         - `error_code: ToolSearchToolResultErrorCode`
 
@@ -11667,43 +11692,35 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `error_message: string or null`
 
-        - `type: "tool_search_tool_result_error"`
-
-          default: tool_search_tool_result_error
-
       - `ToolSearchToolSearchResultBlock object`
-
-        - `tool_references: array of ToolReferenceBlock`
-
-          - `tool_name: string`
-
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-          - `type: "tool_reference"`
-
-            default: tool_reference
 
         - `type: "tool_search_tool_search_result"`
 
           default: tool_search_tool_search_result
 
+        - `tool_references: array of ToolReferenceBlock`
+
+          - `type: "tool_reference"`
+
+            default: tool_reference
+
+          - `tool_name: string`
+
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: "tool_search_tool_result"`
-
-      default: tool_search_tool_result
 
   - `ContainerUploadBlock object`
 
     Response model for a file uploaded to the container.
 
-    - `file_id: string`
-
     - `type: "container_upload"`
 
       default: container_upload
+
+    - `file_id: string`
 
 ### Content Block Param
 
@@ -11713,11 +11730,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `TextBlockParam object`
 
+    - `type: "text"`
+
     - `text: string`
 
       minLength: 1
-
-    - `type: "text"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -11744,6 +11761,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `CitationCharLocationParam object`
 
+        - `type: "char_location"`
+
         - `cited_text: string`
 
         - `document_index: number`
@@ -11760,9 +11779,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "char_location"`
-
       - `CitationPageLocationParam object`
+
+        - `type: "page_location"`
 
         - `cited_text: string`
 
@@ -11780,9 +11799,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 1
 
-        - `type: "page_location"`
-
       - `CitationContentBlockLocationParam object`
+
+        - `type: "content_block_location"`
 
         - `cited_text: string`
 
@@ -11810,9 +11829,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "content_block_location"`
-
       - `CitationWebSearchResultLocationParam object`
+
+        - `type: "web_search_result_location"`
 
         - `cited_text: string`
 
@@ -11822,13 +11841,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           maxLength: 512, minLength: 1
 
-        - `type: "web_search_result_location"`
-
         - `url: string`
 
           minLength: 1
 
       - `CitationSearchResultLocationParam object`
+
+        - `type: "search_result_location"`
 
         - `cited_text: string`
 
@@ -11860,13 +11879,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-        - `type: "search_result_location"`
-
   - `ImageBlockParam object`
+
+    - `type: "image"`
 
     - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
       - `Base64ImageSource object`
+
+        - `type: "base64"`
 
         - `data: string`
 
@@ -11882,8 +11903,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"image/webp"`
 
-        - `type: "base64"`
-
       - `URLImageSource object`
 
         - `type: "url"`
@@ -11892,11 +11911,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `FileImageSource object`
 
-        - `file_id: string`
-
         - `type: "file"`
 
-    - `type: "image"`
+        - `file_id: string`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -11916,9 +11933,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `DocumentBlockParam object`
 
+    - `type: "document"`
+
     - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
       - `Base64PDFSource object`
+
+        - `type: "base64"`
 
         - `data: string`
 
@@ -11926,17 +11947,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `media_type: "application/pdf"`
 
-        - `type: "base64"`
-
       - `PlainTextSource object`
+
+        - `type: "text"`
 
         - `data: string`
 
         - `media_type: "text/plain"`
 
-        - `type: "text"`
-
       - `ContentBlockSource object`
+
+        - `type: "content"`
 
         - `content: string or array of ContentBlockSourceContent`
 
@@ -11948,8 +11969,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `ImageBlockParam object`
 
-        - `type: "content"`
-
       - `URLPDFSource object`
 
         - `type: "url"`
@@ -11958,11 +11977,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `FileDocumentSource object`
 
-        - `file_id: string`
-
         - `type: "file"`
 
-    - `type: "document"`
+        - `file_id: string`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -11982,13 +11999,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `SearchResultBlockParam object`
 
+    - `type: "search_result"`
+
     - `content: array of TextBlockParam`
+
+      - `type: "text"`
 
       - `text: string`
 
         minLength: 1
-
-      - `type: "text"`
 
       - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12000,8 +12019,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: string`
 
-    - `type: "search_result"`
-
     - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
@@ -12009,6 +12026,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `citations: optional CitationsConfigParam`
 
   - `ThinkingBlockParam object`
+
+    - `type: "thinking"`
 
     - `signature: string`
 
@@ -12020,17 +12039,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The `thinking` text of this block as returned by the API.
 
-    - `type: "thinking"`
-
   - `RedactedThinkingBlockParam object`
+
+    - `type: "redacted_thinking"`
 
     - `data: string`
 
       The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-    - `type: "redacted_thinking"`
-
   - `ToolUseBlockParam object`
+
+    - `type: "tool_use"`
 
     - `id: string`
 
@@ -12041,8 +12060,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `name: string`
 
       maxLength: 200, minLength: 1
-
-    - `type: "tool_use"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12062,19 +12079,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Tool invocation generated by a server-side tool.
 
+        - `type: "code_execution_20250825"`
+
         - `tool_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_20250825"`
 
       - `ServerToolCaller20260120 object`
 
+        - `type: "code_execution_20260120"`
+
         - `tool_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_20260120"`
 
     - `toolset_name: optional string or null`
 
@@ -12084,11 +12101,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolResultBlockParam object`
 
+    - `type: "tool_result"`
+
     - `tool_use_id: string`
 
       pattern: ^[a-zA-Z0-9_-]+$
-
-    - `type: "tool_result"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12112,11 +12129,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Tool reference block that can be included in tool_result content.
 
+          - `type: "tool_reference"`
+
           - `tool_name: string`
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-          - `type: "tool_reference"`
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12131,6 +12148,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           At most one per `tool_result`, only on a non-error result answering a
           browser toolset member `tool_use`. The server renders the
           model-visible text from it; the model never sees the raw fields.
+
+          - `type: "browser_state"`
 
           - `tabs: array of BrowserStateTabEntry`
 
@@ -12160,8 +12179,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-          - `type: "browser_state"`
-
           - `cache_control: optional CacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
@@ -12182,25 +12199,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               during a failed call gets no deferred `tab_opened`; it simply appears
               in the next result's `tabs` inventory.
 
+              - `type: "tab_opened"`
+
               - `tab_id: string`
 
                 The `tab_id` of the opened tab, present in `tabs`.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `type: "tab_opened"`
-
             - `BrowserStateChangeDownloadStarted object`
 
               A file download that started during this call.
+
+              - `type: "download_started"`
 
               - `download_id: string`
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `type: "download_started"`
 
               - `url: string`
 
@@ -12215,13 +12232,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               `download_started`, when the download finished during the call that
               started it (at most one state change per `download_id` per result).
 
+              - `type: "download_completed"`
+
               - `download_id: string`
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `type: "download_completed"`
 
               - `url: string`
 
@@ -12245,13 +12262,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               A file download that failed — or was cancelled — during this call.
 
+              - `type: "download_failed"`
+
               - `download_id: string`
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-              - `type: "download_failed"`
 
               - `url: string`
 
@@ -12275,6 +12292,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ServerToolUseBlockParam object`
 
+    - `type: "server_tool_use"`
+
     - `id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -12297,8 +12316,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tool_search_tool_bm25"`
 
-    - `type: "server_tool_use"`
-
     - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
@@ -12319,21 +12336,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchToolResultBlockParam object`
 
+    - `type: "web_search_tool_result"`
+
     - `content: WebSearchToolResultBlockParamContent`
 
       - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+        - `type: "web_search_result"`
+
         - `encrypted_content: string`
 
         - `title: string`
-
-        - `type: "web_search_result"`
 
         - `url: string`
 
         - `page_age: optional string or null`
 
       - `WebSearchToolRequestError object`
+
+        - `type: "web_search_tool_result_error"`
 
         - `error_code: WebSearchToolResultErrorCode`
 
@@ -12349,13 +12370,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"request_too_large"`
 
-        - `type: "web_search_tool_result_error"`
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: "web_search_tool_result"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12377,9 +12394,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchToolResultBlockParam object`
 
+    - `type: "web_fetch_tool_result"`
+
     - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
 
       - `WebFetchToolResultErrorBlockParam object`
+
+        - `type: "web_fetch_tool_result_error"`
 
         - `error_code: WebFetchToolResultErrorCode`
 
@@ -12401,13 +12422,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"unavailable"`
 
-        - `type: "web_fetch_tool_result_error"`
+          - `"content_too_large"`
 
       - `WebFetchBlockParam object`
 
-        - `content: DocumentBlockParam`
-
         - `type: "web_fetch_result"`
+
+        - `content: DocumentBlockParam`
 
         - `url: string`
 
@@ -12420,8 +12441,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: "web_fetch_tool_result"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12443,11 +12462,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `CodeExecutionToolResultBlockParam object`
 
+    - `type: "code_execution_tool_result"`
+
     - `content: CodeExecutionToolResultBlockParamContent`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
       - `CodeExecutionToolResultErrorParam object`
+
+        - `type: "code_execution_tool_result_error"`
 
         - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -12459,15 +12482,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"execution_time_exceeded"`
 
-        - `type: "code_execution_tool_result_error"`
-
       - `CodeExecutionResultBlockParam object`
+
+        - `type: "code_execution_result"`
 
         - `content: array of CodeExecutionOutputBlockParam`
 
-          - `file_id: string`
-
           - `type: "code_execution_output"`
+
+          - `file_id: string`
 
         - `return_code: number`
 
@@ -12475,17 +12498,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `stdout: string`
 
-        - `type: "code_execution_result"`
-
       - `EncryptedCodeExecutionResultBlockParam object`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
+        - `type: "encrypted_code_execution_result"`
+
         - `content: array of CodeExecutionOutputBlockParam`
 
-          - `file_id: string`
-
           - `type: "code_execution_output"`
+
+          - `file_id: string`
 
         - `encrypted_stdout: string`
 
@@ -12493,13 +12516,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `stderr: string`
 
-        - `type: "encrypted_code_execution_result"`
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: "code_execution_tool_result"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12507,9 +12526,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `BashCodeExecutionToolResultBlockParam object`
 
+    - `type: "bash_code_execution_tool_result"`
+
     - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
 
       - `BashCodeExecutionToolResultErrorParam object`
+
+        - `type: "bash_code_execution_tool_result_error"`
 
         - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -12523,15 +12546,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"output_file_too_large"`
 
-        - `type: "bash_code_execution_tool_result_error"`
-
       - `BashCodeExecutionResultBlockParam object`
+
+        - `type: "bash_code_execution_result"`
 
         - `content: array of BashCodeExecutionOutputBlockParam`
 
-          - `file_id: string`
-
           - `type: "bash_code_execution_output"`
+
+          - `file_id: string`
 
         - `return_code: number`
 
@@ -12539,13 +12562,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `stdout: string`
 
-        - `type: "bash_code_execution_result"`
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: "bash_code_execution_tool_result"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12553,9 +12572,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `TextEditorCodeExecutionToolResultBlockParam object`
 
+    - `type: "text_editor_code_execution_tool_result"`
+
     - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
 
       - `TextEditorCodeExecutionToolResultErrorParam object`
+
+        - `type: "text_editor_code_execution_tool_result_error"`
 
         - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -12569,11 +12592,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"file_not_found"`
 
-        - `type: "text_editor_code_execution_tool_result_error"`
-
         - `error_message: optional string or null`
 
       - `TextEditorCodeExecutionViewResultBlockParam object`
+
+        - `type: "text_editor_code_execution_view_result"`
 
         - `content: string`
 
@@ -12585,8 +12608,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"pdf"`
 
-        - `type: "text_editor_code_execution_view_result"`
-
         - `num_lines: optional number or null`
 
         - `start_line: optional number or null`
@@ -12595,9 +12616,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-        - `is_file_update: boolean`
-
         - `type: "text_editor_code_execution_create_result"`
+
+        - `is_file_update: boolean`
 
       - `TextEditorCodeExecutionStrReplaceResultBlockParam object`
 
@@ -12617,17 +12638,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `type: "text_editor_code_execution_tool_result"`
-
     - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
   - `ToolSearchToolResultBlockParam object`
 
+    - `type: "tool_search_tool_result"`
+
     - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
 
       - `ToolSearchToolResultErrorParam object`
+
+        - `type: "tool_search_tool_result_error"`
 
         - `error_code: ToolSearchToolResultErrorCode`
 
@@ -12639,31 +12662,27 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"execution_time_exceeded"`
 
-        - `type: "tool_search_tool_result_error"`
-
         - `error_message: optional string or null`
 
       - `ToolSearchToolSearchResultBlockParam object`
 
+        - `type: "tool_search_tool_search_result"`
+
         - `tool_references: array of ToolReferenceBlockParam`
+
+          - `type: "tool_reference"`
 
           - `tool_name: string`
 
             maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `type: "tool_reference"`
-
           - `cache_control: optional CacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-        - `type: "tool_search_tool_search_result"`
-
     - `tool_use_id: string`
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-    - `type: "tool_search_tool_result"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12674,9 +12693,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     A content block that represents a file to be uploaded to the container
     Files uploaded via this block will be available in the container's input directory.
 
-    - `file_id: string`
-
     - `type: "container_upload"`
+
+    - `file_id: string`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12686,6 +12705,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ContentBlockSource object`
 
+  - `type: "content"`
+
   - `content: string or array of ContentBlockSourceContent`
 
     - `string`
@@ -12694,11 +12715,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `TextBlockParam object`
 
+        - `type: "text"`
+
         - `text: string`
 
           minLength: 1
-
-        - `type: "text"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12725,6 +12746,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `CitationCharLocationParam object`
 
+            - `type: "char_location"`
+
             - `cited_text: string`
 
             - `document_index: number`
@@ -12741,9 +12764,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "char_location"`
-
           - `CitationPageLocationParam object`
+
+            - `type: "page_location"`
 
             - `cited_text: string`
 
@@ -12761,9 +12784,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 1
 
-            - `type: "page_location"`
-
           - `CitationContentBlockLocationParam object`
+
+            - `type: "content_block_location"`
 
             - `cited_text: string`
 
@@ -12791,9 +12814,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "content_block_location"`
-
           - `CitationWebSearchResultLocationParam object`
+
+            - `type: "web_search_result_location"`
 
             - `cited_text: string`
 
@@ -12803,13 +12826,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               maxLength: 512, minLength: 1
 
-            - `type: "web_search_result_location"`
-
             - `url: string`
 
               minLength: 1
 
           - `CitationSearchResultLocationParam object`
+
+            - `type: "search_result_location"`
 
             - `cited_text: string`
 
@@ -12841,13 +12864,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-            - `type: "search_result_location"`
-
       - `ImageBlockParam object`
+
+        - `type: "image"`
 
         - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
           - `Base64ImageSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -12863,8 +12888,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"image/webp"`
 
-            - `type: "base64"`
-
           - `URLImageSource object`
 
             - `type: "url"`
@@ -12873,11 +12896,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `FileImageSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "image"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12895,19 +12916,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"error"`
 
-  - `type: "content"`
-
 ### Content Block Source Content
 
 - `ContentBlockSourceContent = TextBlockParam or ImageBlockParam`
 
   - `TextBlockParam object`
 
+    - `type: "text"`
+
     - `text: string`
 
       minLength: 1
-
-    - `type: "text"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12934,6 +12953,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `CitationCharLocationParam object`
 
+        - `type: "char_location"`
+
         - `cited_text: string`
 
         - `document_index: number`
@@ -12950,9 +12971,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "char_location"`
-
       - `CitationPageLocationParam object`
+
+        - `type: "page_location"`
 
         - `cited_text: string`
 
@@ -12970,9 +12991,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 1
 
-        - `type: "page_location"`
-
       - `CitationContentBlockLocationParam object`
+
+        - `type: "content_block_location"`
 
         - `cited_text: string`
 
@@ -13000,9 +13021,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "content_block_location"`
-
       - `CitationWebSearchResultLocationParam object`
+
+        - `type: "web_search_result_location"`
 
         - `cited_text: string`
 
@@ -13012,13 +13033,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           maxLength: 512, minLength: 1
 
-        - `type: "web_search_result_location"`
-
         - `url: string`
 
           minLength: 1
 
       - `CitationSearchResultLocationParam object`
+
+        - `type: "search_result_location"`
 
         - `cited_text: string`
 
@@ -13050,13 +13071,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-        - `type: "search_result_location"`
-
   - `ImageBlockParam object`
+
+    - `type: "image"`
 
     - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
       - `Base64ImageSource object`
+
+        - `type: "base64"`
 
         - `data: string`
 
@@ -13072,8 +13095,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"image/webp"`
 
-        - `type: "base64"`
-
       - `URLImageSource object`
 
         - `type: "url"`
@@ -13082,11 +13103,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `FileImageSource object`
 
-        - `file_id: string`
-
         - `type: "file"`
 
-    - `type: "image"`
+        - `file_id: string`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -13116,6 +13135,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `DocumentBlock object`
 
+  - `type: "document"`
+
+    default: document
+
   - `citations: CitationsConfig or null`
 
     Citation configuration for the document
@@ -13128,37 +13151,37 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `Base64PDFSource object`
 
+      - `type: "base64"`
+
       - `data: string`
 
         format: byte
 
       - `media_type: "application/pdf"`
 
-      - `type: "base64"`
-
     - `PlainTextSource object`
+
+      - `type: "text"`
 
       - `data: string`
 
       - `media_type: "text/plain"`
-
-      - `type: "text"`
 
   - `title: string or null`
 
     The title of the document
 
-  - `type: "document"`
-
-    default: document
-
 ### Document Block Param
 
 - `DocumentBlockParam object`
 
+  - `type: "document"`
+
   - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
     - `Base64PDFSource object`
+
+      - `type: "base64"`
 
       - `data: string`
 
@@ -13166,17 +13189,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `media_type: "application/pdf"`
 
-      - `type: "base64"`
-
     - `PlainTextSource object`
+
+      - `type: "text"`
 
       - `data: string`
 
       - `media_type: "text/plain"`
 
-      - `type: "text"`
-
     - `ContentBlockSource object`
+
+      - `type: "content"`
 
       - `content: string or array of ContentBlockSourceContent`
 
@@ -13186,11 +13209,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `TextBlockParam object`
 
+            - `type: "text"`
+
             - `text: string`
 
               minLength: 1
-
-            - `type: "text"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -13217,6 +13240,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `CitationCharLocationParam object`
 
+                - `type: "char_location"`
+
                 - `cited_text: string`
 
                 - `document_index: number`
@@ -13233,9 +13258,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   minimum: 0
 
-                - `type: "char_location"`
-
               - `CitationPageLocationParam object`
+
+                - `type: "page_location"`
 
                 - `cited_text: string`
 
@@ -13253,9 +13278,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   minimum: 1
 
-                - `type: "page_location"`
-
               - `CitationContentBlockLocationParam object`
+
+                - `type: "content_block_location"`
 
                 - `cited_text: string`
 
@@ -13283,9 +13308,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   minimum: 0
 
-                - `type: "content_block_location"`
-
               - `CitationWebSearchResultLocationParam object`
+
+                - `type: "web_search_result_location"`
 
                 - `cited_text: string`
 
@@ -13295,13 +13320,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   maxLength: 512, minLength: 1
 
-                - `type: "web_search_result_location"`
-
                 - `url: string`
 
                   minLength: 1
 
               - `CitationSearchResultLocationParam object`
+
+                - `type: "search_result_location"`
 
                 - `cited_text: string`
 
@@ -13333,13 +13358,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `title: string or null`
 
-                - `type: "search_result_location"`
-
           - `ImageBlockParam object`
+
+            - `type: "image"`
 
             - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
               - `Base64ImageSource object`
+
+                - `type: "base64"`
 
                 - `data: string`
 
@@ -13355,8 +13382,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `"image/webp"`
 
-                - `type: "base64"`
-
               - `URLImageSource object`
 
                 - `type: "url"`
@@ -13365,11 +13390,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `FileImageSource object`
 
-                - `file_id: string`
-
                 - `type: "file"`
 
-            - `type: "image"`
+                - `file_id: string`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -13387,8 +13410,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"error"`
 
-      - `type: "content"`
-
     - `URLPDFSource object`
 
       - `type: "url"`
@@ -13397,11 +13418,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `FileDocumentSource object`
 
-      - `file_id: string`
-
       - `type: "file"`
 
-  - `type: "document"`
+      - `file_id: string`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -13425,23 +13444,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
-  - `content: array of CodeExecutionOutputBlock`
+  - `type: "encrypted_code_execution_result"`
 
-    - `file_id: string`
+    default: encrypted_code_execution_result
+
+  - `content: array of CodeExecutionOutputBlock`
 
     - `type: "code_execution_output"`
 
       default: code_execution_output
+
+    - `file_id: string`
 
   - `encrypted_stdout: string`
 
   - `return_code: number`
 
   - `stderr: string`
-
-  - `type: "encrypted_code_execution_result"`
-
-    default: encrypted_code_execution_result
 
 ### Encrypted Code Execution Result Block Param
 
@@ -13449,11 +13468,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
+  - `type: "encrypted_code_execution_result"`
+
   - `content: array of CodeExecutionOutputBlockParam`
 
-    - `file_id: string`
-
     - `type: "code_execution_output"`
+
+    - `file_id: string`
 
   - `encrypted_stdout: string`
 
@@ -13461,31 +13482,33 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `stderr: string`
 
-  - `type: "encrypted_code_execution_result"`
-
 ### File Document Source
 
 - `FileDocumentSource object`
 
-  - `file_id: string`
-
   - `type: "file"`
+
+  - `file_id: string`
 
 ### File Image Source
 
 - `FileImageSource object`
 
-  - `file_id: string`
-
   - `type: "file"`
+
+  - `file_id: string`
 
 ### Image Block Param
 
 - `ImageBlockParam object`
 
+  - `type: "image"`
+
   - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
     - `Base64ImageSource object`
+
+      - `type: "base64"`
 
       - `data: string`
 
@@ -13501,8 +13524,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"image/webp"`
 
-      - `type: "base64"`
-
     - `URLImageSource object`
 
       - `type: "url"`
@@ -13511,11 +13532,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `FileImageSource object`
 
-      - `file_id: string`
-
       - `type: "file"`
 
-  - `type: "image"`
+      - `file_id: string`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -13568,33 +13587,33 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `InputJSONDelta object`
 
-  - `partial_json: string`
-
   - `type: "input_json_delta"`
 
     default: input_json_delta
+
+  - `partial_json: string`
 
 ### JSON Output Format
 
 - `JSONOutputFormat object`
 
+  - `type: "json_schema"`
+
   - `schema: map[unknown]`
 
     The JSON schema of the format
 
-  - `type: "json_schema"`
-
 ### Memory Tool 20250818
 
 - `MemoryTool20250818 object`
+
+  - `type: "memory_20250818"`
 
   - `name: "memory"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "memory_20250818"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -13641,6 +13660,14 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `Message object`
 
+  - `type: "message"`
+
+    Object type.
+
+    For Messages, this is always `"message"`.
+
+    default: message
+
   - `id: string`
 
     Unique object identifier.
@@ -13665,12 +13692,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Skills loaded in the container
 
-      - `skill_id: string`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: "anthropic" or "custom"`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -13678,6 +13699,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: string`
 
@@ -13716,6 +13743,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `TextBlock object`
 
+      - `type: "text"`
+
+        default: text
+
       - `citations: array of TextCitation or null`
 
         Citations supporting the text block.
@@ -13723,6 +13754,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `CitationCharLocation object`
+
+          - `type: "char_location"`
+
+            default: char_location
 
           - `cited_text: string`
 
@@ -13740,11 +13775,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 0
 
-          - `type: "char_location"`
-
-            default: char_location
-
         - `CitationPageLocation object`
+
+          - `type: "page_location"`
+
+            default: page_location
 
           - `cited_text: string`
 
@@ -13762,11 +13797,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 1
 
-          - `type: "page_location"`
-
-            default: page_location
-
         - `CitationContentBlockLocation object`
+
+          - `type: "content_block_location"`
+
+            default: content_block_location
 
           - `cited_text: string`
 
@@ -13794,11 +13829,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 0
 
-          - `type: "content_block_location"`
-
-            default: content_block_location
-
         - `CitationsWebSearchResultLocation object`
+
+          - `type: "web_search_result_location"`
+
+            default: web_search_result_location
 
           - `cited_text: string`
 
@@ -13808,13 +13843,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             maxLength: 512
 
-          - `type: "web_search_result_location"`
-
-            default: web_search_result_location
-
           - `url: string`
 
         - `CitationsSearchResultLocation object`
+
+          - `type: "search_result_location"`
+
+            default: search_result_location
 
           - `cited_text: string`
 
@@ -13846,19 +13881,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `title: string or null`
 
-          - `type: "search_result_location"`
-
-            default: search_result_location
-
       - `text: string`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: "text"`
-
-        default: text
+        minLength: 0
 
     - `ThinkingBlock object`
+
+      - `type: "thinking"`
+
+        default: thinking
 
       - `signature: string`
 
@@ -13872,11 +13903,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The text of Claude's thinking process for this block.
 
-      - `type: "thinking"`
-
-        default: thinking
-
     - `RedactedThinkingBlock object`
+
+      - `type: "redacted_thinking"`
+
+        default: redacted_thinking
 
       - `data: string`
 
@@ -13886,11 +13917,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `type: "redacted_thinking"`
-
-        default: redacted_thinking
-
     - `ToolUseBlock object`
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string`
 
@@ -13912,29 +13943,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Tool invocation generated by a server-side tool.
 
+          - `type: "code_execution_20250825"`
+
           - `tool_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "code_execution_20250825"`
 
         - `ServerToolCaller20260120 object`
 
+          - `type: "code_execution_20260120"`
+
           - `tool_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "code_execution_20260120"`
 
       - `input: map[unknown]`
 
       - `name: string`
 
         minLength: 1
-
-      - `type: "tool_use"`
-
-        default: tool_use
 
       - `toolset_name: optional string or null`
 
@@ -13943,6 +13970,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock object`
+
+      - `type: "server_tool_use"`
+
+        default: server_tool_use
 
       - `id: string`
 
@@ -13982,11 +14013,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"tool_search_tool_bm25"`
 
-      - `type: "server_tool_use"`
-
-        default: server_tool_use
-
     - `WebSearchToolResultBlock object`
+
+      - `type: "web_search_tool_result"`
+
+        default: web_search_tool_result
 
       - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -14008,6 +14039,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `WebSearchToolResultError object`
 
+          - `type: "web_search_tool_result_error"`
+
+            default: web_search_tool_result_error
+
           - `error_code: WebSearchToolResultErrorCode`
 
             - `"invalid_tool_input"`
@@ -14022,11 +14057,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"request_too_large"`
 
-          - `type: "web_search_tool_result_error"`
-
-            default: web_search_tool_result_error
-
         - `array of WebSearchResultBlock`
+
+          - `type: "web_search_result"`
+
+            default: web_search_result
 
           - `encrypted_content: string`
 
@@ -14034,21 +14069,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `title: string`
 
-          - `type: "web_search_result"`
-
-            default: web_search_result
-
           - `url: string`
 
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "web_search_tool_result"`
-
-        default: web_search_tool_result
-
     - `WebFetchToolResultBlock object`
+
+      - `type: "web_fetch_tool_result"`
+
+        default: web_fetch_tool_result
 
       - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -14070,6 +14101,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `WebFetchToolResultErrorBlock object`
 
+          - `type: "web_fetch_tool_result_error"`
+
+            default: web_fetch_tool_result_error
+
           - `error_code: WebFetchToolResultErrorCode`
 
             - `"invalid_tool_input"`
@@ -14090,13 +14125,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"unavailable"`
 
-          - `type: "web_fetch_tool_result_error"`
-
-            default: web_fetch_tool_result_error
+            - `"content_too_large"`
 
         - `WebFetchBlock object`
 
+          - `type: "web_fetch_result"`
+
+            default: web_fetch_result
+
           - `content: DocumentBlock`
+
+            - `type: "document"`
+
+              default: document
 
             - `citations: CitationsConfig or null`
 
@@ -14110,37 +14151,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `Base64PDFSource object`
 
+                - `type: "base64"`
+
                 - `data: string`
 
                   format: byte
 
                 - `media_type: "application/pdf"`
 
-                - `type: "base64"`
-
               - `PlainTextSource object`
+
+                - `type: "text"`
 
                 - `data: string`
 
                 - `media_type: "text/plain"`
 
-                - `type: "text"`
-
             - `title: string or null`
 
               The title of the document
 
-            - `type: "document"`
-
-              default: document
-
           - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `type: "web_fetch_result"`
-
-            default: web_fetch_result
 
           - `url: string`
 
@@ -14150,17 +14183,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "web_fetch_tool_result"`
-
-        default: web_fetch_tool_result
-
     - `CodeExecutionToolResultBlock object`
+
+      - `type: "code_execution_tool_result"`
+
+        default: code_execution_tool_result
 
       - `content: CodeExecutionToolResultBlockContent`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `CodeExecutionToolResultError object`
+
+          - `type: "code_execution_tool_result_error"`
+
+            default: code_execution_tool_result_error
 
           - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -14172,19 +14209,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"execution_time_exceeded"`
 
-          - `type: "code_execution_tool_result_error"`
-
-            default: code_execution_tool_result_error
-
         - `CodeExecutionResultBlock object`
 
-          - `content: array of CodeExecutionOutputBlock`
+          - `type: "code_execution_result"`
 
-            - `file_id: string`
+            default: code_execution_result
+
+          - `content: array of CodeExecutionOutputBlock`
 
             - `type: "code_execution_output"`
 
               default: code_execution_output
+
+            - `file_id: string`
 
           - `return_code: number`
 
@@ -14192,21 +14229,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `stdout: string`
 
-          - `type: "code_execution_result"`
-
-            default: code_execution_result
-
         - `EncryptedCodeExecutionResultBlock object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `content: array of CodeExecutionOutputBlock`
+          - `type: "encrypted_code_execution_result"`
 
-            - `file_id: string`
+            default: encrypted_code_execution_result
+
+          - `content: array of CodeExecutionOutputBlock`
 
             - `type: "code_execution_output"`
 
               default: code_execution_output
+
+            - `file_id: string`
 
           - `encrypted_stdout: string`
 
@@ -14214,23 +14251,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `stderr: string`
 
-          - `type: "encrypted_code_execution_result"`
-
-            default: encrypted_code_execution_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "code_execution_tool_result"`
-
-        default: code_execution_tool_result
-
     - `BashCodeExecutionToolResultBlock object`
+
+      - `type: "bash_code_execution_tool_result"`
+
+        default: bash_code_execution_tool_result
 
       - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
         - `BashCodeExecutionToolResultError object`
+
+          - `type: "bash_code_execution_tool_result_error"`
+
+            default: bash_code_execution_tool_result_error
 
           - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -14244,19 +14281,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"output_file_too_large"`
 
-          - `type: "bash_code_execution_tool_result_error"`
-
-            default: bash_code_execution_tool_result_error
-
         - `BashCodeExecutionResultBlock object`
 
-          - `content: array of BashCodeExecutionOutputBlock`
+          - `type: "bash_code_execution_result"`
 
-            - `file_id: string`
+            default: bash_code_execution_result
+
+          - `content: array of BashCodeExecutionOutputBlock`
 
             - `type: "bash_code_execution_output"`
 
               default: bash_code_execution_output
+
+            - `file_id: string`
 
           - `return_code: number`
 
@@ -14264,23 +14301,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `stdout: string`
 
-          - `type: "bash_code_execution_result"`
-
-            default: bash_code_execution_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "bash_code_execution_tool_result"`
-
-        default: bash_code_execution_tool_result
-
     - `TextEditorCodeExecutionToolResultBlock object`
+
+      - `type: "text_editor_code_execution_tool_result"`
+
+        default: text_editor_code_execution_tool_result
 
       - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
         - `TextEditorCodeExecutionToolResultError object`
+
+          - `type: "text_editor_code_execution_tool_result_error"`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -14296,11 +14333,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `error_message: string or null`
 
-          - `type: "text_editor_code_execution_tool_result_error"`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `TextEditorCodeExecutionViewResultBlock object`
+
+          - `type: "text_editor_code_execution_view_result"`
+
+            default: text_editor_code_execution_view_result
 
           - `content: string`
 
@@ -14318,19 +14355,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `total_lines: number or null`
 
-          - `type: "text_editor_code_execution_view_result"`
-
-            default: text_editor_code_execution_view_result
-
         - `TextEditorCodeExecutionCreateResultBlock object`
-
-          - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
             default: text_editor_code_execution_create_result
 
+          - `is_file_update: boolean`
+
         - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+          - `type: "text_editor_code_execution_str_replace_result"`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `lines: array of string or null`
 
@@ -14342,23 +14379,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `old_start: number or null`
 
-          - `type: "text_editor_code_execution_str_replace_result"`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "text_editor_code_execution_tool_result"`
-
-        default: text_editor_code_execution_tool_result
-
     - `ToolSearchToolResultBlock object`
+
+      - `type: "tool_search_tool_result"`
+
+        default: tool_search_tool_result
 
       - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
         - `ToolSearchToolResultError object`
+
+          - `type: "tool_search_tool_result_error"`
+
+            default: tool_search_tool_result_error
 
           - `error_code: ToolSearchToolResultErrorCode`
 
@@ -14372,43 +14409,35 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `error_message: string or null`
 
-          - `type: "tool_search_tool_result_error"`
-
-            default: tool_search_tool_result_error
-
         - `ToolSearchToolSearchResultBlock object`
-
-          - `tool_references: array of ToolReferenceBlock`
-
-            - `tool_name: string`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `type: "tool_reference"`
-
-              default: tool_reference
 
           - `type: "tool_search_tool_search_result"`
 
             default: tool_search_tool_search_result
 
+          - `tool_references: array of ToolReferenceBlock`
+
+            - `type: "tool_reference"`
+
+              default: tool_reference
+
+            - `tool_name: string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "tool_search_tool_result"`
-
-        default: tool_search_tool_result
 
     - `ContainerUploadBlock object`
 
       Response model for a file uploaded to the container.
 
-      - `file_id: string`
-
       - `type: "container_upload"`
 
         default: container_upload
+
+      - `file_id: string`
 
   - `model: Model`
 
@@ -14504,6 +14533,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Structured information about a refusal.
 
+    - `type: "refusal"`
+
+      default: refusal
+
     - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
       The policy category that triggered a refusal.
@@ -14533,10 +14566,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       Human-readable explanation of the refusal.
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-    - `type: "refusal"`
-
-      default: refusal
 
   - `stop_reason: StopReason or null`
 
@@ -14573,14 +14602,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     Which custom stop sequence was generated, if any.
 
     This value will be a non-null string if one of your custom stop sequences was generated.
-
-  - `type: "message"`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
-    default: message
 
   - `usage: Usage`
 
@@ -14694,6 +14715,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `Tool object`
 
+    - `type: optional "custom" or null`
+
     - `input_schema: object`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -14765,17 +14788,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom" or null`
-
   - `ToolBash20250124 object`
+
+    - `type: "bash_20250124"`
 
     - `name: "bash"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "bash_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -14803,13 +14824,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `CodeExecutionTool20250522 object`
 
+    - `type: "code_execution_20250522"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250522"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -14835,13 +14856,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `CodeExecutionTool20250825 object`
 
+    - `type: "code_execution_20250825"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250825"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -14869,13 +14890,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: "code_execution_20260120"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260120"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -14903,13 +14924,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Code execution tool with REPL state persistence.
 
+    - `type: "code_execution_20260521"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260521"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -14954,6 +14975,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional BrowserTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -15291,18 +15324,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional BrowserTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional BrowserWaitConfig or null`
 
         `wait`'s config overrides.
@@ -15329,13 +15350,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `MemoryTool20250818 object`
 
+    - `type: "memory_20250818"`
+
     - `name: "memory"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "memory_20250818"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15386,6 +15407,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional ComputerTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: optional ComputerCursorPositionConfig or null`
 
@@ -15555,18 +15588,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional ComputerTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional ComputerWaitConfig or null`
 
         `wait`'s config overrides.
@@ -15593,13 +15614,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolTextEditor20250124 object`
 
+    - `type: "text_editor_20250124"`
+
     - `name: "str_replace_editor"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15627,13 +15648,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolTextEditor20250429 object`
 
+    - `type: "text_editor_20250429"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250429"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15661,13 +15682,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolTextEditor20250728 object`
 
+    - `type: "text_editor_20250728"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250728"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15701,13 +15722,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchTool20250305 object`
 
+    - `type: "web_search_20250305"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20250305"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15777,13 +15798,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchTool20250910 object`
 
+    - `type: "web_fetch_20250910"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20250910"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15835,13 +15856,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchTool20260209 object`
 
+    - `type: "web_search_20260209"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15885,13 +15906,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchTool20260209 object`
 
+    - `type: "web_fetch_20260209"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15943,13 +15964,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: "web_fetch_20260309"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260309"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -16003,13 +16024,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchTool20260318 object`
 
+    - `type: "web_search_20260318"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -16061,13 +16082,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchTool20260318 object`
 
+    - `type: "web_fetch_20260318"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -16129,17 +16150,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolSearchToolBm25_20251119 object`
 
-    - `name: "tool_search_tool_bm25"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_bm25_20251119" or "tool_search_tool_bm25"`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: "tool_search_tool_bm25"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -16165,17 +16186,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolSearchToolRegex20251119 object`
 
-    - `name: "tool_search_tool_regex"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_regex_20251119" or "tool_search_tool_regex"`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: "tool_search_tool_regex"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -16219,12 +16240,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       maxItems: 20
 
-      - `skill_id: string`
-
-        Skill ID
-
-        maxLength: 64, minLength: 1
-
       - `type: "anthropic" or "custom"`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -16232,6 +16247,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `"anthropic"`
 
         - `"custom"`
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `version: optional string`
 
@@ -16317,11 +16338,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `TextBlockParam object`
 
+        - `type: "text"`
+
         - `text: string`
 
           minLength: 1
-
-        - `type: "text"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16348,6 +16369,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `CitationCharLocationParam object`
 
+            - `type: "char_location"`
+
             - `cited_text: string`
 
             - `document_index: number`
@@ -16364,9 +16387,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "char_location"`
-
           - `CitationPageLocationParam object`
+
+            - `type: "page_location"`
 
             - `cited_text: string`
 
@@ -16384,9 +16407,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 1
 
-            - `type: "page_location"`
-
           - `CitationContentBlockLocationParam object`
+
+            - `type: "content_block_location"`
 
             - `cited_text: string`
 
@@ -16414,9 +16437,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "content_block_location"`
-
           - `CitationWebSearchResultLocationParam object`
+
+            - `type: "web_search_result_location"`
 
             - `cited_text: string`
 
@@ -16426,13 +16449,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               maxLength: 512, minLength: 1
 
-            - `type: "web_search_result_location"`
-
             - `url: string`
 
               minLength: 1
 
           - `CitationSearchResultLocationParam object`
+
+            - `type: "search_result_location"`
 
             - `cited_text: string`
 
@@ -16464,13 +16487,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-            - `type: "search_result_location"`
-
       - `ImageBlockParam object`
+
+        - `type: "image"`
 
         - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
           - `Base64ImageSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -16486,8 +16511,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"image/webp"`
 
-            - `type: "base64"`
-
           - `URLImageSource object`
 
             - `type: "url"`
@@ -16496,11 +16519,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `FileImageSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "image"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16520,9 +16541,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `DocumentBlockParam object`
 
+        - `type: "document"`
+
         - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
           - `Base64PDFSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -16530,17 +16555,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `media_type: "application/pdf"`
 
-            - `type: "base64"`
-
           - `PlainTextSource object`
+
+            - `type: "text"`
 
             - `data: string`
 
             - `media_type: "text/plain"`
 
-            - `type: "text"`
-
           - `ContentBlockSource object`
+
+            - `type: "content"`
 
             - `content: string or array of ContentBlockSourceContent`
 
@@ -16552,8 +16577,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `ImageBlockParam object`
 
-            - `type: "content"`
-
           - `URLPDFSource object`
 
             - `type: "url"`
@@ -16562,11 +16585,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `FileDocumentSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "document"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16586,13 +16607,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `SearchResultBlockParam object`
 
+        - `type: "search_result"`
+
         - `content: array of TextBlockParam`
+
+          - `type: "text"`
 
           - `text: string`
 
             minLength: 1
-
-          - `type: "text"`
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16604,8 +16627,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string`
 
-        - `type: "search_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -16613,6 +16634,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `citations: optional CitationsConfigParam`
 
       - `ThinkingBlockParam object`
+
+        - `type: "thinking"`
 
         - `signature: string`
 
@@ -16624,17 +16647,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The `thinking` text of this block as returned by the API.
 
-        - `type: "thinking"`
-
       - `RedactedThinkingBlockParam object`
+
+        - `type: "redacted_thinking"`
 
         - `data: string`
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type: "redacted_thinking"`
-
       - `ToolUseBlockParam object`
+
+        - `type: "tool_use"`
 
         - `id: string`
 
@@ -16645,8 +16668,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `name: string`
 
           maxLength: 200, minLength: 1
-
-        - `type: "tool_use"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16666,19 +16687,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Tool invocation generated by a server-side tool.
 
+            - `type: "code_execution_20250825"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120 object`
 
+            - `type: "code_execution_20260120"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20260120"`
 
         - `toolset_name: optional string or null`
 
@@ -16688,11 +16709,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `ToolResultBlockParam object`
 
+        - `type: "tool_result"`
+
         - `tool_use_id: string`
 
           pattern: ^[a-zA-Z0-9_-]+$
-
-        - `type: "tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16716,11 +16737,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Tool reference block that can be included in tool_result content.
 
+              - `type: "tool_reference"`
+
               - `tool_name: string`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: "tool_reference"`
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16735,6 +16756,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               At most one per `tool_result`, only on a non-error result answering a
               browser toolset member `tool_use`. The server renders the
               model-visible text from it; the model never sees the raw fields.
+
+              - `type: "browser_state"`
 
               - `tabs: array of BrowserStateTabEntry`
 
@@ -16764,8 +16787,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `type: "browser_state"`
-
               - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
@@ -16786,25 +16807,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
                   during a failed call gets no deferred `tab_opened`; it simply appears
                   in the next result's `tabs` inventory.
 
+                  - `type: "tab_opened"`
+
                   - `tab_id: string`
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type: "tab_opened"`
-
                 - `BrowserStateChangeDownloadStarted object`
 
                   A file download that started during this call.
+
+                  - `type: "download_started"`
 
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_started"`
 
                   - `url: string`
 
@@ -16819,13 +16840,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
                   `download_started`, when the download finished during the call that
                   started it (at most one state change per `download_id` per result).
 
+                  - `type: "download_completed"`
+
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_completed"`
 
                   - `url: string`
 
@@ -16849,13 +16870,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   A file download that failed — or was cancelled — during this call.
 
+                  - `type: "download_failed"`
+
                   - `download_id: string`
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                  - `type: "download_failed"`
 
                   - `url: string`
 
@@ -16879,6 +16900,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `ServerToolUseBlockParam object`
 
+        - `type: "server_tool_use"`
+
         - `id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -16901,8 +16924,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_search_tool_bm25"`
 
-        - `type: "server_tool_use"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -16923,21 +16944,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `WebSearchToolResultBlockParam object`
 
+        - `type: "web_search_tool_result"`
+
         - `content: WebSearchToolResultBlockParamContent`
 
           - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+            - `type: "web_search_result"`
+
             - `encrypted_content: string`
 
             - `title: string`
-
-            - `type: "web_search_result"`
 
             - `url: string`
 
             - `page_age: optional string or null`
 
           - `WebSearchToolRequestError object`
+
+            - `type: "web_search_tool_result_error"`
 
             - `error_code: WebSearchToolResultErrorCode`
 
@@ -16953,13 +16978,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"request_too_large"`
 
-            - `type: "web_search_tool_result_error"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "web_search_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -16981,9 +17002,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `WebFetchToolResultBlockParam object`
 
+        - `type: "web_fetch_tool_result"`
+
         - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
 
           - `WebFetchToolResultErrorBlockParam object`
+
+            - `type: "web_fetch_tool_result_error"`
 
             - `error_code: WebFetchToolResultErrorCode`
 
@@ -17005,13 +17030,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"unavailable"`
 
-            - `type: "web_fetch_tool_result_error"`
+              - `"content_too_large"`
 
           - `WebFetchBlockParam object`
 
-            - `content: DocumentBlockParam`
-
             - `type: "web_fetch_result"`
+
+            - `content: DocumentBlockParam`
 
             - `url: string`
 
@@ -17024,8 +17049,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "web_fetch_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17047,11 +17070,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `CodeExecutionToolResultBlockParam object`
 
+        - `type: "code_execution_tool_result"`
+
         - `content: CodeExecutionToolResultBlockParamContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `CodeExecutionToolResultErrorParam object`
+
+            - `type: "code_execution_tool_result_error"`
 
             - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -17063,15 +17090,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"execution_time_exceeded"`
 
-            - `type: "code_execution_tool_result_error"`
-
           - `CodeExecutionResultBlockParam object`
+
+            - `type: "code_execution_result"`
 
             - `content: array of CodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "code_execution_output"`
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -17079,17 +17106,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `stdout: string`
 
-            - `type: "code_execution_result"`
-
           - `EncryptedCodeExecutionResultBlockParam object`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
+            - `type: "encrypted_code_execution_result"`
+
             - `content: array of CodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "code_execution_output"`
+
+              - `file_id: string`
 
             - `encrypted_stdout: string`
 
@@ -17097,13 +17124,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `stderr: string`
 
-            - `type: "encrypted_code_execution_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "code_execution_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17111,9 +17134,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BashCodeExecutionToolResultBlockParam object`
 
+        - `type: "bash_code_execution_tool_result"`
+
         - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
 
           - `BashCodeExecutionToolResultErrorParam object`
+
+            - `type: "bash_code_execution_tool_result_error"`
 
             - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -17127,15 +17154,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"output_file_too_large"`
 
-            - `type: "bash_code_execution_tool_result_error"`
-
           - `BashCodeExecutionResultBlockParam object`
+
+            - `type: "bash_code_execution_result"`
 
             - `content: array of BashCodeExecutionOutputBlockParam`
 
-              - `file_id: string`
-
               - `type: "bash_code_execution_output"`
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -17143,13 +17170,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `stdout: string`
 
-            - `type: "bash_code_execution_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "bash_code_execution_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17157,9 +17180,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `TextEditorCodeExecutionToolResultBlockParam object`
 
+        - `type: "text_editor_code_execution_tool_result"`
+
         - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
 
           - `TextEditorCodeExecutionToolResultErrorParam object`
+
+            - `type: "text_editor_code_execution_tool_result_error"`
 
             - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -17173,11 +17200,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"file_not_found"`
 
-            - `type: "text_editor_code_execution_tool_result_error"`
-
             - `error_message: optional string or null`
 
           - `TextEditorCodeExecutionViewResultBlockParam object`
+
+            - `type: "text_editor_code_execution_view_result"`
 
             - `content: string`
 
@@ -17189,8 +17216,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"pdf"`
 
-            - `type: "text_editor_code_execution_view_result"`
-
             - `num_lines: optional number or null`
 
             - `start_line: optional number or null`
@@ -17199,9 +17224,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-            - `is_file_update: boolean`
-
             - `type: "text_editor_code_execution_create_result"`
+
+            - `is_file_update: boolean`
 
           - `TextEditorCodeExecutionStrReplaceResultBlockParam object`
 
@@ -17221,17 +17246,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "text_editor_code_execution_tool_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
       - `ToolSearchToolResultBlockParam object`
 
+        - `type: "tool_search_tool_result"`
+
         - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
 
           - `ToolSearchToolResultErrorParam object`
+
+            - `type: "tool_search_tool_result_error"`
 
             - `error_code: ToolSearchToolResultErrorCode`
 
@@ -17243,31 +17270,27 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"execution_time_exceeded"`
 
-            - `type: "tool_search_tool_result_error"`
-
             - `error_message: optional string or null`
 
           - `ToolSearchToolSearchResultBlockParam object`
 
+            - `type: "tool_search_tool_search_result"`
+
             - `tool_references: array of ToolReferenceBlockParam`
+
+              - `type: "tool_reference"`
 
               - `tool_name: string`
 
                 maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `type: "tool_reference"`
-
               - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type: "tool_search_tool_search_result"`
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "tool_search_tool_result"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17278,9 +17301,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
 
-        - `file_id: string`
-
         - `type: "container_upload"`
+
+        - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17420,11 +17443,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+    - `type: "json_schema"`
+
     - `schema: map[unknown]`
 
       The JSON schema of the format
-
-    - `type: "json_schema"`
 
 ### Output Tokens Details
 
@@ -17447,11 +17470,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `PlainTextSource object`
 
+  - `type: "text"`
+
   - `data: string`
 
   - `media_type: "text/plain"`
-
-  - `type: "text"`
 
 ### Raw Content Block Delta
 
@@ -17459,25 +17482,33 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `TextDelta object`
 
-    - `text: string`
-
     - `type: "text_delta"`
 
       default: text_delta
 
-  - `InputJSONDelta object`
+    - `text: string`
 
-    - `partial_json: string`
+  - `InputJSONDelta object`
 
     - `type: "input_json_delta"`
 
       default: input_json_delta
 
+    - `partial_json: string`
+
   - `CitationsDelta object`
+
+    - `type: "citations_delta"`
+
+      default: citations_delta
 
     - `citation: CitationCharLocation or CitationPageLocation or CitationContentBlockLocation or 2 more`
 
       - `CitationCharLocation object`
+
+        - `type: "char_location"`
+
+          default: char_location
 
         - `cited_text: string`
 
@@ -17495,11 +17526,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "char_location"`
-
-          default: char_location
-
       - `CitationPageLocation object`
+
+        - `type: "page_location"`
+
+          default: page_location
 
         - `cited_text: string`
 
@@ -17517,11 +17548,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 1
 
-        - `type: "page_location"`
-
-          default: page_location
-
       - `CitationContentBlockLocation object`
+
+        - `type: "content_block_location"`
+
+          default: content_block_location
 
         - `cited_text: string`
 
@@ -17549,11 +17580,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "content_block_location"`
-
-          default: content_block_location
-
       - `CitationsWebSearchResultLocation object`
+
+        - `type: "web_search_result_location"`
+
+          default: web_search_result_location
 
         - `cited_text: string`
 
@@ -17563,13 +17594,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           maxLength: 512
 
-        - `type: "web_search_result_location"`
-
-          default: web_search_result_location
-
         - `url: string`
 
       - `CitationsSearchResultLocation object`
+
+        - `type: "search_result_location"`
+
+          default: search_result_location
 
         - `cited_text: string`
 
@@ -17601,61 +17632,65 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-        - `type: "search_result_location"`
-
-          default: search_result_location
-
-    - `type: "citations_delta"`
-
-      default: citations_delta
-
   - `ThinkingDelta object`
-
-    - `thinking: string`
-
-      The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
     - `type: "thinking_delta"`
 
       default: thinking_delta
 
+    - `thinking: string`
+
+      The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
   - `SignatureDelta object`
-
-    - `signature: string`
-
-      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
     - `type: "signature_delta"`
 
       default: signature_delta
 
+    - `signature: string`
+
+      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
 ### Raw Content Block Delta Event
 
 - `RawContentBlockDeltaEvent object`
+
+  - `type: "content_block_delta"`
+
+    default: content_block_delta
 
   - `delta: RawContentBlockDelta`
 
     - `TextDelta object`
 
-      - `text: string`
-
       - `type: "text_delta"`
 
         default: text_delta
 
-    - `InputJSONDelta object`
+      - `text: string`
 
-      - `partial_json: string`
+    - `InputJSONDelta object`
 
       - `type: "input_json_delta"`
 
         default: input_json_delta
 
+      - `partial_json: string`
+
     - `CitationsDelta object`
+
+      - `type: "citations_delta"`
+
+        default: citations_delta
 
       - `citation: CitationCharLocation or CitationPageLocation or CitationContentBlockLocation or 2 more`
 
         - `CitationCharLocation object`
+
+          - `type: "char_location"`
+
+            default: char_location
 
           - `cited_text: string`
 
@@ -17673,11 +17708,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 0
 
-          - `type: "char_location"`
-
-            default: char_location
-
         - `CitationPageLocation object`
+
+          - `type: "page_location"`
+
+            default: page_location
 
           - `cited_text: string`
 
@@ -17695,11 +17730,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 1
 
-          - `type: "page_location"`
-
-            default: page_location
-
         - `CitationContentBlockLocation object`
+
+          - `type: "content_block_location"`
+
+            default: content_block_location
 
           - `cited_text: string`
 
@@ -17727,11 +17762,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 0
 
-          - `type: "content_block_location"`
-
-            default: content_block_location
-
         - `CitationsWebSearchResultLocation object`
+
+          - `type: "web_search_result_location"`
+
+            default: web_search_result_location
 
           - `cited_text: string`
 
@@ -17741,13 +17776,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             maxLength: 512
 
-          - `type: "web_search_result_location"`
-
-            default: web_search_result_location
-
           - `url: string`
 
         - `CitationsSearchResultLocation object`
+
+          - `type: "search_result_location"`
+
+            default: search_result_location
 
           - `cited_text: string`
 
@@ -17779,49 +17814,45 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `title: string or null`
 
-          - `type: "search_result_location"`
-
-            default: search_result_location
-
-      - `type: "citations_delta"`
-
-        default: citations_delta
-
     - `ThinkingDelta object`
-
-      - `thinking: string`
-
-        The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
       - `type: "thinking_delta"`
 
         default: thinking_delta
 
+      - `thinking: string`
+
+        The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
     - `SignatureDelta object`
-
-      - `signature: string`
-
-        The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
       - `type: "signature_delta"`
 
         default: signature_delta
 
+      - `signature: string`
+
+        The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
   - `index: number`
-
-  - `type: "content_block_delta"`
-
-    default: content_block_delta
 
 ### Raw Content Block Start Event
 
 - `RawContentBlockStartEvent object`
+
+  - `type: "content_block_start"`
+
+    default: content_block_start
 
   - `content_block: TextBlock or ThinkingBlock or RedactedThinkingBlock or 9 more`
 
     Response model for a file uploaded to the container.
 
     - `TextBlock object`
+
+      - `type: "text"`
+
+        default: text
 
       - `citations: array of TextCitation or null`
 
@@ -17831,6 +17862,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `CitationCharLocation object`
 
+          - `type: "char_location"`
+
+            default: char_location
+
           - `cited_text: string`
 
           - `document_index: number`
@@ -17847,11 +17882,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 0
 
-          - `type: "char_location"`
-
-            default: char_location
-
         - `CitationPageLocation object`
+
+          - `type: "page_location"`
+
+            default: page_location
 
           - `cited_text: string`
 
@@ -17869,11 +17904,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 1
 
-          - `type: "page_location"`
-
-            default: page_location
-
         - `CitationContentBlockLocation object`
+
+          - `type: "content_block_location"`
+
+            default: content_block_location
 
           - `cited_text: string`
 
@@ -17901,11 +17936,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             minimum: 0
 
-          - `type: "content_block_location"`
-
-            default: content_block_location
-
         - `CitationsWebSearchResultLocation object`
+
+          - `type: "web_search_result_location"`
+
+            default: web_search_result_location
 
           - `cited_text: string`
 
@@ -17915,13 +17950,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             maxLength: 512
 
-          - `type: "web_search_result_location"`
-
-            default: web_search_result_location
-
           - `url: string`
 
         - `CitationsSearchResultLocation object`
+
+          - `type: "search_result_location"`
+
+            default: search_result_location
 
           - `cited_text: string`
 
@@ -17953,19 +17988,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `title: string or null`
 
-          - `type: "search_result_location"`
-
-            default: search_result_location
-
       - `text: string`
 
-        maxLength: 5000000, minLength: 0
-
-      - `type: "text"`
-
-        default: text
+        minLength: 0
 
     - `ThinkingBlock object`
+
+      - `type: "thinking"`
+
+        default: thinking
 
       - `signature: string`
 
@@ -17979,11 +18010,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The text of Claude's thinking process for this block.
 
-      - `type: "thinking"`
-
-        default: thinking
-
     - `RedactedThinkingBlock object`
+
+      - `type: "redacted_thinking"`
+
+        default: redacted_thinking
 
       - `data: string`
 
@@ -17993,11 +18024,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `type: "redacted_thinking"`
-
-        default: redacted_thinking
-
     - `ToolUseBlock object`
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string`
 
@@ -18019,29 +18050,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Tool invocation generated by a server-side tool.
 
+          - `type: "code_execution_20250825"`
+
           - `tool_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "code_execution_20250825"`
 
         - `ServerToolCaller20260120 object`
 
+          - `type: "code_execution_20260120"`
+
           - `tool_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "code_execution_20260120"`
 
       - `input: map[unknown]`
 
       - `name: string`
 
         minLength: 1
-
-      - `type: "tool_use"`
-
-        default: tool_use
 
       - `toolset_name: optional string or null`
 
@@ -18050,6 +18077,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock object`
+
+      - `type: "server_tool_use"`
+
+        default: server_tool_use
 
       - `id: string`
 
@@ -18089,11 +18120,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"tool_search_tool_bm25"`
 
-      - `type: "server_tool_use"`
-
-        default: server_tool_use
-
     - `WebSearchToolResultBlock object`
+
+      - `type: "web_search_tool_result"`
+
+        default: web_search_tool_result
 
       - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -18115,6 +18146,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `WebSearchToolResultError object`
 
+          - `type: "web_search_tool_result_error"`
+
+            default: web_search_tool_result_error
+
           - `error_code: WebSearchToolResultErrorCode`
 
             - `"invalid_tool_input"`
@@ -18129,11 +18164,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"request_too_large"`
 
-          - `type: "web_search_tool_result_error"`
-
-            default: web_search_tool_result_error
-
         - `array of WebSearchResultBlock`
+
+          - `type: "web_search_result"`
+
+            default: web_search_result
 
           - `encrypted_content: string`
 
@@ -18141,21 +18176,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `title: string`
 
-          - `type: "web_search_result"`
-
-            default: web_search_result
-
           - `url: string`
 
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "web_search_tool_result"`
-
-        default: web_search_tool_result
-
     - `WebFetchToolResultBlock object`
+
+      - `type: "web_fetch_tool_result"`
+
+        default: web_fetch_tool_result
 
       - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -18177,6 +18208,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `WebFetchToolResultErrorBlock object`
 
+          - `type: "web_fetch_tool_result_error"`
+
+            default: web_fetch_tool_result_error
+
           - `error_code: WebFetchToolResultErrorCode`
 
             - `"invalid_tool_input"`
@@ -18197,13 +18232,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"unavailable"`
 
-          - `type: "web_fetch_tool_result_error"`
-
-            default: web_fetch_tool_result_error
+            - `"content_too_large"`
 
         - `WebFetchBlock object`
 
+          - `type: "web_fetch_result"`
+
+            default: web_fetch_result
+
           - `content: DocumentBlock`
+
+            - `type: "document"`
+
+              default: document
 
             - `citations: CitationsConfig or null`
 
@@ -18217,37 +18258,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `Base64PDFSource object`
 
+                - `type: "base64"`
+
                 - `data: string`
 
                   format: byte
 
                 - `media_type: "application/pdf"`
 
-                - `type: "base64"`
-
               - `PlainTextSource object`
+
+                - `type: "text"`
 
                 - `data: string`
 
                 - `media_type: "text/plain"`
 
-                - `type: "text"`
-
             - `title: string or null`
 
               The title of the document
 
-            - `type: "document"`
-
-              default: document
-
           - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
-
-          - `type: "web_fetch_result"`
-
-            default: web_fetch_result
 
           - `url: string`
 
@@ -18257,17 +18290,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "web_fetch_tool_result"`
-
-        default: web_fetch_tool_result
-
     - `CodeExecutionToolResultBlock object`
+
+      - `type: "code_execution_tool_result"`
+
+        default: code_execution_tool_result
 
       - `content: CodeExecutionToolResultBlockContent`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
         - `CodeExecutionToolResultError object`
+
+          - `type: "code_execution_tool_result_error"`
+
+            default: code_execution_tool_result_error
 
           - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -18279,19 +18316,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"execution_time_exceeded"`
 
-          - `type: "code_execution_tool_result_error"`
-
-            default: code_execution_tool_result_error
-
         - `CodeExecutionResultBlock object`
 
-          - `content: array of CodeExecutionOutputBlock`
+          - `type: "code_execution_result"`
 
-            - `file_id: string`
+            default: code_execution_result
+
+          - `content: array of CodeExecutionOutputBlock`
 
             - `type: "code_execution_output"`
 
               default: code_execution_output
+
+            - `file_id: string`
 
           - `return_code: number`
 
@@ -18299,21 +18336,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `stdout: string`
 
-          - `type: "code_execution_result"`
-
-            default: code_execution_result
-
         - `EncryptedCodeExecutionResultBlock object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `content: array of CodeExecutionOutputBlock`
+          - `type: "encrypted_code_execution_result"`
 
-            - `file_id: string`
+            default: encrypted_code_execution_result
+
+          - `content: array of CodeExecutionOutputBlock`
 
             - `type: "code_execution_output"`
 
               default: code_execution_output
+
+            - `file_id: string`
 
           - `encrypted_stdout: string`
 
@@ -18321,23 +18358,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `stderr: string`
 
-          - `type: "encrypted_code_execution_result"`
-
-            default: encrypted_code_execution_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "code_execution_tool_result"`
-
-        default: code_execution_tool_result
-
     - `BashCodeExecutionToolResultBlock object`
+
+      - `type: "bash_code_execution_tool_result"`
+
+        default: bash_code_execution_tool_result
 
       - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
         - `BashCodeExecutionToolResultError object`
+
+          - `type: "bash_code_execution_tool_result_error"`
+
+            default: bash_code_execution_tool_result_error
 
           - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -18351,19 +18388,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"output_file_too_large"`
 
-          - `type: "bash_code_execution_tool_result_error"`
-
-            default: bash_code_execution_tool_result_error
-
         - `BashCodeExecutionResultBlock object`
 
-          - `content: array of BashCodeExecutionOutputBlock`
+          - `type: "bash_code_execution_result"`
 
-            - `file_id: string`
+            default: bash_code_execution_result
+
+          - `content: array of BashCodeExecutionOutputBlock`
 
             - `type: "bash_code_execution_output"`
 
               default: bash_code_execution_output
+
+            - `file_id: string`
 
           - `return_code: number`
 
@@ -18371,23 +18408,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `stdout: string`
 
-          - `type: "bash_code_execution_result"`
-
-            default: bash_code_execution_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "bash_code_execution_tool_result"`
-
-        default: bash_code_execution_tool_result
-
     - `TextEditorCodeExecutionToolResultBlock object`
+
+      - `type: "text_editor_code_execution_tool_result"`
+
+        default: text_editor_code_execution_tool_result
 
       - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
         - `TextEditorCodeExecutionToolResultError object`
+
+          - `type: "text_editor_code_execution_tool_result_error"`
+
+            default: text_editor_code_execution_tool_result_error
 
           - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -18403,11 +18440,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `error_message: string or null`
 
-          - `type: "text_editor_code_execution_tool_result_error"`
-
-            default: text_editor_code_execution_tool_result_error
-
         - `TextEditorCodeExecutionViewResultBlock object`
+
+          - `type: "text_editor_code_execution_view_result"`
+
+            default: text_editor_code_execution_view_result
 
           - `content: string`
 
@@ -18425,19 +18462,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `total_lines: number or null`
 
-          - `type: "text_editor_code_execution_view_result"`
-
-            default: text_editor_code_execution_view_result
-
         - `TextEditorCodeExecutionCreateResultBlock object`
-
-          - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
             default: text_editor_code_execution_create_result
 
+          - `is_file_update: boolean`
+
         - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+          - `type: "text_editor_code_execution_str_replace_result"`
+
+            default: text_editor_code_execution_str_replace_result
 
           - `lines: array of string or null`
 
@@ -18449,23 +18486,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `old_start: number or null`
 
-          - `type: "text_editor_code_execution_str_replace_result"`
-
-            default: text_editor_code_execution_str_replace_result
-
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `type: "text_editor_code_execution_tool_result"`
-
-        default: text_editor_code_execution_tool_result
-
     - `ToolSearchToolResultBlock object`
+
+      - `type: "tool_search_tool_result"`
+
+        default: tool_search_tool_result
 
       - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
         - `ToolSearchToolResultError object`
+
+          - `type: "tool_search_tool_result_error"`
+
+            default: tool_search_tool_result_error
 
           - `error_code: ToolSearchToolResultErrorCode`
 
@@ -18479,63 +18516,55 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `error_message: string or null`
 
-          - `type: "tool_search_tool_result_error"`
-
-            default: tool_search_tool_result_error
-
         - `ToolSearchToolSearchResultBlock object`
-
-          - `tool_references: array of ToolReferenceBlock`
-
-            - `tool_name: string`
-
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-            - `type: "tool_reference"`
-
-              default: tool_reference
 
           - `type: "tool_search_tool_search_result"`
 
             default: tool_search_tool_search_result
 
+          - `tool_references: array of ToolReferenceBlock`
+
+            - `type: "tool_reference"`
+
+              default: tool_reference
+
+            - `tool_name: string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `tool_use_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "tool_search_tool_result"`
-
-        default: tool_search_tool_result
 
     - `ContainerUploadBlock object`
 
       Response model for a file uploaded to the container.
 
-      - `file_id: string`
-
       - `type: "container_upload"`
 
         default: container_upload
 
+      - `file_id: string`
+
   - `index: number`
-
-  - `type: "content_block_start"`
-
-    default: content_block_start
 
 ### Raw Content Block Stop Event
 
 - `RawContentBlockStopEvent object`
 
-  - `index: number`
-
   - `type: "content_block_stop"`
 
     default: content_block_stop
 
+  - `index: number`
+
 ### Raw Message Delta Event
 
 - `RawMessageDeltaEvent object`
+
+  - `type: "message_delta"`
+
+    default: message_delta
 
   - `delta: object`
 
@@ -18557,12 +18586,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Skills loaded in the container
 
-        - `skill_id: string`
-
-          Skill ID
-
-          maxLength: 64, minLength: 1
-
         - `type: "anthropic" or "custom"`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -18570,6 +18593,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           - `"anthropic"`
 
           - `"custom"`
+
+        - `skill_id: string`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `version: string`
 
@@ -18580,6 +18609,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `stop_details: RefusalStopDetails or null`
 
       Structured information about a refusal.
+
+      - `type: "refusal"`
+
+        default: refusal
 
       - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
@@ -18611,10 +18644,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-      - `type: "refusal"`
-
-        default: refusal
-
     - `stop_reason: StopReason or null`
 
       - `"end_turn"`
@@ -18632,10 +18661,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       - `"model_context_window_exceeded"`
 
     - `stop_sequence: string or null`
-
-  - `type: "message_delta"`
-
-    default: message_delta
 
   - `usage: MessageDeltaUsage`
 
@@ -18713,7 +18738,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `RawMessageStartEvent object`
 
+  - `type: "message_start"`
+
+    default: message_start
+
   - `message: Message`
+
+    - `type: "message"`
+
+      Object type.
+
+      For Messages, this is always `"message"`.
+
+      default: message
 
     - `id: string`
 
@@ -18739,12 +18776,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Skills loaded in the container
 
-        - `skill_id: string`
-
-          Skill ID
-
-          maxLength: 64, minLength: 1
-
         - `type: "anthropic" or "custom"`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -18752,6 +18783,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           - `"anthropic"`
 
           - `"custom"`
+
+        - `skill_id: string`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `version: string`
 
@@ -18790,6 +18827,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `TextBlock object`
 
+        - `type: "text"`
+
+          default: text
+
         - `citations: array of TextCitation or null`
 
           Citations supporting the text block.
@@ -18797,6 +18838,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
           - `CitationCharLocation object`
+
+            - `type: "char_location"`
+
+              default: char_location
 
             - `cited_text: string`
 
@@ -18814,11 +18859,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "char_location"`
-
-              default: char_location
-
           - `CitationPageLocation object`
+
+            - `type: "page_location"`
+
+              default: page_location
 
             - `cited_text: string`
 
@@ -18836,11 +18881,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 1
 
-            - `type: "page_location"`
-
-              default: page_location
-
           - `CitationContentBlockLocation object`
+
+            - `type: "content_block_location"`
+
+              default: content_block_location
 
             - `cited_text: string`
 
@@ -18868,11 +18913,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "content_block_location"`
-
-              default: content_block_location
-
           - `CitationsWebSearchResultLocation object`
+
+            - `type: "web_search_result_location"`
+
+              default: web_search_result_location
 
             - `cited_text: string`
 
@@ -18882,13 +18927,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               maxLength: 512
 
-            - `type: "web_search_result_location"`
-
-              default: web_search_result_location
-
             - `url: string`
 
           - `CitationsSearchResultLocation object`
+
+            - `type: "search_result_location"`
+
+              default: search_result_location
 
             - `cited_text: string`
 
@@ -18920,19 +18965,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-            - `type: "search_result_location"`
-
-              default: search_result_location
-
         - `text: string`
 
-          maxLength: 5000000, minLength: 0
-
-        - `type: "text"`
-
-          default: text
+          minLength: 0
 
       - `ThinkingBlock object`
+
+        - `type: "thinking"`
+
+          default: thinking
 
         - `signature: string`
 
@@ -18946,11 +18987,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The text of Claude's thinking process for this block.
 
-        - `type: "thinking"`
-
-          default: thinking
-
       - `RedactedThinkingBlock object`
+
+        - `type: "redacted_thinking"`
+
+          default: redacted_thinking
 
         - `data: string`
 
@@ -18960,11 +19001,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `type: "redacted_thinking"`
-
-          default: redacted_thinking
-
       - `ToolUseBlock object`
+
+        - `type: "tool_use"`
+
+          default: tool_use
 
         - `id: string`
 
@@ -18986,29 +19027,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Tool invocation generated by a server-side tool.
 
+            - `type: "code_execution_20250825"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120 object`
 
+            - `type: "code_execution_20260120"`
+
             - `tool_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_20260120"`
 
         - `input: map[unknown]`
 
         - `name: string`
 
           minLength: 1
-
-        - `type: "tool_use"`
-
-          default: tool_use
 
         - `toolset_name: optional string or null`
 
@@ -19017,6 +19054,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlock object`
+
+        - `type: "server_tool_use"`
+
+          default: server_tool_use
 
         - `id: string`
 
@@ -19056,11 +19097,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_search_tool_bm25"`
 
-        - `type: "server_tool_use"`
-
-          default: server_tool_use
-
       - `WebSearchToolResultBlock object`
+
+        - `type: "web_search_tool_result"`
+
+          default: web_search_tool_result
 
         - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -19082,6 +19123,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `WebSearchToolResultError object`
 
+            - `type: "web_search_tool_result_error"`
+
+              default: web_search_tool_result_error
+
             - `error_code: WebSearchToolResultErrorCode`
 
               - `"invalid_tool_input"`
@@ -19096,11 +19141,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"request_too_large"`
 
-            - `type: "web_search_tool_result_error"`
-
-              default: web_search_tool_result_error
-
           - `array of WebSearchResultBlock`
+
+            - `type: "web_search_result"`
+
+              default: web_search_result
 
             - `encrypted_content: string`
 
@@ -19108,21 +19153,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string`
 
-            - `type: "web_search_result"`
-
-              default: web_search_result
-
             - `url: string`
 
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "web_search_tool_result"`
-
-          default: web_search_tool_result
-
       - `WebFetchToolResultBlock object`
+
+        - `type: "web_fetch_tool_result"`
+
+          default: web_fetch_tool_result
 
         - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -19144,6 +19185,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `WebFetchToolResultErrorBlock object`
 
+            - `type: "web_fetch_tool_result_error"`
+
+              default: web_fetch_tool_result_error
+
             - `error_code: WebFetchToolResultErrorCode`
 
               - `"invalid_tool_input"`
@@ -19164,13 +19209,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"unavailable"`
 
-            - `type: "web_fetch_tool_result_error"`
-
-              default: web_fetch_tool_result_error
+              - `"content_too_large"`
 
           - `WebFetchBlock object`
 
+            - `type: "web_fetch_result"`
+
+              default: web_fetch_result
+
             - `content: DocumentBlock`
+
+              - `type: "document"`
+
+                default: document
 
               - `citations: CitationsConfig or null`
 
@@ -19184,37 +19235,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `Base64PDFSource object`
 
+                  - `type: "base64"`
+
                   - `data: string`
 
                     format: byte
 
                   - `media_type: "application/pdf"`
 
-                  - `type: "base64"`
-
                 - `PlainTextSource object`
+
+                  - `type: "text"`
 
                   - `data: string`
 
                   - `media_type: "text/plain"`
 
-                  - `type: "text"`
-
               - `title: string or null`
 
                 The title of the document
 
-              - `type: "document"`
-
-                default: document
-
             - `retrieved_at: string or null`
 
               ISO 8601 timestamp when the content was retrieved
-
-            - `type: "web_fetch_result"`
-
-              default: web_fetch_result
 
             - `url: string`
 
@@ -19224,17 +19267,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "web_fetch_tool_result"`
-
-          default: web_fetch_tool_result
-
       - `CodeExecutionToolResultBlock object`
+
+        - `type: "code_execution_tool_result"`
+
+          default: code_execution_tool_result
 
         - `content: CodeExecutionToolResultBlockContent`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
           - `CodeExecutionToolResultError object`
+
+            - `type: "code_execution_tool_result_error"`
+
+              default: code_execution_tool_result_error
 
             - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -19246,19 +19293,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"execution_time_exceeded"`
 
-            - `type: "code_execution_tool_result_error"`
-
-              default: code_execution_tool_result_error
-
           - `CodeExecutionResultBlock object`
 
-            - `content: array of CodeExecutionOutputBlock`
+            - `type: "code_execution_result"`
 
-              - `file_id: string`
+              default: code_execution_result
+
+            - `content: array of CodeExecutionOutputBlock`
 
               - `type: "code_execution_output"`
 
                 default: code_execution_output
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -19266,21 +19313,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `stdout: string`
 
-            - `type: "code_execution_result"`
-
-              default: code_execution_result
-
           - `EncryptedCodeExecutionResultBlock object`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
-            - `content: array of CodeExecutionOutputBlock`
+            - `type: "encrypted_code_execution_result"`
 
-              - `file_id: string`
+              default: encrypted_code_execution_result
+
+            - `content: array of CodeExecutionOutputBlock`
 
               - `type: "code_execution_output"`
 
                 default: code_execution_output
+
+              - `file_id: string`
 
             - `encrypted_stdout: string`
 
@@ -19288,23 +19335,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `stderr: string`
 
-            - `type: "encrypted_code_execution_result"`
-
-              default: encrypted_code_execution_result
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "code_execution_tool_result"`
-
-          default: code_execution_tool_result
-
       - `BashCodeExecutionToolResultBlock object`
+
+        - `type: "bash_code_execution_tool_result"`
+
+          default: bash_code_execution_tool_result
 
         - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
           - `BashCodeExecutionToolResultError object`
+
+            - `type: "bash_code_execution_tool_result_error"`
+
+              default: bash_code_execution_tool_result_error
 
             - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -19318,19 +19365,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"output_file_too_large"`
 
-            - `type: "bash_code_execution_tool_result_error"`
-
-              default: bash_code_execution_tool_result_error
-
           - `BashCodeExecutionResultBlock object`
 
-            - `content: array of BashCodeExecutionOutputBlock`
+            - `type: "bash_code_execution_result"`
 
-              - `file_id: string`
+              default: bash_code_execution_result
+
+            - `content: array of BashCodeExecutionOutputBlock`
 
               - `type: "bash_code_execution_output"`
 
                 default: bash_code_execution_output
+
+              - `file_id: string`
 
             - `return_code: number`
 
@@ -19338,23 +19385,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `stdout: string`
 
-            - `type: "bash_code_execution_result"`
-
-              default: bash_code_execution_result
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "bash_code_execution_tool_result"`
-
-          default: bash_code_execution_tool_result
-
       - `TextEditorCodeExecutionToolResultBlock object`
+
+        - `type: "text_editor_code_execution_tool_result"`
+
+          default: text_editor_code_execution_tool_result
 
         - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
           - `TextEditorCodeExecutionToolResultError object`
+
+            - `type: "text_editor_code_execution_tool_result_error"`
+
+              default: text_editor_code_execution_tool_result_error
 
             - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -19370,11 +19417,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `error_message: string or null`
 
-            - `type: "text_editor_code_execution_tool_result_error"`
-
-              default: text_editor_code_execution_tool_result_error
-
           - `TextEditorCodeExecutionViewResultBlock object`
+
+            - `type: "text_editor_code_execution_view_result"`
+
+              default: text_editor_code_execution_view_result
 
             - `content: string`
 
@@ -19392,19 +19439,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `total_lines: number or null`
 
-            - `type: "text_editor_code_execution_view_result"`
-
-              default: text_editor_code_execution_view_result
-
           - `TextEditorCodeExecutionCreateResultBlock object`
-
-            - `is_file_update: boolean`
 
             - `type: "text_editor_code_execution_create_result"`
 
               default: text_editor_code_execution_create_result
 
+            - `is_file_update: boolean`
+
           - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+            - `type: "text_editor_code_execution_str_replace_result"`
+
+              default: text_editor_code_execution_str_replace_result
 
             - `lines: array of string or null`
 
@@ -19416,23 +19463,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `old_start: number or null`
 
-            - `type: "text_editor_code_execution_str_replace_result"`
-
-              default: text_editor_code_execution_str_replace_result
-
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `type: "text_editor_code_execution_tool_result"`
-
-          default: text_editor_code_execution_tool_result
-
       - `ToolSearchToolResultBlock object`
+
+        - `type: "tool_search_tool_result"`
+
+          default: tool_search_tool_result
 
         - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
           - `ToolSearchToolResultError object`
+
+            - `type: "tool_search_tool_result_error"`
+
+              default: tool_search_tool_result_error
 
             - `error_code: ToolSearchToolResultErrorCode`
 
@@ -19446,43 +19493,35 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `error_message: string or null`
 
-            - `type: "tool_search_tool_result_error"`
-
-              default: tool_search_tool_result_error
-
           - `ToolSearchToolSearchResultBlock object`
-
-            - `tool_references: array of ToolReferenceBlock`
-
-              - `tool_name: string`
-
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-              - `type: "tool_reference"`
-
-                default: tool_reference
 
             - `type: "tool_search_tool_search_result"`
 
               default: tool_search_tool_search_result
 
+            - `tool_references: array of ToolReferenceBlock`
+
+              - `type: "tool_reference"`
+
+                default: tool_reference
+
+              - `tool_name: string`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
         - `tool_use_id: string`
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-        - `type: "tool_search_tool_result"`
-
-          default: tool_search_tool_result
 
       - `ContainerUploadBlock object`
 
         Response model for a file uploaded to the container.
 
-        - `file_id: string`
-
         - `type: "container_upload"`
 
           default: container_upload
+
+        - `file_id: string`
 
     - `model: Model`
 
@@ -19578,6 +19617,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Structured information about a refusal.
 
+      - `type: "refusal"`
+
+        default: refusal
+
       - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
         The policy category that triggered a refusal.
@@ -19607,10 +19650,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         Human-readable explanation of the refusal.
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-      - `type: "refusal"`
-
-        default: refusal
 
     - `stop_reason: StopReason or null`
 
@@ -19647,14 +19686,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       Which custom stop sequence was generated, if any.
 
       This value will be a non-null string if one of your custom stop sequences was generated.
-
-    - `type: "message"`
-
-      Object type.
-
-      For Messages, this is always `"message"`.
-
-      default: message
 
     - `usage: Usage`
 
@@ -19760,10 +19791,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"batch"`
 
-  - `type: "message_start"`
-
-    default: message_start
-
 ### Raw Message Stop Event
 
 - `RawMessageStopEvent object`
@@ -19778,7 +19805,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `RawMessageStartEvent object`
 
+    - `type: "message_start"`
+
+      default: message_start
+
     - `message: Message`
+
+      - `type: "message"`
+
+        Object type.
+
+        For Messages, this is always `"message"`.
+
+        default: message
 
       - `id: string`
 
@@ -19804,12 +19843,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Skills loaded in the container
 
-          - `skill_id: string`
-
-            Skill ID
-
-            maxLength: 64, minLength: 1
-
           - `type: "anthropic" or "custom"`
 
             Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -19817,6 +19850,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             - `"anthropic"`
 
             - `"custom"`
+
+          - `skill_id: string`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `version: string`
 
@@ -19855,6 +19894,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `TextBlock object`
 
+          - `type: "text"`
+
+            default: text
+
           - `citations: array of TextCitation or null`
 
             Citations supporting the text block.
@@ -19862,6 +19905,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
             - `CitationCharLocation object`
+
+              - `type: "char_location"`
+
+                default: char_location
 
               - `cited_text: string`
 
@@ -19879,11 +19926,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 minimum: 0
 
-              - `type: "char_location"`
-
-                default: char_location
-
             - `CitationPageLocation object`
+
+              - `type: "page_location"`
+
+                default: page_location
 
               - `cited_text: string`
 
@@ -19901,11 +19948,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 minimum: 1
 
-              - `type: "page_location"`
-
-                default: page_location
-
             - `CitationContentBlockLocation object`
+
+              - `type: "content_block_location"`
+
+                default: content_block_location
 
               - `cited_text: string`
 
@@ -19933,11 +19980,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 minimum: 0
 
-              - `type: "content_block_location"`
-
-                default: content_block_location
-
             - `CitationsWebSearchResultLocation object`
+
+              - `type: "web_search_result_location"`
+
+                default: web_search_result_location
 
               - `cited_text: string`
 
@@ -19947,13 +19994,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 maxLength: 512
 
-              - `type: "web_search_result_location"`
-
-                default: web_search_result_location
-
               - `url: string`
 
             - `CitationsSearchResultLocation object`
+
+              - `type: "search_result_location"`
+
+                default: search_result_location
 
               - `cited_text: string`
 
@@ -19985,19 +20032,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `title: string or null`
 
-              - `type: "search_result_location"`
-
-                default: search_result_location
-
           - `text: string`
 
-            maxLength: 5000000, minLength: 0
-
-          - `type: "text"`
-
-            default: text
+            minLength: 0
 
         - `ThinkingBlock object`
+
+          - `type: "thinking"`
+
+            default: thinking
 
           - `signature: string`
 
@@ -20011,11 +20054,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             The text of Claude's thinking process for this block.
 
-          - `type: "thinking"`
-
-            default: thinking
-
         - `RedactedThinkingBlock object`
+
+          - `type: "redacted_thinking"`
+
+            default: redacted_thinking
 
           - `data: string`
 
@@ -20025,11 +20068,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `type: "redacted_thinking"`
-
-            default: redacted_thinking
-
         - `ToolUseBlock object`
+
+          - `type: "tool_use"`
+
+            default: tool_use
 
           - `id: string`
 
@@ -20051,29 +20094,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Tool invocation generated by a server-side tool.
 
+              - `type: "code_execution_20250825"`
+
               - `tool_id: string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `type: "code_execution_20250825"`
 
             - `ServerToolCaller20260120 object`
 
+              - `type: "code_execution_20260120"`
+
               - `tool_id: string`
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `type: "code_execution_20260120"`
 
           - `input: map[unknown]`
 
           - `name: string`
 
             minLength: 1
-
-          - `type: "tool_use"`
-
-            default: tool_use
 
           - `toolset_name: optional string or null`
 
@@ -20082,6 +20121,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `ServerToolUseBlock object`
+
+          - `type: "server_tool_use"`
+
+            default: server_tool_use
 
           - `id: string`
 
@@ -20121,11 +20164,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"tool_search_tool_bm25"`
 
-          - `type: "server_tool_use"`
-
-            default: server_tool_use
-
         - `WebSearchToolResultBlock object`
+
+          - `type: "web_search_tool_result"`
+
+            default: web_search_tool_result
 
           - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -20147,6 +20190,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `WebSearchToolResultError object`
 
+              - `type: "web_search_tool_result_error"`
+
+                default: web_search_tool_result_error
+
               - `error_code: WebSearchToolResultErrorCode`
 
                 - `"invalid_tool_input"`
@@ -20161,11 +20208,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"request_too_large"`
 
-              - `type: "web_search_tool_result_error"`
-
-                default: web_search_tool_result_error
-
             - `array of WebSearchResultBlock`
+
+              - `type: "web_search_result"`
+
+                default: web_search_result
 
               - `encrypted_content: string`
 
@@ -20173,21 +20220,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `title: string`
 
-              - `type: "web_search_result"`
-
-                default: web_search_result
-
               - `url: string`
 
           - `tool_use_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: "web_search_tool_result"`
-
-            default: web_search_tool_result
-
         - `WebFetchToolResultBlock object`
+
+          - `type: "web_fetch_tool_result"`
+
+            default: web_fetch_tool_result
 
           - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -20209,6 +20252,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `WebFetchToolResultErrorBlock object`
 
+              - `type: "web_fetch_tool_result_error"`
+
+                default: web_fetch_tool_result_error
+
               - `error_code: WebFetchToolResultErrorCode`
 
                 - `"invalid_tool_input"`
@@ -20229,13 +20276,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"unavailable"`
 
-              - `type: "web_fetch_tool_result_error"`
-
-                default: web_fetch_tool_result_error
+                - `"content_too_large"`
 
             - `WebFetchBlock object`
 
+              - `type: "web_fetch_result"`
+
+                default: web_fetch_result
+
               - `content: DocumentBlock`
+
+                - `type: "document"`
+
+                  default: document
 
                 - `citations: CitationsConfig or null`
 
@@ -20249,37 +20302,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `Base64PDFSource object`
 
+                    - `type: "base64"`
+
                     - `data: string`
 
                       format: byte
 
                     - `media_type: "application/pdf"`
 
-                    - `type: "base64"`
-
                   - `PlainTextSource object`
+
+                    - `type: "text"`
 
                     - `data: string`
 
                     - `media_type: "text/plain"`
 
-                    - `type: "text"`
-
                 - `title: string or null`
 
                   The title of the document
 
-                - `type: "document"`
-
-                  default: document
-
               - `retrieved_at: string or null`
 
                 ISO 8601 timestamp when the content was retrieved
-
-              - `type: "web_fetch_result"`
-
-                default: web_fetch_result
 
               - `url: string`
 
@@ -20289,17 +20334,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: "web_fetch_tool_result"`
-
-            default: web_fetch_tool_result
-
         - `CodeExecutionToolResultBlock object`
+
+          - `type: "code_execution_tool_result"`
+
+            default: code_execution_tool_result
 
           - `content: CodeExecutionToolResultBlockContent`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
             - `CodeExecutionToolResultError object`
+
+              - `type: "code_execution_tool_result_error"`
+
+                default: code_execution_tool_result_error
 
               - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -20311,19 +20360,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"execution_time_exceeded"`
 
-              - `type: "code_execution_tool_result_error"`
-
-                default: code_execution_tool_result_error
-
             - `CodeExecutionResultBlock object`
 
-              - `content: array of CodeExecutionOutputBlock`
+              - `type: "code_execution_result"`
 
-                - `file_id: string`
+                default: code_execution_result
+
+              - `content: array of CodeExecutionOutputBlock`
 
                 - `type: "code_execution_output"`
 
                   default: code_execution_output
+
+                - `file_id: string`
 
               - `return_code: number`
 
@@ -20331,21 +20380,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `stdout: string`
 
-              - `type: "code_execution_result"`
-
-                default: code_execution_result
-
             - `EncryptedCodeExecutionResultBlock object`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
-              - `content: array of CodeExecutionOutputBlock`
+              - `type: "encrypted_code_execution_result"`
 
-                - `file_id: string`
+                default: encrypted_code_execution_result
+
+              - `content: array of CodeExecutionOutputBlock`
 
                 - `type: "code_execution_output"`
 
                   default: code_execution_output
+
+                - `file_id: string`
 
               - `encrypted_stdout: string`
 
@@ -20353,23 +20402,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `stderr: string`
 
-              - `type: "encrypted_code_execution_result"`
-
-                default: encrypted_code_execution_result
-
           - `tool_use_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: "code_execution_tool_result"`
-
-            default: code_execution_tool_result
-
         - `BashCodeExecutionToolResultBlock object`
+
+          - `type: "bash_code_execution_tool_result"`
+
+            default: bash_code_execution_tool_result
 
           - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
             - `BashCodeExecutionToolResultError object`
+
+              - `type: "bash_code_execution_tool_result_error"`
+
+                default: bash_code_execution_tool_result_error
 
               - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -20383,19 +20432,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"output_file_too_large"`
 
-              - `type: "bash_code_execution_tool_result_error"`
-
-                default: bash_code_execution_tool_result_error
-
             - `BashCodeExecutionResultBlock object`
 
-              - `content: array of BashCodeExecutionOutputBlock`
+              - `type: "bash_code_execution_result"`
 
-                - `file_id: string`
+                default: bash_code_execution_result
+
+              - `content: array of BashCodeExecutionOutputBlock`
 
                 - `type: "bash_code_execution_output"`
 
                   default: bash_code_execution_output
+
+                - `file_id: string`
 
               - `return_code: number`
 
@@ -20403,23 +20452,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `stdout: string`
 
-              - `type: "bash_code_execution_result"`
-
-                default: bash_code_execution_result
-
           - `tool_use_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: "bash_code_execution_tool_result"`
-
-            default: bash_code_execution_tool_result
-
         - `TextEditorCodeExecutionToolResultBlock object`
+
+          - `type: "text_editor_code_execution_tool_result"`
+
+            default: text_editor_code_execution_tool_result
 
           - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
             - `TextEditorCodeExecutionToolResultError object`
+
+              - `type: "text_editor_code_execution_tool_result_error"`
+
+                default: text_editor_code_execution_tool_result_error
 
               - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -20435,11 +20484,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `error_message: string or null`
 
-              - `type: "text_editor_code_execution_tool_result_error"`
-
-                default: text_editor_code_execution_tool_result_error
-
             - `TextEditorCodeExecutionViewResultBlock object`
+
+              - `type: "text_editor_code_execution_view_result"`
+
+                default: text_editor_code_execution_view_result
 
               - `content: string`
 
@@ -20457,19 +20506,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `total_lines: number or null`
 
-              - `type: "text_editor_code_execution_view_result"`
-
-                default: text_editor_code_execution_view_result
-
             - `TextEditorCodeExecutionCreateResultBlock object`
-
-              - `is_file_update: boolean`
 
               - `type: "text_editor_code_execution_create_result"`
 
                 default: text_editor_code_execution_create_result
 
+              - `is_file_update: boolean`
+
             - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+              - `type: "text_editor_code_execution_str_replace_result"`
+
+                default: text_editor_code_execution_str_replace_result
 
               - `lines: array of string or null`
 
@@ -20481,23 +20530,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `old_start: number or null`
 
-              - `type: "text_editor_code_execution_str_replace_result"`
-
-                default: text_editor_code_execution_str_replace_result
-
           - `tool_use_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `type: "text_editor_code_execution_tool_result"`
-
-            default: text_editor_code_execution_tool_result
-
         - `ToolSearchToolResultBlock object`
+
+          - `type: "tool_search_tool_result"`
+
+            default: tool_search_tool_result
 
           - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
             - `ToolSearchToolResultError object`
+
+              - `type: "tool_search_tool_result_error"`
+
+                default: tool_search_tool_result_error
 
               - `error_code: ToolSearchToolResultErrorCode`
 
@@ -20511,43 +20560,35 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `error_message: string or null`
 
-              - `type: "tool_search_tool_result_error"`
-
-                default: tool_search_tool_result_error
-
             - `ToolSearchToolSearchResultBlock object`
-
-              - `tool_references: array of ToolReferenceBlock`
-
-                - `tool_name: string`
-
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                - `type: "tool_reference"`
-
-                  default: tool_reference
 
               - `type: "tool_search_tool_search_result"`
 
                 default: tool_search_tool_search_result
 
+              - `tool_references: array of ToolReferenceBlock`
+
+                - `type: "tool_reference"`
+
+                  default: tool_reference
+
+                - `tool_name: string`
+
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
           - `tool_use_id: string`
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-          - `type: "tool_search_tool_result"`
-
-            default: tool_search_tool_result
 
         - `ContainerUploadBlock object`
 
           Response model for a file uploaded to the container.
 
-          - `file_id: string`
-
           - `type: "container_upload"`
 
             default: container_upload
+
+          - `file_id: string`
 
       - `model: Model`
 
@@ -20643,6 +20684,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Structured information about a refusal.
 
+        - `type: "refusal"`
+
+          default: refusal
+
         - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
           The policy category that triggered a refusal.
@@ -20672,10 +20717,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           Human-readable explanation of the refusal.
 
           This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-        - `type: "refusal"`
-
-          default: refusal
 
       - `stop_reason: StopReason or null`
 
@@ -20712,14 +20753,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         Which custom stop sequence was generated, if any.
 
         This value will be a non-null string if one of your custom stop sequences was generated.
-
-      - `type: "message"`
-
-        Object type.
-
-        For Messages, this is always `"message"`.
-
-        default: message
 
       - `usage: Usage`
 
@@ -20825,11 +20858,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"batch"`
 
-    - `type: "message_start"`
-
-      default: message_start
-
   - `RawMessageDeltaEvent object`
+
+    - `type: "message_delta"`
+
+      default: message_delta
 
     - `delta: object`
 
@@ -20844,10 +20877,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       - `stop_reason: StopReason or null`
 
       - `stop_sequence: string or null`
-
-    - `type: "message_delta"`
-
-      default: message_delta
 
     - `usage: MessageDeltaUsage`
 
@@ -20904,6 +20933,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `RawContentBlockStartEvent object`
 
+    - `type: "content_block_start"`
+
+      default: content_block_start
+
     - `content_block: TextBlock or ThinkingBlock or RedactedThinkingBlock or 9 more`
 
       Response model for a file uploaded to the container.
@@ -20936,31 +20969,35 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `index: number`
 
-    - `type: "content_block_start"`
-
-      default: content_block_start
-
   - `RawContentBlockDeltaEvent object`
+
+    - `type: "content_block_delta"`
+
+      default: content_block_delta
 
     - `delta: RawContentBlockDelta`
 
       - `TextDelta object`
 
-        - `text: string`
-
         - `type: "text_delta"`
 
           default: text_delta
 
-      - `InputJSONDelta object`
+        - `text: string`
 
-        - `partial_json: string`
+      - `InputJSONDelta object`
 
         - `type: "input_json_delta"`
 
           default: input_json_delta
 
+        - `partial_json: string`
+
       - `CitationsDelta object`
+
+        - `type: "citations_delta"`
+
+          default: citations_delta
 
         - `citation: CitationCharLocation or CitationPageLocation or CitationContentBlockLocation or 2 more`
 
@@ -20974,47 +21011,43 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `CitationsSearchResultLocation object`
 
-        - `type: "citations_delta"`
-
-          default: citations_delta
-
       - `ThinkingDelta object`
-
-        - `thinking: string`
-
-          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
         - `type: "thinking_delta"`
 
           default: thinking_delta
 
+        - `thinking: string`
+
+          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
       - `SignatureDelta object`
-
-        - `signature: string`
-
-          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
         - `type: "signature_delta"`
 
           default: signature_delta
 
+        - `signature: string`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
     - `index: number`
-
-    - `type: "content_block_delta"`
-
-      default: content_block_delta
 
   - `RawContentBlockStopEvent object`
-
-    - `index: number`
 
     - `type: "content_block_stop"`
 
       default: content_block_stop
 
+    - `index: number`
+
 ### Redacted Thinking Block
 
 - `RedactedThinkingBlock object`
+
+  - `type: "redacted_thinking"`
+
+    default: redacted_thinking
 
   - `data: string`
 
@@ -21024,25 +21057,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-  - `type: "redacted_thinking"`
-
-    default: redacted_thinking
-
 ### Redacted Thinking Block Param
 
 - `RedactedThinkingBlockParam object`
 
+  - `type: "redacted_thinking"`
+
   - `data: string`
 
     The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
-
-  - `type: "redacted_thinking"`
 
 ### Refusal Stop Details
 
 - `RefusalStopDetails object`
 
   Structured information about a refusal.
+
+  - `type: "refusal"`
+
+    default: refusal
 
   - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
@@ -21074,21 +21107,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-  - `type: "refusal"`
-
-    default: refusal
-
 ### Search Result Block Param
 
 - `SearchResultBlockParam object`
 
+  - `type: "search_result"`
+
   - `content: array of TextBlockParam`
+
+    - `type: "text"`
 
     - `text: string`
 
       minLength: 1
-
-    - `type: "text"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -21115,6 +21146,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `CitationCharLocationParam object`
 
+        - `type: "char_location"`
+
         - `cited_text: string`
 
         - `document_index: number`
@@ -21131,9 +21164,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "char_location"`
-
       - `CitationPageLocationParam object`
+
+        - `type: "page_location"`
 
         - `cited_text: string`
 
@@ -21151,9 +21184,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 1
 
-        - `type: "page_location"`
-
       - `CitationContentBlockLocationParam object`
+
+        - `type: "content_block_location"`
 
         - `cited_text: string`
 
@@ -21181,9 +21214,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           minimum: 0
 
-        - `type: "content_block_location"`
-
       - `CitationWebSearchResultLocationParam object`
+
+        - `type: "web_search_result_location"`
 
         - `cited_text: string`
 
@@ -21193,13 +21226,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           maxLength: 512, minLength: 1
 
-        - `type: "web_search_result_location"`
-
         - `url: string`
 
           minLength: 1
 
       - `CitationSearchResultLocationParam object`
+
+        - `type: "search_result_location"`
 
         - `cited_text: string`
 
@@ -21231,13 +21264,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-        - `type: "search_result_location"`
-
   - `source: string`
 
   - `title: string`
-
-  - `type: "search_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -21253,21 +21282,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Tool invocation generated by a server-side tool.
 
+  - `type: "code_execution_20250825"`
+
   - `tool_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "code_execution_20250825"`
 
 ### Server Tool Caller 20260120
 
 - `ServerToolCaller20260120 object`
 
+  - `type: "code_execution_20260120"`
+
   - `tool_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "code_execution_20260120"`
 
 ### Server Tool Usage
 
@@ -21289,6 +21318,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ServerToolUseBlock object`
 
+  - `type: "server_tool_use"`
+
+    default: server_tool_use
+
   - `id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -21309,19 +21342,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
   - `input: map[unknown]`
 
@@ -21341,13 +21374,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_search_tool_bm25"`
 
-  - `type: "server_tool_use"`
-
-    default: server_tool_use
-
 ### Server Tool Use Block Param
 
 - `ServerToolUseBlockParam object`
+
+  - `type: "server_tool_use"`
 
   - `id: string`
 
@@ -21370,8 +21401,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"tool_search_tool_regex"`
 
     - `"tool_search_tool_bm25"`
-
-  - `type: "server_tool_use"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -21408,43 +21437,37 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
 ### Signature Delta
 
 - `SignatureDelta object`
 
-  - `signature: string`
-
-    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
-
   - `type: "signature_delta"`
 
     default: signature_delta
+
+  - `signature: string`
+
+    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
 ### Skill Params
 
 - `SkillParams object`
 
   Specification for a skill to be loaded in a container (request model).
-
-  - `skill_id: string`
-
-    Skill ID
-
-    maxLength: 64, minLength: 1
 
   - `type: "anthropic" or "custom"`
 
@@ -21453,6 +21476,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"anthropic"`
 
     - `"custom"`
+
+  - `skill_id: string`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `version: optional string`
 
@@ -21482,6 +21511,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `TextBlock object`
 
+  - `type: "text"`
+
+    default: text
+
   - `citations: array of TextCitation or null`
 
     Citations supporting the text block.
@@ -21489,6 +21522,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
     - `CitationCharLocation object`
+
+      - `type: "char_location"`
+
+        default: char_location
 
       - `cited_text: string`
 
@@ -21506,11 +21543,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 0
 
-      - `type: "char_location"`
-
-        default: char_location
-
     - `CitationPageLocation object`
+
+      - `type: "page_location"`
+
+        default: page_location
 
       - `cited_text: string`
 
@@ -21528,11 +21565,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 1
 
-      - `type: "page_location"`
-
-        default: page_location
-
     - `CitationContentBlockLocation object`
+
+      - `type: "content_block_location"`
+
+        default: content_block_location
 
       - `cited_text: string`
 
@@ -21560,11 +21597,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 0
 
-      - `type: "content_block_location"`
-
-        default: content_block_location
-
     - `CitationsWebSearchResultLocation object`
+
+      - `type: "web_search_result_location"`
+
+        default: web_search_result_location
 
       - `cited_text: string`
 
@@ -21574,13 +21611,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         maxLength: 512
 
-      - `type: "web_search_result_location"`
-
-        default: web_search_result_location
-
       - `url: string`
 
     - `CitationsSearchResultLocation object`
+
+      - `type: "search_result_location"`
+
+        default: search_result_location
 
       - `cited_text: string`
 
@@ -21612,27 +21649,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `title: string or null`
 
-      - `type: "search_result_location"`
-
-        default: search_result_location
-
   - `text: string`
 
-    maxLength: 5000000, minLength: 0
-
-  - `type: "text"`
-
-    default: text
+    minLength: 0
 
 ### Text Block Param
 
 - `TextBlockParam object`
 
+  - `type: "text"`
+
   - `text: string`
 
     minLength: 1
-
-  - `type: "text"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -21659,6 +21688,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `CitationCharLocationParam object`
 
+      - `type: "char_location"`
+
       - `cited_text: string`
 
       - `document_index: number`
@@ -21675,9 +21706,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 0
 
-      - `type: "char_location"`
-
     - `CitationPageLocationParam object`
+
+      - `type: "page_location"`
 
       - `cited_text: string`
 
@@ -21695,9 +21726,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 1
 
-      - `type: "page_location"`
-
     - `CitationContentBlockLocationParam object`
+
+      - `type: "content_block_location"`
 
       - `cited_text: string`
 
@@ -21725,9 +21756,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         minimum: 0
 
-      - `type: "content_block_location"`
-
     - `CitationWebSearchResultLocationParam object`
+
+      - `type: "web_search_result_location"`
 
       - `cited_text: string`
 
@@ -21737,13 +21768,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         maxLength: 512, minLength: 1
 
-      - `type: "web_search_result_location"`
-
       - `url: string`
 
         minLength: 1
 
     - `CitationSearchResultLocationParam object`
+
+      - `type: "search_result_location"`
 
       - `cited_text: string`
 
@@ -21775,13 +21806,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `title: string or null`
 
-      - `type: "search_result_location"`
-
 ### Text Citation
 
 - `TextCitation = CitationCharLocation or CitationPageLocation or CitationContentBlockLocation or 2 more`
 
   - `CitationCharLocation object`
+
+    - `type: "char_location"`
+
+      default: char_location
 
     - `cited_text: string`
 
@@ -21799,11 +21832,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minimum: 0
 
-    - `type: "char_location"`
-
-      default: char_location
-
   - `CitationPageLocation object`
+
+    - `type: "page_location"`
+
+      default: page_location
 
     - `cited_text: string`
 
@@ -21821,11 +21854,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minimum: 1
 
-    - `type: "page_location"`
-
-      default: page_location
-
   - `CitationContentBlockLocation object`
+
+    - `type: "content_block_location"`
+
+      default: content_block_location
 
     - `cited_text: string`
 
@@ -21853,11 +21886,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minimum: 0
 
-    - `type: "content_block_location"`
-
-      default: content_block_location
-
   - `CitationsWebSearchResultLocation object`
+
+    - `type: "web_search_result_location"`
+
+      default: web_search_result_location
 
     - `cited_text: string`
 
@@ -21867,13 +21900,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       maxLength: 512
 
-    - `type: "web_search_result_location"`
-
-      default: web_search_result_location
-
     - `url: string`
 
   - `CitationsSearchResultLocation object`
+
+    - `type: "search_result_location"`
+
+      default: search_result_location
 
     - `cited_text: string`
 
@@ -21905,15 +21938,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: string or null`
 
-    - `type: "search_result_location"`
-
-      default: search_result_location
-
 ### Text Citation Param
 
 - `TextCitationParam = CitationCharLocationParam or CitationPageLocationParam or CitationContentBlockLocationParam or 2 more`
 
   - `CitationCharLocationParam object`
+
+    - `type: "char_location"`
 
     - `cited_text: string`
 
@@ -21931,9 +21962,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minimum: 0
 
-    - `type: "char_location"`
-
   - `CitationPageLocationParam object`
+
+    - `type: "page_location"`
 
     - `cited_text: string`
 
@@ -21951,9 +21982,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minimum: 1
 
-    - `type: "page_location"`
-
   - `CitationContentBlockLocationParam object`
+
+    - `type: "content_block_location"`
 
     - `cited_text: string`
 
@@ -21981,9 +22012,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minimum: 0
 
-    - `type: "content_block_location"`
-
   - `CitationWebSearchResultLocationParam object`
+
+    - `type: "web_search_result_location"`
 
     - `cited_text: string`
 
@@ -21993,13 +22024,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       maxLength: 512, minLength: 1
 
-    - `type: "web_search_result_location"`
-
     - `url: string`
 
       minLength: 1
 
   - `CitationSearchResultLocationParam object`
+
+    - `type: "search_result_location"`
 
     - `cited_text: string`
 
@@ -22031,39 +22062,41 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: string or null`
 
-    - `type: "search_result_location"`
-
 ### Text Delta
 
 - `TextDelta object`
-
-  - `text: string`
 
   - `type: "text_delta"`
 
     default: text_delta
 
+  - `text: string`
+
 ### Text Editor Code Execution Create Result Block
 
 - `TextEditorCodeExecutionCreateResultBlock object`
-
-  - `is_file_update: boolean`
 
   - `type: "text_editor_code_execution_create_result"`
 
     default: text_editor_code_execution_create_result
 
+  - `is_file_update: boolean`
+
 ### Text Editor Code Execution Create Result Block Param
 
 - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-  - `is_file_update: boolean`
-
   - `type: "text_editor_code_execution_create_result"`
+
+  - `is_file_update: boolean`
 
 ### Text Editor Code Execution Str Replace Result Block
 
 - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+  - `type: "text_editor_code_execution_str_replace_result"`
+
+    default: text_editor_code_execution_str_replace_result
 
   - `lines: array of string or null`
 
@@ -22074,10 +22107,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `old_lines: number or null`
 
   - `old_start: number or null`
-
-  - `type: "text_editor_code_execution_str_replace_result"`
-
-    default: text_editor_code_execution_str_replace_result
 
 ### Text Editor Code Execution Str Replace Result Block Param
 
@@ -22099,9 +22128,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `TextEditorCodeExecutionToolResultBlock object`
 
+  - `type: "text_editor_code_execution_tool_result"`
+
+    default: text_editor_code_execution_tool_result
+
   - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
     - `TextEditorCodeExecutionToolResultError object`
+
+      - `type: "text_editor_code_execution_tool_result_error"`
+
+        default: text_editor_code_execution_tool_result_error
 
       - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -22117,11 +22154,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `error_message: string or null`
 
-      - `type: "text_editor_code_execution_tool_result_error"`
-
-        default: text_editor_code_execution_tool_result_error
-
     - `TextEditorCodeExecutionViewResultBlock object`
+
+      - `type: "text_editor_code_execution_view_result"`
+
+        default: text_editor_code_execution_view_result
 
       - `content: string`
 
@@ -22139,19 +22176,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `total_lines: number or null`
 
-      - `type: "text_editor_code_execution_view_result"`
-
-        default: text_editor_code_execution_view_result
-
     - `TextEditorCodeExecutionCreateResultBlock object`
-
-      - `is_file_update: boolean`
 
       - `type: "text_editor_code_execution_create_result"`
 
         default: text_editor_code_execution_create_result
 
+      - `is_file_update: boolean`
+
     - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+      - `type: "text_editor_code_execution_str_replace_result"`
+
+        default: text_editor_code_execution_str_replace_result
 
       - `lines: array of string or null`
 
@@ -22163,25 +22200,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `old_start: number or null`
 
-      - `type: "text_editor_code_execution_str_replace_result"`
-
-        default: text_editor_code_execution_str_replace_result
-
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "text_editor_code_execution_tool_result"`
-
-    default: text_editor_code_execution_tool_result
 
 ### Text Editor Code Execution Tool Result Block Param
 
 - `TextEditorCodeExecutionToolResultBlockParam object`
 
+  - `type: "text_editor_code_execution_tool_result"`
+
   - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
 
     - `TextEditorCodeExecutionToolResultErrorParam object`
+
+      - `type: "text_editor_code_execution_tool_result_error"`
 
       - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -22195,11 +22228,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"file_not_found"`
 
-      - `type: "text_editor_code_execution_tool_result_error"`
-
       - `error_message: optional string or null`
 
     - `TextEditorCodeExecutionViewResultBlockParam object`
+
+      - `type: "text_editor_code_execution_view_result"`
 
       - `content: string`
 
@@ -22211,8 +22244,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"pdf"`
 
-      - `type: "text_editor_code_execution_view_result"`
-
       - `num_lines: optional number or null`
 
       - `start_line: optional number or null`
@@ -22221,9 +22252,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-      - `is_file_update: boolean`
-
       - `type: "text_editor_code_execution_create_result"`
+
+      - `is_file_update: boolean`
 
     - `TextEditorCodeExecutionStrReplaceResultBlockParam object`
 
@@ -22242,8 +22273,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "text_editor_code_execution_tool_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -22270,6 +22299,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `TextEditorCodeExecutionToolResultError object`
 
+  - `type: "text_editor_code_execution_tool_result_error"`
+
+    default: text_editor_code_execution_tool_result_error
+
   - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -22283,10 +22316,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"file_not_found"`
 
   - `error_message: string or null`
-
-  - `type: "text_editor_code_execution_tool_result_error"`
-
-    default: text_editor_code_execution_tool_result_error
 
 ### Text Editor Code Execution Tool Result Error Code
 
@@ -22306,6 +22335,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `TextEditorCodeExecutionToolResultErrorParam object`
 
+  - `type: "text_editor_code_execution_tool_result_error"`
+
   - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -22318,13 +22349,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"file_not_found"`
 
-  - `type: "text_editor_code_execution_tool_result_error"`
-
   - `error_message: optional string or null`
 
 ### Text Editor Code Execution View Result Block
 
 - `TextEditorCodeExecutionViewResultBlock object`
+
+  - `type: "text_editor_code_execution_view_result"`
+
+    default: text_editor_code_execution_view_result
 
   - `content: string`
 
@@ -22342,13 +22375,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `total_lines: number or null`
 
-  - `type: "text_editor_code_execution_view_result"`
-
-    default: text_editor_code_execution_view_result
-
 ### Text Editor Code Execution View Result Block Param
 
 - `TextEditorCodeExecutionViewResultBlockParam object`
+
+  - `type: "text_editor_code_execution_view_result"`
 
   - `content: string`
 
@@ -22360,8 +22391,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"pdf"`
 
-  - `type: "text_editor_code_execution_view_result"`
-
   - `num_lines: optional number or null`
 
   - `start_line: optional number or null`
@@ -22371,6 +22400,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 ### Thinking Block
 
 - `ThinkingBlock object`
+
+  - `type: "thinking"`
+
+    default: thinking
 
   - `signature: string`
 
@@ -22384,13 +22417,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The text of Claude's thinking process for this block.
 
-  - `type: "thinking"`
-
-    default: thinking
-
 ### Thinking Block Param
 
 - `ThinkingBlockParam object`
+
+  - `type: "thinking"`
 
   - `signature: string`
 
@@ -22401,8 +22432,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `thinking: string`
 
     The `thinking` text of this block as returned by the API.
-
-  - `type: "thinking"`
 
 ### Thinking Config Adaptive
 
@@ -22428,6 +22457,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ThinkingConfigEnabled object`
 
+  - `type: "enabled"`
+
   - `budget_tokens: number`
 
     Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -22437,8 +22468,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     minimum: 1024
-
-  - `type: "enabled"`
 
   - `display: optional "summarized" or "omitted" or null`
 
@@ -22460,6 +22489,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ThinkingConfigEnabled object`
 
+    - `type: "enabled"`
+
     - `budget_tokens: number`
 
       Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -22469,8 +22500,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       minimum: 1024
-
-    - `type: "enabled"`
 
     - `display: optional "summarized" or "omitted" or null`
 
@@ -22500,17 +22529,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ThinkingDelta object`
 
-  - `thinking: string`
-
-    The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
-
   - `type: "thinking_delta"`
 
     default: thinking_delta
 
+  - `thinking: string`
+
+    The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
 ### Tool
 
 - `Tool object`
+
+  - `type: optional "custom" or null`
 
   - `input_schema: object`
 
@@ -22583,19 +22614,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `type: optional "custom" or null`
-
 ### Tool Bash 20250124
 
 - `ToolBash20250124 object`
+
+  - `type: "bash_20250124"`
 
   - `name: "bash"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "bash_20250124"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -22672,11 +22701,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The model will use the specified tool with `tool_choice.name`.
 
+    - `type: "tool"`
+
     - `name: string`
 
       The name of the tool to use.
-
-    - `type: "tool"`
 
     - `disable_parallel_tool_use: optional boolean`
 
@@ -22732,11 +22761,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   The model will use the specified tool with `tool_choice.name`.
 
+  - `type: "tool"`
+
   - `name: string`
 
     The name of the tool to use.
-
-  - `type: "tool"`
 
   - `disable_parallel_tool_use: optional boolean`
 
@@ -22748,13 +22777,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolReferenceBlock object`
 
-  - `tool_name: string`
-
-    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
   - `type: "tool_reference"`
 
     default: tool_reference
+
+  - `tool_name: string`
+
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Tool Reference Block Param
 
@@ -22762,11 +22791,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Tool reference block that can be included in tool_result content.
 
+  - `type: "tool_reference"`
+
   - `tool_name: string`
 
     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-  - `type: "tool_reference"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -22793,11 +22822,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolResultBlockParam object`
 
+  - `type: "tool_result"`
+
   - `tool_use_id: string`
 
     pattern: ^[a-zA-Z0-9_-]+$
-
-  - `type: "tool_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -22828,11 +22857,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `TextBlockParam object`
 
+        - `type: "text"`
+
         - `text: string`
 
           minLength: 1
-
-        - `type: "text"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -22841,6 +22870,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `citations: optional array of TextCitationParam or null`
 
           - `CitationCharLocationParam object`
+
+            - `type: "char_location"`
 
             - `cited_text: string`
 
@@ -22858,9 +22889,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "char_location"`
-
           - `CitationPageLocationParam object`
+
+            - `type: "page_location"`
 
             - `cited_text: string`
 
@@ -22878,9 +22909,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 1
 
-            - `type: "page_location"`
-
           - `CitationContentBlockLocationParam object`
+
+            - `type: "content_block_location"`
 
             - `cited_text: string`
 
@@ -22908,9 +22939,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               minimum: 0
 
-            - `type: "content_block_location"`
-
           - `CitationWebSearchResultLocationParam object`
+
+            - `type: "web_search_result_location"`
 
             - `cited_text: string`
 
@@ -22920,13 +22951,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               maxLength: 512, minLength: 1
 
-            - `type: "web_search_result_location"`
-
             - `url: string`
 
               minLength: 1
 
           - `CitationSearchResultLocationParam object`
+
+            - `type: "search_result_location"`
 
             - `cited_text: string`
 
@@ -22958,13 +22989,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-            - `type: "search_result_location"`
-
       - `ImageBlockParam object`
+
+        - `type: "image"`
 
         - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
           - `Base64ImageSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -22980,8 +23013,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"image/webp"`
 
-            - `type: "base64"`
-
           - `URLImageSource object`
 
             - `type: "url"`
@@ -22990,11 +23021,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `FileImageSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "image"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23014,13 +23043,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `SearchResultBlockParam object`
 
+        - `type: "search_result"`
+
         - `content: array of TextBlockParam`
+
+          - `type: "text"`
 
           - `text: string`
 
             minLength: 1
-
-          - `type: "text"`
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23032,8 +23063,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string`
 
-        - `type: "search_result"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -23044,9 +23073,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `DocumentBlockParam object`
 
+        - `type: "document"`
+
         - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
           - `Base64PDFSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -23054,17 +23087,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `media_type: "application/pdf"`
 
-            - `type: "base64"`
-
           - `PlainTextSource object`
+
+            - `type: "text"`
 
             - `data: string`
 
             - `media_type: "text/plain"`
 
-            - `type: "text"`
-
           - `ContentBlockSource object`
+
+            - `type: "content"`
 
             - `content: string or array of ContentBlockSourceContent`
 
@@ -23076,8 +23109,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `ImageBlockParam object`
 
-            - `type: "content"`
-
           - `URLPDFSource object`
 
             - `type: "url"`
@@ -23086,11 +23117,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `FileDocumentSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "document"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23110,11 +23139,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Tool reference block that can be included in tool_result content.
 
+        - `type: "tool_reference"`
+
         - `tool_name: string`
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-        - `type: "tool_reference"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23129,6 +23158,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         At most one per `tool_result`, only on a non-error result answering a
         browser toolset member `tool_use`. The server renders the
         model-visible text from it; the model never sees the raw fields.
+
+        - `type: "browser_state"`
 
         - `tabs: array of BrowserStateTabEntry`
 
@@ -23158,8 +23189,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-        - `type: "browser_state"`
-
         - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
@@ -23180,25 +23209,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             during a failed call gets no deferred `tab_opened`; it simply appears
             in the next result's `tabs` inventory.
 
+            - `type: "tab_opened"`
+
             - `tab_id: string`
 
               The `tab_id` of the opened tab, present in `tabs`.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `type: "tab_opened"`
-
           - `BrowserStateChangeDownloadStarted object`
 
             A file download that started during this call.
+
+            - `type: "download_started"`
 
             - `download_id: string`
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `type: "download_started"`
 
             - `url: string`
 
@@ -23213,13 +23242,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             `download_started`, when the download finished during the call that
             started it (at most one state change per `download_id` per result).
 
+            - `type: "download_completed"`
+
             - `download_id: string`
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `type: "download_completed"`
 
             - `url: string`
 
@@ -23243,13 +23272,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             A file download that failed — or was cancelled — during this call.
 
+            - `type: "download_failed"`
+
             - `download_id: string`
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-            - `type: "download_failed"`
 
             - `url: string`
 
@@ -23275,17 +23304,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolSearchToolBm25_20251119 object`
 
-  - `name: "tool_search_tool_bm25"`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
   - `type: "tool_search_tool_bm25_20251119" or "tool_search_tool_bm25"`
 
     - `"tool_search_tool_bm25_20251119"`
 
     - `"tool_search_tool_bm25"`
+
+  - `name: "tool_search_tool_bm25"`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23330,17 +23359,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolSearchToolRegex20251119 object`
 
-  - `name: "tool_search_tool_regex"`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
   - `type: "tool_search_tool_regex_20251119" or "tool_search_tool_regex"`
 
     - `"tool_search_tool_regex_20251119"`
 
     - `"tool_search_tool_regex"`
+
+  - `name: "tool_search_tool_regex"`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23385,9 +23414,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolSearchToolResultBlock object`
 
+  - `type: "tool_search_tool_result"`
+
+    default: tool_search_tool_result
+
   - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
     - `ToolSearchToolResultError object`
+
+      - `type: "tool_search_tool_result_error"`
+
+        default: tool_search_tool_result_error
 
       - `error_code: ToolSearchToolResultErrorCode`
 
@@ -23401,41 +23438,37 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `error_message: string or null`
 
-      - `type: "tool_search_tool_result_error"`
-
-        default: tool_search_tool_result_error
-
     - `ToolSearchToolSearchResultBlock object`
-
-      - `tool_references: array of ToolReferenceBlock`
-
-        - `tool_name: string`
-
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-        - `type: "tool_reference"`
-
-          default: tool_reference
 
       - `type: "tool_search_tool_search_result"`
 
         default: tool_search_tool_search_result
 
+      - `tool_references: array of ToolReferenceBlock`
+
+        - `type: "tool_reference"`
+
+          default: tool_reference
+
+        - `tool_name: string`
+
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "tool_search_tool_result"`
-
-    default: tool_search_tool_result
 
 ### Tool Search Tool Result Block Param
 
 - `ToolSearchToolResultBlockParam object`
 
+  - `type: "tool_search_tool_result"`
+
   - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
 
     - `ToolSearchToolResultErrorParam object`
+
+      - `type: "tool_search_tool_result_error"`
 
       - `error_code: ToolSearchToolResultErrorCode`
 
@@ -23447,19 +23480,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"execution_time_exceeded"`
 
-      - `type: "tool_search_tool_result_error"`
-
       - `error_message: optional string or null`
 
     - `ToolSearchToolSearchResultBlockParam object`
 
+      - `type: "tool_search_tool_search_result"`
+
       - `tool_references: array of ToolReferenceBlockParam`
+
+        - `type: "tool_reference"`
 
         - `tool_name: string`
 
           maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-        - `type: "tool_reference"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23482,13 +23515,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"1h"`
 
-      - `type: "tool_search_tool_search_result"`
-
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "tool_search_tool_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23497,6 +23526,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 ### Tool Search Tool Result Error
 
 - `ToolSearchToolResultError object`
+
+  - `type: "tool_search_tool_result_error"`
+
+    default: tool_search_tool_result_error
 
   - `error_code: ToolSearchToolResultErrorCode`
 
@@ -23509,10 +23542,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"execution_time_exceeded"`
 
   - `error_message: string or null`
-
-  - `type: "tool_search_tool_result_error"`
-
-    default: tool_search_tool_result_error
 
 ### Tool Search Tool Result Error Code
 
@@ -23530,6 +23559,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolSearchToolResultErrorParam object`
 
+  - `type: "tool_search_tool_result_error"`
+
   - `error_code: ToolSearchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -23540,39 +23571,39 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"execution_time_exceeded"`
 
-  - `type: "tool_search_tool_result_error"`
-
   - `error_message: optional string or null`
 
 ### Tool Search Tool Search Result Block
 
 - `ToolSearchToolSearchResultBlock object`
 
+  - `type: "tool_search_tool_search_result"`
+
+    default: tool_search_tool_search_result
+
   - `tool_references: array of ToolReferenceBlock`
-
-    - `tool_name: string`
-
-      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `type: "tool_reference"`
 
       default: tool_reference
 
-  - `type: "tool_search_tool_search_result"`
+    - `tool_name: string`
 
-    default: tool_search_tool_search_result
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Tool Search Tool Search Result Block Param
 
 - `ToolSearchToolSearchResultBlockParam object`
 
+  - `type: "tool_search_tool_search_result"`
+
   - `tool_references: array of ToolReferenceBlockParam`
+
+    - `type: "tool_reference"`
 
     - `tool_name: string`
 
       maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-    - `type: "tool_reference"`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23595,19 +23626,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"1h"`
 
-  - `type: "tool_search_tool_search_result"`
-
 ### Tool Text Editor 20250124
 
 - `ToolTextEditor20250124 object`
+
+  - `type: "text_editor_20250124"`
 
   - `name: "str_replace_editor"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "text_editor_20250124"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23654,13 +23683,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolTextEditor20250429 object`
 
+  - `type: "text_editor_20250429"`
+
   - `name: "str_replace_based_edit_tool"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "text_editor_20250429"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23707,13 +23736,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolTextEditor20250728 object`
 
+  - `type: "text_editor_20250728"`
+
   - `name: "str_replace_based_edit_tool"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "text_editor_20250728"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23769,6 +23798,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
   - `Tool object`
+
+    - `type: optional "custom" or null`
 
     - `input_schema: object`
 
@@ -23841,17 +23872,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom" or null`
-
   - `ToolBash20250124 object`
+
+    - `type: "bash_20250124"`
 
     - `name: "bash"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "bash_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23879,13 +23908,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `CodeExecutionTool20250522 object`
 
+    - `type: "code_execution_20250522"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250522"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23911,13 +23940,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `CodeExecutionTool20250825 object`
 
+    - `type: "code_execution_20250825"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20250825"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23945,13 +23974,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+    - `type: "code_execution_20260120"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260120"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23979,13 +24008,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Code execution tool with REPL state persistence.
 
+    - `type: "code_execution_20260521"`
+
     - `name: "code_execution"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "code_execution_20260521"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24030,6 +24059,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional BrowserTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -24367,18 +24408,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional BrowserTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional BrowserWaitConfig or null`
 
         `wait`'s config overrides.
@@ -24405,13 +24434,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `MemoryTool20250818 object`
 
+    - `type: "memory_20250818"`
+
     - `name: "memory"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "memory_20250818"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24462,6 +24491,18 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       accepted key, and a member's defaults apply wherever its key is
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
+
+      - `type: optional ComputerTypeConfig or null`
+
+        `type`'s config overrides.
+
+        - `defer_loading: optional boolean or null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: optional boolean or null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
       - `cursor_position: optional ComputerCursorPositionConfig or null`
 
@@ -24631,18 +24672,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional ComputerTypeConfig or null`
-
-        `type`'s config overrides.
-
-        - `defer_loading: optional boolean or null`
-
-          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-        - `enabled: optional boolean or null`
-
-          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
       - `wait: optional ComputerWaitConfig or null`
 
         `wait`'s config overrides.
@@ -24669,13 +24698,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolTextEditor20250124 object`
 
+    - `type: "text_editor_20250124"`
+
     - `name: "str_replace_editor"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250124"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24703,13 +24732,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolTextEditor20250429 object`
 
+    - `type: "text_editor_20250429"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250429"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24737,13 +24766,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolTextEditor20250728 object`
 
+    - `type: "text_editor_20250728"`
+
     - `name: "str_replace_based_edit_tool"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "text_editor_20250728"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24777,13 +24806,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchTool20250305 object`
 
+    - `type: "web_search_20250305"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20250305"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24853,13 +24882,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchTool20250910 object`
 
+    - `type: "web_fetch_20250910"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20250910"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24911,13 +24940,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchTool20260209 object`
 
+    - `type: "web_search_20260209"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24961,13 +24990,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchTool20260209 object`
 
+    - `type: "web_fetch_20260209"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260209"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25019,13 +25048,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
+    - `type: "web_fetch_20260309"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260309"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25079,13 +25108,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchTool20260318 object`
 
+    - `type: "web_search_20260318"`
+
     - `name: "web_search"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_search_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25137,13 +25166,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebFetchTool20260318 object`
 
+    - `type: "web_fetch_20260318"`
+
     - `name: "web_fetch"`
 
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `type: "web_fetch_20260318"`
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25205,17 +25234,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolSearchToolBm25_20251119 object`
 
-    - `name: "tool_search_tool_bm25"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_bm25_20251119" or "tool_search_tool_bm25"`
 
       - `"tool_search_tool_bm25_20251119"`
 
       - `"tool_search_tool_bm25"`
+
+    - `name: "tool_search_tool_bm25"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25241,17 +25270,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `ToolSearchToolRegex20251119 object`
 
-    - `name: "tool_search_tool_regex"`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
     - `type: "tool_search_tool_regex_20251119" or "tool_search_tool_regex"`
 
       - `"tool_search_tool_regex_20251119"`
 
       - `"tool_search_tool_regex"`
+
+    - `name: "tool_search_tool_regex"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25279,6 +25308,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolUseBlock object`
 
+  - `type: "tool_use"`
+
+    default: tool_use
+
   - `id: string`
 
     pattern: ^[a-zA-Z0-9_-]+$
@@ -25299,29 +25332,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
   - `input: map[unknown]`
 
   - `name: string`
 
     minLength: 1
-
-  - `type: "tool_use"`
-
-    default: tool_use
 
   - `toolset_name: optional string or null`
 
@@ -25333,6 +25362,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `ToolUseBlockParam object`
 
+  - `type: "tool_use"`
+
   - `id: string`
 
     pattern: ^[a-zA-Z0-9_-]+$
@@ -25342,8 +25373,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `name: string`
 
     maxLength: 200, minLength: 1
-
-  - `type: "tool_use"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -25380,19 +25409,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
   - `toolset_name: optional string or null`
 
@@ -25546,7 +25575,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebFetchBlock object`
 
+  - `type: "web_fetch_result"`
+
+    default: web_fetch_result
+
   - `content: DocumentBlock`
+
+    - `type: "document"`
+
+      default: document
 
     - `citations: CitationsConfig or null`
 
@@ -25560,37 +25597,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `Base64PDFSource object`
 
+        - `type: "base64"`
+
         - `data: string`
 
           format: byte
 
         - `media_type: "application/pdf"`
 
-        - `type: "base64"`
-
       - `PlainTextSource object`
+
+        - `type: "text"`
 
         - `data: string`
 
         - `media_type: "text/plain"`
 
-        - `type: "text"`
-
     - `title: string or null`
 
       The title of the document
 
-    - `type: "document"`
-
-      default: document
-
   - `retrieved_at: string or null`
 
     ISO 8601 timestamp when the content was retrieved
-
-  - `type: "web_fetch_result"`
-
-    default: web_fetch_result
 
   - `url: string`
 
@@ -25600,11 +25629,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebFetchBlockParam object`
 
+  - `type: "web_fetch_result"`
+
   - `content: DocumentBlockParam`
+
+    - `type: "document"`
 
     - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
       - `Base64PDFSource object`
+
+        - `type: "base64"`
 
         - `data: string`
 
@@ -25612,17 +25647,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `media_type: "application/pdf"`
 
-        - `type: "base64"`
-
       - `PlainTextSource object`
+
+        - `type: "text"`
 
         - `data: string`
 
         - `media_type: "text/plain"`
 
-        - `type: "text"`
-
       - `ContentBlockSource object`
+
+        - `type: "content"`
 
         - `content: string or array of ContentBlockSourceContent`
 
@@ -25632,11 +25667,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `TextBlockParam object`
 
+              - `type: "text"`
+
               - `text: string`
 
                 minLength: 1
-
-              - `type: "text"`
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -25663,6 +25698,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `CitationCharLocationParam object`
 
+                  - `type: "char_location"`
+
                   - `cited_text: string`
 
                   - `document_index: number`
@@ -25679,9 +25716,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     minimum: 0
 
-                  - `type: "char_location"`
-
                 - `CitationPageLocationParam object`
+
+                  - `type: "page_location"`
 
                   - `cited_text: string`
 
@@ -25699,9 +25736,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     minimum: 1
 
-                  - `type: "page_location"`
-
                 - `CitationContentBlockLocationParam object`
+
+                  - `type: "content_block_location"`
 
                   - `cited_text: string`
 
@@ -25729,9 +25766,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     minimum: 0
 
-                  - `type: "content_block_location"`
-
                 - `CitationWebSearchResultLocationParam object`
+
+                  - `type: "web_search_result_location"`
 
                   - `cited_text: string`
 
@@ -25741,13 +25778,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     maxLength: 512, minLength: 1
 
-                  - `type: "web_search_result_location"`
-
                   - `url: string`
 
                     minLength: 1
 
                 - `CitationSearchResultLocationParam object`
+
+                  - `type: "search_result_location"`
 
                   - `cited_text: string`
 
@@ -25779,13 +25816,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `title: string or null`
 
-                  - `type: "search_result_location"`
-
             - `ImageBlockParam object`
+
+              - `type: "image"`
 
               - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
                 - `Base64ImageSource object`
+
+                  - `type: "base64"`
 
                   - `data: string`
 
@@ -25801,8 +25840,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     - `"image/webp"`
 
-                  - `type: "base64"`
-
                 - `URLImageSource object`
 
                   - `type: "url"`
@@ -25811,11 +25848,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `FileImageSource object`
 
-                  - `file_id: string`
-
                   - `type: "file"`
 
-              - `type: "image"`
+                  - `file_id: string`
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -25833,8 +25868,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `"error"`
 
-        - `type: "content"`
-
       - `URLPDFSource object`
 
         - `type: "url"`
@@ -25843,11 +25876,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `FileDocumentSource object`
 
-        - `file_id: string`
-
         - `type: "file"`
 
-    - `type: "document"`
+        - `file_id: string`
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -25865,8 +25896,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       maxLength: 500, minLength: 1
 
-  - `type: "web_fetch_result"`
-
   - `url: string`
 
     Fetched content URL
@@ -25879,13 +25908,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebFetchTool20250910 object`
 
+  - `type: "web_fetch_20250910"`
+
   - `name: "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_fetch_20250910"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -25956,13 +25985,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebFetchTool20260209 object`
 
+  - `type: "web_fetch_20260209"`
+
   - `name: "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_fetch_20260209"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -26035,13 +26064,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Web fetch tool with use_cache parameter for bypassing cached content.
 
+  - `type: "web_fetch_20260309"`
+
   - `name: "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_fetch_20260309"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -26116,13 +26145,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebFetchTool20260318 object`
 
+  - `type: "web_fetch_20260318"`
+
   - `name: "web_fetch"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_fetch_20260318"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -26205,6 +26234,10 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebFetchToolResultBlock object`
 
+  - `type: "web_fetch_tool_result"`
+
+    default: web_fetch_tool_result
+
   - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
     Tool invocation directly from the model.
@@ -26221,23 +26254,27 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
   - `content: WebFetchToolResultErrorBlock or WebFetchBlock`
 
     - `WebFetchToolResultErrorBlock object`
+
+      - `type: "web_fetch_tool_result_error"`
+
+        default: web_fetch_tool_result_error
 
       - `error_code: WebFetchToolResultErrorCode`
 
@@ -26259,13 +26296,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"unavailable"`
 
-      - `type: "web_fetch_tool_result_error"`
-
-        default: web_fetch_tool_result_error
+        - `"content_too_large"`
 
     - `WebFetchBlock object`
 
+      - `type: "web_fetch_result"`
+
+        default: web_fetch_result
+
       - `content: DocumentBlock`
+
+        - `type: "document"`
+
+          default: document
 
         - `citations: CitationsConfig or null`
 
@@ -26279,37 +26322,29 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `Base64PDFSource object`
 
+            - `type: "base64"`
+
             - `data: string`
 
               format: byte
 
             - `media_type: "application/pdf"`
 
-            - `type: "base64"`
-
           - `PlainTextSource object`
+
+            - `type: "text"`
 
             - `data: string`
 
             - `media_type: "text/plain"`
 
-            - `type: "text"`
-
         - `title: string or null`
 
           The title of the document
 
-        - `type: "document"`
-
-          default: document
-
       - `retrieved_at: string or null`
 
         ISO 8601 timestamp when the content was retrieved
-
-      - `type: "web_fetch_result"`
-
-        default: web_fetch_result
 
       - `url: string`
 
@@ -26319,17 +26354,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `type: "web_fetch_tool_result"`
-
-    default: web_fetch_tool_result
-
 ### Web Fetch Tool Result Block Param
 
 - `WebFetchToolResultBlockParam object`
 
+  - `type: "web_fetch_tool_result"`
+
   - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
 
     - `WebFetchToolResultErrorBlockParam object`
+
+      - `type: "web_fetch_tool_result_error"`
 
       - `error_code: WebFetchToolResultErrorCode`
 
@@ -26351,15 +26386,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"unavailable"`
 
-      - `type: "web_fetch_tool_result_error"`
+        - `"content_too_large"`
 
     - `WebFetchBlockParam object`
 
+      - `type: "web_fetch_result"`
+
       - `content: DocumentBlockParam`
+
+        - `type: "document"`
 
         - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
           - `Base64PDFSource object`
+
+            - `type: "base64"`
 
             - `data: string`
 
@@ -26367,17 +26408,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `media_type: "application/pdf"`
 
-            - `type: "base64"`
-
           - `PlainTextSource object`
+
+            - `type: "text"`
 
             - `data: string`
 
             - `media_type: "text/plain"`
 
-            - `type: "text"`
-
           - `ContentBlockSource object`
+
+            - `type: "content"`
 
             - `content: string or array of ContentBlockSourceContent`
 
@@ -26387,11 +26428,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `TextBlockParam object`
 
+                  - `type: "text"`
+
                   - `text: string`
 
                     minLength: 1
-
-                  - `type: "text"`
 
                   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -26418,6 +26459,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     - `CitationCharLocationParam object`
 
+                      - `type: "char_location"`
+
                       - `cited_text: string`
 
                       - `document_index: number`
@@ -26434,9 +26477,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                         minimum: 0
 
-                      - `type: "char_location"`
-
                     - `CitationPageLocationParam object`
+
+                      - `type: "page_location"`
 
                       - `cited_text: string`
 
@@ -26454,9 +26497,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                         minimum: 1
 
-                      - `type: "page_location"`
-
                     - `CitationContentBlockLocationParam object`
+
+                      - `type: "content_block_location"`
 
                       - `cited_text: string`
 
@@ -26484,9 +26527,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                         minimum: 0
 
-                      - `type: "content_block_location"`
-
                     - `CitationWebSearchResultLocationParam object`
+
+                      - `type: "web_search_result_location"`
 
                       - `cited_text: string`
 
@@ -26496,13 +26539,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                         maxLength: 512, minLength: 1
 
-                      - `type: "web_search_result_location"`
-
                       - `url: string`
 
                         minLength: 1
 
                     - `CitationSearchResultLocationParam object`
+
+                      - `type: "search_result_location"`
 
                       - `cited_text: string`
 
@@ -26534,13 +26577,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `title: string or null`
 
-                      - `type: "search_result_location"`
-
                 - `ImageBlockParam object`
+
+                  - `type: "image"`
 
                   - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
                     - `Base64ImageSource object`
+
+                      - `type: "base64"`
 
                       - `data: string`
 
@@ -26556,8 +26601,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                         - `"image/webp"`
 
-                      - `type: "base64"`
-
                     - `URLImageSource object`
 
                       - `type: "url"`
@@ -26566,11 +26609,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     - `FileImageSource object`
 
-                      - `file_id: string`
-
                       - `type: "file"`
 
-                  - `type: "image"`
+                      - `file_id: string`
 
                   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -26588,8 +26629,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `"error"`
 
-            - `type: "content"`
-
           - `URLPDFSource object`
 
             - `type: "url"`
@@ -26598,11 +26637,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `FileDocumentSource object`
 
-            - `file_id: string`
-
             - `type: "file"`
 
-        - `type: "document"`
+            - `file_id: string`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -26620,8 +26657,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           maxLength: 500, minLength: 1
 
-      - `type: "web_fetch_result"`
-
       - `url: string`
 
         Fetched content URL
@@ -26633,8 +26668,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "web_fetch_tool_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -26654,24 +26687,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
 ### Web Fetch Tool Result Error Block
 
 - `WebFetchToolResultErrorBlock object`
 
+  - `type: "web_fetch_tool_result_error"`
+
+    default: web_fetch_tool_result_error
+
   - `error_code: WebFetchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -26692,14 +26729,14 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"unavailable"`
 
-  - `type: "web_fetch_tool_result_error"`
-
-    default: web_fetch_tool_result_error
+    - `"content_too_large"`
 
 ### Web Fetch Tool Result Error Block Param
 
 - `WebFetchToolResultErrorBlockParam object`
 
+  - `type: "web_fetch_tool_result_error"`
+
   - `error_code: WebFetchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -26720,11 +26757,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"unavailable"`
 
-  - `type: "web_fetch_tool_result_error"`
+    - `"content_too_large"`
 
 ### Web Fetch Tool Result Error Code
 
-- `WebFetchToolResultErrorCode = "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
+- `WebFetchToolResultErrorCode = "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 7 more`
 
   - `"invalid_tool_input"`
 
@@ -26744,9 +26781,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `"unavailable"`
 
+  - `"content_too_large"`
+
 ### Web Search Result Block
 
 - `WebSearchResultBlock object`
+
+  - `type: "web_search_result"`
+
+    default: web_search_result
 
   - `encrypted_content: string`
 
@@ -26754,21 +26797,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `title: string`
 
-  - `type: "web_search_result"`
-
-    default: web_search_result
-
   - `url: string`
 
 ### Web Search Result Block Param
 
 - `WebSearchResultBlockParam object`
 
+  - `type: "web_search_result"`
+
   - `encrypted_content: string`
 
   - `title: string`
-
-  - `type: "web_search_result"`
 
   - `url: string`
 
@@ -26778,13 +26817,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebSearchTool20250305 object`
 
+  - `type: "web_search_20250305"`
+
   - `name: "web_search"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_search_20250305"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -26873,13 +26912,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebSearchTool20260209 object`
 
+  - `type: "web_search_20260209"`
+
   - `name: "web_search"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_search_20260209"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -26968,13 +27007,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebSearchTool20260318 object`
 
+  - `type: "web_search_20260318"`
+
   - `name: "web_search"`
 
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `type: "web_search_20260318"`
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -27071,6 +27110,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `WebSearchToolRequestError object`
 
+  - `type: "web_search_tool_result_error"`
+
   - `error_code: WebSearchToolResultErrorCode`
 
     - `"invalid_tool_input"`
@@ -27085,11 +27126,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"request_too_large"`
 
-  - `type: "web_search_tool_result_error"`
-
 ### Web Search Tool Result Block
 
 - `WebSearchToolResultBlock object`
+
+  - `type: "web_search_tool_result"`
+
+    default: web_search_tool_result
 
   - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -27107,23 +27150,27 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
   - `content: WebSearchToolResultBlockContent`
 
     - `WebSearchToolResultError object`
+
+      - `type: "web_search_tool_result_error"`
+
+        default: web_search_tool_result_error
 
       - `error_code: WebSearchToolResultErrorCode`
 
@@ -27139,11 +27186,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"request_too_large"`
 
-      - `type: "web_search_tool_result_error"`
-
-        default: web_search_tool_result_error
-
     - `array of WebSearchResultBlock`
+
+      - `type: "web_search_result"`
+
+        default: web_search_result
 
       - `encrypted_content: string`
 
@@ -27151,25 +27198,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `title: string`
 
-      - `type: "web_search_result"`
-
-        default: web_search_result
-
       - `url: string`
 
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `type: "web_search_tool_result"`
-
-    default: web_search_tool_result
-
 ### Web Search Tool Result Block Content
 
 - `WebSearchToolResultBlockContent = WebSearchToolResultError or array of WebSearchResultBlock`
 
   - `WebSearchToolResultError object`
+
+    - `type: "web_search_tool_result_error"`
+
+      default: web_search_tool_result_error
 
     - `error_code: WebSearchToolResultErrorCode`
 
@@ -27185,11 +27228,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"request_too_large"`
 
-    - `type: "web_search_tool_result_error"`
-
-      default: web_search_tool_result_error
-
   - `array of WebSearchResultBlock`
+
+    - `type: "web_search_result"`
+
+      default: web_search_result
 
     - `encrypted_content: string`
 
@@ -27197,31 +27240,31 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: string`
 
-    - `type: "web_search_result"`
-
-      default: web_search_result
-
     - `url: string`
 
 ### Web Search Tool Result Block Param
 
 - `WebSearchToolResultBlockParam object`
 
+  - `type: "web_search_tool_result"`
+
   - `content: WebSearchToolResultBlockParamContent`
 
     - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+      - `type: "web_search_result"`
+
       - `encrypted_content: string`
 
       - `title: string`
-
-      - `type: "web_search_result"`
 
       - `url: string`
 
       - `page_age: optional string or null`
 
     - `WebSearchToolRequestError object`
+
+      - `type: "web_search_tool_result_error"`
 
       - `error_code: WebSearchToolResultErrorCode`
 
@@ -27237,13 +27280,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"request_too_large"`
 
-      - `type: "web_search_tool_result_error"`
-
   - `tool_use_id: string`
 
     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-  - `type: "web_search_tool_result"`
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27280,19 +27319,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool invocation generated by a server-side tool.
 
+      - `type: "code_execution_20250825"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120 object`
 
+      - `type: "code_execution_20260120"`
+
       - `tool_id: string`
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-      - `type: "code_execution_20260120"`
 
 ### Web Search Tool Result Block Param Content
 
@@ -27300,17 +27339,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+    - `type: "web_search_result"`
+
     - `encrypted_content: string`
 
     - `title: string`
-
-    - `type: "web_search_result"`
 
     - `url: string`
 
     - `page_age: optional string or null`
 
   - `WebSearchToolRequestError object`
+
+    - `type: "web_search_tool_result_error"`
 
     - `error_code: WebSearchToolResultErrorCode`
 
@@ -27326,11 +27367,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"request_too_large"`
 
-    - `type: "web_search_tool_result_error"`
-
 ### Web Search Tool Result Error
 
 - `WebSearchToolResultError object`
+
+  - `type: "web_search_tool_result_error"`
+
+    default: web_search_tool_result_error
 
   - `error_code: WebSearchToolResultErrorCode`
 
@@ -27345,10 +27388,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"query_too_long"`
 
     - `"request_too_large"`
-
-  - `type: "web_search_tool_result_error"`
-
-    default: web_search_tool_result_error
 
 ### Web Search Tool Result Error Code
 
@@ -27383,6 +27422,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 - `"anthropic-user-profile-id": optional string`
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
+
+- `"anthropic-workspace-id": optional string`
 
 #### Body parameters
 
@@ -27477,11 +27518,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `TextBlockParam object`
 
+            - `type: "text"`
+
             - `text: string`
 
               minLength: 1
-
-            - `type: "text"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27508,6 +27549,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `CitationCharLocationParam object`
 
+                - `type: "char_location"`
+
                 - `cited_text: string`
 
                 - `document_index: number`
@@ -27524,9 +27567,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: "char_location"`
-
               - `CitationPageLocationParam object`
+
+                - `type: "page_location"`
 
                 - `cited_text: string`
 
@@ -27544,9 +27587,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `type: "page_location"`
-
               - `CitationContentBlockLocationParam object`
+
+                - `type: "content_block_location"`
 
                 - `cited_text: string`
 
@@ -27574,9 +27617,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: "content_block_location"`
-
               - `CitationWebSearchResultLocationParam object`
+
+                - `type: "web_search_result_location"`
 
                 - `cited_text: string`
 
@@ -27586,13 +27629,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512, minLength: 1
 
-                - `type: "web_search_result_location"`
-
                 - `url: string`
 
                   minLength: 1
 
               - `CitationSearchResultLocationParam object`
+
+                - `type: "search_result_location"`
 
                 - `cited_text: string`
 
@@ -27624,13 +27667,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string or null`
 
-                - `type: "search_result_location"`
-
           - `ImageBlockParam object`
+
+            - `type: "image"`
 
             - `source: Base64ImageSource or URLImageSource or FileImageSource`
 
               - `Base64ImageSource object`
+
+                - `type: "base64"`
 
                 - `data: string`
 
@@ -27646,8 +27691,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"image/webp"`
 
-                - `type: "base64"`
-
               - `URLImageSource object`
 
                 - `type: "url"`
@@ -27656,11 +27699,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `FileImageSource object`
 
-                - `file_id: string`
-
                 - `type: "file"`
 
-            - `type: "image"`
+                - `file_id: string`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27680,9 +27721,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `DocumentBlockParam object`
 
+            - `type: "document"`
+
             - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or 2 more`
 
               - `Base64PDFSource object`
+
+                - `type: "base64"`
 
                 - `data: string`
 
@@ -27690,17 +27735,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `media_type: "application/pdf"`
 
-                - `type: "base64"`
-
               - `PlainTextSource object`
+
+                - `type: "text"`
 
                 - `data: string`
 
                 - `media_type: "text/plain"`
 
-                - `type: "text"`
-
               - `ContentBlockSource object`
+
+                - `type: "content"`
 
                 - `content: string or array of ContentBlockSourceContent`
 
@@ -27712,8 +27757,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ImageBlockParam object`
 
-                - `type: "content"`
-
               - `URLPDFSource object`
 
                 - `type: "url"`
@@ -27722,11 +27765,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `FileDocumentSource object`
 
-                - `file_id: string`
-
                 - `type: "file"`
 
-            - `type: "document"`
+                - `file_id: string`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27746,13 +27787,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `SearchResultBlockParam object`
 
+            - `type: "search_result"`
+
             - `content: array of TextBlockParam`
+
+              - `type: "text"`
 
               - `text: string`
 
                 minLength: 1
-
-              - `type: "text"`
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27764,8 +27807,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `title: string`
 
-            - `type: "search_result"`
-
             - `cache_control: optional CacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
@@ -27773,6 +27814,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `citations: optional CitationsConfigParam`
 
           - `ThinkingBlockParam object`
+
+            - `type: "thinking"`
 
             - `signature: string`
 
@@ -27784,17 +27827,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The `thinking` text of this block as returned by the API.
 
-            - `type: "thinking"`
-
           - `RedactedThinkingBlockParam object`
+
+            - `type: "redacted_thinking"`
 
             - `data: string`
 
               The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `type: "redacted_thinking"`
-
           - `ToolUseBlockParam object`
+
+            - `type: "tool_use"`
 
             - `id: string`
 
@@ -27805,8 +27848,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `name: string`
 
               maxLength: 200, minLength: 1
-
-            - `type: "tool_use"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27826,19 +27867,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `type: "code_execution_20250825"`
+
                 - `tool_id: string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120 object`
 
+                - `type: "code_execution_20260120"`
+
                 - `tool_id: string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: "code_execution_20260120"`
 
             - `toolset_name: optional string or null`
 
@@ -27848,11 +27889,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `ToolResultBlockParam object`
 
+            - `type: "tool_result"`
+
             - `tool_use_id: string`
 
               pattern: ^[a-zA-Z0-9_-]+$
-
-            - `type: "tool_result"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27876,11 +27917,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool reference block that can be included in tool_result content.
 
+                  - `type: "tool_reference"`
+
                   - `tool_name: string`
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `type: "tool_reference"`
 
                   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -27895,6 +27936,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   At most one per `tool_result`, only on a non-error result answering a
                   browser toolset member `tool_use`. The server renders the
                   model-visible text from it; the model never sees the raw fields.
+
+                  - `type: "browser_state"`
 
                   - `tabs: array of BrowserStateTabEntry`
 
@@ -27924,8 +27967,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                  - `type: "browser_state"`
-
                   - `cache_control: optional CacheControlEphemeral or null`
 
                     Create a cache control breakpoint at this content block.
@@ -27946,25 +27987,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                       during a failed call gets no deferred `tab_opened`; it simply appears
                       in the next result's `tabs` inventory.
 
+                      - `type: "tab_opened"`
+
                       - `tab_id: string`
 
                         The `tab_id` of the opened tab, present in `tabs`.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `type: "tab_opened"`
-
                     - `BrowserStateChangeDownloadStarted object`
 
                       A file download that started during this call.
+
+                      - `type: "download_started"`
 
                       - `download_id: string`
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                      - `type: "download_started"`
 
                       - `url: string`
 
@@ -27979,13 +28020,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                       `download_started`, when the download finished during the call that
                       started it (at most one state change per `download_id` per result).
 
+                      - `type: "download_completed"`
+
                       - `download_id: string`
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                      - `type: "download_completed"`
 
                       - `url: string`
 
@@ -28009,13 +28050,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       A file download that failed — or was cancelled — during this call.
 
+                      - `type: "download_failed"`
+
                       - `download_id: string`
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
                         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-
-                      - `type: "download_failed"`
 
                       - `url: string`
 
@@ -28039,6 +28080,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `ServerToolUseBlockParam object`
 
+            - `type: "server_tool_use"`
+
             - `id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
@@ -28061,8 +28104,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_search_tool_bm25"`
 
-            - `type: "server_tool_use"`
-
             - `cache_control: optional CacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
@@ -28083,21 +28124,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `WebSearchToolResultBlockParam object`
 
+            - `type: "web_search_tool_result"`
+
             - `content: WebSearchToolResultBlockParamContent`
 
               - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
 
+                - `type: "web_search_result"`
+
                 - `encrypted_content: string`
 
                 - `title: string`
-
-                - `type: "web_search_result"`
 
                 - `url: string`
 
                 - `page_age: optional string or null`
 
               - `WebSearchToolRequestError object`
+
+                - `type: "web_search_tool_result_error"`
 
                 - `error_code: WebSearchToolResultErrorCode`
 
@@ -28113,13 +28158,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"request_too_large"`
 
-                - `type: "web_search_tool_result_error"`
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "web_search_tool_result"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28141,9 +28182,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `WebFetchToolResultBlockParam object`
 
+            - `type: "web_fetch_tool_result"`
+
             - `content: WebFetchToolResultErrorBlockParam or WebFetchBlockParam`
 
               - `WebFetchToolResultErrorBlockParam object`
+
+                - `type: "web_fetch_tool_result_error"`
 
                 - `error_code: WebFetchToolResultErrorCode`
 
@@ -28165,13 +28210,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"unavailable"`
 
-                - `type: "web_fetch_tool_result_error"`
+                  - `"content_too_large"`
 
               - `WebFetchBlockParam object`
 
-                - `content: DocumentBlockParam`
-
                 - `type: "web_fetch_result"`
+
+                - `content: DocumentBlockParam`
 
                 - `url: string`
 
@@ -28184,8 +28229,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "web_fetch_tool_result"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28207,11 +28250,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `CodeExecutionToolResultBlockParam object`
 
+            - `type: "code_execution_tool_result"`
+
             - `content: CodeExecutionToolResultBlockParamContent`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `CodeExecutionToolResultErrorParam object`
+
+                - `type: "code_execution_tool_result_error"`
 
                 - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -28223,15 +28270,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: "code_execution_tool_result_error"`
-
               - `CodeExecutionResultBlockParam object`
+
+                - `type: "code_execution_result"`
 
                 - `content: array of CodeExecutionOutputBlockParam`
 
-                  - `file_id: string`
-
                   - `type: "code_execution_output"`
+
+                  - `file_id: string`
 
                 - `return_code: number`
 
@@ -28239,17 +28286,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: string`
 
-                - `type: "code_execution_result"`
-
               - `EncryptedCodeExecutionResultBlockParam object`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
+                - `type: "encrypted_code_execution_result"`
+
                 - `content: array of CodeExecutionOutputBlockParam`
 
-                  - `file_id: string`
-
                   - `type: "code_execution_output"`
+
+                  - `file_id: string`
 
                 - `encrypted_stdout: string`
 
@@ -28257,13 +28304,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stderr: string`
 
-                - `type: "encrypted_code_execution_result"`
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "code_execution_tool_result"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28271,9 +28314,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `BashCodeExecutionToolResultBlockParam object`
 
+            - `type: "bash_code_execution_tool_result"`
+
             - `content: BashCodeExecutionToolResultErrorParam or BashCodeExecutionResultBlockParam`
 
               - `BashCodeExecutionToolResultErrorParam object`
+
+                - `type: "bash_code_execution_tool_result_error"`
 
                 - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -28287,15 +28334,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"output_file_too_large"`
 
-                - `type: "bash_code_execution_tool_result_error"`
-
               - `BashCodeExecutionResultBlockParam object`
+
+                - `type: "bash_code_execution_result"`
 
                 - `content: array of BashCodeExecutionOutputBlockParam`
 
-                  - `file_id: string`
-
                   - `type: "bash_code_execution_output"`
+
+                  - `file_id: string`
 
                 - `return_code: number`
 
@@ -28303,13 +28350,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: string`
 
-                - `type: "bash_code_execution_result"`
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "bash_code_execution_tool_result"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28317,9 +28360,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `TextEditorCodeExecutionToolResultBlockParam object`
 
+            - `type: "text_editor_code_execution_tool_result"`
+
             - `content: TextEditorCodeExecutionToolResultErrorParam or TextEditorCodeExecutionViewResultBlockParam or TextEditorCodeExecutionCreateResultBlockParam or TextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `TextEditorCodeExecutionToolResultErrorParam object`
+
+                - `type: "text_editor_code_execution_tool_result_error"`
 
                 - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -28333,11 +28380,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"file_not_found"`
 
-                - `type: "text_editor_code_execution_tool_result_error"`
-
                 - `error_message: optional string or null`
 
               - `TextEditorCodeExecutionViewResultBlockParam object`
+
+                - `type: "text_editor_code_execution_view_result"`
 
                 - `content: string`
 
@@ -28349,8 +28396,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"pdf"`
 
-                - `type: "text_editor_code_execution_view_result"`
-
                 - `num_lines: optional number or null`
 
                 - `start_line: optional number or null`
@@ -28359,9 +28404,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `TextEditorCodeExecutionCreateResultBlockParam object`
 
-                - `is_file_update: boolean`
-
                 - `type: "text_editor_code_execution_create_result"`
+
+                - `is_file_update: boolean`
 
               - `TextEditorCodeExecutionStrReplaceResultBlockParam object`
 
@@ -28381,17 +28426,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "text_editor_code_execution_tool_result"`
-
             - `cache_control: optional CacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
           - `ToolSearchToolResultBlockParam object`
 
+            - `type: "tool_search_tool_result"`
+
             - `content: ToolSearchToolResultErrorParam or ToolSearchToolSearchResultBlockParam`
 
               - `ToolSearchToolResultErrorParam object`
+
+                - `type: "tool_search_tool_result_error"`
 
                 - `error_code: ToolSearchToolResultErrorCode`
 
@@ -28403,31 +28450,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: "tool_search_tool_result_error"`
-
                 - `error_message: optional string or null`
 
               - `ToolSearchToolSearchResultBlockParam object`
 
+                - `type: "tool_search_tool_search_result"`
+
                 - `tool_references: array of ToolReferenceBlockParam`
+
+                  - `type: "tool_reference"`
 
                   - `tool_name: string`
 
                     maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `type: "tool_reference"`
-
                   - `cache_control: optional CacheControlEphemeral or null`
 
                     Create a cache control breakpoint at this content block.
 
-                - `type: "tool_search_tool_search_result"`
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "tool_search_tool_result"`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28438,9 +28481,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             A content block that represents a file to be uploaded to the container
             Files uploaded via this block will be available in the container's input directory.
 
-            - `file_id: string`
-
             - `type: "container_upload"`
+
+            - `file_id: string`
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28558,12 +28601,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           maxItems: 20
 
-          - `skill_id: string`
-
-            Skill ID
-
-            maxLength: 64, minLength: 1
-
           - `type: "anthropic" or "custom"`
 
             Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -28571,6 +28608,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `"anthropic"`
 
             - `"custom"`
+
+          - `skill_id: string`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `version: optional string`
 
@@ -28618,11 +28661,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
+        - `type: "json_schema"`
+
         - `schema: map[unknown]`
 
           The JSON schema of the format
-
-        - `type: "json_schema"`
 
     - `service_tier: optional "auto" or "standard_only"`
 
@@ -28658,11 +28701,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `array of TextBlockParam`
 
+        - `type: "text"`
+
         - `text: string`
 
           minLength: 1
-
-        - `type: "text"`
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -28680,6 +28723,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `ThinkingConfigEnabled object`
 
+        - `type: "enabled"`
+
         - `budget_tokens: number`
 
           Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
@@ -28689,8 +28734,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
           minimum: 1024
-
-        - `type: "enabled"`
 
         - `display: optional "summarized" or "omitted" or null`
 
@@ -28748,11 +28791,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         The model will use the specified tool with `tool_choice.name`.
 
+        - `type: "tool"`
+
         - `name: string`
 
           The name of the tool to use.
-
-        - `type: "tool"`
 
         - `disable_parallel_tool_use: optional boolean`
 
@@ -28832,6 +28875,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `Tool object`
 
+        - `type: optional "custom" or null`
+
         - `input_schema: object`
 
           [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
@@ -28886,17 +28931,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-        - `type: optional "custom" or null`
-
       - `ToolBash20250124 object`
+
+        - `type: "bash_20250124"`
 
         - `name: "bash"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "bash_20250124"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -28924,13 +28967,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `CodeExecutionTool20250522 object`
 
+        - `type: "code_execution_20250522"`
+
         - `name: "code_execution"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "code_execution_20250522"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -28956,13 +28999,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `CodeExecutionTool20250825 object`
 
+        - `type: "code_execution_20250825"`
+
         - `name: "code_execution"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "code_execution_20250825"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -28990,13 +29033,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
+        - `type: "code_execution_20260120"`
+
         - `name: "code_execution"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "code_execution_20260120"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29024,13 +29067,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Code execution tool with REPL state persistence.
 
+        - `type: "code_execution_20260521"`
+
         - `name: "code_execution"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "code_execution_20260521"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29075,6 +29118,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           accepted key, and a member's defaults apply wherever its key is
           absent. Unknown keys are rejected: the field set is this toolset
           version's complete member set.
+
+          - `type: optional BrowserTypeConfig or null`
+
+            `type`'s config overrides.
+
+            - `defer_loading: optional boolean or null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: optional boolean or null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
           - `close_tab: optional BrowserCloseTabConfig or null`
 
@@ -29412,18 +29467,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-          - `type: optional BrowserTypeConfig or null`
-
-            `type`'s config overrides.
-
-            - `defer_loading: optional boolean or null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled: optional boolean or null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
           - `wait: optional BrowserWaitConfig or null`
 
             `wait`'s config overrides.
@@ -29450,13 +29493,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `MemoryTool20250818 object`
 
+        - `type: "memory_20250818"`
+
         - `name: "memory"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "memory_20250818"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29507,6 +29550,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           accepted key, and a member's defaults apply wherever its key is
           absent. Unknown keys are rejected: the field set is this toolset
           version's complete member set.
+
+          - `type: optional ComputerTypeConfig or null`
+
+            `type`'s config overrides.
+
+            - `defer_loading: optional boolean or null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: optional boolean or null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
           - `cursor_position: optional ComputerCursorPositionConfig or null`
 
@@ -29676,18 +29731,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-          - `type: optional ComputerTypeConfig or null`
-
-            `type`'s config overrides.
-
-            - `defer_loading: optional boolean or null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled: optional boolean or null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
           - `wait: optional ComputerWaitConfig or null`
 
             `wait`'s config overrides.
@@ -29714,13 +29757,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `ToolTextEditor20250124 object`
 
+        - `type: "text_editor_20250124"`
+
         - `name: "str_replace_editor"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "text_editor_20250124"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29748,13 +29791,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `ToolTextEditor20250429 object`
 
+        - `type: "text_editor_20250429"`
+
         - `name: "str_replace_based_edit_tool"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "text_editor_20250429"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29782,13 +29825,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `ToolTextEditor20250728 object`
 
+        - `type: "text_editor_20250728"`
+
         - `name: "str_replace_based_edit_tool"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "text_editor_20250728"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29822,13 +29865,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `WebSearchTool20250305 object`
 
+        - `type: "web_search_20250305"`
+
         - `name: "web_search"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_search_20250305"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29898,13 +29941,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `WebFetchTool20250910 object`
 
+        - `type: "web_fetch_20250910"`
+
         - `name: "web_fetch"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_fetch_20250910"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -29954,13 +29997,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `WebSearchTool20260209 object`
 
+        - `type: "web_search_20260209"`
+
         - `name: "web_search"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_search_20260209"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30004,13 +30047,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `WebFetchTool20260209 object`
 
+        - `type: "web_fetch_20260209"`
+
         - `name: "web_fetch"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_fetch_20260209"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30062,13 +30105,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Web fetch tool with use_cache parameter for bypassing cached content.
 
+        - `type: "web_fetch_20260309"`
+
         - `name: "web_fetch"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_fetch_20260309"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30122,13 +30165,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `WebSearchTool20260318 object`
 
+        - `type: "web_search_20260318"`
+
         - `name: "web_search"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_search_20260318"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30180,13 +30223,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `WebFetchTool20260318 object`
 
+        - `type: "web_fetch_20260318"`
+
         - `name: "web_fetch"`
 
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `type: "web_fetch_20260318"`
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30248,17 +30291,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `ToolSearchToolBm25_20251119 object`
 
-        - `name: "tool_search_tool_bm25"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
         - `type: "tool_search_tool_bm25_20251119" or "tool_search_tool_bm25"`
 
           - `"tool_search_tool_bm25_20251119"`
 
           - `"tool_search_tool_bm25"`
+
+        - `name: "tool_search_tool_bm25"`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30284,17 +30327,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `ToolSearchToolRegex20251119 object`
 
-        - `name: "tool_search_tool_regex"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
         - `type: "tool_search_tool_regex_20251119" or "tool_search_tool_regex"`
 
           - `"tool_search_tool_regex_20251119"`
 
           - `"tool_search_tool_regex"`
+
+        - `name: "tool_search_tool_regex"`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30357,6 +30400,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 #### Returns
 
 - `MessageBatch object`
+
+  - `type: "message_batch"`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: string`
 
@@ -30455,14 +30506,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 #### Example
 
@@ -30527,9 +30570,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+#### Headers
+
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `MessageBatch object`
+
+  - `type: "message_batch"`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: string`
 
@@ -30628,14 +30683,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 #### Example
 
@@ -30694,9 +30741,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   default: 20, maximum: 1000, minimum: 1
 
+#### Headers
+
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `data: array of MessageBatch`
+
+  - `type: "message_batch"`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: string`
 
@@ -30795,14 +30854,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
 
 - `first_id: string or null`
 
@@ -30870,9 +30921,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+#### Headers
+
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `MessageBatch object`
+
+  - `type: "message_batch"`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
+
+    default: message_batch
 
   - `id: string`
 
@@ -30972,14 +31035,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `type: "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    default: message_batch
-
 #### Example
 
 ```bash
@@ -31028,13 +31083,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+#### Headers
+
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `DeletedMessageBatch object`
-
-  - `id: string`
-
-    ID of the Message Batch.
 
   - `type: "message_batch_deleted"`
 
@@ -31043,6 +31098,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     For Message Batches, this is always `"message_batch_deleted"`.
 
     default: message_batch_deleted
+
+  - `id: string`
+
+    ID of the Message Batch.
 
 #### Example
 
@@ -31078,6 +31137,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   ID of the Message Batch.
 
+#### Headers
+
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `MessageBatchIndividualResponse object`
@@ -31098,7 +31161,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MessageBatchSucceededResult object`
 
+      - `type: "succeeded"`
+
+        default: succeeded
+
       - `message: Message`
+
+        - `type: "message"`
+
+          Object type.
+
+          For Messages, this is always `"message"`.
+
+          default: message
 
         - `id: string`
 
@@ -31124,12 +31199,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skills loaded in the container
 
-            - `skill_id: string`
-
-              Skill ID
-
-              maxLength: 64, minLength: 1
-
             - `type: "anthropic" or "custom"`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
@@ -31137,6 +31206,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `"anthropic"`
 
               - `"custom"`
+
+            - `skill_id: string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `version: string`
 
@@ -31175,6 +31250,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `TextBlock object`
 
+            - `type: "text"`
+
+              default: text
+
             - `citations: array of TextCitation or null`
 
               Citations supporting the text block.
@@ -31182,6 +31261,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `CitationCharLocation object`
+
+                - `type: "char_location"`
+
+                  default: char_location
 
                 - `cited_text: string`
 
@@ -31199,11 +31282,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: "char_location"`
-
-                  default: char_location
-
               - `CitationPageLocation object`
+
+                - `type: "page_location"`
+
+                  default: page_location
 
                 - `cited_text: string`
 
@@ -31221,11 +31304,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-                - `type: "page_location"`
-
-                  default: page_location
-
               - `CitationContentBlockLocation object`
+
+                - `type: "content_block_location"`
+
+                  default: content_block_location
 
                 - `cited_text: string`
 
@@ -31253,11 +31336,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-                - `type: "content_block_location"`
-
-                  default: content_block_location
-
               - `CitationsWebSearchResultLocation object`
+
+                - `type: "web_search_result_location"`
+
+                  default: web_search_result_location
 
                 - `cited_text: string`
 
@@ -31267,13 +31350,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   maxLength: 512
 
-                - `type: "web_search_result_location"`
-
-                  default: web_search_result_location
-
                 - `url: string`
 
               - `CitationsSearchResultLocation object`
+
+                - `type: "search_result_location"`
+
+                  default: search_result_location
 
                 - `cited_text: string`
 
@@ -31305,19 +31388,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string or null`
 
-                - `type: "search_result_location"`
-
-                  default: search_result_location
-
             - `text: string`
 
-              maxLength: 5000000, minLength: 0
-
-            - `type: "text"`
-
-              default: text
+              minLength: 0
 
           - `ThinkingBlock object`
+
+            - `type: "thinking"`
+
+              default: thinking
 
             - `signature: string`
 
@@ -31331,11 +31410,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `type: "thinking"`
-
-              default: thinking
-
           - `RedactedThinkingBlock object`
+
+            - `type: "redacted_thinking"`
+
+              default: redacted_thinking
 
             - `data: string`
 
@@ -31345,11 +31424,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `type: "redacted_thinking"`
-
-              default: redacted_thinking
-
           - `ToolUseBlock object`
+
+            - `type: "tool_use"`
+
+              default: tool_use
 
             - `id: string`
 
@@ -31371,29 +31450,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation generated by a server-side tool.
 
+                - `type: "code_execution_20250825"`
+
                 - `tool_id: string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120 object`
 
+                - `type: "code_execution_20260120"`
+
                 - `tool_id: string`
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-                - `type: "code_execution_20260120"`
 
             - `input: map[unknown]`
 
             - `name: string`
 
               minLength: 1
-
-            - `type: "tool_use"`
-
-              default: tool_use
 
             - `toolset_name: optional string or null`
 
@@ -31402,6 +31477,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ServerToolUseBlock object`
+
+            - `type: "server_tool_use"`
+
+              default: server_tool_use
 
             - `id: string`
 
@@ -31441,11 +31520,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_search_tool_bm25"`
 
-            - `type: "server_tool_use"`
-
-              default: server_tool_use
-
           - `WebSearchToolResultBlock object`
+
+            - `type: "web_search_tool_result"`
+
+              default: web_search_tool_result
 
             - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -31467,6 +31546,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `WebSearchToolResultError object`
 
+                - `type: "web_search_tool_result_error"`
+
+                  default: web_search_tool_result_error
+
                 - `error_code: WebSearchToolResultErrorCode`
 
                   - `"invalid_tool_input"`
@@ -31481,11 +31564,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"request_too_large"`
 
-                - `type: "web_search_tool_result_error"`
-
-                  default: web_search_tool_result_error
-
               - `array of WebSearchResultBlock`
+
+                - `type: "web_search_result"`
+
+                  default: web_search_result
 
                 - `encrypted_content: string`
 
@@ -31493,21 +31576,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string`
 
-                - `type: "web_search_result"`
-
-                  default: web_search_result
-
                 - `url: string`
 
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "web_search_tool_result"`
-
-              default: web_search_tool_result
-
           - `WebFetchToolResultBlock object`
+
+            - `type: "web_fetch_tool_result"`
+
+              default: web_fetch_tool_result
 
             - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
@@ -31529,6 +31608,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `WebFetchToolResultErrorBlock object`
 
+                - `type: "web_fetch_tool_result_error"`
+
+                  default: web_fetch_tool_result_error
+
                 - `error_code: WebFetchToolResultErrorCode`
 
                   - `"invalid_tool_input"`
@@ -31549,13 +31632,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"unavailable"`
 
-                - `type: "web_fetch_tool_result_error"`
-
-                  default: web_fetch_tool_result_error
+                  - `"content_too_large"`
 
               - `WebFetchBlock object`
 
+                - `type: "web_fetch_result"`
+
+                  default: web_fetch_result
+
                 - `content: DocumentBlock`
+
+                  - `type: "document"`
+
+                    default: document
 
                   - `citations: CitationsConfig or null`
 
@@ -31569,37 +31658,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `Base64PDFSource object`
 
+                      - `type: "base64"`
+
                       - `data: string`
 
                         format: byte
 
                       - `media_type: "application/pdf"`
 
-                      - `type: "base64"`
-
                     - `PlainTextSource object`
+
+                      - `type: "text"`
 
                       - `data: string`
 
                       - `media_type: "text/plain"`
 
-                      - `type: "text"`
-
                   - `title: string or null`
 
                     The title of the document
 
-                  - `type: "document"`
-
-                    default: document
-
                 - `retrieved_at: string or null`
 
                   ISO 8601 timestamp when the content was retrieved
-
-                - `type: "web_fetch_result"`
-
-                  default: web_fetch_result
 
                 - `url: string`
 
@@ -31609,17 +31690,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "web_fetch_tool_result"`
-
-              default: web_fetch_tool_result
-
           - `CodeExecutionToolResultBlock object`
+
+            - `type: "code_execution_tool_result"`
+
+              default: code_execution_tool_result
 
             - `content: CodeExecutionToolResultBlockContent`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
               - `CodeExecutionToolResultError object`
+
+                - `type: "code_execution_tool_result_error"`
+
+                  default: code_execution_tool_result_error
 
                 - `error_code: CodeExecutionToolResultErrorCode`
 
@@ -31631,19 +31716,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `type: "code_execution_tool_result_error"`
-
-                  default: code_execution_tool_result_error
-
               - `CodeExecutionResultBlock object`
 
-                - `content: array of CodeExecutionOutputBlock`
+                - `type: "code_execution_result"`
 
-                  - `file_id: string`
+                  default: code_execution_result
+
+                - `content: array of CodeExecutionOutputBlock`
 
                   - `type: "code_execution_output"`
 
                     default: code_execution_output
+
+                  - `file_id: string`
 
                 - `return_code: number`
 
@@ -31651,21 +31736,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: string`
 
-                - `type: "code_execution_result"`
-
-                  default: code_execution_result
-
               - `EncryptedCodeExecutionResultBlock object`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
-                - `content: array of CodeExecutionOutputBlock`
+                - `type: "encrypted_code_execution_result"`
 
-                  - `file_id: string`
+                  default: encrypted_code_execution_result
+
+                - `content: array of CodeExecutionOutputBlock`
 
                   - `type: "code_execution_output"`
 
                     default: code_execution_output
+
+                  - `file_id: string`
 
                 - `encrypted_stdout: string`
 
@@ -31673,23 +31758,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stderr: string`
 
-                - `type: "encrypted_code_execution_result"`
-
-                  default: encrypted_code_execution_result
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "code_execution_tool_result"`
-
-              default: code_execution_tool_result
-
           - `BashCodeExecutionToolResultBlock object`
+
+            - `type: "bash_code_execution_tool_result"`
+
+              default: bash_code_execution_tool_result
 
             - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
               - `BashCodeExecutionToolResultError object`
+
+                - `type: "bash_code_execution_tool_result_error"`
+
+                  default: bash_code_execution_tool_result_error
 
                 - `error_code: BashCodeExecutionToolResultErrorCode`
 
@@ -31703,19 +31788,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"output_file_too_large"`
 
-                - `type: "bash_code_execution_tool_result_error"`
-
-                  default: bash_code_execution_tool_result_error
-
               - `BashCodeExecutionResultBlock object`
 
-                - `content: array of BashCodeExecutionOutputBlock`
+                - `type: "bash_code_execution_result"`
 
-                  - `file_id: string`
+                  default: bash_code_execution_result
+
+                - `content: array of BashCodeExecutionOutputBlock`
 
                   - `type: "bash_code_execution_output"`
 
                     default: bash_code_execution_output
+
+                  - `file_id: string`
 
                 - `return_code: number`
 
@@ -31723,23 +31808,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `stdout: string`
 
-                - `type: "bash_code_execution_result"`
-
-                  default: bash_code_execution_result
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "bash_code_execution_tool_result"`
-
-              default: bash_code_execution_tool_result
-
           - `TextEditorCodeExecutionToolResultBlock object`
+
+            - `type: "text_editor_code_execution_tool_result"`
+
+              default: text_editor_code_execution_tool_result
 
             - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
               - `TextEditorCodeExecutionToolResultError object`
+
+                - `type: "text_editor_code_execution_tool_result_error"`
+
+                  default: text_editor_code_execution_tool_result_error
 
                 - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
@@ -31755,11 +31840,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `error_message: string or null`
 
-                - `type: "text_editor_code_execution_tool_result_error"`
-
-                  default: text_editor_code_execution_tool_result_error
-
               - `TextEditorCodeExecutionViewResultBlock object`
+
+                - `type: "text_editor_code_execution_view_result"`
+
+                  default: text_editor_code_execution_view_result
 
                 - `content: string`
 
@@ -31777,19 +31862,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `total_lines: number or null`
 
-                - `type: "text_editor_code_execution_view_result"`
-
-                  default: text_editor_code_execution_view_result
-
               - `TextEditorCodeExecutionCreateResultBlock object`
-
-                - `is_file_update: boolean`
 
                 - `type: "text_editor_code_execution_create_result"`
 
                   default: text_editor_code_execution_create_result
 
+                - `is_file_update: boolean`
+
               - `TextEditorCodeExecutionStrReplaceResultBlock object`
+
+                - `type: "text_editor_code_execution_str_replace_result"`
+
+                  default: text_editor_code_execution_str_replace_result
 
                 - `lines: array of string or null`
 
@@ -31801,23 +31886,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `old_start: number or null`
 
-                - `type: "text_editor_code_execution_str_replace_result"`
-
-                  default: text_editor_code_execution_str_replace_result
-
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type: "text_editor_code_execution_tool_result"`
-
-              default: text_editor_code_execution_tool_result
-
           - `ToolSearchToolResultBlock object`
+
+            - `type: "tool_search_tool_result"`
+
+              default: tool_search_tool_result
 
             - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
               - `ToolSearchToolResultError object`
+
+                - `type: "tool_search_tool_result_error"`
+
+                  default: tool_search_tool_result_error
 
                 - `error_code: ToolSearchToolResultErrorCode`
 
@@ -31831,43 +31916,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `error_message: string or null`
 
-                - `type: "tool_search_tool_result_error"`
-
-                  default: tool_search_tool_result_error
-
               - `ToolSearchToolSearchResultBlock object`
-
-                - `tool_references: array of ToolReferenceBlock`
-
-                  - `tool_name: string`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `type: "tool_reference"`
-
-                    default: tool_reference
 
                 - `type: "tool_search_tool_search_result"`
 
                   default: tool_search_tool_search_result
 
+                - `tool_references: array of ToolReferenceBlock`
+
+                  - `type: "tool_reference"`
+
+                    default: tool_reference
+
+                  - `tool_name: string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `tool_use_id: string`
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `type: "tool_search_tool_result"`
-
-              default: tool_search_tool_result
 
           - `ContainerUploadBlock object`
 
             Response model for a file uploaded to the container.
 
-            - `file_id: string`
-
             - `type: "container_upload"`
 
               default: container_upload
+
+            - `file_id: string`
 
         - `model: Model`
 
@@ -31963,6 +32040,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Structured information about a refusal.
 
+          - `type: "refusal"`
+
+            default: refusal
+
           - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
             The policy category that triggered a refusal.
@@ -31992,10 +32073,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Human-readable explanation of the refusal.
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-          - `type: "refusal"`
-
-            default: refusal
 
         - `stop_reason: StopReason or null`
 
@@ -32032,14 +32109,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Which custom stop sequence was generated, if any.
 
           This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `type: "message"`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          default: message
 
         - `usage: Usage`
 
@@ -32145,115 +32214,111 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"batch"`
 
-      - `type: "succeeded"`
-
-        default: succeeded
-
     - `MessageBatchErroredResult object`
 
+      - `type: "errored"`
+
+        default: errored
+
       - `error: ErrorResponse`
-
-        - `error: ErrorObject`
-
-          - `InvalidRequestError object`
-
-            - `message: string`
-
-              default: Invalid request
-
-            - `type: "invalid_request_error"`
-
-              default: invalid_request_error
-
-          - `AuthenticationError object`
-
-            - `message: string`
-
-              default: Authentication error
-
-            - `type: "authentication_error"`
-
-              default: authentication_error
-
-          - `BillingError object`
-
-            - `message: string`
-
-              default: Billing error
-
-            - `type: "billing_error"`
-
-              default: billing_error
-
-          - `PermissionError object`
-
-            - `message: string`
-
-              default: Permission denied
-
-            - `type: "permission_error"`
-
-              default: permission_error
-
-          - `NotFoundError object`
-
-            - `message: string`
-
-              default: Not found
-
-            - `type: "not_found_error"`
-
-              default: not_found_error
-
-          - `RateLimitError object`
-
-            - `message: string`
-
-              default: Rate limited
-
-            - `type: "rate_limit_error"`
-
-              default: rate_limit_error
-
-          - `GatewayTimeoutError object`
-
-            - `message: string`
-
-              default: Request timeout
-
-            - `type: "timeout_error"`
-
-              default: timeout_error
-
-          - `APIErrorObject object`
-
-            - `message: string`
-
-              default: Internal server error
-
-            - `type: "api_error"`
-
-              default: api_error
-
-          - `OverloadedError object`
-
-            - `message: string`
-
-              default: Overloaded
-
-            - `type: "overloaded_error"`
-
-              default: overloaded_error
-
-        - `request_id: string or null`
 
         - `type: "error"`
 
           default: error
 
-      - `type: "errored"`
+        - `error: ErrorObject`
 
-        default: errored
+          - `InvalidRequestError object`
+
+            - `type: "invalid_request_error"`
+
+              default: invalid_request_error
+
+            - `message: string`
+
+              default: Invalid request
+
+          - `AuthenticationError object`
+
+            - `type: "authentication_error"`
+
+              default: authentication_error
+
+            - `message: string`
+
+              default: Authentication error
+
+          - `BillingError object`
+
+            - `type: "billing_error"`
+
+              default: billing_error
+
+            - `message: string`
+
+              default: Billing error
+
+          - `PermissionError object`
+
+            - `type: "permission_error"`
+
+              default: permission_error
+
+            - `message: string`
+
+              default: Permission denied
+
+          - `NotFoundError object`
+
+            - `type: "not_found_error"`
+
+              default: not_found_error
+
+            - `message: string`
+
+              default: Not found
+
+          - `RateLimitError object`
+
+            - `type: "rate_limit_error"`
+
+              default: rate_limit_error
+
+            - `message: string`
+
+              default: Rate limited
+
+          - `GatewayTimeoutError object`
+
+            - `type: "timeout_error"`
+
+              default: timeout_error
+
+            - `message: string`
+
+              default: Request timeout
+
+          - `APIErrorObject object`
+
+            - `type: "api_error"`
+
+              default: api_error
+
+            - `message: string`
+
+              default: Internal server error
+
+          - `OverloadedError object`
+
+            - `type: "overloaded_error"`
+
+              default: overloaded_error
+
+            - `message: string`
+
+              default: Overloaded
+
+        - `request_id: string or null`
 
     - `MessageBatchCanceledResult object`
 

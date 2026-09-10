@@ -1,3 +1,8 @@
+---
+title: Credentials
+url: https://platform.claude.com/docs/en/api/go/beta/vaults/credentials
+---
+
 # Credentials
 
 ## Create Credential
@@ -22,6 +27,8 @@ Create Credential
 
       Parameters for creating an MCP OAuth credential.
 
+      - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
+
       - `AccessToken string`
 
         OAuth access token.
@@ -33,8 +40,6 @@ Create Credential
         URL of the MCP server this credential authenticates against.
 
         minLength: 1, maxLength: 2047
-
-      - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
 
       - `ExpiresAt Time Optional`
 
@@ -56,7 +61,7 @@ Create Credential
 
           OAuth refresh token.
 
-          minLength: 1, maxLength: 4096
+          minLength: 1, maxLength: 8192
 
         - `TokenEndpoint string`
 
@@ -78,25 +83,25 @@ Create Credential
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
+            - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+
             - `ClientSecret string`
 
               OAuth client secret.
 
               minLength: 1, maxLength: 512
-
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostParamResp struct{…}`
 
             Token endpoint uses POST body authentication with client credentials.
 
+            - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+
             - `ClientSecret string`
 
               OAuth client secret.
 
               minLength: 1, maxLength: 512
-
-            - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
 
         - `Resource string Optional`
 
@@ -114,6 +119,8 @@ Create Credential
 
       Parameters for creating a static bearer token credential.
 
+      - `Type BetaManagedAgentsStaticBearerCreateParamsType`
+
       - `Token string`
 
         Static bearer token value.
@@ -126,11 +133,11 @@ Create Credential
 
         minLength: 1, maxLength: 2047
 
-      - `Type BetaManagedAgentsStaticBearerCreateParamsType`
-
     - `type BetaManagedAgentsEnvironmentVariableCreateParamsResp struct{…}`
 
       Parameters for creating an environment variable credential.
+
+      - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
 
       - `Networking BetaManagedAgentsCredentialNetworkingParamsUnionResp`
 
@@ -146,11 +153,11 @@ Create Credential
 
           Substitute the secret only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
       - `SecretName string`
 
@@ -163,8 +170,6 @@ Create Credential
         Secret value. Write-only; never returned in responses.
 
         minLength: 1, maxLength: 4096
-
-      - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationParamsResp Optional`
 
@@ -242,6 +247,8 @@ Create Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -284,11 +291,19 @@ Create Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type BetaManagedAgentsCredentialType`
 
   - `ID string`
 
@@ -308,11 +323,11 @@ Create Credential
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -366,15 +381,17 @@ Create Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -402,17 +419,15 @@ Create Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -423,8 +438,6 @@ Create Credential
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 
@@ -580,6 +593,8 @@ List Credentials
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -622,11 +637,19 @@ List Credentials
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type BetaManagedAgentsCredentialType`
 
   - `ID string`
 
@@ -646,11 +669,11 @@ List Credentials
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -704,15 +727,17 @@ List Credentials
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -740,17 +765,15 @@ List Credentials
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -761,8 +784,6 @@ List Credentials
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 
@@ -905,6 +926,8 @@ Get Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -947,11 +970,19 @@ Get Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type BetaManagedAgentsCredentialType`
 
   - `ID string`
 
@@ -971,11 +1002,11 @@ Get Credential
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -1029,15 +1060,17 @@ Get Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -1065,17 +1098,15 @@ Get Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -1086,8 +1117,6 @@ Get Credential
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 
@@ -1203,7 +1232,7 @@ Update Credential
 
           Updated OAuth refresh token.
 
-          minLength: 1, maxLength: 4096
+          minLength: 1, maxLength: 8192
 
         - `Scope string Optional`
 
@@ -1283,11 +1312,11 @@ Update Credential
 
           Substitute the secret only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
       - `SecretValue string Optional`
 
@@ -1359,6 +1388,8 @@ Update Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1401,11 +1432,19 @@ Update Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type BetaManagedAgentsCredentialType`
 
   - `ID string`
 
@@ -1425,11 +1464,11 @@ Update Credential
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -1483,15 +1522,17 @@ Update Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -1519,17 +1560,15 @@ Update Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -1540,8 +1579,6 @@ Update Credential
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 
@@ -1681,6 +1718,8 @@ Delete Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1723,17 +1762,23 @@ Delete Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsDeletedCredential struct{…}`
 
   Confirmation of a deleted credential.
 
+  - `Type BetaManagedAgentsDeletedCredentialType`
+
   - `ID string`
 
     Unique identifier of the deleted credential.
-
-  - `Type BetaManagedAgentsDeletedCredentialType`
 
 ### Example
 
@@ -1847,6 +1892,8 @@ Archive Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1889,11 +1936,19 @@ Archive Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `Type BetaManagedAgentsCredentialType`
 
   - `ID string`
 
@@ -1913,11 +1968,11 @@ Archive Credential
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -1971,15 +2026,17 @@ Archive Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -2007,17 +2064,15 @@ Archive Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -2028,8 +2083,6 @@ Archive Credential
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 
@@ -2169,6 +2222,8 @@ Validate Credential
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -2211,11 +2266,19 @@ Validate Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaManagedAgentsCredentialValidation struct{…}`
 
   Result of live-probing a credential against its configured MCP server.
+
+  - `Type BetaManagedAgentsCredentialValidationType`
 
   - `CredentialID string`
 
@@ -2284,8 +2347,6 @@ Validate Credential
     - `const BetaManagedAgentsCredentialValidationStatusInvalid BetaManagedAgentsCredentialValidationStatus = "invalid"`
 
     - `const BetaManagedAgentsCredentialValidationStatusUnknown BetaManagedAgentsCredentialValidationStatus = "unknown"`
-
-  - `Type BetaManagedAgentsCredentialValidationType`
 
   - `ValidatedAt Time`
 
@@ -2367,6 +2428,8 @@ func main() {
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
+  - `Type BetaManagedAgentsCredentialType`
+
   - `ID string`
 
     Unique identifier for the credential.
@@ -2385,11 +2448,11 @@ func main() {
 
       OAuth credential details for an MCP server.
 
+      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
-
-      - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
       - `ExpiresAt Time Optional`
 
@@ -2443,15 +2506,17 @@ func main() {
 
       Static bearer token credential details for an MCP server.
 
+      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
       - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -2479,17 +2544,15 @@ func main() {
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
           - `AllowedHosts []string`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
       - `SecretName string`
 
         Name of the environment variable.
-
-      - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `CreatedAt Time`
 
@@ -2500,8 +2563,6 @@ func main() {
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `Type BetaManagedAgentsCredentialType`
 
   - `UpdatedAt Time`
 
@@ -2533,17 +2594,19 @@ func main() {
 
     Substitute the secret only on requests to the listed hosts.
 
+    - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
     - `AllowedHosts []string`
 
       Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-    - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
 ### Beta Managed Agents Credential Validation
 
 - `type BetaManagedAgentsCredentialValidation struct{…}`
 
   Result of live-probing a credential against its configured MCP server.
+
+  - `Type BetaManagedAgentsCredentialValidationType`
 
   - `CredentialID string`
 
@@ -2613,8 +2676,6 @@ func main() {
 
     - `const BetaManagedAgentsCredentialValidationStatusUnknown BetaManagedAgentsCredentialValidationStatus = "unknown"`
 
-  - `Type BetaManagedAgentsCredentialValidationType`
-
   - `ValidatedAt Time`
 
     A timestamp in RFC 3339 format
@@ -2643,17 +2704,19 @@ func main() {
 
   Confirmation of a deleted credential.
 
+  - `Type BetaManagedAgentsDeletedCredentialType`
+
   - `ID string`
 
     Unique identifier of the deleted credential.
-
-  - `Type BetaManagedAgentsDeletedCredentialType`
 
 ### Beta Managed Agents Environment Variable Auth Response
 
 - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
   Environment variable credential details. The secret value is never returned.
+
+  - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
   - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
 
@@ -2681,23 +2744,23 @@ func main() {
 
       The secret is substituted only on requests to the listed hosts.
 
+      - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
       - `AllowedHosts []string`
 
         Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-      - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
-
   - `SecretName string`
 
     Name of the environment variable.
-
-  - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
 ### Beta Managed Agents Environment Variable Create Params
 
 - `type BetaManagedAgentsEnvironmentVariableCreateParamsResp struct{…}`
 
   Parameters for creating an environment variable credential.
+
+  - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
 
   - `Networking BetaManagedAgentsCredentialNetworkingParamsUnionResp`
 
@@ -2713,11 +2776,11 @@ func main() {
 
       Substitute the secret only on requests to the listed hosts.
 
+      - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
       - `AllowedHosts []string`
 
         Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-      - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
   - `SecretName string`
 
@@ -2730,8 +2793,6 @@ func main() {
     Secret value. Write-only; never returned in responses.
 
     minLength: 1, maxLength: 4096
-
-  - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
 
   - `InjectionLocation BetaManagedAgentsInjectionLocationParamsResp Optional`
 
@@ -2779,11 +2840,11 @@ func main() {
 
       Substitute the secret only on requests to the listed hosts.
 
+      - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
       - `AllowedHosts []string`
 
         Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-      - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
   - `SecretValue string Optional`
 
@@ -2839,11 +2900,11 @@ func main() {
 
   Substitute the secret only on requests to the listed hosts.
 
+  - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
+
   - `AllowedHosts []string`
 
     Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-  - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
 ### Beta Managed Agents Limited Credential Networking Response
 
@@ -2851,11 +2912,11 @@ func main() {
 
   The secret is substituted only on requests to the listed hosts.
 
+  - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
+
   - `AllowedHosts []string`
 
     Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
-
-  - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
 
 ### Beta Managed Agents MCP OAuth Auth Response
 
@@ -2863,11 +2924,11 @@ func main() {
 
   OAuth credential details for an MCP server.
 
+  - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
+
   - `MCPServerURL string`
 
     URL of the MCP server this credential authenticates against.
-
-  - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
   - `ExpiresAt Time Optional`
 
@@ -2923,6 +2984,8 @@ func main() {
 
   Parameters for creating an MCP OAuth credential.
 
+  - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
+
   - `AccessToken string`
 
     OAuth access token.
@@ -2934,8 +2997,6 @@ func main() {
     URL of the MCP server this credential authenticates against.
 
     minLength: 1, maxLength: 2047
-
-  - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
 
   - `ExpiresAt Time Optional`
 
@@ -2957,7 +3018,7 @@ func main() {
 
       OAuth refresh token.
 
-      minLength: 1, maxLength: 4096
+      minLength: 1, maxLength: 8192
 
     - `TokenEndpoint string`
 
@@ -2979,25 +3040,25 @@ func main() {
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
+        - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+
         - `ClientSecret string`
 
           OAuth client secret.
 
           minLength: 1, maxLength: 512
-
-        - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
 
       - `type BetaManagedAgentsTokenEndpointAuthPostParamResp struct{…}`
 
         Token endpoint uses POST body authentication with client credentials.
 
+        - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+
         - `ClientSecret string`
 
           OAuth client secret.
 
           minLength: 1, maxLength: 512
-
-        - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
 
     - `Resource string Optional`
 
@@ -3027,7 +3088,7 @@ func main() {
 
     OAuth refresh token.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 8192
 
   - `TokenEndpoint string`
 
@@ -3049,25 +3110,25 @@ func main() {
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
+      - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+
       - `ClientSecret string`
 
         OAuth client secret.
 
         minLength: 1, maxLength: 512
-
-      - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
 
     - `type BetaManagedAgentsTokenEndpointAuthPostParamResp struct{…}`
 
       Token endpoint uses POST body authentication with client credentials.
 
+      - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+
       - `ClientSecret string`
 
         OAuth client secret.
 
         minLength: 1, maxLength: 512
-
-      - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
 
   - `Resource string Optional`
 
@@ -3135,7 +3196,7 @@ func main() {
 
     Updated OAuth refresh token.
 
-    minLength: 1, maxLength: 4096
+    minLength: 1, maxLength: 8192
 
   - `Scope string Optional`
 
@@ -3199,7 +3260,7 @@ func main() {
 
       Updated OAuth refresh token.
 
-      minLength: 1, maxLength: 4096
+      minLength: 1, maxLength: 8192
 
     - `Scope string Optional`
 
@@ -3337,17 +3398,19 @@ func main() {
 
   Static bearer token credential details for an MCP server.
 
+  - `Type BetaManagedAgentsStaticBearerAuthResponseType`
+
   - `MCPServerURL string`
 
     URL of the MCP server this credential authenticates against.
-
-  - `Type BetaManagedAgentsStaticBearerAuthResponseType`
 
 ### Beta Managed Agents Static Bearer Create Params
 
 - `type BetaManagedAgentsStaticBearerCreateParamsResp struct{…}`
 
   Parameters for creating a static bearer token credential.
+
+  - `Type BetaManagedAgentsStaticBearerCreateParamsType`
 
   - `Token string`
 
@@ -3360,8 +3423,6 @@ func main() {
     URL of the MCP server this credential authenticates against.
 
     minLength: 1, maxLength: 2047
-
-  - `Type BetaManagedAgentsStaticBearerCreateParamsType`
 
 ### Beta Managed Agents Static Bearer Update Params
 
@@ -3383,13 +3444,13 @@ func main() {
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
+  - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+
   - `ClientSecret string`
 
     OAuth client secret.
 
     minLength: 1, maxLength: 512
-
-  - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
 
 ### Beta Managed Agents Token Endpoint Auth Basic Response
 
@@ -3435,13 +3496,13 @@ func main() {
 
   Token endpoint uses POST body authentication with client credentials.
 
+  - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
+
   - `ClientSecret string`
 
     OAuth client secret.
 
     minLength: 1, maxLength: 512
-
-  - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
 
 ### Beta Managed Agents Token Endpoint Auth Post Response
 

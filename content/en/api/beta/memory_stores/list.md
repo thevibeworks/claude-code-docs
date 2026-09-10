@@ -1,3 +1,8 @@
+---
+title: List memory stores
+url: https://platform.claude.com/docs/en/api/beta/memory_stores/list
+---
+
 # List memory stores
 
 **GET** `/v1/memory_stores`
@@ -40,7 +45,7 @@ List memory stores
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -88,6 +93,8 @@ List memory stores
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -130,11 +137,15 @@ List memory stores
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `data: optional array of BetaManagedAgentsMemoryStore`
 
   Memory stores on this page, newest first. Empty when there are no stores matching the filters.
+
+  - `type: "memory_store"`
 
   - `id: string`
 
@@ -149,8 +160,6 @@ List memory stores
   - `name: string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `type: "memory_store"`
 
   - `updated_at: string`
 

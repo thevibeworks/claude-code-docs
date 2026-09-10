@@ -1,3 +1,8 @@
+---
+title: Apps
+url: https://platform.claude.com/docs/en/api/compliance/apps
+---
+
 # Apps
 
 ## Apps › Chats
@@ -113,6 +118,12 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -165,7 +176,21 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
   - `user: object or null`
 
-    User information for compliance responses.
+    The user who created the chat.
+
+    Null when the API key is restricted to one organization and the creator
+    is no longer a member of it (for example, after they were removed from
+    it).
+
+    A key for the whole parent organization returns the creator's `id`
+    and current `email_address` for every chat; on the list endpoint, pass
+    `organization_ids[]` to keep the results to one organization. For the
+    email address the creator had when the chat was created, query
+    `GET /v1/compliance/activities` with `activity_types[]=claude_chat_created`
+    and a `created_at` window around the chat's `created_at`, find the event
+    whose `claude_chat_id` matches this chat's `id`, and read
+    `actor.email_address`. These events exist only for chats created after
+    compliance logging was enabled for the organization.
 
     - `id: string`
 
@@ -242,19 +267,25 @@ files. This is a destructive operation that cannot be undone.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
-
-- `id: string`
-
-  The ID of the Claude chat that was deleted
 
 - `type: optional "claude_chat_deleted"`
 
   Constant string confirming deletion
 
   default: claude_chat_deleted
+
+- `id: string`
+
+  The ID of the Claude chat that was deleted
 
 #### Example
 
@@ -379,6 +410,12 @@ Retrieves message history and file metadata for a specific chat.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -423,6 +460,10 @@ Retrieves message history and file metadata for a specific chat.
 
       Text content block.
 
+      - `type: "text"`
+
+        default: text
+
       - `text: string`
 
         Text content from human or assistant
@@ -439,13 +480,13 @@ Retrieves message history and file metadata for a specific chat.
 
         default: false
 
-      - `type: "text"`
-
-        default: text
-
     - `ToolUse object`
 
       Tool invocation requested by the assistant.
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string or null`
 
@@ -473,25 +514,25 @@ Retrieves message history and file metadata for a specific chat.
 
         default: false
 
-      - `type: "tool_use"`
-
-        default: tool_use
-
     - `ToolResult object`
 
       Result returned by a tool invocation.
+
+      - `type: "tool_result"`
+
+        default: tool_result
 
       - `content: array of object`
 
         Text content returned by the tool. Generated files are surfaced via the message's `generated_files` list; other non-text item types (including images and links) are omitted.
 
-        - `text: string`
-
-          Text returned by the tool
-
         - `type: "text"`
 
           default: text
+
+        - `text: string`
+
+          Text returned by the tool
 
       - `integration_name: string or null`
 
@@ -518,10 +559,6 @@ Retrieves message history and file metadata for a specific chat.
         True when one or more text items in `content` were shortened. Pass the endpoint's tool-result max parameter as -1 to request full content, subject to any server-side maximum the endpoint enforces.
 
         default: false
-
-      - `type: "tool_result"`
-
-        default: tool_result
 
   - `created_at: string`
 
@@ -645,7 +682,21 @@ Retrieves message history and file metadata for a specific chat.
 
 - `user: object or null`
 
-  User information for compliance responses.
+  The user who created the chat.
+
+  Null when the API key is restricted to one organization and the creator
+  is no longer a member of it (for example, after they were removed from
+  it).
+
+  A key for the whole parent organization returns the creator's `id`
+  and current `email_address` for every chat; on the list endpoint, pass
+  `organization_ids[]` to keep the results to one organization. For the
+  email address the creator had when the chat was created, query
+  `GET /v1/compliance/activities` with `activity_types[]=claude_chat_created`
+  and a `created_at` window around the chat's `created_at`, find the event
+  whose `claude_chat_id` matches this chat's `id`, and read
+  `actor.email_address`. These events exist only for chats created after
+  compliance logging was enabled for the organization.
 
   - `id: string`
 
@@ -751,6 +802,12 @@ download the bytes.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -830,19 +887,25 @@ operation that cannot be undone.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
-
-- `id: string`
-
-  The ID of the file that was deleted
 
 - `type: optional "claude_file_deleted"`
 
   Constant string confirming deletion
 
   default: claude_file_deleted
+
+- `id: string`
+
+  The ID of the file that was deleted
 
 #### Example
 
@@ -875,6 +938,12 @@ Downloads the binary content of a file referenced in chat messages.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Example
@@ -901,6 +970,12 @@ Use the sibling `/content` endpoint to download the bytes.
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -970,6 +1045,12 @@ Downloads the binary content of a file the assistant created via tool use.
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1062,6 +1143,12 @@ are sorted chronologically (time ascending) by created_at.
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1179,6 +1266,12 @@ Get detailed information for a specific project.
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1309,19 +1402,25 @@ Project must have no attached chats - returns 409 if chats exist.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
-
-- `id: string`
-
-  The ID of the Claude project that was deleted
 
 - `type: optional "claude_project_deleted"`
 
   Constant string confirming deletion.
 
   default: claude_project_deleted
+
+- `id: string`
+
+  The ID of the Claude project that was deleted
 
 #### Example
 
@@ -1377,6 +1476,12 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -1388,6 +1493,12 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
   - `ComplianceProjectFileReference object`
 
     File attachment reference for compliance responses.
+
+    - `type: "project_file"`
+
+      Discriminator marking this as a binary file
+
+      default: project_file
 
     - `id: string`
 
@@ -1415,15 +1526,15 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
-    - `type: "project_file"`
-
-      Discriminator marking this as a binary file
-
-      default: project_file
-
   - `ComplianceProjectDocReference object`
 
     Project document attachment reference for compliance responses.
+
+    - `type: "project_doc"`
+
+      Discriminator marking this as a plain text document
+
+      default: project_doc
 
     - `id: string`
 
@@ -1444,12 +1555,6 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
       MIME type of the project document, always set to plain text
 
       default: text/plain
-
-    - `type: "project_doc"`
-
-      Discriminator marking this as a plain text document
-
-      default: project_doc
 
     - `updated_at: string or null`
 
@@ -1525,6 +1630,12 @@ role.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -1536,6 +1647,12 @@ role.
   - `ComplianceProjectUserCollaborator object`
 
     An individual user granted a role on a project.
+
+    - `type: "user"`
+
+      Discriminator marking this as an individual user collaborator
+
+      default: user
 
     - `granted_at: string`
 
@@ -1555,12 +1672,6 @@ role.
 
       - `"viewer"`
 
-    - `type: "user"`
-
-      Discriminator marking this as an individual user collaborator
-
-      default: user
-
     - `user_id: string or null`
 
       Identifier of the user granted access (tagged ID), or null if their account has since been deleted
@@ -1568,6 +1679,12 @@ role.
   - `ComplianceProjectGroupCollaborator object`
 
     An RBAC group granted a role on a project.
+
+    - `type: "group"`
+
+      Discriminator marking this as a group collaborator
+
+      default: group
 
     - `granted_at: string`
 
@@ -1591,15 +1708,15 @@ role.
 
       - `"viewer"`
 
-    - `type: "group"`
-
-      Discriminator marking this as a group collaborator
-
-      default: group
-
   - `ComplianceProjectOrganizationCollaborator object`
 
     An entire organization granted a role on a project.
+
+    - `type: "organization"`
+
+      Discriminator marking this as an organization-wide grant
+
+      default: organization
 
     - `granted_at: string`
 
@@ -1623,15 +1740,15 @@ role.
 
       - `"viewer"`
 
-    - `type: "organization"`
-
-      Discriminator marking this as an organization-wide grant
-
-      default: organization
-
   - `ComplianceProjectOrganizationRoleCollaborator object`
 
     All holders of an organization-level role granted a role on a project.
+
+    - `type: "organization_role"`
+
+      Discriminator marking this as a grant to all organization members holding a specific org-level role
+
+      default: organization_role
 
     - `granted_at: string`
 
@@ -1654,12 +1771,6 @@ role.
       - `"owner"`
 
       - `"viewer"`
-
-    - `type: "organization_role"`
-
-      Discriminator marking this as a grant to all organization members holding a specific org-level role
-
-      default: organization_role
 
 - `has_more: boolean`
 
@@ -1708,6 +1819,12 @@ Get detailed information for a specific project document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1787,6 +1904,12 @@ consumer can dedupe or match hashes without downloading every document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1881,19 +2004,25 @@ Hard-deletes the project document permanently.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
-
-- `id: string`
-
-  The ID of the project document that was deleted
 
 - `type: "claude_project_document_deleted"`
 
   Constant string confirming deletion.
 
   default: claude_project_document_deleted
+
+- `id: string`
+
+  The ID of the project document that was deleted
 
 #### Example
 
@@ -1932,6 +2061,12 @@ without downloading every artifact.
   The artifact version ID (tagged ID, e.g., claude_artifact_version_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -2009,6 +2144,12 @@ Returns the full text content of the artifact version.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Example
@@ -2065,6 +2206,12 @@ forward-only via `next_page`; there is no reverse cursor.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -2072,6 +2219,10 @@ forward-only via `next_page`; there is no reverse cursor.
 - `data: array of object`
 
   Page of local sessions, ordered by `created_at` descending; ties are broken by a fixed server-side order. `updated_at` never participates in the ordering; the `updated_at.gte` query parameter filters on it without changing the order or the pagination cursor.
+
+  - `type: "compliance_local_session"`
+
+    default: compliance_local_session
 
   - `id: string`
 
@@ -2091,9 +2242,11 @@ forward-only via `next_page`; there is no reverse cursor.
 
     The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-  - `type: "compliance_local_session"`
+  - `truncated: boolean`
 
-    default: compliance_local_session
+    True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+    default: false
 
   - `updated_at: string`
 
@@ -2167,9 +2320,19 @@ inference call has aged out returns 404.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
+
+- `type: "compliance_local_session"`
+
+  default: compliance_local_session
 
 - `id: string`
 
@@ -2189,9 +2352,11 @@ inference call has aged out returns 404.
 
   The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-- `type: "compliance_local_session"`
+- `truncated: boolean`
 
-  default: compliance_local_session
+  True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+  default: false
 
 - `updated_at: string`
 
@@ -2296,6 +2461,12 @@ explicit 400; restart the walk to read under the current boundary.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -2303,6 +2474,10 @@ explicit 400; restart the walk to read under the current boundary.
 - `data: array of object`
 
   Transcript turns for this page, in call order: oldest call first by default, newest call first with `order=desc`. The messages of one call carry the call's timestamp and follow each other in transcript order; a page boundary can fall between them.
+
+  - `type: "compliance_local_session_message"`
+
+    default: compliance_local_session_message
 
   - `id: string`
 
@@ -2316,6 +2491,10 @@ explicit 400; restart the walk to read under the current boundary.
 
       Text content block.
 
+      - `type: "text"`
+
+        default: text
+
       - `text: string`
 
         Text content from the user or the assistant
@@ -2326,13 +2505,13 @@ explicit 400; restart the walk to read under the current boundary.
 
         default: false
 
-      - `type: "text"`
-
-        default: text
-
     - `ToolUse object`
 
       Tool invocation requested by the assistant.
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string or null`
 
@@ -2352,25 +2531,25 @@ explicit 400; restart the walk to read under the current boundary.
 
         default: false
 
-      - `type: "tool_use"`
-
-        default: tool_use
-
     - `ToolResult object`
 
       Result returned by a tool invocation.
+
+      - `type: "tool_result"`
+
+        default: tool_result
 
       - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted and signalled via `truncated` with an in-band item-count marker.
 
-        - `text: string`
-
-          Text returned by the tool
-
         - `type: "text"`
 
           default: text
+
+        - `text: string`
+
+          Text returned by the tool
 
       - `is_error: boolean`
 
@@ -2390,10 +2569,6 @@ explicit 400; restart the walk to read under the current boundary.
 
         default: false
 
-      - `type: "tool_result"`
-
-        default: tool_result
-
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
@@ -2412,13 +2587,13 @@ explicit 400; restart the walk to read under the current boundary.
 
       The turn's content cannot be returned; `content` is empty.
 
-      - `reason: string`
-
-        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `client_aborted` (the client closed the connection or cancelled the request before the response completed, so the response was not captured for this turn; any partial output already streamed to the client is not included; assistant-role turns only), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
-
       - `type: "content_unavailable"`
 
         default: content_unavailable
+
+      - `reason: string`
+
+        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `client_aborted` (the client closed the connection or cancelled the request before the response completed, so the response was not captured for this turn; any partial output already streamed to the client is not included; assistant-role turns only), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
 
     - `ClientAsserted object`
 
@@ -2456,10 +2631,6 @@ explicit 400; restart the walk to read under the current boundary.
 
     - `"user"`
 
-  - `type: "compliance_local_session_message"`
-
-    default: compliance_local_session_message
-
 - `next_page: string or null`
 
   Opaque pagination cursor (prefixed `page_`) for the next page. Null when there is no further page. Treat as an opaque string; the format may change without notice.
@@ -2467,6 +2638,10 @@ explicit 400; restart the walk to read under the current boundary.
 - `session: object`
 
   The local session the messages belong to. `user.email_address` is always null on this endpoint; the messages endpoint does not resolve email addresses.
+
+  - `type: "compliance_local_session"`
+
+    default: compliance_local_session
 
   - `id: string`
 
@@ -2486,9 +2661,11 @@ explicit 400; restart the walk to read under the current boundary.
 
     The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-  - `type: "compliance_local_session"`
+  - `truncated: boolean`
 
-    default: compliance_local_session
+    True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+    default: false
 
   - `updated_at: string`
 
@@ -2549,6 +2726,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "created_at": "2025-03-12T18:22:41.123456Z",
     "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
     "product_surface": "cowork",
+    "truncated": true,
     "type": "compliance_local_session",
     "updated_at": "2025-03-12T18:22:41.123456Z",
     "user": {
@@ -2635,6 +2813,12 @@ retrieve the next page, and stop when `next_page` is null.
   maxItems: 10
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -2805,6 +2989,12 @@ malformed session identifier returns 400.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -2825,6 +3015,10 @@ malformed session identifier returns 400.
 
       Text content block.
 
+      - `type: "text"`
+
+        default: text
+
       - `text: string`
 
         Text content from the user or the assistant
@@ -2835,13 +3029,13 @@ malformed session identifier returns 400.
 
         default: false
 
-      - `type: "text"`
-
-        default: text
-
     - `ToolUse object`
 
       Tool invocation requested by the assistant.
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string or null`
 
@@ -2861,25 +3055,25 @@ malformed session identifier returns 400.
 
         default: false
 
-      - `type: "tool_use"`
-
-        default: tool_use
-
     - `ToolResult object`
 
       Result returned by a tool invocation.
+
+      - `type: "tool_result"`
+
+        default: tool_result
 
       - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted.
 
-        - `text: string`
-
-          Text returned by the tool
-
         - `type: "text"`
 
           default: text
+
+        - `text: string`
+
+          Text returned by the tool
 
       - `is_error: boolean`
 
@@ -2898,10 +3092,6 @@ malformed session identifier returns 400.
         True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
 
         default: false
-
-      - `type: "tool_result"`
-
-        default: tool_result
 
   - `content_unavailable: boolean`
 

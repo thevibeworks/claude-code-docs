@@ -1,6 +1,11 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/php/messages/batches/list
+---
+
 # List Message Batches
 
-`$client->messages->batches->list(?string afterID, ?string beforeID, ?int limit): Page<MessageBatch>`
+`$client->messages->batches->list(?string afterID, ?string beforeID, ?int limit, ?string workspaceID): Page<MessageBatch>`
 
 **GET** `/v1/messages/batches`
 
@@ -26,9 +31,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   default: 20
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `MessageBatch`
+
+  - `"message_batch" type`
+
+    Object type.
+
+    For Message Batches, this is always `"message_batch"`.
 
   - `string id`
 
@@ -74,12 +87,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
 ## Example
 
 ```php
@@ -90,7 +97,10 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->messages->batches->list(
-  afterID: 'after_id', beforeID: 'before_id', limit: 1
+  afterID: 'after_id',
+  beforeID: 'before_id',
+  limit: 1,
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

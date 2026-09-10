@@ -1,3 +1,8 @@
+---
+title: Tunnels
+url: https://platform.claude.com/docs/en/api/csharp/beta/tunnels
+---
+
 # Tunnels
 
 ## Create Tunnel
@@ -70,6 +75,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -112,11 +119,19 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonElement Type = "tunnel"`
 
   - `required string ID`
 
@@ -141,8 +156,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
   - `required string Domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonElement Type = "tunnel"`
 
 ### Example
 
@@ -235,6 +248,8 @@ Fetches a tunnel by ID.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -277,11 +292,19 @@ Fetches a tunnel by ID.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonElement Type = "tunnel"`
 
   - `required string ID`
 
@@ -306,8 +329,6 @@ Fetches a tunnel by ID.
   - `required string Domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonElement Type = "tunnel"`
 
 ### Example
 
@@ -410,6 +431,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -452,11 +475,19 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonElement Type = "tunnel"`
 
   - `required string ID`
 
@@ -481,8 +512,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `required string Domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonElement Type = "tunnel"`
 
 ### Example
 
@@ -582,6 +611,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -624,11 +655,19 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonElement Type = "tunnel"`
 
   - `required string ID`
 
@@ -653,8 +692,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
   - `required string Domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonElement Type = "tunnel"`
 
 ### Example
 
@@ -747,6 +784,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -789,11 +828,19 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonElement Type = "tunnel_token"`
 
   - `required string ID`
 
@@ -802,8 +849,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `required string TunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonElement Type = "tunnel_token"`
 
 ### Example
 
@@ -899,6 +944,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -941,11 +988,19 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonElement Type = "tunnel_token"`
 
   - `required string ID`
 
@@ -954,8 +1009,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `required string TunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonElement Type = "tunnel_token"`
 
 ### Example
 
@@ -985,6 +1038,8 @@ Console.WriteLine(betaTunnelToken);
 
   An MCP tunnel.
 
+  - `JsonElement Type = "tunnel"`
+
   - `required string ID`
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
@@ -1009,13 +1064,13 @@ Console.WriteLine(betaTunnelToken);
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonElement Type = "tunnel"`
-
 ### Beta Tunnel Token
 
 - `class BetaTunnelToken:`
 
   A tunnel's connector token.
+
+  - `JsonElement Type = "tunnel_token"`
 
   - `required string ID`
 
@@ -1024,8 +1079,6 @@ Console.WriteLine(betaTunnelToken);
   - `required string TunnelToken`
 
     The connector token used to run the tunnel. Treat as a credential.
-
-  - `JsonElement Type = "tunnel_token"`
 
 ## Tunnels › Certificates
 
@@ -1103,6 +1156,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1145,11 +1200,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -1180,8 +1243,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 #### Example
 
@@ -1283,6 +1344,8 @@ Fetches a tunnel certificate by ID.
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1325,11 +1388,19 @@ Fetches a tunnel certificate by ID.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -1360,8 +1431,6 @@ Fetches a tunnel certificate by ID.
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 #### Example
 
@@ -1473,6 +1542,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1515,11 +1586,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -1550,8 +1629,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 #### Example
 
@@ -1656,6 +1733,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -1698,11 +1777,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonElement Type = "tunnel_certificate"`
 
   - `required string ID`
 
@@ -1733,8 +1820,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `required string TunnelID`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonElement Type = "tunnel_certificate"`
 
 #### Example
 

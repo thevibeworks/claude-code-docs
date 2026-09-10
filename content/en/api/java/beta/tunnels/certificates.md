@@ -1,3 +1,8 @@
+---
+title: Certificates
+url: https://platform.claude.com/docs/en/api/java/beta/tunnels/certificates
+---
+
 # Certificates
 
 ## Create Tunnel Certificate
@@ -66,6 +71,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -108,6 +115,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `String caCertificatePem`
 
     PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
@@ -119,6 +128,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -149,8 +160,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 ### Example
 
@@ -259,6 +268,8 @@ Fetches a tunnel certificate by ID.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -301,11 +312,15 @@ Fetches a tunnel certificate by ID.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -336,8 +351,6 @@ Fetches a tunnel certificate by ID.
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 ### Example
 
@@ -458,6 +471,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -500,11 +515,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -535,8 +554,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 ### Example
 
@@ -646,6 +663,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -688,11 +707,15 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaTunnelCertificate:`
 
   A CA certificate attached to a tunnel.
+
+  - `JsonValue type = "tunnel_certificate"`
 
   - `String id`
 
@@ -723,8 +746,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`
 
 ### Example
 
@@ -773,6 +794,8 @@ public final class Main {
 
   A CA certificate attached to a tunnel.
 
+  - `JsonValue type = "tunnel_certificate"`
+
   - `String id`
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
@@ -802,5 +825,3 @@ public final class Main {
   - `String tunnelId`
 
     ID of the tunnel the certificate is registered against.
-
-  - `JsonValue type = "tunnel_certificate"`

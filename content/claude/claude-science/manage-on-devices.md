@@ -12,16 +12,18 @@ Claude Science is a desktop application that stores member content locally. This
 
 The app writes to two locations on each member's computer:
 
-Configuration: \~/.claude-science/config.toml holds all app settings. Every key is optional; the app starts with no file present. This is the file to deploy through device management.\
+Configuration: config.toml in the app's default data folder (`~/.claude-science/config.toml` on macOS and Linux, `%USERPROFILE%\.claude-science\config.toml` on Windows) holds all app settings. Every key is optional; the app starts with no file present. This is the file to deploy through device management.\
 Data: the app's data directory holds conversations, generated artifacts, delegation configurations, and workspace files in a per-organization subfolder (orgs/`<organization-id>`/), stored as a local database plus files.
 
-Authentication tokens and the shared package environment live under \~/.claude-science/ regardless of the data directory, so endpoint backup or wipe policies that target the data directory don't affect sign-in state.
+Authentication tokens and the shared package environment live under the default data folder (`~/.claude-science/`, or `%USERPROFILE%\.claude-science\` on Windows) regardless of the data directory, so endpoint backup or wipe policies that target the data directory don't affect sign-in state.
+
+On Windows, the program itself installs per user, without administrator rights, to `%LOCALAPPDATA%\Programs\ClaudeScience` and registers under the signed-in user's **Settings** > **Apps** > **Installed apps** rather than machine-wide. The app also writes launch logs and state to `%LOCALAPPDATA%\ClaudeScience` and keeps a sandbox state folder under `%LOCALAPPDATA%`, and it unpacks components it runs, such as the app window engine and the sandbox launcher, under the data folder, so allow-listing by path needs both the program folder and the data folder. Uninstalling removes the program and sandbox state; `claude-science uninstall --purge` also removes the data and state folders.
 
 Your endpoint tooling governs these folders the same way it governs any other local application data. Anthropic doesn't host a copy of these folders, so Custom Data Retention and Org Data Export don't reach them. [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data) covers what Anthropic does receive from the app, including the session transcripts available to Enterprise organizations with the Compliance API enabled.
 
 ## Deploy configuration with device management
 
-To set configuration keys organization-wide, deploy \~/.claude-science/config.toml through your MDM or endpoint tool. Claude Science doesn't read a system-level managed-preferences file, so there's no native MDM configuration channel. Deploying the per-member config.toml is the supported approach. The sandbox network allowlist and the package mirror can instead be set once for every member under **Organization settings** > **Claude Science** (see [Organization settings](/docs/claude-science/admin-controls#organization-settings)). The keys most relevant to admins are:
+To set configuration keys organization-wide, deploy the per-member config.toml (at the path given under [Where the app stores data](#where-the-app-stores-data)) through your MDM or endpoint tool. Claude Science doesn't read its settings from a system-level managed-preferences file or registry policy keys, so there's no native MDM configuration channel on any operating system. Deploying the per-member config.toml is the supported approach. The sandbox network allowlist and the package mirror can instead be set once for every member under **Organization settings** > **Claude Science** (see [Organization settings](/docs/claude-science/admin-controls#organization-settings)). The keys most relevant to admins are:
 
 | Key                                | Effect                                                                                                                                         |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,14 +42,14 @@ When the app runs into an error, it also sends an error report to the error-repo
 
 To turn telemetry and error reports off on managed devices, use either of:
 
-Set disable\_telemetry = true in \~/.claude-science/config.toml (deployable through MDM).\
+Set disable\_telemetry = true in config.toml (deployable through MDM).\
 Set the DO\_NOT\_TRACK environment variable (for example to 1) on the device.
 
 Both are device-level settings. There's no per-member or per-organization telemetry toggle in Organization settings.
 
 ## Endpoint detection and response
 
-Claude Science runs analysis code inside a local sandbox on the member's computer. On macOS, sandboxed analysis processes run as ordinary child processes and are visible to host-level EDR tools. On Linux, they run inside a separate PID namespace with an isolated process view, so host-level EDR won't see them as ordinary children of the app.
+Claude Science runs analysis code inside a local sandbox on the member's computer. On macOS, sandboxed analysis processes run as ordinary child processes and are visible to host-level EDR tools. On Windows, they run under the member's account inside a Windows AppContainer, the operating system's built-in app isolation, started by a sandbox launcher that ships inside the app, without WSL or Hyper-V. Installing and running need no administrator rights, and Windows asks once, optionally, for administrator approval so that Command Prompt scripts and git can run inside cells and PowerShell cells can change folders, while Python and R cells work without it. If security software holds the sandbox launcher or quarantines files in an analysis environment, Claude Science names the affected folder in its error message so you can add an exclusion. On Linux, sandboxed processes run inside a separate PID namespace with an isolated process view, so host-level EDR won't see them as ordinary children of the app.
 
 ## Required updates
 

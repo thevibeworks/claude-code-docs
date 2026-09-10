@@ -1,3 +1,8 @@
+---
+title: Remove Workspace From Service Account
+url: https://platform.claude.com/docs/en/api/beta/organization/service_accounts/workspaces/remove
+---
+
 # Remove Workspace From Service Account
 
 **DELETE** `/v1/organizations/service_accounts/{service_account_id}/workspaces/{workspace_id}`
@@ -32,7 +37,7 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 42 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -80,6 +85,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -124,13 +131,13 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
 ## Returns
 
-- `service_account_id: string`
-
-  Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
-
 - `type: "service_account_workspace_member_deleted"`
 
   default: service_account_workspace_member_deleted
+
+- `service_account_id: string`
+
+  Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
 
 - `workspace_id: string`
 

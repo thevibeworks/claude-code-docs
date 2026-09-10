@@ -1,6 +1,11 @@
+---
+title: Get a Model
+url: https://platform.claude.com/docs/en/api/php/beta/models/retrieve
+---
+
 # Get a Model
 
-`$client->beta->models->retrieve(string modelID, ?list<AnthropicBeta> betas): BetaModelInfo`
+`$client->beta->models->retrieve(string modelID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaModelInfo`
 
 **GET** `/v1/models/{model_id}`
 
@@ -18,9 +23,17 @@ The Models API response can be used to determine information about a specific mo
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaModelInfo`
+
+  - `"model" type`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `string id`
 
@@ -50,12 +63,6 @@ The Models API response can be used to determine information about a specific mo
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `"model" type`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
 ## Example
 
 ```php
@@ -66,7 +73,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaModelInfo = $client->beta->models->retrieve(
-  'model_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'model_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaModelInfo);

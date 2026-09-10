@@ -1,3 +1,8 @@
+---
+title: Projects
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects
+---
+
 # Projects
 
 ## List projects
@@ -80,6 +85,12 @@ are sorted chronologically (time ascending) by created_at.
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
 ### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -197,6 +208,12 @@ Get detailed information for a specific project.
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
 ### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -327,19 +344,25 @@ Project must have no attached chats - returns 409 if chats exist.
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ### Returns
-
-- `id: string`
-
-  The ID of the Claude project that was deleted
 
 - `type: optional "claude_project_deleted"`
 
   Constant string confirming deletion.
 
   default: claude_project_deleted
+
+- `id: string`
+
+  The ID of the Claude project that was deleted
 
 ### Example
 
@@ -506,15 +529,15 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
   Response for deleting a Claude project.
 
-  - `id: string`
-
-    The ID of the Claude project that was deleted
-
   - `type: optional "claude_project_deleted"`
 
     Constant string confirming deletion.
 
     default: claude_project_deleted
+
+  - `id: string`
+
+    The ID of the Claude project that was deleted
 
 ## Projects › Attachments
 
@@ -553,6 +576,12 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -564,6 +593,12 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
   - `ComplianceProjectFileReference object`
 
     File attachment reference for compliance responses.
+
+    - `type: "project_file"`
+
+      Discriminator marking this as a binary file
+
+      default: project_file
 
     - `id: string`
 
@@ -591,15 +626,15 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
-    - `type: "project_file"`
-
-      Discriminator marking this as a binary file
-
-      default: project_file
-
   - `ComplianceProjectDocReference object`
 
     Project document attachment reference for compliance responses.
+
+    - `type: "project_doc"`
+
+      Discriminator marking this as a plain text document
+
+      default: project_doc
 
     - `id: string`
 
@@ -620,12 +655,6 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
       MIME type of the project document, always set to plain text
 
       default: text/plain
-
-    - `type: "project_doc"`
-
-      Discriminator marking this as a plain text document
-
-      default: project_doc
 
     - `updated_at: string or null`
 
@@ -701,6 +730,12 @@ role.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -712,6 +747,12 @@ role.
   - `ComplianceProjectUserCollaborator object`
 
     An individual user granted a role on a project.
+
+    - `type: "user"`
+
+      Discriminator marking this as an individual user collaborator
+
+      default: user
 
     - `granted_at: string`
 
@@ -731,12 +772,6 @@ role.
 
       - `"viewer"`
 
-    - `type: "user"`
-
-      Discriminator marking this as an individual user collaborator
-
-      default: user
-
     - `user_id: string or null`
 
       Identifier of the user granted access (tagged ID), or null if their account has since been deleted
@@ -744,6 +779,12 @@ role.
   - `ComplianceProjectGroupCollaborator object`
 
     An RBAC group granted a role on a project.
+
+    - `type: "group"`
+
+      Discriminator marking this as a group collaborator
+
+      default: group
 
     - `granted_at: string`
 
@@ -767,15 +808,15 @@ role.
 
       - `"viewer"`
 
-    - `type: "group"`
-
-      Discriminator marking this as a group collaborator
-
-      default: group
-
   - `ComplianceProjectOrganizationCollaborator object`
 
     An entire organization granted a role on a project.
+
+    - `type: "organization"`
+
+      Discriminator marking this as an organization-wide grant
+
+      default: organization
 
     - `granted_at: string`
 
@@ -799,15 +840,15 @@ role.
 
       - `"viewer"`
 
-    - `type: "organization"`
-
-      Discriminator marking this as an organization-wide grant
-
-      default: organization
-
   - `ComplianceProjectOrganizationRoleCollaborator object`
 
     All holders of an organization-level role granted a role on a project.
+
+    - `type: "organization_role"`
+
+      Discriminator marking this as a grant to all organization members holding a specific org-level role
+
+      default: organization_role
 
     - `granted_at: string`
 
@@ -830,12 +871,6 @@ role.
       - `"owner"`
 
       - `"viewer"`
-
-    - `type: "organization_role"`
-
-      Discriminator marking this as a grant to all organization members holding a specific org-level role
-
-      default: organization_role
 
 - `has_more: boolean`
 
@@ -884,6 +919,12 @@ Get detailed information for a specific project document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -963,6 +1004,12 @@ consumer can dedupe or match hashes without downloading every document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1057,19 +1104,25 @@ Hard-deletes the project document permanently.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
-
-- `id: string`
-
-  The ID of the project document that was deleted
 
 - `type: "claude_project_document_deleted"`
 
   Constant string confirming deletion.
 
   default: claude_project_document_deleted
+
+- `id: string`
+
+  The ID of the project document that was deleted
 
 #### Example
 

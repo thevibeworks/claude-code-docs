@@ -1,3 +1,8 @@
+---
+title: Memory Versions
+url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memory_versions
+---
+
 # Memory Versions
 
 ## List memory versions
@@ -110,6 +115,8 @@ List memory versions
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -152,11 +159,15 @@ List memory versions
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
 
   A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+
+  - `Type type`
 
   - `String id`
 
@@ -186,8 +197,6 @@ List memory versions
 
     - `DELETED("deleted")`
 
-  - `Type type`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -204,31 +213,31 @@ List memory versions
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
     - `class BetaManagedAgentsSessionActor:`
 
       Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
+      - `Type type`
+
       - `String sessionId`
 
-        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
       Attribution for a write made directly via the public API (outside of any session).
+
+      - `Type type`
 
       - `String apiKeyId`
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -246,13 +255,13 @@ List memory versions
 
       Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
+      - `JsonValue type = "service_account_actor"`
+
       - `String serviceAccountId`
 
         ID of the service account that performed the write (a `svac_...` value).
 
         minLength: 1
-
-      - `JsonValue type = "service_account_actor"`
 
   - `Optional<String> path`
 
@@ -266,7 +275,7 @@ List memory versions
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 ### Example
 
@@ -390,6 +399,8 @@ Retrieve a memory version
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -432,11 +443,15 @@ Retrieve a memory version
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
 
   A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+
+  - `Type type`
 
   - `String id`
 
@@ -466,8 +481,6 @@ Retrieve a memory version
 
     - `DELETED("deleted")`
 
-  - `Type type`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -484,31 +497,31 @@ Retrieve a memory version
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
     - `class BetaManagedAgentsSessionActor:`
 
       Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
+      - `Type type`
+
       - `String sessionId`
 
-        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
       Attribution for a write made directly via the public API (outside of any session).
+
+      - `Type type`
 
       - `String apiKeyId`
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -526,13 +539,13 @@ Retrieve a memory version
 
       Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
+      - `JsonValue type = "service_account_actor"`
+
       - `String serviceAccountId`
 
         ID of the service account that performed the write (a `svac_...` value).
 
         minLength: 1
-
-      - `JsonValue type = "service_account_actor"`
 
   - `Optional<String> path`
 
@@ -546,7 +559,7 @@ Retrieve a memory version
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 ### Example
 
@@ -665,6 +678,8 @@ Redact a memory version
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -707,11 +722,15 @@ Redact a memory version
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
 
   A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+
+  - `Type type`
 
   - `String id`
 
@@ -741,8 +760,6 @@ Redact a memory version
 
     - `DELETED("deleted")`
 
-  - `Type type`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -759,31 +776,31 @@ Redact a memory version
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
     - `class BetaManagedAgentsSessionActor:`
 
       Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
+      - `Type type`
+
       - `String sessionId`
 
-        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
       Attribution for a write made directly via the public API (outside of any session).
+
+      - `Type type`
 
       - `String apiKeyId`
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -801,13 +818,13 @@ Redact a memory version
 
       Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
+      - `JsonValue type = "service_account_actor"`
+
       - `String serviceAccountId`
 
         ID of the service account that performed the write (a `svac_...` value).
 
         minLength: 1
-
-      - `JsonValue type = "service_account_actor"`
 
   - `Optional<String> path`
 
@@ -821,7 +838,7 @@ Redact a memory version
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 ### Example
 
@@ -880,31 +897,31 @@ public final class Main {
 
 - `class BetaManagedAgentsActor: union`
 
-  Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+  Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `class BetaManagedAgentsSessionActor:`
 
     Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
+    - `Type type`
+
     - `String sessionId`
 
-      ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+      ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
       minLength: 1
-
-    - `Type type`
 
   - `class BetaManagedAgentsApiActor:`
 
     Attribution for a write made directly via the public API (outside of any session).
+
+    - `Type type`
 
     - `String apiKeyId`
 
       ID of the API key that performed the write. This identifies the key, not the secret.
 
       minLength: 1
-
-    - `Type type`
 
   - `class BetaManagedAgentsUserActor:`
 
@@ -922,13 +939,13 @@ public final class Main {
 
     Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
+    - `JsonValue type = "service_account_actor"`
+
     - `String serviceAccountId`
 
       ID of the service account that performed the write (a `svac_...` value).
 
       minLength: 1
-
-    - `JsonValue type = "service_account_actor"`
 
 ### Beta Managed Agents API Actor
 
@@ -936,19 +953,21 @@ public final class Main {
 
   Attribution for a write made directly via the public API (outside of any session).
 
+  - `Type type`
+
   - `String apiKeyId`
 
     ID of the API key that performed the write. This identifies the key, not the secret.
 
     minLength: 1
 
-  - `Type type`
-
 ### Beta Managed Agents Memory Version
 
 - `class BetaManagedAgentsMemoryVersion:`
 
   A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+
+  - `Type type`
 
   - `String id`
 
@@ -978,8 +997,6 @@ public final class Main {
 
     - `DELETED("deleted")`
 
-  - `Type type`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -996,31 +1013,31 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
     - `class BetaManagedAgentsSessionActor:`
 
       Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
+      - `Type type`
+
       - `String sessionId`
 
-        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
       Attribution for a write made directly via the public API (outside of any session).
+
+      - `Type type`
 
       - `String apiKeyId`
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
         minLength: 1
-
-      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -1038,13 +1055,13 @@ public final class Main {
 
       Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
+      - `JsonValue type = "service_account_actor"`
+
       - `String serviceAccountId`
 
         ID of the service account that performed the write (a `svac_...` value).
 
         minLength: 1
-
-      - `JsonValue type = "service_account_actor"`
 
   - `Optional<String> path`
 
@@ -1058,7 +1075,7 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
 ### Beta Managed Agents Memory Version Operation
 
@@ -1078,13 +1095,13 @@ public final class Main {
 
   Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
+  - `JsonValue type = "service_account_actor"`
+
   - `String serviceAccountId`
 
     ID of the service account that performed the write (a `svac_...` value).
 
     minLength: 1
-
-  - `JsonValue type = "service_account_actor"`
 
 ### Beta Managed Agents Session Actor
 
@@ -1092,13 +1109,13 @@ public final class Main {
 
   Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
+  - `Type type`
+
   - `String sessionId`
 
-    ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+    ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
     minLength: 1
-
-  - `Type type`
 
 ### Beta Managed Agents User Actor
 

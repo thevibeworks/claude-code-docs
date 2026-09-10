@@ -1,3 +1,8 @@
+---
+title: List Tunnels
+url: https://platform.claude.com/docs/en/api/csharp/beta/tunnels/list
+---
+
 # List Tunnels
 
 `TunnelListPage Beta.Tunnels.List(parameters, cancellationToken = default)`
@@ -76,6 +81,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
 
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
     - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
 
     - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
@@ -118,11 +125,19 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `string workspaceID`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaTunnel:`
 
   An MCP tunnel.
+
+  - `JsonElement Type = "tunnel"`
 
   - `required string ID`
 
@@ -147,8 +162,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `required string Domain`
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `JsonElement Type = "tunnel"`
 
 ## Example
 

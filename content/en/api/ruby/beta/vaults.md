@@ -1,3 +1,8 @@
+---
+title: Vaults
+url: https://platform.claude.com/docs/en/api/ruby/beta/vaults
+---
+
 # Vaults
 
 ## Create Vault
@@ -26,7 +31,7 @@ Create Vault
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -74,6 +79,8 @@ Create Vault
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -116,11 +123,15 @@ Create Vault
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsVault`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: :vault`
 
   - `id: String`
 
@@ -145,8 +156,6 @@ Create Vault
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: :vault`
 
   - `updated_at: Time`
 
@@ -212,7 +221,7 @@ List Vaults
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -260,6 +269,8 @@ List Vaults
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -302,11 +313,15 @@ List Vaults
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsVault`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: :vault`
 
   - `id: String`
 
@@ -331,8 +346,6 @@ List Vaults
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: :vault`
 
   - `updated_at: Time`
 
@@ -391,7 +404,7 @@ Get Vault
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -439,6 +452,8 @@ Get Vault
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -481,11 +496,15 @@ Get Vault
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsVault`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: :vault`
 
   - `id: String`
 
@@ -510,8 +529,6 @@ Get Vault
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: :vault`
 
   - `updated_at: Time`
 
@@ -575,7 +592,7 @@ Update Vault
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -623,6 +640,8 @@ Update Vault
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -665,11 +684,15 @@ Update Vault
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsVault`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: :vault`
 
   - `id: String`
 
@@ -694,8 +717,6 @@ Update Vault
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: :vault`
 
   - `updated_at: Time`
 
@@ -749,7 +770,7 @@ Delete Vault
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -797,6 +818,8 @@ Delete Vault
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -839,17 +862,19 @@ Delete Vault
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsDeletedVault`
 
   Confirmation of a deleted vault.
 
+  - `type: :vault_deleted`
+
   - `id: String`
 
     Unique identifier of the deleted vault.
-
-  - `type: :vault_deleted`
 
 ### Example
 
@@ -890,7 +915,7 @@ Archive Vault
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -938,6 +963,8 @@ Archive Vault
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -980,11 +1007,15 @@ Archive Vault
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ### Returns
 
 - `class BetaManagedAgentsVault`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: :vault`
 
   - `id: String`
 
@@ -1009,8 +1040,6 @@ Archive Vault
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: :vault`
 
   - `updated_at: Time`
 
@@ -1054,17 +1083,19 @@ puts(beta_managed_agents_vault)
 
   Confirmation of a deleted vault.
 
+  - `type: :vault_deleted`
+
   - `id: String`
 
     Unique identifier of the deleted vault.
-
-  - `type: :vault_deleted`
 
 ### Beta Managed Agents Vault
 
 - `class BetaManagedAgentsVault`
 
   A vault that stores credentials for use by agents during sessions.
+
+  - `type: :vault`
 
   - `id: String`
 
@@ -1089,8 +1120,6 @@ puts(beta_managed_agents_vault)
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the vault.
-
-  - `type: :vault`
 
   - `updated_at: Time`
 
@@ -1120,6 +1149,8 @@ Create Credential
 
     Parameters for creating an MCP OAuth credential.
 
+    - `type: :mcp_oauth`
+
     - `access_token: String`
 
       OAuth access token.
@@ -1131,8 +1162,6 @@ Create Credential
       URL of the MCP server this credential authenticates against.
 
       minLength: 1, maxLength: 2047
-
-    - `type: :mcp_oauth`
 
     - `expires_at: Time`
 
@@ -1154,7 +1183,7 @@ Create Credential
 
         OAuth refresh token.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 8192
 
       - `token_endpoint: String`
 
@@ -1176,25 +1205,25 @@ Create Credential
 
           Token endpoint uses HTTP Basic authentication with client credentials.
 
+          - `type: :client_secret_basic`
+
           - `client_secret: String`
 
             OAuth client secret.
 
             minLength: 1, maxLength: 512
-
-          - `type: :client_secret_basic`
 
         - `class BetaManagedAgentsTokenEndpointAuthPostParam`
 
           Token endpoint uses POST body authentication with client credentials.
 
+          - `type: :client_secret_post`
+
           - `client_secret: String`
 
             OAuth client secret.
 
             minLength: 1, maxLength: 512
-
-          - `type: :client_secret_post`
 
       - `resource: String`
 
@@ -1212,6 +1241,8 @@ Create Credential
 
     Parameters for creating a static bearer token credential.
 
+    - `type: :static_bearer`
+
     - `token: String`
 
       Static bearer token value.
@@ -1224,11 +1255,11 @@ Create Credential
 
       minLength: 1, maxLength: 2047
 
-    - `type: :static_bearer`
-
   - `class BetaManagedAgentsEnvironmentVariableCreateParams`
 
     Parameters for creating an environment variable credential.
+
+    - `type: :environment_variable`
 
     - `networking: BetaManagedAgentsCredentialNetworkingParams`
 
@@ -1244,11 +1275,11 @@ Create Credential
 
         Substitute the secret only on requests to the listed hosts.
 
+        - `type: :limited`
+
         - `allowed_hosts: Array[String]`
 
           Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-        - `type: :limited`
 
     - `secret_name: String`
 
@@ -1261,8 +1292,6 @@ Create Credential
       Secret value. Write-only; never returned in responses.
 
       minLength: 1, maxLength: 4096
-
-    - `type: :environment_variable`
 
     - `injection_location: BetaManagedAgentsInjectionLocationParams`
 
@@ -1292,7 +1321,7 @@ Create Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1340,6 +1369,8 @@ Create Credential
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -1382,11 +1413,15 @@ Create Credential
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `type: :vault_credential`
 
   - `id: String`
 
@@ -1406,11 +1441,11 @@ Create Credential
 
       OAuth credential details for an MCP server.
 
+      - `type: :mcp_oauth`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: :mcp_oauth`
 
       - `expires_at: Time`
 
@@ -1464,15 +1499,17 @@ Create Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `type: :static_bearer`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: :static_bearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: :environment_variable`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -1500,17 +1537,15 @@ Create Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: :limited`
+
           - `allowed_hosts: Array[String]`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: :limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
-
-      - `type: :environment_variable`
 
   - `created_at: Time`
 
@@ -1521,8 +1556,6 @@ Create Credential
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: :vault_credential`
 
   - `updated_at: Time`
 
@@ -1610,7 +1643,7 @@ List Credentials
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1658,6 +1691,8 @@ List Credentials
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -1700,11 +1735,15 @@ List Credentials
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `type: :vault_credential`
 
   - `id: String`
 
@@ -1724,11 +1763,11 @@ List Credentials
 
       OAuth credential details for an MCP server.
 
+      - `type: :mcp_oauth`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: :mcp_oauth`
 
       - `expires_at: Time`
 
@@ -1782,15 +1821,17 @@ List Credentials
 
       Static bearer token credential details for an MCP server.
 
+      - `type: :static_bearer`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: :static_bearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: :environment_variable`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -1818,17 +1859,15 @@ List Credentials
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: :limited`
+
           - `allowed_hosts: Array[String]`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: :limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
-
-      - `type: :environment_variable`
 
   - `created_at: Time`
 
@@ -1839,8 +1878,6 @@ List Credentials
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: :vault_credential`
 
   - `updated_at: Time`
 
@@ -1914,7 +1951,7 @@ Get Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1962,6 +1999,8 @@ Get Credential
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -2004,11 +2043,15 @@ Get Credential
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `type: :vault_credential`
 
   - `id: String`
 
@@ -2028,11 +2071,11 @@ Get Credential
 
       OAuth credential details for an MCP server.
 
+      - `type: :mcp_oauth`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: :mcp_oauth`
 
       - `expires_at: Time`
 
@@ -2086,15 +2129,17 @@ Get Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `type: :static_bearer`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: :static_bearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: :environment_variable`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -2122,17 +2167,15 @@ Get Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: :limited`
+
           - `allowed_hosts: Array[String]`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: :limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
-
-      - `type: :environment_variable`
 
   - `created_at: Time`
 
@@ -2143,8 +2186,6 @@ Get Credential
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: :vault_credential`
 
   - `updated_at: Time`
 
@@ -2240,7 +2281,7 @@ Update Credential
 
         Updated OAuth refresh token.
 
-        minLength: 1, maxLength: 4096
+        minLength: 1, maxLength: 8192
 
       - `scope: String`
 
@@ -2320,11 +2361,11 @@ Update Credential
 
         Substitute the secret only on requests to the listed hosts.
 
+        - `type: :limited`
+
         - `allowed_hosts: Array[String]`
 
           Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-        - `type: :limited`
 
     - `secret_value: String`
 
@@ -2348,7 +2389,7 @@ Update Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2396,6 +2437,8 @@ Update Credential
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -2438,11 +2481,15 @@ Update Credential
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `type: :vault_credential`
 
   - `id: String`
 
@@ -2462,11 +2509,11 @@ Update Credential
 
       OAuth credential details for an MCP server.
 
+      - `type: :mcp_oauth`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: :mcp_oauth`
 
       - `expires_at: Time`
 
@@ -2520,15 +2567,17 @@ Update Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `type: :static_bearer`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: :static_bearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: :environment_variable`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -2556,17 +2605,15 @@ Update Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: :limited`
+
           - `allowed_hosts: Array[String]`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: :limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
-
-      - `type: :environment_variable`
 
   - `created_at: Time`
 
@@ -2577,8 +2624,6 @@ Update Credential
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: :vault_credential`
 
   - `updated_at: Time`
 
@@ -2650,7 +2695,7 @@ Delete Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2698,6 +2743,8 @@ Delete Credential
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -2740,17 +2787,19 @@ Delete Credential
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedCredential`
 
   Confirmation of a deleted credential.
 
+  - `type: :vault_credential_deleted`
+
   - `id: String`
 
     Unique identifier of the deleted credential.
-
-  - `type: :vault_credential_deleted`
 
 #### Example
 
@@ -2796,7 +2845,7 @@ Archive Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2844,6 +2893,8 @@ Archive Credential
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -2886,11 +2937,15 @@ Archive Credential
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
+
+  - `type: :vault_credential`
 
   - `id: String`
 
@@ -2910,11 +2965,11 @@ Archive Credential
 
       OAuth credential details for an MCP server.
 
+      - `type: :mcp_oauth`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
-
-      - `type: :mcp_oauth`
 
       - `expires_at: Time`
 
@@ -2968,15 +3023,17 @@ Archive Credential
 
       Static bearer token credential details for an MCP server.
 
+      - `type: :static_bearer`
+
       - `mcp_server_url: String`
 
         URL of the MCP server this credential authenticates against.
 
-      - `type: :static_bearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `type: :environment_variable`
 
       - `injection_location: BetaManagedAgentsInjectionLocationResponse`
 
@@ -3004,17 +3061,15 @@ Archive Credential
 
           The secret is substituted only on requests to the listed hosts.
 
+          - `type: :limited`
+
           - `allowed_hosts: Array[String]`
 
             Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
-          - `type: :limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
-
-      - `type: :environment_variable`
 
   - `created_at: Time`
 
@@ -3025,8 +3080,6 @@ Archive Credential
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata attached to the credential.
-
-  - `type: :vault_credential`
 
   - `updated_at: Time`
 
@@ -3098,7 +3151,7 @@ Validate Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 42 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -3146,6 +3199,8 @@ Validate Credential
 
     - `:"user-profiles-2026-08-18"`
 
+    - `:"user-profiles-2026-09-04"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
@@ -3188,11 +3243,15 @@ Validate Credential
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 #### Returns
 
 - `class BetaManagedAgentsCredentialValidation`
 
   Result of live-probing a credential against its configured MCP server.
+
+  - `type: :vault_credential_validation`
 
   - `credential_id: String`
 
@@ -3261,8 +3320,6 @@ Validate Credential
     - `:invalid`
 
     - `:unknown`
-
-  - `type: :vault_credential_validation`
 
   - `validated_at: Time`
 

@@ -1,3 +1,8 @@
+---
+title: Delete Skill Version
+url: https://platform.claude.com/docs/en/api/java/beta/skills/versions/delete
+---
+
 # Delete Skill Version
 
 `BetaDeletedSkillVersion beta().skills().versions().delete(params, requestOptions = RequestOptions.none())`
@@ -72,6 +77,8 @@ Delete Skill Version
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -114,20 +121,22 @@ Delete Skill Version
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaDeletedSkillVersion:`
-
-  - `String id`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
 
   - `JsonValue type = "skill_version_deleted"`
 
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+  - `String id`
+
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
 ## Example
 

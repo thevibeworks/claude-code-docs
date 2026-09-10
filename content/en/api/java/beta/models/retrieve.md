@@ -1,3 +1,8 @@
+---
+title: Get a Model
+url: https://platform.claude.com/docs/en/api/java/beta/models/retrieve
+---
+
 # Get a Model
 
 `BetaModelInfo beta().models().retrieve(params = ModelRetrieveParams.none(), requestOptions = RequestOptions.none())`
@@ -66,6 +71,8 @@ The Models API response can be used to determine information about a specific mo
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -108,9 +115,17 @@ The Models API response can be used to determine information about a specific mo
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaModelInfo:`
+
+  - `JsonValue type = "model"`
+
+    Object type.
+
+    For Models, this is always `"model"`.
 
   - `String id`
 
@@ -237,12 +252,6 @@ The Models API response can be used to determine information about a specific mo
   - `Optional<Long> maxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
-
-  - `JsonValue type = "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
 
 ## Example
 

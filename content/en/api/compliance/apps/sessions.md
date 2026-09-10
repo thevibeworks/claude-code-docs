@@ -1,3 +1,8 @@
+---
+title: Sessions
+url: https://platform.claude.com/docs/en/api/compliance/apps/sessions
+---
+
 # Sessions
 
 ## Sessions › Local
@@ -47,6 +52,12 @@ forward-only via `next_page`; there is no reverse cursor.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -54,6 +65,10 @@ forward-only via `next_page`; there is no reverse cursor.
 - `data: array of object`
 
   Page of local sessions, ordered by `created_at` descending; ties are broken by a fixed server-side order. `updated_at` never participates in the ordering; the `updated_at.gte` query parameter filters on it without changing the order or the pagination cursor.
+
+  - `type: "compliance_local_session"`
+
+    default: compliance_local_session
 
   - `id: string`
 
@@ -73,9 +88,11 @@ forward-only via `next_page`; there is no reverse cursor.
 
     The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-  - `type: "compliance_local_session"`
+  - `truncated: boolean`
 
-    default: compliance_local_session
+    True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+    default: false
 
   - `updated_at: string`
 
@@ -149,9 +166,19 @@ inference call has aged out returns 404.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
+
+- `type: "compliance_local_session"`
+
+  default: compliance_local_session
 
 - `id: string`
 
@@ -171,9 +198,11 @@ inference call has aged out returns 404.
 
   The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-- `type: "compliance_local_session"`
+- `truncated: boolean`
 
-  default: compliance_local_session
+  True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+  default: false
 
 - `updated_at: string`
 
@@ -278,6 +307,12 @@ explicit 400; restart the walk to read under the current boundary.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -285,6 +320,10 @@ explicit 400; restart the walk to read under the current boundary.
 - `data: array of object`
 
   Transcript turns for this page, in call order: oldest call first by default, newest call first with `order=desc`. The messages of one call carry the call's timestamp and follow each other in transcript order; a page boundary can fall between them.
+
+  - `type: "compliance_local_session_message"`
+
+    default: compliance_local_session_message
 
   - `id: string`
 
@@ -298,6 +337,10 @@ explicit 400; restart the walk to read under the current boundary.
 
       Text content block.
 
+      - `type: "text"`
+
+        default: text
+
       - `text: string`
 
         Text content from the user or the assistant
@@ -308,13 +351,13 @@ explicit 400; restart the walk to read under the current boundary.
 
         default: false
 
-      - `type: "text"`
-
-        default: text
-
     - `ToolUse object`
 
       Tool invocation requested by the assistant.
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string or null`
 
@@ -334,25 +377,25 @@ explicit 400; restart the walk to read under the current boundary.
 
         default: false
 
-      - `type: "tool_use"`
-
-        default: tool_use
-
     - `ToolResult object`
 
       Result returned by a tool invocation.
+
+      - `type: "tool_result"`
+
+        default: tool_result
 
       - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted and signalled via `truncated` with an in-band item-count marker.
 
-        - `text: string`
-
-          Text returned by the tool
-
         - `type: "text"`
 
           default: text
+
+        - `text: string`
+
+          Text returned by the tool
 
       - `is_error: boolean`
 
@@ -372,10 +415,6 @@ explicit 400; restart the walk to read under the current boundary.
 
         default: false
 
-      - `type: "tool_result"`
-
-        default: tool_result
-
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
@@ -394,13 +433,13 @@ explicit 400; restart the walk to read under the current boundary.
 
       The turn's content cannot be returned; `content` is empty.
 
-      - `reason: string`
-
-        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `client_aborted` (the client closed the connection or cancelled the request before the response completed, so the response was not captured for this turn; any partial output already streamed to the client is not included; assistant-role turns only), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
-
       - `type: "content_unavailable"`
 
         default: content_unavailable
+
+      - `reason: string`
+
+        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `client_aborted` (the client closed the connection or cancelled the request before the response completed, so the response was not captured for this turn; any partial output already streamed to the client is not included; assistant-role turns only), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
 
     - `ClientAsserted object`
 
@@ -438,10 +477,6 @@ explicit 400; restart the walk to read under the current boundary.
 
     - `"user"`
 
-  - `type: "compliance_local_session_message"`
-
-    default: compliance_local_session_message
-
 - `next_page: string or null`
 
   Opaque pagination cursor (prefixed `page_`) for the next page. Null when there is no further page. Treat as an opaque string; the format may change without notice.
@@ -449,6 +484,10 @@ explicit 400; restart the walk to read under the current boundary.
 - `session: object`
 
   The local session the messages belong to. `user.email_address` is always null on this endpoint; the messages endpoint does not resolve email addresses.
+
+  - `type: "compliance_local_session"`
+
+    default: compliance_local_session
 
   - `id: string`
 
@@ -468,9 +507,11 @@ explicit 400; restart the walk to read under the current boundary.
 
     The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
-  - `type: "compliance_local_session"`
+  - `truncated: boolean`
 
-    default: compliance_local_session
+    True when the session has more inference calls than the service can return for one session (100,000). The messages endpoint then returns only the session's earliest calls, up to that many, and ends before the session does; `updated_at` is a lower bound on the latest call and can differ between the list and retrieve endpoints. False for every session within that bound.
+
+    default: false
 
   - `updated_at: string`
 
@@ -531,6 +572,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "created_at": "2025-03-12T18:22:41.123456Z",
     "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
     "product_surface": "cowork",
+    "truncated": true,
     "type": "compliance_local_session",
     "updated_at": "2025-03-12T18:22:41.123456Z",
     "user": {
@@ -617,6 +659,12 @@ retrieve the next page, and stop when `next_page` is null.
   maxItems: 10
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -787,6 +835,12 @@ malformed session identifier returns 400.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -807,6 +861,10 @@ malformed session identifier returns 400.
 
       Text content block.
 
+      - `type: "text"`
+
+        default: text
+
       - `text: string`
 
         Text content from the user or the assistant
@@ -817,13 +875,13 @@ malformed session identifier returns 400.
 
         default: false
 
-      - `type: "text"`
-
-        default: text
-
     - `ToolUse object`
 
       Tool invocation requested by the assistant.
+
+      - `type: "tool_use"`
+
+        default: tool_use
 
       - `id: string or null`
 
@@ -843,25 +901,25 @@ malformed session identifier returns 400.
 
         default: false
 
-      - `type: "tool_use"`
-
-        default: tool_use
-
     - `ToolResult object`
 
       Result returned by a tool invocation.
+
+      - `type: "tool_result"`
+
+        default: tool_result
 
       - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted.
 
-        - `text: string`
-
-          Text returned by the tool
-
         - `type: "text"`
 
           default: text
+
+        - `text: string`
+
+          Text returned by the tool
 
       - `is_error: boolean`
 
@@ -880,10 +938,6 @@ malformed session identifier returns 400.
         True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
 
         default: false
-
-      - `type: "tool_result"`
-
-        default: tool_result
 
   - `content_unavailable: boolean`
 

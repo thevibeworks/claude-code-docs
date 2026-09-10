@@ -1,14 +1,23 @@
+---
+title: Upload File
+url: https://platform.claude.com/docs/en/api/files/upload
+---
+
 # Upload File
 
 **POST** `/v1/files`
 
 Upload File
 
+## Headers
+
+- `"anthropic-workspace-id": optional string`
+
 ## Body parameters (form-data)
 
 - `file: string`
 
-  The file to upload
+  The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
 
   format: binary
 
@@ -21,6 +30,12 @@ Upload File
 ## Returns
 
 - `FileMetadata object`
+
+  - `type: "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `id: string`
 
@@ -51,12 +66,6 @@ Upload File
     Size of the file in bytes.
 
     minimum: 0
-
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
 
   - `downloadable: optional boolean`
 

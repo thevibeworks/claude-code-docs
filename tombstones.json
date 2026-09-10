@@ -7,6 +7,10 @@
       "since": "2026-09-01",
       "reason": "moved -> https://claude.com/docs/claude-science/comments"
     },
+    "https://claude.com/docs/claude-science/run-on-windows-wsl": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://claude.com/docs/claude-science/run-on-windows"
+    },
     "https://claude.com/docs/claude-science/whats-not-available-yet": {
       "since": "2026-09-09",
       "reason": "moved -> https://claude.com/docs/claude-science/admin-controls"
@@ -198,6 +202,538 @@
     "https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use": {
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools"
+    },
+    "https://platform.claude.com/docs/en/api/admin": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/artifacts": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/artifacts"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/artifacts/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/artifacts/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/chat_projects": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/chat_projects"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/chat_projects/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/chat_projects/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/connectors": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/connectors"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/connectors/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/connectors/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/cost": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/cost"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/cost/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/cost/list_by_user": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list_by_user"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/plugins": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/plugins"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/plugins/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/plugins/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/retrieve_summaries": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/retrieve_summaries"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/skills": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/skills"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/skills/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/skills/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/usage": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/usage"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/usage/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/usage/list_by_user": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list_by_user"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/users": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/users"
+    },
+    "https://platform.claude.com/docs/en/api/admin/analytics/users/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/users/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/api_keys": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/api_keys"
+    },
+    "https://platform.claude.com/docs/en/api/admin/api_keys/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/api_keys/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/api_keys/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/api_keys/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/api_keys/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/api_keys/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/cost_report": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/cost_report"
+    },
+    "https://platform.claude.com/docs/en/api/admin/cost_report/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/cost_report/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys/delete"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/external_keys/validate": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/external_keys/validate"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_issuers": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/issuers"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_issuers/archive": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/issuers/archive"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_issuers/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/issuers/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_issuers/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/issuers/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_issuers/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/issuers/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_issuers/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/issuers/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/archive": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/archive"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/workspaces"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/workspaces/add"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/workspaces/remove"
+    },
+    "https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/federation/rules/workspaces/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/invites": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/invites"
+    },
+    "https://platform.claude.com/docs/en/api/admin/invites/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/invites/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/invites/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/invites/delete"
+    },
+    "https://platform.claude.com/docs/en/api/admin/invites/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/invites/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/invites/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/invites/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/archive": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/archive"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/reveal_token": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/reveal_token"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/rotate_token": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/rotate_token"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/tunnel_certificates"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/archive": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/tunnel_certificates/archive"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/tunnel_certificates/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/tunnel_certificates/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/mcp_tunnels/tunnel_certificates/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/organizations": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization"
+    },
+    "https://platform.claude.com/docs/en/api/admin/organizations/me": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rate_limits": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rate_limits"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rate_limits/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rate_limits/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/delete"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/members": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/members/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/members/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/delete"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/members/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_groups/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_roles": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_roles"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_roles/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_roles/permissions": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/permissions"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_roles/permissions/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/permissions/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/rbac_roles/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/archive": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/archive"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/workspaces"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/workspaces/add"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/workspaces/remove"
+    },
+    "https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/service_accounts/workspaces/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/delete"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/increase_requests"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests/approve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/increase_requests/approve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests/deny": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/increase_requests/deny"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/increase_requests/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/increase_requests/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/list_effective": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/list_effective"
+    },
+    "https://platform.claude.com/docs/en/api/admin/spend_limits/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/usage_report": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/usage_report"
+    },
+    "https://platform.claude.com/docs/en/api/admin/usage_report/retrieve_claude_code": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/usage_report/retrieve_claude_code"
+    },
+    "https://platform.claude.com/docs/en/api/admin/usage_report/retrieve_messages": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/usage_report/retrieve_messages"
+    },
+    "https://platform.claude.com/docs/en/api/admin/users": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/users"
+    },
+    "https://platform.claude.com/docs/en/api/admin/users/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/users/remove"
+    },
+    "https://platform.claude.com/docs/en/api/admin/users/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/users/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/users/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/users/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/users/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/users/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/archive": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/archive"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/create"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/members": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/members"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/members/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/add"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/members/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/remove"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/members/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/members/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/members/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/rate_limits": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/rate_limits"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/rate_limits/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/rate_limits/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/service_accounts"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/create": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/service_accounts/add"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/delete": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/service_accounts/remove"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/list": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/service_accounts/list"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/retrieve": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/service_accounts/retrieve"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/service_accounts/update"
+    },
+    "https://platform.claude.com/docs/en/api/admin/workspaces/update": {
+      "since": "2026-09-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/update"
     },
     "https://platform.claude.com/docs/en/api/client-sdks": {
       "since": "2026-08-25",

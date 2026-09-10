@@ -1,6 +1,11 @@
+---
+title: Archive Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates/archive
+---
+
 # Archive Tunnel Certificate
 
-`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas, ?string workspaceID): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
@@ -18,9 +23,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `TunnelCertificate`
+
+  - `"tunnel_certificate" type`
 
   - `string id`
 
@@ -46,8 +55,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `"tunnel_certificate" type`
-
 ## Example
 
 ```php
@@ -61,6 +68,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
   'certificate_id',
   tunnelID: 'tunnel_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaTunnelCertificate);

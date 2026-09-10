@@ -1,3 +1,8 @@
+---
+title: Work
+url: https://platform.claude.com/docs/en/api/go/beta/environments/work
+---
+
 # Work
 
 ## Get Work Item
@@ -74,6 +79,8 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -116,6 +123,12 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -125,6 +138,12 @@ Retrieve detailed information about a specific work item.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -142,13 +161,13 @@ Retrieve detailed information about a specific work item.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -191,12 +210,6 @@ Retrieve detailed information about a specific work item.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ### Example
 
@@ -336,6 +349,8 @@ Long poll for work items in the queue.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -392,6 +407,12 @@ Long poll for work items in the queue.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -408,13 +429,13 @@ Long poll for work items in the queue.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -457,12 +478,6 @@ Long poll for work items in the queue.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ### Example
 
@@ -592,6 +607,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -644,6 +661,12 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -660,13 +683,13 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -709,12 +732,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ### Example
 
@@ -854,6 +871,8 @@ Record a heartbeat for a work item to maintain the lease.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -902,6 +921,12 @@ Record a heartbeat for a work item to maintain the lease.
 
   Response after recording a heartbeat for a work item.
 
+  - `Type WorkHeartbeat`
+
+    The type of response
+
+    default: work_heartbeat
+
   - `LastHeartbeat string`
 
     RFC 3339 timestamp of the actual heartbeat from DB
@@ -927,12 +952,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `TTLSeconds int64`
 
     Effective TTL applied to the lease
-
-  - `Type WorkHeartbeat`
-
-    The type of response
-
-    default: work_heartbeat
 
 ### Example
 
@@ -1055,6 +1074,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1097,6 +1118,12 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -1106,6 +1133,12 @@ Stop a work item, initiating graceful or forced shutdown.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -1123,13 +1156,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -1172,12 +1205,6 @@ Stop a work item, initiating graceful or forced shutdown.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ### Example
 
@@ -1316,6 +1343,8 @@ List work items in an environment.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1368,6 +1397,12 @@ List work items in an environment.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -1384,13 +1419,13 @@ List work items in an environment.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -1433,12 +1468,6 @@ List work items in an environment.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ### Example
 
@@ -1577,6 +1606,8 @@ Update work item metadata with merge semantics.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1619,6 +1650,12 @@ Update work item metadata with merge semantics.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -1628,6 +1665,12 @@ Update work item metadata with merge semantics.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -1645,13 +1688,13 @@ Update work item metadata with merge semantics.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -1694,12 +1737,6 @@ Update work item metadata with merge semantics.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ### Example
 
@@ -1830,6 +1867,8 @@ Get statistics about the work queue for an environment.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -1872,6 +1911,12 @@ Get statistics about the work queue for an environment.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `type BetaSelfHostedWorkQueueStats struct{…}`
@@ -1879,6 +1924,12 @@ Get statistics about the work queue for an environment.
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `Type WorkQueueStats`
+
+    The type of object
+
+    default: work_queue_stats
 
   - `Depth int64`
 
@@ -1893,12 +1944,6 @@ Get statistics about the work queue for an environment.
     Number of work items being processed (polled but not acknowledged)
 
     default: 0
-
-  - `Type WorkQueueStats`
-
-    The type of object
-
-    default: work_queue_stats
 
   - `WorkersPolling int64`
 
@@ -1957,6 +2002,12 @@ func main() {
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
+
   - `ID string`
 
     Work identifier (e.g., 'work_...')
@@ -1973,13 +2024,13 @@ func main() {
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -2023,17 +2074,17 @@ func main() {
 
     RFC 3339 timestamp when work execution stopped
 
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
-
 ### Beta Self Hosted Work Heartbeat Response
 
 - `type BetaSelfHostedWorkHeartbeatResponse struct{…}`
 
   Response after recording a heartbeat for a work item.
+
+  - `Type WorkHeartbeat`
+
+    The type of response
+
+    default: work_heartbeat
 
   - `LastHeartbeat string`
 
@@ -2061,12 +2112,6 @@ func main() {
 
     Effective TTL applied to the lease
 
-  - `Type WorkHeartbeat`
-
-    The type of response
-
-    default: work_heartbeat
-
 ### Beta Self Hosted Work List Response
 
 - `type BetaSelfHostedWorkListResponse struct{…}`
@@ -2076,6 +2121,12 @@ func main() {
   - `Data []BetaSelfHostedWork`
 
     List of work items
+
+    - `Type Work`
+
+      The type of object (always 'work')
+
+      default: work
 
     - `ID string`
 
@@ -2093,13 +2144,13 @@ func main() {
 
       The actual work to be performed
 
-      - `ID string`
-
-        Session identifier (e.g., 'session_...')
-
       - `Type Session`
 
         Type of work data
+
+      - `ID string`
+
+        Session identifier (e.g., 'session_...')
 
     - `EnvironmentID string`
 
@@ -2143,12 +2194,6 @@ func main() {
 
       RFC 3339 timestamp when work execution stopped
 
-    - `Type Work`
-
-      The type of object (always 'work')
-
-      default: work
-
   - `NextPage string`
 
     Opaque cursor for fetching the next page of results
@@ -2160,6 +2205,12 @@ func main() {
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `Type WorkQueueStats`
+
+    The type of object
+
+    default: work_queue_stats
 
   - `Depth int64`
 
@@ -2174,12 +2225,6 @@ func main() {
     Number of work items being processed (polled but not acknowledged)
 
     default: 0
-
-  - `Type WorkQueueStats`
-
-    The type of object
-
-    default: work_queue_stats
 
   - `WorkersPolling int64`
 
@@ -2216,10 +2261,10 @@ func main() {
   This resource type is used when work represents a session that needs to be executed
   in a self-hosted environment.
 
-  - `ID string`
-
-    Session identifier (e.g., 'session_...')
-
   - `Type Session`
 
     Type of work data
+
+  - `ID string`
+
+    Session identifier (e.g., 'session_...')

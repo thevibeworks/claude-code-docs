@@ -1,3 +1,8 @@
+---
+title: Members
+url: https://platform.claude.com/docs/en/api/compliance/groups/members
+---
+
 # Members
 
 ## List Compliance Group Members
@@ -26,6 +31,12 @@ List Compliance Group Members
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ### Returns
@@ -36,7 +47,9 @@ List Compliance Group Members
 
   - `created_at: string or null`
 
-    Membership creation timestamp (ISO 8601)
+    Membership creation timestamp (RFC 3339)
+
+    format: date-time
 
   - `email: string`
 
@@ -44,7 +57,9 @@ List Compliance Group Members
 
   - `updated_at: string or null`
 
-    Membership last-updated timestamp (ISO 8601)
+    Membership last-updated timestamp (RFC 3339)
+
+    format: date-time
 
   - `user_id: string`
 
@@ -71,9 +86,9 @@ curl https://api.anthropic.com/v1/compliance/groups/$GROUP_ID/members \
 {
   "data": [
     {
-      "created_at": "2025-03-12T18:22:41.123456",
+      "created_at": "2025-03-12T18:22:41.123456Z",
       "email": "jane.doe@example.com",
-      "updated_at": "2025-03-14T09:05:17.456789",
+      "updated_at": "2025-03-14T09:05:17.456789Z",
       "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
     }
   ],
@@ -92,7 +107,9 @@ curl https://api.anthropic.com/v1/compliance/groups/$GROUP_ID/members \
 
   - `created_at: string or null`
 
-    Membership creation timestamp (ISO 8601)
+    Membership creation timestamp (RFC 3339)
+
+    format: date-time
 
   - `email: string`
 
@@ -100,7 +117,9 @@ curl https://api.anthropic.com/v1/compliance/groups/$GROUP_ID/members \
 
   - `updated_at: string or null`
 
-    Membership last-updated timestamp (ISO 8601)
+    Membership last-updated timestamp (RFC 3339)
+
+    format: date-time
 
   - `user_id: string`
 

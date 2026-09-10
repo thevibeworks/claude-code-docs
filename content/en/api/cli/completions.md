@@ -1,3 +1,8 @@
+---
+title: Completions
+url: https://platform.claude.com/docs/en/api/cli/completions
+---
+
 # Completions
 
 ## Create a Text Completion
@@ -66,6 +71,12 @@ Future models and features will not be compatible with Text Completions. See our
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
+- `--workspace-id: optional string`
+
+  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 - `--temperature: optional number`
 
   **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
@@ -106,6 +117,12 @@ Future models and features will not be compatible with Text Completions. See our
 
 - `completion: object`
 
+  - `type: "completion"`
+
+    Object type.
+
+    For Text Completions, this is always `"completion"`.
+
   - `id: string`
 
     Unique object identifier.
@@ -198,12 +215,6 @@ Future models and features will not be compatible with Text Completions. See our
 
     * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
     * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
-
-  - `type: "completion"`
-
-    Object type.
-
-    For Text Completions, this is always `"completion"`.
 
 ### Example
 
@@ -237,6 +248,12 @@ Assistant:'
 
 - `completion: object`
 
+  - `type: "completion"`
+
+    Object type.
+
+    For Text Completions, this is always `"completion"`.
+
   - `id: string`
 
     Unique object identifier.
@@ -329,9 +346,3 @@ Assistant:'
 
     * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
     * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
-
-  - `type: "completion"`
-
-    Object type.
-
-    For Text Completions, this is always `"completion"`.

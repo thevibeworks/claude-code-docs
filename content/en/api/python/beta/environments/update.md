@@ -1,3 +1,8 @@
+---
+title: Update Environment
+url: https://platform.claude.com/docs/en/api/python/beta/environments/update
+---
+
 # Update Environment
 
 `beta.environments.update(environment_id, **kwargs)  -> BetaEnvironment`
@@ -68,6 +73,12 @@ Update an existing environment's configuration.
 
       Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
+      - `type: Optional[Literal["packages"]]`
+
+        Package configuration type
+
+        default: packages
+
       - `apt: Optional[List[str]]`
 
         Ubuntu/Debian packages to install
@@ -91,12 +102,6 @@ Update an existing environment's configuration.
       - `pip: Optional[List[str]]`
 
         Python packages to install
-
-      - `type: Optional[Literal["packages"]]`
-
-        Package configuration type
-
-        default: packages
 
   - `class BetaSelfHostedConfigParams: …`
 
@@ -136,7 +141,7 @@ Update an existing environment's configuration.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -184,6 +189,8 @@ Update an existing environment's configuration.
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -226,11 +233,19 @@ Update an existing environment's configuration.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaEnvironment: …`
 
   Unified Environment resource for both cloud and self-hosted environments.
+
+  - `type: Literal["environment"]`
+
+    The type of object (always 'environment')
+
+    default: environment
 
   - `id: str`
 
@@ -248,6 +263,10 @@ Update an existing environment's configuration.
 
       `cloud` environment configuration.
 
+      - `type: Literal["cloud"]`
+
+        Environment type
+
       - `networking: Networking`
 
         Network configuration policy.
@@ -264,6 +283,10 @@ Update an existing environment's configuration.
 
           Limited network access.
 
+          - `type: Literal["limited"]`
+
+            Network policy type
+
           - `allow_mcp_servers: bool`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
@@ -276,13 +299,15 @@ Update an existing environment's configuration.
 
             Specifies domains the container can reach.
 
-          - `type: Literal["limited"]`
-
-            Network policy type
-
       - `packages: BetaPackages`
 
         Package manager configuration.
+
+        - `type: Optional[Literal["packages"]]`
+
+          Package configuration type
+
+          default: packages
 
         - `apt: List[str]`
 
@@ -308,16 +333,6 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `type: Optional[Literal["packages"]]`
-
-          Package configuration type
-
-          default: packages
-
-      - `type: Literal["cloud"]`
-
-        Environment type
-
     - `class BetaSelfHostedConfig: …`
 
       Configuration for self-hosted environments.
@@ -341,12 +356,6 @@ Update an existing environment's configuration.
   - `name: str`
 
     Human-readable name for the environment
-
-  - `type: Literal["environment"]`
-
-    The type of object (always 'environment')
-
-    default: environment
 
   - `updated_at: str`
 

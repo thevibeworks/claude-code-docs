@@ -1,3 +1,8 @@
+---
+title: Get Invite
+url: https://platform.claude.com/docs/en/api/beta/organization/invites/retrieve
+---
+
 # Get Invite
 
 **GET** `/v1/organizations/invites/{invite_id}`
@@ -13,6 +18,14 @@ Retrieve an invite by ID.
 ## Returns
 
 - `BetaOrganizationInvite object`
+
+  - `type: "invite"`
+
+    Object type.
+
+    For Invites, this is always `"invite"`.
+
+    default: invite
 
   - `id: string`
 
@@ -77,14 +90,6 @@ Retrieve an invite by ID.
     - `"expired"`
 
     - `"pending"`
-
-  - `type: "invite"`
-
-    Object type.
-
-    For Invites, this is always `"invite"`.
-
-    default: invite
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: List User Profiles
+url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/list
+---
+
 # List User Profiles
 
 `$client->beta->userProfiles->list(?int limit, ?Order order, ?OrderBy orderBy, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaUserProfile>`
@@ -32,6 +37,10 @@ List User Profiles
 
 - `BetaUserProfile`
 
+  - `Type type`
+
+    Object type. Always `user_profile`.
+
   - `string id`
 
     Unique identifier for this user profile, prefixed `uprof_`.
@@ -48,10 +57,6 @@ List User Profiles
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
   - `\Datetime updatedAt`
 
     A timestamp in RFC 3339 format
@@ -62,7 +67,11 @@ List User Profiles
 
   - `?string externalID`
 
-    Platform's own identifier for this user. Not enforced unique.
+    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+
+  - `?BetaUserProfileExternalUserDetails externalUserDetails`
+
+    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
   - `?\Datetime externalUserOnboardedAt`
 
@@ -110,6 +119,15 @@ var_dump($page);
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
+      "external_user_details": {
+        "account_status": "active",
+        "country": "country",
+        "email_hash": "email_hash",
+        "entity_type": "individual",
+        "name_hash": "name_hash",
+        "onboarded_at": "2019-12-27T18:11:19.117Z",
+        "reference_id": "reference_id"
+      },
       "external_user_onboarded_at": "2024-11-02T08:15:00Z",
       "name": "Example User"
     }

@@ -1,6 +1,11 @@
+---
+title: Update Agent
+url: https://platform.claude.com/docs/en/api/php/beta/agents/update
+---
+
 # Update Agent
 
-`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
+`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}`
 
@@ -54,9 +59,13 @@ Update Agent
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `BetaManagedAgentsAgent`
+
+  - `Type type`
 
   - `string id`
 
@@ -89,8 +98,6 @@ Update Agent
   - `?string system`
 
   - `list<Tool> tools`
-
-  - `Type type`
 
   - `\Datetime updatedAt`
 
@@ -151,6 +158,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
   ],
   version: 1,
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaManagedAgentsAgent);

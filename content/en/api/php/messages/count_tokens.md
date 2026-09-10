@@ -1,6 +1,11 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/php/messages/count_tokens
+---
+
 # Count tokens in a Message
 
-`$client->messages->countTokens(list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?OutputConfig outputConfig, ?System system, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<MessageCountTokensTool> tools, ?string userProfileID): MessageTokensCount`
+`$client->messages->countTokens(list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?OutputConfig outputConfig, ?System system, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<MessageCountTokensTool> tools, ?string userProfileID, ?string workspaceID): MessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -163,6 +168,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `MessageTokensCount`
@@ -226,6 +233,7 @@ $messageTokensCount = $client->messages->countTokens(
     ],
   ],
   userProfileID: 'anthropic-user-profile-id',
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($messageTokensCount);

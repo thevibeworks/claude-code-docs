@@ -1,6 +1,11 @@
+---
+title: Download File
+url: https://platform.claude.com/docs/en/api/php/beta/files/download
+---
+
 # Download File
 
-`$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas): download`
+`$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas, ?string workspaceID): download`
 
 **GET** `/v1/files/{file_id}/content`
 
@@ -16,6 +21,8 @@ Download File
 
   Optional header to specify the beta version(s) you want to use.
 
+- `workspaceID?:optional string`
+
 ## Returns
 
 - `mixed`
@@ -30,7 +37,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->files->download(
-  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'file_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($response);

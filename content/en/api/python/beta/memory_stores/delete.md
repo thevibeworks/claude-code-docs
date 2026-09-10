@@ -1,3 +1,8 @@
+---
+title: Delete a memory store
+url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/delete
+---
+
 # Delete a memory store
 
 `beta.memory_stores.delete(memory_store_id, **kwargs)  -> BetaManagedAgentsDeletedMemoryStore`
@@ -16,7 +21,7 @@ Delete a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,6 +69,8 @@ Delete a memory store
 
     - `"user-profiles-2026-08-18"`
 
+    - `"user-profiles-2026-09-04"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
@@ -106,17 +113,19 @@ Delete a memory store
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: Optional[str]`
+
 ## Returns
 
 - `class BetaManagedAgentsDeletedMemoryStore: …`
 
   Confirmation that a `memory_store` was deleted.
 
+  - `type: Literal["memory_store_deleted"]`
+
   - `id: str`
 
     ID of the deleted memory store (a `memstore_...` identifier). The store and all its memories and versions are no longer retrievable.
-
-  - `type: Literal["memory_store_deleted"]`
 
 ## Example
 

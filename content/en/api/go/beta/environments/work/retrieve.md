@@ -1,3 +1,8 @@
+---
+title: Get Work Item
+url: https://platform.claude.com/docs/en/api/go/beta/environments/work/retrieve
+---
+
 # Get Work Item
 
 `client.Beta.Environments.Work.Get(ctx, workID, params) (*BetaSelfHostedWork, error)`
@@ -72,6 +77,8 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
 
+      - `const AnthropicBetaUserProfiles2026_09_04 AnthropicBeta = "user-profiles-2026-09-04"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
@@ -114,6 +121,12 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+  - `WorkspaceID param.Field[string] Optional`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `type BetaSelfHostedWork struct{…}`
@@ -123,6 +136,12 @@ Retrieve detailed information about a specific work item.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `Type Work`
+
+    The type of object (always 'work')
+
+    default: work
 
   - `ID string`
 
@@ -140,13 +159,13 @@ Retrieve detailed information about a specific work item.
 
     The actual work to be performed
 
-    - `ID string`
-
-      Session identifier (e.g., 'session_...')
-
     - `Type Session`
 
       Type of work data
+
+    - `ID string`
+
+      Session identifier (e.g., 'session_...')
 
   - `EnvironmentID string`
 
@@ -189,12 +208,6 @@ Retrieve detailed information about a specific work item.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `Type Work`
-
-    The type of object (always 'work')
-
-    default: work
 
 ## Example
 

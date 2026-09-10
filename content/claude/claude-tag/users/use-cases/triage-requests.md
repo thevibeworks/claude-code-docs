@@ -4,7 +4,7 @@
 
 # Triage requests
 
-> Claude Tag triages a Slack request channel with two setup messages. See in-thread answers, duplicate flags, owner routing, weekly theme rollups, and optional ticket filing.
+> Claude Tag triages a Slack request channel with two setup messages. See in-thread answers, duplicate flags, owner routing, weekly theme rollups, optional ticket filing, and runbooks of standing answers.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -20,10 +20,11 @@ The two prompts below are Slack messages you paste in the request channel, in or
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection     | Examples     | Why it matters here                     |
-| :------------- | :----------- | :-------------------------------------- |
-| None           | —            | Works on Slack content alone            |
-| Issue tracking | Linear, Jira | Optional. Files routed items as tickets |
+| Connection         | Examples             | Why it matters here                                                                                               |
+| :----------------- | :------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| None               | —                    | Works on Slack content alone                                                                                      |
+| Knowledge and docs | Google Drive, Notion | Optional. Reads a [runbook](#give-claude-a-runbook-of-standing-answers) or past decisions the team keeps in a doc |
+| Issue tracking     | Linear, Jira         | Optional. Files routed items as tickets                                                                           |
 
 ## Prompts to paste
 
@@ -58,6 +59,24 @@ When a request belongs to another team, fork its thread into that team's channel
 ```
 
 The channel you name must be public, with both you and Claude in it. See [Fork a thread](/docs/claude-tag/users/commands#fork-a-thread) for the other rules.
+
+## Give Claude a runbook of standing answers
+
+When people keep posting the same questions in a channel, give Claude the team's settled answers instead of leaving it to derive an answer from the channel's history each time. A runbook is the team's own document of those answers, kept in whatever form the team already uses, such as a Google Doc. It can say which requests have a standard answer, which route to an owner, and which the team answers itself.
+
+To have Claude answer from the runbook, put the standing guidance in the **Channel instructions** field on the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). The field needs no connection, and a short runbook can go in it whole. Claude [reads a channel's untagged messages and replies to some of them on its own](/docs/claude-tag/users/when-claude-responds), so name the cases to leave alone as explicitly as the answers.
+
+For a runbook kept as a document, Claude can read it when an admin has [connected the app that holds it](/docs/claude-tag/admins/add-connections) and the connection's account can see the document. The instruction then points at the document:
+
+```text wrap theme={null}
+Answer requests in this channel from the team's triage runbook: <link to the runbook doc>. Read it before answering. If a request isn't covered there, mention <your on-call person's handle> so they can pick it up.
+```
+
+The team keeps editing the document where it already lives, and the instruction reaches every new session in the channel.
+
+A team that wants each change reviewed as a pull request can keep its runbook as a skill in a [skills repository](/docs/claude-tag/admins/skills-repo), a git repository an Owner registers and attaches to the channel; a merged pull request syncs the update to your organization automatically, and anyone in the channel can ask Claude to draft that pull request.
+
+When an answer changes, update the runbook where it lives. Edit the document, edit and save the **Channel instructions** field, or merge a pull request in the repository. However you ship the update, check the changed answer in a fresh thread. A thread already underway keeps the instructions and skills it started with.
 
 ## Related resources
 

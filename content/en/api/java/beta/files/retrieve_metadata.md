@@ -1,3 +1,8 @@
+---
+title: Get File Metadata
+url: https://platform.claude.com/docs/en/api/java/beta/files/retrieve_metadata
+---
+
 # Get File Metadata
 
 `BetaFileMetadata beta().files().retrieveMetadata(params = FileRetrieveMetadataParams.none(), requestOptions = RequestOptions.none())`
@@ -64,6 +69,8 @@ Get File Metadata
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -106,9 +113,17 @@ Get File Metadata
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ## Returns
 
 - `class BetaFileMetadata:`
+
+  - `JsonValue type = "file"`
+
+    Object type.
+
+    For files, this is always `"file"`.
 
   - `String id`
 
@@ -140,12 +155,6 @@ Get File Metadata
 
     minimum: 0
 
-  - `JsonValue type = "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
   - `Optional<Boolean> downloadable`
 
     Whether the file can be downloaded.
@@ -160,13 +169,13 @@ Get File Metadata
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-    - `String id`
-
-      The ID of the scoping resource (e.g., the session ID).
-
     - `JsonValue type = "session"`
 
       The type of scope (e.g., `"session"`).
+
+    - `String id`
+
+      The ID of the scoping resource (e.g., the session ID).
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: Work
+url: https://platform.claude.com/docs/en/api/java/beta/environments/work
+---
+
 # Work
 
 ## Get Work Item
@@ -68,6 +73,8 @@ Retrieve detailed information about a specific work item.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -110,6 +117,8 @@ Retrieve detailed information about a specific work item.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaSelfHostedWork:`
@@ -119,6 +128,10 @@ Retrieve detailed information about a specific work item.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
 
   - `String id`
 
@@ -136,13 +149,13 @@ Retrieve detailed information about a specific work item.
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -185,10 +198,6 @@ Retrieve detailed information about a specific work item.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
 
 ### Example
 
@@ -318,6 +327,8 @@ Long poll for work items in the queue.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -374,6 +385,10 @@ Long poll for work items in the queue.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
+
   - `String id`
 
     Work identifier (e.g., 'work_...')
@@ -390,13 +405,13 @@ Long poll for work items in the queue.
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -439,10 +454,6 @@ Long poll for work items in the queue.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
 
 ### Example
 
@@ -559,6 +570,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -611,6 +624,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
+
   - `String id`
 
     Work identifier (e.g., 'work_...')
@@ -627,13 +644,13 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -676,10 +693,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
 
 ### Example
 
@@ -807,6 +820,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -855,6 +870,10 @@ Record a heartbeat for a work item to maintain the lease.
 
   Response after recording a heartbeat for a work item.
 
+  - `JsonValue type = "work_heartbeat"`
+
+    The type of response
+
   - `String lastHeartbeat`
 
     RFC 3339 timestamp of the actual heartbeat from DB
@@ -880,10 +899,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `long ttlSeconds`
 
     Effective TTL applied to the lease
-
-  - `JsonValue type = "work_heartbeat"`
-
-    The type of response
 
 ### Example
 
@@ -990,6 +1005,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1032,6 +1049,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `BetaSelfHostedWorkStopRequest betaSelfHostedWorkStopRequest`
 
     Request to stop a work item.
@@ -1045,6 +1064,10 @@ Stop a work item, initiating graceful or forced shutdown.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
 
   - `String id`
 
@@ -1062,13 +1085,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -1111,10 +1134,6 @@ Stop a work item, initiating graceful or forced shutdown.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
 
 ### Example
 
@@ -1244,6 +1263,8 @@ List work items in an environment.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1296,6 +1317,10 @@ List work items in an environment.
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
+
   - `String id`
 
     Work identifier (e.g., 'work_...')
@@ -1312,13 +1337,13 @@ List work items in an environment.
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -1361,10 +1386,6 @@ List work items in an environment.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
 
 ### Example
 
@@ -1485,6 +1506,8 @@ Update work item metadata with merge semantics.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1527,6 +1550,8 @@ Update work item metadata with merge semantics.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `BetaSelfHostedWorkUpdateRequest betaSelfHostedWorkUpdateRequest`
 
     Request to update work item metadata.
@@ -1540,6 +1565,10 @@ Update work item metadata with merge semantics.
   Work items are queued when sessions are created or when long-dormant sessions
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
+
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
 
   - `String id`
 
@@ -1557,13 +1586,13 @@ Update work item metadata with merge semantics.
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -1606,10 +1635,6 @@ Update work item metadata with merge semantics.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
-
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
 
 ### Example
 
@@ -1730,6 +1755,8 @@ Get statistics about the work queue for an environment.
 
     - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
 
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
@@ -1772,6 +1799,8 @@ Get statistics about the work queue for an environment.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 ### Returns
 
 - `class BetaSelfHostedWorkQueueStats:`
@@ -1779,6 +1808,10 @@ Get statistics about the work queue for an environment.
   Statistics about the work queue for an environment.
 
   Uses Redis Stream consumer group metrics for O(1) queries.
+
+  - `JsonValue type = "work_queue_stats"`
+
+    The type of object
 
   - `long depth`
 
@@ -1791,10 +1824,6 @@ Get statistics about the work queue for an environment.
   - `long pending`
 
     Number of work items being processed (polled but not acknowledged)
-
-  - `JsonValue type = "work_queue_stats"`
-
-    The type of object
 
   - `Optional<Long> workersPolling`
 
@@ -1845,6 +1874,10 @@ public final class Main {
   receive new messages. The environment worker polls for work to execute in a
   self-hosted sandbox.
 
+  - `JsonValue type = "work"`
+
+    The type of object (always 'work')
+
   - `String id`
 
     Work identifier (e.g., 'work_...')
@@ -1861,13 +1894,13 @@ public final class Main {
 
     The actual work to be performed
 
-    - `String id`
-
-      Session identifier (e.g., 'session_...')
-
     - `JsonValue type = "session"`
 
       Type of work data
+
+    - `String id`
+
+      Session identifier (e.g., 'session_...')
 
   - `String environmentId`
 
@@ -1911,15 +1944,15 @@ public final class Main {
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue type = "work"`
-
-    The type of object (always 'work')
-
 ### Beta Self Hosted Work Heartbeat Response
 
 - `class BetaSelfHostedWorkHeartbeatResponse:`
 
   Response after recording a heartbeat for a work item.
+
+  - `JsonValue type = "work_heartbeat"`
+
+    The type of response
 
   - `String lastHeartbeat`
 
@@ -1947,10 +1980,6 @@ public final class Main {
 
     Effective TTL applied to the lease
 
-  - `JsonValue type = "work_heartbeat"`
-
-    The type of response
-
 ### Beta Self Hosted Work List Response
 
 - `class BetaSelfHostedWorkListResponse:`
@@ -1960,6 +1989,10 @@ public final class Main {
   - `List<BetaSelfHostedWork> data`
 
     List of work items
+
+    - `JsonValue type = "work"`
+
+      The type of object (always 'work')
 
     - `String id`
 
@@ -1977,13 +2010,13 @@ public final class Main {
 
       The actual work to be performed
 
-      - `String id`
-
-        Session identifier (e.g., 'session_...')
-
       - `JsonValue type = "session"`
 
         Type of work data
+
+      - `String id`
+
+        Session identifier (e.g., 'session_...')
 
     - `String environmentId`
 
@@ -2027,10 +2060,6 @@ public final class Main {
 
       RFC 3339 timestamp when work execution stopped
 
-    - `JsonValue type = "work"`
-
-      The type of object (always 'work')
-
   - `Optional<String> nextPage`
 
     Opaque cursor for fetching the next page of results
@@ -2043,6 +2072,10 @@ public final class Main {
 
   Uses Redis Stream consumer group metrics for O(1) queries.
 
+  - `JsonValue type = "work_queue_stats"`
+
+    The type of object
+
   - `long depth`
 
     Number of work items waiting to be picked up (lag from consumer group)
@@ -2054,10 +2087,6 @@ public final class Main {
   - `long pending`
 
     Number of work items being processed (polled but not acknowledged)
-
-  - `JsonValue type = "work_queue_stats"`
-
-    The type of object
 
   - `Optional<Long> workersPolling`
 
@@ -2092,10 +2121,10 @@ public final class Main {
   This resource type is used when work represents a session that needs to be executed
   in a self-hosted environment.
 
-  - `String id`
-
-    Session identifier (e.g., 'session_...')
-
   - `JsonValue type = "session"`
 
     Type of work data
+
+  - `String id`
+
+    Session identifier (e.g., 'session_...')
