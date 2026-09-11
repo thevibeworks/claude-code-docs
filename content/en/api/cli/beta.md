@@ -1433,8 +1433,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-        Tool invocation directly from the model.
-
         - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
@@ -1495,8 +1493,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-        Tool invocation directly from the model.
-
         - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
@@ -1548,8 +1544,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-        Tool invocation directly from the model.
 
         - `beta_direct_caller: object`
 
@@ -1645,8 +1639,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-        Tool invocation directly from the model.
-
         - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
@@ -1714,8 +1706,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `type: "code_execution_tool_result"`
 
       - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
-
-        Code execution result with encrypted stdout for PFC + web_search results.
 
         - `beta_code_execution_tool_result_error: object`
 
@@ -3505,8 +3495,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `content_block: BetaTextBlock or BetaThinkingBlock or BetaRedactedThinkingBlock or 14 more`
 
-      Response model for a file uploaded to the container.
-
       - `beta_text_block: object`
 
         - `type: "text"`
@@ -3565,8 +3553,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
         - `toolset_name: optional string`
 
           For a toolset member tool_use, the toolset family.
@@ -3587,8 +3573,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
       - `beta_web_search_tool_result_block: object`
 
         - `type: "web_search_tool_result"`
@@ -3601,8 +3585,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
       - `beta_web_fetch_tool_result_block: object`
 
         - `type: "web_fetch_tool_result"`
@@ -3614,8 +3596,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
 
       - `beta_advisor_tool_result_block: object`
 
@@ -3632,8 +3612,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `type: "code_execution_tool_result"`
 
         - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
 
         - `tool_use_id: string`
 
@@ -5318,8 +5296,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
@@ -5380,8 +5356,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
@@ -5433,8 +5407,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
 
               - `beta_direct_caller: object`
 
@@ -5530,8 +5502,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
@@ -5599,8 +5569,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `type: "code_execution_tool_result"`
 
             - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `beta_code_execution_tool_result_error: object`
 
@@ -20144,8 +20112,6 @@ List Events
 
       - `error: BetaManagedAgentsUnknownError or BetaManagedAgentsModelOverloadedError or BetaManagedAgentsModelRateLimitedError or 5 more`
 
-        An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
         - `beta_managed_agents_unknown_error: object`
 
           An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -20431,8 +20397,6 @@ List Events
         format: date-time
 
       - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-        The agent completed its turn naturally and is ready for the next user message.
 
         - `beta_managed_agents_session_end_turn: object`
 
@@ -20819,8 +20783,6 @@ List Events
         Public sthr_ ID of the thread that went idle.
 
       - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-        The agent completed its turn naturally and is ready for the next user message.
 
         - `beta_managed_agents_session_end_turn: object`
 
@@ -23021,8 +22983,6 @@ Stream Events
 
     - `error: BetaManagedAgentsUnknownError or BetaManagedAgentsModelOverloadedError or BetaManagedAgentsModelRateLimitedError or 5 more`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `beta_managed_agents_unknown_error: object`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -23308,8 +23268,6 @@ Stream Events
       format: date-time
 
     - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `beta_managed_agents_session_end_turn: object`
 
@@ -23696,8 +23654,6 @@ Stream Events
       Public sthr_ ID of the thread that went idle.
 
     - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `beta_managed_agents_session_end_turn: object`
 
@@ -28535,8 +28491,6 @@ List Session Thread Events
 
       - `error: BetaManagedAgentsUnknownError or BetaManagedAgentsModelOverloadedError or BetaManagedAgentsModelRateLimitedError or 5 more`
 
-        An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
         - `beta_managed_agents_unknown_error: object`
 
           An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -28822,8 +28776,6 @@ List Session Thread Events
         format: date-time
 
       - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-        The agent completed its turn naturally and is ready for the next user message.
 
         - `beta_managed_agents_session_end_turn: object`
 
@@ -29210,8 +29162,6 @@ List Session Thread Events
         Public sthr_ ID of the thread that went idle.
 
       - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-        The agent completed its turn naturally and is ready for the next user message.
 
         - `beta_managed_agents_session_end_turn: object`
 
@@ -30903,8 +30853,6 @@ Stream Session Thread Events
 
     - `error: BetaManagedAgentsUnknownError or BetaManagedAgentsModelOverloadedError or BetaManagedAgentsModelRateLimitedError or 5 more`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `beta_managed_agents_unknown_error: object`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -31190,8 +31138,6 @@ Stream Session Thread Events
       format: date-time
 
     - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `beta_managed_agents_session_end_turn: object`
 
@@ -31578,8 +31524,6 @@ Stream Session Thread Events
       Public sthr_ ID of the thread that went idle.
 
     - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `beta_managed_agents_session_end_turn: object`
 
@@ -38504,8 +38448,6 @@ Create Credential
 
         - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse or BetaManagedAgentsTokenEndpointAuthBasicResponse or BetaManagedAgentsTokenEndpointAuthPostResponse`
 
-          Token endpoint requires no client authentication.
-
           - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
             Token endpoint requires no client authentication.
@@ -38732,8 +38674,6 @@ List Credentials
 
           - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse or BetaManagedAgentsTokenEndpointAuthBasicResponse or BetaManagedAgentsTokenEndpointAuthPostResponse`
 
-            Token endpoint requires no client authentication.
-
             - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
               Token endpoint requires no client authentication.
@@ -38953,8 +38893,6 @@ Get Credential
           Token endpoint URL used to refresh the access token.
 
         - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse or BetaManagedAgentsTokenEndpointAuthBasicResponse or BetaManagedAgentsTokenEndpointAuthPostResponse`
-
-          Token endpoint requires no client authentication.
 
           - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
@@ -39181,8 +39119,6 @@ Update Credential
           Token endpoint URL used to refresh the access token.
 
         - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse or BetaManagedAgentsTokenEndpointAuthBasicResponse or BetaManagedAgentsTokenEndpointAuthPostResponse`
-
-          Token endpoint requires no client authentication.
 
           - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
@@ -39453,8 +39389,6 @@ Archive Credential
           Token endpoint URL used to refresh the access token.
 
         - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse or BetaManagedAgentsTokenEndpointAuthBasicResponse or BetaManagedAgentsTokenEndpointAuthPostResponse`
-
-          Token endpoint requires no client authentication.
 
           - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
@@ -43697,7 +43631,7 @@ Create a Dream
 
 - `--model: string or BetaDreamModelConfigParam`
 
-  Body param: Model identifier and configuration applied to every pipeline stage.
+  Body param
 
 - `--instructions: optional string`
 
@@ -43707,7 +43641,7 @@ Create a Dream
 
 - `--output-behavior: optional BetaOutputBehaviorCreateNew or BetaOutputBehaviorUpdateExisting`
 
-  Body param: The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
+  Body param
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -43796,8 +43730,6 @@ Create a Dream
       - `"fast"`
 
   - `output_behavior: BetaOutputBehaviorCreateNew or BetaOutputBehaviorUpdateExisting`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
     - `beta_output_behavior_create_new: object`
 
@@ -44046,8 +43978,6 @@ List Dreams
 
     - `output_behavior: BetaOutputBehaviorCreateNew or BetaOutputBehaviorUpdateExisting`
 
-      The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
       - `beta_output_behavior_create_new: object`
 
         The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
@@ -44274,8 +44204,6 @@ Get a Dream
 
   - `output_behavior: BetaOutputBehaviorCreateNew or BetaOutputBehaviorUpdateExisting`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
     - `beta_output_behavior_create_new: object`
 
       The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
@@ -44496,8 +44424,6 @@ Cancel a Dream
 
   - `output_behavior: BetaOutputBehaviorCreateNew or BetaOutputBehaviorUpdateExisting`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
     - `beta_output_behavior_create_new: object`
 
       The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
@@ -44717,8 +44643,6 @@ Archive a Dream
       - `"fast"`
 
   - `output_behavior: BetaOutputBehaviorCreateNew or BetaOutputBehaviorUpdateExisting`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
     - `beta_output_behavior_create_new: object`
 

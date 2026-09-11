@@ -35,7 +35,7 @@ The [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#h
 
 Brokered sign-in is available on Windows and macOS. Linux has no OS identity broker.
 
-What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#how-users-sign-in) fall back to the system browser instead.
+What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the [Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#how-users-sign-in) fall back to the system browser instead. To make the Microsoft 365 connector's sign-in fail rather than fall back, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `required` (Claude Desktop 1.49585.0 or later).
 
 ## Register the Entra ID application
 

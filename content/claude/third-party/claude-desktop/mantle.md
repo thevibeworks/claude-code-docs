@@ -77,4 +77,4 @@ The app opens directly on first launch with no user action. Users are never prom
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether credentials validated, use **Help → Troubleshooting → Copy Managed Configuration Report**; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [Data storage and residency](/docs/third-party/claude-desktop/data-storage).
+To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [Data storage and residency](/docs/third-party/claude-desktop/data-storage).

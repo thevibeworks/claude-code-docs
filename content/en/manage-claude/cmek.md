@@ -69,6 +69,7 @@ What CMEK covers depends on which product you use.
 * Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) captured from sessions on users' machines. If your key cannot be used, the messages endpoint returns [503 Service Unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable) instead of transcript content. Session metadata is still listed.
 * Office agents.
 * Claude in Chrome.
+* Claude Science. Data that users send from the app to their own compute, such as SSH hosts or cloud compute accounts, is held on those systems, not by Anthropic, and is not covered.
 
 On both products, backups and snapshots inherit the key.
 
@@ -84,11 +85,12 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 
 **Claude Enterprise**
 
-* Conversation history search is disabled. Conversation titles are encrypted, so searching by title or content returns no results.
+* Chat search is disabled because chat titles and content are encrypted under your key. Members cannot search past chats, and the **Search and reference chats** toggle stays off, so Claude cannot search them either.
 * [Project knowledge search](https://support.claude.com/en/articles/11473015-retrieval-augmented-generation-rag-for-projects) (retrieval-augmented generation, or RAG) is disabled. Project knowledge loads directly into each conversation's context instead of being indexed and searched. As a result, a project can use substantially less knowledge than it could without CMEK. Knowledge beyond what can be loaded is left out of the conversation.
+* Claude Code on the web (including routines) and Claude in Slack are unavailable: new sessions cannot be started and Claude in Slack declines requests, even if an admin turns these products on. Claude Code Desktop remains available for local sessions but is off unless an admin turns it on under [claude.ai > Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code).
 * Certain analytics are degraded: admin analytics for claude.ai skills and connectors (under claude.ai/analytics/usage and through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)), Claude smart reports (under claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
-* Audit log exports are disabled.
-* Signed URLs for temporary file exchanges are disabled. These back organization data exports in claude.ai and Claude Code Remote file flows such as screenshot updates.
+* Organization data exports and audit log exports, both under [claude.ai > Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls), are disabled.
+* Response ratings (thumbs up and thumbs down on Claude's responses) are disabled.
 
 ### Encrypted with Anthropic key
 
@@ -103,9 +105,7 @@ These features remain available, but their data is not encrypted under your key.
 
 **Claude Enterprise**
 
-* Claude Code Desktop, Claude Code on the web, and Claude in Slack. Anthropic recommends disabling any of these that are not appropriate for your use case in the admin console.
 * Beta and research preview features might not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and Claude Design.
-* On-demand data export under **Settings** > **Privacy**.
 * [Personal preferences - Instructions for Claude section](https://claude.ai/new#settings/general) and Cowork Global instructions. These are set at the account level and shared across all of a user's organizations.
 
 On both products, account data for users in your organization (such as names, email addresses, and profile pictures) is not encrypted under your key.

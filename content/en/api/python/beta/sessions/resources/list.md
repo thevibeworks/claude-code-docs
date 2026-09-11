@@ -129,8 +129,6 @@ List Session Resources
 
 - `BetaManagedAgentsSessionResource`
 
-  A memory store attached to an agent session.
-
   - `class BetaManagedAgentsGitHubRepositoryResource: …`
 
     - `type: Literal["github_repository"]`

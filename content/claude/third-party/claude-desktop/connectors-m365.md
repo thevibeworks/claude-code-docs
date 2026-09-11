@@ -240,13 +240,13 @@ To request a different set, list scopes in the entry's `scope` field. The connec
 
 Six optional read scopes are not in the standard set:
 
-* `ChannelMessage.Read.All` adds Teams channel messages to chat search results. Requires tenant-admin consent.
+* `ChannelMessage.Read.All` adds Teams channel messages to chat search results and lets Claude list a channel's messages (`teams_list_channel_messages`). Requires tenant-admin consent.
 * `OnlineMeetingTranscript.Read.All` enables reading meeting transcripts. Requires tenant-admin consent.
 * `MailboxSettings.Read` lets the connector read the user's mailbox time zone so that dates in requests follow the user's local time rather than UTC.
 * `People.Read` enables people search (`search_people`), which resolves a name to a user before starting a Teams chat.
 * `Team.ReadBasic.All` and `Channel.ReadBasic.All` let Claude list the user's teams and their channels (`teams_list_teams`, `teams_list_channels`), which Claude uses to find the team and channel IDs that the channel-message tools take.
 
-Until `ChannelMessage.Read.All` and `OnlineMeetingTranscript.Read.All` are granted, chat search omits channel results and transcript requests return a permission error. The `search_people`, `teams_list_teams`, and `teams_list_channels` tools require Claude Desktop version 1.32885.1 or later.
+Until `ChannelMessage.Read.All` and `OnlineMeetingTranscript.Read.All` are granted, chat search omits channel results and transcript requests return a permission error. The `search_people`, `teams_list_teams`, and `teams_list_channels` tools require Claude Desktop version 1.32885.1 or later, and `teams_list_channel_messages` requires 1.49585.0 or later.
 
 The `scope` field accepts only scopes the connector can use. An entry containing an unrecognized scope name is rejected as a whole at configuration load, with an error in the app's main log listing the valid names, and the connector does not appear.
 
@@ -268,6 +268,7 @@ The connector provides these read and search tools:
 | `get_me`                                        | Return the signed-in user's own profile                                                             |
 | `search_people`                                 | Search for people by name or email address (needs `People.Read`)                                    |
 | `teams_list_teams`, `teams_list_channels`       | List the user's teams and a team's channels (need `Team.ReadBasic.All` and `Channel.ReadBasic.All`) |
+| `teams_list_channel_messages`                   | List a channel's messages, or the replies in one conversation (needs `ChannelMessage.Read.All`)     |
 
 Granting write scopes enables write tools; see [Grant write scopes](#grant-write-scopes).
 

@@ -1227,8 +1227,6 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
 - `BetaManagedAgentsSessionResource = BetaManagedAgentsGitHubRepositoryResource or BetaManagedAgentsFileResource or BetaManagedAgentsMemoryStoreResource`
 
-  A memory store attached to an agent session.
-
   - `BetaManagedAgentsGitHubRepositoryResource object`
 
     - `type: "github_repository"`

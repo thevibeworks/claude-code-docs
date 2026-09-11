@@ -1075,8 +1075,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `ContentBlock contentBlock`
 
-      Response model for a file uploaded to the container.
-
     - `int index`
 
   - `BetaRawContentBlockDeltaEvent`
@@ -7309,8 +7307,6 @@ List Events
 
     - `Error error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
@@ -7352,8 +7348,6 @@ List Events
       A timestamp in RFC 3339 format
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionStatusTerminatedEvent`
 
@@ -7580,8 +7574,6 @@ List Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -8199,8 +8191,6 @@ Stream Events
 
     - `Error error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
@@ -8242,8 +8232,6 @@ Stream Events
       A timestamp in RFC 3339 format
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionStatusTerminatedEvent`
 
@@ -8470,8 +8458,6 @@ Stream Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -10107,8 +10093,6 @@ List Session Thread Events
 
     - `Error error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
@@ -10150,8 +10134,6 @@ List Session Thread Events
       A timestamp in RFC 3339 format
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionStatusTerminatedEvent`
 
@@ -10378,8 +10360,6 @@ List Session Thread Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -10909,8 +10889,6 @@ Stream Session Thread Events
 
     - `Error error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
@@ -10952,8 +10930,6 @@ Stream Session Thread Events
       A timestamp in RFC 3339 format
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionStatusTerminatedEvent`
 
@@ -11180,8 +11156,6 @@ Stream Session Thread Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -17090,51 +17064,6 @@ var_dump($betaDeletedSkillVersion);
 }
 ```
 
-## Beta › Webhooks
-
-### Unwrap
-
-`$client->beta->webhooks->unwrap(): void`
-
-Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
-headers using your webhook signing key, then parses the payload into an event. Fails if the
-signature is missing or invalid.
-
-#### Example
-
-```php
-<?php
-
-require_once dirname(__DIR__) . '/vendor/autoload.php';
-
-$client = new Client(apiKey: 'my-anthropic-api-key');
-
-$result = $client->beta->webhooks->unwrap();
-
-var_dump($result);
-```
-
-### Parse Unverified
-
-`$client->beta->webhooks->parseUnverified(): void`
-
-Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
-you have already verified the signature yourself.
-
-#### Example
-
-```php
-<?php
-
-require_once dirname(__DIR__) . '/vendor/autoload.php';
-
-$client = new Client(apiKey: 'my-anthropic-api-key');
-
-$result = $client->beta->webhooks->parseUnverified();
-
-var_dump($result);
-```
-
 ## Beta › User Profiles
 
 ### Create User Profile
@@ -17754,13 +17683,9 @@ Create a Dream
 
 - `model: Model`
 
-  Model identifier and configuration applied to every pipeline stage.
-
 - `instructions?:optional string`
 
 - `outputBehavior?:optional BetaOutputBehavior`
-
-  The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -17801,8 +17726,6 @@ Create a Dream
     Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
 
   - `BetaOutputBehavior outputBehavior`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
   - `list<BetaDreamOutput> outputs`
 
@@ -17955,8 +17878,6 @@ List Dreams
 
   - `BetaOutputBehavior outputBehavior`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
   - `list<BetaDreamOutput> outputs`
 
   - `?string sessionID`
@@ -18093,8 +18014,6 @@ Get a Dream
 
   - `BetaOutputBehavior outputBehavior`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
   - `list<BetaDreamOutput> outputs`
 
   - `?string sessionID`
@@ -18221,8 +18140,6 @@ Cancel a Dream
 
   - `BetaOutputBehavior outputBehavior`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
   - `list<BetaDreamOutput> outputs`
 
   - `?string sessionID`
@@ -18348,8 +18265,6 @@ Archive a Dream
     Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
 
   - `BetaOutputBehavior outputBehavior`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
   - `list<BetaDreamOutput> outputs`
 

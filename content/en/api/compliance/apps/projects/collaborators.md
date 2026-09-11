@@ -216,8 +216,6 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/collabora
 
 - `CollaboratorListResponse = object or object or object or object`
 
-  An individual user granted a role on a project.
-
   - `ComplianceProjectUserCollaborator object`
 
     An individual user granted a role on a project.

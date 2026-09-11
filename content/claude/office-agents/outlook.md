@@ -442,9 +442,13 @@ Outlook to their own OpenTelemetry collector for integration with a SIEM
 or observability platform. See
 [Configure a custom OpenTelemetry collector](/docs/office-agents/enterprise-readiness)
 for setup. On Pro, Max, and Team plans, observability and audit
-export are not available. Claude for Outlook does not inherit custom data
-retention settings your organization may have configured and is not
-included in Enterprise audit logs or the Compliance API at this time.
+export are not available. Claude for Outlook does not inherit custom
+data retention settings your organization may have configured and is not
+included in Enterprise audit logs. For Enterprise organizations with the
+[Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api)
+enabled, Claude for Outlook sessions are included in the Compliance API.
+This coverage is in public beta and requires no additional setup: the
+same Compliance Access Keys apply.
 
 ## Prompt injection risks
 

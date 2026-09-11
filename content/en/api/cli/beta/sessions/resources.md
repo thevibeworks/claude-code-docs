@@ -791,8 +791,6 @@ ant beta:sessions:resources delete \
 
 - `beta_managed_agents_session_resource: BetaManagedAgentsGitHubRepositoryResource or BetaManagedAgentsFileResource or BetaManagedAgentsMemoryStoreResource`
 
-  A memory store attached to an agent session.
-
   - `beta_managed_agents_github_repository_resource: object`
 
     - `type: "github_repository"`

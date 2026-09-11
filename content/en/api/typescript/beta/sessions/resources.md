@@ -325,8 +325,6 @@ List Session Resources
 
 - `BetaManagedAgentsSessionResource = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
 
-  A memory store attached to an agent session.
-
   - `BetaManagedAgentsGitHubRepositoryResource`
 
     - `type: "github_repository"`
@@ -1291,8 +1289,6 @@ console.log(betaManagedAgentsDeleteSessionResource.id);
 ### Beta Managed Agents Session Resource
 
 - `BetaManagedAgentsSessionResource = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
-
-  A memory store attached to an agent session.
 
   - `BetaManagedAgentsGitHubRepositoryResource`
 

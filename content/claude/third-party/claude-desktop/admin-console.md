@@ -78,7 +78,7 @@ The console fills in the matching settings and lists anything in the file that i
 Before the users of an existing fleet sign in, prepare their devices:
 
 * **MDM or bootstrap fleets:** remove the Claude Desktop configuration profile or registry policy, including a profile or policy that carries only bootstrap keys. A device that keeps one uses that configuration and ignores the admin console. A profile that sets only the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) can stay.
-* **Machines configured in the app:** a device set up from the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) with **Apply locally** stays in its local third-party configuration. Return it to standard Claude Desktop first. To do that, sign out in the app and choose the Anthropic sign-in option on the sign-in screen, as described under [Single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup).
+* **Machines configured in the app:** a device set up from the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) with **Apply Changes** stays in its local third-party configuration. Return it to standard Claude Desktop first. To do that, sign out in the app and choose the Anthropic sign-in option on the sign-in screen, as described under [Single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup).
 
 Users then sign in as described under [Onboard users](#onboard-users). Conversations from the earlier configuration stay on the device. To let users bring those conversations into the app's history, turn on **Claude.ai data import** on the **Connectors** page, which sets the [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) key. Users then open **Settings → Import & export** in the app, and the earlier sessions appear in the [Cowork & Code step of the import wizard](/docs/third-party/claude-desktop/import#step-2-local-cowork-and-code-sessions).
 
@@ -100,9 +100,15 @@ The console stores no API keys, tokens, or secrets, and refuses them anywhere in
 
 Most of these settings can also differ per group of users, on the **Permission policies** page under **People**, as described under [Per-group permission policies](#per-group-permission-policies).
 
+### Localhost base URLs
+
+The **Gateway base URL**, **Bedrock base URL**, and **Vertex AI base URL** fields on the **Connection** page take an `https://` URL. They also accept an address on the device itself (`localhost`, `127.0.0.1`, or `[::1]`) over `https://` or `http://`, for example `http://localhost:4000`. Use a localhost address only when your organization runs a proxy or tunnel to your provider on every device in the deployment, because Claude Desktop sends model requests to whatever program answers at that address on each device.
+
+A localhost address in these fields requires Claude Desktop 1.52386.0 or later on every device, so update your devices before you save a localhost address. With a localhost address saved, a user on an earlier release who signs in for the first time stays in standard Claude Desktop instead of switching to your configuration. A device on an earlier release that already runs your configuration loses its connection to your provider the next time the app starts, until the device updates or you remove the localhost address.
+
 ### Per-group permission policies
 
-The **Permission policies** page, under **People** in the left navigation, applies different settings to users in specific groups. Click **Add permission policy**, pick a group, and set only the settings that should differ. Every other setting comes from the organization-wide settings.
+The **Permission policies** page, under **People** in the left navigation, applies different settings to users in specific groups. You can add policies after you save the organization-wide settings on the **Connection** page, and each group can have one policy. Click **Add permission policy**, pick a group, and set only the settings that should differ. Every other setting comes from the organization-wide settings.
 
 A policy can, for example, turn Chat, Cowork, and Code on or off, narrow the model list and the managed MCP servers to a subset by name, and change built-in tool settings, network allowlists, telemetry, token limits, and the banner. The inference connection (the provider, its endpoint, and how users authenticate to it) is organization-wide, and a policy can't add models or managed MCP servers that the organization-wide settings don't define.
 
@@ -153,15 +159,15 @@ If something looks wrong, **Help → Troubleshooting → Generate Diagnostic Rep
 
 ### Users in more than one Claude organization
 
-A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. When such a user signs in, the app opens in their other organization and asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** isn't asked again on that device and can switch later by choosing your organization from the account menu. Each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration. To go back, the user chooses **Sign out** and signs in to Claude again after the restart.
+A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. When such a user signs in, the app opens in their other organization and asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** isn't asked again on that device and can switch later by choosing your organization from the account menu. Each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration. To go back, the user chooses **Sign out** and signs in to Claude again after the restart. From Claude Desktop 1.49585.0, they can instead pick their other organization from the account menu, which also restarts the app and asks them to sign in.
 
-To remove the choice, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization are then switched to yours whenever they sign in to Claude Desktop and can't choose to stay. Browsers are not affected.
+To remove the choice, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization are then switched to yours the next time Claude Desktop starts or they sign in, and can't choose to stay. Browsers are not affected.
 
 ### Configuration updates
 
-From Claude Desktop 1.46388.0, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. When it finds a change, it shows a **Relaunch Claude Desktop** card in the sidebar and gives the user 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
+From Claude Desktop 1.46388.1, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. When it finds a change, it shows a **Relaunch Claude Desktop** card in the sidebar and gives the user 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
 
-To change the window, set **Configuration relaunch window** on the **Telemetry & updates** page. The window can be 0 to 336 hours, and 0 requires the restart as soon as the app sees the change. The setting applies to Claude Desktop 1.46388.0 and later. Earlier releases always allow 1 hour.
+To change the window, set **Configuration relaunch window** on the **Telemetry & updates** page. The window can be 0 to 336 hours, and 0 requires the restart as soon as the app sees the change. The setting applies to Claude Desktop 1.46388.1 and later. Earlier releases always allow 1 hour.
 
 An app that isn't running picks up the change at its next launch. Connection and credential settings never change in a running session.
 
@@ -173,7 +179,7 @@ A user returns a device to standard Claude Desktop by choosing **Sign out** from
 
 When you remove a user from the organization, Anthropic revokes their Claude Desktop sign-in to that organization. A running app isn't interrupted. At its next launch the app can no longer download the organization's configuration. It shows either the sign-in screen, where **Or sign in with Claude.ai** returns the device to standard Claude Desktop, or a **Restart required** prompt whose **Restart** button does the same.
 
-To return a whole fleet to [MDM](/docs/third-party/claude-desktop/mdm) or [bootstrap](/docs/third-party/claude-desktop/bootstrap) delivery, deploy the configuration profile or registry policy again. The device-managed configuration takes precedence over the configuration from the admin console from the app's next launch. Conversations created under the admin console's configuration stay on the device but no longer appear in the app's history after the switch. Users can bring them into the app's history from **Settings → Import & export** in the app, as described at the end of [Start from an existing configuration file](#start-from-an-existing-configuration-file), after you set the [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) key with `enabled` set to `true` in the profile or policy you deploy.
+To return a whole fleet to [MDM](/docs/third-party/claude-desktop/mdm) or [bootstrap](/docs/third-party/claude-desktop/bootstrap) delivery, deploy the configuration profile or registry policy again. The device-managed configuration takes precedence over the configuration from the admin console from the app's next launch. From Claude Desktop 1.46388.1, a running app also notices the profile or policy at its next configuration re-check and asks the user to relaunch. Conversations created under the admin console's configuration stay on the device but no longer appear in the app's history after the switch. Users can bring them into the app's history from **Settings → Import & export** in the app, as described at the end of [Start from an existing configuration file](#start-from-an-existing-configuration-file), after you set the [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) key with `enabled` set to `true` in the profile or policy you deploy.
 
 ## Limitations
 

@@ -425,8 +425,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
           - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
@@ -682,8 +680,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
           - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
@@ -739,8 +735,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Create a cache control breakpoint at this content block.
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
 
           - `class BetaDirectCaller`
 
@@ -807,8 +801,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Create a cache control breakpoint at this content block.
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
 
           - `class BetaDirectCaller`
 
@@ -877,8 +869,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `type: :code_execution_tool_result`
 
         - `content: BetaCodeExecutionToolResultBlockParamContent`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
 
           - `class BetaCodeExecutionToolResultErrorParam`
 
@@ -1201,11 +1191,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
 
-          Reference to a single tool the caller declared directly in
-          `tools[]`. Does not accept the composed `{server}_{name}` form the
-          server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-          `mcp_toolset_reference` for those.
-
           - `class BetaToolChangeToolReference`
 
             Reference to a single tool the caller declared directly in
@@ -1253,11 +1238,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `type: :tool_removal`
 
         - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
-
-          Reference to a single tool the caller declared directly in
-          `tools[]`. Does not accept the composed `{server}_{name}` form the
-          server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-          `mcp_toolset_reference` for those.
 
           - `class BetaToolChangeToolReference`
 
@@ -4219,8 +4199,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-        Tool invocation directly from the model.
-
         - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
@@ -4281,8 +4259,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-        Tool invocation directly from the model.
-
         - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
@@ -4334,8 +4310,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-        Tool invocation directly from the model.
 
         - `class BetaDirectCaller`
 
@@ -4431,8 +4405,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-        Tool invocation directly from the model.
-
         - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
@@ -4500,8 +4472,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `type: :code_execution_tool_result`
 
       - `content: BetaCodeExecutionToolResultBlockContent`
-
-        Code execution result with encrypted stdout for PFC + web_search results.
 
         - `class BetaCodeExecutionToolResultError`
 
@@ -5698,8 +5668,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `type: :content_block_start`
 
     - `content_block: BetaTextBlock | BetaThinkingBlock | BetaRedactedThinkingBlock | 14 more`
-
-      Response model for a file uploaded to the container.
 
       - `class BetaTextBlock`
 

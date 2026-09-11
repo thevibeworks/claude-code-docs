@@ -75,6 +75,23 @@ inference goes to `api.anthropic.com`.
 | `bridge.claudeusercontent.com` | If using work across apps | WebSocket bridge for the work-across-apps feature.                                         |
 | `graph.microsoft.com`          | If using Outlook          | Microsoft Graph mailbox and calendar API.                                                  |
 
+If your organization has
+[IP allowlisting](https://support.claude.com/en/articles/13200993-restrict-access-to-claude-with-ip-allowlisting)
+enabled for Claude, route `bridge.claudeusercontent.com` through the same
+proxy egress as `claude.ai` and `api.anthropic.com`, for example by
+placing it in the same Zscaler app segment or Netskope steering policy. If
+you cannot route it that way, add the egress address your proxy uses for
+that domain to your organization's Claude IP allowlist, but only when that
+address is dedicated to your organization: a shared proxy egress range also
+admits the proxy vendor's other customers.
+
+Anthropic checks connections to `bridge.claudeusercontent.com` against your
+organization's Claude IP allowlist using the address they arrive from. If
+your proxy sends traffic for that domain out through an address that is not
+on that allowlist,
+[work across apps](/docs/office-agents/work-across-apps) stops while the rest of
+the add-in keeps working.
+
 ### Third-party platforms (3P)
 
 Use this table if your organization signs in with Microsoft Entra ID
@@ -97,6 +114,14 @@ AI Foundry.
 | `<region>-aiplatform.googleapis.com`     | If using Vertex AI direct | Vertex AI regional inference endpoint; replace `<region>` with your GCP region.       |
 | `<resource>.services.ai.azure.com`       | If using Foundry direct   | Azure AI Foundry inference endpoint; replace `<resource>` with your resource name.    |
 | `graph.microsoft.com`                    | If using Outlook          | Microsoft Graph mailbox and calendar API.                                             |
+
+If Anthropic serves your add-in settings from your Claude organization,
+as described in
+[Serve add-in settings from your Claude organization](#serve-add-in-settings-from-your-claude-organization),
+also allow `claude.ai` and `api.anthropic.com`. Members sign in with
+their Claude account at `claude.ai`, and the add-in reads your
+organization's settings from `api.anthropic.com`. Inference still goes
+only to the gateway or cloud provider those settings name.
 
 ## Deploy the add-in for your organization
 
@@ -309,7 +334,133 @@ sideload and validate a manifest locally before a tenant-wide upload.
   assignment. You can change assignment later without redeploying.
 </Note>
 
+## Serve add-in settings from your Claude organization
+
+Anthropic can serve the add-in's configuration to the members of a
+Claude organization directly, in place of manifest parameters, Microsoft
+Entra ID attributes, or a bootstrap endpoint. Members sign in with the
+add-in's standard "Log in" button and their Claude account. The add-in
+then reads the organization's settings from Anthropic and connects to
+the gateway or cloud provider those settings name. Prompts and responses
+still travel only to that provider, never to Anthropic.
+
+This option is in preview. It works in Anthropic's preview environments
+and is not yet enabled for production organizations. Members need the
+add-in's "Log in" button, which the Microsoft AppSource install and any
+manifest without connection parameters show.
+
+### How the sign-in works
+
+The sequence below is what a member sees. No per-member admin action is
+needed.
+
+1. The member selects "Log in" on the add-in's sign-in screen and
+   approves the sign-in in the browser with their Claude account.
+2. Anthropic's sign-in response identifies the member's organization as
+   one whose add-in settings Anthropic serves. The add-in confirms with
+   Anthropic that the account and organization on the token match that
+   response, stores the sign-in, and reloads the task pane. If the check
+   fails, the add-in discards and revokes the token and shows "Couldn't
+   verify your organization's sign-in."
+3. After the reload, the add-in reads the organization's settings from
+   `api.anthropic.com` and opens the connection screen with the served
+   values filled in, such as the gateway URL, API format, authorization
+   header, and available models. When the served settings include every
+   value the connection needs, the add-in connects without further
+   input. Otherwise the member enters the missing value, typically the
+   gateway token from your IT team, and connects.
+4. While the member stays signed in, the add-in reads the served
+   settings again at each launch and periodically while it runs, so
+   changes an admin makes apply without redeploying the manifest.
+
+### What served settings control
+
+Served settings use the same configuration keys as the manifest and a
+bootstrap endpoint, including the keys described in
+[Per-user configuration](#per-user-configuration) and
+[Admin feature controls](#admin-feature-controls). A few rules are
+specific to this path:
+
+* **Single source**: for a member signed in this way, the served
+  document is the only configuration source. The add-in does not merge
+  it with manifest parameters, Entra ID attributes, or a bootstrap
+  endpoint, and nothing from the task pane URL fills a key the served
+  document leaves out.
+* **Applied as delivered**: the add-in applies served settings the same
+  way it applies manifest configuration, with no per-setting consent
+  prompt. The Claude organization admin who edits served settings can
+  be a different person from the Microsoft 365 admin who deployed the
+  manifest.
+* **No bootstrap endpoint**: a member signed in this way uses no
+  bootstrap endpoint at all. If served settings name a `bootstrap_url`,
+  the add-in ignores it and never sends the member's token there.
+* **Last known settings at reload**: the add-in keeps the most recent
+  served document so a reloading task pane can start on it while it
+  reads the current one. The saved copy is used only for the member and
+  organization it was fetched for, and is replaced as soon as the
+  current document arrives.
+* **Settings withdrawn**: if Anthropic stops serving settings for the
+  organization, the add-in stops using any saved copy and shows "Claude
+  isn't available for your organization here" until the member signs
+  out. If the first read fails before any settings have arrived, the
+  add-in shows "Couldn't load your organization's settings" with Try
+  again and Sign out actions instead of starting on defaults.
+
+### What the add-in stores for this sign-in
+
+The sign-in is an OAuth access token and refresh token that can read
+the member's profile and the organization's add-in settings. The add-in
+also sends it with the feature-flag and telemetry requests described in
+[What Anthropic collects](#what-anthropic-collects) so those requests
+identify the signed-in member. It carries no inference access, so it
+cannot be used to send prompts to Anthropic.
+
+The add-in stores the token in localStorage within its sandboxed iframe,
+in the same place and form as a Claude account sign-in, and refreshes it
+in the background. It is not synced to Anthropic's servers. Unlike a
+Claude account sign-in, it is also not copied to the Office add-in
+storage that lets a sign-in carry across Office applications, so a
+member can be asked to log in again in another Office application or
+after Office clears the add-in's browser storage.
+
+Signing out revokes the token with Anthropic, removes it and the saved
+settings from storage, and signs the member out of any other open Claude
+task panes that share that storage.
+
+If the browser blocks the add-in's storage, for example when
+third-party site data is blocked for Office on the web, the add-in
+refuses the sign-in rather than holding it in memory only. It revokes
+the token and asks the member to allow site data for the add-in and
+select "Log in" again.
+
 ## Connection instructions for end users
+
+### Claude account with organization-served settings
+
+Use these steps if your IT team told you to sign in with your Claude
+account and your organization's settings are served by Anthropic.
+
+<Steps>
+  <Step title="Open the add-in">
+    Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
+  </Step>
+
+  <Step title="Log in with your Claude account">
+    On the sign-in screen, select "Log in", then approve the sign-in in
+    the browser window that opens. The task pane reloads when the
+    sign-in is accepted.
+  </Step>
+
+  <Step title="Review the connection and connect">
+    The connection screen opens with your organization's values filled
+    in. If a field such as the gateway token is empty, enter the value
+    your IT team provided, then connect. If every value was served, the
+    add-in connects on its own.
+  </Step>
+</Steps>
+
+If another Claude task pane was already open, it shows "Reload to finish
+signing in". Select Reload in that pane.
 
 ### LLM gateway
 
@@ -800,7 +951,10 @@ send inference requests to your organization's infrastructure instead,
 and your IT team controls how that traffic is routed and logged.
 
 Some features that rely on a Claude account are not available through
-third-party platforms yet. Support is being added.
+third-party platforms yet. Support is being added. A member who signs in
+with a Claude account to an organization whose settings Anthropic
+serves is in the third-party platform column too, because inference
+goes to the organization's provider.
 
 | Feature                                                      | Claude account | Third-party platform                                                                                       |
 | ------------------------------------------------------------ | -------------- | ---------------------------------------------------------------------------------------------------------- |

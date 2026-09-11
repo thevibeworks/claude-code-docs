@@ -69,8 +69,6 @@ Create Credential
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshParamsTokenEndpointAuthUnionResp`
 
-          Token endpoint requires no client authentication.
-
           - `type BetaManagedAgentsTokenEndpointAuthNoneParamResp struct{…}`
 
             Token endpoint requires no client authentication.
@@ -346,8 +344,6 @@ Create Credential
           Token endpoint URL used to refresh the access token.
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion`
-
-          Token endpoint requires no client authentication.
 
           - `type BetaManagedAgentsTokenEndpointAuthNoneResponse struct{…}`
 

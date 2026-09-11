@@ -167,8 +167,6 @@ Create Credential
 
         - `TokenEndpointAuth tokenEndpointAuth`
 
-          Token endpoint requires no client authentication.
-
           - `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
 
             Token endpoint requires no client authentication.
@@ -340,8 +338,6 @@ Create Credential
           Token endpoint URL used to refresh the access token.
 
         - `TokenEndpointAuth tokenEndpointAuth`
-
-          Token endpoint requires no client authentication.
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
@@ -672,8 +668,6 @@ List Credentials
 
         - `TokenEndpointAuth tokenEndpointAuth`
 
-          Token endpoint requires no client authentication.
-
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
             Token endpoint requires no client authentication.
@@ -987,8 +981,6 @@ Get Credential
 
         - `TokenEndpointAuth tokenEndpointAuth`
 
-          Token endpoint requires no client authentication.
-
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
             Token endpoint requires no client authentication.
@@ -1289,8 +1281,6 @@ Update Credential
 
         - `Optional<TokenEndpointAuth> tokenEndpointAuth`
 
-          Updated HTTP Basic authentication parameters for the token endpoint.
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
 
             Updated HTTP Basic authentication parameters for the token endpoint.
@@ -1432,8 +1422,6 @@ Update Credential
           Token endpoint URL used to refresh the access token.
 
         - `TokenEndpointAuth tokenEndpointAuth`
-
-          Token endpoint requires no client authentication.
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
@@ -1905,8 +1893,6 @@ Archive Credential
 
         - `TokenEndpointAuth tokenEndpointAuth`
 
-          Token endpoint requires no client authentication.
-
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
             Token endpoint requires no client authentication.
@@ -2363,8 +2349,6 @@ public final class Main {
 
         - `TokenEndpointAuth tokenEndpointAuth`
 
-          Token endpoint requires no client authentication.
-
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
             Token endpoint requires no client authentication.
@@ -2470,8 +2454,6 @@ public final class Main {
 ### Beta Managed Agents Credential Networking Params
 
 - `class BetaManagedAgentsCredentialNetworkingParams: union`
-
-  Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
   - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
 
@@ -2839,8 +2821,6 @@ public final class Main {
 
     - `TokenEndpointAuth tokenEndpointAuth`
 
-      Token endpoint requires no client authentication.
-
       - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
         Token endpoint requires no client authentication.
@@ -2917,8 +2897,6 @@ public final class Main {
 
     - `TokenEndpointAuth tokenEndpointAuth`
 
-      Token endpoint requires no client authentication.
-
       - `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
 
         Token endpoint requires no client authentication.
@@ -2987,8 +2965,6 @@ public final class Main {
 
   - `TokenEndpointAuth tokenEndpointAuth`
 
-    Token endpoint requires no client authentication.
-
     - `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
 
       Token endpoint requires no client authentication.
@@ -3047,8 +3023,6 @@ public final class Main {
 
   - `TokenEndpointAuth tokenEndpointAuth`
 
-    Token endpoint requires no client authentication.
-
     - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
       Token endpoint requires no client authentication.
@@ -3094,8 +3068,6 @@ public final class Main {
     maxLength: 8192
 
   - `Optional<TokenEndpointAuth> tokenEndpointAuth`
-
-    Updated HTTP Basic authentication parameters for the token endpoint.
 
     - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
 
@@ -3158,8 +3130,6 @@ public final class Main {
       maxLength: 8192
 
     - `Optional<TokenEndpointAuth> tokenEndpointAuth`
-
-      Updated HTTP Basic authentication parameters for the token endpoint.
 
       - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
 

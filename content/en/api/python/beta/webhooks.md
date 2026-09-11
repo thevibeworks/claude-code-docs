@@ -5,49 +5,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
 # Webhooks
 
-## Unwrap
-
-`beta.webhooks.unwrap()`
-
-Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
-headers using your webhook signing key, then parses the payload into an event. Fails if the
-signature is missing or invalid.
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get(
-        "ANTHROPIC_API_KEY"
-    ),  # This is the default and can be omitted
-)
-client.beta.webhooks.unwrap()
-```
-
-## Parse Unverified
-
-`beta.webhooks.parse_unverified()`
-
-Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
-you have already verified the signature yourself.
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get(
-        "ANTHROPIC_API_KEY"
-    ),  # This is the default and can be omitted
-)
-client.beta.webhooks.parse_unverified()
-```
-
 ## Domain types
 
 ### Beta Webhook Agent Archived Event Data

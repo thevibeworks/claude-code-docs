@@ -139,7 +139,7 @@ You must also set `inferenceModels` to a list of Microsoft Foundry deployment na
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether credentials validated, use **Help → Troubleshooting → Copy Managed Configuration Report**; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [Data storage and residency](/docs/third-party/claude-desktop/data-storage).
+To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [Data storage and residency](/docs/third-party/claude-desktop/data-storage).
 
 If sign-in fails at the token step, confirm the **Azure Cognitive Services** permission is granted and consented on the app registration. For the device-code flow, also confirm **Allow public client flows** is enabled; Entra ID rejects device-code sign-in without it.
 

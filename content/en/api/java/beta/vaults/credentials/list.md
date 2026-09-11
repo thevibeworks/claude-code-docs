@@ -179,8 +179,6 @@ List Credentials
 
         - `TokenEndpointAuth tokenEndpointAuth`
 
-          Token endpoint requires no client authentication.
-
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
 
             Token endpoint requires no client authentication.

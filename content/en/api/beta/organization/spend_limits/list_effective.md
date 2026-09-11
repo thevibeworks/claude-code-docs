@@ -115,8 +115,6 @@ Paginates by member, so a member's periods never split across pages.
 
   - `source: object or object or object or 2 more`
 
-    Scope selecting a single member of the organization.
-
     - `User object`
 
       Scope selecting a single member of the organization.

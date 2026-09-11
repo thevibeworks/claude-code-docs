@@ -129,8 +129,6 @@ List Session Resources
 
 - `BetaManagedAgentsSessionResource = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
 
-  A memory store attached to an agent session.
-
   - `class BetaManagedAgentsGitHubRepositoryResource`
 
     - `type: :github_repository`

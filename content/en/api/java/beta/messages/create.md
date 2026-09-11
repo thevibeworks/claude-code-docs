@@ -527,8 +527,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Caller> caller`
 
-            Tool invocation directly from the model.
-
             - `class BetaDirectCaller:`
 
               Tool invocation directly from the model.
@@ -784,8 +782,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Caller> caller`
 
-            Tool invocation directly from the model.
-
             - `class BetaDirectCaller:`
 
               Tool invocation directly from the model.
@@ -841,8 +837,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Create a cache control breakpoint at this content block.
 
           - `Optional<Caller> caller`
-
-            Tool invocation directly from the model.
 
             - `class BetaDirectCaller:`
 
@@ -909,8 +903,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Create a cache control breakpoint at this content block.
 
           - `Optional<Caller> caller`
-
-            Tool invocation directly from the model.
 
             - `class BetaDirectCaller:`
 
@@ -979,8 +971,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `JsonValue type = "code_execution_tool_result"`
 
           - `BetaCodeExecutionToolResultBlockParamContent content`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `class BetaCodeExecutionToolResultErrorParam:`
 
@@ -1303,11 +1293,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Tool tool`
 
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
-
             - `class BetaToolChangeToolReference:`
 
               Reference to a single tool the caller declared directly in
@@ -1355,11 +1340,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `JsonValue type = "tool_removal"`
 
           - `Tool tool`
-
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
 
             - `class BetaToolChangeToolReference:`
 
@@ -3901,8 +3881,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        Tool invocation directly from the model.
-
         - `class BetaDirectCaller:`
 
           Tool invocation directly from the model.
@@ -3963,8 +3941,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        Tool invocation directly from the model.
-
         - `class BetaDirectCaller:`
 
           Tool invocation directly from the model.
@@ -4016,8 +3992,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `Optional<Caller> caller`
-
-        Tool invocation directly from the model.
 
         - `class BetaDirectCaller:`
 
@@ -4113,8 +4087,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        Tool invocation directly from the model.
-
         - `class BetaDirectCaller:`
 
           Tool invocation directly from the model.
@@ -4182,8 +4154,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `JsonValue type = "code_execution_tool_result"`
 
       - `BetaCodeExecutionToolResultBlockContent content`
-
-        Code execution result with encrypted stdout for PFC + web_search results.
 
         - `class BetaCodeExecutionToolResultError:`
 
@@ -5393,8 +5363,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `JsonValue type = "content_block_start"`
 
     - `ContentBlock contentBlock`
-
-      Response model for a file uploaded to the container.
 
       - `class BetaTextBlock:`
 

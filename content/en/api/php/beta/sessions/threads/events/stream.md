@@ -357,8 +357,6 @@ Stream Session Thread Events
 
     - `Error error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
     - `\Datetime processedAt`
 
       A timestamp in RFC 3339 format
@@ -400,8 +398,6 @@ Stream Session Thread Events
       A timestamp in RFC 3339 format
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionStatusTerminatedEvent`
 
@@ -628,8 +624,6 @@ Stream Session Thread Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
   - `ManagedAgentsSessionThreadStatusTerminatedEvent`
 

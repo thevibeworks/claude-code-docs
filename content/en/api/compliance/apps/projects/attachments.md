@@ -167,8 +167,6 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
 - `AttachmentListResponse = object or object`
 
-  File attachment reference for compliance responses.
-
   - `ComplianceProjectFileReference object`
 
     File attachment reference for compliance responses.

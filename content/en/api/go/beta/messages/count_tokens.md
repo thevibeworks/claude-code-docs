@@ -413,8 +413,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -668,8 +666,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaServerToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -725,8 +721,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Create a cache control breakpoint at this content block.
 
           - `Caller BetaWebSearchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -793,8 +787,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Create a cache control breakpoint at this content block.
 
           - `Caller BetaWebFetchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -863,8 +855,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `Type CodeExecutionToolResult`
 
           - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
 
@@ -1187,11 +1177,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Tool BetaRequestToolAdditionBlockToolUnion`
 
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
-
             - `type BetaToolChangeToolReference struct{…}`
 
               Reference to a single tool the caller declared directly in
@@ -1239,11 +1224,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `Type ToolRemoval`
 
           - `Tool BetaRequestToolRemovalBlockToolUnion`
-
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
 
             - `type BetaToolChangeToolReference struct{…}`
 

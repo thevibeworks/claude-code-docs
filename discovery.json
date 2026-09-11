@@ -139,6 +139,7 @@
       "anthropics/political-neutrality-eval",
       "anthropics/prompt-eng-interactive-tutorial",
       "anthropics/python-tblib",
+      "anthropics/raft-rs",
       "anthropics/rayon",
       "anthropics/rclone",
       "anthropics/redis-py",
