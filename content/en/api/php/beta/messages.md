@@ -488,8 +488,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `ContentBlock contentBlock`
 
-      Response model for a file uploaded to the container.
-
     - `int index`
 
   - `BetaRawContentBlockDeltaEvent`
@@ -2545,8 +2543,6 @@ var_dump($betaMessageTokensCount);
 
   - `BetaCodeExecutionToolResultBlockContent content`
 
-    Code execution result with encrypted stdout for PFC + web_search results.
-
   - `string toolUseID`
 
 ### Beta Code Execution Tool Result Block Content
@@ -2590,8 +2586,6 @@ var_dump($betaMessageTokensCount);
   - `"code_execution_tool_result" type`
 
   - `BetaCodeExecutionToolResultBlockParamContent content`
-
-    Code execution result with encrypted stdout for PFC + web_search results.
 
   - `string toolUseID`
 
@@ -3166,8 +3160,6 @@ var_dump($betaMessageTokensCount);
 
     - `?Caller caller`
 
-      Tool invocation directly from the model.
-
     - `?string toolsetName`
 
       For a toolset member tool_use, the toolset family.
@@ -3184,8 +3176,6 @@ var_dump($betaMessageTokensCount);
 
     - `?Caller caller`
 
-      Tool invocation directly from the model.
-
   - `BetaWebSearchToolResultBlock`
 
     - `"web_search_tool_result" type`
@@ -3196,8 +3186,6 @@ var_dump($betaMessageTokensCount);
 
     - `?Caller caller`
 
-      Tool invocation directly from the model.
-
   - `BetaWebFetchToolResultBlock`
 
     - `"web_fetch_tool_result" type`
@@ -3207,8 +3195,6 @@ var_dump($betaMessageTokensCount);
     - `string toolUseID`
 
     - `?Caller caller`
-
-      Tool invocation directly from the model.
 
   - `BetaAdvisorToolResultBlock`
 
@@ -3223,8 +3209,6 @@ var_dump($betaMessageTokensCount);
     - `"code_execution_tool_result" type`
 
     - `BetaCodeExecutionToolResultBlockContent content`
-
-      Code execution result with encrypted stdout for PFC + web_search results.
 
     - `string toolUseID`
 
@@ -3412,8 +3396,6 @@ var_dump($betaMessageTokensCount);
 
     - `?Caller caller`
 
-      Tool invocation directly from the model.
-
     - `?string toolsetName`
 
       For a toolset member tool_use, the toolset family this member belongs to.
@@ -3452,8 +3434,6 @@ var_dump($betaMessageTokensCount);
 
     - `?Caller caller`
 
-      Tool invocation directly from the model.
-
   - `BetaWebSearchToolResultBlockParam`
 
     - `"web_search_tool_result" type`
@@ -3468,8 +3448,6 @@ var_dump($betaMessageTokensCount);
 
     - `?Caller caller`
 
-      Tool invocation directly from the model.
-
   - `BetaWebFetchToolResultBlockParam`
 
     - `"web_fetch_tool_result" type`
@@ -3483,8 +3461,6 @@ var_dump($betaMessageTokensCount);
       Create a cache control breakpoint at this content block.
 
     - `?Caller caller`
-
-      Tool invocation directly from the model.
 
   - `BetaAdvisorToolResultBlockParam`
 
@@ -3503,8 +3479,6 @@ var_dump($betaMessageTokensCount);
     - `"code_execution_tool_result" type`
 
     - `BetaCodeExecutionToolResultBlockParamContent content`
-
-      Code execution result with encrypted stdout for PFC + web_search results.
 
     - `string toolUseID`
 
@@ -3612,11 +3586,6 @@ var_dump($betaMessageTokensCount);
 
     - `Tool tool`
 
-      Reference to a single tool the caller declared directly in
-      `tools[]`. Does not accept the composed `{server}_{name}` form the
-      server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-      `mcp_toolset_reference` for those.
-
     - `?BetaCacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -3626,11 +3595,6 @@ var_dump($betaMessageTokensCount);
     - `"tool_removal" type`
 
     - `Tool tool`
-
-      Reference to a single tool the caller declared directly in
-      `tools[]`. Does not accept the composed `{server}_{name}` form the
-      server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-      `mcp_toolset_reference` for those.
 
     - `?BetaCacheControlEphemeral cacheControl`
 
@@ -4851,8 +4815,6 @@ var_dump($betaMessageTokensCount);
 
   - `ContentBlock contentBlock`
 
-    Response model for a file uploaded to the container.
-
   - `int index`
 
 ### Beta Raw Content Block Stop Event
@@ -4978,8 +4940,6 @@ var_dump($betaMessageTokensCount);
     - `"content_block_start" type`
 
     - `ContentBlock contentBlock`
-
-      Response model for a file uploaded to the container.
 
     - `int index`
 
@@ -5150,11 +5110,6 @@ var_dump($betaMessageTokensCount);
 
   - `Tool tool`
 
-    Reference to a single tool the caller declared directly in
-    `tools[]`. Does not accept the composed `{server}_{name}` form the
-    server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-    `mcp_toolset_reference` for those.
-
   - `?BetaCacheControlEphemeral cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -5166,11 +5121,6 @@ var_dump($betaMessageTokensCount);
   - `"tool_removal" type`
 
   - `Tool tool`
-
-    Reference to a single tool the caller declared directly in
-    `tools[]`. Does not accept the composed `{server}_{name}` form the
-    server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-    `mcp_toolset_reference` for those.
 
   - `?BetaCacheControlEphemeral cacheControl`
 
@@ -5236,8 +5186,6 @@ var_dump($betaMessageTokensCount);
 
   - `?Caller caller`
 
-    Tool invocation directly from the model.
-
 ### Beta Server Tool Use Block Param
 
 - `BetaServerToolUseBlockParam`
@@ -5255,8 +5203,6 @@ var_dump($betaMessageTokensCount);
     Create a cache control breakpoint at this content block.
 
   - `?Caller caller`
-
-    Tool invocation directly from the model.
 
 ### Beta Signature Delta
 
@@ -7408,8 +7354,6 @@ var_dump($betaMessageTokensCount);
 
   - `?Caller caller`
 
-    Tool invocation directly from the model.
-
   - `?string toolsetName`
 
     For a toolset member tool_use, the toolset family.
@@ -7431,8 +7375,6 @@ var_dump($betaMessageTokensCount);
     Create a cache control breakpoint at this content block.
 
   - `?Caller caller`
-
-    Tool invocation directly from the model.
 
   - `?string toolsetName`
 
@@ -7797,8 +7739,6 @@ var_dump($betaMessageTokensCount);
 
   - `?Caller caller`
 
-    Tool invocation directly from the model.
-
 ### Beta Web Fetch Tool Result Block Param
 
 - `BetaWebFetchToolResultBlockParam`
@@ -7814,8 +7754,6 @@ var_dump($betaMessageTokensCount);
     Create a cache control breakpoint at this content block.
 
   - `?Caller caller`
-
-    Tool invocation directly from the model.
 
 ### Beta Web Fetch Tool Result Error Block
 
@@ -8035,8 +7973,6 @@ var_dump($betaMessageTokensCount);
 
   - `?Caller caller`
 
-    Tool invocation directly from the model.
-
 ### Beta Web Search Tool Result Block Content
 
 - `BetaWebSearchToolResultBlockContent`
@@ -8074,8 +8010,6 @@ var_dump($betaMessageTokensCount);
     Create a cache control breakpoint at this content block.
 
   - `?Caller caller`
-
-    Tool invocation directly from the model.
 
 ### Beta Web Search Tool Result Block Param Content
 

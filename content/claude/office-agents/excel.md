@@ -236,7 +236,11 @@ for where it sits on disk and how long it is kept.
 
 Claude for Excel does not inherit custom data retention settings your
 organization might have set. Activity is not included in Enterprise
-audit logs or the Compliance API.
+audit logs. For Enterprise organizations with the
+[Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api)
+enabled, Claude for Excel sessions are included in the Compliance API.
+This coverage is in public beta and requires no additional setup: the
+same Compliance Access Keys apply.
 
 ## Current limitations
 

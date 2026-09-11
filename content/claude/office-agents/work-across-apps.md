@@ -128,9 +128,13 @@ of receipt or generation, except in cases outlined in
 
 The Claude for M365 add-ins do not inherit custom data retention
 settings your organization may have set, and activity is not included in
-Enterprise audit logs, the Compliance API, or data exports. Chat history
-is stored locally in your browser, not on Anthropic's servers, and can
-be cleared from Settings at any time.
+Enterprise audit logs or data exports. For Enterprise organizations with
+the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api)
+enabled, add-in sessions are included in the Compliance API. This
+coverage is in public beta and requires no additional setup: the same
+Compliance Access Keys apply. Chat history is stored locally in your
+browser, not on Anthropic's servers, and can be cleared from Settings at
+any time.
 
 ## Current limitations
 

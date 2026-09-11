@@ -447,8 +447,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -704,8 +702,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -761,8 +757,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               Create a cache control breakpoint at this content block.
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
 
               - `class BetaDirectCaller`
 
@@ -829,8 +823,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               Create a cache control breakpoint at this content block.
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
 
               - `class BetaDirectCaller`
 
@@ -899,8 +891,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `type: :code_execution_tool_result`
 
             - `content: BetaCodeExecutionToolResultBlockParamContent`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class BetaCodeExecutionToolResultErrorParam`
 
@@ -1223,11 +1213,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
 
-              Reference to a single tool the caller declared directly in
-              `tools[]`. Does not accept the composed `{server}_{name}` form the
-              server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-              `mcp_toolset_reference` for those.
-
               - `class BetaToolChangeToolReference`
 
                 Reference to a single tool the caller declared directly in
@@ -1275,11 +1260,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `type: :tool_removal`
 
             - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
-
-              Reference to a single tool the caller declared directly in
-              `tools[]`. Does not accept the composed `{server}_{name}` form the
-              server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-              `mcp_toolset_reference` for those.
 
               - `class BetaToolChangeToolReference`
 
@@ -5440,8 +5420,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -5502,8 +5480,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -5555,8 +5531,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
 
               - `class BetaDirectCaller`
 
@@ -5652,8 +5626,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -5721,8 +5693,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `type: :code_execution_tool_result`
 
             - `content: BetaCodeExecutionToolResultBlockContent`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class BetaCodeExecutionToolResultError`
 
@@ -7332,8 +7302,6 @@ puts(beta_message_batch_individual_response)
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -7394,8 +7362,6 @@ puts(beta_message_batch_individual_response)
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -7447,8 +7413,6 @@ puts(beta_message_batch_individual_response)
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
 
               - `class BetaDirectCaller`
 
@@ -7544,8 +7508,6 @@ puts(beta_message_batch_individual_response)
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-              Tool invocation directly from the model.
-
               - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
@@ -7613,8 +7575,6 @@ puts(beta_message_batch_individual_response)
             - `type: :code_execution_tool_result`
 
             - `content: BetaCodeExecutionToolResultBlockContent`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class BetaCodeExecutionToolResultError`
 
@@ -9040,8 +9000,6 @@ puts(beta_message_batch_individual_response)
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-            Tool invocation directly from the model.
-
             - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
@@ -9102,8 +9060,6 @@ puts(beta_message_batch_individual_response)
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-            Tool invocation directly from the model.
-
             - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
@@ -9155,8 +9111,6 @@ puts(beta_message_batch_individual_response)
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
 
             - `class BetaDirectCaller`
 
@@ -9252,8 +9206,6 @@ puts(beta_message_batch_individual_response)
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-            Tool invocation directly from the model.
-
             - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
@@ -9321,8 +9273,6 @@ puts(beta_message_batch_individual_response)
           - `type: :code_execution_tool_result`
 
           - `content: BetaCodeExecutionToolResultBlockContent`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `class BetaCodeExecutionToolResultError`
 
@@ -10710,8 +10660,6 @@ puts(beta_message_batch_individual_response)
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
           - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
@@ -10772,8 +10720,6 @@ puts(beta_message_batch_individual_response)
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
           - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
@@ -10825,8 +10771,6 @@ puts(beta_message_batch_individual_response)
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
 
           - `class BetaDirectCaller`
 
@@ -10922,8 +10866,6 @@ puts(beta_message_batch_individual_response)
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-          Tool invocation directly from the model.
-
           - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
@@ -10991,8 +10933,6 @@ puts(beta_message_batch_individual_response)
         - `type: :code_execution_tool_result`
 
         - `content: BetaCodeExecutionToolResultBlockContent`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
 
           - `class BetaCodeExecutionToolResultError`
 

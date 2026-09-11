@@ -5,45 +5,6 @@ url: https://platform.claude.com/docs/en/api/ruby/beta/webhooks
 
 # Webhooks
 
-## Unwrap
-
-`beta.webhooks.unwrap() -> void`
-
-Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
-headers using your webhook signing key, then parses the payload into an event. Fails if the
-signature is missing or invalid.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-result = anthropic.beta.webhooks.unwrap
-
-puts(result)
-```
-
-## Parse Unverified
-
-`beta.webhooks.parse_unverified() -> void`
-
-Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
-you have already verified the signature yourself.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-result = anthropic.beta.webhooks.parse_unverified
-
-puts(result)
-```
-
 ## Domain types
 
 ### Beta Webhook Agent Archived Event Data

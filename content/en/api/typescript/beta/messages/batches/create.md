@@ -447,8 +447,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-                Tool invocation directly from the model.
-
                 - `BetaDirectCaller`
 
                   Tool invocation directly from the model.
@@ -704,8 +702,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
-                Tool invocation directly from the model.
-
                 - `BetaDirectCaller`
 
                   Tool invocation directly from the model.
@@ -761,8 +757,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-                Tool invocation directly from the model.
 
                 - `BetaDirectCaller`
 
@@ -829,8 +823,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-                Tool invocation directly from the model.
 
                 - `BetaDirectCaller`
 
@@ -899,8 +891,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `type: "code_execution_tool_result"`
 
               - `content: BetaCodeExecutionToolResultBlockParamContent`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
 
                 - `BetaCodeExecutionToolResultErrorParam`
 
@@ -1223,11 +1213,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
 
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
-
                 - `BetaToolChangeToolReference`
 
                   Reference to a single tool the caller declared directly in
@@ -1275,11 +1260,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `type: "tool_removal"`
 
               - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
-
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
 
                 - `BetaToolChangeToolReference`
 

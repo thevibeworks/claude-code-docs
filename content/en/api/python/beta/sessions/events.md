@@ -891,8 +891,6 @@ List Events
 
     - `error: Error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `class BetaManagedAgentsUnknownError: …`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -1178,8 +1176,6 @@ List Events
       format: date-time
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -1538,8 +1534,6 @@ List Events
       Public sthr_ ID of the thread that went idle.
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -4282,8 +4276,6 @@ Stream Events
 
     - `error: Error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `class BetaManagedAgentsUnknownError: …`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -4569,8 +4561,6 @@ Stream Events
       format: date-time
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -4929,8 +4919,6 @@ Stream Events
       Public sthr_ ID of the thread that went idle.
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -8602,8 +8590,6 @@ for event in client.beta.sessions.events.stream(
 
   - `error: Error`
 
-    An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
     - `class BetaManagedAgentsUnknownError: …`
 
       An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -9568,8 +9554,6 @@ for event in client.beta.sessions.events.stream(
 
     - `error: Error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `class BetaManagedAgentsUnknownError: …`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -9855,8 +9839,6 @@ for event in client.beta.sessions.events.stream(
       format: date-time
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -10215,8 +10197,6 @@ for event in client.beta.sessions.events.stream(
       Public sthr_ ID of the thread that went idle.
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -11133,8 +11113,6 @@ for event in client.beta.sessions.events.stream(
 
   - `stop_reason: StopReason`
 
-    The agent completed its turn naturally and is ready for the next user message.
-
     - `class BetaManagedAgentsSessionEndTurn: …`
 
       The agent completed its turn naturally and is ready for the next user message.
@@ -11270,8 +11248,6 @@ for event in client.beta.sessions.events.stream(
     Public sthr_ ID of the thread that went idle.
 
   - `stop_reason: StopReason`
-
-    The agent completed its turn naturally and is ready for the next user message.
 
     - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -12431,8 +12407,6 @@ for event in client.beta.sessions.events.stream(
 
     - `error: Error`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `class BetaManagedAgentsUnknownError: …`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -12718,8 +12692,6 @@ for event in client.beta.sessions.events.stream(
       format: date-time
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 
@@ -13078,8 +13050,6 @@ for event in client.beta.sessions.events.stream(
       Public sthr_ ID of the thread that went idle.
 
     - `stop_reason: StopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `class BetaManagedAgentsSessionEndTurn: …`
 

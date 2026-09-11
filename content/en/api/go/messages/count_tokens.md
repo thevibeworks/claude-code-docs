@@ -413,8 +413,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller ToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type DirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -666,8 +664,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller ServerToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type DirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -723,8 +719,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Create a cache control breakpoint at this content block.
 
           - `Caller WebSearchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type DirectCaller struct{…}`
 
@@ -792,8 +786,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller WebFetchToolResultBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type DirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -809,8 +801,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `Type CodeExecutionToolResult`
 
           - `Content CodeExecutionToolResultBlockParamContentUnionResp`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `type CodeExecutionToolResultErrorParamResp struct{…}`
 

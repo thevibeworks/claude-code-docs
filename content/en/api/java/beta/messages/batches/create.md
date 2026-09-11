@@ -547,8 +547,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Caller> caller`
 
-                Tool invocation directly from the model.
-
                 - `class BetaDirectCaller:`
 
                   Tool invocation directly from the model.
@@ -804,8 +802,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Caller> caller`
 
-                Tool invocation directly from the model.
-
                 - `class BetaDirectCaller:`
 
                   Tool invocation directly from the model.
@@ -861,8 +857,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `Optional<Caller> caller`
-
-                Tool invocation directly from the model.
 
                 - `class BetaDirectCaller:`
 
@@ -929,8 +923,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `Optional<Caller> caller`
-
-                Tool invocation directly from the model.
 
                 - `class BetaDirectCaller:`
 
@@ -999,8 +991,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `JsonValue type = "code_execution_tool_result"`
 
               - `BetaCodeExecutionToolResultBlockParamContent content`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
 
                 - `class BetaCodeExecutionToolResultErrorParam:`
 
@@ -1323,11 +1313,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Tool tool`
 
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
-
                 - `class BetaToolChangeToolReference:`
 
                   Reference to a single tool the caller declared directly in
@@ -1375,11 +1360,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `JsonValue type = "tool_removal"`
 
               - `Tool tool`
-
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
 
                 - `class BetaToolChangeToolReference:`
 

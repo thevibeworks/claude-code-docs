@@ -302,8 +302,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required Caller Caller`
 
-              Tool invocation directly from the model.
-
               - `class DirectCaller:`
 
                 Tool invocation directly from the model.
@@ -350,8 +348,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required Caller Caller`
 
-              Tool invocation directly from the model.
-
               - `class DirectCaller:`
 
                 Tool invocation directly from the model.
@@ -385,8 +381,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `JsonElement Type = "web_search_tool_result"`
 
             - `required Caller Caller`
-
-              Tool invocation directly from the model.
 
               - `class DirectCaller:`
 
@@ -439,8 +433,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `JsonElement Type = "web_fetch_tool_result"`
 
             - `required Caller Caller`
-
-              Tool invocation directly from the model.
 
               - `class DirectCaller:`
 
@@ -535,8 +527,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `JsonElement Type = "code_execution_tool_result"`
 
             - `required CodeExecutionToolResultBlockContent Content`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `class CodeExecutionToolResultError:`
 

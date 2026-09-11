@@ -6,11 +6,11 @@
 
 > How Claude Desktop on 3P identifies users and where it stores conversations, settings, and credentials on disk
 
-Claude Desktop on third-party (3P) has no Anthropic account. There is no sign-in step, no cloud-stored conversation history, and no per-user state on Anthropic infrastructure. Identity and persistence are entirely local to the device.
+Claude Desktop on third-party (3P) keeps conversations, settings, and credentials on the device. When the configuration comes from MDM, a local file, or a bootstrap server, users have no Anthropic account and never sign in to Anthropic, and Anthropic holds no per-user state. When your organization manages the app from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), users sign in with a Claude account to receive their settings, and [Where your data goes](/docs/third-party/claude-desktop/admin-console#where-your-data-goes) lists what Anthropic stores in that case.
 
 ## Identity
 
-When the app first launches in 3P mode, it generates a random UUID and writes it (base64-encoded) to the `ant-did` file in the application-data directory. This identifier, together with the `deploymentOrganizationUuid` from your managed configuration, is what's attached to telemetry events. It is random per device and per OS-user account, and Anthropic cannot trace it back to a real device or person.
+When the app first launches in 3P mode, it generates a random UUID and writes it (base64-encoded) to the `ant-did` file in the application-data directory. When the configuration comes from MDM, a local file, or a bootstrap server, this identifier and the `deploymentOrganizationUuid` from your managed configuration are what's attached to telemetry events. The identifier is random per device and per OS-user account, and Anthropic cannot trace it back to a real device or person. In an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), users sign in with a Claude account, so the app is not anonymous to Anthropic there, and [Where your data goes](/docs/third-party/claude-desktop/admin-console#where-your-data-goes) describes what Anthropic stores in that case.
 
 The OpenTelemetry export to your own collector is the exception: it identifies the user directly. Each exported record carries an `enduser.id` resource attribute with the user's identity and a `process.owner` attribute with the operating-system login name, so attributing activity to named users needs no collector-side correlation. See [User attribution](/docs/third-party/claude-desktop/telemetry#user-attribution) for where the identity comes from and the `endUserAttribution` key that controls it.
 
@@ -90,6 +90,12 @@ Parts of each session run as separate processes: the sandbox VM for Cowork sessi
 | Per-session working directory                | For Cowork sessions, the same file-based credentials (Google Cloud's Agent Platform and Amazon Bedrock) are written into the session's working directory, which is mounted into the sandbox VM.                                                                                 | Scoped to the session; removed with the session directory.                                                                                                                                                                                                                                  |
 
 Aside from these files, credentials delivered through managed configuration are held in memory only.
+
+## Automatic deletion of idle sessions
+
+By default, chats, Cowork tasks, and Code sessions stay on the device until the user deletes them. To delete them after a period without activity, set [`chatSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays), [`coworkSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#coworksessionretentiondays), or [`codeSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#codesessionretentiondays) to a number of days from 1 to 3650. Each key covers one kind of session, and a kind you leave unset is kept until the user deletes it. Idle time counts from the session's last activity, and pinned sessions are not exempt.
+
+The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host are not affected. A session that is running or open on screen is skipped until a later pass. To suspend all automatic deletion for some users, for example under a legal hold, set [`sessionRetentionHold`](/docs/third-party/claude-desktop/configuration#sessionretentionhold) to `true` for them. While the hold is on, nothing is deleted, and a device that gets its configuration from a server and cannot reach that server also deletes nothing. These keys require Claude Desktop 1.52386.0 or later.
 
 ## Removing data
 

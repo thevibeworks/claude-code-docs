@@ -83,8 +83,6 @@ Archive Credential
 
         - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse or BetaManagedAgentsTokenEndpointAuthBasicResponse or BetaManagedAgentsTokenEndpointAuthPostResponse`
 
-          Token endpoint requires no client authentication.
-
           - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
             Token endpoint requires no client authentication.

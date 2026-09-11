@@ -4,9 +4,13 @@
 
 # Troubleshooting connectors
 
-> Diagnose and resolve common connection failures for custom and directory MCP connectors
+> Diagnose and resolve common connection, authorization, and tool-call failures for custom and directory MCP connectors
 
-This page covers the most common reasons a connector fails to connect or authenticate, and how to diagnose each one. The errors Claude shows in the UI ("Couldn't reach the MCP server" and "Authorization with the MCP server failed") cover more than one root cause, so the first step is figuring out which one you're hitting.
+This page covers the most common reasons a connector fails to connect, authenticate, or run a tool, and how to diagnose each one. Each error Claude shows covers more than one root cause, so start with the section for the message you see:
+
+* "Couldn't reach the MCP server", when Claude can't complete the connection handshake
+* "Authorization with the MCP server failed", when the OAuth flow starts but doesn't complete, or when your server URL redirects to a different host
+* "Unexpected error while invoking tool", when the connector is connected but a tool call fails
 
 ## Find your reference ID
 
@@ -68,11 +72,12 @@ This also explains the common report "works in MCP Inspector or Claude Code CLI 
 
 ### 4. OAuth discovery fails
 
-If your server requires authentication, Claude performs OAuth discovery before it can connect. A discovery failure surfaces as "Couldn't reach" even though your MCP endpoint itself is reachable. The most common causes:
+If your server requires authentication, Claude performs OAuth discovery before it can connect. A discovery failure can surface as "Couldn't reach" even though your MCP endpoint itself is reachable, or as a sign-in that redirects to `/authorize` on your MCP server's host and fails there. The redirect happens when Claude can't read your [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728) protected resource metadata and falls back to treating your MCP server's origin as the authorization server, so the browser opens a sign-in page that doesn't exist on your server. The most common causes:
 
-* **Discovery metadata returns 404.** If your `401` response doesn't include a `WWW-Authenticate` header with a `resource_metadata` pointer, Claude looks for [RFC 9728](https://www.rfc-editor.org/rfc/rfc9728) protected resource metadata and authorization server metadata at the standard `/.well-known/` paths on your MCP server's origin. If those paths return `404` and you haven't pointed Claude elsewhere, Claude has no way to start the OAuth flow.
+* **Discovery metadata returns 404.** If your `401` response doesn't include a `WWW-Authenticate` header with a `resource_metadata` pointer, Claude looks for protected resource metadata and authorization server metadata at the standard `/.well-known/` paths on your MCP server's origin. If those paths return `404` and you haven't pointed Claude elsewhere, Claude can't locate your authorization server.
 * **No way to register a client.** Claude needs one of: [RFC 7591 dynamic client registration](https://www.rfc-editor.org/rfc/rfc7591) (a `registration_endpoint` in your authorization server metadata), [Client ID Metadata Documents](/docs/connectors/building/authentication#dcr-and-cimd-details) (`"client_id_metadata_document_supported": true`), or a pre-registered client. Without any of these, Claude can't obtain a client identity. See [supported authentication types](/docs/connectors/building/authentication#supported-authentication-types).
 * **Authorization server is on a different host than the MCP server.** Claude discovers protected resource metadata from your MCP server, then makes a *second* round of discovery requests against the authorization server host listed in `authorization_servers`. If that host lives behind a different CDN or WAF, it must also be reachable from Anthropic's egress range. See [cross-host authorization servers](/docs/connectors/building/authentication#cross-host-authorization-servers).
+* **A proxy or hosting platform alters the discovery response.** A layer in front of your server can rename or drop the `WWW-Authenticate` header, or answer `403` on the `/.well-known/` paths before the request reaches your application. Check the response at the deployed edge with `curl` from a public network, not with a tool that runs inside your platform.
 
 **How to check:** From a public network, run:
 
@@ -90,13 +95,14 @@ Whichever metadata document resolves should advertise a `registration_endpoint` 
 
 ## "Authorization with the MCP server failed"
 
-This error appears after the OAuth flow has started. The most common causes:
+This error usually appears after the OAuth flow has started. The most common causes:
 
 * **Issuer mismatch.** The `issuer` value in your authorization server metadata must match the issuer that signs your tokens. If your tokens come from a third-party identity provider such as Supabase Auth or Auth0 but your metadata advertises a different issuer URL, validation can fail.
 * **Audience mismatch.** The [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#token-handling) requires your server to verify each access token was issued for it. Claude sends the [RFC 8707](https://www.rfc-editor.org/rfc/rfc8707) `resource` parameter on authorization and token requests, set to the canonical form of your MCP server URL — lowercase scheme and host, no trailing slash, no fragment, no default port — including any path component. Your authorization server should issue tokens with that audience, and your MCP server should accept the canonical value when checking `aud` rather than doing a strict byte-for-byte comparison against what the user typed. Or use whatever audience-binding mechanism your token format supports, as long as it confirms the token was minted for your server and not another service.
 * **PKCE not supported.** Claude includes a PKCE `code_challenge` with `code_challenge_method=S256` in every authorization request. If your authorization server doesn't implement S256 PKCE, the flow fails at the token endpoint. The [MCP authorization spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#authorization-code-protection) also requires authorization servers to advertise `"code_challenge_methods_supported": ["S256"]` so spec-compliant clients can verify support before starting the flow.
 * **Refresh failures.** Use RFC 6749-compliant error codes when a refresh token expires. See [token refresh](/docs/connectors/building/authentication#token-refresh).
 * **Slow token endpoint.** Claude waits up to 10 seconds for your `/token` response; if no response bytes arrive in that window, the flow fails here even if your server eventually issues the token. Check the end-to-end latency of your token handler and any proxy or gateway in front of it. See [endpoint latency](/docs/connectors/building/authentication#endpoint-latency).
+* **Your server URL redirects to a different host.** When the URL you registered redirects to another hostname, Claude drops the `Authorization` header as it follows the redirect, the redirect target returns `401`, and the connection fails with this message. See "3. Your server URL redirects to a different host" under "Couldn't reach the MCP server" on this page for how to find and fix the redirect.
 
 ### Microsoft Entra ID rejects the resource value
 
@@ -109,7 +115,22 @@ If your authorization server is Microsoft Entra ID and the token request fails w
 3. If your server validates the token audience (for example, through Azure App Service Authentication), add the API app's Application (client) ID and its `api://` URI to the allowed token audiences so your server accepts tokens issued for the API. This is the **Allowed token audiences** setting, not **Allowed client applications**, which is a different list.
 4. If the OAuth client and the API are separate app registrations, confirm the client has an admin-consented API permission for the scope your API exposes.
 
+<Note>
+  By default, Microsoft Entra accepts a new Application ID URI only if it contains your tenant ID, your app ID, or a domain verified in your tenant, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions). If your MCP server runs on a platform hostname, such as `*.azurewebsites.net`, Entra rejects that URL when you add it under **Expose an API**, so serve the server from a custom domain that your tenant has verified and register that URL instead. A tenant administrator can also exempt your app registration from this policy so that Entra accepts a noncompliant URI. Microsoft notes that an `https://` URI can require a verified domain even then, which makes the custom domain the dependable fix.
+</Note>
+
 If the OAuth flow completes successfully on your server (you see the token issued in your logs) but the connection still fails, file a [GitHub issue](https://github.com/anthropics/claude-ai-mcp/issues) with the `ofid_` reference ID and the timestamps from your server's OAuth logs.
+
+## "Unexpected error while invoking tool"
+
+This error, followed by the name of the tool, appears when your connector shows as connected and signed in but one of its tool calls fails. Claude's tool call reached your server, and your server returned an error result for it. A failed tool call isn't a connection failure, so there is no `ofid_` reference ID for it.
+
+**How to check:**
+
+1. Run the same tool call against your server in [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector) and compare the result with the error Claude reports.
+2. Check your server's logs for the tool handler's error at the time of the failure, and whether the failure affects every user of your connector or one account.
+
+If you file a [GitHub issue](https://github.com/anthropics/claude-ai-mcp/issues) about a tool-call failure, include the tool name, the time of the failure in UTC, and the connector URL in place of an `ofid_` reference ID.
 
 ## Diagnostic checklist
 

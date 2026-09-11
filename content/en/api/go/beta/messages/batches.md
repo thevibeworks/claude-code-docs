@@ -447,8 +447,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller BetaToolUseBlockParamCallerUnionResp Optional`
 
-                Tool invocation directly from the model.
-
                 - `type BetaDirectCaller struct{…}`
 
                   Tool invocation directly from the model.
@@ -702,8 +700,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller BetaServerToolUseBlockParamCallerUnionResp Optional`
 
-                Tool invocation directly from the model.
-
                 - `type BetaDirectCaller struct{…}`
 
                   Tool invocation directly from the model.
@@ -759,8 +755,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `Caller BetaWebSearchToolResultBlockParamCallerUnionResp Optional`
-
-                Tool invocation directly from the model.
 
                 - `type BetaDirectCaller struct{…}`
 
@@ -827,8 +821,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `Caller BetaWebFetchToolResultBlockParamCallerUnionResp Optional`
-
-                Tool invocation directly from the model.
 
                 - `type BetaDirectCaller struct{…}`
 
@@ -897,8 +889,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `Type CodeExecutionToolResult`
 
               - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
 
                 - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
 
@@ -1221,11 +1211,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Tool BetaRequestToolAdditionBlockToolUnion`
 
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
-
                 - `type BetaToolChangeToolReference struct{…}`
 
                   Reference to a single tool the caller declared directly in
@@ -1273,11 +1258,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `Type ToolRemoval`
 
               - `Tool BetaRequestToolRemovalBlockToolUnion`
-
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
 
                 - `type BetaToolChangeToolReference struct{…}`
 
@@ -5628,8 +5608,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller BetaToolUseBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -5692,8 +5670,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -5751,8 +5727,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
-
-              Tool invocation directly from the model.
 
               - `type BetaDirectCaller struct{…}`
 
@@ -5858,8 +5832,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -5937,8 +5909,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               default: code_execution_tool_result
 
             - `Content BetaCodeExecutionToolResultBlockContentUnion`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `type BetaCodeExecutionToolResultError struct{…}`
 
@@ -7778,8 +7748,6 @@ func main() {
 
             - `Caller BetaToolUseBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -7842,8 +7810,6 @@ func main() {
 
             - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -7901,8 +7867,6 @@ func main() {
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
-
-              Tool invocation directly from the model.
 
               - `type BetaDirectCaller struct{…}`
 
@@ -8008,8 +7972,6 @@ func main() {
 
             - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -8087,8 +8049,6 @@ func main() {
               default: code_execution_tool_result
 
             - `Content BetaCodeExecutionToolResultBlockContentUnion`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `type BetaCodeExecutionToolResultError struct{…}`
 
@@ -9676,8 +9636,6 @@ func main() {
 
           - `Caller BetaToolUseBlockCallerUnion Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -9740,8 +9698,6 @@ func main() {
 
           - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -9799,8 +9755,6 @@ func main() {
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -9906,8 +9860,6 @@ func main() {
 
           - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -9985,8 +9937,6 @@ func main() {
             default: code_execution_tool_result
 
           - `Content BetaCodeExecutionToolResultBlockContentUnion`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `type BetaCodeExecutionToolResultError struct{…}`
 
@@ -11526,8 +11476,6 @@ func main() {
 
         - `Caller BetaToolUseBlockCallerUnion Optional`
 
-          Tool invocation directly from the model.
-
           - `type BetaDirectCaller struct{…}`
 
             Tool invocation directly from the model.
@@ -11590,8 +11538,6 @@ func main() {
 
         - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
-          Tool invocation directly from the model.
-
           - `type BetaDirectCaller struct{…}`
 
             Tool invocation directly from the model.
@@ -11649,8 +11595,6 @@ func main() {
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
-
-          Tool invocation directly from the model.
 
           - `type BetaDirectCaller struct{…}`
 
@@ -11756,8 +11700,6 @@ func main() {
 
         - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
-          Tool invocation directly from the model.
-
           - `type BetaDirectCaller struct{…}`
 
             Tool invocation directly from the model.
@@ -11835,8 +11777,6 @@ func main() {
           default: code_execution_tool_result
 
         - `Content BetaCodeExecutionToolResultBlockContentUnion`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
 
           - `type BetaCodeExecutionToolResultError struct{…}`
 

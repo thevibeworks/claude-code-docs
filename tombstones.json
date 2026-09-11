@@ -739,6 +739,14 @@
       "since": "2026-09-10",
       "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/update"
     },
+    "https://platform.claude.com/docs/en/api/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/cli/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
+    },
     "https://platform.claude.com/docs/en/api/client-sdks": {
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/overview"
@@ -755,9 +763,29 @@
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/download"
     },
+    "https://platform.claude.com/docs/en/api/csharp/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/go/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/java/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
+    },
     "https://platform.claude.com/docs/en/api/openai-sdk": {
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk"
+    },
+    "https://platform.claude.com/docs/en/api/python/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/ruby/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
     },
     "https://platform.claude.com/docs/en/api/sdks/cli": {
       "since": "2026-08-25",
@@ -790,6 +818,10 @@
     "https://platform.claude.com/docs/en/api/sdks/typescript": {
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript"
+    },
+    "https://platform.claude.com/docs/en/api/typescript/beta/webhooks/unwrap": {
+      "since": "2026-09-11",
+      "reason": "HTTP 404"
     },
     "https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking": {
       "since": "2026-08-25",

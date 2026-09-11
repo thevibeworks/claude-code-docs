@@ -1600,8 +1600,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Caller BetaToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -1855,8 +1853,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Caller BetaServerToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -1912,8 +1908,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Create a cache control breakpoint at this content block.
 
           - `Caller BetaWebSearchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -1980,8 +1974,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Create a cache control breakpoint at this content block.
 
           - `Caller BetaWebFetchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -2050,8 +2042,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `Type CodeExecutionToolResult`
 
           - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
 
@@ -2374,11 +2364,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Tool BetaRequestToolAdditionBlockToolUnion`
 
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
-
             - `type BetaToolChangeToolReference struct{…}`
 
               Reference to a single tool the caller declared directly in
@@ -2426,11 +2411,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `Type ToolRemoval`
 
           - `Tool BetaRequestToolRemovalBlockToolUnion`
-
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
 
             - `type BetaToolChangeToolReference struct{…}`
 
@@ -5106,8 +5086,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Caller BetaToolUseBlockCallerUnion Optional`
 
-        Tool invocation directly from the model.
-
         - `type BetaDirectCaller struct{…}`
 
           Tool invocation directly from the model.
@@ -5170,8 +5148,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
-        Tool invocation directly from the model.
-
         - `type BetaDirectCaller struct{…}`
 
           Tool invocation directly from the model.
@@ -5229,8 +5205,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
-
-        Tool invocation directly from the model.
 
         - `type BetaDirectCaller struct{…}`
 
@@ -5336,8 +5310,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
-        Tool invocation directly from the model.
-
         - `type BetaDirectCaller struct{…}`
 
           Tool invocation directly from the model.
@@ -5415,8 +5387,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         default: code_execution_tool_result
 
       - `Content BetaCodeExecutionToolResultBlockContentUnion`
-
-        Code execution result with encrypted stdout for PFC + web_search results.
 
         - `type BetaCodeExecutionToolResultError struct{…}`
 
@@ -6710,8 +6680,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `ContentBlock BetaRawContentBlockStartEventContentBlockUnion`
 
-      Response model for a file uploaded to the container.
-
       - `type BetaTextBlock struct{…}`
 
       - `type BetaThinkingBlock struct{…}`
@@ -7412,8 +7380,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -7667,8 +7633,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaServerToolUseBlockParamCallerUnionResp Optional`
 
-            Tool invocation directly from the model.
-
             - `type BetaDirectCaller struct{…}`
 
               Tool invocation directly from the model.
@@ -7724,8 +7688,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Create a cache control breakpoint at this content block.
 
           - `Caller BetaWebSearchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -7792,8 +7754,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Create a cache control breakpoint at this content block.
 
           - `Caller BetaWebFetchToolResultBlockParamCallerUnionResp Optional`
-
-            Tool invocation directly from the model.
 
             - `type BetaDirectCaller struct{…}`
 
@@ -7862,8 +7822,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `Type CodeExecutionToolResult`
 
           - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
 
             - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
 
@@ -8186,11 +8144,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Tool BetaRequestToolAdditionBlockToolUnion`
 
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
-
             - `type BetaToolChangeToolReference struct{…}`
 
               Reference to a single tool the caller declared directly in
@@ -8238,11 +8191,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `Type ToolRemoval`
 
           - `Tool BetaRequestToolRemovalBlockToolUnion`
-
-            Reference to a single tool the caller declared directly in
-            `tools[]`. Does not accept the composed `{server}_{name}` form the
-            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-            `mcp_toolset_reference` for those.
 
             - `type BetaToolChangeToolReference struct{…}`
 
@@ -10987,8 +10935,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller BetaToolUseBlockParamCallerUnionResp Optional`
 
-                Tool invocation directly from the model.
-
                 - `type BetaDirectCaller struct{…}`
 
                   Tool invocation directly from the model.
@@ -11242,8 +11188,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller BetaServerToolUseBlockParamCallerUnionResp Optional`
 
-                Tool invocation directly from the model.
-
                 - `type BetaDirectCaller struct{…}`
 
                   Tool invocation directly from the model.
@@ -11299,8 +11243,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `Caller BetaWebSearchToolResultBlockParamCallerUnionResp Optional`
-
-                Tool invocation directly from the model.
 
                 - `type BetaDirectCaller struct{…}`
 
@@ -11367,8 +11309,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Create a cache control breakpoint at this content block.
 
               - `Caller BetaWebFetchToolResultBlockParamCallerUnionResp Optional`
-
-                Tool invocation directly from the model.
 
                 - `type BetaDirectCaller struct{…}`
 
@@ -11437,8 +11377,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `Type CodeExecutionToolResult`
 
               - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
 
                 - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
 
@@ -11761,11 +11699,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Tool BetaRequestToolAdditionBlockToolUnion`
 
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
-
                 - `type BetaToolChangeToolReference struct{…}`
 
                   Reference to a single tool the caller declared directly in
@@ -11813,11 +11746,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `Type ToolRemoval`
 
               - `Tool BetaRequestToolRemovalBlockToolUnion`
-
-                Reference to a single tool the caller declared directly in
-                `tools[]`. Does not accept the composed `{server}_{name}` form the
-                server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-                `mcp_toolset_reference` for those.
 
                 - `type BetaToolChangeToolReference struct{…}`
 
@@ -16168,8 +16096,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller BetaToolUseBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -16232,8 +16158,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller BetaServerToolUseBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -16291,8 +16215,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `Caller BetaWebSearchToolResultBlockCallerUnion Optional`
-
-              Tool invocation directly from the model.
 
               - `type BetaDirectCaller struct{…}`
 
@@ -16398,8 +16320,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller BetaWebFetchToolResultBlockCallerUnion Optional`
 
-              Tool invocation directly from the model.
-
               - `type BetaDirectCaller struct{…}`
 
                 Tool invocation directly from the model.
@@ -16477,8 +16397,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               default: code_execution_tool_result
 
             - `Content BetaCodeExecutionToolResultBlockContentUnion`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
 
               - `type BetaCodeExecutionToolResultError struct{…}`
 
@@ -36282,8 +36200,6 @@ List Events
 
     - `Error BetaManagedAgentsSessionErrorEventErrorUnion`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `type BetaManagedAgentsUnknownError struct{…}`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -36569,8 +36485,6 @@ List Events
       format: date-time
 
     - `StopReason BetaManagedAgentsSessionStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -36929,8 +36843,6 @@ List Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason BetaManagedAgentsSessionThreadStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -39694,8 +39606,6 @@ Stream Events
 
     - `Error BetaManagedAgentsSessionErrorEventErrorUnion`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `type BetaManagedAgentsUnknownError struct{…}`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -39981,8 +39891,6 @@ Stream Events
       format: date-time
 
     - `StopReason BetaManagedAgentsSessionStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -40341,8 +40249,6 @@ Stream Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason BetaManagedAgentsSessionThreadStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -41630,8 +41536,6 @@ List Session Resources
 #### Returns
 
 - `type BetaManagedAgentsSessionResourceUnion interface{…}`
-
-  A memory store attached to an agent session.
 
   - `type BetaManagedAgentsGitHubRepositoryResource struct{…}`
 
@@ -46174,8 +46078,6 @@ List Session Thread Events
 
     - `Error BetaManagedAgentsSessionErrorEventErrorUnion`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `type BetaManagedAgentsUnknownError struct{…}`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -46461,8 +46363,6 @@ List Session Thread Events
       format: date-time
 
     - `StopReason BetaManagedAgentsSessionStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -46821,8 +46721,6 @@ List Session Thread Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason BetaManagedAgentsSessionThreadStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -48594,8 +48492,6 @@ Stream Session Thread Events
 
     - `Error BetaManagedAgentsSessionErrorEventErrorUnion`
 
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
       - `type BetaManagedAgentsUnknownError struct{…}`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
@@ -48881,8 +48777,6 @@ Stream Session Thread Events
       format: date-time
 
     - `StopReason BetaManagedAgentsSessionStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -49241,8 +49135,6 @@ Stream Session Thread Events
       Public sthr_ ID of the thread that went idle.
 
     - `StopReason BetaManagedAgentsSessionThreadStatusIdleEventStopReasonUnion`
-
-      The agent completed its turn naturally and is ready for the next user message.
 
       - `type BetaManagedAgentsSessionEndTurn struct{…}`
 
@@ -58613,8 +58505,6 @@ Create Credential
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshParamsTokenEndpointAuthUnionResp`
 
-          Token endpoint requires no client authentication.
-
           - `type BetaManagedAgentsTokenEndpointAuthNoneParamResp struct{…}`
 
             Token endpoint requires no client authentication.
@@ -58890,8 +58780,6 @@ Create Credential
           Token endpoint URL used to refresh the access token.
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion`
-
-          Token endpoint requires no client authentication.
 
           - `type BetaManagedAgentsTokenEndpointAuthNoneResponse struct{…}`
 
@@ -59237,8 +59125,6 @@ List Credentials
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion`
 
-          Token endpoint requires no client authentication.
-
           - `type BetaManagedAgentsTokenEndpointAuthNoneResponse struct{…}`
 
             Token endpoint requires no client authentication.
@@ -59570,8 +59456,6 @@ Get Credential
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion`
 
-          Token endpoint requires no client authentication.
-
           - `type BetaManagedAgentsTokenEndpointAuthNoneResponse struct{…}`
 
             Token endpoint requires no client authentication.
@@ -59783,8 +59667,6 @@ Update Credential
           maxLength: 8192
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshUpdateParamsTokenEndpointAuthUnionResp Optional`
-
-          Updated HTTP Basic authentication parameters for the token endpoint.
 
           - `type BetaManagedAgentsTokenEndpointAuthBasicUpdateParamResp struct{…}`
 
@@ -60031,8 +59913,6 @@ Update Credential
           Token endpoint URL used to refresh the access token.
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion`
-
-          Token endpoint requires no client authentication.
 
           - `type BetaManagedAgentsTokenEndpointAuthNoneResponse struct{…}`
 
@@ -60535,8 +60415,6 @@ Archive Credential
           Token endpoint URL used to refresh the access token.
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion`
-
-          Token endpoint requires no client authentication.
 
           - `type BetaManagedAgentsTokenEndpointAuthNoneResponse struct{…}`
 
@@ -67249,69 +67127,6 @@ func main() {
 }
 ```
 
-## Beta › Webhooks
-
-### Unwrap
-
-`client.Beta.Webhooks.Unwrap(ctx) error`
-
-Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
-headers using your webhook signing key, then parses the payload into an event. Fails if the
-signature is missing or invalid.
-
-#### Example
-
-```go
-package main
-
-import (
-	"context"
-
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
-)
-
-func main() {
-	client := anthropic.NewClient(
-		option.WithAPIKey("my-anthropic-api-key"),
-	)
-	err := client.Beta.Webhooks.Unwrap(context.TODO())
-	if err != nil {
-		panic(err.Error())
-	}
-}
-```
-
-### Parse Unverified
-
-`client.Beta.Webhooks.ParseUnverified(ctx) error`
-
-Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
-you have already verified the signature yourself.
-
-#### Example
-
-```go
-package main
-
-import (
-	"context"
-
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/option"
-)
-
-func main() {
-	client := anthropic.NewClient(
-		option.WithAPIKey("my-anthropic-api-key"),
-	)
-	err := client.Beta.Webhooks.ParseUnverified(context.TODO())
-	if err != nil {
-		panic(err.Error())
-	}
-}
-```
-
 ## Beta › User Profiles
 
 ### Create User Profile
@@ -68740,7 +68555,7 @@ Create a Dream
 
   - `Model param.Field[BetaDreamNewParamsModelUnion]`
 
-    Body param: Model identifier and configuration applied to every pipeline stage.
+    Body param
 
     - `string`
 
@@ -68770,7 +68585,7 @@ Create a Dream
 
   - `OutputBehavior param.Field[BetaOutputBehaviorUnion] Optional`
 
-    Body param: The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
+    Body param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -68953,8 +68768,6 @@ Create a Dream
       - `const BetaDreamModelConfigSpeedFast BetaDreamModelConfigSpeed = "fast"`
 
   - `OutputBehavior BetaOutputBehaviorUnion`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
     - `type BetaOutputBehaviorCreateNew struct{…}`
 
@@ -69335,8 +69148,6 @@ List Dreams
 
   - `OutputBehavior BetaOutputBehaviorUnion`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
     - `type BetaOutputBehaviorCreateNew struct{…}`
 
       The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
@@ -69673,8 +69484,6 @@ Get a Dream
 
   - `OutputBehavior BetaOutputBehaviorUnion`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
     - `type BetaOutputBehaviorCreateNew struct{…}`
 
       The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
@@ -70010,8 +69819,6 @@ Cancel a Dream
 
   - `OutputBehavior BetaOutputBehaviorUnion`
 
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
     - `type BetaOutputBehaviorCreateNew struct{…}`
 
       The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
@@ -70346,8 +70153,6 @@ Archive a Dream
       - `const BetaDreamModelConfigSpeedFast BetaDreamModelConfigSpeed = "fast"`
 
   - `OutputBehavior BetaOutputBehaviorUnion`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
 
     - `type BetaOutputBehaviorCreateNew struct{…}`
 

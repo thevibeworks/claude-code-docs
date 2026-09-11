@@ -98,6 +98,8 @@ For a shared or external channel, put the narrowed connection in its own bundle 
 
 The services with **Connect** buttons on the Credentials tab are presets, not the full set Claude can connect to. Any app with an API can be connected: click **Connect** next to **Custom tool** at the bottom of the tab. See the [Custom connection guide](/docs/claude-tag/admins/connections/custom) for the form fields, credential types, and how to add a custom MCP server.
 
+You can also add connections from a channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). The option to add one appears there only for people who can manage Claude's setup for that channel or for the whole organization. [Channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can manage setup for their assigned channels. Other channel members see the channel's connections on the Configure page but can't add one.
+
 ## Allow a host without a credential
 
 Claude does channel work in an isolated [sandbox](/docs/claude-tag/concepts/agent-identity#channel-sessions). A network request is traffic that sandbox sends to a host, such as an API call, a `curl` fetch, or a package install. Before Claude can make one from a channel, the destination host has to be allowed by one of three settings, the allow layers:
