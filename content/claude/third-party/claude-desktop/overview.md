@@ -19,7 +19,7 @@ Claude Desktop on 3P is designed for organizations whose security, regulatory, o
 
 How far a deployment is separated from Anthropic depends on the provider you choose. On Google Cloud's Agent Platform and Amazon Bedrock, the cloud provider processes conversation data in the region you select. On Microsoft Foundry, Anthropic operates the Claude models, and residency follows the Foundry deployment type. Review [Data handling by provider](#data-handling-by-provider) and [Data residency and international deployment](#data-residency-and-international-deployment) before choosing a provider.
 
-If your organization can use Anthropic's first-party products directly, standard Claude Desktop with [Cowork](/docs/cowork/overview) on a Team or Enterprise plan is simpler to deploy, offers an in-app UI for user management, analytics, and RBAC, and releases new features more quickly than Claude Desktop on 3P. Choose Claude Desktop on 3P when routing inference through Anthropic's API is not an option.
+If your organization can use Anthropic's first-party products directly, standard Claude Desktop with [Cowork](/docs/cowork/overview) on a Team or Enterprise plan is simpler to deploy and releases new features more quickly than Claude Desktop on 3P. Choose Claude Desktop on 3P when routing inference through Anthropic's API is not an option.
 
 ## Architecture
 
@@ -29,10 +29,10 @@ Claude Desktop on 3P keeps the standard feature set and relocates inference to t
 | ---------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | Model inference        | Anthropic API              | Your configured provider endpoint (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or gateway), or the Anthropic API |
 | Web application        | Loaded from claude.ai      | Bundled inside the desktop app                                                                                                         |
-| User identity          | Anthropic account          | Local device identity only (Anthropic account when managed from the claude.ai admin console, in beta)                                  |
+| User identity          | Anthropic account          | Local device identity only (Anthropic account when managed from the claude.ai admin console)                                           |
 | Conversation storage   | Anthropic backend          | Local disk on the user's machine                                                                                                       |
 | Code execution sandbox | Local VM                   | Local VM (identical)                                                                                                                   |
-| Configuration          | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user), or the claude.ai admin console (beta)                                               |
+| Configuration          | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user), a bootstrap server, or the claude.ai admin console                                  |
 
 The desktop app detects 3P mode at launch from the configured inference provider. When a provider and its credentials are present, the sign-in screen offers the option to skip Anthropic authentication and start the app using your inference-provider configuration instead.
 
@@ -41,7 +41,7 @@ The desktop app detects 3P mode at launch from the configured inference provider
 * **Conversation content goes only to your configured endpoint.** The app sends prompts, responses, files, and tool outputs only to your configured inference endpoint and stores them only on the local machine. What happens to that content at the endpoint depends on the provider, as described under [Data handling by provider](#data-handling-by-provider).
 * **Sandboxed tool execution.** Shell commands run in the hardened Cowork VM; file access is scoped to your allowed folders and web fetches to your egress allowlist.
 * **Auditable telemetry.** Crash reports and product analytics are scrubbed of conversation and user data before being sent to Anthropic, and can be fully disabled via configuration keys. Independently, you can export session activity to your own OpenTelemetry collector. The export is metadata only by default, with prompt and tool content available as an explicit opt-in.
-* **Centrally managed.** All configuration is delivered via your existing MDM (Jamf, Intune, Workspace ONE, Group Policy) and cannot be overridden by end users when an admin profile is present.
+* **Centrally managed.** Configuration is delivered through your existing MDM (Jamf, Intune, Workspace ONE, Group Policy), a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or the [admin console](/docs/third-party/claude-desktop/admin-console). End users cannot override a configuration that MDM delivers.
 
 For a detailed treatment of the threat model, sandbox boundaries, and data flows, request access to the [Claude Cowork Desktop Security Architecture Overview](https://trust.anthropic.com/resources?s=2a7bbzo1lyymvdt551q7kl\&name=claude-cowork-desktop-security-architecture-overview) on Anthropic's Trust Center. For architecture, telemetry, and controls information specific to Claude Desktop on 3P, see the [Claude Desktop Security Overview (Third-party platforms)](https://trust.anthropic.com/resources?s=0c8rx4s7mm5ierz8ppetfs\&name=claude-cowork-security-overview-\(third-party-platforms\)) on the Trust Center.
 

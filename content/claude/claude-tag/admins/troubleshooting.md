@@ -16,7 +16,7 @@ This page covers errors you might hit setting up and administering Claude Tag: S
 
 If someone reports that Claude can't reach a service you connected, check two things before anything else:
 
-* The connection is in a [bundle attached to that channel's scope](/docs/claude-tag/admins/attach-to-scope).
+* The connection reaches that channel through an attached bundle. To check, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) > **Claude Tag's access** > **Slack** > the channel's scope (or its workspace's scope, if the channel isn't listed) > **Access summary**, which includes access [inherited from wider scopes](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit). If there's no **Access summary** section, or the connection isn't in it, [attach the bundle](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) to the channel's scope; if the channel has no scope yet, select **Add channel** on its workspace to [create the scope](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) first.
 * The test ran in a new thread; an existing thread isn't told about a connection added after it started, though the connection works there if the request names the service.
 
 ## Setup errors
@@ -130,7 +130,7 @@ If the failure happens while Claude is posting a message rather than replying, t
 
 **What it means**
 
-**Allow Claude to work in channels with guests** is set to **Restrict** for this channel's [scope](/docs/claude-tag/concepts/glossary#scope), so Claude checks the channel for guests before replying, and this install predates the `users:read` permission that check needs.
+**Allow Claude to work in channels with guests** is set to **Restrict** or **Channel only** for this channel's [scope](/docs/claude-tag/concepts/glossary#scope), so Claude checks the channel for guests before replying, and this install predates the `users:read` permission that check needs.
 
 **How to resolve**
 
@@ -177,9 +177,11 @@ The channel includes at least one Slack guest account, and **Allow Claude to wor
 Either fix works:
 
 * Remove the guests from the channel, or move the conversation to a channel with no guests; this changes no settings, so no other channel is affected.
-* Or set **Allow Claude to work in channels with guests** to **Allow** for the scope covering this channel. The setting is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, in the scope's collapsed **Advanced** section. **Allow** applies to every guest channel that scope covers, and guests there can see Claude's replies and interact with it. To limit it to one channel, set it on the channel's own scope. See [restrict guest channels](/docs/claude-tag/admins/restrict-access#restrict-guest-channels) for the full exposure picture.
+* Change **Allow Claude to work in channels with guests** for the scope covering this channel, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → the collapsed **Advanced** section. **Channel only** restores replies with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works). **Allow** restores replies with the scope's full access, and only an organization Owner can choose it. See [restrict guest channels](/docs/claude-tag/admins/restrict-access#restrict-guest-channels) for what each value exposes.
 
-**Allow** restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even when the setting is **Allow**. Removing the guests restores search as well.
+Either value applies to every guest channel that scope covers. To limit the change to one channel, set the value on the channel's own scope.
+
+Either value restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even under **Allow**. Removing the guests restores search as well.
 
 If the fix worked, a mention in the channel gets a reply.
 
@@ -340,6 +342,10 @@ A Slack workspace can pair with only one Claude organization at a time, and this
 2. Have an Owner in that organization [disconnect the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing) from their **Connected workspaces** list.
 3. Send `@Claude connect` again for a fresh code and redeem it here.
 
+<Warning>
+  Disconnecting deletes the workspace's Claude data, including its memory, channel configurations, sessions, and the routines set up in its channels. The deletion can't be undone. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle) for the full list of what's deleted.
+</Warning>
+
 <a id="claim-code-invalid" />
 
 ### Claim code is invalid, expired, or already used
@@ -461,6 +467,10 @@ The **Enable Claude Tag for your organization** toggle is off in admin settings,
 1. An Owner switches the toggle on at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). If the toggle was the problem, a mention in Slack now gets a normal reply.
 2. If the message persists, check which Claude organization the workspace is paired to. If your company has more than one (a trial organization alongside the main one, for example), an Owner in the wrong organization can [revoke the pairing](/docs/claude-tag/admins/workspaces#revoke-a-pairing) so you can pair the workspace to the right one.
 3. If the right organization has the toggle on and the message persists, contact your account team to confirm Claude Tag is enabled for it.
+
+<Warning>
+  Revoking the pairing deletes the workspace's Claude data, including its memory, channel configurations, sessions, and the routines set up in its channels. The deletion can't be undone. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle) for the full list of what's deleted.
+</Warning>
 
 ### Claude Tag is unavailable because Routines are not enabled
 
@@ -584,7 +594,7 @@ Go through these checks in order; the same checks, in the same order, apply when
 2. **A bundle with GitHub access on this channel's scope**: bundles attach per scope, so the bundle that carries GitHub access must be attached to a scope that covers this channel; [Attach the bundle to a scope](/docs/claude-tag/admins/attach-to-scope) covers attachment and inheritance. If the bundle is attached, asking `@Claude what can you access from this channel?` in a new thread lists GitHub.
 3. **A fresh thread**: a new thread picks up every configuration change, so test in one before checking anything further.
 4. **The repository granted in the bundle**: the repository must be listed in the bundle's **Repositories** tab, per [Grant repository access](/docs/claude-tag/admins/configure-github#grant-repository-access). If the repository is granted, asking Claude to read a file from it works in a new thread. Granting makes the repository available to clone, but the code doesn't enter a session until a request names it.
-5. **The GitHub App installation covers the repository**: if Claude reports a repository isn't available, isn't configured, or returned a 403, check the installation, since the app's repository selection is upstream of the bundle grant. At [`claude.ai/admin-settings/github`](https://claude.ai/admin-settings/github), the organization that owns the repository should show **Connected** under **Connected GitHub accounts**. If it appears under **Unlinked accounts** with a **Needs permissions** status instead, the install is waiting on a GitHub organization owner. Click **Review permissions** to approve it on github.com. If you aren't a GitHub organization owner, use **Copy message** under **Not a GitHub account owner?** on that settings page to send the request to someone who is. If the organization isn't listed at all, install the app with **Install on another organization**; [Link your GitHub organization](/docs/claude-tag/admins/configure-github#link-your-github-organization) covers both.
+5. **The GitHub App installation covers the repository**: if Claude reports a repository isn't available, isn't configured, or returned a 403, check the installation, since the app's repository selection is upstream of the bundle grant. At [`claude.ai/admin-settings/github`](https://claude.ai/admin-settings/github), the organization that owns the repository should show **Connected** under **Connected GitHub accounts**. If its row shows a **Needs permissions** status instead, the install is waiting on a GitHub organization owner. Click **Review permissions** to approve it on github.com. If you aren't a GitHub organization owner, use **Copy message** under **Not a GitHub account owner?** on that settings page to send the request to someone who is. If the organization isn't listed at all, install the app with **Install on another organization**; [Link your GitHub organization](/docs/claude-tag/admins/configure-github#link-your-github-organization) covers both.
 
 For GitHub Enterprise Server repositories, confirm [the GHE host is registered](/docs/claude-tag/admins/configure-github#github-enterprise-server) instead. The github.com App install doesn't cover them.
 
@@ -624,7 +634,7 @@ Assign the user a seat that includes Claude Code on the **Members** page at [`cl
 
 ## Session start errors
 
-Session start errors appear before any work begins. Some are transient and clear on retry; the rest point to capacity or environment configuration rather than credentials.
+Session start errors appear before any work begins. Some are transient and clear on retry; the rest point to capacity or environment configuration.
 
 ### Still waiting for available capacity
 
@@ -636,11 +646,19 @@ Claude posts in the thread:
 
 **What it means**
 
-Compute capacity is temporarily busy. The session starts on its own once capacity frees up.
+The session was created and is still waiting for compute to run it. Why it waits differs between Anthropic-hosted and self-hosted [environments](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope).
+
+On an Anthropic-hosted environment, capacity is temporarily busy or the session is taking longer than usual to start, and the session normally starts on its own. If it never starts, Claude posts the [Session failed to start](#session-failed-to-start-the-session-container-never-connected) message instead.
+
+On a [self-hosted environment](https://code.claude.com/docs/en/self-hosted-environments), no runner has claimed the session yet. The session waits in the environment's queue until a runner claims it.
 
 **How to resolve**
 
-Wait; no action is needed. Users should reply in the same thread if they have more to add, since starting a new thread only queues a second session behind the first.
+On an Anthropic-hosted environment, wait; no action is needed.
+
+On a self-hosted environment, use [Troubleshooting](https://code.claude.com/docs/en/self-hosted-environments-deploy#troubleshooting) in the self-hosted environments guide to find out why no runner is claiming the session. The queued session starts once a runner claims it.
+
+Either way, users should reply in the same thread if they have more to add, since starting a new thread only queues a second session behind the first.
 
 ### Session failed to start: the session container never connected
 

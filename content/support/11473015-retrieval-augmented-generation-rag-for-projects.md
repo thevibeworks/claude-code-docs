@@ -1,6 +1,6 @@
 # Retrieval augmented generation \(RAG\) for projects
 
-RAG for projects is available for all Claude plans (free, Pro, Max, Team, and Enterprise).
+RAG for projects is available on paid plans (Pro, Max, Team, and Enterprise).
 
 Projects can now handle much more content without running into limits, giving Claude better context to help you. As you add more files and information to your projects, Claude automatically switches to a faster mode (powered by RAG) that keeps response times quick while maintaining quality responses.
 

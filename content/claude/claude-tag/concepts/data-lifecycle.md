@@ -90,7 +90,7 @@ The controls that delete Claude Tag data, from largest to smallest:
 
 * **Disconnect a workspace or an Enterprise Grid** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), or uninstall the app from the workspace in Slack. Deletes all of that workspace's data. See [Revoke a pairing](/docs/claude-tag/admins/workspaces#revoke-a-pairing)
 * **Remove a channel's scope** in the **Claude Tag's access** section. Deletes that channel's data recorded so far
-* **Delete a scope's memory files**, from the scope's options menu, or tell Claude in the channel to forget an entry. See [Check and correct what Claude Tag remembers](/docs/claude-tag/users/memory#check-and-correct-what-claude-tag-remembers)
+* **Delete a scope's memory files**: select **View memory files** in the scope's options menu, choose a file, then select **Delete**. You can also tell Claude in the channel to forget an entry. See [Check and correct what Claude Tag remembers](/docs/claude-tag/users/memory#check-and-correct-what-claude-tag-remembers)
 * **Delete a routine** from the **Scheduled work** tab, or ask Claude to delete it in the channel or direct message where it was set up. See [Audit Claude Tag activity](/docs/claude-tag/admins/audit)
 
 There is no control in Slack or in your Claude admin settings that deletes a single thread's transcript on its own. During the beta, Claude Tag session transcripts and memory aren't included in your organization's data exports, and the Compliance API doesn't list or delete Claude Tag sessions. For a deletion request these controls don't cover, contact your account team or [privacy@anthropic.com](mailto:privacy@anthropic.com).

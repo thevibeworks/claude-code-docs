@@ -43,7 +43,7 @@ After saving, where the credential has an allow rule, you can narrow it by HTTP 
 | **Bearer**                                      | An API key or token sent as `Authorization: Bearer <token>`. Most SaaS REST APIs.                           |
 | **Basic**                                       | HTTP Basic authentication (`Authorization: Basic <base64(user:password)>`)                                  |
 | **Body parameter**                              | A token the API expects in the request body or query string instead of a header                             |
-| **AWS SigV4**                                   | AWS services and APIs that require Signature Version 4 signing                                              |
+| **AWS SigV4**                                   | AWS service APIs on `amazonaws.com` endpoints that require Signature Version 4 signing                      |
 | **GCP access token (with Service Account Key)** | Google Cloud APIs; the proxy exchanges the SA key for an access token                                       |
 | **GCP IAP (with Service Account Key)**          | Google Cloud services behind Identity-Aware Proxy                                                           |
 | **OAuth 2.0 JWT bearer**                        | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example) |
@@ -56,14 +56,22 @@ If you're unsure which type, check the service's API authentication docs for whi
 
 ### AWS SigV4
 
-Use the **AWS SigV4** credential type for AWS service APIs (S3, Lambda, Amazon Bedrock, an API Gateway endpoint with IAM authorization). Agent Proxy reads the AWS service and signing region from the hostname and signs each outbound request with the credential at the boundary, so neither the model nor the sandbox holds the keys. The host must be an `amazonaws.com` endpoint; the proxy can't sign requests to an API Gateway custom domain or to a non-AWS API that uses Signature Version 4.
+Use the **AWS SigV4** credential type for AWS service APIs such as S3, Lambda, and DynamoDB. Agent Proxy reads the AWS service and signing region from the hostname and signs each outbound request with the credential at the boundary, so neither the model nor the sandbox holds the keys.
 
-| Field             | Value                                                                                                                   |
-| :---------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| Access key ID     | The IAM user or role access key, for example `AKIAIOSFODNN7EXAMPLE`                                                     |
-| Secret access key | The matching secret access key                                                                                          |
-| Session token     | Optional. Only needed for temporary credentials from AWS STS.                                                           |
-| Allowed websites  | The AWS service endpoint host, for example `s3.us-east-1.amazonaws.com` or `abc123.execute-api.us-east-1.amazonaws.com` |
+Agent Proxy signs requests to hostnames in these forms:
+
+* `service.region.amazonaws.com`
+* S3 virtual-hosted-style endpoints, for example `my-bucket.s3.us-east-1.amazonaws.com`
+* The regionless hosts of global AWS services such as IAM, STS, and CloudFront
+
+Apart from S3 virtual-hosted-style endpoints, Agent Proxy can't read the service from a hostname that has extra parts before the service name, so requests to those hosts fail before reaching AWS. Examples include the host of an API Gateway invoke URL, such as `abc123.execute-api.us-east-1.amazonaws.com`, and the host of an Amazon Managed Workflows for Apache Airflow (MWAA) environment. The proxy also can't sign requests to an API Gateway custom domain or to a non-AWS API that uses Signature Version 4.
+
+| Field             | Value                                                                                                       |
+| :---------------- | :---------------------------------------------------------------------------------------------------------- |
+| Access key ID     | The IAM user or role access key, for example `AKIAIOSFODNN7EXAMPLE`                                         |
+| Secret access key | The matching secret access key                                                                              |
+| Session token     | Optional. Only needed for temporary credentials from AWS STS.                                               |
+| Allowed websites  | The AWS service endpoint host, for example `s3.us-east-1.amazonaws.com` or `lambda.us-east-1.amazonaws.com` |
 
 Use long-lived credentials from a dedicated IAM user where you can. Temporary STS credentials work but expire on their own schedule, and the connection stops working when they do; you re-enter all three values to rotate.
 

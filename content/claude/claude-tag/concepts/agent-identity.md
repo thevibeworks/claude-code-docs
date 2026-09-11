@@ -4,7 +4,7 @@
 
 # How agent identity works
 
-> Claude Tag acts under its own service accounts in Slack channels, not as you. See how channel access is bounded, how credentials reach it, and why DMs differ.
+> Claude Tag acts under its own service accounts in Slack channels, not as you. See how channel access is bounded, how credentials reach it, how Claude uses your personal connectors for your own tasks in a channel, and why DMs differ.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Claude Tag's identity depends on where you message it.
 
-In Slack channels, Claude acts with its own service accounts, rather than as a specific user. An organization Owner [provisions this identity during setup](/docs/claude-tag/admins/setup-overview), so it arrives with its own account in each system it works in: the Claude app in Slack, the Claude GitHub App on GitHub, and a service account in every other connected tool. Actions it takes are attributed to those accounts; for example, posts come from the Claude app and pull requests show the Claude GitHub App as the author.
+In Slack channels, Claude acts with its own service accounts, rather than as a specific user. An organization Owner [provisions this identity during setup](/docs/claude-tag/admins/setup-overview), so it arrives with its own account in each system it works in: the Claude app in Slack, the Claude GitHub App on GitHub, and a service account in every other connected tool. Actions it takes are attributed to those accounts; for example, posts come from the Claude app and pull requests show the Claude GitHub App as the author. In organizations where personal connectors in channels is available, Claude can also use your own claude.ai connectors for a task you hand it in a channel, after you allow it. See [Personal connectors in a channel](#personal-connectors-in-a-channel).
 
 In direct messages (DMs) between a user and `@Claude`, the provisioned identity does not apply. DMs are one-to-one only; group DMs aren't supported. A DM has no channel to scope it to, so a DM session runs on [the individual's own claude.ai account](#direct-message-channels) instead, with their personal connectors. GitHub is the exception in attribution: a pull request opened from a DM is authored by the Claude GitHub App, the same as in channels, though the session can only work with repositories connected on that user's own account. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
@@ -30,9 +30,9 @@ When Claude works on a channel task, the request moves through three places:
 
 The diagram below traces one request through this process.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=e8776cf0edd1f3ec912b9b044c9cc838" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path.svg" />
+<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/oY6LusJt4c576Dc3/images/claude-tag/diagrams/request-path.svg?fit=max&auto=format&n=oY6LusJt4c576Dc3&q=85&s=a7f2e0f4303072b4c8e4f3197bf0cb12" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request that no rule, domain entry, or environment network access setting allows is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path.svg" />
 
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=a2ed5f3270989c3ed3d9b9a78a72bff0" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path-dark.svg" />
+<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/oY6LusJt4c576Dc3/images/claude-tag/diagrams/request-path-dark.svg?fit=max&auto=format&n=oY6LusJt4c576Dc3&q=85&s=a728805c81b642004e1e15da96967e4c" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request that no rule, domain entry, or environment network access setting allows is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path-dark.svg" />
 
 <Steps>
   <Step title="Tag Claude in a channel">
@@ -97,10 +97,16 @@ This design has four consequences.
 
 * **Configure once.** Everyone in the scope can use it immediately.
 * **Predictability.** What Claude can do never changes based on who asked.
-* **Personal connectors apply in DMs.** A shared channel uses only the service-account connections an admin attached, not connectors on anyone's claude.ai account.
-* **Clean audit.** Actions in connected tools show up under a service account your security team already knows how to reason about.
+* **Personal connectors are separate.** A shared channel session uses only the service-account connections an admin attached. Where [personal connectors in channels](#personal-connectors-in-a-channel) is available, Claude uses the connectors on your own claude.ai account only for your own tasks, after you allow it.
+* **Clean audit.** Actions the channel session takes in connected tools show up under a service account your security team already knows how to reason about.
 
 That service-account identity is also how Claude appears wherever it acts. In Slack, it posts as the Claude app. On GitHub, commits and pull requests show the Claude GitHub App, and pull requests link back to the Slack thread they came from. In every other connected service, actions appear under the service account an admin provisioned, in that service's audit log.
+
+### Personal connectors in a channel
+
+A channel session works with the channel's Access bundles, so the [connectors on your own claude.ai account](/docs/connectors/overview) are not part of it. Personal connectors in channels is available to a limited number of organizations. Where it is available and a task you hand Claude needs something only your connectors can reach, Claude can use your connector for that part of the work, and it asks you before it starts. The work runs with your permissions and is recorded under your name. Requests other people make to Claude in the task's thread run with the channel's own access, not with your connectors. Claude is designed to take direction from you, treating what other people post in the thread as information for the task rather than as instructions.
+
+[Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) covers how you approve connector use, when Claude holds a result for your review before posting, what other people in the channel see, and how to stop a task.
 
 ## Direct message channels
 

@@ -14,7 +14,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 ## Your first Access bundle
 
-An [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle) is a named set of credentials, repository grants, and instructions that Claude uses in the channels the bundle covers. A connection is one service credential inside a bundle, like a Datadog API key or a warehouse service account, that Claude uses to act in that service from any channel under the bundle's [scope](/docs/claude-tag/concepts/glossary#scope).
+An [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle) is a named set of credentials, domain entries, repository grants, plugins, and instructions that Claude uses in the channels the bundle covers. A connection is one service credential inside a bundle, like a Datadog API key or a warehouse service account, that Claude uses to act in that service from any channel under the bundle's [scope](/docs/claude-tag/concepts/glossary#scope).
 
 If you're in [setup](/docs/claude-tag/admins/setup-overview), you add these connections there; skip to [Decide what to connect](#decide-what-to-connect). The steps below are for creating a bundle outside setup, on the admin page directly.
 
@@ -28,13 +28,13 @@ If you're in [setup](/docs/claude-tag/admins/setup-overview), you add these conn
   </Step>
 
   <Step title="Name the bundle">
-    The new bundle is named after its scope, like **Acme bundle** for a workspace named Acme or **#engineering bundle** for that channel. To rename it, click the pencil next to the name (the console uses "profile" and "Access bundle" interchangeably).
+    A bundle created on a workspace or channel scope is named after that scope, like **Acme bundle** for a workspace named Acme or **#engineering bundle** for that channel. A bundle created on **Default Slack** is named **Untitled access bundle** until you rename it. To rename a bundle, click the pencil next to the name (the console uses "profile" and "Access bundle" interchangeably).
   </Step>
 </Steps>
 
 You can also create an unattached bundle by clicking **Create** on the **Access bundles** page in the left navigation, then attach it to scopes afterward. A bundle created there is named **Untitled access bundle** until you rename it.
 
-Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply only in DMs.
+Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply in DMs. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use a member's own connectors in a channel for that member's own tasks, after the member allows it.
 
 Name a bundle after what it grants, since the name is what you'll read when deciding which bundles to bind to a channel: `data-readonly`, `github-write`, `monitoring`, `gtm-tools`. A capability name stays meaningful when the same bundle serves several teams; a team name (`devprod-team`) works when one team's full access is the unit you'll reuse.
 
@@ -117,13 +117,16 @@ To get there, open the bundle from the scope that covers the channel, under **Cl
 * **Domain**: the hostname to allow; a wildcard is allowed as the leftmost label, like `*.example.com`, and covers subdomains at any depth but not `example.com` itself
 * **Ports**: needed only when the service listens on something other than 443
 
+For example, to let Claude check a vendor's status page at `status.example.org`, enter `status.example.org` in the **Domain** field and leave the **Ports** field empty.
+
 You don't have to predict the full list up front. When a request is blocked, Claude says so in the thread and names the host, with wording like "blocked by the network egress proxy" (that is, by Agent Proxy); add that host here and retry. If the host is listed and Claude still reports it blocked, check these in order:
 
 * **The bundle is attached to the channel's scope.** Claude can use a Domains entry only in channels whose scope, or an ancestor scope, has this bundle attached; see [Attach bundles to scopes](/docs/claude-tag/admins/attach-to-scope).
 * **The entry matches the exact host.** A wildcard like `*.example.com` doesn't cover `example.com` itself, and `www.example.com` and `example.com` are different hosts.
 * **The request didn't move to another host.** If the page redirects, or loads from a CDN or a sign-in host, allow that host too; Claude names the host it was blocked on.
 * **The port is listed.** Needed only when the service listens on something other than 443.
-* **A minute has passed since you saved.** Agent Proxy picks up a new entry within about a minute, in existing threads as well as new ones, so retry in the same thread after a short wait.
+* **A minute has passed since you saved the entry.** Agent Proxy picks up a new entry within about a minute, in existing threads as well as new ones, so retry in the same thread after a short wait.
+* **The bundle was attached before the thread started.** A bundle you attach after a thread started isn't guaranteed to reach that thread, so start a fresh thread to use its entries.
 * **The request came from a channel, not a DM.** A bundle attached to a channel doesn't apply in DMs.
 
 Typical entries are hosts the work calls without a key, such as a docs site or a public API. Common package registries are usually already reachable through the [environment's Trusted access default](#broad-web-access-through-the-environment), and a host that needs a credential belongs in a [connection](#add-a-connection) instead. Entries appear below the form, and each one can be edited or removed from its row.
@@ -169,7 +172,7 @@ For a custom connection, choose the credential type:
 | Bearer                                      | API keys and OAuth bearer tokens. Most SaaS REST APIs.                                                                                                                            |
 | Basic                                       | HTTP Basic authentication.                                                                                                                                                        |
 | Body parameter                              | A token the API expects in the request body or query string instead of a header.                                                                                                  |
-| AWS SigV4                                   | Signed requests to AWS APIs with an access key pair.                                                                                                                              |
+| AWS SigV4                                   | Signed requests to AWS service endpoints with an access key pair.                                                                                                                 |
 | GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google). |
 | GCP IAP (with Service Account Key)          | Google Cloud services behind Identity-Aware Proxy.                                                                                                                                |
 | OAuth 2.0 JWT bearer                        | Server-to-server OAuth.                                                                                                                                                           |
@@ -200,7 +203,7 @@ Check the host against your account's region before saving. Some presets fill a 
 
 After saving, you can narrow a connection. Select **Edit** on the connection's row in the bundle's **Credentials** tab. The **Edit connection** dialog lets you rename the connection and, where the connection has an allow rule, restrict it by HTTP method and path, for example to allow `GET` but not `DELETE`.
 
-Agent Proxy starts applying a change within about a minute of your saving it, in existing threads as well as new ones. It evaluates connections and Domains entries from the most specific scope outward (channel, then workspace, then organization), and within a scope by priority; the first match decides. A request that matches no connection, no Domains entry, and nothing in the environment's network access is blocked. Private IP ranges and cloud metadata endpoints stay blocked regardless.
+Agent Proxy starts applying an edit to a connection or a Domains entry within about a minute after you save it, in existing threads as well as new ones. It evaluates connections and Domains entries from the most specific scope outward (channel, then workspace, then organization), and within a scope by priority; the first match decides. A request that matches no connection, no Domains entry, and nothing in the environment's network access is blocked. Private IP ranges and cloud metadata endpoints stay blocked regardless.
 
 ### Connections vs claude.ai connectors
 
@@ -210,16 +213,17 @@ The connection gallery lists credential types the agent can hold, not the connec
 
 A connection grants access; a plugin teaches Claude how to use it well. A plugin is a packaged set of skills: reusable instructions for working with a specific tool or following a specific process. Attach a plugin to the same Access bundle or scope that carries the connection, so the credential arrives with directions for using it.
 
-A Datadog API key, for example, makes the API reachable, and a Datadog plugin tells Claude which endpoints answer which questions. Sessions in covered channels pick up attached plugins automatically, with nothing to install or enable. Channel members can also add plugins available to your organization from the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions).
+A Datadog API key, for example, makes the API reachable, and a Datadog plugin tells Claude which endpoints answer which questions. Once you turn a plugin on for a bundle or add it to a scope, sessions in the channels that bundle or scope covers pick up the plugin automatically. Nobody in those channels has to turn that plugin on. A channel member can also add a plugin available to your organization, by asking Claude in the channel or from the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions).
 
 Anthropic provides plugins for common tools and processes, and you can add your own from a [skills repository](/docs/claude-tag/admins/skills-repo). To give Claude organization-wide skills, package them as a plugin.
 
-Plugins attach in two places, and the two behave differently:
+Admins and channel members turn plugins on in different places:
 
 * A plugin added directly on a scope (the plugin chips on the scope's panel) is enabled there as soon as you add it.
 * A bundle's **Plugins** tab lists the plugins available to your organization, each off until you toggle it on.
+* A channel member can ask Claude to add a plugin to their channel, unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions). Claude proposes the change and adds the plugin only after someone in that channel selects **Confirm**.
 
-Registering a plugin at the organization level makes it available, not active. It takes effect only where a bundle enables it or a scope adds it directly.
+Adding a plugin for your whole organization makes it available, not active. The plugin takes effect only where a bundle enables it or a scope adds it directly.
 
 Adding or removing plugins and skills applies to new threads only. A thread already running keeps the set it began with; start a fresh thread to pick up changes. See [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies).
 

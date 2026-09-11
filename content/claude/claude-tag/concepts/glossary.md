@@ -24,7 +24,7 @@ The network layer that injects credentials into Claude's outbound requests. The 
 
 ## Channel manager
 
-A member of your Claude organization whom an Owner has named to set up specific channels. For each channel assigned to them, a channel manager sets the default model, adds repositories their own GitHub account can write to, and manages credentials in the channel's own bundle, without holding the Owner role. See [Delegate channel setup to channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers).
+A member of your Claude organization whom an Owner has named to set up specific channels. For each channel assigned to them, a channel manager sets the default model, adds repositories their own GitHub account is an admin of, and manages credentials and plugins in the channel's own bundle, without holding the Owner role. See [Delegate channel setup to channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers).
 
 ## Channel memory
 
@@ -47,11 +47,11 @@ Your admin chooses which generation answers `@Claude` in a given channel, so two
 
 A credential for one external service that Claude uses on the channel's behalf, like a Datadog API key or a GitHub App installation. Connections belong to the agent identity, not to any user, and are grouped into [Access bundles](#access-bundle) by an admin.
 
-A connection is not a connector. A connector belongs to your personal claude.ai account. Claude cannot use your connectors in channels; it uses the channel's connections. The one exception is a DM, where it uses your own account instead; see [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+A connection is not a connector. A connector belongs to your personal claude.ai account. A channel session uses the channel's connections. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use your connectors there for your own tasks, after you allow it. A DM uses your own account instead, as [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels) describes.
 
 ## Connector
 
-A tool you add to your own claude.ai account, like Gmail, Google Drive, or a custom MCP server, listed under [Customize > Connectors](https://claude.ai/customize/connectors). Connectors are personal; in Slack they apply only in DMs. For the agent-side equivalent that works in channels, see [Connection](#connection).
+A tool you add to your own claude.ai account, like Gmail, Google Drive, or a custom MCP server, listed under [Customize > Connectors](https://claude.ai/customize/connectors). Connectors are personal. In Slack they apply in DMs. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use them in a channel for your own tasks, after you allow it. For the agent-side equivalent that works in channels, see [Connection](#connection).
 
 ## Environment
 

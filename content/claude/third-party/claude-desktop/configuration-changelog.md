@@ -8,6 +8,38 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v1.52386.0" description="2026-09-10">
+  <div className="cfg-keys">
+    | MDM key                                                                                              | Type      | Description                     |
+    | ---------------------------------------------------------------------------------------------------- | --------- | ------------------------------- |
+    | [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) · Beta                      | `enum`    | SSH connection engine           |
+    | [`chatSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays)     | `integer` | Chat retention period           |
+    | [`coworkSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) | `integer` | Cowork retention period         |
+    | [`codeSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#codesessionretentiondays)     | `integer` | Code retention period           |
+    | [`sessionRetentionHold`](/docs/third-party/claude-desktop/configuration#sessionretentionhold)             | `boolean` | Suspend session deletion        |
+    | [`coworkVmIpv6Enabled`](/docs/third-party/claude-desktop/configuration#coworkvmipv6enabled)               | `boolean` | Enable IPv6 in the workspace VM |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "codeSurface": {
+      "sshTransport": "<auto|system-openssh|builtin>"
+    },
+    "sessionRetention": {
+      "chatDays": "<integer>",
+      "coworkDays": "<integer>",
+      "codeDays": "<integer>",
+      "legalHold": "<boolean>"
+    },
+    "workspace": {
+      "vmIpv6Enabled": "<boolean>"
+    }
+  }
+  ```
+</Update>
+
 <Update label="v1.49585.0" description="2026-09-08">
   **Changed:**
 

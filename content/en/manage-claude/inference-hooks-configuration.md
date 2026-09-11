@@ -33,33 +33,36 @@ There are three enforcement states: **off** (**Enforce verdicts** is off: your A
   </Step>
 
   <Step title="Configure your endpoint">
-    Click **Configure** to open the **Configure endpoint** dialog and fill in:
+    Click **Configure** to open the **Set up endpoint** dialog and enter the **Endpoint URL**: the `https://` URL that receives verdict requests. Only `https://` URLs are accepted.
 
-    * **Endpoint URL:** the `https://` URL that receives verdict requests. Only `https://` URLs are accepted.
-    * **Custom request headers:** up to 16 static headers sent with every verdict request so your AI security server can authenticate the caller. Header values are stored encrypted and never shown again; after saving, only the header names are displayed. Because values are write-only, saving any change to the headers requires re-entering every value. Changing the endpoint URL clears all stored header values so your credentials are never sent to a new destination; re-enter them after a URL change. Header names must use standard HTTP token characters with `-` rather than `_`, and must not collide with reserved names (request-framing headers such as `Content-*` and `Host`, proxy and cookie headers, client-address headers such as `X-Forwarded-*`, the `webhook-*` signature headers, and the `X-Anthropic-*` prefix). Values must be printable ASCII.
-
-    The dialog covers only those two fields plus **Test connection**; it doesn't ask about failure handling, which you choose in step 6. Once an endpoint is saved, the button reads **Edit**.
+    The dialog asks for nothing else at this point: custom request headers come in step 5, and failure handling in step 6. Click **Next** to save. Once an endpoint is saved, the button reads **Edit**.
   </Step>
 
-  <Step title="Test the connection">
-    Click **Test connection**. Claude sends a synthetic test prompt to the URL and headers currently in the form, not the saved values, so re-enter any stored header values before testing. On success, the result reports whether your AI security server returned an allow or a deny verdict for the test prompt, which surfaces a deny-everything default before you start enforcing.
+  <Step title="Store your signing secret">
+    The first save generates your webhook signing secret and reveals it once. Copy it and store it securely before clicking **Next**: the secret cannot be retrieved later, only [rotated](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#rotate-your-signing-secret).
+
+    Your AI security server uses this secret to verify the signature on every request it receives, including the connection test in the next step. For the verification procedure, see [Verify the signature](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#verify-the-signature).
+  </Step>
+
+  <Step title="Add request headers and test the connection">
+    Clicking **Next** on the signing secret dialog reopens the endpoint dialog, now with two more controls:
+
+    * **Custom request headers:** up to 16 static headers sent with every verdict request so your AI security server can authenticate the caller. Header values are stored encrypted and never shown again; after saving, only the header names are displayed. Because values are write-only, saving any change to the headers requires re-entering every value. Changing the endpoint URL clears all stored header values so your credentials are never sent to a new destination; re-enter them after a URL change. Header names must use standard HTTP token characters with `-` rather than `_`, and must not collide with reserved names (request-framing headers such as `Content-*` and `Host`, proxy and cookie headers, client-address headers such as `X-Forwarded-*`, the `webhook-*` signature headers, and the `X-Anthropic-*` prefix). Values must be printable ASCII.
+    * **Test connection:** Claude sends a synthetic test prompt to the URL and headers currently in the form, not the saved values, so re-enter any stored header values before testing. On success, the result reports whether your AI security server returned an allow or a deny verdict for the test prompt, which surfaces a deny-everything default before you start enforcing.
+
+    Click **Save** to store any headers you entered.
 
     Common failure results:
 
-    | Result                 | What to check                                                                                                                                         |
-    | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | URL rejected           | The URL failed a structural check. Use an `https://` URL on port 443.                                                                                 |
-    | Private or internal IP | The host resolves to a private or internal address. Use a publicly routable host.                                                                     |
-    | Timeout                | The AI security server did not return a verdict within the timeout.                                                                                   |
-    | Transport error        | DNS resolution, the TLS handshake, or the connection failed.                                                                                          |
-    | Non-200 status         | The AI security server responded with a status other than 200. Verdicts must come back as HTTP 200; redirects are not followed and count as failures. |
-    | Unparseable response   | The AI security server responded, but the body is not a valid verdict.                                                                                |
-  </Step>
-
-  <Step title="Save and store your signing secret">
-    Save the endpoint configuration. The first save generates your webhook signing secret and reveals it once. Copy it and store it securely before closing the dialog: the secret cannot be retrieved later, only [rotated](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#rotate-your-signing-secret).
-
-    Your AI security server uses this secret to verify the signature on every request it receives. For the verification procedure, see [Verify the signature](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#verify-the-signature).
+    | Result                  | What to check                                                                                                                                         |
+    | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | URL rejected            | The URL failed a structural check. Use an `https://` URL on port 443.                                                                                 |
+    | Private or internal IP  | The host resolves to a private or internal address. Use a publicly routable host.                                                                     |
+    | Timeout                 | The AI security server did not return a verdict within the timeout.                                                                                   |
+    | Transport error         | DNS resolution, the TLS handshake, or the connection failed.                                                                                          |
+    | Non-200 status          | The AI security server responded with a status other than 200. Verdicts must come back as HTTP 200; redirects are not followed and count as failures. |
+    | Unparseable response    | The AI security server responded, but the body is not a valid verdict.                                                                                |
+    | Signing secret required | Your organization has no signing secret, so the test would be sent unsigned. Click **Generate secret** under **Request signing**, then test again.    |
   </Step>
 
   <Step title="Choose failure handling and timeout">
@@ -130,7 +133,7 @@ Automatic recovery runs only while your Inference hooks settings are unchanged s
 
 ## Rotate your signing secret
 
-Click **Rotate secret** under **Request signing** to replace your signing secret. Rotation is an immediate cutover: the new secret is generated and revealed once, the old secret can no longer be retrieved, and no request is ever signed with both secrets, so there is no overlap period to rely on.
+Click **Rotate secret** under **Request signing** to replace your signing secret. If your organization has no secret yet, the same button reads **Generate secret** and creates the first one. Rotation is an immediate cutover: the new secret is generated and revealed once, the old secret can no longer be retrieved, and no request is ever signed with both secrets, so there is no overlap period to rely on.
 
 Requests signed with the previous secret can still arrive briefly after rotation; [Verify the signature](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#verify-the-signature) covers how your AI security server should handle the switchover.
 

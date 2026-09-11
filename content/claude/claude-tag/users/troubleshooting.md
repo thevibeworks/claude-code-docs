@@ -85,12 +85,14 @@ Or, if the session never started:
 
 **What it means**
 
-The first message means compute capacity is temporarily busy; the session starts on its own once capacity frees up. The second means the session didn't start at all, which is transient.
+The first message means the session was created and is waiting for capacity to run it. The session normally starts on its own within a few minutes. If your organization runs Claude's sessions on its own infrastructure, the wait lasts until that infrastructure starts the session.
+
+The second message means the session didn't start at all. The failure is usually temporary.
 
 **How to resolve**
 
-* For the capacity message, wait a few minutes; no action is needed. To add context while waiting, @-mention Claude in the same thread rather than starting a new one. A new thread only queues a second session behind the first.
-* For the failed-start message, mention Claude in the same thread to retry. If the retry worked, the session starts and Claude begins the task.
+* For the capacity message, wait a few minutes. To add context while waiting, @-mention Claude in the same thread rather than starting a new one. A new thread only queues a second session behind the first. If Claude still hasn't started after several more minutes, send your admin [Still waiting for available capacity](/docs/claude-tag/admins/troubleshooting#still-waiting-for-available-capacity).
+* For the failed-start message, mention Claude in the same thread to retry. If the session fails to start again, ask an admin.
 
 ### Claude didn't react to a message I edited
 
@@ -160,7 +162,7 @@ Any of these fixes works:
 
 * Remove the guests from the channel. In Slack, open **Channel details** → **Members** and filter by "guests"; guests show a **guest** badge on their Slack profile.
 * Move the conversation to a channel with no guests.
-* Ask a claude.ai organization owner to allow Claude to respond in channels that include guests, and send them [the guest access setting](/docs/claude-tag/admins/restrict-access#restrict-guest-channels). If you don't know who your organization's owners are, ask whoever set Claude up in your workspace.
+* Ask a claude.ai organization owner to change the guest setting for this channel, and send them [the guest access setting](/docs/claude-tag/admins/restrict-access#restrict-guest-channels). They can let Claude reply with only the channel's own setup, or with full access. If you don't know who your organization's owners are, ask whoever set Claude up in your workspace.
 
 The guest access setting restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even when it's allowed to respond there. Removing the guests or moving the conversation to a channel with no guests restores search as well.
 
@@ -232,7 +234,7 @@ Start a new thread. You can paste a summary of where the previous one left off.
 
 ## Claude stopped mid-task
 
-The messages in this section mean a session started and then stopped partway through. In most cases the work isn't lost, and the same thread picks up where it stopped. Each entry says whether anything needs redoing.
+The messages in this section mean a session started and then stopped partway through. For most of them the work is still there, and the same thread picks up where it stopped. For a disconnect, work that existed only on the machine running the session can be lost. Each entry says whether anything needs redoing.
 
 ### I hit repeated API server errors
 
@@ -310,21 +312,25 @@ Wait a few minutes, then mention Claude in the same thread to retry. If the same
 
 **What you see**
 
-Claude posts in the thread:
+In the thread, Claude posts a message that begins "I got disconnected partway through and may not have finished" or "I lost my connection". The rest of the message either says that Claude is recovering on its own and how long to wait before mentioning it, or asks you to mention it so it can start again.
 
-> I got disconnected partway through and may not have finished. Reconnecting and resuming automatically — usually within a few minutes, though a slow recovery can take much longer. Mention me if I don't follow up.
+A disconnect message appears in a thread where you're working with Claude, including a direct-message thread; Claude doesn't post one in a channel it's only watching or from a routine.
 
-When Claude reconnects, it edits that message to "I reconnected and I'm carrying on where I left off. No need to mention me." When automatic recovery isn't armed, the message is "I got disconnected partway through and may not have finished. Mention me to pick up where I left off." instead.
+If the machine running the session comes back, Claude removes the disconnect message from the thread, and there's nothing for you to do. If Claude restarts on a fresh machine instead, it edits the disconnect message to:
 
-You can see it in a thread where you're working with Claude, including a direct-message thread; Claude doesn't post it in a channel it's only watching or from a routine.
+> I've restarted on a fresh machine. Uncommitted changes from before the restart may not have carried over, so I'll re-check my work before continuing. No need to mention me.
 
 **What it means**
 
-The sandbox running this thread's session stopped partway through a turn, so the step Claude was on may not have finished. The thread's conversation is intact.
+The machine running this thread's session, the sandbox Claude works in, stopped partway through a turn, so the step Claude was on may not have finished. The thread's conversation is intact, and so is work Claude pushed to a branch, opened as a pull request, or posted into the thread. Files and drafts that existed only on the machine that stopped may not carry over to a fresh one. The entry [Claude lost work it created earlier](#claude-lost-work-it-created-earlier) describes the same kind of loss.
 
 **How to resolve**
 
-Wait for the reconnect message, or mention Claude in the same thread when the message asks you to. Claude resumes there and continues from the conversation; ask it to check on the step it was working on and redo anything that didn't finish. If the same notice comes back, the underlying problem hasn't cleared yet. Wait a few minutes and mention Claude again.
+If the message says how long to wait, wait that long. If Claude hasn't posted in the thread by then, or if the message asks you to mention Claude, mention `@Claude` in the same thread. Claude runs the interrupted step again, so check the files and drafts from before the disconnect and ask Claude to redo anything that's missing.
+
+If the message says there's no need to mention Claude, wait for Claude to post in the thread. Claude re-checks its earlier work, then continues.
+
+If a disconnect message comes back after you mention Claude, the problem hasn't cleared yet. Wait a few minutes, then mention Claude in the thread again.
 
 ### Something went wrong and I couldn't finish this turn
 
@@ -478,13 +484,13 @@ A connector you use on claude.ai is missing when you work with Claude in Slack, 
 
 **What it means**
 
-Where you message Claude determines which connectors apply. A channel uses only the connections an admin attached to it, and personal connectors never apply there. A DM runs on your own claude.ai account and uses that account's connectors.
+Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use your personal connectors there for your own tasks, after you allow it. A DM runs on your own claude.ai account and uses that account's connectors.
 
 You set up and authenticate connectors on claude.ai under **Customize > Connectors**; Slack has no connector settings of its own. The [settings map](/docs/claude-tag/concepts/settings-map) covers every settings surface.
 
 **How to resolve**
 
-For a channel, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections) for the service.
+For a channel, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections) for the service. If [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available to your organization, Claude can also use your personal connectors for your own tasks, after you allow it.
 
 For a DM, work through these in order:
 

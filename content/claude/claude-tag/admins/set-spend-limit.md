@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-Work Claude does in channels bills to your **organization's usage balance**, not to individual seats. The **spend limit** is a cap you set on how much of that balance Claude Tag can use each billing period.
+Work Claude does in channels bills to your **organization's usage balance**, not to individual seats. The **spend limit** is a cap you set on how much of that balance Claude Tag can use each month.
 
 | Work                                                                                                                                                                             | Bills to                          | Capped by                                                                                             |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------------- |
@@ -35,11 +35,11 @@ Not every organization sees this page. A trial organization that hasn't enabled 
   </Step>
 
   <Step title="Enter an amount">
-    Enter an amount in your organization's billing currency. The spend limit resets at the start of each billing period and applies across every paired workspace. You can change it any time.
+    Enter an amount in your organization's billing currency. The spend limit resets at the start of each month and applies across every paired workspace. You can change it any time.
   </Step>
 </Steps>
 
-There's no published per-task cost guidance. For a pilot, set a spend limit you're comfortable with for the first billing period, then watch the per-channel usage breakdown on the same page and adjust.
+There's no published per-task cost guidance. For a pilot, set a spend limit you're comfortable with for the first month, then watch the per-channel usage breakdown on the same page and adjust. If a promotional credit covers the pilot's usage, that breakdown shows \$0.00. In that case, watch the **List price** column of the **Spend by channel** table at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag) instead.
 
 ## What happens when the spend limit is reached
 
@@ -64,7 +64,9 @@ Per-channel limits and the per-channel spend breakdown are on the same usage pag
 
 ## Attribute costs by channel
 
-In claude.ai you see spend per channel, not per user. The usage page at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag) shows each channel's spend. Channel work bills to your organization's usage balance, not to any user's seat.
+In claude.ai you see spend per channel, not per user. Channel work bills to your organization's usage balance, not to any user's seat.
+
+The usage page at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag) shows spend broken down by channel, at list price. Usage covered by a promotional credit isn't counted there and shows as \$0.00. To see each channel's list-price spend for the current month including covered usage, use the **List price** column of the **Spend by channel** table at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag).
 
 To attribute spend to teams or departments for showback or chargeback reporting, structure channels so each maps to one team or department, and give those channels [their own scopes](/docs/claude-tag/admins/attach-to-scope). The per-channel breakdown then reads as your per-team report, and per-channel spend limits act as team-level budgets.
 

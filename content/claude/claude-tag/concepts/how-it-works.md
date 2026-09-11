@@ -138,7 +138,7 @@ Anthropic offers several ways to work with Claude on real tasks; they reach the 
 | Who sees the work | Everyone in the channel                                           | Just you                              | Just you                                     |
 | Best for          | Shared work the team should see and steer                         | Personal research and drafting        | Hands-on coding in your own checkout         |
 
-The short version: **team work → Claude Tag; personal work → Cowork or Claude Code.** Claude Tag's connections authenticate the agent itself with service accounts, not any person. Personal connectors apply in a Claude Tag DM, which runs on your own claude.ai account, the same way Cowork does.
+The short version: **team work → Claude Tag; personal work → Cowork or Claude Code.** Claude Tag's connections authenticate the agent itself with service accounts, not any person. Personal connectors apply in a Claude Tag DM, which runs on your own claude.ai account, the same way Cowork does. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use your personal connectors in a channel for your own tasks, after you allow it.
 
 ## Key concepts
 
@@ -209,7 +209,7 @@ Because access is set per channel rather than per person, the way to find out wh
 
 * **Ask what Claude can reach.** In any channel, `@Claude what can you access from this channel?` lists its current reach.
 * **If Claude cannot reach something, the channel was not granted access.** Another channel may have the access, and an organization Owner can add it. [How agent identity works](/docs/claude-tag/concepts/agent-identity) covers the model.
-* **Personal connectors apply only in DMs.** A connection an admin attaches to a channel is separate from a connector on your personal claude.ai account; anything on your own account works in your DMs, not here.
+* **Personal connectors are separate from channel connections.** A connection an admin attaches to a channel is separate from a connector on your personal claude.ai account. Your own connectors work in your DMs. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use them in a channel for your own tasks, after you allow it.
 
 ### One-off and scheduled tasks
 

@@ -58,7 +58,7 @@ Open threads pile up here the way they do in any project channel. A scheduled di
 @Claude every Friday at 3pm Pacific, post a digest of this channel: what closed this week, what's still open, and what hasn't moved in five days. Skip anything with a ✅ reaction.
 ```
 
-Give the digest a concrete threshold, like five days without movement, and stalled work shows up without you asking for it. React ✅ to anything you consider done, and the digest drops it. Include the timezone, since schedules default to UTC. To list, edit, or cancel scheduled work later, see [manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Give the digest a concrete threshold, like five days without movement, and stalled work shows up without you asking for it. React ✅ to anything you consider done, and the digest drops it. Include the timezone in the message, since schedules run in UTC. To list, edit, or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
 
 ### Hand a thread to a teammate
 

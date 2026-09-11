@@ -4,7 +4,7 @@
 
 # Security and data handling
 
-> Claude Tag runs in an isolated sandbox that holds no credentials. Covers sandbox isolation, credential storage, network egress, service accounts, isolating credentials between channels and what one channel can reach, who can open a published artifact, and which members can invoke Claude.
+> How Claude Tag keeps credentials out of the sandbox, limits where a channel session's requests can go, and controls who can see artifacts and invoke Claude.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -20,15 +20,15 @@ DMs run on the user's own claude.ai account instead and are covered separately o
 
 Each Slack thread runs in its own sandbox. In an Anthropic-hosted environment, every outbound call from that sandbox passes through the same checkpoints.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=e8776cf0edd1f3ec912b9b044c9cc838" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path.svg" />
+<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/oY6LusJt4c576Dc3/images/claude-tag/diagrams/request-path.svg?fit=max&auto=format&n=oY6LusJt4c576Dc3&q=85&s=a7f2e0f4303072b4c8e4f3197bf0cb12" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request that no rule, domain entry, or environment network access setting allows is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path.svg" />
 
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=a2ed5f3270989c3ed3d9b9a78a72bff0" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path-dark.svg" />
+<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/oY6LusJt4c576Dc3/images/claude-tag/diagrams/request-path-dark.svg?fit=max&auto=format&n=oY6LusJt4c576Dc3&q=85&s=a728805c81b642004e1e15da96967e4c" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request that no rule, domain entry, or environment network access setting allows is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path-dark.svg" />
 
-| Checkpoint   | The guarantee                                                                                                  |
-| :----------- | :------------------------------------------------------------------------------------------------------------- |
-| The sandbox  | Holds no credentials                                                                                           |
-| Agent Proxy  | Injects credentials from the credential store at request time, and blocks traffic to unlisted hosts by default |
-| Your systems | See the agent's own accounts, so its actions there are attributable                                            |
+| Checkpoint   | The guarantee                                                                                                                                                                                                                                                                                                                                                                           |
+| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The sandbox  | Holds no credentials                                                                                                                                                                                                                                                                                                                                                                    |
+| Agent Proxy  | Injects credentials from the credential store at request time, and blocks a request that no [connection](/docs/claude-tag/admins/add-connections#set-allowed-websites), [**Domains** entry](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential), or [environment network access level](/docs/claude-tag/admins/add-connections#broad-web-access-through-the-environment) allows |
+| Your systems | See the agent's own accounts, so its actions there are attributable                                                                                                                                                                                                                                                                                                                     |
 
 ### Compute and the sandbox
 
@@ -39,7 +39,7 @@ When a thread goes quiet, its sandbox is released; replying in the thread builds
 * **Persists:** The thread, its visible work, and anything pushed to a branch, opened as a pull request, or posted into Slack.
 * **Does not persist:** Files that existed only inside the sandbox. To keep generated files, ask Claude to push them to a branch or post them in the thread.
 
-Claude Tag retains channel memory and session transcripts. Because of that retention, Claude Tag isn't available to organizations with Zero Data Retention (ZDR) enabled.
+Claude Tag retains channel memory and session transcripts. Because of that retention, Claude Tag isn't available to organizations with Zero Data Retention (ZDR) enabled. Claude Tag also isn't available to organizations with a customer-managed encryption (CMEK) policy.
 
 ### Credential storage
 
@@ -69,7 +69,9 @@ In channels, Claude acts under service credentials of its own, not under the acc
 
 A connection belongs to that agent identity and is shared by everyone the bundle's scope covers. Anyone in a channel under that scope can ask Claude to act with the credential, so whatever the connected account can read or write is available to every member of those channels. Connect a dedicated identity you control for each service, such as a `claude@yourcompany.example.com` seat or a native service account, rather than a personal login. A dedicated account keeps the agent's actions separately auditable in each tool's logs and lets you revoke its access without affecting a person; see [Create a dedicated account per service](/docs/claude-tag/admins/add-connections#create-a-dedicated-account-per-service).
 
-DMs with `@Claude` run on the user's own claude.ai account instead, with that user's personal connectors, and work there is attributed to them, except pull requests, which the Claude GitHub App authors from DMs as well. Personal connectors apply only in DMs, never in channels. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+DMs with `@Claude` run on the user's own claude.ai account instead, with that user's personal connectors, and work there is attributed to them, except pull requests, which the Claude GitHub App authors from DMs as well. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+
+Personal connectors in channels is available to a limited number of organizations. Where it is available, Claude uses a user's personal connectors in a channel only for that user's own tasks, after the user allows it. The work runs with that user's permissions and is recorded under their name. Requests other people make to Claude in the task's thread run with the channel's own access, not with that user's connectors. Claude is designed to take direction from the connector's owner, treating what other people post in the thread as information for the task rather than as instructions, and the owner can tell Claude in the task's thread to stop. See [Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors).
 
 ### Isolate credentials between channels
 
@@ -87,7 +89,7 @@ Confine a credential to one channel in three steps:
 
 1. Attach its bundle to that channel and nowhere broader.
 2. Keep the channel private. A bundle on a public channel [grants its access to anyone who joins](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel).
-3. Check the channel's **Access summary** on the [Slack tab in admin settings](/docs/claude-tag/admins/attach-to-scope). It shows the access the channel actually gets, including what it inherits from the workspace and Default Slack access.
+3. Check the channel's **Connectors**, **Repositories**, and **Plugins** sections on the [Slack tab in admin settings](/docs/claude-tag/admins/attach-to-scope). They list the access the channel gets, including rows inherited from the workspace or from Default Slack access, each with an origin line naming where it comes from.
 
 Claude [doesn't operate in externally shared channels](/docs/claude-tag/admins/restrict-access#externally-shared-channels), so a channel shared with another company never has a session to isolate.
 

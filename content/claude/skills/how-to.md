@@ -49,11 +49,7 @@ description: Apply Acme Corp brand guidelines to presentations and documents, in
 
 **name**: Lowercase letters, numbers, and hyphens only. Maximum 64 characters. Must match the directory name.
 
-**description**: Explains what the skill does and when to use it. Claude uses this to determine when to invoke your skill.
-
-<Warning>
-  Claude.ai limits descriptions to **200 characters**. The [Agent Skills specification](https://agentskills.io/specification) allows up to 1024 characters, but skills uploaded to Claude.ai must use the shorter limit.
-</Warning>
+**description**: Explains what the skill does and when to use it. Claude uses this to determine when to invoke your skill. Maximum 1,024 characters, the same limit as the [Agent Skills specification](https://agentskills.io/specification).
 
 ### Markdown body
 

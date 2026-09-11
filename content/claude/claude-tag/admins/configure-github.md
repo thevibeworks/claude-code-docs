@@ -30,11 +30,13 @@ You link GitHub once for your Claude organization, then grant repositories per A
   </Step>
 
   <Step title="Connect Claude to GitHub">
-    Click **Connect Claude to GitHub** (**Connect**, once any account is already linked) and complete the GitHub authorization. After authorizing, the page shows two sections: **Connected GitHub accounts** lists accounts already linked, with a **Type** column of **Organization** or **Personal**, and **Unlinked accounts** lists organizations where the Claude GitHub App is installed but not yet linked. Claude Tag uses **Organization** accounts only; a **Personal** row is someone's own GitHub account and can't be used for your repositories.
+    Click **Connect Claude to GitHub** (**Connect**, once any account is already linked) and complete the GitHub authorization. After authorizing, the **Connected GitHub accounts** table lists the GitHub accounts the Claude GitHub App is installed on. The **Type** column reads **Organization** or **Personal**. An account already linked to your Claude organization shows **Connected**, and one that still needs linking shows **Not linked**. Claude Tag uses **Organization** accounts only; a **Personal** row is someone's own GitHub account and can't be used for your repositories.
   </Step>
 
   <Step title="Link or install">
-    If your organization is under **Unlinked accounts**, click **Link** next to it. If it isn't listed at all, click **Install on another organization** and complete the install on github.com; you're returned to this page with the organization under **Connected GitHub accounts** as **Connected**.
+    If your organization's row reads **Not linked**, select the **Link** button next to it. If it isn't listed at all, click **Install on another organization** and complete the install on github.com; you're returned to this page with the organization under **Connected GitHub accounts** as **Connected**.
+
+    An organization can also be missing from the table because single sign-on (SSO) on GitHub hides it. A note under the table counts the organizations hidden that way. To make them appear, authorize the Claude app for those organizations on GitHub.
 
     * A disabled **Link** button means you can't link that account yet; the button's tooltip names the reason, such as not being an owner of that GitHub organization
     * A **Needs permissions** status means the installation has a pending request; **Review permissions** takes you to github.com to approve it
@@ -44,7 +46,7 @@ You link GitHub once for your Claude organization, then grant repositories per A
 
 ## Grant repository access
 
-The remaining steps are in the Claude Tag admin page, not GitHub's settings. Repository grants live on the Access bundle; editing a bundle's Repositories tab requires the **Owner** role in your Claude organization. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can also add repositories to their own channel, limited to repositories their GitHub account can write to.
+The remaining steps are in the Claude Tag admin page, not GitHub's settings. Repository grants live on the Access bundle; editing a bundle's Repositories tab requires the **Owner** role in your Claude organization. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can also add repositories to their own channel, limited to repositories their GitHub account is an admin of.
 
 <Steps>
   <Step title="Open the bundle's Repositories tab">

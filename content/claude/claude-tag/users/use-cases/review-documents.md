@@ -76,7 +76,7 @@ New documents arrive every week, and the same check applies to each. Schedule th
 @Claude every Monday at 9am Pacific, check the shared folder for documents added in the past week, review each against the review checklist, and post the findings here.
 ```
 
-Including the timezone matters, since schedules default to UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Include the timezone in the message, since schedules run in UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
 
 Keep the checklist as a document Claude can read, in the connected tool or linked in the channel, rather than re-describing its contents in [channel memory](/docs/claude-tag/users/memory).
 
