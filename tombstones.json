@@ -7,6 +7,10 @@
       "since": "2026-09-01",
       "reason": "moved -> https://claude.com/docs/claude-science/comments"
     },
+    "https://claude.com/docs/claude-science/run-on-windows": {
+      "since": "2026-09-11",
+      "reason": "moved -> https://claude.com/docs/claude-science/get-started"
+    },
     "https://claude.com/docs/claude-science/run-on-windows-wsl": {
       "since": "2026-09-10",
       "reason": "moved -> https://claude.com/docs/claude-science/run-on-windows"
