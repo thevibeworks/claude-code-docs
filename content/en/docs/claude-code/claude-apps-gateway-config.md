@@ -30,7 +30,7 @@ Five sections are [required](#required-sections). Every other section is [option
 
 * [`admin`](#admin): Admin API auth and retention for spend limits
 * [`enforcement`](#enforcement): spend-limit fail-open or fail-closed behavior
-* [`pricing`](#pricing): contracted rates and a discount multiplier for the spend meter
+* [`pricing`](#pricing): contracted rates and a discount multiplier for the spend meter and for the cost figures developers see
 * [`models`](#models) and `auto_include_builtin_models`: admin-curated model list and per-upstream IDs
 * [`managed`](#managed): managed settings policies by IdP group
 * [`telemetry`](#telemetry): OTLP forwarding to your observability stack
@@ -118,7 +118,11 @@ For local development, point `postgres_url` at a throwaway Postgres container, f
 
 ### `upstreams`
 
-`upstreams` is an ordered list. The gateway forwards inference to the first upstream that resolves the requested model. On `5xx`, `429`, `401`, `403`, `404`, or timeout it fails over to the next; other `4xx` doesn't, because those errors are attributable to the request rather than the upstream. A `401` or `403` means the gateway's own credential failed against that upstream, and a `404` means that upstream doesn't serve the requested model, so a later upstream in the list still can.
+`upstreams` is an ordered list. The gateway forwards inference to the first upstream that resolves the requested model.
+
+On `5xx`, `429`, `401`, `403`, `404`, or timeout the gateway fails over to the next upstream; other `4xx` doesn't, because those errors are attributable to the request rather than the upstream. A `401` or `403` means the gateway's own credential failed against that upstream. A `404` means that upstream doesn't serve the requested model, so a later upstream in the list still can.
+
+If you set `forward_user_identity: true` on an upstream, a `429` it returns to a request that carried the developer's email doesn't fail over. See [how a per-user limit denial reaches the developer](#per-user-identity-headers-for-a-proxy-you-run).
 
 Failover on `404` requires gateway v2.1.198 or later. Earlier releases returned the first `404` to the client even when a later upstream in the list served the model.
 
@@ -203,6 +207,8 @@ The gateway adds these headers to every request it forwards to that upstream.
 | `x-claude-gateway-user-email` | The developer's email, when the IdP supplied one.          |
 
 When the IdP token carries no email, the gateway sends only `x-claude-gateway-user-id` and omits the two email headers. If your IdP puts the email in a different claim, set [`oidc.email_claim`](#oidc) to that claim.
+
+When your proxy answers `429` to a request that carried the developer's email, the gateway returns that response to the developer as-is instead of failing over to the next upstream, so your proxy's per-user budget or rate limit holds. The proxy's other responses follow the ordinary [failover rules](#upstreams). If a developer's IdP token carries no email, the gateway forwards their requests without the email headers, so a `429` to one of those requests counts as upstream capacity and fails over. Before v2.1.267 on the gateway server, every `429` failed over.
 
 Set `forward_user_identity` only on an upstream whose `base_url` is a proxy you operate. The gateway sends developer emails to whatever server that `base_url` names. If the `base_url` is the Anthropic API, which is the default, the gateway refuses to start.
 
@@ -333,7 +339,9 @@ The same provider can appear more than once with a distinct `name:`. This covers
 
 The gateway tries upstreams in order. `5xx`, `429`, `401`, `403`, `404`, timeouts, and missing-endpoint (`501`) fail over; other `4xx` doesn't.
 
-`429` is per-upstream capacity, so provisioned-throughput (PT) exhaustion fails over to on-demand. `404` is per-upstream model availability, so an upstream that hasn't enabled a model doesn't block a later upstream that serves it. An upstream that can't resolve the requested model is skipped without a network round-trip.
+`429` is per-upstream capacity, so provisioned-throughput (PT) exhaustion fails over to on-demand. If you set [`forward_user_identity: true`](#per-user-identity-headers-for-a-proxy-you-run) on an upstream, a `429` to a request that carried the developer's email is a per-user denial instead and doesn't fail over.
+
+`404` is per-upstream model availability, so an upstream that hasn't enabled a model doesn't block a later upstream that serves it. An upstream that can't resolve the requested model is skipped without a network round-trip.
 
 This example routes a provisioned-throughput Amazon Bedrock allotment first, overflows to on-demand and a second account, and falls back to the Anthropic API last:
 
@@ -431,7 +439,7 @@ The `enforcement` block controls how spend-limit checks behave when the store is
 The `pricing` block tells the spend meter what to charge instead of USD list price, so caps and [`/effective`](/docs/en/claude-apps-gateway-spend-limits#%2Feffective) reflect your contracted rates. Amounts stay in USD and remain an estimate, not an invoice. Two prerequisites:
 
 * Claude Code v2.1.227 or later on the gateway server. Earlier versions reject the unknown key at boot.
-* An [`admin:`](#admin) block, because only the spend meter reads `pricing`. The gateway refuses to start with `pricing` set and no `admin`.
+* An [`admin:`](#admin) block or, in v2.1.268 or later, a [`managed:`](#managed) block with at least one policy. The gateway refuses to start with `pricing` set and neither block, because nothing would read it.
 
 ```yaml theme={null}
 pricing:
@@ -448,7 +456,7 @@ pricing:
 | Field        | Required | Description                                                                                                                                                                |
 | ------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `multiplier` | No       | Default `1`. The meter multiplies every metered amount by this, whether list-priced or overridden, so `0.85` bills 85% of the price. Must be greater than 0 and at most 1. |
-| `overrides`  | No       | Rows of `{upstream, model, input, output, cache_read, cache_write}` in USD per million tokens. All four rates are required and must be positive.                           |
+| `overrides`  | No       | Rows of `{upstream, model, input, output, cache_read, cache_write}` in USD per million tokens. All four rates are required. Each must be greater than 0 and at most 10000. |
 
 How the meter matches an override row:
 
@@ -459,6 +467,14 @@ How the meter matches an override row:
 * Web-search requests stay at the \$0.01 list price; the multiplier still applies to them.
 
 For per-region rates, give each region its own named upstream and one row per upstream.
+
+#### Send the rates to signed-in clients
+
+With v2.1.268 or later on the gateway server, the gateway also puts the rates from `pricing` into the [`managed`](#managed) policies it serves, as the [`modelPricing`](/docs/en/settings-reference#modelpricing) managed setting. Developers matched by a policy then see the `pricing` rates for the first upstream that serves each model ID in `/usage`, the status line, and OpenTelemetry. A developer who matches no policy receives no managed settings, so their figures stay at list price. Clients apply the setting in Claude Code v2.1.242 or later.
+
+* What the gateway adds: unless a policy's `cli` block already sets `modelPricing`, the gateway adds the `multiplier` and, for every model ID a client can request, the override row of the first upstream that serves that ID. A rate that only a failover upstream charges stays on the gateway.
+* Opt one policy out: set `modelPricing` to `{}` in that policy's `cli` block, and its developers stay at list price.
+* Keep a policy's own rates: a policy whose `cli` block sets `modelPricing` with its own `multiplier` or `overrides` keeps that `modelPricing` whole, and the gateway adds no rates of its own to it.
 
 ### `models`
 
@@ -642,7 +658,7 @@ The gateway derives much of the response from the matched policy's `cli` block a
 * The model list, from `availableModels`
 * Disabled tools, from bare tool-name `permissions.deny` entries. If you set `disabledBuiltinTools` in the policy's `desktop` block, the gateway serves the union of your value and the derived list, so you can disable more tools this way but can't re-enable one you disabled through `permissions.deny`
 * The egress allowlist, from `sandbox.network.allowedDomains`. If you set `coworkEgressAllowedHosts` in the policy's `desktop` block, the gateway uses that value instead of the derived list
-* An OTLP endpoint that points at the gateway itself, which fans out to your destinations, included when [`telemetry`](#telemetry) forwarding is configured.
+* An OTLP endpoint that points at the gateway itself, and the signed-in user's identity attributes. The gateway relays the exports it receives at that endpoint to your `forward_to` destinations. It includes the endpoint and the attributes when you set both [`telemetry.forward_to`](#telemetry) and `listen.public_url`.
 
   Claude Desktop exports every signal with one encoding: `http/protobuf`, or `http/json` when you set `OTEL_EXPORTER_OTLP_PROTOCOL` or one of its per-signal variants to `http/json` in the policy's `env`. Before Claude Code v2.1.261 on the gateway server, the response set `http/json` regardless, so a collector that accepts only protobuf rejected Claude Desktop's exports
 
@@ -696,9 +712,17 @@ Gateway policies apply to every Claude Code invocation on the machine, including
 
 ### `telemetry`
 
-The CLI sends OpenTelemetry Protocol (OTLP) over HTTP metrics, logs, and, when enabled, traces to the gateway, which relays them verbatim to each configured destination. See [Monitoring usage](/docs/en/monitoring-usage) for the metrics and events the CLI emits.
+The CLI sends metrics, logs, and, when enabled, traces to the gateway, which relays them verbatim to each configured destination. The exports use OpenTelemetry Protocol (OTLP) over HTTP. To skip the relay and have sessions export straight to your collector, [name the collector in a policy](#export-directly-to-your-collector). See [Monitoring usage](/docs/en/monitoring-usage) for the metrics and events the CLI emits.
 
 The CLI stamps each export with the authenticated user's identity, read from the gateway-issued JWT: the `user.id`, `user.email`, and `user.groups` attributes. Per-developer cost and usage attribution therefore works with no developer-side configuration.
+
+[Claude Desktop](#claude-desktop-overlay) and Cowork sessions signed in through the gateway stamp their telemetry with `user.email` and `user.groups` alongside `enduser.id`, so you can cover terminal, Desktop, and Cowork usage with one query on `user.email` or `user.groups`. `user.groups` is the comma-separated IdP group list.
+
+Like all OpenTelemetry data from Claude Code, these attributes go only to destinations your organization configures, never to Anthropic.
+
+If a user's group list is longer than 255 characters once percent-encoded, or a group name contains a comma or equals sign, the gateway leaves `user.groups` off that user's Desktop and Cowork telemetry rather than truncating it. That user's terminal sessions still carry the full list.
+
+You need Claude Code v2.1.265 or later on the gateway server for `user.email` and `user.groups` on Desktop and Cowork telemetry, and Claude Desktop 1.24012 or later on each developer's machine for `user.groups`.
 
 ```yaml theme={null}
 telemetry:
@@ -731,20 +755,62 @@ Each `forward_to` URL must use `https://`, with one exception for a collector on
 
 For an in-cluster collector, expose it over HTTPS at its own internal address, or run it as a sidecar with the variable set.
 
-Telemetry is off in the CLI by default. Configuring `telemetry.forward_to` together with `listen.public_url` turns it on. The gateway pushes six env vars to every connected client through `/managed/settings`:
+Telemetry is off in the CLI by default. When you set both `telemetry.forward_to` and `listen.public_url`, the gateway turns it on for connected clients by pushing six environment variables through `/managed/settings`:
 
 * `CLAUDE_CODE_ENABLE_TELEMETRY=1`
-* `OTEL_METRICS_EXPORTER=otlp`
-* `OTEL_LOGS_EXPORTER=otlp`
-* `OTEL_TRACES_EXPORTER=otlp`
+* `OTEL_METRICS_EXPORTER`, `OTEL_LOGS_EXPORTER`, and `OTEL_TRACES_EXPORTER`, each set to `otlp` if at least one `forward_to` destination enables that signal and to `none` otherwise
 * `OTEL_EXPORTER_OTLP_ENDPOINT=<public_url>`
 * `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`
 
-The pushed endpoint is built from the public URL, so metrics and logs need no OTEL configuration from developers or policies. The pushed configuration is applied at the managed tier, overriding `OTEL_*` variables a developer sets locally. Whether or not the gateway pushes these variables, a CLI signed in through `/login` that has OTLP/HTTP export enabled sends its exports to the gateway rather than to a locally configured endpoint, and without a `forward_to` destination for a signal the gateway accepts and discards it; if you already collect Claude Code telemetry directly, add your collector as a `forward_to` destination.
+Before Claude Code v2.1.265 on the gateway server, the gateway pushed all three exporter selectors as `otlp`, including for signals no destination opted into.
 
-[Traces](/docs/en/monitoring-usage#traces-beta) additionally require `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` on each client. The gateway doesn't push that variable, so set it through a managed policy's `env` block. It isn't among the variables Claude Code applies without the developer's approval, so delivering it through a policy is covered by the same [security approval dialog](#managed) that the pushed OTLP endpoint already triggers.
+The pushed endpoint is built from the public URL, so metrics and logs need no OTEL configuration from developers or policies.
+
+Developers signed in through `/login` can't redirect exports with their own OTEL configuration:
+
+* **Locally set variables**: Claude Code applies the pushed variables at the managed tier, so each one overrides the value a developer sets for it locally.
+* **Locally configured endpoints**: with OTLP/HTTP export enabled, the CLI ignores any locally configured endpoint, whether or not the gateway pushed the telemetry variables. Its exports go to the gateway unless a policy [names your collector as the endpoint](#export-directly-to-your-collector).
+
+Without a `forward_to` destination for a signal, the gateway accepts and discards it. If developers already export Claude Code telemetry to one of your collectors, add it as a `forward_to` destination, with logs or traces enabled if they export those, so it keeps receiving their data after they sign in. To skip the relay instead, [name the collector in a policy](#export-directly-to-your-collector).
+
+[Traces](/docs/en/monitoring-usage#traces-beta) also require `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` on each client. Set it in a managed policy's `env` block, since the gateway doesn't push it. Developers approve it in the same [security approval dialog](#managed) that the pushed endpoint already triggers.
+
+Set it to `1` only in the policies whose groups you want traced. A policy that doesn't set it inherits the value from your `match: {}` catch-all policy if that policy sets one, per the [merge rules](#managed). To keep a group's clients from sending traces even when a developer sets the variable locally, set it to `0` in that group's policy.
 
 Both protobuf and JSON OTLP encodings are relayed, and any OpenTelemetry-compatible backend works as a destination.
+
+#### Export directly to your collector
+
+To have sessions signed in through `/login` send telemetry straight to your collector instead of through the relay, set `OTEL_EXPORTER_OTLP_ENDPOINT` to the collector's `https://` base URL in the `env` block of a [managed policy](#managed). Claude Code appends `/v1/metrics`, `/v1/logs`, or `/v1/traces` to the URL you set, such as `https://otel-collector.example.com:4318`, and exports each signal there over OTLP/HTTP. Requires Claude Code v2.1.265 or later on each developer's machine. Earlier clients export through the relay.
+
+To authenticate to the collector, set `OTEL_EXPORTER_OTLP_HEADERS` in the same `env` block. Sessions never send the developer's gateway session token to a collector named this way.
+
+When you add or change this endpoint in a policy, Claude Code asks each developer to approve it in the [security approval dialog](#managed) before applying it in an interactive session.
+
+Claude Code checks the endpoint before it exports a signal directly, and keeps that signal on the relay when a check fails. The checks include:
+
+* The endpoint comes from the gateway itself. If you set the same variable in an MDM profile or a local `managed-settings.json`, exports stay on the relay.
+* The URL uses `https://`, or `http://` to a loopback address
+* The URL resolves to a path ending in `/v1/<signal>`, with no query or fragment. Claude Code builds that path itself from the generic variable. It uses a per-signal variable such as `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` as written, so include the full path there.
+* The URL isn't the gateway's own host. An endpoint addressed to the gateway keeps the relay path and its session token.
+* Neither you nor the developer has configured [`otelHeadersHelper`](/docs/en/settings-reference#otelheadershelper) in any settings source. With a helper configured, every signal stays on the relay.
+
+The endpoint you name changes only where exports go. You still choose which signals export at all with the `OTEL_*_EXPORTER` selectors.
+
+The endpoint alone doesn't turn export on, so also set the variables that do, unless the gateway already pushes them:
+
+* If the gateway already [pushes the telemetry variables](#telemetry), they cover enablement, selectors, and protocol, and your explicit endpoint overrides the pushed `<public_url>` value. Set an `OTEL_*_EXPORTER` selector to `otlp` yourself only for a signal that no `forward_to` destination enables.
+* If it doesn't, also set `CLAUDE_CODE_ENABLE_TELEMETRY=1`, the `OTEL_*_EXPORTER` selectors, and `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`.
+
+When the developer signs out, or signs in to a different gateway, exports to the collector stop and Claude Code drops each remaining batch rather than sending it.
+
+#### When a destination fails
+
+The gateway doesn't buffer, retry, or store telemetry, so it drops an export that doesn't reach a destination rather than delivering it late. Each destination succeeds or fails on its own, and the exporting client receives a success response either way, so a failed delivery appears only in the gateway's log.
+
+After five consecutive failed deliveries to a destination, the gateway pauses forwarding to it in 30-second stretches, logging each pause, until a delivery succeeds. Any error response, timeout, or connection error counts as a failed delivery, except `400`, `413`, `415`, `422`, and `431`, which mean the collector refused that export's payload as malformed or too large.
+
+A refused payload neither advances nor resets the failure count: the gateway keeps forwarding to the destination and logs a warning naming it and the status, on the destination's first refusal and every hundredth after.
 
 ### HTTP tuning
 
@@ -829,6 +895,7 @@ store:
 #   fail_closed_on_error: false
 
 # Meter at contracted rates instead of USD list price. Requires admin:.
+# With managed:, the same rates also go to signed-in clients.
 # Rates below are placeholders, not real contract prices.
 # pricing:
 #   multiplier: 0.85
@@ -920,13 +987,7 @@ For the CLI, set these keys in the per-OS `managed-settings.json`. The two login
 
 `parentSettingsBehavior: "merge"` keeps Claude Desktop's delivery of the egress allowlist to its embedded Claude Code sessions working; [Deliver policy to Claude Desktop sessions](/docs/en/claude-apps-gateway#deliver-policy-to-claude-desktop-sessions) explains the mechanism and where the opt-in must sit.
 
-Deploy the `managed-settings.json` file to each device, typically via your MDM platform. The file path differs by platform:
-
-| Platform      | Path                                                                                                                          |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| macOS         | `/Library/Application Support/ClaudeCode/managed-settings.json`, or the `com.anthropic.claudecode` managed preferences domain |
-| Linux and WSL | `/etc/claude-code/managed-settings.json`                                                                                      |
-| Windows       | `C:\Program Files\ClaudeCode\managed-settings.json`, or Group Policy via the HKLM registry                                    |
+Deploy the `managed-settings.json` file to each device, typically via your MDM platform. The file path differs by platform. See [where each mechanism stores the policy](/docs/en/managed-settings#where-each-mechanism-stores-the-policy).
 
 By default, a registry policy on Windows or a managed-preferences plist on macOS replaces the `managed-settings.json` file rather than merging with it, apart from the [exception keys and cross-source checks above](#precedence-with-other-managed-sources). All three keys in this snippet follow the highest-priority-source rule, so fleets that deliver policy through Group Policy or configuration profiles must put all three in that mechanism instead.
 

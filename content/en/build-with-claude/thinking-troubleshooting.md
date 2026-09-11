@@ -56,13 +56,19 @@ Switch the request to `thinking: {type: "adaptive"}` and steer thinking depth wi
 
 ## A 400 error says `"thinking.type.disabled"` is not supported
 
-The request fails with a 400 error whose message reads:
+The request fails with a 400 error. On Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5, the message reads:
+
+```text wrap
+"thinking.type.disabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
+```
+
+On Claude Mythos Preview, the only one of these models that accepts extended thinking, the message reads:
 
 ```text wrap
 "thinking.type.disabled" is not supported for this model. Thinking defaults to adaptive mode when not specified; use "thinking.type.enabled" with "budget_tokens" for extended thinking.
 ```
 
-This happens on models where thinking is always on: Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview reject `"disabled"`. All of these except Claude Mythos Preview also reject the error text's suggested `"thinking.type.enabled"`.
+This happens because thinking is always on for all of these models (see the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#rejected-configurations)).
 
 Omit the `thinking` parameter; these models think without any configuration. If your goal was to keep thinking text out of responses, use `display: "omitted"` instead of disabling thinking; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 

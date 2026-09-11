@@ -95,7 +95,7 @@ When the team checks the same campaign numbers at the start of every week, sched
 @Claude every Monday at 9am Eastern, post last week's campaign metrics as a chart: signups by campaign, week-over-week change, and a two-line note on anything unusual.
 ```
 
-Naming the timezone matters, since schedules default to UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
+Name the timezone in the message, since schedules run in UTC. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
 
 ### Save brand voice rules to channel memory
 

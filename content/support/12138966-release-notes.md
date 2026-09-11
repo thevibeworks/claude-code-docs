@@ -2,6 +2,12 @@
 
 ## September 2026
 
+### September 10, 2026
+
+**Smart reports (beta)**
+
+We’ve launched smart reports, which analyze how a team uses Claude and report on the work getting done, what it costs, where sessions run into friction, and which repeated patterns are worth packaging as shared skills. Smart reports are available in beta on Claude Enterprise plans. Learn more in **[Get started with smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports)**.
+
 ### September 1, 2026
 
 **Claude Fable 5.1 and Claude Mythos 5.1 launch**

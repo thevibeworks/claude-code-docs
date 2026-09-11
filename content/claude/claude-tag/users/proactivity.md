@@ -44,7 +44,7 @@ Claude can subscribe to a single pull request and react when it updates. A subsc
 
 ## Routine recipes
 
-Each recipe below sets up a complete routine with one message. Adapt the channel names, repositories, and times to your own, and name the timezone so the schedule fires when you expect.
+Each recipe below sets up a complete routine with one message. Adapt the channel names, repositories, and times to your own, and name the timezone in each message, since schedules run in UTC.
 
 ### Daily standup summary
 
@@ -111,7 +111,8 @@ A few boundaries apply:
 * A job runs with the channel's connections, the same as an interactive request.
 * Claude can post a job's output into another public channel in the same workspace only if the job's own channel is public and Claude has been added to the target channel. It labels the message with the channel it came from.
 * Claude doesn't post job output to private channels, DMs, group DMs, or externally shared channels, and doesn't message people directly. The one exception is the completion or failure notice it sends to whoever set up the routine, and only when that person's Slack account is connected to their Claude account.
-* Schedules default to UTC. When you say "every weekday at 9am," include the timezone (for example "9am Pacific") so Claude converts correctly; without one it may guess. Ask "what triggers do you have set up?" to confirm the time it actually scheduled.
+* Schedules run in UTC. Name the timezone when you set a schedule, as in "every weekday at 9am Pacific". With no timezone in your message, Claude uses the one on your Slack profile. To confirm the time Claude set, send [`@Claude !routines`](/docs/claude-tag/users/commands#list-the-routines-in-a-channel), which lists schedules in UTC.
+* A routine runs at a fixed UTC time, so each daylight saving change shifts its local time by an hour, in the same direction the clocks move. A routine running at 9am Pacific moves to 10am after the clocks go forward, or to 8am after they go back. Ask Claude to reschedule the routine to the local time you want.
 * A scheduled job that touches a github.com repository uses the same GitHub connection your admin set up for interactive work. See [Configure GitHub access](/docs/claude-tag/admins/configure-github#scheduled-work-uses-the-same-connection).
 
 ## Related resources

@@ -57,7 +57,7 @@ To bind one bundle to several channels in one pass, open the bundle from a scope
 A channel that doesn't appear in the list yet needs a scope created for it:
 
 1. On [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), find the workspace on the **Slack** tab under **Claude Tag's access** and select **Add channel**.
-2. Paste the channel's ID into the **Channel ID** field. Channel IDs start with `C`, or with `G` for some older private channels. Copy the ID from the channel's details in Slack.
+2. Pick the channel in the **Channel** field. Type a name to search public channels, or paste a channel ID or channel link copied from Slack. Private channels don't appear in the search results, so for a private channel, paste its ID from the channel's details in Slack. Channel IDs start with `C`, or with `G` for some older private channels.
 3. Save, then bind bundles in the new scope's **Access bundles** section, the same as for a workspace.
 
 In a channel shared across more than one workspace in your Enterprise Grid, bundles bound to the channel or its workspace don't apply. See [Channels shared across workspaces in your Enterprise Grid](/docs/claude-tag/admins/restrict-access#channels-shared-across-workspaces-in-your-enterprise-grid) for what Claude does there instead.
@@ -77,7 +77,13 @@ Each connector or repository row in these sections carries an origin line that s
 
 Select the scope name to open that scope, or the bundle name to open the bundle.
 
-The grant still lives in a bundle. The item is added to the bundle that was created for that scope, or to the scope's only bundle when that bundle is bound nowhere else, and otherwise a new bundle is created for the scope. If the bundle created for the scope is now bound to other scopes too, the add is refused with a message telling you to manage that bundle's repositories and connectors in **Access bundles** instead, so adding here never widens another scope's access.
+An item you add with the **+** button is still stored in a bundle, chosen in this order:
+
+1. The bundle that was created for that scope, if it exists
+2. The scope's only bundle, if that bundle is bound nowhere else
+3. A new bundle created for the scope
+
+When the receiving bundle is bound to other scopes too, the picker shows a note that the addition applies in every scope the bundle is bound to.
 
 ## Precedence when bundles overlap
 
@@ -93,7 +99,7 @@ When two bundles each carry a credential for the same host:
 
 ### Repositories and plugins
 
-Repository grants and plugins from every bound bundle are combined as a union; a channel gets every repo and plugin from any bundle in its chain. The **Access summary** section, shown when a scope you select on the Slack tab has any resolved connections or repositories, lists them with the bundle each one comes from. Plugins aren't listed there. The scope's **Plugins** section shows only the plugins attached at that scope, and plugins inherited from wider scopes and from bundles apply without appearing in it.
+Repository grants and plugins from every bound bundle are combined as a union; a channel gets every repo and plugin from any bundle in its chain. To see what applies to a channel, select its scope on the **Slack** tab. The scope's panel lists everything that applies there in its **Connectors**, **Repositories**, and **Plugins** sections, inherited items included. Each row's origin line says **Inherited from** the wider scope or **Attached from** the bundle that carries it. Select the scope or bundle name in the origin line to open it.
 
 ### Custom instructions
 

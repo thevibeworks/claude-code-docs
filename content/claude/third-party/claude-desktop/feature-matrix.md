@@ -10,7 +10,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 ## Key differences
 
-**Configuration.** Claude Enterprise uses a web-based admin console. Claude Desktop on 3P is configured via [MDM](/docs/third-party/claude-desktop/mdm) (Jamf, Intune, Group Policy) or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap); organizations in the admin console beta can instead manage it from **Organization settings** on claude.ai.
+**Configuration.** Both are administered from the web-based [admin console](/docs/third-party/claude-desktop/admin-console) in **Organization settings** on claude.ai. Claude Desktop on 3P can also be configured through [MDM](/docs/third-party/claude-desktop/mdm) (Jamf, Intune, Group Policy) or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap).
 
 **Telemetry.** Claude Desktop on 3P sends usage and debugging metrics only, and these can be fully disabled via managed configuration. Claude Enterprise does not offer telemetry toggles. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry).
 
@@ -22,34 +22,36 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 ## User features
 
-| Feature                                             | Claude Enterprise | Claude Desktop on 3P |
-| --------------------------------------------------- | :---------------: | :------------------: |
-| Chat                                                |         ✓         |   ✓ (admin opt-in)   |
-| Cowork                                              |         ✓         |           ✓          |
-| Code                                                |         ✓         |           ✓          |
-| Auto mode (Code)                                    |         ✓         |   ✓ (admin opt-in)   |
-| Automatically approve / Skip all approvals (Cowork) |        — ¶        |   ✓ (admin opt-in)   |
-| Projects                                            |         ✓         |           ✓          |
-| Code execution for analysis                         |         ✓         |           ✓          |
-| Web search                                          |         ✓         |          ✓ §         |
-| File access, upload, and export                     |         ✓         |           ✓          |
-| Local MCP                                           |         ✓         |           ✓          |
-| Remote MCP                                          |         ✓         |           ✓          |
-| Skills, plugins, and hooks                          |         ✓         |           ✓          |
-| Artifacts                                           |         ✓         |           ✓          |
-| Memory                                              |         ✓         |          ✓ †         |
-| Scheduled tasks                                     |         ✓         |           ✓          |
-| Global languages                                    |         ✓         |           ✓          |
-| Project and plugin sharing                          |         ✓         |           —          |
-| Plugin marketplaces                                 |         ✓         |           ✓          |
-| Mobile                                              |         ✓         |           —          |
-| claude.ai web-based access                          |         ✓         |           —          |
-| Voice mode                                          |         ✓         |           —          |
-| Claude in Chrome                                    |         ✓         |           —          |
-| Claude Design                                       |         ✓         |           —          |
-| Claude Security                                     |         ✓         |           —          |
-| Claude Tag                                          |         ✓         |           —          |
-| Computer use                                        |         —         |           —          |
+| Feature                                                                                                                             | Claude Enterprise | Claude Desktop on 3P |
+| ----------------------------------------------------------------------------------------------------------------------------------- | :---------------: | :------------------: |
+| Chat                                                                                                                                |         ✓         |           ✓          |
+| Cowork                                                                                                                              |         ✓         |           ✓          |
+| Code                                                                                                                                |         ✓         |           ✓          |
+| Auto mode (Code)                                                                                                                    |         ✓         |           ✓          |
+| [SSH remote Code sessions](/docs/third-party/claude-desktop/ssh-remote-sessions)                                                         |         ✓         |           ✓          |
+| Automatically approve / Skip all approvals (Cowork)                                                                                 |        — ¶        |           ✓          |
+| Projects                                                                                                                            |         ✓         |           ✓          |
+| Code execution for analysis                                                                                                         |         ✓         |           ✓          |
+| Web search                                                                                                                          |         ✓         |          ✓ §         |
+| File access, upload, and export                                                                                                     |         ✓         |           ✓          |
+| Local MCP                                                                                                                           |         ✓         |           ✓          |
+| Remote MCP                                                                                                                          |         ✓         |           ✓          |
+| [Microsoft 365](/docs/third-party/claude-desktop/connectors-m365) and [GitHub](/docs/third-party/claude-desktop/connectors-github) connectors |         ✓         |           ✓          |
+| Skills, plugins, and hooks                                                                                                          |         ✓         |           ✓          |
+| Artifacts                                                                                                                           |         ✓         |           ✓          |
+| Memory                                                                                                                              |         ✓         |          ✓ †         |
+| Scheduled tasks                                                                                                                     |         ✓         |           ✓          |
+| Global languages                                                                                                                    |         ✓         |           ✓          |
+| Project and plugin sharing                                                                                                          |         ✓         |           —          |
+| Plugin marketplaces                                                                                                                 |         ✓         |           ✓          |
+| Mobile                                                                                                                              |         ✓         |           —          |
+| claude.ai web-based access                                                                                                          |         ✓         |           —          |
+| Voice mode                                                                                                                          |         ✓         |           —          |
+| Claude in Chrome                                                                                                                    |         ✓         |           —          |
+| Claude Design                                                                                                                       |         ✓         |           —          |
+| Claude Security                                                                                                                     |         ✓         |           —          |
+| Claude Tag                                                                                                                          |         ✓         |           —          |
+| Computer use                                                                                                                        |         —         |           —          |
 
 § Amazon Bedrock deployments and gateways that do not forward Anthropic server tools need a web search provider configured first; see [Web search options](/docs/third-party/claude-desktop/web-tools#web-search-options).
 
@@ -59,18 +61,21 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 ## Admin features
 
-| Feature                                       |  Claude Enterprise | Claude Desktop on 3P |
-| --------------------------------------------- | :----------------: | :------------------: |
-| Endpoint / gateway configuration              |          —         |           ✓          |
-| Skills, hooks, and plugins distribution       |          ✓         |           ✓          |
-| MCP server allowlist                          |          ✓         |           ✓          |
-| Feature toggles (web search, local MCP, etc.) |          ✓         |           ✓          |
-| Auto-updates                                  |          ✓         |   ✓ (configurable)   |
-| Per-user spend caps                           | ✓ (differentiated) |   ✓ (blanket only)   |
-| Compliance API                                |          ✓         |          — ‡         |
-| Analytics API                                 |          ✓         |          — ‡         |
-| OpenTelemetry export                          |          ✓         |           ✓          |
-| User management via UI                        |          ✓         |           —          |
-| RBAC                                          |          ✓         |        via MDM       |
+| Feature                                                                                       | Claude Enterprise | Claude Desktop on 3P |
+| --------------------------------------------------------------------------------------------- | :---------------: | :------------------: |
+| Endpoint / gateway configuration                                                              |         —         |           ✓          |
+| Skills, hooks, and plugins distribution                                                       |         ✓         |           ✓          |
+| MCP server allowlist                                                                          |         ✓         |           ✓          |
+| Feature toggles (web search, local MCP, etc.)                                                 |         ✓         |           ✓          |
+| Auto-updates                                                                                  |         ✓         |           ✓          |
+| Per-user usage caps                                                                           |         ✓         |           ✓          |
+| [Data retention policies](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) |         ✓         |           ✓          |
+| Compliance API                                                                                |         ✓         |          — ‡         |
+| Analytics API                                                                                 |         ✓         |          — ‡         |
+| OpenTelemetry export                                                                          |         ✓         |           ✓          |
+| User management via UI                                                                        |         ✓         |          ✓ ◊         |
+| RBAC                                                                                          |         ✓         |          ✓ ◊         |
 
 ‡ Many of these capabilities can be achieved via OpenTelemetry export to your own collector. See [Monitoring](/docs/cowork/monitoring).
+
+◊ With the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), administrators add users and groups, connect single sign-on and SCIM, assign administrator roles, and set per-group permission policies from **Organization settings** on claude.ai. Deployments configured through MDM or a bootstrap server manage access through those channels.
