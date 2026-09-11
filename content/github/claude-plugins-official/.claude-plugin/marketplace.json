@@ -4107,6 +4107,21 @@
         "sha": "843d5a38f82cdc1b275baf4953a659be0ad41247"
       },
       "homepage": "https://www.hubspot.com"
+    },
+    {
+      "name": "dynatrace",
+      "displayName": "Dynatrace",
+      "description": "Dynatrace observability skills: DQL query patterns, application and infrastructure monitoring, log analysis, problem investigation, and incident response workflows, with the Dynatrace MCP server for live platform access.",
+      "author": {
+        "name": "Dynatrace"
+      },
+      "category": "monitoring",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Dynatrace/dynatrace-for-ai.git",
+        "sha": "9ebe70d408ea59d2df4b371b745c6c2aa6229e5b"
+      },
+      "homepage": "https://www.dynatrace.com/hub/detail/claude-code-cli/"
     }
   ]
 }

@@ -2174,10 +2174,13 @@ The cause and the fix are the same for both forms.
 
 When Claude Code can't read the working directory for a different reason, such as a permissions change, the message names the error code instead: `Can't read the current directory (EACCES). Start Claude Code from a different directory.`
 
+On macOS, `EPERM` for a directory in `~/Desktop`, `~/Documents`, `~/Downloads`, or iCloud Drive usually means macOS is blocking your terminal app from that folder. Other commands that read that folder fail the same way: `ls` there reports `Operation not permitted`, even with `sudo`.
+
 **What to do:**
 
 * Change to a directory that exists, such as your home or project directory, then run `claude` again
 * If the directory was recreated at the same path, your shell still holds the deleted one. Run `cd "$PWD"` or leave and re-enter the directory, then run `claude` again
+* For `EPERM` on macOS, quit your terminal app with Cmd+Q, open it again, return to that folder, and run `claude`. If `ls` in that folder still fails, open **System Settings > Privacy & Security > Files and Folders**, turn on the folder for your terminal app, then reopen the terminal
 
 <h3 id="directory-couldnt-be-resolved-to-a-real-location">
   Directory couldn't be resolved to a real location

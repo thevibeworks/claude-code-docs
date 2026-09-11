@@ -630,6 +630,7 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`claudeMdExcludes`](#claudemdexcludes)                                                               | Skip specific [CLAUDE.md](/docs/en/memory#exclude-specific-claude-md-files) files when memory loads                                                                                                                              | Memory and context                 | Any file                |
 | [`cleanupPeriodDays`](#cleanupperioddays)                                                             | Choose how many days Claude Code keeps [transcripts](/docs/en/data-usage#data-retention) before deleting them                                                                                                                    | Privacy and telemetry              | Any file                |
 | [`companyAnnouncements`](#companyannouncements)                                                       | Show your organization's announcements at startup                                                                                                                                                                           | Interface and terminal             | Any file                |
+| [`copyOnSelect`](#copyonselect)                                                                       | Turn off automatic copying of text you select with the mouse in [fullscreen rendering](/docs/en/fullscreen#use-the-mouse) and agent view                                                                                         | Global config settings             | Global config           |
 | [`crossSessionInbound`](#crosssessioninbound)                                                         | Choose whether Claude Code delivers [messages from your other sessions](/docs/en/cross-session-messaging#control-inbound-messages), shows a notice without delivering them, or refuses them                                      | Agents, sessions, and worktrees    | Any file                |
 | [`defaultShell`](#defaultshell)                                                                       | Choose whether Bash or PowerShell runs the shell commands you type with the [`!` prefix](/docs/en/interactive-mode#shell-mode-with-prefix)                                                                                       | Interface and terminal             | Any file                |
 | [`deniedMcpServers`](#deniedmcpservers)                                                               | Block specific [MCP servers](/docs/en/mcp) by URL, command, or name                                                                                                                                                              | MCP                                | Any file                |
@@ -5739,7 +5740,7 @@ A helper run fails when:
 * The helper writes more than 1 MiB to stdout or to stderr.
 * stdout isn't a single JSON object, or its `managedSettings` has a [schema violation Claude Code can't repair](/docs/en/managed-settings#find-entries-claude-code-dropped).
 
-When the startup run fails, Claude Code prints the reason and refuses to start. After a non-zero exit or a timeout, the message includes the helper's stderr. The refusal covers interactive sessions, `claude -p`, Agent SDK sessions, [background sessions](/docs/en/agent-view), and most subcommands.
+When the startup run fails, Claude Code prints the reason and refuses to start. After a non-zero exit, the reason includes the helper's stderr, or its stdout when stderr is empty. After a timeout, the reason names the `timeoutMs` limit and includes none of the helper's output. The refusal covers interactive sessions, `claude -p`, Agent SDK sessions, [background sessions](/docs/en/agent-view), and most subcommands.
 
 The refusal is deliberate, so a helper that needs outage resilience should serve from its own cache and exit `0`.
 
@@ -5858,6 +5859,24 @@ Install the Claude Code IDE extension automatically when you run Claude Code fro
 ```json ~/.claude.json theme={null}
 {
   "autoInstallIdeExtension": false
+}
+```
+
+Claude Code ignores this key in `settings.json`.
+
+### `copyOnSelect`
+
+Copy text to your clipboard automatically when you finish selecting it with the mouse in [fullscreen rendering](/docs/en/fullscreen#use-the-mouse) or [agent view](/docs/en/agent-view). Appears in `/config` as **Copy on select** while fullscreen rendering is on.
+
+* **Scope**: [`Global config`](#scopes)
+* **Type**: Boolean
+  * `true`: Claude Code copies text to your clipboard when you finish selecting it
+  * `false`: selecting text leaves your clipboard unchanged, and you [copy the selection with a keyboard shortcut](/docs/en/fullscreen#use-the-mouse) instead
+* **Default**: `true`
+
+```json ~/.claude.json theme={null}
+{
+  "copyOnSelect": false
 }
 ```
 
