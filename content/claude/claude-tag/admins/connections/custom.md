@@ -62,9 +62,10 @@ Agent Proxy signs requests to hostnames in these forms:
 
 * `service.region.amazonaws.com`
 * S3 virtual-hosted-style endpoints, for example `my-bucket.s3.us-east-1.amazonaws.com`
-* The regionless hosts of global AWS services such as IAM, STS, and CloudFront
+* Service hostnames with extra parts before the service name, as long as the region is the last part before `amazonaws.com`, for example the Amazon ECR API host `api.ecr.us-east-1.amazonaws.com` or the host of an API Gateway invoke URL, `abc123.execute-api.us-east-1.amazonaws.com`
+* The regionless hosts of IAM, STS, S3, Route 53, CloudFront, Organizations, and Global Accelerator, for example `iam.amazonaws.com`, which Agent Proxy signs for `us-east-1`
 
-Apart from S3 virtual-hosted-style endpoints, Agent Proxy can't read the service from a hostname that has extra parts before the service name, so requests to those hosts fail before reaching AWS. Examples include the host of an API Gateway invoke URL, such as `abc123.execute-api.us-east-1.amazonaws.com`, and the host of an Amazon Managed Workflows for Apache Airflow (MWAA) environment. The proxy also can't sign requests to an API Gateway custom domain or to a non-AWS API that uses Signature Version 4.
+Requests to other hostnames fail before reaching AWS. Agent Proxy can't sign a request to a hostname with no region for any other service, such as `ec2.amazonaws.com`, or to a hostname with the region before the service name, such as an OpenSearch domain endpoint (`my-domain.us-east-1.es.amazonaws.com`). It also can't sign requests to an API Gateway custom domain or to a non-AWS API that uses Signature Version 4.
 
 | Field             | Value                                                                                                       |
 | :---------------- | :---------------------------------------------------------------------------------------------------------- |

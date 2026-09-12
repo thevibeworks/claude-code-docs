@@ -62,5 +62,6 @@ The navigation groups the pages into three sections.
 * The **[Config](/docs/government/tenant-admin/configuration)** page lets you set product settings that apply to every organization, and optionally lock them so organizations can't override them.
 * The **[Admins](/docs/government/tenant-admin/admins)** page lets you manage who has access to this tenant admin portal.
 * The **[Readiness](/docs/government/tenant-admin/readiness)** page shows what is blocking your organizations from using Claude and where each item is resolved.
+* The **[Compliance API keys](/docs/government/org-admin/compliance-api)** page lets you create and revoke API keys that stream audit events for every organization in your tenant, together with tenant-level activity, to a SIEM or log management system.
 
 The [setup wizard](/docs/government/tenant-admin/setup-wizard) is not a page in this list; you reach it through the **Resume setup** banner that appears above the navigation until your tenant is fully set up.

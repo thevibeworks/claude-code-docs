@@ -109,7 +109,9 @@ Claude can no longer read or post in that channel. Any member can run this unles
 
 ## When Claude stops reading a channel
 
-Claude counts the messages posted in a channel since it last posted there itself. When the count gets high enough, Claude stops reading that channel's messages, and unprompted replies stop with it. Claude doesn't announce this. To start it reading again, mention `@Claude` in the channel; the mention reaches it regardless, and once Claude posts its reply, it reads the channel's messages again.
+Claude counts the messages posted in a channel since it last posted there itself. When the count gets high enough, Claude stops reading that channel's messages, and unprompted replies stop with it. Claude doesn't announce this.
+
+To start Claude reading again, mention `@Claude` in the channel. A mention from a person reaches Claude even while Claude isn't reading the channel, and once Claude posts its reply, it reads the channel's messages again.
 
 If unprompted replies don't come back after Claude answers a mention, the channel's [**Respond automatically**](#turn-automatic-replies-on-or-off) setting is off. Answering a mention doesn't turn the setting on, and Claude changes the setting only when a channel member asks it to, so turn it back on in any of the three places listed in that section.
 

@@ -71,7 +71,7 @@ In **Cloud roles**, click **Connect an AWS role** and copy the **Issuer**, **Aud
   </Step>
 
   <Step title="Attach permissions">
-    Attach a least-privilege permissions policy to the role. For the check under [Verify the connection](#verify-the-connection), the role needs `s3:ListBucket` on the example bucket. Each sign-in gives Claude temporary credentials that last 1 hour, the AWS default. Claude doesn't ask for a different length, and the role's maximum session duration setting doesn't change this. To cut off access before they expire, use the role's **Revoke active sessions** option in IAM or change its permissions.
+    Attach a least-privilege permissions policy to the role for the work Claude will do. The check under [Verify the connection](#verify-the-connection) needs no permissions. Each sign-in gives Claude temporary credentials that last 1 hour, the AWS default. Claude doesn't ask for a different length, and the role's maximum session duration setting doesn't change this. To cut off access before they expire, use the role's **Revoke active sessions** option in IAM or change its permissions.
   </Step>
 </Steps>
 
@@ -117,13 +117,17 @@ New threads pick up the connection on their own. In a thread already running, as
 
 ## Verify the connection
 
-In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to make a small read (replace `example-reports` with a bucket the role can read):
+In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to run a connectivity check. The check is Claude's own request to `sts.amazonaws.com`, so keep `*.amazonaws.com` under the connection's **Allowed hosts** for this check, or add `sts.amazonaws.com` if you already narrowed the list. The sign-in itself needs no entry there. After the check passes, remove `sts.amazonaws.com` again if you added it, or narrow the wildcard. While it is listed, Claude can send any STS request signed with the role's credentials. If the role is allowed to assume another role, the credentials AWS returns are readable in Claude's sandbox. The call needs no permissions policy on the role. Send Claude this prompt:
 
 ```text wrap theme={null}
-@Claude list the objects in the S3 bucket example-reports and tell me how many there are.
+@Claude Connectivity check for this channel's AWS connection. Please run exactly:
+
+curl -sS -o /tmp/resp.txt -w '%{http_code}' 'https://sts.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15'
+
+and tell me the HTTP status code it prints and, only if it is not 200, the first 200 characters of /tmp/resp.txt.
 ```
 
-Then check CloudTrail in the AWS account for an `AssumeRoleWithWebIdentity` event on your role whose identity provider names `identity.anthropic.com/agents`. Claude signs in at the global STS endpoint, `sts.amazonaws.com`, so the event is recorded in the US East (N. Virginia) region; look there or in a multi-region trail, and allow a few minutes for it to appear. The role session name is an opaque ID for the Claude session that signed in. Claude may reuse one sign-in's credentials for most of the hour across threads in the same channel, so not every request produces a sign-in event. After AWS denies a request, Claude signs in again on the next one.
+A status of 200 means the sign-in worked. Then check CloudTrail in the AWS account for an `AssumeRoleWithWebIdentity` event on your role whose identity provider names `identity.anthropic.com/agents`. Claude signs in at the global STS endpoint, `sts.amazonaws.com`, so the event is recorded in the US East (N. Virginia) region; look there or in a multi-region trail, and allow a few minutes for it to appear. The role session name is an opaque ID for the Claude session that signed in. Claude may reuse one sign-in's credentials for most of the hour across threads in the same channel, so not every request produces a sign-in event. After AWS denies a request, Claude signs in again on the next one.
 
 If Claude reports that the request was refused, CloudTrail usually shows why.
 
