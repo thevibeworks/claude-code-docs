@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789191900&amp;signature=108504a694522344dda890aad0fef85f9bfecd5ff9af28f75d74816f495d6d8c&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctM9YO%2BgN0ADj5oqFDKwlkRrXqMNYMzu6Ai%0A6L78ZHv9gSTOryeaZAg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789208100&amp;signature=7399b0ee3c94d77fad1e60be0d2d39a39b91e846ceec2aa4dc6e8bd4a7c56470&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctP%2FIq2gN0ADj5oqFDVPLO1w7oSWaVjeQWi%0AsiFk5dXFZg4fVtp6LVo%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789191900&amp;signature=c3d181185ddc98ad05f45f63e9f81976466679ad7e279ec21ee3bb4fd57796cb&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9xgS3l7A4lHPBihAWRnYkxQknfZFmXbhJ7%0Aa4bGxsDDSUgjR3kE6Q0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789208100&amp;signature=76e3d095e27edf25a29d7cf9616214bac5727a3a60f636e34079ab9a45264fd6&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9yiCTt7A4lHPBihAUS8tajoyp%2BY1YcYYZy%0Af%2FkpGxuXUqBsBWieONQ%3D%0A)
 
 ### Permission options
 
