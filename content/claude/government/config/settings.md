@@ -34,7 +34,7 @@ Controls whether organization owners may create and edit self-managed seat tiers
 
 ### Compliance API
 
-Controls whether the [Compliance API](/docs/government/org-admin/compliance-api) is available. When it is off, organization owners cannot create new keys and every request to the API returns an error, including requests made with keys that were valid before. Listing and revoking existing keys remains available even when this is off, so that a disabled organization can still revoke an exposed key.
+Controls whether the [Compliance API](/docs/government/org-admin/compliance-api) is available. When it is off, organization owners and tenant administrators cannot create new keys and every request to the API returns an error, including requests made with keys that were valid before. Listing and revoking existing keys remains available even when this is off, so that an exposed key can still be revoked.
 
 <Note>
   **Set at the tenant level only.** This setting is read-only for organization owners.

@@ -460,7 +460,8 @@ The manifest is optional. If omitted, Claude Code auto-discovers components in [
   "lspServers": "./.lsp.json",
   "experimental": {
     "themes": "./themes/",
-    "monitors": "./monitors.json"
+    "monitors": "./monitors.json",
+    "evals": "quality/evals"
   },
   "dependencies": [
     "helper-lib",
@@ -536,21 +537,22 @@ The same field can appear in a plugin's marketplace entry, where it takes preced
 
 ### Component path fields
 
-| Field                   | Type                  | Description                                                                                                                                                                   | Example                                              |
-| :---------------------- | :-------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
-| `skills`                | string\|array         | Custom skill directories containing `<name>/SKILL.md`. Adds to the default `skills/` scan. See [Path behavior rules](#path-behavior-rules) for the marketplace-root exception | `"./custom/skills/"`                                 |
-| `commands`              | string\|array         | Custom flat `.md` skill files or directories (replaces default `commands/`)                                                                                                   | `"./custom/cmd.md"` or `["./cmd1.md"]`               |
-| `agents`                | string\|array         | Custom agent files (replaces default `agents/`)                                                                                                                               | `"./custom/agents/reviewer.md"`                      |
-| `workflows`             | string\|array         | Custom [workflow](/docs/en/workflows) script files or directories (replaces default `workflows/`)                                                                                  | `"./custom/workflows/"`                              |
-| `hooks`                 | string\|array\|object | Hook config paths or inline config                                                                                                                                            | `"./my-extra-hooks.json"`                            |
-| `mcpServers`            | string\|array\|object | MCP config paths or inline config                                                                                                                                             | `"./my-extra-mcp-config.json"`                       |
-| `outputStyles`          | string\|array         | Custom output style files/directories (replaces default `output-styles/`)                                                                                                     | `"./styles/"`                                        |
-| `lspServers`            | string\|array\|object | [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) configs for code intelligence (go to definition, find references, etc.)                     | `"./.lsp.json"`                                      |
-| `experimental.themes`   | string\|array         | Color theme files/directories (replaces default `themes/`). See [Themes](#themes)                                                                                             | `"./themes/"`                                        |
-| `experimental.monitors` | string\|array         | Background [Monitor](/docs/en/tools-reference#monitor-tool) configurations that start automatically when the plugin is active. See [Monitors](#monitors)                           | `"./monitors.json"`                                  |
-| `userConfig`            | object                | User-configurable values prompted at enable time. See [User configuration](#user-configuration)                                                                               | See below                                            |
-| `channels`              | array                 | Channel declarations for message injection (Telegram, Slack, Discord style). See [Channels](#channels)                                                                        | See below                                            |
-| `dependencies`          | array                 | Other plugins this plugin requires, optionally with semver version constraints. See [Constrain plugin dependency versions](/docs/en/plugin-dependencies)                           | `[{ "name": "secrets-vault", "version": "~2.1.0" }]` |
+| Field                   | Type                  | Description                                                                                                                                                                                             | Example                                              |
+| :---------------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------- |
+| `skills`                | string\|array         | Custom skill directories containing `<name>/SKILL.md`. Adds to the default `skills/` scan. See [Path behavior rules](#path-behavior-rules) for the marketplace-root exception                           | `"./custom/skills/"`                                 |
+| `commands`              | string\|array         | Custom flat `.md` skill files or directories (replaces default `commands/`)                                                                                                                             | `"./custom/cmd.md"` or `["./cmd1.md"]`               |
+| `agents`                | string\|array         | Custom agent files (replaces default `agents/`)                                                                                                                                                         | `"./custom/agents/reviewer.md"`                      |
+| `workflows`             | string\|array         | Custom [workflow](/docs/en/workflows) script files or directories (replaces default `workflows/`)                                                                                                            | `"./custom/workflows/"`                              |
+| `hooks`                 | string\|array\|object | Hook config paths or inline config                                                                                                                                                                      | `"./my-extra-hooks.json"`                            |
+| `mcpServers`            | string\|array\|object | MCP config paths or inline config                                                                                                                                                                       | `"./my-extra-mcp-config.json"`                       |
+| `outputStyles`          | string\|array         | Custom output style files/directories (replaces default `output-styles/`)                                                                                                                               | `"./styles/"`                                        |
+| `lspServers`            | string\|array\|object | [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) configs for code intelligence (go to definition, find references, etc.)                                               | `"./.lsp.json"`                                      |
+| `experimental.themes`   | string\|array         | Color theme files/directories (replaces default `themes/`). See [Themes](#themes)                                                                                                                       | `"./themes/"`                                        |
+| `experimental.monitors` | string\|array         | Background [Monitor](/docs/en/tools-reference#monitor-tool) configurations that start automatically when the plugin is active. See [Monitors](#monitors)                                                     | `"./monitors.json"`                                  |
+| `experimental.evals`    | string\|array         | Directory below the plugin root that holds the plugin's [eval cases](/docs/en/plugin-evals#use-a-different-eval-directory), when it isn't the default `evals/`. `claude plugin eval --eval-dir` overrides it | `"quality/evals"`                                    |
+| `userConfig`            | object                | User-configurable values prompted at enable time. See [User configuration](#user-configuration)                                                                                                         | See below                                            |
+| `channels`              | array                 | Channel declarations for message injection (Telegram, Slack, Discord style). See [Channels](#channels)                                                                                                  | See below                                            |
+| `dependencies`          | array                 | Other plugins this plugin requires, optionally with semver version constraints. See [Constrain plugin dependency versions](/docs/en/plugin-dependencies)                                                     | `[{ "name": "secrets-vault", "version": "~2.1.0" }]` |
 
 ### Experimental components
 
@@ -941,11 +943,11 @@ See [Skills-directory plugins](#skills-directory-plugins) for scope and trust re
 claude plugin init <name> [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<name>`: Plugin name. Becomes the skill namespace and the directory name under `~/.claude/skills/`, so it cannot contain spaces or path separators.
 
-**Options:**
+The command accepts these options:
 
 | Option                   | Description                                                                                                         | Default                 |
 | :----------------------- | :------------------------------------------------------------------------------------------------------------------ | :---------------------- |
@@ -956,7 +958,7 @@ claude plugin init <name> [options]
 | `-f, --force`            | Overwrite an existing `.claude-plugin/` at the target                                                               |                         |
 | `-h, --help`             | Display help for command                                                                                            |                         |
 
-**Aliases:** `new`
+`claude plugin new` is an alias for this command.
 
 Each `--with` value adds a starter file for that component, ready to edit:
 
@@ -972,7 +974,7 @@ Each `--with` value adds a starter file for that component, ready to edit:
 
 The scaffolded plugin uses the `@skills-dir` source rather than a marketplace. Admins can block this source with `strictKnownMarketplaces` or by adding `{"source": "skills-dir"}` to `blockedMarketplaces` in [managed settings](/docs/en/plugin-marketplaces#managed-marketplace-restrictions). When blocked, `plugin init` fails before writing.
 
-**Examples:**
+These examples show common invocations:
 
 ```bash theme={null}
 # Scaffold a minimal plugin
@@ -993,11 +995,11 @@ Install a plugin from available marketplaces.
 claude plugin install <plugin> [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<plugin>`: Plugin name or `plugin-name@marketplace-name` for a specific marketplace
 
-**Options:**
+The command accepts these options:
 
 | Option                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Default |
 | :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
@@ -1017,7 +1019,7 @@ Scope determines which settings file the installed plugin is added to. For examp
 
 Other fields, such as `pluginId`, `scope`, and `failureCode`, appear only when they apply. The `--json` option on `plugin uninstall`, `plugin update`, `plugin enable`, and `plugin disable` prints the same object with that subcommand's own fields. A usage error, such as an invalid `--scope`, prints no result line and exits 1 with the reason on stderr.
 
-**Examples:**
+These examples show common invocations:
 
 ```bash theme={null}
 # Install to user scope (default)
@@ -1038,11 +1040,11 @@ Remove an installed plugin.
 claude plugin uninstall <plugin> [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
-**Options:**
+The command accepts these options:
 
 | Option                | Description                                                                                                                                                                                                    | Default |
 | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
@@ -1053,7 +1055,7 @@ claude plugin uninstall <plugin> [options]
 | `--json`              | Print the result as one JSON object on the last line of stdout, in the [same format as `plugin install --json`](#plugin-json-result). Can't be combined with `--prune`. Requires Claude Code v2.1.268 or later |         |
 | `-h, --help`          | Display help for command                                                                                                                                                                                       |         |
 
-**Aliases:** `remove`, `rm`
+`claude plugin remove` and `claude plugin rm` are aliases for this command.
 
 By default, uninstalling from the last remaining scope also deletes the plugin's `${CLAUDE_PLUGIN_DATA}` directory. Use `--keep-data` to preserve it, for example when reinstalling after testing a new version.
 
@@ -1069,7 +1071,7 @@ Remove auto-installed plugin dependencies that are no longer required by any ins
 claude plugin prune [options]
 ```
 
-**Options:**
+The command accepts these options:
 
 | Option                | Description                                                              | Default |
 | :-------------------- | :----------------------------------------------------------------------- | :------ |
@@ -1078,7 +1080,7 @@ claude plugin prune [options]
 | `-y, --yes`           | Skip the confirmation prompt. Required when stdin or stdout is not a TTY |         |
 | `-h, --help`          | Display help for command                                                 |         |
 
-**Aliases:** `autoremove`
+`claude plugin autoremove` is an alias for this command.
 
 The command lists orphaned dependencies and asks for confirmation before removing them. To remove a plugin and clean up its dependencies in one step, run `claude plugin uninstall <plugin> --prune`.
 
@@ -1090,11 +1092,11 @@ Enable a disabled plugin. When the target is installed from a marketplace and de
 claude plugin enable <plugin> [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
-**Options:**
+The command accepts these options:
 
 | Option                | Description                                                                                                                                                                  | Default     |
 | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------- |
@@ -1110,11 +1112,11 @@ Disable a plugin without uninstalling it. When the target is installed from a ma
 claude plugin disable [plugin] [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `[plugin]`: Plugin name or `plugin-name@marketplace-name`. Optional when using `--all`
 
-**Options:**
+The command accepts these options:
 
 | Option                | Description                                                                                                                                                                  | Default     |
 | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------- |
@@ -1131,11 +1133,11 @@ Update a plugin to the latest version.
 claude plugin update <plugin> [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<plugin>`: Plugin name or `plugin-name@marketplace-name`
 
-**Options:**
+The command accepts these options:
 
 | Option                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Default |
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
@@ -1158,7 +1160,7 @@ List installed plugins with their version, source marketplace, and enable status
 claude plugin list [options]
 ```
 
-**Options:**
+The command accepts these options:
 
 | Option        | Description                                                                                                                                                                                                                                                                                                          | Default |
 | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
@@ -1182,11 +1184,11 @@ Show a plugin's component inventory and projected token cost. The output lists a
 claude plugin details <name>
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<name>`: Plugin name or `plugin-name@marketplace-name`
 
-**Options:**
+The command accepts these options:
 
 | Option       | Description              | Default |
 | :----------- | :----------------------- | :------ |
@@ -1235,11 +1237,11 @@ The command exits 0 when validation passes, 1 when it fails, and 2 when the vali
 claude plugin validate <path> [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `<path>`: Path to a plugin directory or a marketplace directory. See [Validate a plugin or a directory without a manifest](/docs/en/plugin-marketplaces#validate-a-plugin-or-a-directory-without-a-manifest) for which files a plugin run covers.
 
-**Options:**
+The command accepts these options:
 
 | Option       | Description                                                                                                                                       | Default |
 | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | :------ |
@@ -1259,6 +1261,55 @@ On exit 2, the command writes nothing to stdout; the error message goes to stder
 
 Within an interactive session, `/plugin validate <path>` runs the same checks inline.
 
+### plugin eval
+
+Run a plugin's [eval cases](/docs/en/plugin-evals) and report scored results. Requires Claude Code v2.1.269 or later. Each case is a prompt plus graders; Claude Code runs it several times in an isolated session with only the target plugin loaded, and by default also without the plugin so the report shows the difference. See [Test plugins with evals](/docs/en/plugin-evals) for the case format, graders, results, and CI usage.
+
+```bash theme={null}
+claude plugin eval [target] [options]
+```
+
+The optional `target` is a plugin directory, a single `prompt.md` or `case.yaml` file, an installed plugin as `name` or `name@marketplace`, or `name@skills-dir`, and defaults to the current directory. Put it before `--tag`, `--allow-tools`, and `--json`.
+
+This table lists the options most runs use. Run `claude plugin eval --help` for the complete set, including `--case`, `--tag`, `--output-dir`, `--report`, `--allow-real-servers`, `--keep-temp`, and `--verbose`.
+
+| Option                     | Description                                                                                                                                                     | Default                                                                        |
+| :------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+| `--runs <n>`               | Runs per case per arm                                                                                                                                           | Each case's `runs`, else 3                                                     |
+| `-j, --concurrency <n>`    | Agent sessions to run at once, 1 to 8. They share your rate limit                                                                                               | `1`                                                                            |
+| `--model <model>`          | Model for the agent under test                                                                                                                                  | Each case's `model`, else `ANTHROPIC_MODEL` if set, else Claude Code's default |
+| `--judge-model <model>`    | Model for `llm` and `baseline` graders                                                                                                                          | A small fast model                                                             |
+| `--ablation <mode>`        | `none` or `with-without`. See [Compare against a no-plugin baseline](/docs/en/plugin-evals#compare-against-a-no-plugin-baseline)                                     | `with-without` when a plugin resolves, else `none`                             |
+| `--threshold <0..1>`       | Exit 1 if any case scores below this                                                                                                                            | `1.0`                                                                          |
+| `--max-cost-usd <usd>`     | Stop before the next run once spend reaches this, exit 2, and report partial results                                                                            | No ceiling                                                                     |
+| `--allow-tools <tools...>` | Grant tools beyond the read-only set, such as `Bash`, `Write`, `Edit`, or `"mcp__plugin_<plugin>_<server>__*"`. See [Grant tools](/docs/en/plugin-evals#grant-tools) |                                                                                |
+| `--scaffold`               | Run each case's [`scaffold_script`](/docs/en/plugin-evals#add-setup-or-history-with-case-yaml)                                                                       | Off                                                                            |
+| `--trust-plugin`           | Skip the first-run trust prompt, for CI. See [What a run can access](/docs/en/plugin-evals#security)                                                                 | Off                                                                            |
+| `--mocks <mode>`           | `record` or `off`. See [Mock MCP servers](/docs/en/plugin-evals#mock-mcp-servers)                                                                                    | `record`                                                                       |
+| `--eval-dir <dir>`         | Directory below the plugin that holds the cases                                                                                                                 | The manifest's `experimental.evals`, else `evals`                              |
+| `--json [path]`            | Print the [result document](/docs/en/plugin-evals#json-result) to stdout, or write it to a `.json` path                                                              |                                                                                |
+| `--no-publish`             | Keep the HTML report local                                                                                                                                      |                                                                                |
+| `-h, --help`               | Display help for command                                                                                                                                        |                                                                                |
+
+The command exits 0 when every case meets the threshold, 1 on a failing case, a load error, or an untrusted plugin directory, 2 on a partial run, 130 when interrupted, and 143 when terminated. See [Run evals in CI](/docs/en/plugin-evals#run-evals-in-ci).
+
+### plugin eval init
+
+Create an eval suite for the plugin in the current directory. Requires Claude Code v2.1.269 or later. In a terminal this starts an authoring interview that reads the plugin, proposes cases and graders, pilots them, and writes the files. With `--bare`, or without a terminal, it writes a blank single-case template instead. Run from inside an interactive Claude Code session, it prints the interview instructions for that session to follow rather than writing a template. See [Create your first eval suite](/docs/en/plugin-evals#create-your-first-eval-suite).
+
+```bash theme={null}
+claude plugin eval init [name] [options]
+```
+
+The optional `name` is a case name: the interview doesn't need one, while `--bare` and the no-terminal template path require it. It accepts these options:
+
+| Option              | Description                                                                                       | Default                                           |
+| :------------------ | :------------------------------------------------------------------------------------------------ | :------------------------------------------------ |
+| `--bare`            | Write a blank `prompt.md` and `graders/criteria.md` for `<name>` instead of running the interview |                                                   |
+| `-i, --interactive` | Require the interview. Fails without a terminal instead of writing a template                     |                                                   |
+| `--eval-dir <dir>`  | Directory below the current directory to write cases into                                         | The manifest's `experimental.evals`, else `evals` |
+| `-h, --help`        | Display help for command                                                                          |                                                   |
+
 ### plugin tag
 
 Create a release git tag for a plugin. By default the command tags the plugin in the current directory; pass a path to tag a plugin elsewhere. See [Tag plugin releases](/docs/en/plugin-dependencies#tag-plugin-releases-for-version-resolution).
@@ -1267,11 +1318,11 @@ Create a release git tag for a plugin. By default the command tags the plugin in
 claude plugin tag [path] [options]
 ```
 
-**Arguments:**
+The command takes these arguments:
 
 * `[path]`: Path to the plugin directory. Defaults to the current directory.
 
-**Options:**
+The command accepts these options:
 
 | Option                | Description                                                                | Default  |
 | :-------------------- | :------------------------------------------------------------------------- | :------- |

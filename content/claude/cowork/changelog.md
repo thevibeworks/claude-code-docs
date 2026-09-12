@@ -6,6 +6,25 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.52386.3" description="2026-09-11">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * Changed the automatic move of scheduled tasks to the cloud, for accounts where it has started: the app now waits about a minute after the computer wakes, and while offline checks again each minute, instead of trying at once and then waiting hours after a failed try.
+  * Fixed two problems with local projects that are moving to claude.ai, for accounts where that move has started: a project could refuse new tasks for hours while part of its memory copy waited on the server (it now accepts new tasks and the copy finishes in the background), and memory files shown in a moved project's earlier tasks would not open.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v1.52386.0" description="2026-09-10">
   **General**
 

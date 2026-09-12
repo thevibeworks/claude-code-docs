@@ -99,9 +99,11 @@ These are the claims a token carries.
 
 Tokens may carry additional claims Anthropic uses internally for audit; ignore any claim not listed here and never base an authorization decision on it.
 
+Three claim names are reserved and absent from every token: `platform_user_id`, `actor_sub`, and `account_id`. Don't write a rule that depends on them. An absent claim is omitted from the token, never sent empty.
+
 Anthropic sends the token only to the destinations you connect in **Federated cloud access**. When the request comes from Slack, the `slack_workspace_id` and `slack_channel_id` claims carry your Slack workspace and channel IDs to that destination along with your organization and agent IDs.
 
-Authorize on `sub`, as described under [Authorize on the subject](#authorize-on-the-subject). A gateway or authorization server, which can read every claim, can use `tenant` and `agent_id` instead, because they repeat the subject's two parts. An AWS trust policy matches on `sub` and `aud` only; a Google Cloud attribute condition can read `sub` or `tenant`. The token carries no claims about the person behind the request, and no `groups`, `roles`, or `scope` claims. A rule that needs `slack_workspace_id` or `slack_channel_id` should refuse a token that lacks them.
+Authorize on `sub`, as described under [Authorize on the subject](#authorize-on-the-subject). A gateway or authorization server, which can read every claim, can use `tenant` and `agent_id` instead, because they repeat the subject's two parts. An AWS trust policy matches on `sub` and `aud` only; a Google Cloud attribute condition can read `sub` or `tenant`. The token carries no claim that names the person behind the request, and no `groups`, `roles`, or `scope` claims. A rule that needs `slack_workspace_id` or `slack_channel_id` should refuse a token that lacks them.
 
 <Note>Anthropic may add claims to the token. A verifier must ignore claims it doesn't recognize and must never depend on a claim not listed here being present.</Note>
 

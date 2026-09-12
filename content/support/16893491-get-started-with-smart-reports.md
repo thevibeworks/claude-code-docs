@@ -36,7 +36,7 @@ Each report includes the following sections:
 
 - **Answers to custom questions:** before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them.
 
-Report analysis excludes personal conversations and conversations that touch restricted topics such as HR, health, and legal matters. Those sessions are set aside before analysis begins, and the report header shows how many were excluded. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
+Personal conversations appear only in aggregate, with no summaries, individual sessions, or names. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
 
 ## Before you begin
 

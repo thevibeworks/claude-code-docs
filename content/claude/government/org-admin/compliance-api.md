@@ -6,7 +6,7 @@
 
 > Stream your organization's audit events into a SIEM or log management system.
 
-> **Who this is for:** Organization owners and the security or compliance teams who connect Claude for Government to their agency's log management or SIEM platform.
+> **Who this is for:** Organization owners, tenant administrators, and the security or compliance teams who connect Claude for Government to their agency's log management or SIEM platform.
 
 The Compliance API is a read-only HTTP endpoint that lets your security tools pull a continuous feed of audit events covering administrative activity across your organization, such as sign-ins, role changes, key creations, and seat assignments. A scheduled job can poll the endpoint and forward each event to a SIEM such as Splunk or Microsoft Sentinel.
 
@@ -14,7 +14,9 @@ The API is available to every Claude for Government organization by default, and
 
 ## Managing API keys
 
-Open **Compliance API** in the organization admin portal to create and manage keys. The page lists every key that has been issued for your organization, showing its name, a hint with the last few characters of the key so you can tell them apart, when it was created, and whether it is active or revoked.
+To create and manage keys for your organization, open **Compliance API** under **Settings** in the organization admin portal. To create and manage keys that return events for every organization in your tenant, open **Compliance API keys** under **Settings** in the [tenant admin portal](/docs/government/tenant-admin/overview). Only tenant administrators can open the tenant admin portal.
+
+Both pages list only their own keys, showing each key's name, a hint with the last few characters of the key so you can tell keys apart, when the key was created, and whether it is active or revoked.
 
 To create a key, enter a name and click **Create key**. The full value is shown once, immediately after creation. Copy it somewhere safe before clicking **Done**.
 
@@ -24,7 +26,7 @@ To create a key, enter a name and click **Create key**. The full value is shown 
 
 Keys never expire on their own, so rotate them on whatever schedule your agency's policy requires. You can keep more than one key active at a time, which lets you rotate without interrupting your SIEM feed: create a new key, update your collector to use it, confirm events are still arriving, and then revoke the old key. Revoking a key takes effect immediately, and the next request made with it returns a 401.
 
-Each key is scoped to the organization it was created in. A request can only ever return events for that one organization, regardless of who holds the key.
+Each key is scoped to the organization or tenant it was created in. A key created in the organization admin portal returns events for that one organization only, regardless of who holds the key. A key that a tenant administrator creates in the tenant admin portal returns the events of every organization in the tenant, together with tenant-level activity such as changes to single sign-on, to the list of tenant administrators, and to tenant-wide settings.
 
 ## Calling the API
 
@@ -128,6 +130,7 @@ Event types use a dotted `resource.action` naming convention. The categories emi
 * **Credentials** such as `api_key.created` and `api_key.revoked`.
 * **Seats and tiers** such as `seat_allocation.set`, `seat_allocation.tier_assigned`, `seat_tier.created`, and `seat_tier.updated`.
 * **Configuration** such as `org_config.capabilities_set`.
+* **Tenant** such as `tenant.sso_configured`, `tenant.admin_added`, and `tenant.config_set`. Only keys created in the tenant admin portal return these types.
 
 New types may be added over time, so a collector should forward unfamiliar types rather than reject them.
 
@@ -139,9 +142,9 @@ A typical run requests `since=<watermark>`, forwards every event returned, and i
 
 ## When the API is disabled
 
-Your tenant administrator can turn off the **Compliance API** setting on the [tenant Config page](/docs/government/tenant-admin/configuration). When that setting is off, the Create key button is hidden in the portal, and every call to `/v1/compliance/activities` returns a 400 error, including calls made with keys that were valid before the setting changed.
+Your tenant administrator can turn off the **Compliance API** setting on the [tenant Config page](/docs/government/tenant-admin/configuration). When that setting is off, the **Create key** button is hidden in the organization and tenant admin portals, and every call to `/gateway-api/v1/compliance/activities` returns a 400 error, including calls made with keys that were valid before the setting changed.
 
-Listing and revoking existing keys in the portal remains available even when the setting is off, so an exposed key can still be revoked.
+Listing and revoking existing keys in either portal remains available even when the setting is off, so an exposed key can still be revoked.
 
 ## Things to know
 
@@ -149,7 +152,7 @@ Listing and revoking existing keys in the portal remains available even when the
 * There is no separate Splunk add-on. The polling pattern described under [Connecting to your SIEM](#connecting-to-your-siem) is the reference implementation for a Splunk HTTP Event Collector job.
 * The desktop application's OpenTelemetry export is a separate log stream configured with **Telemetry endpoint** on the [Config](/docs/government/config/settings#telemetry-endpoint) page. It carries per-session tool and telemetry events to a collector you specify, while this API carries administrative audit events. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for what the OpenTelemetry export includes.
 * The Compliance API returns governance and audit events only. It does not return conversation content, files, or anything your users type into Claude.
-* Each organization can hold up to 50 active keys at once. Revoked keys do not count toward this limit.
+* Each organization can hold up to 50 active keys at once, and keys created in the tenant admin portal have a separate limit of 50 active keys. Revoked keys do not count toward either limit.
 * Events are returned newest first within each page.
 * `first_id` and `last_id` are opaque cursors. Pass them back exactly as received rather than constructing them yourself.
 * If your network enforces a [tenant restriction](/docs/government/tenant-admin/tenant-restrictions), the same restriction applies to Compliance API requests.

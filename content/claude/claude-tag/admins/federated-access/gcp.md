@@ -127,13 +127,17 @@ New threads pick up the connection on their own. In a thread already running, as
 
 ## Verify the connection
 
-In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to make a small read (replace `example-reports` with a bucket the identity can read):
+In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to run a connectivity check. The check reads a bucket's metadata, so the identity needs the `storage.buckets.get` permission on the bucket, and `storage.googleapis.com` must be under the connection's **Allowed hosts**. Send Claude this prompt, replacing `example-reports` with a bucket the identity can read:
 
 ```text wrap theme={null}
-@Claude list the objects in the Cloud Storage bucket example-reports and tell me how many there are.
+@Claude Connectivity check for this channel's Google Cloud connection. Please run exactly:
+
+curl -sS -o /tmp/resp.txt -w '%{http_code}' https://storage.googleapis.com/storage/v1/b/example-reports
+
+and tell me the HTTP status code it prints, then paste the contents of /tmp/resp.txt.
 ```
 
-Claude's reply tells you whether the read worked. For log evidence, enable Data Access audit logs beforehand for the Security Token Service API, for Cloud Storage, and, with a service account, for the IAM Service Account Credentials API, because Google keeps them off by default. The Security Token Service entry records each token exchange, with Google's reason when it refuses one, which Claude's own error doesn't show. The Cloud Storage entry shows the caller as the service account, or as the federated identity with the agent's full subject.
+A status of 200 with a JSON body whose `kind` is `storage#bucket` means the token exchange and the API call both worked. For log evidence, enable Data Access audit logs beforehand for the Security Token Service API, for Cloud Storage, and, with a service account, for the IAM Service Account Credentials API, because Google keeps them off by default. The Security Token Service entry records each token exchange, with Google's reason when it refuses one, which Claude's own error doesn't show. The Cloud Storage entry shows the caller as the service account, or as the federated identity with the agent's full subject.
 
 If Claude reports that the request was refused, the two most common causes are these:
 

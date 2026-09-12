@@ -133,7 +133,7 @@ The portal walks you through the following steps. Your progress saves automatica
   </Step>
 
   <Step title="Connection">
-    Connect the server you're submitting. You confirm the server URL (must be `https://`), the transport (streamable HTTP or SSE), and whether every user connects to the same URL or different users connect to different URLs.
+    Connect the server you're submitting. You confirm the server URL (must be `https://`), the transport (streamable HTTP or SSE), and how users reach your server: one **Universal URL** for everyone, a fixed list of **Multiple URLs**, or a **URL pattern** that each user's own URL must match. See [Servers with per-customer URLs](/docs/connectors/building/authentication#servers-with-per-customer-urls) for how this choice limits your authentication options.
   </Step>
 
   <Step title="Tools">
@@ -153,7 +153,9 @@ The portal walks you through the following steps. Your progress saves automatica
   </Step>
 
   <Step title="Authentication">
-    How users authenticate: OAuth (with dynamic client registration, client ID metadata documents, or a static client ID held by Anthropic), a custom connection where users supply their own URL or credentials at connection time, or no authentication. See [authentication](/docs/connectors/building/authentication) for which modes are supported out of the box and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
+    How users authenticate: OAuth (with dynamic client registration, client ID metadata documents, or Anthropic-held client credentials), a custom connection where users supply their own URL or credentials at connection time, or no authentication. See [authentication](/docs/connectors/building/authentication) for which modes are supported out of the box and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
+
+    If you chose **URL pattern** in the Connection step, Anthropic-held client credentials can't be used. If you chose **Multiple URLs**, a custom connection can't be used.
   </Step>
 
   <Step title="Data handling">

@@ -111,11 +111,11 @@ The gateway was removed from the **Gateways** table, but its connection is still
 
 To keep the gateway, register the same address again; see [Removing and reconnecting a gateway](#removing-and-reconnecting-a-gateway). To drop it, in **Access bundles**, open the bundle's **Credentials** tab, open the **⋮** menu on the connection's row, and choose **Delete**.
 
-### request blocked: Google (gcp) credentials aren't enabled for this organization
+### Claude says Google credentials are not enabled for this organization
 
 **What you see**
 
-Claude's request got HTTP 403 with this reason.
+Claude's request got HTTP 403 with the reason "request blocked: Google (gcp) credentials aren't enabled for this organization".
 
 **What it means**
 
@@ -125,11 +125,11 @@ A Google Cloud identity is connected in a bundle, but Google Cloud federation is
 
 Contact your Anthropic account team with the details under [Contact Anthropic](#contact-anthropic).
 
-### request blocked: this credential has restrict\_credential\_minting set, so Google's credential-minting endpoints are refused
+### Claude says a Google credential-minting endpoint was refused
 
 **What you see**
 
-Claude's request got HTTP 403 with this reason.
+Claude's request got HTTP 403 with the reason "request blocked: this credential has restrict\_credential\_minting set, so Google's credential-minting endpoints are refused".
 
 **What it means**
 
@@ -189,19 +189,41 @@ Claude's request got HTTP 502 with the reason `injection failed ("<connection na
 
 **What it means**
 
-Most often, the system Claude's identity token was presented to refused the exchange. AWS refused `AssumeRoleWithWebIdentity`, Google Cloud's token exchange refused the token, or your authorization server answered the grant with an error. Claude's reply doesn't say why; your own logs do.
+Most often, the system Claude's identity token was presented to refused the exchange. AWS refused `AssumeRoleWithWebIdentity`, Google Cloud's token exchange refused the token, or your authorization server answered the grant with an error. Claude's reply doesn't say why; for a refused exchange, your own logs do.
 
 **How to resolve**
 
 Look up the refusal where it happened and fix the configuration it names.
 
-| Connection            | Where to look                                                                                                                                                    | Entry                                                                                       |
-| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
-| AWS role              | CloudTrail, the `AssumeRoleWithWebIdentity` event for the role                                                                                                   | [AWS refuses AssumeRoleWithWebIdentity](#aws-refuses-assumerolewithwebidentity)             |
-| Google Cloud identity | Cloud Audit Logs, the Security Token Service API entry for the token exchange and, if you named a service account, the IAM Service Account Credentials API entry | [Google Cloud refuses the token exchange](#google-cloud-refuses-the-token-exchange)         |
-| Authorization server  | Your server's log for the `POST` to the token endpoint                                                                                                           | [Your authorization server rejects the grant](#your-authorization-server-rejects-the-grant) |
+| Connection            | Where to look                                                                                                                                                    | Entry                                                                                                                                                                                                                                                      |
+| :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AWS role              | CloudTrail, the `AssumeRoleWithWebIdentity` event for the role                                                                                                   | [AWS refuses AssumeRoleWithWebIdentity](#aws-refuses-assumerolewithwebidentity) if the event failed. [An AWS request fails after a successful sign-in](#an-aws-request-fails-after-a-successful-sign-in) if the event succeeded, or there is no new event. |
+| Google Cloud identity | Cloud Audit Logs, the Security Token Service API entry for the token exchange and, if you named a service account, the IAM Service Account Credentials API entry | [Google Cloud refuses the token exchange](#google-cloud-refuses-the-token-exchange)                                                                                                                                                                        |
+| Authorization server  | Your server's log for the `POST` to the token endpoint                                                                                                           | [Your authorization server rejects the grant](#your-authorization-server-rejects-the-grant)                                                                                                                                                                |
 
-Allow for log delivery delay before concluding there was no attempt. If your logs show none at the time of the request, the token wasn't issued, and you should [contact Anthropic](#contact-anthropic) with the details listed there. A gateway connection doesn't produce this error. Your gateway's own response reaches Claude, so Claude reports the status your gateway returned, usually 401 or 403; see [Your gateway rejects every token](#your-gateway-rejects-every-token).
+Allow for log delivery delay before concluding there was no attempt. For an AWS role, no new event can also mean Claude reused credentials from an earlier sign-in. See [An AWS request fails after a successful sign-in](#an-aws-request-fails-after-a-successful-sign-in). Otherwise, if your logs show no attempt at the time of the request, the token wasn't issued. [Contact Anthropic](#contact-anthropic) with the details listed there. A gateway connection doesn't produce this error. Your gateway's own response reaches Claude, so Claude reports the status your gateway returned, usually 401 or 403; see [Your gateway rejects every token](#your-gateway-rejects-every-token).
+
+### An AWS request fails after a successful sign-in
+
+**What you see**
+
+Claude's request to an AWS service got HTTP 502 with the reason `injection failed ("<connection name>")`. CloudTrail shows that the role's `AssumeRoleWithWebIdentity` event succeeded, or shows no new event because Claude was reusing credentials from an earlier sign-in. Other kinds of request with the same connection may still work. The failure repeats for one kind of request, for example every call to one host or every upload to S3.
+
+**What it means**
+
+The sign-in worked, but [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) couldn't sign the request with the role's credentials, so it never left for AWS. Claude's reply doesn't say which of these applies:
+
+* **A hostname with no usable region.** Agent Proxy reads the AWS service and signing region from the hostname, so the region must be the last label before `amazonaws.com`, as in `service.region.amazonaws.com`, `my-bucket.s3.us-east-1.amazonaws.com`, or `api.ecr.us-east-1.amazonaws.com`. Agent Proxy refuses a hostname with no region, such as `ec2.amazonaws.com`, unless the service is IAM, STS, S3, Route 53, CloudFront, Organizations, or Global Accelerator, which it signs for `us-east-1`. It also refuses a hostname that puts the region before the service name, such as an OpenSearch domain endpoint (`my-domain.us-east-1.es.amazonaws.com`).
+* **A large request to a service other than S3 with no content hash.** When a request has no `x-amz-content-sha256` header, Agent Proxy hashes the body before signing and refuses a body over 1 MB (1,048,576 bytes). The AWS CLI and SDKs add that header for S3 but usually not for other services.
+* **An S3 upload sent in chunks.** The AWS CLI (2.23.0 and later) and the AWS SDKs that compute upload checksums by default can send S3 uploads in chunks with a checksum trailer. Agent Proxy can't sign a request in that format. The fix is to have the AWS CLI or SDK send the body in one piece.
+
+**How to resolve**
+
+| Cause                                    | Do this                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hostname with no usable region           | Use the service's regional endpoint, `service.region.amazonaws.com` (for S3, also `bucket.s3.region.amazonaws.com`), and make sure that host is in the connection's **Allowed hosts**. A host that exists only with the region before the service name, such as an OpenSearch domain endpoint, can't be reached through a federated connection. [Contact Anthropic](#contact-anthropic) with the hostname.                                                                                                                                                                                                                                                                            |
+| Large request to a service other than S3 | Keep the body under 1 MB, or have Claude send the request with an `x-amz-content-sha256` header set to the hex SHA-256 of the body, for example with `curl`. For large data, upload to S3 and pass a reference instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| S3 upload sent in chunks                 | Have Claude set the environment variable `AWS_REQUEST_CHECKSUM_CALCULATION=WHEN_REQUIRED` before running the AWS CLI or a script that uses an AWS SDK, or add `request_checksum_calculation = WHEN_REQUIRED` to the profile in `~/.aws/config`, then retry. To apply it in every thread, add a line to the scope's [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions), for example "Before using the AWS CLI or an AWS SDK, add `request_checksum_calculation = WHEN_REQUIRED` to the default profile in `~/.aws/config`." S3 still computes and stores a checksum for the object. If the upload still fails, [contact Anthropic](#contact-anthropic). |
 
 ### The cloud API answers 403 after a successful exchange
 
