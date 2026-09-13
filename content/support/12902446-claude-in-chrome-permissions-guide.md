@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789237800&amp;signature=a43211525638e0790e975ba8c83138ec3bafca9228bc5b33094654dd77dad2af&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctP%2F4W%2FgN0ADj5oqFBaW241fytBqdilywcA%0AXyo4EIL6tzExMmo2YVI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1789279200&amp;signature=c635df9054006d71b9766e5ccaa4045688eba923f1e9051ec53cd8b26b4ccf4a&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZctP%2B4u1gN0ADj5oqFB2KsTy0gqcEeD6j5MT%0AQ%2FZdXZO5Q5uWiSWtFmM%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789237800&amp;signature=566620d5977c31e226a05a8bfd51f2e1afbb7e1cc642f79371779329c02bdea1&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9yiyvk7A4lHPBihAUbFcbcJF4gqUh0Rzec%0AgBsCemhtlSfxV3PzoBc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1789279200&amp;signature=4f382ec077b34af052a2e3e62fc0eed8f0e12e078a8d0c5a2e91ee476b553e2d&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm9yjyXu7A4lHPBihAVKt3%2F8ef11mhmIu6FJ%0A03gH4DskZknzttetKp8%3D%0A)
 
 ### Permission options
 

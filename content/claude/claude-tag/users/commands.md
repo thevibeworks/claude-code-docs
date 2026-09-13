@@ -73,6 +73,18 @@ A muted thread also unmutes on any direct `@Claude` mention, so you don't need `
 
 You need the same access to mute or unmute a thread that you'd need to message Claude there.
 
+### Thumbs-down reactions and muting
+
+When someone reacts 👎 to one of Claude's replies in a thread, Claude mutes that thread and stops posting there. If Claude's [working session](/docs/claude-tag/concepts/how-it-works) in that thread is partway through writing another reply, Claude abandons that unfinished reply. Claude then posts this notice in the thread:
+
+```text wrap theme={null}
+:mute: Claude is muted in this thread and won't post here again. `@Claude !unmute` (or any @-mention) brings it back; `@Claude !mute` mutes it again anytime.
+```
+
+To bring Claude back, send `@Claude !unmute` in the thread, or @-mention Claude there with your next request.
+
+A 👎 reaction doesn't tell Claude what was wrong with the answer. To get a corrected answer, @-mention Claude in the thread and say what was wrong. The mention also unmutes the thread.
+
 ## Send feedback
 
 ```text wrap theme={null}

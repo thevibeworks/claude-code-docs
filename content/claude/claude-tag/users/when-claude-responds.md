@@ -83,7 +83,7 @@ Tell Claude in the thread to respond only when mentioned.
 @Claude only respond when I @-mention you
 ```
 
-Claude stops following that thread, and the rest of the channel is unaffected. This is the fix when one busy thread is the noise. The [`!mute` command](/docs/claude-tag/users/commands#mute-or-unmute-a-thread) goes further and silences the thread entirely; any direct `@Claude` mention turns it back on.
+Claude stops following that thread, and the rest of the channel is unaffected. This is the fix when one busy thread is the noise. The [`!mute` command](/docs/claude-tag/users/commands#mute-or-unmute-a-thread) goes further and silences the thread entirely; any direct `@Claude` mention turns it back on. A 👎 reaction on one of Claude's replies also mutes the thread, as [Thumbs-down reactions and muting](/docs/claude-tag/users/commands#thumbs-down-reactions-and-muting) describes.
 
 ### Quiet the whole channel
 
