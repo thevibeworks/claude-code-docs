@@ -364,7 +364,7 @@ Ask the Slack admin to send `@Claude connect` again and paste the fresh code rig
 
 ## Nothing responds
 
-Most of the silence problems in this section span a whole workspace or channel and come down to configuration. When a single thread goes quiet and Claude answers everywhere else, the cause is a stuck session rather than a setting; see [Claude went silent in one thread, but responds elsewhere](#claude-went-silent-in-one-thread-but-responds-elsewhere).
+Most of the silence problems in this section span a whole workspace or channel and come down to configuration. If Claude stays silent in one thread but answers everywhere else, a setting isn't the cause. Either Claude's session for that thread is stuck, or the thread is muted. See [Claude went silent in one thread, but responds elsewhere](#claude-went-silent-in-one-thread-but-responds-elsewhere).
 
 ### Claude went silent in one thread, but responds elsewhere
 
@@ -374,7 +374,11 @@ In one thread, an "is thinking…" line appeared under a request and no reply fo
 
 **What it means**
 
-The session behind that thread is stuck: it hasn't replied and hasn't posted an error. Because Claude responds everywhere else, the problem is confined to that one session, and none of the configuration fixes in the entries below apply.
+First check the thread for a notice from Claude that begins `:mute: Claude is muted in this thread`. If that notice is there, the thread is muted and the session isn't stuck. A 👎 reaction on one of Claude's replies mutes the thread and posts that notice. If Claude's session for the thread was partway through a reply, the reaction also stops that reply.
+
+To bring Claude back to a muted thread, send `@Claude !unmute` in the thread or @-mention Claude there, as [Thumbs-down reactions and muting](/docs/claude-tag/users/commands#thumbs-down-reactions-and-muting) describes.
+
+Without that notice, the session behind that thread is stuck: it hasn't replied and hasn't posted an error. Because Claude responds everywhere else, the problem is confined to that one session, and none of the configuration fixes in the entries below apply.
 
 **How to resolve**
 
