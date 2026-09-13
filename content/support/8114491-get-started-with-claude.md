@@ -36,7 +36,7 @@ You use **prompts** to communicate with Claude. The best approach is to speak to
 
 Type your prompt into the chat interface and click the submit button to start a conversation with Claude. You can click the "+" button in the lower left or type "/" to view additional options and commands:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1789298100&amp;signature=13758b43444db7ce0b69664fb373251aed3d64201d88036ff1d832b2afe15618&amp;req=dSkmEMt%2BlYRYUfMW1HO4zV2J7SbIvY%2BA9crMELaMZPy5Ihf8Xgx5cq2n%2FY3C%0ARowaV35Gsx9%2B%2BmWOGs4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1789312500&amp;signature=b81ecdcf30c8d0b7e6771109bef68e2d4facf95d5e3044bbab4fa6e0a1c6c64a&amp;req=dSkmEMt%2BlYRYUfMW1HO4zV2J7SbJtYWE9crMELaMZPy8mMIqD3awhrcfRLZn%0AIa6%2BV4hg4zHCIN5xKcQ%3D%0A)
 
 ---
 
