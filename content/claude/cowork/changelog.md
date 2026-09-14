@@ -6,6 +6,26 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.52386.6" description="2026-09-13">
+  **General**
+
+  * Updated the bundled Claude Code CLI to version 2.1.270.
+  * Fixed organization plugins enabled through Claude Code's managed settings not loading; they load from the next session.
+  * Fixed sessions with a very large prompt getting permanently stuck on a "Prompt is too long" error.
+
+  **Code**
+
+  * Fixed users sometimes being told a model they have access to is restricted, and a running session silently switching to the organization's default model.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v1.52386.3" description="2026-09-11">
   **General**
 
