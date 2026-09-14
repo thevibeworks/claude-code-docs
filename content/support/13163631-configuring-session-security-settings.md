@@ -18,7 +18,7 @@ Session duration controls allow Enterprise and Console Admins to set a maximum s
 
 5. Confirm your selection by clicking “Enable.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469436/1725e63ea1a2615948faecf4ec73/9bd276a1-7329-414d-87a1-d04dac93fff7?expires=1789365600&amp;signature=3d0676c59dc9b8835e979b83905282910e49727a7989c4f3e21833ceabe297e0&amp;req=dSgvHs14lIVcX%2FMW1HO4zQNx6%2BskRV9Wg%2F6XaftFnjy%2BpIRIM5gBeDOKIk%2BR%0AJDN6VnVZ9EaK%2BAtS0V8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469436/1725e63ea1a2615948faecf4ec73/9bd276a1-7329-414d-87a1-d04dac93fff7?expires=1789385400&amp;signature=3e5234efa9e67780e46313dfc5f69b1d817120a359fbbd8acc691a0d5f5647f2&amp;req=dSgvHs14lIVcX%2FMW1HO4zQNx6%2BskS19Ug%2F6XaftFnjx5pPUeUQwmTtcSCXj%2B%0ASV03Jvnr1HX6a%2FlsaGQ%3D%0A)
 
 ### For Console Admins
 
@@ -32,7 +32,7 @@ Session duration controls allow Enterprise and Console Admins to set a maximum s
 
 5. Confirm your selection by clicking “Enable.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469435/7a766bbe02e61c7d8f05deb5b8f0/b0bda400-47c6-43dd-9907-131ebe180b36?expires=1789365600&amp;signature=a15e091f0583bcca5311ecfad4b277d670c25cef69aa92fe5588251b6993818b&amp;req=dSgvHs14lIVcXPMW1HO4zWzx2LA1IXonXZ5D7eVpMtdUGZMjwReYTqrIs5pO%0AyvJ8UAWB3rhfJnJQMIE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469435/7a766bbe02e61c7d8f05deb5b8f0/b0bda400-47c6-43dd-9907-131ebe180b36?expires=1789385400&amp;signature=a1cdce31814066e8cb989f22cc5389b294e80df7f3bfebee2b55348afe5efb41&amp;req=dSgvHs14lIVcXPMW1HO4zWzx2LA1L3olXZ5D7eVpMtfXrCT1GFrnN9vShLQe%0AJKNUwnx%2BwW85Ec2O22Q%3D%0A)
 
 ### What happens after enabling shortened session length?
 
@@ -50,7 +50,7 @@ You can change the session duration at any time by selecting a new value from th
 
 - Sessions scheduled to expire beyond the new duration will have their expiration shortened accordingly.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469437/46ac5bc55484ca01556d87a5ade7/b01a7651-ad65-4b32-93ff-16dbc9ca97c0?expires=1789365600&amp;signature=c5059bd5e148e7f64d951d34ee6ff28b7d300d98b5cccbc701f4110b20910c80&amp;req=dSgvHs14lIVcXvMW1HO4zZ7mWsGY4TylA00cbyPOLDXQEahCdBcHNGYCMCEg%0AjKRqp%2FpxzLhv4D9ghQM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469437/46ac5bc55484ca01556d87a5ade7/b01a7651-ad65-4b32-93ff-16dbc9ca97c0?expires=1789385400&amp;signature=4bb0e5a52c2421884c6b765685c297ec7babf1725b1a9e7bc033fee46bacc040&amp;req=dSgvHs14lIVcXvMW1HO4zZ7mWsGY7zynA00cbyPOLDVoRiJIHMKd2uvaalOE%0AmfCjyJPIVHwz0LLAj14%3D%0A)
 
 ## Disabling session length settings
 
