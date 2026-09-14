@@ -6,7 +6,7 @@
 
 Select your product based on both your technical/functional requirements, and also your compliance/security/deployment environment requirements. Here is a list of options:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2197717161/79965a24090029e9e58c727c3c24/pubsec-product-matrix_png+%281%29.jpg?expires=1789365600&amp;signature=6d6e591c62f76bcc112a13b5192b611d70a98252095580fdcb37848701a279d0&amp;req=diEuEc5%2FmoBZWPMW1HO4zU94LlAmG9g22WxtU42UVC1lMA%2BA%2BrTL5u%2Fdqvip%0ATDnS9jP7gBD1yMVb6rU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2197717161/79965a24090029e9e58c727c3c24/pubsec-product-matrix_png+%281%29.jpg?expires=1789385400&amp;signature=8a30c0ecfa1967fdf924fb9f306de9fcc9cee2fa640166cad7a2b538742b9d4a&amp;req=diEuEc5%2FmoBZWPMW1HO4zU94LlAmFdg02WxtU42UVC3xxQ4cXNsMrlXvIyAJ%0AxvrSDgXkLWhs4McyPz8%3D%0A)
 
 ### What is Claude for Government (C4G)?
 
