@@ -101,7 +101,7 @@ To use shadow mode, set **Mode** to **Shadow mode** under **Failure handling**, 
 
 Under **Exclusions**, select roles whose members are not covered by Inference hooks: their prompts are never sent to your AI security server. Only custom roles your organization created can be excluded; the built-in roles aren't offered. Pick them in the role selector, whose placeholder reads **Select roles to exclude**, and manage who holds each role from the roles admin page (**Manage roles**); changing exclusions requires identity management permission. The list is empty by default, and with no roles excluded, every governed request is inspected.
 
-Exclusion applies to a user's interactive sessions; traffic authenticated by machine credentials is always inspected. If Claude can't resolve a requester's role membership, the request fails closed with a retryable error rather than proceeding uninspected. Changes to the exclusion list are recorded in the audit trail.
+Exclusion applies to a user's interactive sessions; traffic authenticated by machine credentials is always inspected. Changes to the exclusion list are recorded in the audit trail.
 
 ## Custom blocked prompt message
 
@@ -127,9 +127,9 @@ Each trip is also recorded in your organization's [Activity Feed](https://platfo
 
 To recover, fix the server, then turn **Enforce verdicts** back on to reset the breaker.
 
-The breaker can also reset on its own. Starting 10 minutes after the trip, Anthropic tests whether your server has recovered: at most about once per minute, one request from your organization's normal traffic is sent to your server for inspection, and that request proceeds for its user whether or not your server answers. If your server responds with a valid verdict, allow or deny, the breaker resets and enforcement resumes. Any other outcome is a webhook failure: the breaker stays tripped and testing continues.
+The breaker can also reset on its own. Starting 10 minutes after the trip, Anthropic checks whether your server has recovered by sending it a test request in the background, at most about once per minute; no user request is involved. If your server responds with a valid verdict, allow or deny, the breaker resets and enforcement resumes. Otherwise the breaker stays tripped and the checks continue.
 
-Automatic recovery runs only while your Inference hooks settings are unchanged since the trip. If you change any Inference hooks setting after a trip, including rotating the signing secret, testing stops and the breaker no longer resets on its own; turn **Enforce verdicts** back on when your server is fixed. Automatic recovery applies only to trips: if you turn **Enforce verdicts** off yourself, enforcement stays off until you turn it back on.
+Automatic recovery runs only while your Inference hooks settings are unchanged since the trip. If you change any Inference hooks setting after a trip, including rotating the signing secret, the checks stop and the breaker no longer resets on its own; turn **Enforce verdicts** back on when your server is fixed. Automatic recovery applies only to trips: if you turn **Enforce verdicts** off yourself, enforcement stays off until you turn it back on.
 
 ## Rotate your signing secret
 

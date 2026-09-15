@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/retrieve
 
 # Get User Profile
 
-`$client->beta->userProfiles->retrieve(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfile`
+`$client->beta->userProfiles->retrieve(string userProfileID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaUserProfile`
 
 **GET** `/v1/user_profiles/{user_profile_id}`
 
@@ -18,6 +18,8 @@ Get User Profile
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
+
+- `workspaceID?:optional string`
 
 ## Returns
 
@@ -79,6 +81,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaUserProfile = $client->beta->userProfiles->retrieve(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaUserProfile);

@@ -14,33 +14,75 @@ First, a Primary Owner, Owner, Admin, or someone with a custom role with analyti
 
 Claude then reads a sample of transcripts in that scope, groups them into workstreams and types of outputs, attaches spend to each group, and writes up what it found. Every chart is interactive. Click a workstream to open the sessions inside it, ranked by cost, each with a one-paragraph summary, the product used, the date, and the output type. You can filter by subcategory and download the report as HTML with drilldowns intact.
 
+Personal conversations appear only in aggregate, with no summaries, individual sessions, or names. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
+
+## Information included in smart reports
+
 Each report includes the following sections:
 
-- **Workstreams:** shows what the group used Claude for most, by sessions and by spend, side by side.
+### Workstreams
 
-- **Deliverables produced:** groups sessions by the type of output that was produced. For example, analysis, documentation, content drafts, and code.
+Workstreams shows what the group used Claude for most, by sessions and by spend, side by side.
 
-- **Cost per session by type of output:** shows the average spend per session for each kind of output so you can see what's cheap or expensive to produce.
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671030907/7b62b605189fe8e9474a20c1eaf2/image.png?expires=1789581600&amp;signature=1dd7cc66f8b893dda845091f2fcc7fdbca1f9365f02b41bfeae92d7191a4c2d8&amp;req=diYgF8l9nYhfXvMW3nq%2BgYjLrMqDS388cT%2BueNPeNxwiA%2FYzoxCtRF78x%2B9J%0AbPN8OsDb8BVeJfaBVQXFyx6rYi0%3D%0A)
 
-- **Task outcomes:** shows what each session produced.
+### Deliverables produced
 
-- **Most common frictions:** shows what got in the way, by category. For example, a connector that wasn’t set up, output that didn’t match the ask, approval or sign-in gating, tool failures, or rework loops.
+Deliverables produced groups sessions by the type of output that was produced. For example, analysis, documentation, content drafts, and code.
 
-- **Inefficiencies:** counts sessions that produced nothing usable and sessions that were personal or off-topic, with their cost (shown only as an aggregate count and cost, with no summaries or drilldown).
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671035220/2a582bc047a6ba46e7dbd6f05d9f/e17881ac-874c-4747-94ca-8679e0301455?expires=1789581600&amp;signature=651692d835749d671ec46615be09abfea7d059219aadbbf1d4f0873c3e6aa084&amp;req=diYgF8l9mINdWfMW3nq%2BgarkVpAcwp9wt5jD4nw4%2FNUohdFS%2BKyDPdU83uYH%0AyhpPJUr3C0Toxyvx0iqYW9VALi0%3D%0A)
 
-- **Reusable skills and workflows to build:** identifies repeated patterns that could be packaged as a shared skill so the whole team gets the same result faster. For example, turning call notes into follow-ups, building account briefs, and drafting QBR outlines. Each card includes a suggested prompt you can copy to set up the skill.
+### Cost per session by type of output
 
-- **Most expensive sessions:** lists where spend concentrates.
+Cost per session by type of output  shows the average spend per session for each kind of output so you can see what's cheap or expensive to produce.
 
-- **Complex, autonomous work:** shows  sessions scoring highest on task complexity, time saved, how long Claude worked on its own, and the expertise required.
+### Task outcomes
 
-- **Answers to custom questions:** before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them.
+Task outcomes  shows what each session produced.
 
-Personal conversations appear only in aggregate, with no summaries, individual sessions, or names. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
+### Most common frictions
+
+Most common frictions shows what got in the way, by category. For example, a connector that wasn’t set up, output that didn’t match the ask, approval or sign-in gating, tool failures, or rework loops.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671052365/b69f22b75729e5587563e7ab6830/b1647659-a7ea-403b-89fc-0b150ee97675?expires=1789581600&amp;signature=08c0198a89ce0f4e57c5df64e6d6f7a98f89b7839ded8a94d798e18206ba1a19&amp;req=diYgF8l7n4JZXPMW3nq%2BgelfR%2BcXXmP46crUYunlzgSuJjgRWIfKLXK20j8W%0ASQM4qMK0z%2BVr13oEzllAo4UI%2FvQ%3D%0A)
+
+Click into a category to see more information:
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671053199/b68936dd5d590c5fbcbbc092b332/5ec247b2-cd67-4f3f-97b5-23479b87a5c6?expires=1789581600&amp;signature=49a92dae6cb1751b15b67370efd7512762f1322028b0107a773770725a4d2835&amp;req=diYgF8l7noBWUPMW3nq%2BgWyn0a4dz2KYeRbXzS32B3Cfg50AYAJPFEx7gOz9%0At10z6Z6RNJmCo18M%2FBuwJgWftGU%3D%0A)
+
+### Inefficiencies
+
+Inefficiencies counts sessions that produced nothing usable and sessions that were personal or off-topic, with their cost (shown only as an aggregate count and cost, with no summaries or drilldown).
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671036122/90dc848a7adf371a872bd89a2f5e/de86945b-ccfe-4e0f-892d-abacc475c5c4?expires=1789581600&amp;signature=5cb8fcf46425e9f1e771fa6a2f36e2371b705806687f019a784aed0f15805917&amp;req=diYgF8l9m4BdW%2FMW3nq%2BgeoSslrygodPF%2FFxx0rcKdFWgcKKYFL08viFLS%2BT%0AMT5OTTHm79QRiGb0z%2BBA0BjOF50%3D%0A)
+
+### Reusable skills and workflows to build
+
+Reusable skills and workflows to build identifies repeated patterns that could be packaged as a shared skill so the whole team gets the same result faster. For example, turning call notes into follow-ups, building account briefs, and drafting QBR outlines. Each card includes a suggested prompt you can copy to set up the skill.
+
+### Most expensive sessions
+
+Most expensive sessions lists where spend concentrates.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671032083/2b075387a4a3473f884a8ba26436/image.png?expires=1789581600&amp;signature=db8bc348452a4dd4d9628d3ecf0168e6dd21a48db24907d52864384a0702491c&amp;req=diYgF8l9n4FXWvMW3nq%2BgQL8lhi1aVoSh5GDH9GO2ScvzyXN%2BljJc5YUauuO%0AH00TISjl737TJvtN9mnnMflgeeI%3D%0A)
+
+### Complex, autonomous work
+
+Complex, autonomous work shows  sessions scoring highest on task complexity, time saved, how long Claude worked on its own, and the expertise required.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671031695/3781b98c5cb9cdc069439aa3d9ab/image.png?expires=1789581600&amp;signature=57d21575863bd54e9ed8f50a5638c2385448b918dbfdef3472b80c3179f53040&amp;req=diYgF8l9nIdWXPMW3nq%2BgWLYAa4c22%2F9RQqRMc0VtCQ5b7RSzEgqbdss7%2Bna%0AZC5JuNscwiO5e8KZ5kmVLcPyFDc%3D%0A)
+
+### Answers to custom questions
+
+Before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them.
 
 ## Before you begin
 
-You'll need Owner or Primary Owner access to your Enterprise organization to enable smart reports. Once they're enabled, Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view reports.
+- **Role required to enable smart reports for your Enterprise organization:** Primary Owner or Owner
+
+- **Role required to create and view reports:** Primary Owner, Owner, Admin, or a custom role with Analytics view access
+
+- **Role required to delegate access to smart reports to specific team leads or department heads without making them admins:** Primary Owner, Owner, or a custom role with both Analytics and Identity & Access permissions
 
 ## Enable smart reports for your organization
 
@@ -60,6 +102,8 @@ An Owner or Primary Owner can take the following steps to enable smart reports f
 
 After you've successfully completed these steps, smart reports are enabled for your Enterprise organization.
 
+You can manage access to let team leads or department heads run smart reports without making them admins. Learn how to **[let team members run smart reports for specific groups](https://support.claude.com/en/articles/16948886)**.
+
 ## Scope smart reports to specific teams
 
 Smart reports are more useful when they’re scoped to a functional team rather than the whole organization. For example, you can scope your report to sales, finance, marketing, or engineering. Team-level reports produce clusters specific enough to act on and keep the analysis on spend and adoption: what kinds of tasks, which surfaces and connectors, what it costs.
@@ -72,7 +116,7 @@ You can scope by:
 
 ## Create a smart report
 
-Once smart reports have been turned on for your organization, Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view reports.
+Once smart reports have been turned on for your organization, Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view reports. Delegates with scoped access can also create and view reports, limited to the groups, departments, or cost centers assigned to them. See **[Let team members run smart reports for specific groups](https://support.claude.com/en/articles/16948886)**.
 
 To create a smart report:
 

@@ -5043,7 +5043,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `temperature: optional number`
 
-  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
   Amount of randomness injected into the response.
 
@@ -6534,7 +6534,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `model: Model`
+        - `model: Model or null`
 
           The model that will complete your prompt.
 
@@ -6632,10 +6632,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
-        Produced in place of a `message` entry for whichever hop served the
-        response. A declined hop produces the existing `message` entry. Whether
-        a fallback model served the response is signalled by the presence of this
-        entry in `usage.iterations`.
+        The terminal entry of a fallback-served turn: when a fallback hop's
+        output is the returned message, the entry for the iteration that
+        completed it carries this type in place of `message`. A declined hop
+        and the serving hop's earlier tool-loop iterations produce `message`
+        entries. Whether a fallback model served the response is signalled by
+        the presence of this entry in `usage.iterations`.
 
         - `type: "fallback_message"`
 
@@ -14961,7 +14963,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `temperature: optional number`
 
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
       Amount of randomness injected into the response.
 
@@ -17713,7 +17715,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: Model`
+              - `model: Model or null`
 
                 The model that will complete your prompt.
 
@@ -17811,10 +17813,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for the fallback-model attempt of a server-side fallback request.
 
-              Produced in place of a `message` entry for whichever hop served the
-              response. A declined hop produces the existing `message` entry. Whether
-              a fallback model served the response is signalled by the presence of this
-              entry in `usage.iterations`.
+              The terminal entry of a fallback-served turn: when a fallback hop's
+              output is the returned message, the entry for the iteration that
+              completed it carries this type in place of `message`. A declined hop
+              and the serving hop's earlier tool-loop iterations produce `message`
+              entries. Whether a fallback model served the response is signalled by
+              the presence of this entry in `usage.iterations`.
 
               - `type: "fallback_message"`
 
@@ -36143,7 +36147,7 @@ List Events
 
     - `session_thread_id: optional string or null`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsUserCustomToolResultEvent object`
 
@@ -36225,7 +36229,7 @@ List Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsAgentCustomToolUseEvent object`
 
@@ -36253,7 +36257,7 @@ List Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMessageEvent object`
 
@@ -36395,7 +36399,7 @@ List Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMCPToolResultEvent object`
 
@@ -36481,7 +36485,7 @@ List Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentToolResultEvent object`
 
@@ -37373,7 +37377,7 @@ List Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsSessionThreadStatusRescheduledEvent object`
 
@@ -38900,7 +38904,7 @@ Send Events
 
       - `session_thread_id: optional string or null`
 
-        When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+        Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
     - `BetaManagedAgentsUserCustomToolResultEvent object`
 
@@ -38982,7 +38986,7 @@ Send Events
 
       - `session_thread_id: optional string or null`
 
-        Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+        Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
     - `BetaManagedAgentsUserDefineOutcomeEvent object`
 
@@ -39084,7 +39088,7 @@ Send Events
 
       - `session_thread_id: optional string or null`
 
-        Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+        Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
     - `BetaManagedAgentsSystemMessageEvent object`
 
@@ -39507,7 +39511,7 @@ Stream Events
 
     - `session_thread_id: optional string or null`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsUserCustomToolResultEvent object`
 
@@ -39589,7 +39593,7 @@ Stream Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsAgentCustomToolUseEvent object`
 
@@ -39617,7 +39621,7 @@ Stream Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMessageEvent object`
 
@@ -39759,7 +39763,7 @@ Stream Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMCPToolResultEvent object`
 
@@ -39845,7 +39849,7 @@ Stream Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentToolResultEvent object`
 
@@ -40737,7 +40741,7 @@ Stream Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsSessionThreadStatusRescheduledEvent object`
 
@@ -45748,7 +45752,7 @@ List Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsUserCustomToolResultEvent object`
 
@@ -45830,7 +45834,7 @@ List Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsAgentCustomToolUseEvent object`
 
@@ -45858,7 +45862,7 @@ List Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMessageEvent object`
 
@@ -46000,7 +46004,7 @@ List Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMCPToolResultEvent object`
 
@@ -46086,7 +46090,7 @@ List Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentToolResultEvent object`
 
@@ -46978,7 +46982,7 @@ List Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsSessionThreadStatusRescheduledEvent object`
 
@@ -48138,7 +48142,7 @@ Stream Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsUserCustomToolResultEvent object`
 
@@ -48220,7 +48224,7 @@ Stream Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsAgentCustomToolUseEvent object`
 
@@ -48248,7 +48252,7 @@ Stream Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMessageEvent object`
 
@@ -48390,7 +48394,7 @@ Stream Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentMCPToolResultEvent object`
 
@@ -48476,7 +48480,7 @@ Stream Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `BetaManagedAgentsAgentToolResultEvent object`
 
@@ -49368,7 +49372,7 @@ Stream Session Thread Events
 
     - `session_thread_id: optional string or null`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `BetaManagedAgentsSessionThreadStatusRescheduledEvent object`
 
@@ -66233,6 +66237,8 @@ Create User Profile
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 #### Body parameters
 
 - `access_type: optional "application" or "passthrough"`
@@ -66610,6 +66616,8 @@ List User Profiles
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `data: array of BetaUserProfile`
@@ -66882,6 +66890,8 @@ Get User Profile
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 #### Returns
 
 - `BetaUserProfile object`
@@ -67142,6 +67152,8 @@ Update User Profile
     - `"thinking-binding-controls-2026-08-01"`
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
+
+- `"anthropic-workspace-id": optional string`
 
 #### Body parameters
 
@@ -67493,6 +67505,8 @@ Create Enrollment URL
     - `"thinking-binding-controls-2026-08-01"`
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
+
+- `"anthropic-workspace-id": optional string`
 
 #### Returns
 
@@ -78919,19 +78933,27 @@ List Workspaces
 
     Data residency configuration.
 
-    - `allowed_inference_geos: array of string or "unrestricted"`
+    - `allowed_inference_geos: array of BetaAllowedInferenceGeo or "unrestricted"`
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `Geos = array of string`
+      - `Geos = array of BetaAllowedInferenceGeo`
+
+        - `"global"`
+
+        - `"us"`
 
       - `Unrestricted = "unrestricted"`
 
-    - `default_inference_geo: string`
+    - `default_inference_geo: "global" or "us"`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `workspace_geo: string`
+      - `"global"`
+
+      - `"us"`
+
+    - `workspace_geo: "us"`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -78993,8 +79015,8 @@ curl https://api.anthropic.com/v1/organizations/workspaces \
       "created_at": "2024-10-30T23:58:27.427722Z",
       "data_residency": {
         "allowed_inference_geos": "unrestricted",
-        "default_inference_geo": "default_inference_geo",
-        "workspace_geo": "workspace_geo"
+        "default_inference_geo": "global",
+        "workspace_geo": "us"
       },
       "display_color": "#6C5BB9",
       "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -79224,19 +79246,27 @@ Create Workspace
 
     Data residency configuration.
 
-    - `allowed_inference_geos: array of string or "unrestricted"`
+    - `allowed_inference_geos: array of BetaAllowedInferenceGeo or "unrestricted"`
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `Geos = array of string`
+      - `Geos = array of BetaAllowedInferenceGeo`
+
+        - `"global"`
+
+        - `"us"`
 
       - `Unrestricted = "unrestricted"`
 
-    - `default_inference_geo: string`
+    - `default_inference_geo: "global" or "us"`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `workspace_geo: string`
+      - `"global"`
+
+      - `"us"`
+
+    - `workspace_geo: "us"`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -79294,8 +79324,8 @@ curl https://api.anthropic.com/v1/organizations/workspaces \
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -79366,19 +79396,27 @@ Get Workspace
 
     Data residency configuration.
 
-    - `allowed_inference_geos: array of string or "unrestricted"`
+    - `allowed_inference_geos: array of BetaAllowedInferenceGeo or "unrestricted"`
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `Geos = array of string`
+      - `Geos = array of BetaAllowedInferenceGeo`
+
+        - `"global"`
+
+        - `"us"`
 
       - `Unrestricted = "unrestricted"`
 
-    - `default_inference_geo: string`
+    - `default_inference_geo: "global" or "us"`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `workspace_geo: string`
+      - `"global"`
+
+      - `"us"`
+
+    - `workspace_geo: "us"`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -79426,8 +79464,8 @@ curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID \
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -79552,19 +79590,27 @@ Update Workspace
 
     Data residency configuration.
 
-    - `allowed_inference_geos: array of string or "unrestricted"`
+    - `allowed_inference_geos: array of BetaAllowedInferenceGeo or "unrestricted"`
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `Geos = array of string`
+      - `Geos = array of BetaAllowedInferenceGeo`
+
+        - `"global"`
+
+        - `"us"`
 
       - `Unrestricted = "unrestricted"`
 
-    - `default_inference_geo: string`
+    - `default_inference_geo: "global" or "us"`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `workspace_geo: string`
+      - `"global"`
+
+      - `"us"`
+
+    - `workspace_geo: "us"`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -79621,8 +79667,8 @@ curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID \
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -79691,19 +79737,27 @@ Archive Workspace
 
     Data residency configuration.
 
-    - `allowed_inference_geos: array of string or "unrestricted"`
+    - `allowed_inference_geos: array of BetaAllowedInferenceGeo or "unrestricted"`
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `Geos = array of string`
+      - `Geos = array of BetaAllowedInferenceGeo`
+
+        - `"global"`
+
+        - `"us"`
 
       - `Unrestricted = "unrestricted"`
 
-    - `default_inference_geo: string`
+    - `default_inference_geo: "global" or "us"`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `workspace_geo: string`
+      - `"global"`
+
+      - `"us"`
+
+    - `workspace_geo: "us"`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -79752,8 +79806,8 @@ curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/archive
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -81972,7 +82026,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
     List of Claude Code usage records for the requested date.
 
-    - `actor: object or object`
+    - `actor: UserActor or APIActor`
 
       The user or API key that performed the Claude Code actions.
 
@@ -87539,7 +87593,7 @@ group, and organization-level defaults are configured in claude.ai.
 
     - `"weekly"`
 
-  - `scope: object or object or object or 2 more`
+  - `scope: User or SeatTier or RBACGroup or 2 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -87680,7 +87734,7 @@ Retrieve a spend limit by ID.
 
     - `"weekly"`
 
-  - `scope: object or object or object or 2 more`
+  - `scope: User or SeatTier or RBACGroup or 2 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -87912,7 +87966,7 @@ Paginates by member, so a member's periods never split across pages.
 
       Tagged ID of the member the spend limit applies to.
 
-  - `source: object or object or object or 2 more`
+  - `source: User or SeatTier or RBACGroup or 2 more`
 
     - `User object`
 
@@ -88093,7 +88147,7 @@ Requests whose requester is no longer a member are excluded.
 
     format: date-time
 
-  - `resolved_by: object or object or null`
+  - `resolved_by: UserActor or ScopedAPIKeyActor or null`
 
     - `UserActor object`
 
@@ -88205,7 +88259,7 @@ Requests whose requester is no longer a member are excluded.
 
         Tagged ID of the member the spend limit applies to.
 
-    - `source: object or object or object or 2 more`
+    - `source: User or SeatTier or RBACGroup or 2 more`
 
       - `User object`
 
@@ -88396,7 +88450,7 @@ requester at the request's period.
 
     format: date-time
 
-  - `resolved_by: object or object or null`
+  - `resolved_by: UserActor or ScopedAPIKeyActor or null`
 
     - `UserActor object`
 
@@ -88508,7 +88562,7 @@ requester at the request's period.
 
         Tagged ID of the member the spend limit applies to.
 
-    - `source: object or object or object or 2 more`
+    - `source: User or SeatTier or RBACGroup or 2 more`
 
       - `User object`
 
@@ -88708,7 +88762,7 @@ the member was blocked on. Anthropic emails the requester unless
 
   format: date-time
 
-- `resolved_by: object or object or null`
+- `resolved_by: UserActor or ScopedAPIKeyActor or null`
 
   - `UserActor object`
 
@@ -88788,7 +88842,7 @@ the member was blocked on. Anthropic emails the requester unless
 
     - `"weekly"`
 
-  - `scope: object or object or object or 2 more`
+  - `scope: User or SeatTier or RBACGroup or 2 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -88912,7 +88966,7 @@ the member was blocked on. Anthropic emails the requester unless
 
       Tagged ID of the member the spend limit applies to.
 
-  - `source: object or object or object or 2 more`
+  - `source: User or SeatTier or RBACGroup or 2 more`
 
     - `User object`
 
@@ -89118,7 +89172,7 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
     format: date-time
 
-  - `resolved_by: object or object or null`
+  - `resolved_by: UserActor or ScopedAPIKeyActor or null`
 
     - `UserActor object`
 
@@ -89230,7 +89284,7 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
         Tagged ID of the member the spend limit applies to.
 
-    - `source: object or object or object or 2 more`
+    - `source: User or SeatTier or RBACGroup or 2 more`
 
       - `User object`
 
@@ -89426,7 +89480,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_groups \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -89515,7 +89568,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_groups/$GROUP_ID \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -89601,7 +89653,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 curl https://api.anthropic.com/v1/organizations/rbac_groups \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY" \
     -d '{
           "name": "Engineering"
@@ -89696,7 +89747,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 curl https://api.anthropic.com/v1/organizations/rbac_groups/$GROUP_ID \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY" \
     -d '{
           "name": "Engineering"
@@ -89755,7 +89805,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 curl https://api.anthropic.com/v1/organizations/rbac_groups/$GROUP_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -89841,7 +89890,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_groups/$GROUP_ID/members \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -89919,7 +89967,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 curl https://api.anthropic.com/v1/organizations/rbac_groups/$GROUP_ID/members \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY" \
     -d '{
           "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
@@ -89980,7 +90027,6 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 curl https://api.anthropic.com/v1/organizations/rbac_groups/$GROUP_ID/members/$USER_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -90064,7 +90110,6 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -90137,7 +90182,6 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -90214,7 +90258,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
     `all_connectors` grants carry a tool-access action, the scope action, or
     an authentication-method action (`interactive` or `managed`).
 
-  - `resource: object or object or object or 2 more`
+  - `resource: Organization or ConnectorTool or ConnectorScope or 2 more`
 
     What the permission applies to.
 
@@ -90310,7 +90354,6 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 ```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID/permissions \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: ce-user-management-2026-07-13' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 

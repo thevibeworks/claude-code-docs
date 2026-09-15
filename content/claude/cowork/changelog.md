@@ -6,6 +6,10 @@
 
 > Release notes for Claude Desktop
 
+<Update label="Resolved: Cowork on Windows" description="2026-09-14">
+  Microsoft has released a Windows update that fixes the issue where Cowork could not reach your files on Windows PCs. Install the latest Windows update and restart your PC. On Windows 11 24H2 and 25H2 the fix is [KB5129195](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129195-windows-11-24h2-25h2-security-update). No Claude Desktop update is needed.
+</Update>
+
 <Update label="v1.52386.6" description="2026-09-13">
   **General**
 
@@ -85,7 +89,9 @@
 </Update>
 
 <Update label="Known issue: Cowork on Windows" description="2026-09-10">
-  A Windows update released September 8, 2026 (including KB5124008) stops Cowork from reaching your files when it runs on your Windows PC, so tasks fail or the workspace does not start. This affects Cowork on third-party inference deployments and Cowork sessions that run on your computer rather than in the cloud. Cloud sessions and Claude Code, including the Code tab, are not affected. Chat cloud sessions are not affected, but Chat sessions on third-party inference deployments are affected if using advanced file analysis. The cause is a change in Windows, so restarting or reinstalling Claude does not help. We are investigating and working to resolve this as quickly as possible.
+  **Resolved September 14, 2026.** Microsoft has released a Windows update that fixes this issue. Install the latest Windows update and restart your PC.
+
+  A Windows update released September 8, 2026 (including KB5124008) stops Cowork from reaching your files when it runs on your Windows PC, so tasks fail or the workspace does not start. This affects Cowork on third-party inference deployments and Cowork sessions that run on your computer rather than in the cloud. Cloud sessions and Claude Code, including the Code tab, are not affected. Chat cloud sessions are not affected, but Chat sessions on third-party inference deployments are affected if using advanced file analysis. The cause is a change in Windows, so restarting or reinstalling Claude does not help.
 </Update>
 
 <Update label="v1.49585.0" description="2026-09-08">

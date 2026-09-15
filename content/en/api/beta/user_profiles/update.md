@@ -113,6 +113,8 @@ Update User Profile
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Body parameters
 
 - `access_type: optional "application" or "passthrough" or null`

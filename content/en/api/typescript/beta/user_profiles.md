@@ -199,6 +199,12 @@ Create User Profile
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `BetaUserProfile`
@@ -491,6 +497,12 @@ List User Profiles
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `BetaUserProfile`
@@ -764,6 +776,12 @@ Get User Profile
       - `"thinking-binding-controls-2026-08-01"`
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1119,6 +1137,12 @@ Update User Profile
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `workspace_id?: string`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `BetaUserProfile`
@@ -1388,6 +1412,12 @@ Create Enrollment URL
       - `"thinking-binding-controls-2026-08-01"`
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 

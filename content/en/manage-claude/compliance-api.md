@@ -117,7 +117,7 @@ Anthropic provides two analytics APIs: the Claude Enterprise Analytics API and t
   </Card>
 
   <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-errors" title="Handle Compliance API errors">
-    Every 400, 401, 403, 404, 409, 429, and 5xx response the Compliance API returns, with the fix for each.
+    Common 400, 401, 403, 404, 409, 429, and 5xx responses from the Compliance API, with the cause and fix for each.
   </Card>
 
   <Card href="https://platform.claude.com/docs/en/api/compliance" title="API reference">

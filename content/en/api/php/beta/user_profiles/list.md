@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/list
 
 # List User Profiles
 
-`$client->beta->userProfiles->list(?int limit, ?Order order, ?OrderBy orderBy, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaUserProfile>`
+`$client->beta->userProfiles->list(?int limit, ?Order order, ?OrderBy orderBy, ?string page, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<BetaUserProfile>`
 
 **GET** `/v1/user_profiles`
 
@@ -32,6 +32,8 @@ List User Profiles
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
+
+- `workspaceID?:optional string`
 
 ## Returns
 
@@ -96,6 +98,7 @@ $page = $client->beta->userProfiles->list(
   orderBy: 'created_at',
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($page);

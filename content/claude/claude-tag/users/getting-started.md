@@ -27,7 +27,7 @@ If your workspace previously used the earlier Claude in Slack app, see [how Clau
 
 ## Add Claude to a channel
 
-Claude only works in channels it's been added to. To add it, anyone in the channel can run:
+Claude only works in channels it's been added to. To add it, run:
 
 ```text wrap theme={null}
 /invite @Claude
@@ -36,6 +36,8 @@ Claude only works in channels it's been added to. To add it, anyone in the chann
 Run the command in the channel's message box. Slack rejects `/invite` sent from inside a thread.
 
 Or mention `@Claude` in a message; Slack will prompt you to add it.
+
+If Slack says "You don't have permission to invite people to this channel", the channel or workspace limits who can add people. In Slack, open **Channel details** → **Agents & apps** (called **Integrations** in some Slack versions), select **Add**, and pick **Claude**. Or ask someone who can add people to the channel to add Claude.
 
 ## Check that Claude is working
 

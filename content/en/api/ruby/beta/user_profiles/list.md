@@ -137,6 +137,8 @@ List User Profiles
 
     - `:"mid-conversation-system-clear-at-2026-08-21"`
 
+- `workspace_id: String`
+
 ## Returns
 
 - `class BetaUserProfile`

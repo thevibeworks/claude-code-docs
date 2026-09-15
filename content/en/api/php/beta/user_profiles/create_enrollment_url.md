@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/create_enrol
 
 # Create Enrollment URL
 
-`$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfileEnrollmentURL`
+`$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaUserProfileEnrollmentURL`
 
 **POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
@@ -18,6 +18,8 @@ Create Enrollment URL
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
+
+- `workspaceID?:optional string`
 
 ## Returns
 
@@ -50,6 +52,7 @@ $betaUserProfileEnrollmentURL = $client
   ->createEnrollmentURL(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
 var_dump($betaUserProfileEnrollmentURL);

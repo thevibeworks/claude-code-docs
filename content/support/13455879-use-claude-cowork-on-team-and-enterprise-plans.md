@@ -62,7 +62,9 @@ Claude can use the web in Cowork in two ways: a browser built into the Claude De
 
 - **Claude in Chrome:** Controlled from **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**, and users' browsers still need the extension deployed or installed. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128)**.
 
-Both run the same safety layers: a blocklist for high-risk sites and safety checks on every action. The built-in browser needs the Claude Desktop app open and online; Claude in Chrome needs the extension installed in the user's browser. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
+Both run the same safety layers: a blocklist for high-risk sites and safety checks on every action. The built-in browser needs the Claude Desktop app open and online; Claude in Chrome needs the extension installed in the user's browser. Browser traffic comes from the user's machine, where the desktop app runs. To site operators it looks like traffic from that device, even when the session is steered from web or mobile.
+
+Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
 ### Auto mode availability
 

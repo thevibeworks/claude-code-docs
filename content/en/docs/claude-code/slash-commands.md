@@ -227,7 +227,7 @@ The other command can be any of these:
 
 Claude Code labels synced skills so you can tell where they came from. The `/skills` menu and `/context` group synced skills under `claude.ai sync`, and the `/` command menu marks them as coming from claude.ai.
 
-When it compares names, Claude Code ignores case, spacing, and invisible characters, and treats compatibility forms such as fullwidth letters and dash variants as their plain equivalents. For example, a local `commit` skill keeps `/commit`, and a synced `Commit` runs only as `/anthropic-skills:Commit`.
+When it compares names, Claude Code ignores case, spacing, and invisible characters, and treats compatibility forms such as fullwidth letters and dash variants as their plain equivalents. For example, a synced skill named `Commit` and a local skill named `commit` count as the same name, so `/commit` keeps running your local skill.
 
 A name that differs only by a look-alike letter from another alphabet counts as a different name, and the `claude.ai sync` label is how you tell the two apart. These checks and labels require Claude Code v2.1.228 or later.
 
@@ -700,10 +700,10 @@ A forked skill that runs in the background applies its edits outside your sessio
 
 Skills and [subagents](/docs/en/sub-agents) work together in two directions:
 
-| Approach                     | System prompt            | Task                        | Also loads                                          |
-| :--------------------------- | :----------------------- | :-------------------------- | :-------------------------------------------------- |
-| Skill with `context: fork`   | From agent type          | SKILL.md content            | CLAUDE.md, except when the agent is Explore or Plan |
-| Subagent with `skills` field | Subagent's markdown body | Claude's delegation message | Preloaded skills + CLAUDE.md                        |
+| Approach                     | System prompt            | Task                        | Also loads                                                                                               |
+| :--------------------------- | :----------------------- | :-------------------------- | :------------------------------------------------------------------------------------------------------- |
+| Skill with `context: fork`   | From agent type          | SKILL.md content            | CLAUDE.md, per the agent's [startup context](/docs/en/sub-agents#what-loads-at-startup)                       |
+| Subagent with `skills` field | Subagent's markdown body | Claude's delegation message | Preloaded skills + CLAUDE.md, per the subagent's [startup context](/docs/en/sub-agents#what-loads-at-startup) |
 
 With `context: fork`, you write the task in your skill and pick an agent type to execute it. The built-in Explore and Plan agents [skip CLAUDE.md and git status](/docs/en/sub-agents#what-loads-at-startup) to keep their context small, so a forked skill using `agent: Explore` sees only the SKILL.md content and the agent's own system prompt. For the inverse, where you define a custom subagent that uses skills as reference material, see [Subagents](/docs/en/sub-agents#preload-skills-into-subagents).
 

@@ -28,12 +28,6 @@ unknown organizations and organizations outside the hierarchy return 404.
 
 ### Headers
 
-- `"anthropic-version": optional string`
-
-  The version of the Claude API you want to use.
-
-  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
-
 - `"x-api-key": optional string`
 
 ### Returns
@@ -84,7 +78,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
 - `organization_id: string`
 
-- `settings: array of object or object or object or 3 more`
+- `settings: array of Boolean or Integer or String or 3 more`
 
   - `Boolean object`
 
@@ -303,7 +297,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       default: data_retention
 
-    - `value: map[object or object]`
+    - `value: map[Fixed or Indefinite]`
 
       - `Fixed object`
 
@@ -337,6 +331,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
 ```bash
 curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/settings \
+    -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
@@ -429,7 +424,7 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
 
   - `organization_id: string`
 
-  - `settings: array of object or object or object or 3 more`
+  - `settings: array of Boolean or Integer or String or 3 more`
 
     - `Boolean object`
 
@@ -648,7 +643,7 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
 
         default: data_retention
 
-      - `value: map[object or object]`
+      - `value: map[Fixed or Indefinite]`
 
         - `Fixed object`
 
