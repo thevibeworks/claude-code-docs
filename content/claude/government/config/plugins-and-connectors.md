@@ -14,7 +14,7 @@ You add plugins on the **Plugins** card and connectors on the **Connectors** car
 
 A connector gives Claude access to another service, such as a search tool your agency runs, and the **Connectors** card is the way to deliver a connector to members. A plugin is a package that changes how Claude works. It can add skills, slash commands, and sub-agents, and it can carry hooks, which are scripts a plugin author includes to run automatically at defined points during a session, such as when a session starts. For adding a connector, see [Connectors](/docs/government/connectors/overview). For what a plugin can contain across Claude products, see the [Plugins overview](/docs/plugins/overview); the Claude for Government differences are covered below.
 
-A plugin you upload on the **Plugins** card delivers its skills, slash commands, sub-agents, and hooks to members, and its hooks run on the member's machine. In Claude for Government, a connector declared in a plugin you upload here is not connected, so to give members a connector, add it on the **Connectors** card instead.
+A plugin you upload on the **Plugins** card delivers its skills, slash commands, sub-agents, and hooks to members, and its hooks run on the member's machine. A plugin can also declare [MCP servers](/docs/connectors/overview) of its own, and [Plugins that run code](#plugins-that-run-code) describes how they behave. To deliver a connector to members, add it on the **Connectors** card.
 
 ## Plugin archive formats
 
@@ -44,7 +44,7 @@ A package is marked **Runs code** when it declares components that can run code 
 
 The upload preview marks any plugin that declares components that can run code on the member's machine, for example hooks or an [MCP server](/docs/connectors/overview), and you confirm that you trust such a package before it is added. For a marketplace archive, one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps a **Runs code** marker, so you can see at a glance which of the plugins you have added contain these components.
 
-The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session, its local MCP server never runs, and a connector declared in a plugin you upload here is not connected.
+The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one.
 
 Treat the marker as a prompt to review the package yourself. You are responsible for the plugins you distribute to members, so read each plugin's contents before you upload it.
 
@@ -52,9 +52,9 @@ Treat the marker as a prompt to review the package yourself. You are responsible
 
 Each plugin on the **Plugins** card has an install behavior that you set when you add it and can change later on its row. **Auto-install** installs the plugin on every member's Claude Desktop without the member doing anything. **Members choose** offers the plugin to members, who install it themselves from their organization's plugins in Claude Desktop, as described in [Plugins in Claude Desktop](/docs/government/desktop/plugins).
 
-You do not need to push anything for a plugin to reach members. Claude Desktop syncs your organization's plugin list when it starts and periodically while it runs, so an auto-installed plugin appears on its own, and a member who already has the application open receives it at the next sync. A member can remove a plugin you installed automatically, and it stays removed for that member.
+You do not need to push anything for a plugin to reach members. Claude Desktop syncs your organization's plugin list when it starts and periodically while it runs, so an auto-installed plugin appears on its own, and a member who already has the application open receives it at the next sync. A member can remove a plugin you installed automatically, and it stays removed on the device where they removed it.
 
-In Claude Desktop, members can also add plugins of their own, by uploading a plugin file or having Claude create one, as described in [Plugins in Claude Desktop](/docs/government/desktop/plugins). Those plugins are separate from the ones you add and do not appear on the **Plugins** card.
+Two switches, **Let members add plugin marketplaces** and **Let members add their own plugins**, control whether members can also add plugins of their own in Claude Desktop, as described under [Member-added plugins and marketplaces](/docs/government/config/settings#member-added-plugins-and-marketplaces). Both are off by default. Plugins that members add are separate from the ones you add and do not appear on the **Plugins** card.
 
 ## Where plugins are added
 

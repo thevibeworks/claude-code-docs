@@ -6,6 +6,12 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.48" description="September 14, 2026">
+  * On Windows, environment setup now handles user folders with accented or non-Latin names, tries again if Windows briefly refuses to start the environment installer, and no longer needs the Microsoft Visual C++ Redistributable
+  * The app now warns you a few days before your sign-in expires and offers a "Sign in again" button
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.47" description="September 10, 2026">
   * Claude Science is now available for Windows: download it from [claude.com/product/claude-science](https://claude.com/product/claude-science), and see [Get started](/docs/claude-science/get-started) for setup
   * Various bug fixes and improvements

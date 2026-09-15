@@ -6,6 +6,52 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.110.0" description="2026-09-15">
+  **General**
+
+  * Added a `chromiumFlags` setting in `claude_desktop_config.json` for GPU-related switches such as `--disable-gpu`, applied before graphics start up, so users can work around GPU driver crashes and rendering issues on launch, including on Microsoft Store installs where command-line flags cannot be passed.
+  * Changed the error screen shown after repeated crashes or failed starts to say what happened and offer a Restart Claude button, and crash recovery now waits progressively longer between retries instead of retrying immediately.
+  * Fixed a new chat's first message sometimes being sent twice after a reload, failing repeatedly with "Missing files" over an attachment uploaded for an earlier chat attempt, or dropping you back to an empty new-chat page when the first reply was interrupted; also fixed an edited message being sent again each time Enter was pressed in the edit box that stays open after Save.
+  * Fixed the app freezing and then reloading on Windows (Microsoft Store and other MSIX installs) while an update downloaded in the background.
+  * Fixed the app sometimes failing to launch on Windows when its settings file briefly couldn't be opened.
+  * Fixed the Code tab's agent detection, output styles, and other desktop features sometimes needing you to sign in to your Claude account again after a single network or server error while that sign-in was being renewed.
+
+  **Code**
+
+  * Changed SSH and WSL sessions to keep running when left idle in the background instead of being stopped, and fixed them stalling for up to 10 minutes after each reply while the desktop app was closed or the computer was asleep.
+  * Removed the calendar view from the Routines page; routines now always show as cards.
+  * Fixed messages sent to an SSH session around a disconnect being dropped, discarded with an error, or answered with a prompt to send them again; the app now checks whether the message arrived and delivers it once the session is restored.
+  * Fixed permission requests and questions not appearing in popped-out windows and split panes after the main window switched away from the Code tab.
+  * Fixed text typed in the prompt box sometimes disappearing, along with its undo history, while a session was open.
+  * Fixed the app freezing on launch or session switch when a very large unsent prompt had been saved; it now comes back as an editable "Saved draft" attachment.
+
+  **Cowork**
+
+  * Fixed browser, computer use, and website access permission prompts in Dispatch sometimes being denied on their own before you could answer.
+  * Fixed connected-folder issues: deleting a file failed with "Could not find mount for path" when two connected folders shared a name, and Claude could see the wrong files in a newly connected folder named `.claude`.
+  * Fixed Cowork tasks being unable to read or update existing artifacts.
+  * Fixed Cowork startup problems on Windows: some tasks failed to start, a task could appear to start when your drive couldn't be reached (it now stops with a clear error), mapped network drives no longer hold up startup, and projects now load and save on virtual desktops that use profile containers such as FSLogix.
+  * Fixed Reconnect on an enterprise-managed connector doing nothing when your SSO session had expired; it now signs you in with SSO again, and offers signing in with your own account after a failed attempt.
+
+  **3P**
+
+  * Added `inferenceCredentialHelperArgs`: a list of arguments passed in order to the `inferenceCredentialHelper` script, so one installed script can serve several environments; when unset the script runs with no arguments, as before.
+  * Added `inferenceFoundryBaseUrl`: routes Azure AI Foundry requests from Chat, Cowork, and Code through a gateway or proxy you run instead of the resource's own endpoint; it takes the same value as Claude Code's `ANTHROPIC_FOUNDRY_BASE_URL`.
+  * Added `redirectHost` to `bootstrapOidc`, to `inferenceGatewayOidc` (interactive gateway sign-in), and to `inferenceVertexWorkforceOidc` (Vertex workforce sign-in), so organizations whose identity provider only accepts `localhost` in a registered redirect URI can complete browser sign-in; the default remains `127.0.0.1`.
+  * Added `scheduledTasksEnabled`: set it to `false` to turn off scheduled tasks in Cowork and Code; the Scheduled page is hidden, existing tasks stop running, and Claude can no longer schedule new work.
+  * Added effort and default-model controls: `defaultModelEffort` sets the effort level the default model starts at, `maxEffort` on an `inferenceModels` entry hides that model's higher effort levels and holds Code sessions to the cap, and `alwaysStartWithDefaultModel` starts every new conversation or task on the default model and stops saving a person's model and effort changes as their default. The Code tab also now uses the standard model picker, with effort as its own control beside the model name.
+  * Added model catalog support: model names, descriptions, and thinking or effort options in the model picker now follow Anthropic's published Claude Code model catalog, matching what first-party users see, with your configured model list and order unchanged. By default the app fetches the signed catalog from `downloads.claude.ai` (the host it already uses for workspace and Claude Code downloads) every 5 to 15 minutes and keeps the last catalog it fetched, or the copy bundled with the app, when that host cannot be reached; set `modelCatalogEnabled` to `false` to keep the app's built-in labels and make no catalog request, or `modelCatalogUrl` to fetch the catalog and its signature file from a mirror inside your network instead (the document is still verified against the key built into the app).
+  * Changed Chat to stop asking for approval when Claude hands back a file it produced and, with advanced file analysis on (`chatAdvancedFileAnalysisEnabled`), at each step of analyzing an attached file, matching Cowork; connector actions still ask. To keep the per-step prompt in Chat and Cowork, add `"Bash": "ask"` to `builtinToolPolicy`.
+  * Changed the Cowork workspace's and other native log files on macOS to be written to `~/Library/Logs/Claude-3p` with the rest of the deployment's logs instead of `~/Library/Logs/Claude`.
+  * Changed MCP tool permissions: entries in `managedMcpServers` and `orgPluginSettings` now apply to MCP servers from any installed plugin, including ones that run locally, a `managedMcpServers` entry can use `transport: "policy-only"` to set tool permissions for a server a plugin provides without declaring how to launch it, and permission rules now also apply to tools whose names contain characters such as dots or spaces.
+  * Changed SSH connections in Code sessions on macOS and Linux to run through the OpenSSH `ssh` program on the device by default, so the organization's own SSH setup (for example Kerberos sign-in and `ssh_config` options) applies; set `sshTransport` (beta) to `builtin` to keep the app's built-in SSH library.
+  * Fixed "Instructions for Claude" in Settings appearing blank right after saving, and profile settings switching to a different saved copy after a launch that asked the user to sign in.
+  * Fixed Duplicate saving an empty copy of a configuration, and Claude API key sign-in overwriting a saved configuration, when the configuration's file could not be read, for example while another program briefly had it locked.
+  * Fixed sign-in guidance when the deployment's credential has no sign-in to repeat: authentication error cards now show that credential's own guidance instead of asking to sign in again, the sign-in card says what failed when sign-in succeeded but the organization's configuration could not be loaded, and a gateway 403 is reported as a provider error instead of a request to re-enter credentials.
+  * Fixed the model picker listing the same model name many times when a gateway returns several models under one display name; the extras now appear under More models, labelled by the part of the model ID that differs.
+  * Fixed scheduled tasks silently not running after the provider sign-in (such as AWS IAM Identity Center) had expired; they now wait and run once you sign in again, and the "Scheduled task failed" notification now appears when a task could not start.
+</Update>
+
 <Update label="Resolved: Cowork on Windows" description="2026-09-14">
   Microsoft has released a Windows update that fixes the issue where Cowork could not reach your files on Windows PCs. Install the latest Windows update and restart your PC. On Windows 11 24H2 and 25H2 the fix is [KB5129195](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129195-windows-11-24h2-25h2-security-update). No Claude Desktop update is needed.
 </Update>

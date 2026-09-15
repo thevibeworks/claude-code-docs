@@ -30,7 +30,9 @@ Sessions expire after a period of inactivity, and using a session extends it. On
 
 Your agency or organization can set a maximum session length in addition to the idle timeout. When a session reaches that length, it expires even if you have been using it the whole time, and the browser tab or desktop application prompts you to sign in again. Sessions that expire either way drop off this list automatically.
 
-Sessions can also end early in three ways: you sign one out from this page, you use the **Sign out** button in the page footer to end the session you are currently using, or an administrator deactivates your account or your organization, which immediately invalidates every session you have.
+Sessions can also end early in these ways: you sign one out from this page, you use the **Sign out** button in the page footer to end the session you are currently using, or an administrator deactivates your account or your organization, which immediately invalidates every session you have.
+
+When you sign in, Claude for Government can end another of your sessions. You can have up to six active sessions in each Claude application, such as Claude Desktop. You can also have up to three browser sessions in total. If a new sign-in goes over one of these limits, Claude for Government ends your session of the same kind that expires soonest.
 
 ## Signing out of other sessions
 

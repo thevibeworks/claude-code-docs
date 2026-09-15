@@ -18,7 +18,7 @@ Cowork, the agent workspace at the center of Claude Desktop on 3P, has the follo
 | CPU architecture | Apple silicon or Intel (x64) | x64 or Arm64                                                         |
 | Installer        | `.dmg`                       | `.msix`                                                              |
 
-On Windows, Cowork requires the `.msix` package: fleets provisioned with the legacy `.exe` installer get Claude Desktop without Cowork, and migrating them to `.msix` enables it. Cowork also requires working hardware virtualization, which the [readiness check](#check-device-readiness) verifies along with the requirements above.
+On Windows, Cowork requires the `.msix` package: fleets provisioned with the legacy `.exe` installer get Claude Desktop without Cowork, and migrating them to `.msix` enables it. Cowork also requires working hardware virtualization and, on Windows, the Virtual Machine Platform optional feature. The [readiness check](#check-device-readiness) verifies both along with the requirements above.
 
 ## Check device readiness
 
@@ -111,9 +111,9 @@ The report contains the configuration state, application logs, and environment d
 
 ## Endpoint security software
 
-If your organization runs binary-authorization or EDR software (such as [Santa](https://santa.dev), CrowdStrike Falcon, or Microsoft Defender ASR) with path-based deny rules, the Cowork agent helper may be blocked from launching. The symptom is that Claude Desktop opens normally and reads the managed configuration, but Cowork sessions fail to start.
+Claude Desktop runs Chat conversations, Cowork tasks, and Code sessions through an agent helper, a signed binary that it keeps under its user-data directory (with the standard installer) and launches when a user works in Chat, Cowork, or Code. If your organization runs binary-authorization or EDR software (such as [Santa](https://santa.dev), CrowdStrike Falcon, or Microsoft Defender ASR) with path-based deny rules, the agent helper may be blocked from launching. The symptom is that Claude Desktop opens normally and reads the managed configuration, but Chat conversations, Cowork tasks, and Code sessions fail to start.
 
-The agent helper is a signed binary that Claude Desktop installs under its user-data directory. **Allowlist by signing identity rather than path** so the rule survives version updates.
+**Allowlist the helper by signing identity rather than path** so the rule survives version updates.
 
 **macOS**
 
@@ -155,7 +155,7 @@ If the offline installer for the version the URL serves is not yet available, th
 
 Download the installer from a connected machine and bring it across your boundary with your usual software-distribution process.
 
-Pair the offline installer with [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates): the app cannot reach the update feed from an air-gapped network, and you update the fleet by distributing each new offline installer through your MDM. Aside from updates, the only egress an air-gapped deployment needs is your inference provider; see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths).
+Pair the offline installer with [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates). The app cannot reach the update feed from an air-gapped network, and you update the fleet by distributing each new offline installer through your MDM. Also set [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false`, or point [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) at a mirror inside your network. Otherwise the app tries to fetch the signed model catalog from `downloads.claude.ai` at launch and every 5 to 15 minutes after that, and while those requests fail the model picker keeps the names and effort options that ship with the app. With updates and the catalog fetch handled this way, the only egress an air-gapped deployment needs is your inference provider; see [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths).
 
 ## Updates
 
