@@ -2,6 +2,12 @@
 
 ## September 2026
 
+### September 15, 2026
+
+**Launching Salesforce in Claude (beta)**
+
+We've launched Salesforce in Claude, a plugin that brings a seller’s accounts, opportunities, and pipeline into Claude with 37 pre-built sales skills. Prep a call, review a deal, create a pipeline dashboard, and send your forecast all from Claude. It’s now available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. For more information, see our blog post: **[Bringing Salesforce into Claude](http://claude.com/blog/salesforce-in-claude)**.
+
 ### September 10, 2026
 
 **Smart reports (beta)**
