@@ -6,6 +6,13 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.11.1">
+  * (breaking) Changed the **Telemetry endpoint** setting on the Config page to check its host name more strictly when you save; an address that is already saved stays until the setting is next changed.
+  * Changed plugin uploads to ask for the Runs code confirmation when a plugin's `settings.json` sets anything other than its default agent or a `$schema` reference, such as a status line.
+  * Added tenant-level Compliance API keys: tenant administrators can create, list, and revoke them on the tenant portal's **Compliance API keys** page under Settings, and a tenant-level key returns the events of every organization in the tenant together with tenant-level activity.
+  * Improved accessibility in the Admin Console for people who use the operating system's reduce motion setting or a screen reader.
+</Update>
+
 <Update label="2026.09.10.1">
   * Fixed importing Claude for Government Web chats into Claude Desktop failing with "This account doesn't match your organization" for members of tenants that use directory provisioning (SCIM) now but did not on Claude for Government Web.
   * Added the "Let members add plugin marketplaces" and "Let members add their own plugins" settings under Config > Integrations at the tenant, organization, and group levels, both off by default: members on Claude Desktop 1.37937.0 or later can no longer add plugin marketplaces or their own plugins unless an admin turns these on, while marketplaces and plugins they already added keep working.

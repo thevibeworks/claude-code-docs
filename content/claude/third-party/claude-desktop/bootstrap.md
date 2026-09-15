@@ -369,7 +369,7 @@ Consent gates only bootstrap-delivered values. The same keys delivered through d
 
 ### Origin pinning
 
-When no `bootstrapOidc` is set (device-code or request-headers mode), the response is fenced: `inferenceGatewayBaseUrl`, `inferenceVertexBaseUrl`, and `inferenceBedrockBaseUrl` must share the `bootstrapUrl` origin or the field is dropped. A compromised configuration response cannot redirect inference to an attacker-controlled host because the only host it can name is your bootstrap server's own origin.
+When no `bootstrapOidc` is set (device-code or request-headers mode), the response is fenced: `inferenceGatewayBaseUrl`, `inferenceVertexBaseUrl`, `inferenceBedrockBaseUrl`, and `inferenceFoundryBaseUrl` must share the `bootstrapUrl` origin or the field is dropped. A compromised configuration response cannot redirect inference to an attacker-controlled host because the only host it can name is your bootstrap server's own origin.
 
 When you supply `bootstrapOidc`, your configuration server and gateway are independent hosts you control, so origin pinning is disabled and the response can name any HTTPS host. In this mode the bootstrap server's integrity is the only control on where inference and MCP traffic are sent.
 

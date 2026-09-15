@@ -1,58 +1,90 @@
 ---
 title: Handle Compliance API errors
 url: https://platform.claude.com/docs/en/manage-claude/compliance-errors
-description: Every Compliance API error message with cause and fix, organized by HTTP status code.
+description: Compliance API error responses by HTTP status code, with the cause and fix for each.
 ---
 
 <Note>
   To enable the Compliance API, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 </Note>
 
-This page lists the response messages each documented Compliance API endpoint returns, the cause, and the fix.
+This page lists common Compliance API error responses by HTTP status code, with the cause and the fix for each.
 
 The Compliance API returns errors in the standard [Anthropic error format](https://platform.claude.com/docs/en/api/errors): a non-2xx status code, a `request-id` response header, and a JSON body with an `error` object containing `type` and `message`. Include the `request-id` header value when you escalate to support.
 
 ```json
 {
   "error": {
-    "type": "authentication_error",
-    "message": "The API key provided is invalid or has been revoked."
+    "type": "permission_error",
+    "message": "Missing required scopes. Got: ['read:compliance_activities'] Needed one of: ['read:compliance_user_data', 'read:org_audit']"
   }
 }
 ```
 
 On this page, local sessions run on users' machines and remote sessions run in the cloud; see [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions).
 
-Match on `error.type`, not on the message string. Messages are stable enough to copy into runbooks but might be reworded over time; the type values are part of the API contract. The local session endpoints have a few documented exceptions where responses that share a type are told apart by their message; each is called out where it applies.
+Match on the HTTP status code and `error.type`, not on the message string. Messages are stable enough to copy into runbooks but might be reworded over time; the status codes and type values are part of the API contract. A few responses that share a status code and type are told apart by their message; each is called out where it applies.
 
 The following table tells you at a glance whether to retry. Each section that follows shows the verbatim error body and the fix.
 
-| Status                                                                                                                     | Retry?                      | When                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| -------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request)                     | No                          | Fix the request and resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [401 Unauthorized](https://platform.claude.com/docs/en/manage-claude/compliance-errors#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#404-not-found)                         | Usually no                  | The resource was deleted or never existed; remove it from your queue. Exceptions: on the local session endpoints, the message `Local sessions are not available.` (returned on every call, including the list) means the endpoints are currently unavailable to your parent organization, not that a session is gone; keep your queued IDs and see [Local session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-session-not-found). A remote session still in `pending` status 404s on its messages endpoint until it starts; see [Remote session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#remote-session-not-found). |
-| [409 Conflict](https://platform.claude.com/docs/en/manage-claude/compliance-errors#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| [500 Internal Server Error](https://platform.claude.com/docs/en/manage-claude/compliance-errors#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| [502, 503, 504, 529](https://platform.claude.com/docs/en/manage-claude/compliance-errors#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff. Exception: some local session 503s are not transient. See [Local sessions temporarily unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable).                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Status                                                                                                                     | Retry?                      | When                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request)                     | No                          | Fix the request, or enable the Compliance API if the message says it is not enabled, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| [401 Unauthorized](https://platform.claude.com/docs/en/manage-claude/compliance-errors#401-unauthorized)                   | No                          | The key is not recognized, has been deactivated, or has expired; re-enable or replace it, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#404-not-found)                         | Usually no                  | A message that names a resource means it was deleted or never existed; remove it from your queue. The bare message `Not found` means the request did not authenticate (or the path does not exist), not that a resource is gone; see [Request not authenticated](https://platform.claude.com/docs/en/manage-claude/compliance-errors#request-not-authenticated). The session endpoints add two more cases: on the local session endpoints, the message `Local sessions are not available.` (returned on every call, including the list) means the endpoints are currently unavailable to your parent organization, not that a session is gone; keep your queued IDs and see [Local session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-session-not-found). A remote session still in `pending` status 404s on its messages endpoint until it starts; see [Remote session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#remote-session-not-found). |
+| [409 Conflict](https://platform.claude.com/docs/en/manage-claude/compliance-errors#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [500 Internal Server Error](https://platform.claude.com/docs/en/manage-claude/compliance-errors#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| [502, 503, 504, 529](https://platform.claude.com/docs/en/manage-claude/compliance-errors#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff. Exception: some local session 503s are not transient. See [Local sessions temporarily unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 ## 400 Bad Request
 
-The request was syntactically valid but contained a parameter the server rejected. Fix the parameter and retry.
+The request was syntactically valid, but the server rejected a parameter or the Compliance API is not enabled for the organization. Fix the cause named in the message and resend.
 
-### Invalid timestamp format
+### Compliance API not enabled
 
 **Type:** `invalid_request_error`
 
 ```text wrap
-The `created_at.gte` parameter contains an invalid timestamp format. Timestamps must be provided in RFC 3339 format e.g., "2024-03-01T00:00:00Z". Got "2024-01-01".
+Compliance API is not enabled for this organization
 ```
 
-**Cause:** A `created_at.*` or `updated_at.*` value (`.gte`, `.gt`, `.lte`, `.lt`) could not be parsed as a datetime. The message names the parameter that failed and echoes the value that was sent.
+**Cause:** The key is valid, but the Compliance API is not enabled for the organization or parent organization the key belongs to. Every endpoint returns this response until the API is enabled, and again if an administrator turns the API off.
 
-**Fix:** Send a full RFC 3339 timestamp including time and time zone, for example, `2024-03-01T00:00:00Z` or `2024-03-01T00:00:00+00:00`.
+**Fix:** Enable the Compliance API by following [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api), then resend the request.
+
+### Unknown query parameter
+
+**Type:** `invalid_request_error`
+
+```text wrap
+Unknown query parameter: 'created_at[gte]'. Did you mean 'created_at.gte'?
+```
+
+**Cause:** The request included a query parameter that the endpoint does not define; the Compliance API rejects unrecognized parameters rather than ignoring them. The message names the parameter and, for near misses such as bracket notation in place of a dot or a missing `[]` suffix, suggests the defined name.
+
+**Fix:** Use the parameter names shown on the endpoint's [Compliance API reference](https://platform.claude.com/docs/en/api/compliance) page. Range filters use dot notation (for example, `created_at.gte`), array filters take a `[]` suffix (for example, `activity_types[]`), and the pagination parameters are `after_id`, `before_id`, or `page`, depending on the endpoint.
+
+### Invalid parameter value
+
+**Type:** `invalid_request_error`
+
+```text wrap
+limit: Input should be less than or equal to 1000
+```
+
+```text wrap
+created_at.gte: Input should be a valid datetime or date, invalid character in year
+```
+
+```text wrap
+activity_types[].0: Input is not one of the permitted values.
+```
+
+**Cause:** A query parameter's value failed validation. The message starts with the parameter name (followed by the element's position for an array parameter), then states the constraint that failed. Three common cases are shown: a `limit` above the endpoint's maximum (the number in the message is that endpoint's maximum), a `created_at.*` or `updated_at.*` value that cannot be parsed as a date or timestamp, and an `activity_types[]` value that is not a supported activity type.
+
+**Fix:** Correct the parameter named in the message. Each list endpoint has its own `limit` range; see the parameter constraints on the corresponding [Compliance API reference](https://platform.claude.com/docs/en/api/compliance) page. Send timestamps in RFC 3339 format with an explicit UTC offset, for example, `2024-03-01T00:00:00Z` or `2024-03-01T00:00:00+00:00`; the local session list rejects a timestamp without an offset (`created_at.gte: Input should have timezone info`). For the supported `activity_types[]` values, see [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list).
 
 The local session list (`GET /v1/compliance/apps/sessions/local`) also returns a 400 `invalid_request_error` when both time bounds are supplied and `created_at.lt` is not strictly after `created_at.gte`. The body reads:
 
@@ -62,33 +94,25 @@ created_at.lt must be strictly after created_at.gte.
 
 Send a `created_at.lt` later than `created_at.gte`, or omit one of the bounds.
 
-### Invalid limit
-
-**Type:** `invalid_request_error`
-
-```text wrap
-The limit parameter must be between 1 and 1000, inclusive. Got 1500.
-```
-
-**Cause:** The `limit` query parameter was outside the accepted range. The bound named in the message reflects the maximum for the specific endpoint that was called.
-
-**Fix:** Send a `limit` within the range the endpoint accepts. Each list endpoint has its own `limit` range; see the parameter constraints on the corresponding [Compliance API reference](https://platform.claude.com/docs/en/api/compliance) page.
-
 The session transcript endpoints (`GET /v1/compliance/apps/sessions/local/{session_id}/messages` and `GET /v1/compliance/apps/sessions/remote/{session_id}/messages`) validate their truncation parameters the same way: `tool_use_input_max_bytes` and `tool_result_max_bytes` each accept a positive byte count or `-1` (the server maximum), so a value such as `0` returns the same 400 `invalid_request_error`.
 
-### Invalid pagination ID
+### Invalid pagination cursor
 
 **Type:** `invalid_request_error`
 
 ```text wrap
-Invalid `after_id`. No activity found for `after_id` "activity_invalid123"
+Invalid activity_id format: 'activity_invalid123'
 ```
 
-**Cause:** The `after_id` or `before_id` cursor could not be decoded as an opaque cursor or parsed as an activity ID.
+```text wrap
+Invalid pagination cursor for 'after_id'
+```
+
+**Cause:** A pagination cursor could not be decoded. On the Activity Feed, an `after_id` or `before_id` value that is neither a cursor the API issued nor a well-formed activity ID returns the first body, which echoes the value sent. On the chat and chat message endpoints, an `after_id` or `before_id` value that cannot be decoded returns the second body, which names the parameter.
 
 **Fix:** Treat pagination cursors as opaque strings. Always copy the `first_id` or `last_id` value returned by the previous page; stop when `has_more` is `false`. Do not construct cursors from object IDs.
 
-The directory, project, and session endpoints (organizations, users, roles, role permissions, groups, group members, projects, project attachments, local and remote sessions, and session messages) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false` (or, on the session endpoints, which return no `has_more`, when `next_page` is `null`). A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
+The directory, project, and session endpoints (organizations, users, roles, role permissions, groups, group members, projects, project attachments, local and remote sessions, and session messages) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false` (or, on the session endpoints, which return no `has_more`, when `next_page` is `null`). A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`, with a message specific to the endpoint.
 
 The two paginated local session endpoints (the list and the messages endpoint) return the following 400 `invalid_request_error` for any `page` value they cannot decode, for example, a token that was truncated or altered after you stored it, or one issued by a different endpoint or under a different parent organization. On the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`), each `page` cursor is also bound to the session and `order` it was issued for, so a cursor issued for a different session or sort order returns the same body:
 
@@ -106,30 +130,38 @@ For the first body, resend the unmodified `next_page` value from the previous re
 
 ## 401 Unauthorized
 
-The `x-api-key` header was missing or did not match a known key. A valid key with the wrong scopes returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden) instead.
+The request carried a Compliance Access Key (`sk-ant-api01-...`) or Admin API key (`sk-ant-admin01-...`) that does not authenticate. A request that carries no key, or a key of another type, returns [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#request-not-authenticated) instead on every endpoint except organization settings, and a valid key with the wrong scopes returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
 
-### Invalid API key
+### Invalid, deactivated, or expired API key
 
 **Type:** `authentication_error`
 
 ```text wrap
-The API key provided is invalid or has been revoked.
+API key is invalid.
 ```
 
-**Cause:** The key in `x-api-key` does not exist, has been deleted, or has been disabled. A missing or empty `x-api-key` header returns the same body, so check both your secret store and the key's revocation status.
+```text wrap
+API key has been deactivated.
+```
 
-**Fix:** Confirm the key value, check that it has not been deleted in claude.ai (Compliance Access Keys) or Claude Console (Admin API keys), and confirm it is enabled. See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+```text wrap
+API key has expired.
+```
+
+**Cause:** `API key is invalid.` means the value sent does not match a usable key, for example because it was truncated or altered when it was stored. `API key has been deactivated.` means the key has been disabled or deleted. `API key has expired.` means an Admin API key's expiration date has passed; Compliance Access Keys are not created with one.
+
+**Fix:** For `API key is invalid.`, compare the value your client sends against the secret you stored when the key was created; the full secret is displayed only once, so if your stored copy is wrong, create a new key. For `API key has been deactivated.`, re-enable the key if it was only disabled, in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access) for a Compliance Access Key or [Claude Console > Settings > Admin keys](https://platform.claude.com/settings/admin-keys) for an Admin API key; a deleted key cannot be restored. For a deleted or expired key, create a new key and update your integration to use it, as described in [Manage and rotate keys](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#manage-and-rotate-keys).
 
 ## 403 Forbidden
 
-The key in `x-api-key` is valid but does not carry the scope the endpoint requires. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint requires (`Needed:`), so you can confirm what the key carries without rechecking Claude Console or claude.ai. Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one. A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed only.
+The key in `x-api-key` is valid but does not carry a scope the endpoint accepts. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint accepts (`Needed one of:` on read endpoints, where any one listed scope is sufficient, or `Needed:` on delete endpoints), so you can confirm what the key carries without rechecking Claude Console or claude.ai. On read endpoints the accepted list also includes `read:org_audit`, a read-only audit scope that covers every Compliance API read endpoint; see [Choose scopes for a Claude Enterprise key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#choose-scopes-for-a-claude-enterprise-key). Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one. A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed only.
 
 ### Insufficient scope: Activity Feed
 
 **Type:** `permission_error`
 
 ```text wrap
-Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compliance_activities']
+Missing required scopes. Got: ['read:compliance_user_data'] Needed one of: ['read:compliance_activities', 'read:org_audit']
 ```
 
 **Cause:** A key without `read:compliance_activities` was used to call `GET /v1/compliance/activities`. There are two common paths to this error:
@@ -144,7 +176,7 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compl
 **Type:** `permission_error`
 
 ```text wrap
-Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compliance_org_data']
+Missing required scopes. Got: ['read:compliance_user_data'] Needed one of: ['read:compliance_org_data', 'read:org_audit']
 ```
 
 **Cause:** A key without `read:compliance_org_data` was used to call an organizations, roles, groups, or effective-settings endpoint. There are two common paths to this error:
@@ -159,7 +191,7 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compl
 **Type:** `permission_error`
 
 ```text wrap
-Missing required scopes. Got: ['read:compliance_org_settings'] Needed: ['read:compliance_org_data']
+Missing required scopes. Got: ['read:compliance_org_settings'] Needed one of: ['read:compliance_org_data', 'read:org_audit']
 ```
 
 **Cause:** The `read:compliance_org_settings` scope was retired on June 30, 2026. `GET /v1/compliance/organizations/{organization_id}/settings` now requires `read:compliance_org_data`, the same scope as the other organization endpoints, and the retired scope no longer authorizes anything. A Compliance Access Key that carries only `read:compliance_org_settings` returns this error on every call to the settings endpoint, even though the key worked before the retirement. The retired scope can no longer be selected or granted when creating a key.
@@ -171,7 +203,7 @@ Missing required scopes. Got: ['read:compliance_org_settings'] Needed: ['read:co
 **Type:** `permission_error`
 
 ```text wrap
-Missing required scopes. Got: ['read:compliance_activities'] Needed: ['read:compliance_user_data']
+Missing required scopes. Got: ['read:compliance_activities'] Needed one of: ['read:compliance_user_data', 'read:org_audit']
 ```
 
 **Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, sessions, organization users, or group-members endpoint. There are two common paths to this error:
@@ -195,14 +227,26 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['delete:com
 
 ## 404 Not Found
 
-The endpoint resolved but the resource ID does not exist or has already been deleted. Compliance API deletes are immediate and permanent, so a 404 on a previously known ID usually means the content was hard-deleted through a Compliance API delete call or removed by a retention policy. The session endpoints add two cases. On the local session endpoints, a separate 404 message, `Local sessions are not available.`, is returned on every call (including the list) while the endpoints are unavailable to your parent organization; it does not depend on the session ID and can be temporary. See [Local session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-session-not-found). On the remote session endpoints, a session that is still being provisioned (`status` of `pending`) has no transcript yet, so its messages endpoint 404s until the session starts. See [Remote session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#remote-session-not-found). The activity-type strings cited in each Fix (for example, `claude_chat_created`) are values you can pass to the Activity Feed `activity_types[]` filter; see [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list) for every supported value.
+A 404 whose message names a resource or a resource type means the ID in the path does not exist or has already been deleted. Compliance API deletes are immediate and permanent, so a 404 on a previously known ID usually means the content is gone: hard-deleted through a Compliance API delete call, removed by a retention policy, or, for files and artifacts, deleted along with their chat by a user in claude.ai. A 404 with the bare message `Not found` is different: the request did not authenticate (or the path does not exist), and any endpoint can return it, list endpoints included; see [Request not authenticated](https://platform.claude.com/docs/en/manage-claude/compliance-errors#request-not-authenticated). The session endpoints add two cases. On the local session endpoints, a separate 404 message, `Local sessions are not available.`, is returned on every call (including the list) while the endpoints are unavailable to your parent organization; it does not depend on the session ID and can be temporary. See [Local session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-session-not-found). On the remote session endpoints, a session that is still being provisioned (`status` of `pending`) has no transcript yet, so its messages endpoint 404s until the session starts. See [Remote session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#remote-session-not-found). The activity-type strings cited in each Fix (for example, `claude_chat_created`) are values you can pass to the Activity Feed `activity_types[]` filter; see [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list) for every supported value.
+
+### Request not authenticated
+
+**Type:** `not_found_error`
+
+```text wrap
+Not found
+```
+
+**Cause:** The request did not carry a credential the Compliance API accepts: no API key was sent, or the key is not a Compliance Access Key (`sk-ant-api01-...`) or Admin API key (`sk-ant-admin01-...`), for example, a Claude API key (`sk-ant-api03-...`). The status, type, and message are the same as for a path that does not exist and do not depend on the endpoint or any resource ID, so list endpoints such as `GET /v1/compliance/activities` return this body too. The one exception is `GET /v1/compliance/organizations/{organization_id}/settings`, which answers these requests with 401 `authentication_error`. On every endpoint, a Compliance Access Key or Admin API key that does not authenticate returns [401 Unauthorized](https://platform.claude.com/docs/en/manage-claude/compliance-errors#401-unauthorized) instead.
+
+**Fix:** Send the key in the `x-api-key` header and check its prefix: the Compliance API accepts only `sk-ant-api01-...` and `sk-ant-admin01-...` keys; see [Which key do you need?](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#which-key-do-you-need). If the header and key are right and one path still returns `Not found` while others succeed, check that path against the [Compliance API reference](https://platform.claude.com/docs/en/api/compliance).
 
 ### Chat not found
 
 **Type:** `not_found_error`
 
 ```text wrap
-Chat claude_chat_01H5CWunD7RpVJ5bHa8RCkja not found.
+Chat conversation not found: 'claude_chat_01H5CWunD7RpVJ5bHa8RCkja'
 ```
 
 **Cause:** The chat ID in the path does not match a chat readable through the Compliance API. The chat might have been hard-deleted through a previous Compliance API call or removed by your organization's retention policy, or it might belong to an organization the calling key cannot read. Chats that a user deleted in claude.ai do not return 404; they remain readable, with `deleted_at` populated, but without their message content.
@@ -214,12 +258,32 @@ Chat claude_chat_01H5CWunD7RpVJ5bHa8RCkja not found.
 **Type:** `not_found_error`
 
 ```text wrap
-No file found with provided id, or it has already been deleted.
+File not found: 0d3b8f72-6c1e-4a59-b2de-7f4c9a1e5b60
 ```
 
-**Cause:** The file ID does not exist or has been deleted. This error applies to both chat-attached files (`claude_file_...`) and project files.
+**Cause:** The file ID does not exist in an organization your key can read, or the file has been deleted. Deleting a chat in claude.ai also deletes the files attached to it, although the chat itself remains listed. The message identifies the file by its underlying UUID rather than by the `claude_file_...` ID sent in the request. The metadata, content, and delete endpoints return this body; it applies to both chat-attached files (`claude_file_...`) and project files.
 
-**Fix:** Reconcile against recent `claude_file_uploaded` or `claude_file_deleted` activities. If the file was deleted, the binary is gone; the activity record remains in the feed for the 6-year retention window.
+**Fix:** Reconcile against recent `claude_file_uploaded` or `claude_file_deleted` activities. Files deleted along with a chat have no `claude_file_deleted` activity, so check for the chat's `claude_chat_deleted` activity as well. If the file was deleted, the binary is gone; the activity records remain in the feed for the 6-year retention window.
+
+### Generated file or artifact not found
+
+**Type:** `not_found_error`
+
+```text wrap
+Generated file not found: 'claude_gen_file_01TbR8wAcCeFhJkLnPqStUvX'
+```
+
+```text wrap
+Generated file content not found: 'claude_gen_file_01TbR8wAcCeFhJkLnPqStUvX'
+```
+
+```text wrap
+Artifact version not found: 'claude_artifact_version_01KmNpQrSt3UvWxYz5AbCdEfG'
+```
+
+**Cause:** The ID in the path does not match a tool-generated file or artifact version readable through the Compliance API. The generated-file metadata endpoint returns the first body, the content endpoint returns the second, and both artifact endpoints return the third. Generated files and artifacts are deleted with the chat they were created in, including when a user deletes the chat in claude.ai.
+
+**Fix:** Use [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) to look up the chat the ID came from. If the chat's `deleted_at` is populated, or a `claude_chat_deleted` activity names the chat, the content is gone; remove the ID from your queue. Otherwise, confirm the ID against the `generated_files` and `artifacts` arrays on the chat's messages.
 
 ### Project not found
 
@@ -229,7 +293,11 @@ No file found with provided id, or it has already been deleted.
 No project is found with the provided id.
 ```
 
-**Cause:** The project ID does not exist or has been deleted.
+```text wrap
+No project found with provided id, or it has already been deleted.
+```
+
+**Cause:** The project ID does not exist or has been deleted. The project detail, attachments, and collaborators endpoints return the first body; `DELETE /v1/compliance/apps/projects/{project_id}` returns the second.
 
 **Fix:** Reconcile against recent `claude_project_created` or `claude_project_deleted` activities. The Activity Feed continues to expose the project's lifecycle events even after the project itself is gone.
 
@@ -238,10 +306,14 @@ No project is found with the provided id.
 **Type:** `not_found_error`
 
 ```text wrap
-No project document found with provided id, or it has already been deleted.
+No project document found with the provided id.
 ```
 
-**Cause:** The project document ID does not exist or has been deleted. This error applies to text project documents (`claude_proj_doc_...`), not to project files.
+```text wrap
+No project document found with the provided id, or it has already been deleted.
+```
+
+**Cause:** The project document ID does not exist or has been deleted. The document content and metadata endpoints return the first body; `DELETE /v1/compliance/apps/projects/documents/{document_id}` returns the second. This error applies to text project documents (`claude_proj_doc_...`), not to project files.
 
 **Fix:** Use `GET /v1/compliance/apps/projects/{project_id}/attachments` to list current attachments. If the document is missing, it was deleted; retrieve it through a `claude_project_document_uploaded` activity record if you only need the metadata.
 
@@ -299,11 +371,11 @@ organization `91012d09-e48b-438e-a489-1bebfd8fa6f9` not found in this organizati
 
 ## 409 Conflict
 
-The request is well-formed and authorized but conflicts with the resource's current state.
+The request is well-formed and authorized but conflicts with the resource's current state. The body carries the `invalid_request_error` type, which 400 responses also use, so distinguish a conflict by the 409 status code rather than by `error.type`.
 
 ### Project has attached chats
 
-**Type:** `conflict_error`
+**Type:** `invalid_request_error`
 
 ```text wrap
 The "claude_proj_01KGp4eZNug9ri4kE35RSppq" project cannot be deleted as it has chats attached to it. Delete or detach all chats, and try deleting the project again.

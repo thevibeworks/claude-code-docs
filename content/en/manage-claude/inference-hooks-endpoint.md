@@ -176,10 +176,6 @@ The request body is a JSON object with these fields:
 | `model`      | string or null | Public model identifier for this request, when available.                                                                                                                                                                                                                |
 | `metadata`   | object         | Reserved extension map of string keys to string values, sent empty today. Require nothing from it, and tolerate its absence, its presence, and any keys that appear.                                                                                                     |
 
-<Note>
-  Requests currently also carry deprecated legacy aliases of some of these fields. Read the field names documented on this page and ignore any others; the aliases exist only for earlier integrations.
-</Note>
-
 An example request body:
 
 ```json
@@ -230,6 +226,8 @@ Each entry in `messages` has a `role` of `user` or `assistant` (tool results app
 | `tool_result` | `content`: the tool's output as text, with parts joined by newlines; binary parts such as images are replaced by placeholder markers, and raw bytes are never sent. `is_error`: whether the tool call failed. `tool_name`: the tool's name, so a policy can condition on tool identity without cross-referencing an earlier block. `tool_use_id`: the `id` of the matching `tool_use` block. |
 | `attachment`  | `file_name`: the original file name or path. `media_type`: the attachment's media type. `size_bytes`: the size of the original file. `text`: the text content of the attachment when available, such as extracted document text, an audio transcript, or link metadata. Raw attachment bytes are never sent.                                                                                 |
 
+Apart from `type`, a `text` block's `text`, and a `tool_result` block's `content` and `is_error`, any of these fields can be `null` when the value isn't known; for example, an image arrives as an `attachment` block with `file_name` and `text` set to `null`.
+
 A block whose `type` you don't recognize is a forward-compatible addition. The only field it guarantees is `type`; your policy may inspect whatever other fields are present, but must not reject the request because of an unrecognized type.
 
 ### What the transcript contains
@@ -238,11 +236,11 @@ The transcript is the conversation as the end user sees it, up to the point of i
 
 A turn whose every block is excluded is omitted entirely, so don't assume strict user and assistant alternation.
 
-Transcripts are sent untruncated, so a long conversation with large attachments produces a large request body, up to an upper bound of 10 MB. Raise your server's body limit to accept that ceiling. Several common defaults are much smaller, including nginx `client_max_body_size` at 1 MB and Express `express.json()` at 100 kB, and a rejected body counts as a webhook failure, so under **Allow the request** failure handling an oversized prompt would reach the model uninspected.
+Transcripts are sent untruncated, so a long conversation with large attachments produces a large request body. In practice the model's context window keeps bodies under about 10 MB, but the protocol allows up to 64 MiB. Several common defaults are much smaller, including nginx `client_max_body_size` at 1 MB and Express `express.json()` at 100 kB, and a rejected body counts as a webhook failure, so under **Allow the request** failure handling an oversized prompt would reach the model uninspected.
 
 ### Source values
 
-`source.application` is an open string, not a closed enum. Known values are `claude-ai` and `claude-code`; [connection tests](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) use `config-test`. New values may appear, and your server must not reject a request because of one it doesn't recognize.
+`source.application` is an open string, not a closed enum. Common values are `claude-ai`, `claude-code`, and `cowork`; [connection tests](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) and automatic circuit-breaker [recovery checks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#circuit-breaker) use `config-test`. New values may appear, and your server must not reject a request because of one it doesn't recognize.
 
 Treat `source.application` as advisory routing metadata, not a trust boundary: don't rest a security-critical policy decision on it alone.
 
@@ -689,7 +687,7 @@ Timeouts, non-200 statuses (redirects included), unparseable or oversized respon
 
 Sustained webhook failures attributable to your AI security server trip a circuit breaker that stops enforcement: Anthropic stops contacting your server, and failure handling applies to every request.
 
-Starting 10 minutes after the trip, Anthropic tests whether your server has recovered: at most about once per minute, one request, carried by your organization's own traffic, is delivered to your server for inspection, signed and shaped like any other. Respond to it normally. A valid verdict, allow or deny, resets the breaker and enforcement resumes. A webhook failure leaves the breaker tripped, and testing continues. Either way, the test request itself proceeds for its user: its verdict is not enforced, and a failed test does not block it, even under **Block the request**. An administrator can also reset the breaker at any time, and administrator configuration changes stop the automatic testing; see [Circuit breaker](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#circuit-breaker).
+Starting 10 minutes after the trip, Anthropic checks whether your server has recovered: at most about once per minute it sends your server the same synthetic test request that **Test connection** sends (`source.application` is `config-test`), signed like any other request and carrying no user content. Respond to it normally. A valid verdict, allow or deny, resets the breaker and enforcement resumes; a webhook failure leaves the breaker tripped, and the checks continue. An administrator can also reset the breaker at any time, and administrator configuration changes stop the automatic checks; see [Circuit breaker](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#circuit-breaker).
 
 Each trip is recorded as an `inference_hooks_circuit_breaker_tripped` activity in the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), one activity per trip. While the breaker is tripped, no per-request Inference hooks activities are recorded, so the trip activity is the feed's only record of the tripped window.
 

@@ -113,6 +113,8 @@ Create Enrollment URL
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `BetaUserProfileEnrollmentURL object`

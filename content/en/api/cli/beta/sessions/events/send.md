@@ -263,7 +263,7 @@ Send Events
 
       - `session_thread_id: optional string`
 
-        When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+        Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
     - `beta_managed_agents_user_custom_tool_result_event: object`
 
@@ -345,7 +345,7 @@ Send Events
 
       - `session_thread_id: optional string`
 
-        Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+        Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
     - `beta_managed_agents_user_define_outcome_event: object`
 
@@ -447,7 +447,7 @@ Send Events
 
       - `session_thread_id: optional string`
 
-        Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+        Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
     - `beta_managed_agents_system_message_event: object`
 

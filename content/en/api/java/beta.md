@@ -4619,7 +4619,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `Optional<Double> temperature`
 
-    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
     Amount of randomness injected into the response.
 
@@ -5976,7 +5976,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `Model model`
+        - `Optional<Model> model`
 
           The model that will complete your prompt.
 
@@ -6070,10 +6070,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
-        Produced in place of a `message` entry for whichever hop served the
-        response. A declined hop produces the existing `message` entry. Whether
-        a fallback model served the response is signalled by the presence of this
-        entry in `usage.iterations`.
+        The terminal entry of a fallback-served turn: when a fallback hop's
+        output is the returned message, the entry for the iteration that
+        completed it carries this type in place of `message`. A declined hop
+        and the serving hop's earlier tool-loop iterations produce `message`
+        entries. Whether a fallback model served the response is signalled by
+        the presence of this entry in `usage.iterations`.
 
         - `JsonValue type = "fallback_message"`
 
@@ -6319,10 +6321,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
-          Produced in place of a `message` entry for whichever hop served the
-          response. A declined hop produces the existing `message` entry. Whether
-          a fallback model served the response is signalled by the presence of this
-          entry in `usage.iterations`.
+          The terminal entry of a fallback-served turn: when a fallback hop's
+          output is the returned message, the entry for the iteration that
+          completed it carries this type in place of `message`. A declined hop
+          and the serving hop's earlier tool-loop iterations produce `message`
+          entries. Whether a fallback model served the response is signalled by
+          the presence of this entry in `usage.iterations`.
 
       - `long outputTokens`
 
@@ -14075,7 +14079,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `Optional<Double> temperature`
 
-        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
         Amount of randomness injected into the response.
 
@@ -16670,7 +16674,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `Model model`
+              - `Optional<Model> model`
 
                 The model that will complete your prompt.
 
@@ -16764,10 +16768,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for the fallback-model attempt of a server-side fallback request.
 
-              Produced in place of a `message` entry for whichever hop served the
-              response. A declined hop produces the existing `message` entry. Whether
-              a fallback model served the response is signalled by the presence of this
-              entry in `usage.iterations`.
+              The terminal entry of a fallback-served turn: when a fallback hop's
+              output is the returned message, the entry for the iteration that
+              completed it carries this type in place of `message`. A declined hop
+              and the serving hop's earlier tool-loop iterations produce `message`
+              entries. Whether a fallback model served the response is signalled by
+              the presence of this entry in `usage.iterations`.
 
               - `JsonValue type = "fallback_message"`
 
@@ -34518,7 +34524,7 @@ List Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsUserCustomToolResultEvent:`
 
@@ -34600,7 +34606,7 @@ List Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsAgentCustomToolUseEvent:`
 
@@ -34628,7 +34634,7 @@ List Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMessageEvent:`
 
@@ -34770,7 +34776,7 @@ List Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMcpToolResultEvent:`
 
@@ -34856,7 +34862,7 @@ List Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentToolResultEvent:`
 
@@ -35748,7 +35754,7 @@ List Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsSessionThreadStatusRescheduledEvent:`
 
@@ -37271,7 +37277,7 @@ Send Events
 
       - `Optional<String> sessionThreadId`
 
-        When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+        Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
     - `class BetaManagedAgentsUserCustomToolResultEvent:`
 
@@ -37353,7 +37359,7 @@ Send Events
 
       - `Optional<String> sessionThreadId`
 
-        Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+        Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
     - `class BetaManagedAgentsUserDefineOutcomeEvent:`
 
@@ -37455,7 +37461,7 @@ Send Events
 
       - `Optional<String> sessionThreadId`
 
-        Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+        Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
     - `class BetaManagedAgentsSystemMessageEvent:`
 
@@ -37882,7 +37888,7 @@ Stream Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsUserCustomToolResultEvent:`
 
@@ -37964,7 +37970,7 @@ Stream Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsAgentCustomToolUseEvent:`
 
@@ -37992,7 +37998,7 @@ Stream Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMessageEvent:`
 
@@ -38134,7 +38140,7 @@ Stream Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMcpToolResultEvent:`
 
@@ -38220,7 +38226,7 @@ Stream Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentToolResultEvent:`
 
@@ -39112,7 +39118,7 @@ Stream Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsSessionThreadStatusRescheduledEvent:`
 
@@ -44177,7 +44183,7 @@ List Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsUserCustomToolResultEvent:`
 
@@ -44259,7 +44265,7 @@ List Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsAgentCustomToolUseEvent:`
 
@@ -44287,7 +44293,7 @@ List Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMessageEvent:`
 
@@ -44429,7 +44435,7 @@ List Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMcpToolResultEvent:`
 
@@ -44515,7 +44521,7 @@ List Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentToolResultEvent:`
 
@@ -45407,7 +45413,7 @@ List Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsSessionThreadStatusRescheduledEvent:`
 
@@ -46567,7 +46573,7 @@ Stream Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
+      Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsUserCustomToolResultEvent:`
 
@@ -46649,7 +46655,7 @@ Stream Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsAgentCustomToolUseEvent:`
 
@@ -46677,7 +46683,7 @@ Stream Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
+      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMessageEvent:`
 
@@ -46819,7 +46825,7 @@ Stream Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentMcpToolResultEvent:`
 
@@ -46905,7 +46911,7 @@ Stream Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
   - `class BetaManagedAgentsAgentToolResultEvent:`
 
@@ -47797,7 +47803,7 @@ Stream Session Thread Events
 
     - `Optional<String> sessionThreadId`
 
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
+      Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
   - `class BetaManagedAgentsSessionThreadStatusRescheduledEvent:`
 
@@ -64997,6 +65003,8 @@ Create User Profile
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
   - `Optional<AccessType> accessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
@@ -65326,6 +65334,8 @@ List User Profiles
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 #### Returns
 
 - `class BetaUserProfile:`
@@ -65602,6 +65612,8 @@ Get User Profile
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+  - `Optional<String> workspaceId`
+
 #### Returns
 
 - `class BetaUserProfile:`
@@ -65872,6 +65884,8 @@ Update User Profile
     - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
+  - `Optional<String> workspaceId`
 
   - `Optional<AccessType> accessType`
 
@@ -66177,6 +66191,8 @@ Create Enrollment URL
     - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
+  - `Optional<String> workspaceId`
 
 #### Returns
 
@@ -78023,15 +78039,23 @@ List Workspaces
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `List<String>`
+      - `List<BetaAllowedInferenceGeo>`
+
+        - `GLOBAL("global")`
+
+        - `US("us")`
 
       - `JsonValue`
 
-    - `String defaultInferenceGeo`
+    - `DefaultInferenceGeo defaultInferenceGeo`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `String workspaceGeo`
+      - `GLOBAL("global")`
+
+      - `US("us")`
+
+    - `WorkspaceGeo workspaceGeo`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -78094,8 +78118,8 @@ public final class Main {
       "created_at": "2024-10-30T23:58:27.427722Z",
       "data_residency": {
         "allowed_inference_geos": "unrestricted",
-        "default_inference_geo": "default_inference_geo",
-        "workspace_geo": "workspace_geo"
+        "default_inference_geo": "global",
+        "workspace_geo": "us"
       },
       "display_color": "#6C5BB9",
       "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -78301,15 +78325,23 @@ Create Workspace
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `List<String>`
+      - `List<BetaAllowedInferenceGeo>`
+
+        - `GLOBAL("global")`
+
+        - `US("us")`
 
       - `JsonValue`
 
-    - `String defaultInferenceGeo`
+    - `DefaultInferenceGeo defaultInferenceGeo`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `String workspaceGeo`
+      - `GLOBAL("global")`
+
+      - `US("us")`
+
+    - `WorkspaceGeo workspaceGeo`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -78373,8 +78405,8 @@ public final class Main {
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -78451,15 +78483,23 @@ Get Workspace
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `List<String>`
+      - `List<BetaAllowedInferenceGeo>`
+
+        - `GLOBAL("global")`
+
+        - `US("us")`
 
       - `JsonValue`
 
-    - `String defaultInferenceGeo`
+    - `DefaultInferenceGeo defaultInferenceGeo`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `String workspaceGeo`
+      - `GLOBAL("global")`
+
+      - `US("us")`
+
+    - `WorkspaceGeo workspaceGeo`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -78520,8 +78560,8 @@ public final class Main {
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -78630,15 +78670,23 @@ Update Workspace
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `List<String>`
+      - `List<BetaAllowedInferenceGeo>`
+
+        - `GLOBAL("global")`
+
+        - `US("us")`
 
       - `JsonValue`
 
-    - `String defaultInferenceGeo`
+    - `DefaultInferenceGeo defaultInferenceGeo`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `String workspaceGeo`
+      - `GLOBAL("global")`
+
+      - `US("us")`
+
+    - `WorkspaceGeo workspaceGeo`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -78699,8 +78747,8 @@ public final class Main {
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
@@ -78775,15 +78823,23 @@ Archive Workspace
 
       Permitted inference geo values. 'unrestricted' means all geos are allowed.
 
-      - `List<String>`
+      - `List<BetaAllowedInferenceGeo>`
+
+        - `GLOBAL("global")`
+
+        - `US("us")`
 
       - `JsonValue`
 
-    - `String defaultInferenceGeo`
+    - `DefaultInferenceGeo defaultInferenceGeo`
 
       Default inference geo applied when requests omit the parameter.
 
-    - `String workspaceGeo`
+      - `GLOBAL("global")`
+
+      - `US("us")`
+
+    - `WorkspaceGeo workspaceGeo`
 
       Geographic region for workspace data storage. Immutable after creation.
 
@@ -78844,8 +78900,8 @@ public final class Main {
   "created_at": "2024-10-30T23:58:27.427722Z",
   "data_residency": {
     "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "default_inference_geo",
-    "workspace_geo": "workspace_geo"
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
   },
   "display_color": "#6C5BB9",
   "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",

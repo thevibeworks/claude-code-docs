@@ -42,7 +42,9 @@ Use of Claude models, including via Claude Desktop on 3P, is subject to the [Ant
 
 ## Privacy and telemetry
 
-The Claude Desktop application sends operational telemetry (crash reports and product analytics) to Anthropic by default. This telemetry contains no prompt or response content and can be fully disabled via managed configuration. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for what each category contains and how to disable it.
+The Claude Desktop application sends operational telemetry (crash reports and product analytics) to Anthropic by default. This telemetry contains no prompt or response content. You can fully disable it through managed configuration, or from the console for an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console). See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for what each category contains and how to disable it.
+
+An organization managed from the Enterprise Admin Console can also turn on usage analytics. Users' apps then report session, token, and estimated-cost counts to Anthropic, and the organization's administrators can see each user's sessions, tokens, and estimated cost. The reports contain no prompt, response, or file content. [Usage analytics](/docs/third-party/claude-desktop/admin-console#usage-analytics) lists who can see the counts and exactly what each report contains.
 
 Anthropic's [Privacy Policy](https://www.anthropic.com/legal/privacy) describes how Anthropic handles data it receives.
 

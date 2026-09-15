@@ -470,7 +470,7 @@ Keep the following in mind when working with omitted thinking:
 * If you pass thinking blocks back in multi-turn conversations, pass them unchanged. The server decrypts the `signature` to reconstruct the original thinking for prompt construction (see [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks)). Any text you place in the `thinking` field of a round-tripped omitted block is ignored.
 * `display` is invalid with `thinking.type: "disabled"` (there is nothing to display).
 * When using `thinking.type: "adaptive"` and the model skips thinking for a simple request, no thinking block is produced regardless of `display`.
-* When streaming with `display: "omitted"`, no `thinking_delta` events are emitted. With `display: "updates"`, only [progress-update blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) stream `thinking_delta` events. See [Streaming thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking) for the event sequence.
+* When streaming with `display: "omitted"`, no thinking text is streamed. Each thinking block streams a `thinking_delta` with an empty `thinking` string, then its `signature_delta`. With `display: "updates"`, only [progress-update blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) stream `thinking_delta` events that carry text. See [Streaming thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking) for the event sequence.
 
 <Note>
   The `signature` field is identical whichever `display` value you set. Switching `display` values between turns in a conversation is supported.
@@ -500,7 +500,7 @@ To see the model's reasoning, read the `thinking` blocks rather than prompting f
 
 Thinking works with [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming). Thinking blocks stream as `thinking_delta` events inside `content_block_delta` events, followed by a single `signature_delta` event just before the block's `content_block_stop`. Text blocks stream afterward as usual.
 
-![Diagram of the streaming event sequence with thinking: the thinking block opens, thinking deltas stream only when the display setting returns text (summarized, or updates for progress-update blocks), a single signature delta closes the block, then text deltas stream](https://platform.claude.com/docs/images/how-thinking-streams.svg)
+![Diagram of the streaming event sequence with thinking: the thinking block opens, thinking deltas carry text only when the display setting returns text (summarized, or updates for progress-update blocks), a single signature delta closes the block, then text deltas stream](https://platform.claude.com/docs/images/how-thinking-streams.svg)
 
 The following examples stream a response with adaptive thinking, printing thinking and text deltas as they arrive:
 
@@ -780,11 +780,14 @@ To reassemble complete thinking blocks with their signatures after streaming, us
   ```
 </Accordion>
 
-When `display: "omitted"` is set, the thinking block opens, a single `signature_delta` arrives, and the block closes without any `thinking_delta` events. Text streaming begins immediately after:
+When `display: "omitted"` is set, the thinking block opens, a `thinking_delta` with an empty `thinking` string arrives, a single `signature_delta` follows, and the block closes. Text streaming begins immediately after:
 
 ```sse Output
 event: content_block_start
 data: {"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}
+
+event: content_block_delta
+data: {"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":""}}
 
 event: content_block_delta
 data: {"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"EosnCkYICxIMMb3LzNrMu..."}}

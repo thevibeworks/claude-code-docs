@@ -4,13 +4,13 @@
 
 # Commands Claude Tag understands
 
-> A few exact, bang-prefixed words after an @-mention run a fixed action instead of starting a normal turn: see the command list, get the link to a channel's settings page, restart a stuck or wrong-context session, mute or unmute a thread, send feedback, list a channel's routines, and fork a thread's conversation into a new thread, here or in another channel.
+> A few exact, bang-prefixed words after an @-mention run a fixed action instead of starting a normal turn: see the command list, get the link to a channel's settings page, restart a stuck or wrong-context session, check whether Claude is still working in a thread or channel, mute or unmute a thread, send feedback, list a channel's routines, and fork a thread's conversation into a new thread, here or in another channel.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
 <BetaNote />
 
-A command is `@Claude` followed immediately by one of a few exact words starting with `!`. Claude matches the message against that word and runs a fixed action instead of starting a normal turn. `!help`, `!configure`, `!restart`, `!mute`, and `!unmute` must stand alone: adding extra words, as in `!restart` with words tacked on, makes the message an ordinary prompt instead. `!feedback`, `!routines`, and `!fork` accept text after the command, covered below.
+A command is `@Claude` followed immediately by one of a few exact words starting with `!`. Claude matches the message against that word and runs a fixed action instead of starting a normal turn. `!help`, `!configure`, `!restart`, `!status`, `!mute`, and `!unmute` must stand alone: adding extra words, as in `!restart` with words tacked on, makes the message an ordinary prompt instead. `!feedback`, `!routines`, and `!fork` accept text after the command, covered below.
 
 ## See the commands available to you
 
@@ -47,6 +47,22 @@ Claude confirms once the replacement session is ready. If the restart can't comp
 
 You need the same access to run `!restart` that you'd need to message the session directly; someone who can only observe a thread can't restart it.
 
+## Check whether Claude is still working
+
+```text wrap theme={null}
+@Claude !status
+```
+
+Use this when Claude has gone quiet and you want to know whether it's still on the task before you follow up or [restart the session](#restart-a-stuck-or-wrong-context-session). Claude answers with a short note only you can see, and never posts that answer for others in the conversation. Checking doesn't interrupt work in progress or count as a new request. The note doesn't quote the conversation or say what Claude is working on.
+
+The note opens with a heading that says whether it covers this thread, this channel, or this DM, then gives Claude's status there:
+
+```text wrap theme={null}
+Claude in this thread
+I'm still working in this thread (started 6m ago).
+• Muted: no (mute with `!mute`)
+```
+
 ## Mute or unmute a thread
 
 ```text wrap theme={null}
@@ -69,7 +85,7 @@ Unmute the same way:
 @Claude !unmute
 ```
 
-A muted thread also unmutes on any direct `@Claude` mention, so you don't need `!unmute` before asking something new.
+A muted thread also unmutes when you @-mention Claude there with a request, so you don't need `!unmute` before asking something new. Checking on Claude with [`!status`](#check-whether-claude-is-still-working) leaves the thread muted.
 
 You need the same access to mute or unmute a thread that you'd need to message Claude there.
 

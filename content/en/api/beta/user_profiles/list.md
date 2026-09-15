@@ -137,6 +137,8 @@ List User Profiles
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+- `"anthropic-workspace-id": optional string`
+
 ## Returns
 
 - `data: array of BetaUserProfile`

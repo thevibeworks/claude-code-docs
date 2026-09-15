@@ -58,7 +58,7 @@ What CMEK covers depends on which product you use.
 **Claude Platform**
 
 * Message content, files and attachments (both inline attachments sent with a request and Files API uploads), and MCP and tool configuration.
-* [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) data, including agent configurations, environments, webhooks, and sessions and their events.
+* [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) data, including agent configurations, environments, webhooks, sessions and their events, [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) and their memories and memory versions, and [dreams](https://platform.claude.com/docs/en/managed-agents/dreams).
 
 **Claude Enterprise**
 
@@ -122,8 +122,8 @@ The following Claude Platform APIs and tools store data at rest under your key w
 | Batch                 | Bash tool                                                                                         |
 | Skills                | Text editor tool                                                                                  |
 | Claude Managed Agents | MCP connector                                                                                     |
-|                       | Structured outputs (not available for Claude Fable or Claude Mythos models in CMEK organizations) |
-|                       | Advisor tool                                                                                      |
+| Memory stores         | Structured outputs (not available for Claude Fable or Claude Mythos models in CMEK organizations) |
+| Dreams                | Advisor tool                                                                                      |
 |                       | Computer use                                                                                      |
 |                       | Browser use                                                                                       |
 |                       | Context management                                                                                |
