@@ -99,7 +99,7 @@ For short-lived header credentials, configure the helper per server:
 | `headersHelperTtlSec`           | 300     | Seconds the returned headers stay valid.                                                  |
 | `headersHelperRefreshBufferSec` | 60      | Seconds before expiry that the helper re-runs. Set it above the helper's typical runtime. |
 
-The helper follows the [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/credential-helper) execution model, with three differences: a 30-second time limit, no `CLAUDE_HELPER_CONTEXT`, and no prompting for input. The helper applies only to servers provisioned through managed configuration and never replaces the `Authorization` header on `oauth` entries.
+The helper follows the [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/credential-helper) execution model, with four differences: no arguments, a 30-second time limit, no `CLAUDE_HELPER_CONTEXT`, and no prompting for input. The helper applies only to servers provisioned through managed configuration and never replaces the `Authorization` header on `oauth` entries.
 
 While the connection is open, the TTL schedule triggers renewal, and a request that the server rejects with HTTP 401 or 403 also re-runs the helper and, when it returns new headers, is retried once with them (Claude Desktop 1.46388.1 or later). A failed helper run does not interrupt the connection; Claude Desktop keeps the current headers and retries on its schedule. A failure while the server is connecting shows the server as needing authentication.
 

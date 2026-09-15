@@ -8,6 +8,48 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.110.0" description="2026-09-15">
+  <div className="cfg-keys">
+    | MDM key                                                                                                    | Type       | Description                         |
+    | ---------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------- |
+    | [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) | `string[]` | Helper script arguments             |
+    | [`inferenceFoundryBaseUrl`](/docs/third-party/claude-desktop/configuration#inferencefoundrybaseurl)             | `string`   | Azure AI Foundry base URL           |
+    | [`defaultModelEffort`](/docs/third-party/claude-desktop/configuration#defaultmodeleffort)                       | `enum`     | Default model effort                |
+    | [`alwaysStartWithDefaultModel`](/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel)     | `boolean`  | Always start with the default model |
+    | [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled)                     | `boolean`  | Model catalog metadata              |
+    | [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl)                             | `string`   | Model catalog URL                   |
+    | [`scheduledTasksEnabled`](/docs/third-party/claude-desktop/configuration#scheduledtasksenabled)                 | `boolean`  | Allow scheduled tasks               |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "inference": {
+      "credential": {
+        "args": ["<string>"]
+      },
+      "baseUrl": "<string>"
+    },
+    "models": {
+      "defaultEffort": "<low|medium|high|xhigh|max>",
+      "alwaysStartWithDefault": "<boolean>",
+      "catalogEnabled": "<boolean>",
+      "catalogUrl": "<string>"
+    },
+    "workspace": {
+      "scheduledTasksEnabled": "<boolean>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `bootstrapOidc`, `inferenceGatewayOidc`, and `inferenceVertexWorkforceOidc` accept a new `redirectHost` value, `127.0.0.1` (the default) or `localhost`, which sets the host named in the browser sign-in's redirect URI (`http://<host>:<port>/callback`) for identity providers that only accept `localhost`; register exactly the URI you use. Earlier releases ignore the value and keep using `http://127.0.0.1:<port>/callback`, so a `localhost`-only registration still fails sign-in on them until they update.
+  * An `inferenceModels` entry accepts a new `maxEffort` value (`low`, `medium`, `high`, `xhigh`, or `max`): effort levels above it are hidden for that model in Chat, Cowork, and Code and never requested, and Code sessions are held to it; an unrecognized value caps that model at `low`. Earlier releases ignore the value and keep offering every effort level, so the cap holds only on devices running this release or later.
+  * A `managedMcpServers` entry accepts a new `transport` value, `policy-only`: the entry sets `toolPolicy` for an MCP server that an installed plugin provides, matched by `name`, without the app connecting to or launching anything, and takes precedence over `orgPluginSettings` for that server in Chat, Cowork, and Code. Earlier releases drop a `policy-only` entry (it appears under Configuration parse errors in the diagnostic report) and apply `orgPluginSettings` to that server instead; if every entry in the list is `policy-only` they cannot read `managedMcpServers` at all and, until they update, leave MCP servers that users added themselves or that a project's `.mcp.json` declares out of Code sessions. Keep the same permissions in `orgPluginSettings` while earlier releases are in use, and do not deploy a list made only of `policy-only` entries until every device has updated.
+</Update>
+
 <Update label="v1.52386.6" description="2026-09-13">
   No configuration changes in this release.
 </Update>

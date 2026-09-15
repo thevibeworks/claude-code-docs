@@ -4,7 +4,7 @@
 
 # Available settings
 
-> Reference for the product settings on the Config page in Claude for Government, including session timeout, maximum session length, organization instructions, telemetry, automatic updates, Claude Desktop banner, product availability, and the tool and connector cards.
+> Reference for the product settings on the Config page in Claude for Government, including session timeout, maximum session length, organization instructions, telemetry, automatic updates, Claude Desktop banner, product availability, member-added plugins, and the tool and connector cards.
 
 > **Who this is for:** Tenant administrators and organization owners who set product behavior for the people they manage.
 
@@ -90,7 +90,7 @@ The content that Claude Desktop adds to the telemetry it sends to your collector
 
 ### Application event level (Claude Desktop)
 
-How much of Claude Desktop's own event log goes to your collector, in addition to the usage telemetry from Chat, Cowork, and Code. These records arrive under the `claude-desktop` service name. The default, **Errors only**, sends failures such as a crash or a request that could not complete. **Off** sends no application events while usage telemetry is still sent, the two levels between **Errors only** and **Debug** add warnings and then routine events such as sign-in, updates, and settings changes, and **Debug** adds verbose diagnostic events for use while troubleshooting with support.
+How much of Claude Desktop's own event log goes to your collector, in addition to the usage telemetry from Chat, Cowork, and Code. These records arrive under the `claude-desktop` service name. The default, **Errors only**, sends failures such as a crash or a request that could not complete. **Off** sends no application events while usage telemetry is still sent, the two levels between **Errors only** and **Debug** add warnings and then routine events such as sign-in, updates, and settings changes, and **Debug** adds verbose diagnostic events for use while troubleshooting with support. At **Informational** and **Debug**, the application events also include each conversation's title. The title text is sent only when **Prompts** is selected in **Telemetry content capture**.
 
 ### Telemetry resource attributes
 
@@ -120,6 +120,10 @@ How long a member can put off restarting Claude Desktop to install an update tha
   Members who are running Claude Desktop when you change **Block automatic updates** or **Restart deadline for updates** may need to restart the app to pick up the change.
 </Note>
 
+### Restart deadline for configuration changes
+
+How long a member can put off restarting Claude Desktop after the app detects a configuration change, as a whole number of hours from 0 to 336 (14 days). When the deadline passes, the app shows a restart dialog that the member cannot dismiss, and restarts on its own once the member has been inactive for 2 minutes and Claude has no task in progress. A value of 0 requires the restart as soon as the app detects the change. Leave the value empty to allow 24 hours.
+
 ### Claude Desktop banner
 
 A persistent banner shown at the top of Claude Desktop. You can set the text, colors, and an optional link, and preview the result as you edit. Banner text may be up to 200 characters, leading and trailing spaces are rejected, colors must be valid hex codes, and the link (if set) must begin with `https://`. An empty banner is valid and simply hides it.
@@ -141,6 +145,12 @@ Turning a switch off also changes this layout. For example, with **Chat in Claud
 <Note>
   This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat**, **Cowork**, and **Code** as three separate tabs, controlled by the same switches.
 </Note>
+
+### Member-added plugins and marketplaces
+
+Two switches that control whether members can add plugins of their own in Claude Desktop. **Let members add plugin marketplaces** lets members add plugin marketplaces and install plugins from them. **Let members add their own plugins** lets members upload plugin files or have Claude create a plugin for them. Both switches are off by default.
+
+While a switch is off, Claude Desktop hides the corresponding controls from members. Marketplaces and plugins that members added earlier keep working, and members can still install plugins from those marketplaces.
 
 ### Allowed network hosts
 
@@ -166,7 +176,7 @@ Once you turn web search on, each member's Claude Desktop picks it up the next t
 
 The **Web fetch** card controls whether Claude can fetch web pages in Claude Desktop. It is on by default, and fetches are subject to the Allowed network hosts list above. A **Require approval for each fetch** sub-setting sits below the toggle. Turning it on asks the member to approve every page fetch before it runs; when it is off (the default), each member chooses whether to approve fetches or allow them automatically.
 
-The **Shell commands** card controls whether Claude can run shell commands during tasks in Claude Desktop. It is on by default, and turning it off also turns off Advanced file analysis in Chat. A **Require approval for each command** sub-setting sits below the toggle. Turning it on asks the member to approve every shell command before it runs; when it is off (the default), each member chooses whether to approve commands or allow them automatically. Chat always asks before each command regardless of this setting.
+The **Shell commands** card controls whether Claude can run shell commands during tasks in Claude Desktop. It is on by default, and turning it off also turns off Advanced file analysis in Chat. A **Require approval for each command** sub-setting sits below the toggle. Turning it on asks the member to approve every shell command before it runs; when it is off (the default), each member chooses whether to approve commands or allow them automatically. On Claude Desktop versions earlier than 2.110.0, Chat asks before each command regardless of this setting.
 
 The **Microsoft 365** card lets members reach your agency's Microsoft 365 content, including SharePoint, OneDrive, Outlook, and Teams, from Claude Desktop. Each member signs in with their own Microsoft account. Enter the **Tenant ID** and **Client ID** from an application you register in Microsoft Entra, choose the **Azure cloud** your Microsoft tenant is in, and select which Microsoft Graph permissions to allow under **Access**. The connector is off while Tenant ID and Client ID are both blank. See [Set up the Microsoft 365 connector](/docs/government/connectors/microsoft-365) for the full walkthrough.
 
@@ -174,7 +184,7 @@ The **Connectors** card lists the Model Context Protocol servers you have added 
 
 The **Plugins** card lets you upload plugin packages and deliver them to members in Claude Desktop. A plugin bundles skills, slash commands, and sub-agents for Claude Desktop, and can also carry hooks and declare connectors; see [Manage plugins and connectors](/docs/government/config/plugins-and-connectors) for how each component behaves in Claude for Government and the [Plugins overview](/docs/plugins/overview) for what a plugin can contain. Plugins are delivered only to Claude Desktop.
 
-Click **Add plugins** and drop a `.zip` file. The file can be a single plugin package or a whole marketplace archive, for example the **Download ZIP** of a GitHub repository that holds several plugins. A preview shows each plugin's name, version, and description, and marks any plugin that declares components that can run code on the member's machine, for example hooks or an MCP server. In Claude for Government, a plugin's hooks run on the member's machine at defined points during a session; a plugin's declared local MCP server is disabled and does not run. For those plugins, you confirm that you trust the package before it is added. See [Plugins that run code](/docs/government/config/plugins-and-connectors#plugins-that-run-code) for what the marker means and how these components behave in Claude for Government.
+Click **Add plugins** and drop a `.zip` file. The file can be a single plugin package or a whole marketplace archive, for example the **Download ZIP** of a GitHub repository that holds several plugins. A preview shows each plugin's name, version, and description, and marks any plugin that declares components that can run code on the member's machine, for example hooks or an MCP server. In Claude for Government, a plugin's hooks run on the member's machine at defined points during a session, and Claude Desktop can start or connect to an MCP server the plugin declares. For those plugins, you confirm that you trust the package before it is added. See [Plugins that run code](/docs/government/config/plugins-and-connectors#plugins-that-run-code) for what the marker means and how these components behave in Claude for Government.
 
 Each plugin you add appears as a row with an **Auto-install** or **Members choose** control. **Auto-install** installs the plugin for every member automatically, and **Members choose** makes it available for members to install themselves. Click the remove icon to queue a plugin for removal. Changes you make in these rows are staged: nothing is applied until you click **Save changes**, and **Discard** clears the pending changes. Plugins you add through the **Add plugins** dialog take effect as soon as you confirm them in that dialog. Removing a plugin stops delivering it, and members who already installed it keep their copy until they remove it themselves.
 

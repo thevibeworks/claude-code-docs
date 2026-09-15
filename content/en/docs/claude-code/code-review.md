@@ -173,7 +173,7 @@ For review-specific guidance that you don't want applied to general Claude Code 
 
 `REVIEW.md` is a file at your repository root that tailors Code Review to your repo. The agents in the review pipeline that find and verify findings receive its contents as your repository's review instructions, alongside Code Review's default review guidance, and the agents that rank and report findings consult it before settling severity and writing the review.
 
-The agents read the file's text as-is, so `REVIEW.md` is plain instructions: [`@` import syntax](/docs/en/memory#import-additional-files) is not expanded, and referenced files are not read along with it. Put the rules you want enforced directly in the file.
+Put the rules you want enforced directly in `REVIEW.md`.
 
 #### What you can tune
 

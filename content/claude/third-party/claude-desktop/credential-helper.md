@@ -16,7 +16,7 @@ Configure the helper with the `inferenceCredentialHelper` key; see the [Configur
 
 ## What the helper must do
 
-Claude Desktop runs the executable at the configured path with no arguments and reads stdout. The exit code must be `0`. Anything written to stderr is logged for diagnostics but otherwise ignored.
+Claude Desktop runs the executable at the configured path and reads stdout. The executable receives no arguments unless you set [`inferenceCredentialHelperArgs`](#pass-arguments-to-the-helper). The exit code must be `0`. Anything written to stderr is logged for diagnostics but otherwise ignored.
 
 Stdout must contain exactly one of the following, with no banners, prompts, or log lines mixed in:
 
@@ -28,6 +28,25 @@ Stdout must contain exactly one of the following, with no banners, prompts, or l
   ```
 
   Headers from the JSON object are merged over [`inferenceCustomHeaders`](/docs/third-party/claude-desktop/configuration#inferencecustomheaders); the helper's value wins on a conflict.
+
+## Pass arguments to the helper
+
+Set [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) to a JSON array of strings to pass arguments to the helper. Claude Desktop passes each entry to the executable as one argument, in order and exactly as written. One installed script can then serve users whose configurations differ, for example by environment or tenant. This configuration runs `/usr/local/bin/corp-cred-helper --environment production`:
+
+```json theme={null}
+{
+  "inferenceCredentialHelper": "/usr/local/bin/corp-cred-helper",
+  "inferenceCredentialHelperArgs": ["--environment", "production"]
+}
+```
+
+In a macOS configuration profile or the Windows registry, write the array as a JSON string, as with the other [array-typed keys](/docs/third-party/claude-desktop/configuration#value-types). A [bootstrap server](/docs/third-party/claude-desktop/bootstrap) can deliver `inferenceCredentialHelperArgs` too, under the same [user-consent rule](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent) as the helper path. In the nested response format ([`bootstrap-config-v2`](/docs/third-party/claude-desktop/bootstrap#response-schema)), set `args` next to `command` in `inference.credential`.
+
+On Windows, a `.cmd` or `.bat` helper receives each argument wrapped in double quotes, so read the values with `%~1`, `%~2`, and so on to remove the quotes. A `.ps1` helper, a `.exe` helper, and helpers on macOS and Linux receive each value as written.
+
+An entry cannot be empty and cannot contain a double quote (`"`), a percent sign (`%`), or a control character. If any entry breaks these rules, Claude Desktop does not run the helper and tells the user that the configuration can't be used until you fix the entry.
+
+Keep secrets out of the arguments. The arguments appear in the diagnostic report and are visible to other processes on the device, so have the helper fetch any secret itself.
 
 ## When the helper runs
 

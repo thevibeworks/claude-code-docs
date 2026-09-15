@@ -16,6 +16,8 @@ Some models appear in the picker twice. In Chat and Cowork the second entry has 
 
 When a long conversation or task gets close to filling the context window, Claude summarizes the earlier part to make room and carries on from the summary, which the app calls compacting. With the **1M context window** entry this happens much later, so long pieces of work keep their full detail for longer. Until a conversation outgrows the standard entry's window, the two entries behave the same and use the same amount of your [allowance](/docs/government/account/usage). Past that point the **1M context window** entry keeps sending Claude the whole conversation rather than a summary, so each further message uses more of your allowance and responses can take longer to start.
 
+For Cowork tasks on very large document sets, for example hundreds of pages of PDFs, use the **1M context window** entry so Claude can keep more of the documents in view before it compacts.
+
 To use the larger window, open the model picker and choose the model's entry marked **1M context window**, or **1M** in Code. The entry in use has a check mark next to it, and the model name in the message box reads the same for both entries in Chat and Cowork, so open the picker to check. If you have not picked a model before, the larger window may already be selected. The entry appears only for models where Claude for Government offers the larger window, so if no model in your picker has it, ask your organization's owner whether your seat tier can include a model that does.
 
 <Note>
