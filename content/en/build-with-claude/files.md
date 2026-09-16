@@ -783,7 +783,7 @@ Retrieve information about a specific file:
   ```
 
   ```go Go
-  metadata, err := client.Files.GetMetadata(context.TODO(), fileID)
+  metadata, err := client.Files.GetMetadata(context.TODO(), fileID, anthropic.FileGetMetadataParams{})
   if err != nil {
   	log.Fatal(err)
   }
@@ -837,7 +837,7 @@ Remove a file from your workspace:
   ```
 
   ```go Go
-  _, err = client.Files.Delete(context.TODO(), fileID)
+  _, err = client.Files.Delete(context.TODO(), fileID, anthropic.FileDeleteParams{})
   if err != nil {
   	log.Fatal(err)
   }
@@ -896,7 +896,7 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
 
   ```go Go
   func downloadFile(client anthropic.Client, fileID string) error {
-  	resp, err := client.Files.Download(context.TODO(), fileID)
+  	resp, err := client.Files.Download(context.TODO(), fileID, anthropic.FileDownloadParams{})
   	if err != nil {
   		return err
   	}

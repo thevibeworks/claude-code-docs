@@ -6,6 +6,15 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.15.1">
+  * Fixed directory provisioning (SCIM) rejecting some of the user updates that Microsoft Entra ID sends by default.
+  * Changed what removing a tenant admin does for someone who is not yet in an organization: they can no longer request an emailed sign-in link and are placed by the sign-in routing rules at their next single sign-on, like any other member.
+  * Changed where Claude Desktop looks for Anthropic's published model catalog (model names, descriptions and effort options): starting with the first Claude Desktop release that supports the setting, the app asks your Claude for Government host for it instead of `downloads.claude.ai`, and keeps using the catalog it already has when the host has no copy.
+  * Improved how service updates are applied so that answers still being generated when an update begins have longer to finish.
+  * Added more checks of your identity provider's signing certificate when you save SAML single sign-on.
+  * Added the "Let members create skills" setting under Config > Integrations, on by default: turning it off stops members from creating or uploading skills of their own in Claude Desktop.
+</Update>
+
 <Update label="2026.09.11.1">
   * (breaking) Changed the **Telemetry endpoint** setting on the Config page to check its host name more strictly when you save; an address that is already saved stays until the setting is next changed.
   * Changed plugin uploads to ask for the Runs code confirmation when a plugin's `settings.json` sets anything other than its default agent or a `$schema` reference, such as a status line.

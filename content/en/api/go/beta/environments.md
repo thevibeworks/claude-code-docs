@@ -27,7 +27,7 @@ Create a new environment with the specified configuration.
 
     Body param: Environment configuration
 
-    - `type BetaCloudConfigParamsResp struct{…}`
+    - `type BetaCloudConfigParamsResp`
 
       Request params for `cloud` environment configuration.
 
@@ -42,7 +42,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy. Omit on update to preserve the existing value.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -50,7 +50,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `type BetaLimitedNetworkParamsResp struct{…}`
+        - `type BetaLimitedNetworkParamsResp`
 
           Limited network request params.
 
@@ -111,7 +111,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfigParamsResp struct{…}`
+    - `type BetaSelfHostedConfigParamsResp`
 
       Request params for `self_hosted` environment configuration.
 
@@ -235,6 +235,8 @@ Create a new environment with the specified configuration.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -243,7 +245,7 @@ Create a new environment with the specified configuration.
 
 ### Returns
 
-- `type BetaEnvironment struct{…}`
+- `type BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -265,7 +267,7 @@ Create a new environment with the specified configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `type BetaCloudConfig struct{…}`
+    - `type BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -277,7 +279,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -285,7 +287,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `type BetaLimitedNetwork struct{…}`
+        - `type BetaLimitedNetwork`
 
           Limited network access.
 
@@ -339,7 +341,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfig struct{…}`
+    - `type BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -575,6 +577,8 @@ List environments with pagination support.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -583,7 +587,7 @@ List environments with pagination support.
 
 ### Returns
 
-- `type BetaEnvironment struct{…}`
+- `type BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -605,7 +609,7 @@ List environments with pagination support.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `type BetaCloudConfig struct{…}`
+    - `type BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -617,7 +621,7 @@ List environments with pagination support.
 
         Network configuration policy.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -625,7 +629,7 @@ List environments with pagination support.
 
             Network policy type
 
-        - `type BetaLimitedNetwork struct{…}`
+        - `type BetaLimitedNetwork`
 
           Limited network access.
 
@@ -679,7 +683,7 @@ List environments with pagination support.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfig struct{…}`
+    - `type BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -906,6 +910,8 @@ Retrieve a specific environment by ID.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -914,7 +920,7 @@ Retrieve a specific environment by ID.
 
 ### Returns
 
-- `type BetaEnvironment struct{…}`
+- `type BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -936,7 +942,7 @@ Retrieve a specific environment by ID.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `type BetaCloudConfig struct{…}`
+    - `type BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -948,7 +954,7 @@ Retrieve a specific environment by ID.
 
         Network configuration policy.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -956,7 +962,7 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-        - `type BetaLimitedNetwork struct{…}`
+        - `type BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1010,7 +1016,7 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfig struct{…}`
+    - `type BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1142,7 +1148,7 @@ Update an existing environment's configuration.
 
     Body param: Updated environment configuration
 
-    - `type BetaCloudConfigParamsResp struct{…}`
+    - `type BetaCloudConfigParamsResp`
 
       Request params for `cloud` environment configuration.
 
@@ -1157,7 +1163,7 @@ Update an existing environment's configuration.
 
         Network configuration policy. Omit on update to preserve the existing value.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1165,7 +1171,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `type BetaLimitedNetworkParamsResp struct{…}`
+        - `type BetaLimitedNetworkParamsResp`
 
           Limited network request params.
 
@@ -1226,7 +1232,7 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfigParamsResp struct{…}`
+    - `type BetaSelfHostedConfigParamsResp`
 
       Request params for `self_hosted` environment configuration.
 
@@ -1356,6 +1362,8 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1364,7 +1372,7 @@ Update an existing environment's configuration.
 
 ### Returns
 
-- `type BetaEnvironment struct{…}`
+- `type BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1386,7 +1394,7 @@ Update an existing environment's configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `type BetaCloudConfig struct{…}`
+    - `type BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -1398,7 +1406,7 @@ Update an existing environment's configuration.
 
         Network configuration policy.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1406,7 +1414,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `type BetaLimitedNetwork struct{…}`
+        - `type BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1460,7 +1468,7 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfig struct{…}`
+    - `type BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1686,6 +1694,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1694,7 +1704,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ### Returns
 
-- `type BetaEnvironmentDeleteResponse struct{…}`
+- `type BetaEnvironmentDeleteResponse`
 
   Response after deleting an environment.
 
@@ -1858,6 +1868,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1866,7 +1878,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ### Returns
 
-- `type BetaEnvironment struct{…}`
+- `type BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1888,7 +1900,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `type BetaCloudConfig struct{…}`
+    - `type BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -1900,7 +1912,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Network configuration policy.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1908,7 +1920,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-        - `type BetaLimitedNetwork struct{…}`
+        - `type BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1962,7 +1974,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Python packages to install
 
-    - `type BetaSelfHostedConfig struct{…}`
+    - `type BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -2080,7 +2092,7 @@ func main() {
 
 ### Beta Cloud Config
 
-- `type BetaCloudConfig struct{…}`
+- `type BetaCloudConfig`
 
   `cloud` environment configuration.
 
@@ -2092,7 +2104,7 @@ func main() {
 
     Network configuration policy.
 
-    - `type BetaUnrestrictedNetwork struct{…}`
+    - `type BetaUnrestrictedNetwork`
 
       Unrestricted network access.
 
@@ -2100,7 +2112,7 @@ func main() {
 
         Network policy type
 
-    - `type BetaLimitedNetwork struct{…}`
+    - `type BetaLimitedNetwork`
 
       Limited network access.
 
@@ -2156,7 +2168,7 @@ func main() {
 
 ### Beta Cloud Config Params
 
-- `type BetaCloudConfigParamsResp struct{…}`
+- `type BetaCloudConfigParamsResp`
 
   Request params for `cloud` environment configuration.
 
@@ -2171,7 +2183,7 @@ func main() {
 
     Network configuration policy. Omit on update to preserve the existing value.
 
-    - `type BetaUnrestrictedNetwork struct{…}`
+    - `type BetaUnrestrictedNetwork`
 
       Unrestricted network access.
 
@@ -2179,7 +2191,7 @@ func main() {
 
         Network policy type
 
-    - `type BetaLimitedNetworkParamsResp struct{…}`
+    - `type BetaLimitedNetworkParamsResp`
 
       Limited network request params.
 
@@ -2242,7 +2254,7 @@ func main() {
 
 ### Beta Environment
 
-- `type BetaEnvironment struct{…}`
+- `type BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -2264,7 +2276,7 @@ func main() {
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `type BetaCloudConfig struct{…}`
+    - `type BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -2276,7 +2288,7 @@ func main() {
 
         Network configuration policy.
 
-        - `type BetaUnrestrictedNetwork struct{…}`
+        - `type BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -2284,7 +2296,7 @@ func main() {
 
             Network policy type
 
-        - `type BetaLimitedNetwork struct{…}`
+        - `type BetaLimitedNetwork`
 
           Limited network access.
 
@@ -2338,7 +2350,7 @@ func main() {
 
           Python packages to install
 
-    - `type BetaSelfHostedConfig struct{…}`
+    - `type BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -2376,7 +2388,7 @@ func main() {
 
 ### Beta Environment Delete Response
 
-- `type BetaEnvironmentDeleteResponse struct{…}`
+- `type BetaEnvironmentDeleteResponse`
 
   Response after deleting an environment.
 
@@ -2392,7 +2404,7 @@ func main() {
 
 ### Beta Limited Network
 
-- `type BetaLimitedNetwork struct{…}`
+- `type BetaLimitedNetwork`
 
   Limited network access.
 
@@ -2414,7 +2426,7 @@ func main() {
 
 ### Beta Limited Network Params
 
-- `type BetaLimitedNetworkParamsResp struct{…}`
+- `type BetaLimitedNetworkParamsResp`
 
   Limited network request params.
 
@@ -2439,7 +2451,7 @@ func main() {
 
 ### Beta Packages
 
-- `type BetaPackages struct{…}`
+- `type BetaPackages`
 
   Packages (and their versions) available in this environment.
 
@@ -2475,7 +2487,7 @@ func main() {
 
 ### Beta Packages Params
 
-- `type BetaPackagesParamsResp struct{…}`
+- `type BetaPackagesParamsResp`
 
   Specify packages (and optionally their versions) available in this environment.
 
@@ -2515,7 +2527,7 @@ func main() {
 
 ### Beta Self Hosted Config
 
-- `type BetaSelfHostedConfig struct{…}`
+- `type BetaSelfHostedConfig`
 
   Configuration for self-hosted environments.
 
@@ -2525,7 +2537,7 @@ func main() {
 
 ### Beta Self Hosted Config Params
 
-- `type BetaSelfHostedConfigParamsResp struct{…}`
+- `type BetaSelfHostedConfigParamsResp`
 
   Request params for `self_hosted` environment configuration.
 
@@ -2535,7 +2547,7 @@ func main() {
 
 ### Beta Unrestricted Network
 
-- `type BetaUnrestrictedNetwork struct{…}`
+- `type BetaUnrestrictedNetwork`
 
   Unrestricted network access.
 
@@ -2663,6 +2675,8 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2671,7 +2685,7 @@ Retrieve detailed information about a specific work item.
 
 #### Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2933,13 +2947,15 @@ Long poll for work items in the queue.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `AnthropicWorkerID param.Field[string] Optional`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
 #### Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3191,9 +3207,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
 #### Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3455,9 +3473,11 @@ Record a heartbeat for a work item to maintain the lease.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
 #### Returns
 
-- `type BetaSelfHostedWorkHeartbeatResponse struct{…}`
+- `type BetaSelfHostedWorkHeartbeatResponse`
 
   Response after recording a heartbeat for a work item.
 
@@ -3658,6 +3678,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3666,7 +3688,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
 #### Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3927,9 +3949,11 @@ List work items in an environment.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
 #### Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -4190,6 +4214,8 @@ Update work item metadata with merge semantics.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4198,7 +4224,7 @@ Update work item metadata with merge semantics.
 
 #### Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -4451,6 +4477,8 @@ Get statistics about the work queue for an environment.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4459,7 +4487,7 @@ Get statistics about the work queue for an environment.
 
 #### Returns
 
-- `type BetaSelfHostedWorkQueueStats struct{…}`
+- `type BetaSelfHostedWorkQueueStats`
 
   Statistics about the work queue for an environment.
 

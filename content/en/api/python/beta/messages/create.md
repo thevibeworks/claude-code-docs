@@ -86,7 +86,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `List[BetaContentBlockParam]`
 
-      - `class BetaTextBlockParam: …`
+      - `class BetaTextBlockParam`
 
         - `type: Literal["text"]`
 
@@ -117,7 +117,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `citations: Optional[List[BetaTextCitationParam]]`
 
-          - `class BetaCitationCharLocationParam: …`
+          - `class BetaCitationCharLocationParam`
 
             - `type: Literal["char_location"]`
 
@@ -137,7 +137,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 0
 
-          - `class BetaCitationPageLocationParam: …`
+          - `class BetaCitationPageLocationParam`
 
             - `type: Literal["page_location"]`
 
@@ -157,7 +157,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 1
 
-          - `class BetaCitationContentBlockLocationParam: …`
+          - `class BetaCitationContentBlockLocationParam`
 
             - `type: Literal["content_block_location"]`
 
@@ -187,7 +187,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minimum: 0
 
-          - `class BetaCitationWebSearchResultLocationParam: …`
+          - `class BetaCitationWebSearchResultLocationParam`
 
             - `type: Literal["web_search_result_location"]`
 
@@ -203,7 +203,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               minLength: 1
 
-          - `class BetaCitationSearchResultLocationParam: …`
+          - `class BetaCitationSearchResultLocationParam`
 
             - `type: Literal["search_result_location"]`
 
@@ -237,13 +237,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `title: Optional[str]`
 
-      - `class BetaImageBlockParam: …`
+      - `class BetaImageBlockParam`
 
         - `type: Literal["image"]`
 
         - `source: Source`
 
-          - `class BetaBase64ImageSource: …`
+          - `class BetaBase64ImageSource`
 
             - `type: Literal["base64"]`
 
@@ -261,13 +261,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"image/webp"`
 
-          - `class BetaURLImageSource: …`
+          - `class BetaURLImageSource`
 
             - `type: Literal["url"]`
 
             - `url: str`
 
-          - `class BetaFileImageSource: …`
+          - `class BetaFileImageSource`
 
             - `type: Literal["file"]`
 
@@ -289,13 +289,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"error"`
 
-      - `class BetaRequestDocumentBlock: …`
+      - `class BetaRequestDocumentBlock`
 
         - `type: Literal["document"]`
 
         - `source: Source`
 
-          - `class BetaBase64PDFSource: …`
+          - `class BetaBase64PDFSource`
 
             - `type: Literal["base64"]`
 
@@ -305,7 +305,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `media_type: Literal["application/pdf"]`
 
-          - `class BetaPlainTextSource: …`
+          - `class BetaPlainTextSource`
 
             - `type: Literal["text"]`
 
@@ -313,7 +313,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `media_type: Literal["text/plain"]`
 
-          - `class BetaContentBlockSource: …`
+          - `class BetaContentBlockSource`
 
             - `type: Literal["content"]`
 
@@ -323,17 +323,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `List[BetaContentBlockSourceContent]`
 
-                - `class BetaTextBlockParam: …`
+                - `class BetaTextBlockParam`
 
-                - `class BetaImageBlockParam: …`
+                - `class BetaImageBlockParam`
 
-          - `class BetaURLPDFSource: …`
+          - `class BetaURLPDFSource`
 
             - `type: Literal["url"]`
 
             - `url: str`
 
-          - `class BetaFileDocumentSource: …`
+          - `class BetaFileDocumentSource`
 
             - `type: Literal["file"]`
 
@@ -355,7 +355,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           maxLength: 500, minLength: 1
 
-      - `class BetaSearchResultBlockParam: …`
+      - `class BetaSearchResultBlockParam`
 
         - `type: Literal["search_result"]`
 
@@ -383,7 +383,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `citations: Optional[BetaCitationsConfigParam]`
 
-      - `class BetaThinkingBlockParam: …`
+      - `class BetaThinkingBlockParam`
 
         - `type: Literal["thinking"]`
 
@@ -397,7 +397,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `thinking` text of this block as returned by the API.
 
-      - `class BetaRedactedThinkingBlockParam: …`
+      - `class BetaRedactedThinkingBlockParam`
 
         - `type: Literal["redacted_thinking"]`
 
@@ -405,7 +405,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-      - `class BetaToolUseBlockParam: …`
+      - `class BetaToolUseBlockParam`
 
         - `type: Literal["tool_use"]`
 
@@ -425,13 +425,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: Optional[Caller]`
 
-          - `class BetaDirectCaller: …`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
             - `type: Literal["direct"]`
 
-          - `class BetaServerToolCaller: …`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
@@ -441,7 +441,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaServerToolCaller20260120: …`
+          - `class BetaServerToolCaller20260120`
 
             - `type: Literal["code_execution_20260120"]`
 
@@ -455,7 +455,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaToolResultBlockParam: …`
+      - `class BetaToolResultBlockParam`
 
         - `type: Literal["tool_result"]`
 
@@ -473,15 +473,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `List[Content]`
 
-            - `class BetaTextBlockParam: …`
+            - `class BetaTextBlockParam`
 
-            - `class BetaImageBlockParam: …`
+            - `class BetaImageBlockParam`
 
-            - `class BetaSearchResultBlockParam: …`
+            - `class BetaSearchResultBlockParam`
 
-            - `class BetaRequestDocumentBlock: …`
+            - `class BetaRequestDocumentBlock`
 
-            - `class BetaToolReferenceBlockParam: …`
+            - `class BetaToolReferenceBlockParam`
 
               Tool reference block that can be included in tool_result content.
 
@@ -495,7 +495,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaBrowserStateBlockParam: …`
+            - `class BetaBrowserStateBlockParam`
 
               The caller's browser state after a browser toolset member call —
               the full inventory of open tabs, which tab is active, and any side
@@ -545,7 +545,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 maxItems: 200, minItems: 1
 
-                - `class BetaBrowserStateChangeTabOpened: …`
+                - `class BetaBrowserStateChangeTabOpened`
 
                   A tab this call's execution opened that remains open at its end —
                   the creation delta of the `tabs` inventory, not an event log.
@@ -563,7 +563,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BetaBrowserStateChangeDownloadStarted: …`
+                - `class BetaBrowserStateChangeDownloadStarted`
 
                   A file download that started during this call.
 
@@ -581,7 +581,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BetaBrowserStateChangeDownloadCompleted: …`
+                - `class BetaBrowserStateChangeDownloadCompleted`
 
                   A file download that finished during this call, reported with the
                   same `download_id` as its `download_started` — or without a prior
@@ -614,7 +614,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     minimum: 0
 
-                - `class BetaBrowserStateChangeDownloadFailed: …`
+                - `class BetaBrowserStateChangeDownloadFailed`
 
                   A file download that failed — or was cancelled — during this call.
 
@@ -646,7 +646,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaServerToolUseBlockParam: …`
+      - `class BetaServerToolUseBlockParam`
 
         - `type: Literal["server_tool_use"]`
 
@@ -680,17 +680,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: Optional[Caller]`
 
-          - `class BetaDirectCaller: …`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller: …`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120: …`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebSearchToolResultBlockParam: …`
+      - `class BetaWebSearchToolResultBlockParam`
 
         - `type: Literal["web_search_tool_result"]`
 
@@ -708,7 +708,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `page_age: Optional[str]`
 
-          - `class BetaWebSearchToolRequestError: …`
+          - `class BetaWebSearchToolRequestError`
 
             - `type: Literal["web_search_tool_result_error"]`
 
@@ -736,23 +736,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: Optional[Caller]`
 
-          - `class BetaDirectCaller: …`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller: …`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120: …`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebFetchToolResultBlockParam: …`
+      - `class BetaWebFetchToolResultBlockParam`
 
         - `type: Literal["web_fetch_tool_result"]`
 
         - `content: Content`
 
-          - `class BetaWebFetchToolResultErrorBlockParam: …`
+          - `class BetaWebFetchToolResultErrorBlockParam`
 
             - `type: Literal["web_fetch_tool_result_error"]`
 
@@ -778,7 +778,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"content_too_large"`
 
-          - `class BetaWebFetchBlockParam: …`
+          - `class BetaWebFetchBlockParam`
 
             - `type: Literal["web_fetch_result"]`
 
@@ -802,23 +802,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `caller: Optional[Caller]`
 
-          - `class BetaDirectCaller: …`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller: …`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120: …`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaAdvisorToolResultBlockParam: …`
+      - `class BetaAdvisorToolResultBlockParam`
 
         - `type: Literal["advisor_tool_result"]`
 
         - `content: Content`
 
-          - `class BetaAdvisorToolResultErrorParam: …`
+          - `class BetaAdvisorToolResultErrorParam`
 
             - `type: Literal["advisor_tool_result_error"]`
 
@@ -838,7 +838,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"model_not_found"`
 
-          - `class BetaAdvisorResultBlockParam: …`
+          - `class BetaAdvisorResultBlockParam`
 
             - `type: Literal["advisor_result"]`
 
@@ -846,7 +846,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stop_reason: Optional[str]`
 
-          - `class BetaAdvisorRedactedResultBlockParam: …`
+          - `class BetaAdvisorRedactedResultBlockParam`
 
             - `type: Literal["advisor_redacted_result"]`
 
@@ -864,13 +864,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaCodeExecutionToolResultBlockParam: …`
+      - `class BetaCodeExecutionToolResultBlockParam`
 
         - `type: Literal["code_execution_tool_result"]`
 
         - `content: BetaCodeExecutionToolResultBlockParamContent`
 
-          - `class BetaCodeExecutionToolResultErrorParam: …`
+          - `class BetaCodeExecutionToolResultErrorParam`
 
             - `type: Literal["code_execution_tool_result_error"]`
 
@@ -884,7 +884,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"execution_time_exceeded"`
 
-          - `class BetaCodeExecutionResultBlockParam: …`
+          - `class BetaCodeExecutionResultBlockParam`
 
             - `type: Literal["code_execution_result"]`
 
@@ -900,7 +900,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `stdout: str`
 
-          - `class BetaEncryptedCodeExecutionResultBlockParam: …`
+          - `class BetaEncryptedCodeExecutionResultBlockParam`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -926,13 +926,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaBashCodeExecutionToolResultBlockParam: …`
+      - `class BetaBashCodeExecutionToolResultBlockParam`
 
         - `type: Literal["bash_code_execution_tool_result"]`
 
         - `content: Content`
 
-          - `class BetaBashCodeExecutionToolResultErrorParam: …`
+          - `class BetaBashCodeExecutionToolResultErrorParam`
 
             - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -948,7 +948,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"output_file_too_large"`
 
-          - `class BetaBashCodeExecutionResultBlockParam: …`
+          - `class BetaBashCodeExecutionResultBlockParam`
 
             - `type: Literal["bash_code_execution_result"]`
 
@@ -972,13 +972,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaTextEditorCodeExecutionToolResultBlockParam: …`
+      - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
         - `type: Literal["text_editor_code_execution_tool_result"]`
 
         - `content: Content`
 
-          - `class BetaTextEditorCodeExecutionToolResultErrorParam: …`
+          - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
             - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -996,7 +996,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `error_message: Optional[str]`
 
-          - `class BetaTextEditorCodeExecutionViewResultBlockParam: …`
+          - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
             - `type: Literal["text_editor_code_execution_view_result"]`
 
@@ -1016,13 +1016,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `total_lines: Optional[int]`
 
-          - `class BetaTextEditorCodeExecutionCreateResultBlockParam: …`
+          - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
             - `type: Literal["text_editor_code_execution_create_result"]`
 
             - `is_file_update: bool`
 
-          - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam: …`
+          - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
@@ -1044,13 +1044,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaToolSearchToolResultBlockParam: …`
+      - `class BetaToolSearchToolResultBlockParam`
 
         - `type: Literal["tool_search_tool_result"]`
 
         - `content: Content`
 
-          - `class BetaToolSearchToolResultErrorParam: …`
+          - `class BetaToolSearchToolResultErrorParam`
 
             - `type: Literal["tool_search_tool_result_error"]`
 
@@ -1066,7 +1066,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `error_message: Optional[str]`
 
-          - `class BetaToolSearchToolSearchResultBlockParam: …`
+          - `class BetaToolSearchToolSearchResultBlockParam`
 
             - `type: Literal["tool_search_tool_search_result"]`
 
@@ -1090,7 +1090,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaMCPToolUseBlockParam: …`
+      - `class BetaMCPToolUseBlockParam`
 
         - `type: Literal["mcp_tool_use"]`
 
@@ -1110,7 +1110,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaRequestMCPToolResultBlockParam: …`
+      - `class BetaRequestMCPToolResultBlockParam`
 
         - `type: Literal["mcp_tool_result"]`
 
@@ -1142,7 +1142,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `is_error: Optional[bool]`
 
-      - `class BetaContainerUploadBlockParam: …`
+      - `class BetaContainerUploadBlockParam`
 
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
@@ -1155,7 +1155,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaCompactionBlockParam: …`
+      - `class BetaCompactionBlockParam`
 
         A compaction block containing summary of previous context.
 
@@ -1179,7 +1179,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-      - `class BetaRequestToolAdditionBlock: …`
+        - `signature: Optional[str]`
+
+          The block's signature as returned, to be sent back verbatim
+
+      - `class BetaRequestToolAdditionBlock`
 
         Mid-conversation directive to surface a declared tool.
 
@@ -1191,7 +1195,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `tool: Tool`
 
-          - `class BetaToolChangeToolReference: …`
+          - `class BetaToolChangeToolReference`
 
             Reference to a single tool the caller declared directly in
             `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -1204,7 +1208,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-          - `class BetaToolChangeMCPToolReference: …`
+          - `class BetaToolChangeMCPToolReference`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -1215,7 +1219,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `server_name: str`
 
-          - `class BetaToolChangeMCPToolsetReference: …`
+          - `class BetaToolChangeMCPToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
 
@@ -1227,7 +1231,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaRequestToolRemovalBlock: …`
+      - `class BetaRequestToolRemovalBlock`
 
         Mid-conversation directive to withdraw a tool.
 
@@ -1239,19 +1243,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `tool: Tool`
 
-          - `class BetaToolChangeToolReference: …`
+          - `class BetaToolChangeToolReference`
 
             Reference to a single tool the caller declared directly in
             `tools[]`. Does not accept the composed `{server}_{name}` form the
             server assigns to MCP-resolved tools — use `mcp_tool_reference` or
             `mcp_toolset_reference` for those.
 
-          - `class BetaToolChangeMCPToolReference: …`
+          - `class BetaToolChangeMCPToolReference`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
 
-          - `class BetaToolChangeMCPToolsetReference: …`
+          - `class BetaToolChangeMCPToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
 
@@ -1259,7 +1263,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaFallbackBlockParam: …`
+      - `class BetaFallbackBlockParam`
 
         A `fallback` block echoed back from a prior response.
 
@@ -1437,11 +1441,30 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+- `compaction: Optional[BetaCompactionConfigParam]`
+
+  Compact the whole conversation and return a signed `compaction` block,
+  alone, that a later request sends back first in `messages`, in place of
+  the messages it summarizes. There is no trigger and no pause flag: sending
+  the parameter compacts, and nothing is sampled after the block.
+
+  The summarization prompt is the server's own unless `instructions` are
+  given, which then replace it for this request; a value that is empty or
+  only whitespace counts as absent.
+
+  - `type: Literal["summarize"]`
+
+  - `instructions: Optional[str]`
+
+    Replaces the server's default summarization prompt for this request. An empty or whitespace-only value counts as absent.
+
+    maxLength: 16384
+
 - `container: Optional[Container]`
 
   Container identifier for reuse across requests.
 
-  - `class BetaContainerParams: …`
+  - `class BetaContainerParams`
 
     Container parameters with skills to be loaded.
 
@@ -1489,7 +1512,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     minItems: 0
 
-    - `class BetaClearToolUses20250919Edit: …`
+    - `class BetaClearToolUses20250919Edit`
 
       - `type: Literal["clear_tool_uses_20250919"]`
 
@@ -1529,7 +1552,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Condition that triggers the context management strategy
 
-        - `class BetaInputTokensTrigger: …`
+        - `class BetaInputTokensTrigger`
 
           - `type: Literal["input_tokens"]`
 
@@ -1537,7 +1560,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-        - `class BetaToolUsesTrigger: …`
+        - `class BetaToolUsesTrigger`
 
           - `type: Literal["tool_uses"]`
 
@@ -1545,7 +1568,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-    - `class BetaClearThinking20251015Edit: …`
+    - `class BetaClearThinking20251015Edit`
 
       - `type: Literal["clear_thinking_20251015"]`
 
@@ -1553,7 +1576,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-        - `class BetaThinkingTurns: …`
+        - `class BetaThinkingTurns`
 
           - `type: Literal["thinking_turns"]`
 
@@ -1561,13 +1584,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-        - `class BetaAllThinkingTurns: …`
+        - `class BetaAllThinkingTurns`
 
           - `type: Literal["all"]`
 
         - `Literal["all"]`
 
-    - `class BetaCompact20260112Edit: …`
+    - `class BetaCompact20260112Edit`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
@@ -1621,7 +1644,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `str`
 
-  - `class BetaFallbackCreditTokenParam: …`
+  - `class BetaFallbackCreditTokenParam`
 
     Object form of `fallback_credit_token`: the token plus a redemption
     mode.
@@ -1715,7 +1738,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `thinking: Optional[Thinking]`
 
-      - `class BetaThinkingConfigEnabled: …`
+      - `class BetaThinkingConfigEnabled`
 
         - `type: Literal["enabled"]`
 
@@ -1757,11 +1780,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"updates"`
 
-      - `class BetaThinkingConfigDisabled: …`
+      - `class BetaThinkingConfigDisabled`
 
         - `type: Literal["disabled"]`
 
-      - `class BetaThinkingConfigAdaptive: …`
+      - `class BetaThinkingConfigAdaptive`
 
         - `type: Literal["adaptive"]`
 
@@ -1885,17 +1908,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `class BetaThinkingConfigEnabled: …`
+  - `class BetaThinkingConfigEnabled`
 
-  - `class BetaThinkingConfigDisabled: …`
+  - `class BetaThinkingConfigDisabled`
 
-  - `class BetaThinkingConfigAdaptive: …`
+  - `class BetaThinkingConfigAdaptive`
 
 - `tool_choice: Optional[BetaToolChoiceParam]`
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `class BetaToolChoiceAuto: …`
+  - `class BetaToolChoiceAuto`
 
     The model will automatically decide whether to use tools.
 
@@ -1907,7 +1930,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-  - `class BetaToolChoiceAny: …`
+  - `class BetaToolChoiceAny`
 
     The model will use any available tools.
 
@@ -1919,7 +1942,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class BetaToolChoiceTool: …`
+  - `class BetaToolChoiceTool`
 
     The model will use the specified tool with `tool_choice.name`.
 
@@ -1935,7 +1958,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class BetaToolChoiceNone: …`
+  - `class BetaToolChoiceNone`
 
     The model will not be allowed to use tools.
 
@@ -2005,7 +2028,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-  - `class BetaTool: …`
+  - `class BetaTool`
 
     - `type: Optional[Literal["custom"]]`
 
@@ -2063,7 +2086,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolBash20241022: …`
+  - `class BetaToolBash20241022`
 
     - `type: Literal["bash_20241022"]`
 
@@ -2097,7 +2120,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolBash20250124: …`
+  - `class BetaToolBash20250124`
 
     - `type: Literal["bash_20250124"]`
 
@@ -2131,7 +2154,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20250522: …`
+  - `class BetaCodeExecutionTool20250522`
 
     - `type: Literal["code_execution_20250522"]`
 
@@ -2163,7 +2186,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20250825: …`
+  - `class BetaCodeExecutionTool20250825`
 
     - `type: Literal["code_execution_20250825"]`
 
@@ -2195,7 +2218,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20260120: …`
+  - `class BetaCodeExecutionTool20260120`
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -2229,7 +2252,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20260521: …`
+  - `class BetaCodeExecutionTool20260521`
 
     Code execution tool with REPL state persistence.
 
@@ -2263,7 +2286,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaBrowserToolset20260801: …`
+  - `class BetaBrowserToolset20260801`
 
     The browser toolset: a single `tools[]` entry (carrying no
     `name`) that declares the browser tool family. The model is served
@@ -2657,7 +2680,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class BetaToolComputerUse20241022: …`
+  - `class BetaToolComputerUse20241022`
 
     - `type: Literal["computer_20241022"]`
 
@@ -2709,7 +2732,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaMemoryTool20250818: …`
+  - `class BetaMemoryTool20250818`
 
     - `type: Literal["memory_20250818"]`
 
@@ -2743,7 +2766,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolComputerUse20250124: …`
+  - `class BetaToolComputerUse20250124`
 
     - `type: Literal["computer_20250124"]`
 
@@ -2795,7 +2818,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolTextEditor20241022: …`
+  - `class BetaToolTextEditor20241022`
 
     - `type: Literal["text_editor_20241022"]`
 
@@ -2829,7 +2852,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolComputerUse20251124: …`
+  - `class BetaToolComputerUse20251124`
 
     - `type: Literal["computer_20251124"]`
 
@@ -2885,7 +2908,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaComputerToolset20260801: …`
+  - `class BetaComputerToolset20260801`
 
     The computer toolset: a single `tools[]` entry (carrying no
     `name`) that declares the computer tool family. The model is
@@ -3115,7 +3138,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class BetaToolTextEditor20250124: …`
+  - `class BetaToolTextEditor20250124`
 
     - `type: Literal["text_editor_20250124"]`
 
@@ -3149,7 +3172,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolTextEditor20250429: …`
+  - `class BetaToolTextEditor20250429`
 
     - `type: Literal["text_editor_20250429"]`
 
@@ -3183,7 +3206,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolTextEditor20250728: …`
+  - `class BetaToolTextEditor20250728`
 
     - `type: Literal["text_editor_20250728"]`
 
@@ -3223,7 +3246,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaWebSearchTool20250305: …`
+  - `class BetaWebSearchTool20250305`
 
     - `type: Literal["web_search_20250305"]`
 
@@ -3299,7 +3322,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         maxLength: 255, minLength: 1
 
-  - `class BetaWebFetchTool20250910: …`
+  - `class BetaWebFetchTool20250910`
 
     - `type: Literal["web_fetch_20250910"]`
 
@@ -3355,7 +3378,98 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaWebSearchTool20260209: …`
+    - `url_sources: Optional[BetaWebFetchURLSources]`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+      - `client_tool_results: Optional[ClientToolResults]`
+
+        Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+        - `class BetaWebFetchURLSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+          - `type: Literal["all"]`
+
+        - `class BetaWebFetchURLSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+          - `type: Literal["none"]`
+
+        - `class BetaWebFetchURLSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+          - `type: Literal["only"]`
+
+          - `tools: List[BetaWebFetchURLSourceToolReference]`
+
+            - `type: Literal["tool_reference"]`
+
+            - `name: str`
+
+        - `class BetaWebFetchURLSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+          - `type: Literal["except"]`
+
+          - `tools: List[BetaWebFetchURLSourceToolReference]`
+
+            - `type: Literal["tool_reference"]`
+
+            - `name: str`
+
+      - `server_tool_results: Optional[ServerToolResults]`
+
+        Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+        - `class BetaWebFetchURLSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class BetaWebFetchURLSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+        - `class BetaWebFetchURLSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+        - `class BetaWebFetchURLSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+      - `user_input: Optional[UserInput]`
+
+        Whether URLs in user messages are fetchable: "all" or "none".
+
+        - `class BetaWebFetchURLSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class BetaWebFetchURLSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+  - `class BetaWebSearchTool20260209`
 
     - `type: Literal["web_search_20260209"]`
 
@@ -3405,7 +3519,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class BetaWebFetchTool20260209: …`
+  - `class BetaWebFetchTool20260209`
 
     - `type: Literal["web_fetch_20260209"]`
 
@@ -3461,7 +3575,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaWebFetchTool20260309: …`
+    - `url_sources: Optional[BetaWebFetchURLSources]`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+  - `class BetaWebFetchTool20260309`
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -3519,11 +3642,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `url_sources: Optional[BetaWebFetchURLSources]`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `use_cache: Optional[bool]`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class BetaWebSearchTool20260318: …`
+  - `class BetaWebSearchTool20260318`
 
     - `type: Literal["web_search_20260318"]`
 
@@ -3581,7 +3713,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class BetaWebFetchTool20260318: …`
+  - `class BetaWebFetchTool20260318`
 
     - `type: Literal["web_fetch_20260318"]`
 
@@ -3645,11 +3777,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `url_sources: Optional[BetaWebFetchURLSources]`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `use_cache: Optional[bool]`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class BetaAdvisorTool20260301: …`
+  - `class BetaAdvisorTool20260301`
 
     - `type: Literal["advisor_20260301"]`
 
@@ -3703,7 +3844,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolSearchToolBm25_20251119: …`
+  - `class BetaToolSearchToolBm25_20251119`
 
     - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
@@ -3739,7 +3880,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolSearchToolRegex20251119: …`
+  - `class BetaToolSearchToolRegex20251119`
 
     - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
@@ -3775,7 +3916,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaMCPToolset: …`
+  - `class BetaMCPToolset`
 
     Configuration for a group of tools from an MCP server.
 
@@ -3816,7 +3957,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3908,6 +4049,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `user_profile_id: Optional[str]`
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -3916,7 +4059,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 ## Returns
 
-- `class BetaMessage: …`
+- `class BetaMessage`
 
   - `type: Literal["message"]`
 
@@ -3999,7 +4142,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `class BetaTextBlock: …`
+    - `class BetaTextBlock`
 
       - `type: Literal["text"]`
 
@@ -4011,7 +4154,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class BetaCitationCharLocation: …`
+        - `class BetaCitationCharLocation`
 
           - `type: Literal["char_location"]`
 
@@ -4033,7 +4176,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-        - `class BetaCitationPageLocation: …`
+        - `class BetaCitationPageLocation`
 
           - `type: Literal["page_location"]`
 
@@ -4055,7 +4198,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocation: …`
+        - `class BetaCitationContentBlockLocation`
 
           - `type: Literal["content_block_location"]`
 
@@ -4087,7 +4230,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-        - `class BetaCitationsWebSearchResultLocation: …`
+        - `class BetaCitationsWebSearchResultLocation`
 
           - `type: Literal["web_search_result_location"]`
 
@@ -4103,7 +4246,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `url: str`
 
-        - `class BetaCitationSearchResultLocation: …`
+        - `class BetaCitationSearchResultLocation`
 
           - `type: Literal["search_result_location"]`
 
@@ -4143,7 +4286,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 0
 
-    - `class BetaThinkingBlock: …`
+    - `class BetaThinkingBlock`
 
       - `type: Literal["thinking"]`
 
@@ -4161,7 +4304,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-    - `class BetaRedactedThinkingBlock: …`
+    - `class BetaRedactedThinkingBlock`
 
       - `type: Literal["redacted_thinking"]`
 
@@ -4175,7 +4318,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class BetaToolUseBlock: …`
+    - `class BetaToolUseBlock`
 
       - `type: Literal["tool_use"]`
 
@@ -4193,13 +4336,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: Optional[Caller]`
 
-        - `class BetaDirectCaller: …`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
           - `type: Literal["direct"]`
 
-        - `class BetaServerToolCaller: …`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -4209,7 +4352,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaServerToolCaller20260120: …`
+        - `class BetaServerToolCaller20260120`
 
           - `type: Literal["code_execution_20260120"]`
 
@@ -4223,7 +4366,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaServerToolUseBlock: …`
+    - `class BetaServerToolUseBlock`
 
       - `type: Literal["server_tool_use"]`
 
@@ -4255,17 +4398,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: Optional[Caller]`
 
-        - `class BetaDirectCaller: …`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller: …`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120: …`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebSearchToolResultBlock: …`
+    - `class BetaWebSearchToolResultBlock`
 
       - `type: Literal["web_search_tool_result"]`
 
@@ -4273,7 +4416,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: BetaWebSearchToolResultBlockContent`
 
-        - `class BetaWebSearchToolResultError: …`
+        - `class BetaWebSearchToolResultError`
 
           - `type: Literal["web_search_tool_result_error"]`
 
@@ -4313,17 +4456,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: Optional[Caller]`
 
-        - `class BetaDirectCaller: …`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller: …`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120: …`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebFetchToolResultBlock: …`
+    - `class BetaWebFetchToolResultBlock`
 
       - `type: Literal["web_fetch_tool_result"]`
 
@@ -4331,7 +4474,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class BetaWebFetchToolResultErrorBlock: …`
+        - `class BetaWebFetchToolResultErrorBlock`
 
           - `type: Literal["web_fetch_tool_result_error"]`
 
@@ -4359,7 +4502,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"content_too_large"`
 
-        - `class BetaWebFetchBlock: …`
+        - `class BetaWebFetchBlock`
 
           - `type: Literal["web_fetch_result"]`
 
@@ -4381,7 +4524,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `source: Source`
 
-              - `class BetaBase64PDFSource: …`
+              - `class BetaBase64PDFSource`
 
                 - `type: Literal["base64"]`
 
@@ -4391,7 +4534,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `media_type: Literal["application/pdf"]`
 
-              - `class BetaPlainTextSource: …`
+              - `class BetaPlainTextSource`
 
                 - `type: Literal["text"]`
 
@@ -4417,17 +4560,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `caller: Optional[Caller]`
 
-        - `class BetaDirectCaller: …`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller: …`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120: …`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaAdvisorToolResultBlock: …`
+    - `class BetaAdvisorToolResultBlock`
 
       - `type: Literal["advisor_tool_result"]`
 
@@ -4435,7 +4578,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class BetaAdvisorToolResultError: …`
+        - `class BetaAdvisorToolResultError`
 
           - `type: Literal["advisor_tool_result_error"]`
 
@@ -4457,7 +4600,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"model_not_found"`
 
-        - `class BetaAdvisorResultBlock: …`
+        - `class BetaAdvisorResultBlock`
 
           - `type: Literal["advisor_result"]`
 
@@ -4469,7 +4612,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `text: str`
 
-        - `class BetaAdvisorRedactedResultBlock: …`
+        - `class BetaAdvisorRedactedResultBlock`
 
           - `type: Literal["advisor_redacted_result"]`
 
@@ -4487,7 +4630,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaCodeExecutionToolResultBlock: …`
+    - `class BetaCodeExecutionToolResultBlock`
 
       - `type: Literal["code_execution_tool_result"]`
 
@@ -4495,7 +4638,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
-        - `class BetaCodeExecutionToolResultError: …`
+        - `class BetaCodeExecutionToolResultError`
 
           - `type: Literal["code_execution_tool_result_error"]`
 
@@ -4511,7 +4654,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"execution_time_exceeded"`
 
-        - `class BetaCodeExecutionResultBlock: …`
+        - `class BetaCodeExecutionResultBlock`
 
           - `type: Literal["code_execution_result"]`
 
@@ -4531,7 +4674,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `stdout: str`
 
-        - `class BetaEncryptedCodeExecutionResultBlock: …`
+        - `class BetaEncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -4557,7 +4700,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaBashCodeExecutionToolResultBlock: …`
+    - `class BetaBashCodeExecutionToolResultBlock`
 
       - `type: Literal["bash_code_execution_tool_result"]`
 
@@ -4565,7 +4708,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class BetaBashCodeExecutionToolResultError: …`
+        - `class BetaBashCodeExecutionToolResultError`
 
           - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -4583,7 +4726,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"output_file_too_large"`
 
-        - `class BetaBashCodeExecutionResultBlock: …`
+        - `class BetaBashCodeExecutionResultBlock`
 
           - `type: Literal["bash_code_execution_result"]`
 
@@ -4607,7 +4750,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+    - `class BetaTextEditorCodeExecutionToolResultBlock`
 
       - `type: Literal["text_editor_code_execution_tool_result"]`
 
@@ -4615,7 +4758,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class BetaTextEditorCodeExecutionToolResultError: …`
+        - `class BetaTextEditorCodeExecutionToolResultError`
 
           - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -4635,7 +4778,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `error_message: Optional[str]`
 
-        - `class BetaTextEditorCodeExecutionViewResultBlock: …`
+        - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `type: Literal["text_editor_code_execution_view_result"]`
 
@@ -4657,7 +4800,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `total_lines: Optional[int]`
 
-        - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
+        - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `type: Literal["text_editor_code_execution_create_result"]`
 
@@ -4665,7 +4808,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `is_file_update: bool`
 
-        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
+        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
           - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
@@ -4685,7 +4828,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaToolSearchToolResultBlock: …`
+    - `class BetaToolSearchToolResultBlock`
 
       - `type: Literal["tool_search_tool_result"]`
 
@@ -4693,7 +4836,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class BetaToolSearchToolResultError: …`
+        - `class BetaToolSearchToolResultError`
 
           - `type: Literal["tool_search_tool_result_error"]`
 
@@ -4711,7 +4854,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `error_message: Optional[str]`
 
-        - `class BetaToolSearchToolSearchResultBlock: …`
+        - `class BetaToolSearchToolSearchResultBlock`
 
           - `type: Literal["tool_search_tool_search_result"]`
 
@@ -4731,7 +4874,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaMCPToolUseBlock: …`
+    - `class BetaMCPToolUseBlock`
 
       - `type: Literal["mcp_tool_use"]`
 
@@ -4751,7 +4894,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The name of the MCP server
 
-    - `class BetaMCPToolResultBlock: …`
+    - `class BetaMCPToolResultBlock`
 
       - `type: Literal["mcp_tool_result"]`
 
@@ -4785,7 +4928,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaContainerUploadBlock: …`
+    - `class BetaContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -4795,7 +4938,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `file_id: str`
 
-    - `class BetaCompactionBlock: …`
+    - `class BetaCompactionBlock`
 
       A compaction block returned when autocompact is triggered.
 
@@ -4815,7 +4958,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
-    - `class BetaFallbackBlock: …`
+      - `signature: Optional[str]`
+
+        Signature over the summary, to be sent back with the block verbatim
+
+    - `class BetaFallbackBlock`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -4989,7 +5136,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       List of context management edits that were applied.
 
-      - `class BetaClearToolUses20250919EditResponse: …`
+      - `class BetaClearToolUses20250919EditResponse`
 
         - `type: Literal["clear_tool_uses_20250919"]`
 
@@ -5009,7 +5156,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaClearThinking20251015EditResponse: …`
+      - `class BetaClearThinking20251015EditResponse`
 
         - `type: Literal["clear_thinking_20251015"]`
 
@@ -5038,7 +5185,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-      - `class BetaCacheMissModelChanged: …`
+      - `class BetaCacheMissModelChanged`
 
         - `type: Literal["model_changed"]`
 
@@ -5048,7 +5195,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissSystemChanged: …`
+      - `class BetaCacheMissSystemChanged`
 
         - `type: Literal["system_changed"]`
 
@@ -5058,7 +5205,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissToolsChanged: …`
+      - `class BetaCacheMissToolsChanged`
 
         - `type: Literal["tools_changed"]`
 
@@ -5068,7 +5215,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissMessagesChanged: …`
+      - `class BetaCacheMissMessagesChanged`
 
         - `type: Literal["messages_changed"]`
 
@@ -5078,13 +5225,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissPreviousMessageNotFound: …`
+      - `class BetaCacheMissPreviousMessageNotFound`
 
         - `type: Literal["previous_message_not_found"]`
 
           default: previous_message_not_found
 
-      - `class BetaCacheMissUnavailable: …`
+      - `class BetaCacheMissUnavailable`
 
         - `type: Literal["unavailable"]`
 
@@ -5288,7 +5435,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `class BetaFallbackCreditRedeemed: …`
+        - `class BetaFallbackCreditRedeemed`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
@@ -5297,7 +5444,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             default: redeemed
 
-        - `class BetaFallbackCreditNotApplied: …`
+        - `class BetaFallbackCreditNotApplied`
 
           No reprice was applied; `reason` says why.
 
@@ -5369,7 +5516,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-      - `class BetaMessageIterationUsage: …`
+      - `class BetaMessageIterationUsage`
 
         Token usage for a sampling iteration.
 
@@ -5413,7 +5560,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaCompactionIterationUsage: …`
+      - `class BetaCompactionIterationUsage`
 
         Token usage for a compaction iteration.
 
@@ -5451,7 +5598,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaAdvisorMessageIterationUsage: …`
+      - `class BetaAdvisorMessageIterationUsage`
 
         Token usage for an advisor sub-inference iteration.
 
@@ -5495,7 +5642,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaFallbackMessageIterationUsage: …`
+      - `class BetaFallbackMessageIterationUsage`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -5608,63 +5755,105 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"fast"`
 
-  - `input_transformations: Optional[List[BetaThinkingDroppedInputTransformation]]`
+  - `input_transformations: Optional[List[BetaInputTransformation]]`
 
-    Changes the API made to the request's input before showing it to the model:
-    one entry per change, in request order. Today the only entry type is
-    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-    block from the request's `messages` that was removed from the prompt instead
-    of being shown to the model because it failed a binding check. More entry
-    types may be added over time; ignore types you do not recognize.
+    Changes the API made to the request's input before showing it to the model,
+    and blocks that failed a binding check but were left unchanged: one entry per
+    block, in request order. Two entry types today. `thinking_dropped` — a
+    `thinking`, `redacted_thinking` or `connector_text` block from the request's
+    `messages` that was removed from the prompt instead of being shown to the
+    model because it failed a binding check. `thinking_mismatch_allowed` — a
+    `thinking` or `redacted_thinking` block that failed the conversation check
+    (the conversation before it differs from the one it was created in, or it
+    carries no record of one on a model that requires it) and was shown to the
+    model all the same, because that check is not enforced for this request.
+    More entry types may be added over time; ignore types you do not recognize.
 
     Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
     every such response from a model that supports extended thinking, as `[]`
-    when nothing was changed; without the beta, blocks are removed all the same
-    but nothing is reported. Removed blocks contribute nothing to
-    `usage.input_tokens`. When streaming, the array is final in `message_start`;
-    the final `message_delta` event carries it only when a server-side model
-    fallback happened mid-stream, in which case it holds the serving model's
-    entries and replaces the one in `message_start`.
+    when there is no entry to report; without the beta, blocks are removed or
+    left in place all the same but nothing is reported. Removed blocks contribute
+    nothing to `usage.input_tokens`; blocks left in place count as sent. When
+    streaming, the array is final in `message_start`; the final `message_delta`
+    event carries it only when a server-side model fallback happened mid-stream,
+    in which case it holds the serving model's entries and replaces the one in
+    `message_start`.
 
-    - `type: Literal["thinking_dropped"]`
+    - `class BetaThinkingDroppedInputTransformation`
 
-      Always `thinking_dropped` for this entry type.
+      - `type: Literal["thinking_dropped"]`
 
-      default: thinking_dropped
+        Always `thinking_dropped` for this entry type.
 
-    - `path: str`
+        default: thinking_dropped
 
-      Where the removed block was in your request, as `messages.{i}.content.{j}`:
-      `i` indexes the `messages` array you sent and `j` that message's `content`
-      array — the same form error messages use.
+      - `path: str`
 
-    - `reason: Literal["model_binding_mismatch", "prefix_binding_mismatch", "organization_binding_mismatch", "end_user_binding_mismatch"]`
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
 
-      Which binding check removed the block: `model_binding_mismatch` — it was
-      created by a model whose reasoning the requested model may not read;
-      `prefix_binding_mismatch` — the conversation before it differs from the
-      conversation it was created in (the rest of that turn's consecutive thinking
-      blocks are removed with it, each with this reason);
-      `organization_binding_mismatch` — it was created under a different
-      organization (an Anthropic organization, AWS account or Google Cloud project)
-      and this organization is not one of its additional organizations;
-      `end_user_binding_mismatch` — it was created for a different end user, or
-      was removed by the consumer-organization binding. A block that would fail
-      several checks reports one reason, in this order of precedence:
-      `organization_binding_mismatch`, `end_user_binding_mismatch`,
-      `model_binding_mismatch`, `prefix_binding_mismatch`.
+      - `reason: Literal["model_binding_mismatch", "prefix_binding_mismatch", "organization_binding_mismatch", "end_user_binding_mismatch"]`
 
-      - `"model_binding_mismatch"`
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `"prefix_binding_mismatch"`
+        - `"model_binding_mismatch"`
 
-      - `"organization_binding_mismatch"`
+        - `"prefix_binding_mismatch"`
 
-      - `"end_user_binding_mismatch"`
+        - `"organization_binding_mismatch"`
 
-- `BetaRawMessageStreamEvent`
+        - `"end_user_binding_mismatch"`
 
-  - `class BetaRawMessageStartEvent: …`
+    - `class BetaThinkingMismatchAllowedInputTransformation`
+
+      - `type: Literal["thinking_mismatch_allowed"]`
+
+        Always `thinking_mismatch_allowed` for this entry type.
+
+        default: thinking_mismatch_allowed
+
+      - `path: str`
+
+        Where the block is in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `reason: Literal["model_binding_mismatch", "prefix_binding_mismatch", "organization_binding_mismatch", "end_user_binding_mismatch"]`
+
+        Which binding check the block failed; the block was shown to the model all
+        the same. Always `prefix_binding_mismatch` today — the conversation before
+        the block differs from the conversation it was created in, or the block
+        carries no record of one on a model that requires it. Were the check
+        enforced for this request, the block would have been removed or the request
+        rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+        takes the rest of that turn's consecutive thinking blocks, whereas here each
+        block is checked on its own, so `thinking_mismatch_allowed` entries are a
+        lower bound on what enforcement would remove.
+
+        - `"model_binding_mismatch"`
+
+        - `"prefix_binding_mismatch"`
+
+        - `"organization_binding_mismatch"`
+
+        - `"end_user_binding_mismatch"`
+
+- `type BetaRawMessageStreamEvent = ...`
+
+  - `class BetaRawMessageStartEvent`
 
     - `type: Literal["message_start"]`
 
@@ -5672,7 +5861,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `message: BetaMessage`
 
-  - `class BetaRawMessageDeltaEvent: …`
+  - `class BetaRawMessageDeltaEvent`
 
     - `type: Literal["message_delta"]`
 
@@ -5759,59 +5948,41 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of server tool requests.
 
-    - `input_transformations: Optional[List[BetaThinkingDroppedInputTransformation]]`
+    - `input_transformations: Optional[List[BetaInputTransformation]]`
 
-      Changes the API made to the request's input before showing it to the model:
-      one entry per change, in request order. Today the only entry type is
-      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-      block from the request's `messages` that was removed from the prompt instead
-      of being shown to the model because it failed a binding check. More entry
-      types may be added over time; ignore types you do not recognize.
+      Changes the API made to the request's input before showing it to the model,
+      and blocks that failed a binding check but were left unchanged: one entry per
+      block, in request order. Two entry types today. `thinking_dropped` — a
+      `thinking`, `redacted_thinking` or `connector_text` block from the request's
+      `messages` that was removed from the prompt instead of being shown to the
+      model because it failed a binding check. `thinking_mismatch_allowed` — a
+      `thinking` or `redacted_thinking` block that failed the conversation check
+      (the conversation before it differs from the one it was created in, or it
+      carries no record of one on a model that requires it) and was shown to the
+      model all the same, because that check is not enforced for this request.
+      More entry types may be added over time; ignore types you do not recognize.
 
       Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
       every such response from a model that supports extended thinking, as `[]`
-      when nothing was changed; without the beta, blocks are removed all the same
-      but nothing is reported. Removed blocks contribute nothing to
-      `usage.input_tokens`. When streaming, the array is final in `message_start`;
-      the final `message_delta` event carries it only when a server-side model
-      fallback happened mid-stream, in which case it holds the serving model's
-      entries and replaces the one in `message_start`.
+      when there is no entry to report; without the beta, blocks are removed or
+      left in place all the same but nothing is reported. Removed blocks contribute
+      nothing to `usage.input_tokens`; blocks left in place count as sent. When
+      streaming, the array is final in `message_start`; the final `message_delta`
+      event carries it only when a server-side model fallback happened mid-stream,
+      in which case it holds the serving model's entries and replaces the one in
+      `message_start`.
 
-      - `type: Literal["thinking_dropped"]`
+      - `class BetaThinkingDroppedInputTransformation`
 
-        Always `thinking_dropped` for this entry type.
+      - `class BetaThinkingMismatchAllowedInputTransformation`
 
-        default: thinking_dropped
-
-      - `path: str`
-
-        Where the removed block was in your request, as `messages.{i}.content.{j}`:
-        `i` indexes the `messages` array you sent and `j` that message's `content`
-        array — the same form error messages use.
-
-      - `reason: Literal["model_binding_mismatch", "prefix_binding_mismatch", "organization_binding_mismatch", "end_user_binding_mismatch"]`
-
-        Which binding check removed the block: `model_binding_mismatch` — it was
-        created by a model whose reasoning the requested model may not read;
-        `prefix_binding_mismatch` — the conversation before it differs from the
-        conversation it was created in (the rest of that turn's consecutive thinking
-        blocks are removed with it, each with this reason);
-        `organization_binding_mismatch` — it was created under a different
-        organization (an Anthropic organization, AWS account or Google Cloud project)
-        and this organization is not one of its additional organizations;
-        `end_user_binding_mismatch` — it was created for a different end user, or
-        was removed by the consumer-organization binding. A block that would fail
-        several checks reports one reason, in this order of precedence:
-        `organization_binding_mismatch`, `end_user_binding_mismatch`,
-        `model_binding_mismatch`, `prefix_binding_mismatch`.
-
-  - `class BetaRawMessageStopEvent: …`
+  - `class BetaRawMessageStopEvent`
 
     - `type: Literal["message_stop"]`
 
       default: message_stop
 
-  - `class BetaRawContentBlockStartEvent: …`
+  - `class BetaRawContentBlockStartEvent`
 
     - `type: Literal["content_block_start"]`
 
@@ -5819,39 +5990,39 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `content_block: ContentBlock`
 
-      - `class BetaTextBlock: …`
+      - `class BetaTextBlock`
 
-      - `class BetaThinkingBlock: …`
+      - `class BetaThinkingBlock`
 
-      - `class BetaRedactedThinkingBlock: …`
+      - `class BetaRedactedThinkingBlock`
 
-      - `class BetaToolUseBlock: …`
+      - `class BetaToolUseBlock`
 
-      - `class BetaServerToolUseBlock: …`
+      - `class BetaServerToolUseBlock`
 
-      - `class BetaWebSearchToolResultBlock: …`
+      - `class BetaWebSearchToolResultBlock`
 
-      - `class BetaWebFetchToolResultBlock: …`
+      - `class BetaWebFetchToolResultBlock`
 
-      - `class BetaAdvisorToolResultBlock: …`
+      - `class BetaAdvisorToolResultBlock`
 
-      - `class BetaCodeExecutionToolResultBlock: …`
+      - `class BetaCodeExecutionToolResultBlock`
 
-      - `class BetaBashCodeExecutionToolResultBlock: …`
+      - `class BetaBashCodeExecutionToolResultBlock`
 
-      - `class BetaTextEditorCodeExecutionToolResultBlock: …`
+      - `class BetaTextEditorCodeExecutionToolResultBlock`
 
-      - `class BetaToolSearchToolResultBlock: …`
+      - `class BetaToolSearchToolResultBlock`
 
-      - `class BetaMCPToolUseBlock: …`
+      - `class BetaMCPToolUseBlock`
 
-      - `class BetaMCPToolResultBlock: …`
+      - `class BetaMCPToolResultBlock`
 
-      - `class BetaContainerUploadBlock: …`
+      - `class BetaContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
-      - `class BetaCompactionBlock: …`
+      - `class BetaCompactionBlock`
 
         A compaction block returned when autocompact is triggered.
 
@@ -5859,7 +6030,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         summary (e.g., malformed output from the model). Clients may round-trip
         compaction blocks with null content; the server treats them as no-ops.
 
-      - `class BetaFallbackBlock: …`
+      - `class BetaFallbackBlock`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -5875,7 +6046,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `index: int`
 
-  - `class BetaRawContentBlockDeltaEvent: …`
+  - `class BetaRawContentBlockDeltaEvent`
 
     - `type: Literal["content_block_delta"]`
 
@@ -5883,7 +6054,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `delta: BetaRawContentBlockDelta`
 
-      - `class BetaTextDelta: …`
+      - `class BetaTextDelta`
 
         - `type: Literal["text_delta"]`
 
@@ -5891,7 +6062,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `text: str`
 
-      - `class BetaInputJSONDelta: …`
+      - `class BetaInputJSONDelta`
 
         - `type: Literal["input_json_delta"]`
 
@@ -5899,7 +6070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `partial_json: str`
 
-      - `class BetaCitationsDelta: …`
+      - `class BetaCitationsDelta`
 
         - `type: Literal["citations_delta"]`
 
@@ -5907,17 +6078,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `citation: Citation`
 
-          - `class BetaCitationCharLocation: …`
+          - `class BetaCitationCharLocation`
 
-          - `class BetaCitationPageLocation: …`
+          - `class BetaCitationPageLocation`
 
-          - `class BetaCitationContentBlockLocation: …`
+          - `class BetaCitationContentBlockLocation`
 
-          - `class BetaCitationsWebSearchResultLocation: …`
+          - `class BetaCitationsWebSearchResultLocation`
 
-          - `class BetaCitationSearchResultLocation: …`
+          - `class BetaCitationSearchResultLocation`
 
-      - `class BetaThinkingDelta: …`
+      - `class BetaThinkingDelta`
 
         - `type: Literal["thinking_delta"]`
 
@@ -5931,7 +6102,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `class BetaSignatureDelta: …`
+      - `class BetaSignatureDelta`
 
         - `type: Literal["signature_delta"]`
 
@@ -5941,7 +6112,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-      - `class BetaCompactionContentBlockDelta: …`
+      - `class BetaCompactionContentBlockDelta`
 
         - `type: Literal["compaction_delta"]`
 
@@ -5955,7 +6126,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `index: int`
 
-  - `class BetaRawContentBlockStopEvent: …`
+  - `class BetaRawContentBlockStopEvent`
 
     - `type: Literal["content_block_stop"]`
 

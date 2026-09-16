@@ -127,6 +127,8 @@ Upload File
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -135,7 +137,7 @@ Upload File
 
 ### Returns
 
-- `type BetaFileMetadata struct{…}`
+- `type BetaFileMetadata`
 
   - `Type File`
 
@@ -375,6 +377,8 @@ List Files
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -383,7 +387,7 @@ List Files
 
 ### Returns
 
-- `type BetaFileMetadata struct{…}`
+- `type BetaFileMetadata`
 
   - `Type File`
 
@@ -608,6 +612,8 @@ Download File
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -761,6 +767,8 @@ Get File Metadata
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -769,7 +777,7 @@ Get File Metadata
 
 ### Returns
 
-- `type BetaFileMetadata struct{…}`
+- `type BetaFileMetadata`
 
   - `Type File`
 
@@ -993,6 +1001,8 @@ Delete File
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1001,7 +1011,7 @@ Delete File
 
 ### Returns
 
-- `type BetaDeletedFile struct{…}`
+- `type BetaDeletedFile`
 
   - `Type BetaDeletedFileType Optional`
 
@@ -1057,7 +1067,7 @@ func main() {
 
 ### Beta Deleted File
 
-- `type BetaDeletedFile struct{…}`
+- `type BetaDeletedFile`
 
   - `Type BetaDeletedFileType Optional`
 
@@ -1073,7 +1083,7 @@ func main() {
 
 ### Beta File Metadata
 
-- `type BetaFileMetadata struct{…}`
+- `type BetaFileMetadata`
 
   - `Type File`
 
@@ -1137,7 +1147,7 @@ func main() {
 
 ### Beta File Scope
 
-- `type BetaFileScope struct{…}`
+- `type BetaFileScope`
 
   - `Type Session`
 

@@ -27,7 +27,7 @@ The Models API response can be used to determine information about a specific mo
 
 ## Returns
 
-- `BetaModelInfo`
+- `class BetaModelInfo`
 
   - `"model" type`
 
@@ -97,6 +97,12 @@ var_dump($betaModelInfo);
       "supported": true
     },
     "code_execution": {
+      "supported": true
+    },
+    "compaction": {
+      "summarize": {
+        "supported": true
+      },
       "supported": true
     },
     "context_management": {

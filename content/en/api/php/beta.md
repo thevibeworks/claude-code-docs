@@ -9,7 +9,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Anthropic Beta
 
-- `AnthropicBeta`
+- `enum AnthropicBeta`
 
   - `"message-batches-2024-09-24"`
 
@@ -101,9 +101,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"mid-conversation-system-clear-at-2026-08-21"`
 
+  - `"compact-2026-09-04"`
+
 ### Beta API Error
 
-- `BetaAPIError`
+- `class BetaAPIError`
 
   - `"api_error" type`
 
@@ -111,7 +113,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Authentication Error
 
-- `BetaAuthenticationError`
+- `class BetaAuthenticationError`
 
   - `"authentication_error" type`
 
@@ -119,7 +121,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Billing Error
 
-- `BetaBillingError`
+- `class BetaBillingError`
 
   - `"billing_error" type`
 
@@ -127,61 +129,61 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Currency
 
-- `BetaCurrency`
+- `enum BetaCurrency`
 
 ### Beta Error
 
-- `BetaError`
+- `class BetaError`
 
-  - `BetaInvalidRequestError`
+  - `class BetaInvalidRequestError`
 
     - `"invalid_request_error" type`
 
     - `string message`
 
-  - `BetaAuthenticationError`
+  - `class BetaAuthenticationError`
 
     - `"authentication_error" type`
 
     - `string message`
 
-  - `BetaBillingError`
+  - `class BetaBillingError`
 
     - `"billing_error" type`
 
     - `string message`
 
-  - `BetaPermissionError`
+  - `class BetaPermissionError`
 
     - `"permission_error" type`
 
     - `string message`
 
-  - `BetaNotFoundError`
+  - `class BetaNotFoundError`
 
     - `"not_found_error" type`
 
     - `string message`
 
-  - `BetaRateLimitError`
+  - `class BetaRateLimitError`
 
     - `"rate_limit_error" type`
 
     - `string message`
 
-  - `BetaGatewayTimeoutError`
+  - `class BetaGatewayTimeoutError`
 
     - `"timeout_error" type`
 
     - `string message`
 
-  - `BetaAPIError`
+  - `class BetaAPIError`
 
     - `"api_error" type`
 
     - `string message`
 
-  - `BetaOverloadedError`
+  - `class BetaOverloadedError`
 
     - `"overloaded_error" type`
 
@@ -189,7 +191,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Error Response
 
-- `BetaErrorResponse`
+- `class BetaErrorResponse`
 
   - `"error" type`
 
@@ -199,7 +201,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Gateway Timeout Error
 
-- `BetaGatewayTimeoutError`
+- `class BetaGatewayTimeoutError`
 
   - `"timeout_error" type`
 
@@ -207,7 +209,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Invalid Request Error
 
-- `BetaInvalidRequestError`
+- `class BetaInvalidRequestError`
 
   - `"invalid_request_error" type`
 
@@ -215,7 +217,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Monetary Amount
 
-- `BetaMonetaryAmount`
+- `class BetaMonetaryAmount`
 
   - `string amount`
 
@@ -227,7 +229,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Not Found Error
 
-- `BetaNotFoundError`
+- `class BetaNotFoundError`
 
   - `"not_found_error" type`
 
@@ -235,7 +237,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Overloaded Error
 
-- `BetaOverloadedError`
+- `class BetaOverloadedError`
 
   - `"overloaded_error" type`
 
@@ -243,7 +245,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Permission Error
 
-- `BetaPermissionError`
+- `class BetaPermissionError`
 
   - `"permission_error" type`
 
@@ -251,7 +253,7 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
 ### Beta Rate Limit Error
 
-- `BetaRateLimitError`
+- `class BetaRateLimitError`
 
   - `"rate_limit_error" type`
 
@@ -295,7 +297,7 @@ The Models API response can be used to determine which models are available for 
 
 #### Returns
 
-- `BetaModelInfo`
+- `class BetaModelInfo`
 
   - `"model" type`
 
@@ -369,6 +371,12 @@ var_dump($page);
           "supported": true
         },
         "code_execution": {
+          "supported": true
+        },
+        "compaction": {
+          "summarize": {
+            "supported": true
+          },
           "supported": true
         },
         "context_management": {
@@ -459,7 +467,7 @@ The Models API response can be used to determine information about a specific mo
 
 #### Returns
 
-- `BetaModelInfo`
+- `class BetaModelInfo`
 
   - `"model" type`
 
@@ -531,6 +539,12 @@ var_dump($betaModelInfo);
     "code_execution": {
       "supported": true
     },
+    "compaction": {
+      "summarize": {
+        "supported": true
+      },
+      "supported": true
+    },
     "context_management": {
       "clear_thinking_20251015": {
         "supported": true
@@ -594,7 +608,7 @@ var_dump($betaModelInfo);
 
 ### Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -676,6 +690,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 - `cacheControl?:optional BetaCacheControlEphemeral`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+
+- `compaction?:optional BetaCompactionConfig`
+
+  Compact the whole conversation and return a signed `compaction` block,
+  alone, that a later request sends back first in `messages`, in place of
+  the messages it summarizes. There is no trigger and no pause flag: sending
+  the parameter compacts, and nothing is sampled after the block.
+
+  The summarization prompt is the server's own unless `instructions` are
+  given, which then replace it for this request; a value that is empty or
+  only whitespace counts as absent.
 
 - `container?:optional Container`
 
@@ -891,7 +916,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 #### Returns
 
-- `BetaMessage`
+- `class BetaMessage`
 
   - `"message" type`
 
@@ -999,33 +1024,39 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-  - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+  - `?list<BetaInputTransformation> inputTransformations`
 
-    Changes the API made to the request's input before showing it to the model:
-    one entry per change, in request order. Today the only entry type is
-    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-    block from the request's `messages` that was removed from the prompt instead
-    of being shown to the model because it failed a binding check. More entry
-    types may be added over time; ignore types you do not recognize.
+    Changes the API made to the request's input before showing it to the model,
+    and blocks that failed a binding check but were left unchanged: one entry per
+    block, in request order. Two entry types today. `thinking_dropped` — a
+    `thinking`, `redacted_thinking` or `connector_text` block from the request's
+    `messages` that was removed from the prompt instead of being shown to the
+    model because it failed a binding check. `thinking_mismatch_allowed` — a
+    `thinking` or `redacted_thinking` block that failed the conversation check
+    (the conversation before it differs from the one it was created in, or it
+    carries no record of one on a model that requires it) and was shown to the
+    model all the same, because that check is not enforced for this request.
+    More entry types may be added over time; ignore types you do not recognize.
 
     Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
     every such response from a model that supports extended thinking, as `[]`
-    when nothing was changed; without the beta, blocks are removed all the same
-    but nothing is reported. Removed blocks contribute nothing to
-    `usage.input_tokens`. When streaming, the array is final in `message_start`;
-    the final `message_delta` event carries it only when a server-side model
-    fallback happened mid-stream, in which case it holds the serving model's
-    entries and replaces the one in `message_start`.
+    when there is no entry to report; without the beta, blocks are removed or
+    left in place all the same but nothing is reported. Removed blocks contribute
+    nothing to `usage.input_tokens`; blocks left in place count as sent. When
+    streaming, the array is final in `message_start`; the final `message_delta`
+    event carries it only when a server-side model fallback happened mid-stream,
+    in which case it holds the serving model's entries and replaces the one in
+    `message_start`.
 
-- `BetaRawMessageStreamEvent`
+- `class BetaRawMessageStreamEvent`
 
-  - `BetaRawMessageStartEvent`
+  - `class BetaRawMessageStartEvent`
 
     - `"message_start" type`
 
     - `BetaMessage message`
 
-  - `BetaRawMessageDeltaEvent`
+  - `class BetaRawMessageDeltaEvent`
 
     - `"message_delta" type`
 
@@ -1047,29 +1078,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+    - `?list<BetaInputTransformation> inputTransformations`
 
-      Changes the API made to the request's input before showing it to the model:
-      one entry per change, in request order. Today the only entry type is
-      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-      block from the request's `messages` that was removed from the prompt instead
-      of being shown to the model because it failed a binding check. More entry
-      types may be added over time; ignore types you do not recognize.
+      Changes the API made to the request's input before showing it to the model,
+      and blocks that failed a binding check but were left unchanged: one entry per
+      block, in request order. Two entry types today. `thinking_dropped` — a
+      `thinking`, `redacted_thinking` or `connector_text` block from the request's
+      `messages` that was removed from the prompt instead of being shown to the
+      model because it failed a binding check. `thinking_mismatch_allowed` — a
+      `thinking` or `redacted_thinking` block that failed the conversation check
+      (the conversation before it differs from the one it was created in, or it
+      carries no record of one on a model that requires it) and was shown to the
+      model all the same, because that check is not enforced for this request.
+      More entry types may be added over time; ignore types you do not recognize.
 
       Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
       every such response from a model that supports extended thinking, as `[]`
-      when nothing was changed; without the beta, blocks are removed all the same
-      but nothing is reported. Removed blocks contribute nothing to
-      `usage.input_tokens`. When streaming, the array is final in `message_start`;
-      the final `message_delta` event carries it only when a server-side model
-      fallback happened mid-stream, in which case it holds the serving model's
-      entries and replaces the one in `message_start`.
+      when there is no entry to report; without the beta, blocks are removed or
+      left in place all the same but nothing is reported. Removed blocks contribute
+      nothing to `usage.input_tokens`; blocks left in place count as sent. When
+      streaming, the array is final in `message_start`; the final `message_delta`
+      event carries it only when a server-side model fallback happened mid-stream,
+      in which case it holds the serving model's entries and replaces the one in
+      `message_start`.
 
-  - `BetaRawMessageStopEvent`
+  - `class BetaRawMessageStopEvent`
 
     - `"message_stop" type`
 
-  - `BetaRawContentBlockStartEvent`
+  - `class BetaRawContentBlockStartEvent`
 
     - `"content_block_start" type`
 
@@ -1077,7 +1114,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `int index`
 
-  - `BetaRawContentBlockDeltaEvent`
+  - `class BetaRawContentBlockDeltaEvent`
 
     - `"content_block_delta" type`
 
@@ -1085,7 +1122,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `int index`
 
-  - `BetaRawContentBlockStopEvent`
+  - `class BetaRawContentBlockStopEvent`
 
     - `"content_block_stop" type`
 
@@ -1112,6 +1149,7 @@ $betaMessage = $client->beta->messages->create(
   ],
   model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
+  compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   container: [
     'id' => 'id',
     'skills' => [
@@ -1319,7 +1357,7 @@ var_dump($betaMessage);
 
 ### Count tokens in a Message
 
-`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
+`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -1391,6 +1429,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `cacheControl?:optional BetaCacheControlEphemeral`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+
+- `compaction?:optional BetaCompactionConfig`
+
+  Compact the whole conversation and return a signed `compaction` block,
+  alone, that a later request sends back first in `messages`, in place of
+  the messages it summarizes. There is no trigger and no pause flag: sending
+  the parameter compacts, and nothing is sampled after the block.
+
+  The summarization prompt is the server's own unless `instructions` are
+  given, which then replace it for this request; a value that is empty or
+  only whitespace counts as absent.
 
 - `contextManagement?:optional BetaContextManagementConfig`
 
@@ -1512,7 +1561,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 #### Returns
 
-- `BetaMessageTokensCount`
+- `class BetaMessageTokensCount`
 
   - `?BetaCountTokensContextManagementResponse contextManagement`
 
@@ -1542,6 +1591,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
   ],
   model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
+  compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   contextManagement: [
     'edits' => [
       [
@@ -1664,7 +1714,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `MessageBatch`
+- `class MessageBatch`
 
   - `"message_batch" type`
 
@@ -1741,6 +1791,9 @@ $betaMessageBatch = $client->beta->messages->batches->create(
         ],
         'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
+        'compaction' => [
+          'type' => 'summarize', 'instructions' => 'instructions'
+        ],
         'container' => [
           'id' => 'id',
           'skills' => [
@@ -1893,7 +1946,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `MessageBatch`
+- `class MessageBatch`
 
   - `"message_batch" type`
 
@@ -2022,7 +2075,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `MessageBatch`
+- `class MessageBatch`
 
   - `"message_batch" type`
 
@@ -2150,7 +2203,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `MessageBatch`
+- `class MessageBatch`
 
   - `"message_batch" type`
 
@@ -2269,7 +2322,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `DeletedMessageBatch`
+- `class DeletedMessageBatch`
 
   - `"message_batch_deleted" type`
 
@@ -2334,7 +2387,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `MessageBatchIndividualResponse`
+- `class MessageBatchIndividualResponse`
 
   - `string customID`
 
@@ -2426,7 +2479,7 @@ Create Agent
 
 #### Returns
 
-- `BetaManagedAgentsAgent`
+- `class BetaManagedAgentsAgent`
 
   - `Type type`
 
@@ -2635,7 +2688,7 @@ List Agents
 
 #### Returns
 
-- `BetaManagedAgentsAgent`
+- `class BetaManagedAgentsAgent`
 
   - `Type type`
 
@@ -2807,7 +2860,7 @@ Get Agent
 
 #### Returns
 
-- `BetaManagedAgentsAgent`
+- `class BetaManagedAgentsAgent`
 
   - `Type type`
 
@@ -3007,7 +3060,7 @@ Update Agent
 
 #### Returns
 
-- `BetaManagedAgentsAgent`
+- `class BetaManagedAgentsAgent`
 
   - `Type type`
 
@@ -3205,7 +3258,7 @@ Archive Agent
 
 #### Returns
 
-- `BetaManagedAgentsAgent`
+- `class BetaManagedAgentsAgent`
 
   - `Type type`
 
@@ -3374,7 +3427,7 @@ List Agent Versions
 
 #### Returns
 
-- `BetaManagedAgentsAgent`
+- `class BetaManagedAgentsAgent`
 
   - `Type type`
 
@@ -3560,7 +3613,7 @@ Create a new environment with the specified configuration.
 
 #### Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 
@@ -3724,7 +3777,7 @@ List environments with pagination support.
 
 #### Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 
@@ -3860,7 +3913,7 @@ Retrieve a specific environment by ID.
 
 #### Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 
@@ -4009,7 +4062,7 @@ Update an existing environment's configuration.
 
 #### Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 
@@ -4160,7 +4213,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 #### Returns
 
-- `BetaEnvironmentDeleteResponse`
+- `class BetaEnvironmentDeleteResponse`
 
   - `Type type`
 
@@ -4217,7 +4270,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 #### Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 
@@ -4352,7 +4405,7 @@ Retrieve detailed information about a specific work item.
 
 #### Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 
@@ -4482,7 +4535,7 @@ Long poll for work items in the queue.
 
 #### Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 
@@ -4603,7 +4656,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 #### Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 
@@ -4730,7 +4783,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 #### Returns
 
-- `SelfHostedWorkHeartbeatResponse`
+- `class SelfHostedWorkHeartbeatResponse`
 
   - `"work_heartbeat" type`
 
@@ -4818,7 +4871,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
 #### Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 
@@ -4947,7 +5000,7 @@ List work items in an environment.
 
 #### Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 
@@ -5078,7 +5131,7 @@ Update work item metadata with merge semantics.
 
 #### Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 
@@ -5197,7 +5250,7 @@ Get statistics about the work queue for an environment.
 
 #### Returns
 
-- `SelfHostedWorkQueueStats`
+- `class SelfHostedWorkQueueStats`
 
   - `"work_queue_stats" type`
 
@@ -5301,7 +5354,7 @@ Create Session
 
 #### Returns
 
-- `BetaManagedAgentsSession`
+- `class BetaManagedAgentsSession`
 
   - `Type type`
 
@@ -5662,7 +5715,7 @@ List Sessions
 
 #### Returns
 
-- `BetaManagedAgentsSession`
+- `class BetaManagedAgentsSession`
 
   - `Type type`
 
@@ -5970,7 +6023,7 @@ Get Session
 
 #### Returns
 
-- `BetaManagedAgentsSession`
+- `class BetaManagedAgentsSession`
 
   - `Type type`
 
@@ -6280,7 +6333,7 @@ Update Session
 
 #### Returns
 
-- `BetaManagedAgentsSession`
+- `class BetaManagedAgentsSession`
 
   - `Type type`
 
@@ -6602,7 +6655,7 @@ Delete Session
 
 #### Returns
 
-- `BetaManagedAgentsDeletedSession`
+- `class BetaManagedAgentsDeletedSession`
 
   - `Type type`
 
@@ -6655,7 +6708,7 @@ Archive Session
 
 #### Returns
 
-- `BetaManagedAgentsSession`
+- `class BetaManagedAgentsSession`
 
   - `Type type`
 
@@ -6979,9 +7032,9 @@ List Events
 
 #### Returns
 
-- `ManagedAgentsSessionEvent`
+- `class ManagedAgentsSessionEvent`
 
-  - `ManagedAgentsUserMessageEvent`
+  - `class ManagedAgentsUserMessageEvent`
 
     - `Type type`
 
@@ -6997,7 +7050,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserInterruptEvent`
+  - `class ManagedAgentsUserInterruptEvent`
 
     - `Type type`
 
@@ -7013,7 +7066,7 @@ List Events
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-  - `ManagedAgentsUserToolConfirmationEvent`
+  - `class ManagedAgentsUserToolConfirmationEvent`
 
     - `Type type`
 
@@ -7041,7 +7094,7 @@ List Events
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsUserCustomToolResultEvent`
+  - `class ManagedAgentsUserCustomToolResultEvent`
 
     - `Type type`
 
@@ -7069,7 +7122,7 @@ List Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsAgentCustomToolUseEvent`
+  - `class ManagedAgentsAgentCustomToolUseEvent`
 
     - `Type type`
 
@@ -7093,7 +7146,7 @@ List Events
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMessageEvent`
+  - `class ManagedAgentsAgentMessageEvent`
 
     - `Type type`
 
@@ -7109,7 +7162,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentThinkingEvent`
+  - `class ManagedAgentsAgentThinkingEvent`
 
     - `Type type`
 
@@ -7121,7 +7174,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentMCPToolUseEvent`
+  - `class ManagedAgentsAgentMCPToolUseEvent`
 
     - `Type type`
 
@@ -7157,7 +7210,7 @@ List Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMCPToolResultEvent`
+  - `class ManagedAgentsAgentMCPToolResultEvent`
 
     - `Type type`
 
@@ -7181,7 +7234,7 @@ List Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentToolUseEvent`
+  - `class ManagedAgentsAgentToolUseEvent`
 
     - `Type type`
 
@@ -7213,7 +7266,7 @@ List Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentToolResultEvent`
+  - `class ManagedAgentsAgentToolResultEvent`
 
     - `Type type`
 
@@ -7237,7 +7290,7 @@ List Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
+  - `class ManagedAgentsAgentThreadMessageReceivedEvent`
 
     - `Type type`
 
@@ -7261,7 +7314,7 @@ List Events
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
-  - `ManagedAgentsAgentThreadMessageSentEvent`
+  - `class ManagedAgentsAgentThreadMessageSentEvent`
 
     - `Type type`
 
@@ -7285,7 +7338,7 @@ List Events
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
+  - `class ManagedAgentsAgentThreadContextCompactedEvent`
 
     - `Type type`
 
@@ -7297,7 +7350,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionErrorEvent`
+  - `class ManagedAgentsSessionErrorEvent`
 
     - `Type type`
 
@@ -7311,7 +7364,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRescheduledEvent`
+  - `class ManagedAgentsSessionStatusRescheduledEvent`
 
     - `Type type`
 
@@ -7323,7 +7376,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRunningEvent`
+  - `class ManagedAgentsSessionStatusRunningEvent`
 
     - `Type type`
 
@@ -7335,7 +7388,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusIdleEvent`
+  - `class ManagedAgentsSessionStatusIdleEvent`
 
     - `Type type`
 
@@ -7349,7 +7402,7 @@ List Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionStatusTerminatedEvent`
+  - `class ManagedAgentsSessionStatusTerminatedEvent`
 
     - `Type type`
 
@@ -7361,7 +7414,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadCreatedEvent`
+  - `class ManagedAgentsSessionThreadCreatedEvent`
 
     - `Type type`
 
@@ -7381,7 +7434,7 @@ List Events
 
       Public `sthr_` ID of the newly created thread.
 
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     - `Type type`
 
@@ -7401,7 +7454,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
     - `Type type`
 
@@ -7437,7 +7490,7 @@ List Events
 
       Token usage for a single model request.
 
-  - `ManagedAgentsSpanModelRequestStartEvent`
+  - `class ManagedAgentsSpanModelRequestStartEvent`
 
     - `Type type`
 
@@ -7449,7 +7502,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanModelRequestEndEvent`
+  - `class ManagedAgentsSpanModelRequestEndEvent`
 
     - `Type type`
 
@@ -7473,7 +7526,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
     - `Type type`
 
@@ -7493,7 +7546,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserDefineOutcomeEvent`
+  - `class ManagedAgentsUserDefineOutcomeEvent`
 
     - `Type type`
 
@@ -7521,7 +7574,7 @@ List Events
 
       Rubric for grading the quality of an outcome.
 
-  - `ManagedAgentsSessionDeletedEvent`
+  - `class ManagedAgentsSessionDeletedEvent`
 
     - `Type type`
 
@@ -7533,7 +7586,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
+  - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
     - `Type type`
 
@@ -7553,7 +7606,7 @@ List Events
 
       Public sthr_ ID of the thread that started running.
 
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
+  - `class ManagedAgentsSessionThreadStatusIdleEvent`
 
     - `Type type`
 
@@ -7575,7 +7628,7 @@ List Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+  - `class ManagedAgentsSessionThreadStatusTerminatedEvent`
 
     - `Type type`
 
@@ -7595,7 +7648,7 @@ List Events
 
       Public sthr_ ID of the thread that terminated.
 
-  - `BetaManagedAgentsUserToolResultEvent`
+  - `class BetaManagedAgentsUserToolResultEvent`
 
     - `Type type`
 
@@ -7623,7 +7676,7 @@ List Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
+  - `class ManagedAgentsSessionThreadStatusRescheduledEvent`
 
     - `Type type`
 
@@ -7643,7 +7696,7 @@ List Events
 
       Public sthr_ ID of the thread that is retrying.
 
-  - `BetaManagedAgentsSessionUpdatedEvent`
+  - `class BetaManagedAgentsSessionUpdatedEvent`
 
     - `Type type`
 
@@ -7671,7 +7724,7 @@ List Events
 
       The session's new title. Present only when the update changed it.
 
-  - `BetaManagedAgentsSystemMessageEvent`
+  - `class BetaManagedAgentsSystemMessageEvent`
 
     - `Type type`
 
@@ -7687,7 +7740,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-  - `BetaManagedAgentsSessionUsageEvent`
+  - `class BetaManagedAgentsSessionUsageEvent`
 
     - `Type type`
 
@@ -7789,7 +7842,7 @@ Send Events
 
 #### Returns
 
-- `ManagedAgentsSendSessionEvents`
+- `class ManagedAgentsSendSessionEvents`
 
   - `?list<Data> data`
 
@@ -7863,9 +7916,9 @@ Stream Events
 
 #### Returns
 
-- `ManagedAgentsStreamSessionEvents`
+- `class ManagedAgentsStreamSessionEvents`
 
-  - `ManagedAgentsUserMessageEvent`
+  - `class ManagedAgentsUserMessageEvent`
 
     - `Type type`
 
@@ -7881,7 +7934,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserInterruptEvent`
+  - `class ManagedAgentsUserInterruptEvent`
 
     - `Type type`
 
@@ -7897,7 +7950,7 @@ Stream Events
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-  - `ManagedAgentsUserToolConfirmationEvent`
+  - `class ManagedAgentsUserToolConfirmationEvent`
 
     - `Type type`
 
@@ -7925,7 +7978,7 @@ Stream Events
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsUserCustomToolResultEvent`
+  - `class ManagedAgentsUserCustomToolResultEvent`
 
     - `Type type`
 
@@ -7953,7 +8006,7 @@ Stream Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsAgentCustomToolUseEvent`
+  - `class ManagedAgentsAgentCustomToolUseEvent`
 
     - `Type type`
 
@@ -7977,7 +8030,7 @@ Stream Events
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMessageEvent`
+  - `class ManagedAgentsAgentMessageEvent`
 
     - `Type type`
 
@@ -7993,7 +8046,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentThinkingEvent`
+  - `class ManagedAgentsAgentThinkingEvent`
 
     - `Type type`
 
@@ -8005,7 +8058,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentMCPToolUseEvent`
+  - `class ManagedAgentsAgentMCPToolUseEvent`
 
     - `Type type`
 
@@ -8041,7 +8094,7 @@ Stream Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMCPToolResultEvent`
+  - `class ManagedAgentsAgentMCPToolResultEvent`
 
     - `Type type`
 
@@ -8065,7 +8118,7 @@ Stream Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentToolUseEvent`
+  - `class ManagedAgentsAgentToolUseEvent`
 
     - `Type type`
 
@@ -8097,7 +8150,7 @@ Stream Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentToolResultEvent`
+  - `class ManagedAgentsAgentToolResultEvent`
 
     - `Type type`
 
@@ -8121,7 +8174,7 @@ Stream Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
+  - `class ManagedAgentsAgentThreadMessageReceivedEvent`
 
     - `Type type`
 
@@ -8145,7 +8198,7 @@ Stream Events
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
-  - `ManagedAgentsAgentThreadMessageSentEvent`
+  - `class ManagedAgentsAgentThreadMessageSentEvent`
 
     - `Type type`
 
@@ -8169,7 +8222,7 @@ Stream Events
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
+  - `class ManagedAgentsAgentThreadContextCompactedEvent`
 
     - `Type type`
 
@@ -8181,7 +8234,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionErrorEvent`
+  - `class ManagedAgentsSessionErrorEvent`
 
     - `Type type`
 
@@ -8195,7 +8248,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRescheduledEvent`
+  - `class ManagedAgentsSessionStatusRescheduledEvent`
 
     - `Type type`
 
@@ -8207,7 +8260,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRunningEvent`
+  - `class ManagedAgentsSessionStatusRunningEvent`
 
     - `Type type`
 
@@ -8219,7 +8272,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusIdleEvent`
+  - `class ManagedAgentsSessionStatusIdleEvent`
 
     - `Type type`
 
@@ -8233,7 +8286,7 @@ Stream Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionStatusTerminatedEvent`
+  - `class ManagedAgentsSessionStatusTerminatedEvent`
 
     - `Type type`
 
@@ -8245,7 +8298,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadCreatedEvent`
+  - `class ManagedAgentsSessionThreadCreatedEvent`
 
     - `Type type`
 
@@ -8265,7 +8318,7 @@ Stream Events
 
       Public `sthr_` ID of the newly created thread.
 
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     - `Type type`
 
@@ -8285,7 +8338,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
     - `Type type`
 
@@ -8321,7 +8374,7 @@ Stream Events
 
       Token usage for a single model request.
 
-  - `ManagedAgentsSpanModelRequestStartEvent`
+  - `class ManagedAgentsSpanModelRequestStartEvent`
 
     - `Type type`
 
@@ -8333,7 +8386,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanModelRequestEndEvent`
+  - `class ManagedAgentsSpanModelRequestEndEvent`
 
     - `Type type`
 
@@ -8357,7 +8410,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
     - `Type type`
 
@@ -8377,7 +8430,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserDefineOutcomeEvent`
+  - `class ManagedAgentsUserDefineOutcomeEvent`
 
     - `Type type`
 
@@ -8405,7 +8458,7 @@ Stream Events
 
       Rubric for grading the quality of an outcome.
 
-  - `ManagedAgentsSessionDeletedEvent`
+  - `class ManagedAgentsSessionDeletedEvent`
 
     - `Type type`
 
@@ -8417,7 +8470,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
+  - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
     - `Type type`
 
@@ -8437,7 +8490,7 @@ Stream Events
 
       Public sthr_ ID of the thread that started running.
 
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
+  - `class ManagedAgentsSessionThreadStatusIdleEvent`
 
     - `Type type`
 
@@ -8459,7 +8512,7 @@ Stream Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+  - `class ManagedAgentsSessionThreadStatusTerminatedEvent`
 
     - `Type type`
 
@@ -8479,7 +8532,7 @@ Stream Events
 
       Public sthr_ ID of the thread that terminated.
 
-  - `BetaManagedAgentsUserToolResultEvent`
+  - `class BetaManagedAgentsUserToolResultEvent`
 
     - `Type type`
 
@@ -8507,7 +8560,7 @@ Stream Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
+  - `class ManagedAgentsSessionThreadStatusRescheduledEvent`
 
     - `Type type`
 
@@ -8527,7 +8580,7 @@ Stream Events
 
       Public sthr_ ID of the thread that is retrying.
 
-  - `BetaManagedAgentsSessionUpdatedEvent`
+  - `class BetaManagedAgentsSessionUpdatedEvent`
 
     - `Type type`
 
@@ -8555,7 +8608,7 @@ Stream Events
 
       The session's new title. Present only when the update changed it.
 
-  - `BetaManagedAgentsStartEvent`
+  - `class BetaManagedAgentsStartEvent`
 
     - `Type type`
 
@@ -8563,7 +8616,7 @@ Stream Events
 
       The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
 
-  - `BetaManagedAgentsDeltaEvent`
+  - `class BetaManagedAgentsDeltaEvent`
 
     - `Type type`
 
@@ -8575,7 +8628,7 @@ Stream Events
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
-  - `BetaManagedAgentsSystemMessageEvent`
+  - `class BetaManagedAgentsSystemMessageEvent`
 
     - `Type type`
 
@@ -8591,7 +8644,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-  - `BetaManagedAgentsSessionUsageEvent`
+  - `class BetaManagedAgentsSessionUsageEvent`
 
     - `Type type`
 
@@ -8682,7 +8735,7 @@ Add Session Resource
 
 #### Returns
 
-- `ManagedAgentsFileResource`
+- `class ManagedAgentsFileResource`
 
   - `Type type`
 
@@ -8762,9 +8815,9 @@ List Session Resources
 
 #### Returns
 
-- `ManagedAgentsSessionResource`
+- `class ManagedAgentsSessionResource`
 
-  - `ManagedAgentsGitHubRepositoryResource`
+  - `class ManagedAgentsGitHubRepositoryResource`
 
     - `Type type`
 
@@ -8784,7 +8837,7 @@ List Session Resources
 
     - `?Checkout checkout`
 
-  - `ManagedAgentsFileResource`
+  - `class ManagedAgentsFileResource`
 
     - `Type type`
 
@@ -8802,7 +8855,7 @@ List Session Resources
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsMemoryStoreResource`
+  - `class ManagedAgentsMemoryStoreResource`
 
     - `Type type`
 
@@ -8902,9 +8955,9 @@ Get Session Resource
 
 #### Returns
 
-- `ResourceGetResponse`
+- `class ResourceGetResponse`
 
-  - `ManagedAgentsGitHubRepositoryResource`
+  - `class ManagedAgentsGitHubRepositoryResource`
 
     - `Type type`
 
@@ -8924,7 +8977,7 @@ Get Session Resource
 
     - `?Checkout checkout`
 
-  - `ManagedAgentsFileResource`
+  - `class ManagedAgentsFileResource`
 
     - `Type type`
 
@@ -8942,7 +8995,7 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsMemoryStoreResource`
+  - `class ManagedAgentsMemoryStoreResource`
 
     - `Type type`
 
@@ -9032,9 +9085,9 @@ Update Session Resource
 
 #### Returns
 
-- `ResourceUpdateResponse`
+- `class ResourceUpdateResponse`
 
-  - `ManagedAgentsGitHubRepositoryResource`
+  - `class ManagedAgentsGitHubRepositoryResource`
 
     - `Type type`
 
@@ -9054,7 +9107,7 @@ Update Session Resource
 
     - `?Checkout checkout`
 
-  - `ManagedAgentsFileResource`
+  - `class ManagedAgentsFileResource`
 
     - `Type type`
 
@@ -9072,7 +9125,7 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsMemoryStoreResource`
+  - `class ManagedAgentsMemoryStoreResource`
 
     - `Type type`
 
@@ -9159,7 +9212,7 @@ Delete Session Resource
 
 #### Returns
 
-- `ManagedAgentsDeleteSessionResource`
+- `class ManagedAgentsDeleteSessionResource`
 
   - `Type type`
 
@@ -9227,7 +9280,7 @@ List Session Threads
 
 #### Returns
 
-- `ManagedAgentsSessionThread`
+- `class ManagedAgentsSessionThread`
 
   - `Type type`
 
@@ -9407,7 +9460,7 @@ Get Session Thread
 
 #### Returns
 
-- `ManagedAgentsSessionThread`
+- `class ManagedAgentsSessionThread`
 
   - `Type type`
 
@@ -9581,7 +9634,7 @@ Archive Session Thread
 
 #### Returns
 
-- `ManagedAgentsSessionThread`
+- `class ManagedAgentsSessionThread`
 
   - `Type type`
 
@@ -9765,9 +9818,9 @@ List Session Thread Events
 
 #### Returns
 
-- `ManagedAgentsSessionEvent`
+- `class ManagedAgentsSessionEvent`
 
-  - `ManagedAgentsUserMessageEvent`
+  - `class ManagedAgentsUserMessageEvent`
 
     - `Type type`
 
@@ -9783,7 +9836,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserInterruptEvent`
+  - `class ManagedAgentsUserInterruptEvent`
 
     - `Type type`
 
@@ -9799,7 +9852,7 @@ List Session Thread Events
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-  - `ManagedAgentsUserToolConfirmationEvent`
+  - `class ManagedAgentsUserToolConfirmationEvent`
 
     - `Type type`
 
@@ -9827,7 +9880,7 @@ List Session Thread Events
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsUserCustomToolResultEvent`
+  - `class ManagedAgentsUserCustomToolResultEvent`
 
     - `Type type`
 
@@ -9855,7 +9908,7 @@ List Session Thread Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsAgentCustomToolUseEvent`
+  - `class ManagedAgentsAgentCustomToolUseEvent`
 
     - `Type type`
 
@@ -9879,7 +9932,7 @@ List Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMessageEvent`
+  - `class ManagedAgentsAgentMessageEvent`
 
     - `Type type`
 
@@ -9895,7 +9948,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentThinkingEvent`
+  - `class ManagedAgentsAgentThinkingEvent`
 
     - `Type type`
 
@@ -9907,7 +9960,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentMCPToolUseEvent`
+  - `class ManagedAgentsAgentMCPToolUseEvent`
 
     - `Type type`
 
@@ -9943,7 +9996,7 @@ List Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMCPToolResultEvent`
+  - `class ManagedAgentsAgentMCPToolResultEvent`
 
     - `Type type`
 
@@ -9967,7 +10020,7 @@ List Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentToolUseEvent`
+  - `class ManagedAgentsAgentToolUseEvent`
 
     - `Type type`
 
@@ -9999,7 +10052,7 @@ List Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentToolResultEvent`
+  - `class ManagedAgentsAgentToolResultEvent`
 
     - `Type type`
 
@@ -10023,7 +10076,7 @@ List Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
+  - `class ManagedAgentsAgentThreadMessageReceivedEvent`
 
     - `Type type`
 
@@ -10047,7 +10100,7 @@ List Session Thread Events
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
-  - `ManagedAgentsAgentThreadMessageSentEvent`
+  - `class ManagedAgentsAgentThreadMessageSentEvent`
 
     - `Type type`
 
@@ -10071,7 +10124,7 @@ List Session Thread Events
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
+  - `class ManagedAgentsAgentThreadContextCompactedEvent`
 
     - `Type type`
 
@@ -10083,7 +10136,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionErrorEvent`
+  - `class ManagedAgentsSessionErrorEvent`
 
     - `Type type`
 
@@ -10097,7 +10150,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRescheduledEvent`
+  - `class ManagedAgentsSessionStatusRescheduledEvent`
 
     - `Type type`
 
@@ -10109,7 +10162,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRunningEvent`
+  - `class ManagedAgentsSessionStatusRunningEvent`
 
     - `Type type`
 
@@ -10121,7 +10174,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusIdleEvent`
+  - `class ManagedAgentsSessionStatusIdleEvent`
 
     - `Type type`
 
@@ -10135,7 +10188,7 @@ List Session Thread Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionStatusTerminatedEvent`
+  - `class ManagedAgentsSessionStatusTerminatedEvent`
 
     - `Type type`
 
@@ -10147,7 +10200,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadCreatedEvent`
+  - `class ManagedAgentsSessionThreadCreatedEvent`
 
     - `Type type`
 
@@ -10167,7 +10220,7 @@ List Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     - `Type type`
 
@@ -10187,7 +10240,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
     - `Type type`
 
@@ -10223,7 +10276,7 @@ List Session Thread Events
 
       Token usage for a single model request.
 
-  - `ManagedAgentsSpanModelRequestStartEvent`
+  - `class ManagedAgentsSpanModelRequestStartEvent`
 
     - `Type type`
 
@@ -10235,7 +10288,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanModelRequestEndEvent`
+  - `class ManagedAgentsSpanModelRequestEndEvent`
 
     - `Type type`
 
@@ -10259,7 +10312,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
     - `Type type`
 
@@ -10279,7 +10332,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserDefineOutcomeEvent`
+  - `class ManagedAgentsUserDefineOutcomeEvent`
 
     - `Type type`
 
@@ -10307,7 +10360,7 @@ List Session Thread Events
 
       Rubric for grading the quality of an outcome.
 
-  - `ManagedAgentsSessionDeletedEvent`
+  - `class ManagedAgentsSessionDeletedEvent`
 
     - `Type type`
 
@@ -10319,7 +10372,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
+  - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
     - `Type type`
 
@@ -10339,7 +10392,7 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that started running.
 
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
+  - `class ManagedAgentsSessionThreadStatusIdleEvent`
 
     - `Type type`
 
@@ -10361,7 +10414,7 @@ List Session Thread Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+  - `class ManagedAgentsSessionThreadStatusTerminatedEvent`
 
     - `Type type`
 
@@ -10381,7 +10434,7 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that terminated.
 
-  - `BetaManagedAgentsUserToolResultEvent`
+  - `class BetaManagedAgentsUserToolResultEvent`
 
     - `Type type`
 
@@ -10409,7 +10462,7 @@ List Session Thread Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
+  - `class ManagedAgentsSessionThreadStatusRescheduledEvent`
 
     - `Type type`
 
@@ -10429,7 +10482,7 @@ List Session Thread Events
 
       Public sthr_ ID of the thread that is retrying.
 
-  - `BetaManagedAgentsSessionUpdatedEvent`
+  - `class BetaManagedAgentsSessionUpdatedEvent`
 
     - `Type type`
 
@@ -10457,7 +10510,7 @@ List Session Thread Events
 
       The session's new title. Present only when the update changed it.
 
-  - `BetaManagedAgentsSystemMessageEvent`
+  - `class BetaManagedAgentsSystemMessageEvent`
 
     - `Type type`
 
@@ -10473,7 +10526,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `BetaManagedAgentsSessionUsageEvent`
+  - `class BetaManagedAgentsSessionUsageEvent`
 
     - `Type type`
 
@@ -10561,9 +10614,9 @@ Stream Session Thread Events
 
 #### Returns
 
-- `ManagedAgentsStreamSessionThreadEvents`
+- `class ManagedAgentsStreamSessionThreadEvents`
 
-  - `ManagedAgentsUserMessageEvent`
+  - `class ManagedAgentsUserMessageEvent`
 
     - `Type type`
 
@@ -10579,7 +10632,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserInterruptEvent`
+  - `class ManagedAgentsUserInterruptEvent`
 
     - `Type type`
 
@@ -10595,7 +10648,7 @@ Stream Session Thread Events
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-  - `ManagedAgentsUserToolConfirmationEvent`
+  - `class ManagedAgentsUserToolConfirmationEvent`
 
     - `Type type`
 
@@ -10623,7 +10676,7 @@ Stream Session Thread Events
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsUserCustomToolResultEvent`
+  - `class ManagedAgentsUserCustomToolResultEvent`
 
     - `Type type`
 
@@ -10651,7 +10704,7 @@ Stream Session Thread Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsAgentCustomToolUseEvent`
+  - `class ManagedAgentsAgentCustomToolUseEvent`
 
     - `Type type`
 
@@ -10675,7 +10728,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMessageEvent`
+  - `class ManagedAgentsAgentMessageEvent`
 
     - `Type type`
 
@@ -10691,7 +10744,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentThinkingEvent`
+  - `class ManagedAgentsAgentThinkingEvent`
 
     - `Type type`
 
@@ -10703,7 +10756,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsAgentMCPToolUseEvent`
+  - `class ManagedAgentsAgentMCPToolUseEvent`
 
     - `Type type`
 
@@ -10739,7 +10792,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentMCPToolResultEvent`
+  - `class ManagedAgentsAgentMCPToolResultEvent`
 
     - `Type type`
 
@@ -10763,7 +10816,7 @@ Stream Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentToolUseEvent`
+  - `class ManagedAgentsAgentToolUseEvent`
 
     - `Type type`
 
@@ -10795,7 +10848,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
-  - `ManagedAgentsAgentToolResultEvent`
+  - `class ManagedAgentsAgentToolResultEvent`
 
     - `Type type`
 
@@ -10819,7 +10872,7 @@ Stream Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
+  - `class ManagedAgentsAgentThreadMessageReceivedEvent`
 
     - `Type type`
 
@@ -10843,7 +10896,7 @@ Stream Session Thread Events
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
-  - `ManagedAgentsAgentThreadMessageSentEvent`
+  - `class ManagedAgentsAgentThreadMessageSentEvent`
 
     - `Type type`
 
@@ -10867,7 +10920,7 @@ Stream Session Thread Events
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
+  - `class ManagedAgentsAgentThreadContextCompactedEvent`
 
     - `Type type`
 
@@ -10879,7 +10932,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionErrorEvent`
+  - `class ManagedAgentsSessionErrorEvent`
 
     - `Type type`
 
@@ -10893,7 +10946,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRescheduledEvent`
+  - `class ManagedAgentsSessionStatusRescheduledEvent`
 
     - `Type type`
 
@@ -10905,7 +10958,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusRunningEvent`
+  - `class ManagedAgentsSessionStatusRunningEvent`
 
     - `Type type`
 
@@ -10917,7 +10970,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionStatusIdleEvent`
+  - `class ManagedAgentsSessionStatusIdleEvent`
 
     - `Type type`
 
@@ -10931,7 +10984,7 @@ Stream Session Thread Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionStatusTerminatedEvent`
+  - `class ManagedAgentsSessionStatusTerminatedEvent`
 
     - `Type type`
 
@@ -10943,7 +10996,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadCreatedEvent`
+  - `class ManagedAgentsSessionThreadCreatedEvent`
 
     - `Type type`
 
@@ -10963,7 +11016,7 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     - `Type type`
 
@@ -10983,7 +11036,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
     - `Type type`
 
@@ -11019,7 +11072,7 @@ Stream Session Thread Events
 
       Token usage for a single model request.
 
-  - `ManagedAgentsSpanModelRequestStartEvent`
+  - `class ManagedAgentsSpanModelRequestStartEvent`
 
     - `Type type`
 
@@ -11031,7 +11084,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanModelRequestEndEvent`
+  - `class ManagedAgentsSpanModelRequestEndEvent`
 
     - `Type type`
 
@@ -11055,7 +11108,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
+  - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
     - `Type type`
 
@@ -11075,7 +11128,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsUserDefineOutcomeEvent`
+  - `class ManagedAgentsUserDefineOutcomeEvent`
 
     - `Type type`
 
@@ -11103,7 +11156,7 @@ Stream Session Thread Events
 
       Rubric for grading the quality of an outcome.
 
-  - `ManagedAgentsSessionDeletedEvent`
+  - `class ManagedAgentsSessionDeletedEvent`
 
     - `Type type`
 
@@ -11115,7 +11168,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
+  - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
     - `Type type`
 
@@ -11135,7 +11188,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that started running.
 
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
+  - `class ManagedAgentsSessionThreadStatusIdleEvent`
 
     - `Type type`
 
@@ -11157,7 +11210,7 @@ Stream Session Thread Events
 
     - `StopReason stopReason`
 
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
+  - `class ManagedAgentsSessionThreadStatusTerminatedEvent`
 
     - `Type type`
 
@@ -11177,7 +11230,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that terminated.
 
-  - `BetaManagedAgentsUserToolResultEvent`
+  - `class BetaManagedAgentsUserToolResultEvent`
 
     - `Type type`
 
@@ -11205,7 +11258,7 @@ Stream Session Thread Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
+  - `class ManagedAgentsSessionThreadStatusRescheduledEvent`
 
     - `Type type`
 
@@ -11225,7 +11278,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that is retrying.
 
-  - `BetaManagedAgentsSessionUpdatedEvent`
+  - `class BetaManagedAgentsSessionUpdatedEvent`
 
     - `Type type`
 
@@ -11253,7 +11306,7 @@ Stream Session Thread Events
 
       The session's new title. Present only when the update changed it.
 
-  - `BetaManagedAgentsStartEvent`
+  - `class BetaManagedAgentsStartEvent`
 
     - `Type type`
 
@@ -11261,7 +11314,7 @@ Stream Session Thread Events
 
       The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
 
-  - `BetaManagedAgentsDeltaEvent`
+  - `class BetaManagedAgentsDeltaEvent`
 
     - `Type type`
 
@@ -11273,7 +11326,7 @@ Stream Session Thread Events
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
-  - `BetaManagedAgentsSystemMessageEvent`
+  - `class BetaManagedAgentsSystemMessageEvent`
 
     - `Type type`
 
@@ -11289,7 +11342,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-  - `BetaManagedAgentsSessionUsageEvent`
+  - `class BetaManagedAgentsSessionUsageEvent`
 
     - `Type type`
 
@@ -11410,7 +11463,7 @@ Create Deployment
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -11636,7 +11689,7 @@ List Deployments
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -11820,7 +11873,7 @@ Get Deployment
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -12033,7 +12086,7 @@ Update Deployment
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -12234,7 +12287,7 @@ Archive Deployment
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -12407,7 +12460,7 @@ Run Deployment Now
 
 #### Returns
 
-- `BetaManagedAgentsDeploymentRun`
+- `class BetaManagedAgentsDeploymentRun`
 
   - `Type type`
 
@@ -12502,7 +12555,7 @@ Pause Deployment
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -12675,7 +12728,7 @@ Unpause Deployment
 
 #### Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 
@@ -12884,7 +12937,7 @@ List Deployment Runs
 
 #### Returns
 
-- `BetaManagedAgentsDeploymentRun`
+- `class BetaManagedAgentsDeploymentRun`
 
   - `Type type`
 
@@ -12992,7 +13045,7 @@ Get Deployment Run
 
 #### Returns
 
-- `BetaManagedAgentsDeploymentRun`
+- `class BetaManagedAgentsDeploymentRun`
 
   - `Type type`
 
@@ -13095,7 +13148,7 @@ Create Vault
 
 #### Returns
 
-- `BetaManagedAgentsVault`
+- `class BetaManagedAgentsVault`
 
   - `Type type`
 
@@ -13188,7 +13241,7 @@ List Vaults
 
 #### Returns
 
-- `BetaManagedAgentsVault`
+- `class BetaManagedAgentsVault`
 
   - `Type type`
 
@@ -13277,7 +13330,7 @@ Get Vault
 
 #### Returns
 
-- `BetaManagedAgentsVault`
+- `class BetaManagedAgentsVault`
 
   - `Type type`
 
@@ -13367,7 +13420,7 @@ Update Vault
 
 #### Returns
 
-- `BetaManagedAgentsVault`
+- `class BetaManagedAgentsVault`
 
   - `Type type`
 
@@ -13451,7 +13504,7 @@ Delete Vault
 
 #### Returns
 
-- `BetaManagedAgentsDeletedVault`
+- `class BetaManagedAgentsDeletedVault`
 
   - `Type type`
 
@@ -13506,7 +13559,7 @@ Archive Vault
 
 #### Returns
 
-- `BetaManagedAgentsVault`
+- `class BetaManagedAgentsVault`
 
   - `Type type`
 
@@ -13602,7 +13655,7 @@ Create Credential
 
 #### Returns
 
-- `ManagedAgentsCredential`
+- `class ManagedAgentsCredential`
 
   - `Type type`
 
@@ -13716,7 +13769,7 @@ List Credentials
 
 #### Returns
 
-- `ManagedAgentsCredential`
+- `class ManagedAgentsCredential`
 
   - `Type type`
 
@@ -13821,7 +13874,7 @@ Get Credential
 
 #### Returns
 
-- `ManagedAgentsCredential`
+- `class ManagedAgentsCredential`
 
   - `Type type`
 
@@ -13931,7 +13984,7 @@ Update Credential
 
 #### Returns
 
-- `ManagedAgentsCredential`
+- `class ManagedAgentsCredential`
 
   - `Type type`
 
@@ -14043,7 +14096,7 @@ Delete Credential
 
 #### Returns
 
-- `ManagedAgentsDeletedCredential`
+- `class ManagedAgentsDeletedCredential`
 
   - `Type type`
 
@@ -14105,7 +14158,7 @@ Archive Credential
 
 #### Returns
 
-- `ManagedAgentsCredential`
+- `class ManagedAgentsCredential`
 
   - `Type type`
 
@@ -14203,7 +14256,7 @@ Validate Credential
 
 #### Returns
 
-- `ManagedAgentsCredentialValidation`
+- `class ManagedAgentsCredentialValidation`
 
   - `Type type`
 
@@ -14321,7 +14374,7 @@ Create a memory store
 
 #### Returns
 
-- `BetaManagedAgentsMemoryStore`
+- `class BetaManagedAgentsMemoryStore`
 
   - `Type type`
 
@@ -14428,7 +14481,7 @@ List memory stores
 
 #### Returns
 
-- `BetaManagedAgentsMemoryStore`
+- `class BetaManagedAgentsMemoryStore`
 
   - `Type type`
 
@@ -14524,7 +14577,7 @@ Retrieve a memory store
 
 #### Returns
 
-- `BetaManagedAgentsMemoryStore`
+- `class BetaManagedAgentsMemoryStore`
 
   - `Type type`
 
@@ -14623,7 +14676,7 @@ Update a memory store
 
 #### Returns
 
-- `BetaManagedAgentsMemoryStore`
+- `class BetaManagedAgentsMemoryStore`
 
   - `Type type`
 
@@ -14713,7 +14766,7 @@ Delete a memory store
 
 #### Returns
 
-- `BetaManagedAgentsDeletedMemoryStore`
+- `class BetaManagedAgentsDeletedMemoryStore`
 
   - `Type type`
 
@@ -14768,7 +14821,7 @@ Archive a memory store
 
 #### Returns
 
-- `BetaManagedAgentsMemoryStore`
+- `class BetaManagedAgentsMemoryStore`
 
   - `Type type`
 
@@ -14869,7 +14922,7 @@ Create a memory
 
 #### Returns
 
-- `ManagedAgentsMemory`
+- `class ManagedAgentsMemory`
 
   - `Type type`
 
@@ -14987,9 +15040,9 @@ List memories
 
 #### Returns
 
-- `ManagedAgentsMemoryListItem`
+- `class ManagedAgentsMemoryListItem`
 
-  - `ManagedAgentsMemory`
+  - `class ManagedAgentsMemory`
 
     - `Type type`
 
@@ -15029,7 +15082,7 @@ List memories
 
       The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-  - `ManagedAgentsMemoryPrefix`
+  - `class ManagedAgentsMemoryPrefix`
 
     - `Type type`
 
@@ -15108,7 +15161,7 @@ Retrieve a memory
 
 #### Returns
 
-- `ManagedAgentsMemory`
+- `class ManagedAgentsMemory`
 
   - `Type type`
 
@@ -15223,7 +15276,7 @@ Update a memory
 
 #### Returns
 
-- `ManagedAgentsMemory`
+- `class ManagedAgentsMemory`
 
   - `Type type`
 
@@ -15331,7 +15384,7 @@ Delete a memory
 
 #### Returns
 
-- `ManagedAgentsDeletedMemory`
+- `class ManagedAgentsDeletedMemory`
 
   - `Type type`
 
@@ -15430,7 +15483,7 @@ List memory versions
 
 #### Returns
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -15567,7 +15620,7 @@ Retrieve a memory version
 
 #### Returns
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -15691,7 +15744,7 @@ Redact a memory version
 
 #### Returns
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -15820,7 +15873,7 @@ Upload File
 
 #### Returns
 
-- `BetaFileMetadata`
+- `class BetaFileMetadata`
 
   - `"file" type`
 
@@ -15938,7 +15991,7 @@ List Files
 
 #### Returns
 
-- `BetaFileMetadata`
+- `class BetaFileMetadata`
 
   - `"file" type`
 
@@ -16089,7 +16142,7 @@ Get File Metadata
 
 #### Returns
 
-- `BetaFileMetadata`
+- `class BetaFileMetadata`
 
   - `"file" type`
 
@@ -16190,7 +16243,7 @@ Delete File
 
 #### Returns
 
-- `BetaDeletedFile`
+- `class BetaDeletedFile`
 
   - `?Type type`
 
@@ -16261,7 +16314,7 @@ Create Skill
 
 #### Returns
 
-- `BetaSkill`
+- `class BetaSkill`
 
   - `"skill" type`
 
@@ -16382,7 +16435,7 @@ List Skills
 
 #### Returns
 
-- `BetaSkill`
+- `class BetaSkill`
 
   - `"skill" type`
 
@@ -16490,7 +16543,7 @@ Get Skill
 
 #### Returns
 
-- `BetaSkill`
+- `class BetaSkill`
 
   - `"skill" type`
 
@@ -16591,7 +16644,7 @@ Delete Skill
 
 #### Returns
 
-- `BetaDeletedSkill`
+- `class BetaDeletedSkill`
 
   - `"skill_deleted" type`
 
@@ -16664,7 +16717,7 @@ Create Skill Version
 
 #### Returns
 
-- `SkillVersion`
+- `class SkillVersion`
 
   - `"skill_version" type`
 
@@ -16770,7 +16823,7 @@ List Skill Versions
 
 #### Returns
 
-- `SkillVersion`
+- `class SkillVersion`
 
   - `"skill_version" type`
 
@@ -16925,7 +16978,7 @@ Get Skill Version
 
 #### Returns
 
-- `SkillVersion`
+- `class SkillVersion`
 
   - `"skill_version" type`
 
@@ -17023,7 +17076,7 @@ Delete Skill Version
 
 #### Returns
 
-- `DeletedSkillVersion`
+- `class DeletedSkillVersion`
 
   - `"skill_version_deleted" type`
 
@@ -17108,7 +17161,7 @@ Create User Profile
 
 #### Returns
 
-- `BetaUserProfile`
+- `class BetaUserProfile`
 
   - `Type type`
 
@@ -17249,7 +17302,7 @@ List User Profiles
 
 #### Returns
 
-- `BetaUserProfile`
+- `class BetaUserProfile`
 
   - `Type type`
 
@@ -17371,7 +17424,7 @@ Get User Profile
 
 #### Returns
 
-- `BetaUserProfile`
+- `class BetaUserProfile`
 
   - `Type type`
 
@@ -17509,7 +17562,7 @@ Update User Profile
 
 #### Returns
 
-- `BetaUserProfile`
+- `class BetaUserProfile`
 
   - `Type type`
 
@@ -17637,7 +17690,7 @@ Create Enrollment URL
 
 #### Returns
 
-- `BetaUserProfileEnrollmentURL`
+- `class BetaUserProfileEnrollmentURL`
 
   - `Type type`
 
@@ -17710,7 +17763,7 @@ Create a Dream
 
 #### Returns
 
-- `BetaDream`
+- `class BetaDream`
 
   - `Type type`
 
@@ -17861,7 +17914,7 @@ List Dreams
 
 #### Returns
 
-- `BetaDream`
+- `class BetaDream`
 
   - `Type type`
 
@@ -17997,7 +18050,7 @@ Get a Dream
 
 #### Returns
 
-- `BetaDream`
+- `class BetaDream`
 
   - `Type type`
 
@@ -18123,7 +18176,7 @@ Cancel a Dream
 
 #### Returns
 
-- `BetaDream`
+- `class BetaDream`
 
   - `Type type`
 
@@ -18249,7 +18302,7 @@ Archive a Dream
 
 #### Returns
 
-- `BetaDream`
+- `class BetaDream`
 
   - `Type type`
 
@@ -18381,7 +18434,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 #### Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 
@@ -18458,7 +18511,7 @@ Fetches a tunnel by ID.
 
 #### Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 
@@ -18545,7 +18598,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 #### Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 
@@ -18629,7 +18682,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 #### Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 
@@ -18706,7 +18759,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 #### Returns
 
-- `BetaTunnelToken`
+- `class BetaTunnelToken`
 
   - `"tunnel_token" type`
 
@@ -18772,7 +18825,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 #### Returns
 
-- `BetaTunnelToken`
+- `class BetaTunnelToken`
 
   - `"tunnel_token" type`
 
@@ -18841,7 +18894,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 #### Returns
 
-- `TunnelCertificate`
+- `class TunnelCertificate`
 
   - `"tunnel_certificate" type`
 
@@ -18926,7 +18979,7 @@ Fetches a tunnel certificate by ID.
 
 #### Returns
 
-- `TunnelCertificate`
+- `class TunnelCertificate`
 
   - `"tunnel_certificate" type`
 
@@ -19021,7 +19074,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 #### Returns
 
-- `TunnelCertificate`
+- `class TunnelCertificate`
 
   - `"tunnel_certificate" type`
 
@@ -19113,7 +19166,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 #### Returns
 
-- `TunnelCertificate`
+- `class TunnelCertificate`
 
   - `"tunnel_certificate" type`
 
@@ -19186,7 +19239,7 @@ Retrieve information about the organization associated with the authenticated AP
 
 #### Returns
 
-- `BetaOrganization`
+- `class BetaOrganization`
 
   - `"organization" type`
 
@@ -19268,7 +19321,7 @@ List API Keys
 
 #### Returns
 
-- `APIKey`
+- `class APIKey`
 
   - `"api_key" type`
 
@@ -19391,7 +19444,7 @@ Retrieve information about a single API key in your organization, looked up by i
 
 #### Returns
 
-- `APIKey`
+- `class APIKey`
 
   - `"api_key" type`
 
@@ -19508,7 +19561,7 @@ Update API Key
 
 #### Returns
 
-- `APIKey`
+- `class APIKey`
 
   - `"api_key" type`
 
@@ -19629,7 +19682,7 @@ Create an external key config owned by the caller's organization.
 
 #### Returns
 
-- `ExternalKey`
+- `class ExternalKey`
 
   - `"external_key" type`
 
@@ -19727,7 +19780,7 @@ Results are ordered by creation time (newest first). Use the
 
 #### Returns
 
-- `ExternalKey`
+- `class ExternalKey`
 
   - `"external_key" type`
 
@@ -19812,7 +19865,7 @@ Retrieve a single external key config in the caller's organization by ID.
 
 #### Returns
 
-- `ExternalKey`
+- `class ExternalKey`
 
   - `"external_key" type`
 
@@ -19910,7 +19963,7 @@ encrypted data requires the original key identity to decrypt.
 
 #### Returns
 
-- `ExternalKey`
+- `class ExternalKey`
 
   - `"external_key" type`
 
@@ -20002,7 +20055,7 @@ The request is rejected if any workspace still references this config.
 
 #### Returns
 
-- `ExternalKeyDeleteResponse`
+- `class ExternalKeyDeleteResponse`
 
   - `"external_key_deleted" type`
 
@@ -20056,7 +20109,7 @@ message if it failed or timed out.
 
 #### Returns
 
-- `ExternalKeyValidateResponse`
+- `class ExternalKeyValidateResponse`
 
   - `"external_key_validation" type`
 
@@ -20144,7 +20197,7 @@ matched as the JWT's `iss` claim and is not fetched.
 
 #### Returns
 
-- `BetaFederationIssuer`
+- `class BetaFederationIssuer`
 
   - `"federation_issuer" type`
 
@@ -20304,7 +20357,7 @@ Archived issuers are excluded unless `include_archived=true`.
 
 #### Returns
 
-- `BetaFederationIssuer`
+- `class BetaFederationIssuer`
 
   - `"federation_issuer" type`
 
@@ -20444,7 +20497,7 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
 #### Returns
 
-- `BetaFederationIssuer`
+- `class BetaFederationIssuer`
 
   - `"federation_issuer" type`
 
@@ -20612,7 +20665,7 @@ session.
 
 #### Returns
 
-- `BetaFederationIssuer`
+- `class BetaFederationIssuer`
 
   - `"federation_issuer" type`
 
@@ -20765,7 +20818,7 @@ issuer cannot be changed), or recreate them against another issuer.
 
 #### Returns
 
-- `BetaFederationIssuer`
+- `class BetaFederationIssuer`
 
   - `"federation_issuer" type`
 
@@ -20954,7 +21007,7 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
 #### Returns
 
-- `BetaFederationRule`
+- `class BetaFederationRule`
 
   - `"federation_rule" type`
 
@@ -21152,7 +21205,7 @@ unless `include_archived=true`.
 
 #### Returns
 
-- `BetaFederationRule`
+- `class BetaFederationRule`
 
   - `"federation_rule" type`
 
@@ -21321,7 +21374,7 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
 #### Returns
 
-- `BetaFederationRule`
+- `class BetaFederationRule`
 
   - `"federation_rule" type`
 
@@ -21537,7 +21590,7 @@ Console session.
 
 #### Returns
 
-- `BetaFederationRule`
+- `class BetaFederationRule`
 
   - `"federation_rule" type`
 
@@ -21724,7 +21777,7 @@ other scopes require a Console session.
 
 #### Returns
 
-- `BetaFederationRule`
+- `class BetaFederationRule`
 
   - `"federation_rule" type`
 
@@ -21899,7 +21952,7 @@ other scopes require a Console session.
 
 #### Returns
 
-- `BetaFederationRuleWorkspace`
+- `class BetaFederationRuleWorkspace`
 
   - `"federation_rule_workspace" type`
 
@@ -21998,7 +22051,7 @@ rules with `applies_to_all_workspaces` or a legacy single
 
 #### Returns
 
-- `BetaFederationRuleWorkspace`
+- `class BetaFederationRuleWorkspace`
 
   - `"federation_rule_workspace" type`
 
@@ -22090,7 +22143,7 @@ Console session.
 
 #### Returns
 
-- `WorkspaceRemoveResponse`
+- `class WorkspaceRemoveResponse`
 
   - `"federation_rule_workspace_deleted" type`
 
@@ -22160,7 +22213,7 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
 #### Returns
 
-- `OrganizationInvite`
+- `class OrganizationInvite`
 
   - `"invite" type`
 
@@ -22276,7 +22329,7 @@ List the organization's invites.
 
 #### Returns
 
-- `OrganizationInvite`
+- `class OrganizationInvite`
 
   - `"invite" type`
 
@@ -22378,7 +22431,7 @@ Retrieve an invite by ID.
 
 #### Returns
 
-- `OrganizationInvite`
+- `class OrganizationInvite`
 
   - `"invite" type`
 
@@ -22468,7 +22521,7 @@ Delete a pending invite.
 
 #### Returns
 
-- `InviteDeleteResponse`
+- `class InviteDeleteResponse`
 
   - `"invite_deleted" type`
 
@@ -22543,7 +22596,7 @@ accounts.
 
 #### Returns
 
-- `ServiceAccount`
+- `class ServiceAccount`
 
   - `"service_account" type`
 
@@ -22662,7 +22715,7 @@ archived service accounts.
 
 #### Returns
 
-- `ServiceAccount`
+- `class ServiceAccount`
 
   - `"service_account" type`
 
@@ -22770,7 +22823,7 @@ Retrieve a service account by its ID (`svac_...`).
 
 #### Returns
 
-- `ServiceAccount`
+- `class ServiceAccount`
 
   - `"service_account" type`
 
@@ -22883,7 +22936,7 @@ interactive credential (a user OAuth token or a Console session).
 
 #### Returns
 
-- `ServiceAccount`
+- `class ServiceAccount`
 
   - `"service_account" type`
 
@@ -22991,7 +23044,7 @@ those rules first or change their target to another service account.
 
 #### Returns
 
-- `ServiceAccount`
+- `class ServiceAccount`
 
   - `"service_account" type`
 
@@ -23108,7 +23161,7 @@ rejected.
 
 #### Returns
 
-- `ServiceAccountWorkspaceMember`
+- `class ServiceAccountWorkspaceMember`
 
   - `"service_account_workspace_member" type`
 
@@ -23215,7 +23268,7 @@ page to recover.
 
 #### Returns
 
-- `ServiceAccountWorkspaceMember`
+- `class ServiceAccountWorkspaceMember`
 
   - `"service_account_workspace_member" type`
 
@@ -23310,7 +23363,7 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
 #### Returns
 
-- `WorkspaceRemoveResponse`
+- `class WorkspaceRemoveResponse`
 
   - `"service_account_workspace_member_deleted" type`
 
@@ -23390,7 +23443,7 @@ List the organization's members.
 
 #### Returns
 
-- `OrganizationUser`
+- `class OrganizationUser`
 
   - `"user" type`
 
@@ -23474,7 +23527,7 @@ Retrieve a member of the organization by user ID.
 
 #### Returns
 
-- `OrganizationUser`
+- `class OrganizationUser`
 
   - `"user" type`
 
@@ -23551,7 +23604,7 @@ Update a member's organization role.
 
 #### Returns
 
-- `OrganizationUser`
+- `class OrganizationUser`
 
   - `"user" type`
 
@@ -23624,7 +23677,7 @@ Remove a member from the organization.
 
 #### Returns
 
-- `UserRemoveResponse`
+- `class UserRemoveResponse`
 
   - `"user_deleted" type`
 
@@ -23695,7 +23748,7 @@ List Workspaces
 
 #### Returns
 
-- `Workspace`
+- `class Workspace`
 
   - `"workspace" type`
 
@@ -23852,7 +23905,7 @@ Create Workspace
 
 #### Returns
 
-- `Workspace`
+- `class Workspace`
 
   - `"workspace" type`
 
@@ -23981,7 +24034,7 @@ Get Workspace
 
 #### Returns
 
-- `Workspace`
+- `class Workspace`
 
   - `"workspace" type`
 
@@ -24129,7 +24182,7 @@ Update Workspace
 
 #### Returns
 
-- `Workspace`
+- `class Workspace`
 
   - `"workspace" type`
 
@@ -24254,7 +24307,7 @@ Archive Workspace
 
 #### Returns
 
-- `Workspace`
+- `class Workspace`
 
   - `"workspace" type`
 
@@ -24398,7 +24451,7 @@ the remaining entries.
 
 #### Returns
 
-- `BetaWorkspaceRateLimit`
+- `class BetaWorkspaceRateLimit`
 
   - `"workspace_rate_limit" type`
 
@@ -24500,7 +24553,7 @@ List Workspace Members
 
 #### Returns
 
-- `WorkspaceMember`
+- `class WorkspaceMember`
 
   - `"workspace_member" type`
 
@@ -24578,7 +24631,7 @@ Create Workspace Member
 
 #### Returns
 
-- `WorkspaceMember`
+- `class WorkspaceMember`
 
   - `"workspace_member" type`
 
@@ -24647,7 +24700,7 @@ Get Workspace Member
 
 #### Returns
 
-- `WorkspaceMember`
+- `class WorkspaceMember`
 
   - `"workspace_member" type`
 
@@ -24721,7 +24774,7 @@ Update Workspace Member
 
 #### Returns
 
-- `WorkspaceMember`
+- `class WorkspaceMember`
 
   - `"workspace_member" type`
 
@@ -24790,7 +24843,7 @@ Delete Workspace Member
 
 #### Returns
 
-- `MemberRemoveResponse`
+- `class MemberRemoveResponse`
 
   - `"workspace_member_deleted" type`
 
@@ -24873,7 +24926,7 @@ omitted from the results.
 
 #### Returns
 
-- `ServiceAccountWorkspaceMember`
+- `class ServiceAccountWorkspaceMember`
 
   - `"service_account_workspace_member" type`
 
@@ -24973,7 +25026,7 @@ accounts cannot be added and are rejected.
 
 #### Returns
 
-- `ServiceAccountWorkspaceMember`
+- `class ServiceAccountWorkspaceMember`
 
   - `"service_account_workspace_member" type`
 
@@ -25067,7 +25120,7 @@ account returns 404.
 
 #### Returns
 
-- `ServiceAccountWorkspaceMember`
+- `class ServiceAccountWorkspaceMember`
 
   - `"service_account_workspace_member" type`
 
@@ -25164,7 +25217,7 @@ rejected.
 
 #### Returns
 
-- `ServiceAccountWorkspaceMember`
+- `class ServiceAccountWorkspaceMember`
 
   - `"service_account_workspace_member" type`
 
@@ -25257,7 +25310,7 @@ membership. Archived workspaces return 400.
 
 #### Returns
 
-- `ServiceAccountRemoveResponse`
+- `class ServiceAccountRemoveResponse`
 
   - `"service_account_workspace_member_deleted" type`
 
@@ -25342,7 +25395,7 @@ the remaining entries.
 
 #### Returns
 
-- `OrganizationRateLimit`
+- `class OrganizationRateLimit`
 
   - `"rate_limit" type`
 
@@ -25421,7 +25474,7 @@ organization reads the state inherited from the parent's configuration.
 
 #### Returns
 
-- `ComplianceSettings`
+- `class ComplianceSettings`
 
   - `"compliance_settings" type`
 
@@ -25487,7 +25540,7 @@ compliance settings.
 
 #### Returns
 
-- `ComplianceSettings`
+- `class ComplianceSettings`
 
   - `"compliance_settings" type`
 

@@ -41,7 +41,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ## Returns
 
-- `class MessageBatch:`
+- `class MessageBatch`
 
   - `JsonElement Type = "message_batch"`
 

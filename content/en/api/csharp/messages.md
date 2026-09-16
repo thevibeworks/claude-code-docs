@@ -90,7 +90,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `IReadOnlyList<ContentBlockParam>`
 
-        - `class TextBlockParam:`
+        - `class TextBlockParam`
 
           - `JsonElement Type = "text"`
 
@@ -121,7 +121,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `IReadOnlyList<TextCitationParam>? Citations`
 
-            - `class CitationCharLocationParam:`
+            - `class CitationCharLocationParam`
 
               - `JsonElement Type = "char_location"`
 
@@ -141,7 +141,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-            - `class CitationPageLocationParam:`
+            - `class CitationPageLocationParam`
 
               - `JsonElement Type = "page_location"`
 
@@ -161,7 +161,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 1
 
-            - `class CitationContentBlockLocationParam:`
+            - `class CitationContentBlockLocationParam`
 
               - `JsonElement Type = "content_block_location"`
 
@@ -191,7 +191,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-            - `class CitationWebSearchResultLocationParam:`
+            - `class CitationWebSearchResultLocationParam`
 
               - `JsonElement Type = "web_search_result_location"`
 
@@ -207,7 +207,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minLength: 1
 
-            - `class CitationSearchResultLocationParam:`
+            - `class CitationSearchResultLocationParam`
 
               - `JsonElement Type = "search_result_location"`
 
@@ -241,13 +241,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `required string? Title`
 
-        - `class ImageBlockParam:`
+        - `class ImageBlockParam`
 
           - `JsonElement Type = "image"`
 
           - `required Source Source`
 
-            - `class Base64ImageSource:`
+            - `class Base64ImageSource`
 
               - `JsonElement Type = "base64"`
 
@@ -265,13 +265,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `ImageWebP("image/webp")`
 
-            - `class UrlImageSource:`
+            - `class UrlImageSource`
 
               - `JsonElement Type = "url"`
 
               - `required string Url`
 
-            - `class FileImageSource:`
+            - `class FileImageSource`
 
               - `JsonElement Type = "file"`
 
@@ -293,13 +293,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Error("error")`
 
-        - `class DocumentBlockParam:`
+        - `class DocumentBlockParam`
 
           - `JsonElement Type = "document"`
 
           - `required Source Source`
 
-            - `class Base64PdfSource:`
+            - `class Base64PdfSource`
 
               - `JsonElement Type = "base64"`
 
@@ -309,7 +309,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `JsonElement MediaType = "application/pdf"`
 
-            - `class PlainTextSource:`
+            - `class PlainTextSource`
 
               - `JsonElement Type = "text"`
 
@@ -317,7 +317,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `JsonElement MediaType = "text/plain"`
 
-            - `class ContentBlockSource:`
+            - `class ContentBlockSource`
 
               - `JsonElement Type = "content"`
 
@@ -327,17 +327,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `IReadOnlyList<ContentBlockSourceContent>`
 
-                  - `class TextBlockParam:`
+                  - `class TextBlockParam`
 
-                  - `class ImageBlockParam:`
+                  - `class ImageBlockParam`
 
-            - `class UrlPdfSource:`
+            - `class UrlPdfSource`
 
               - `JsonElement Type = "url"`
 
               - `required string Url`
 
-            - `class FileDocumentSource:`
+            - `class FileDocumentSource`
 
               - `JsonElement Type = "file"`
 
@@ -359,7 +359,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 500, minLength: 1
 
-        - `class SearchResultBlockParam:`
+        - `class SearchResultBlockParam`
 
           - `JsonElement Type = "search_result"`
 
@@ -387,7 +387,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `CitationsConfigParam Citations`
 
-        - `class ThinkingBlockParam:`
+        - `class ThinkingBlockParam`
 
           - `JsonElement Type = "thinking"`
 
@@ -401,7 +401,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `thinking` text of this block as returned by the API.
 
-        - `class RedactedThinkingBlockParam:`
+        - `class RedactedThinkingBlockParam`
 
           - `JsonElement Type = "redacted_thinking"`
 
@@ -409,7 +409,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `class ToolUseBlockParam:`
+        - `class ToolUseBlockParam`
 
           - `JsonElement Type = "tool_use"`
 
@@ -429,13 +429,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonElement Type = "direct"`
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -445,7 +445,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
               - `JsonElement Type = "code_execution_20260120"`
 
@@ -459,7 +459,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class ToolResultBlockParam:`
+        - `class ToolResultBlockParam`
 
           - `JsonElement Type = "tool_result"`
 
@@ -477,15 +477,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `IReadOnlyList<Block>`
 
-              - `class TextBlockParam:`
+              - `class TextBlockParam`
 
-              - `class ImageBlockParam:`
+              - `class ImageBlockParam`
 
-              - `class SearchResultBlockParam:`
+              - `class SearchResultBlockParam`
 
-              - `class DocumentBlockParam:`
+              - `class DocumentBlockParam`
 
-              - `class ToolReferenceBlockParam:`
+              - `class ToolReferenceBlockParam`
 
                 Tool reference block that can be included in tool_result content.
 
@@ -499,7 +499,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Create a cache control breakpoint at this content block.
 
-              - `class BrowserStateBlockParam:`
+              - `class BrowserStateBlockParam`
 
                 The caller's browser state after a browser toolset member call —
                 the full inventory of open tabs, which tab is active, and any side
@@ -549,7 +549,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   maxItems: 200, minItems: 1
 
-                  - `class BrowserStateChangeTabOpened:`
+                  - `class BrowserStateChangeTabOpened`
 
                     A tab this call's execution opened that remains open at its end —
                     the creation delta of the `tabs` inventory, not an event log.
@@ -567,7 +567,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadStarted:`
+                  - `class BrowserStateChangeDownloadStarted`
 
                     A file download that started during this call.
 
@@ -585,7 +585,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadCompleted:`
+                  - `class BrowserStateChangeDownloadCompleted`
 
                     A file download that finished during this call, reported with the
                     same `download_id` as its `download_started` — or without a prior
@@ -618,7 +618,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       minimum: 0
 
-                  - `class BrowserStateChangeDownloadFailed:`
+                  - `class BrowserStateChangeDownloadFailed`
 
                     A file download that failed — or was cancelled — during this call.
 
@@ -650,7 +650,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class ServerToolUseBlockParam:`
+        - `class ServerToolUseBlockParam`
 
           - `JsonElement Type = "server_tool_use"`
 
@@ -682,17 +682,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
-        - `class WebSearchToolResultBlockParam:`
+        - `class WebSearchToolResultBlockParam`
 
           - `JsonElement Type = "web_search_tool_result"`
 
@@ -710,7 +710,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `string? PageAge`
 
-            - `class WebSearchToolRequestError:`
+            - `class WebSearchToolRequestError`
 
               - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -738,23 +738,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
-        - `class WebFetchToolResultBlockParam:`
+        - `class WebFetchToolResultBlockParam`
 
           - `JsonElement Type = "web_fetch_tool_result"`
 
           - `required Content Content`
 
-            - `class WebFetchToolResultErrorBlockParam:`
+            - `class WebFetchToolResultErrorBlockParam`
 
               - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -780,7 +780,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `ContentTooLarge("content_too_large")`
 
-            - `class WebFetchBlockParam:`
+            - `class WebFetchBlockParam`
 
               - `JsonElement Type = "web_fetch_result"`
 
@@ -804,23 +804,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
-        - `class CodeExecutionToolResultBlockParam:`
+        - `class CodeExecutionToolResultBlockParam`
 
           - `JsonElement Type = "code_execution_tool_result"`
 
           - `required CodeExecutionToolResultBlockParamContent Content`
 
-            - `class CodeExecutionToolResultErrorParam:`
+            - `class CodeExecutionToolResultErrorParam`
 
               - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -834,7 +834,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-            - `class CodeExecutionResultBlockParam:`
+            - `class CodeExecutionResultBlockParam`
 
               - `JsonElement Type = "code_execution_result"`
 
@@ -850,7 +850,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `required string Stdout`
 
-            - `class EncryptedCodeExecutionResultBlockParam:`
+            - `class EncryptedCodeExecutionResultBlockParam`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -876,13 +876,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BashCodeExecutionToolResultBlockParam:`
+        - `class BashCodeExecutionToolResultBlockParam`
 
           - `JsonElement Type = "bash_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class BashCodeExecutionToolResultErrorParam:`
+            - `class BashCodeExecutionToolResultErrorParam`
 
               - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -898,7 +898,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `OutputFileTooLarge("output_file_too_large")`
 
-            - `class BashCodeExecutionResultBlockParam:`
+            - `class BashCodeExecutionResultBlockParam`
 
               - `JsonElement Type = "bash_code_execution_result"`
 
@@ -922,13 +922,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class TextEditorCodeExecutionToolResultBlockParam:`
+        - `class TextEditorCodeExecutionToolResultBlockParam`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class TextEditorCodeExecutionToolResultErrorParam:`
+            - `class TextEditorCodeExecutionToolResultErrorParam`
 
               - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -946,7 +946,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `string? ErrorMessage`
 
-            - `class TextEditorCodeExecutionViewResultBlockParam:`
+            - `class TextEditorCodeExecutionViewResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -966,13 +966,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `long? TotalLines`
 
-            - `class TextEditorCodeExecutionCreateResultBlockParam:`
+            - `class TextEditorCodeExecutionCreateResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_create_result"`
 
               - `required bool IsFileUpdate`
 
-            - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+            - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -994,13 +994,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class ToolSearchToolResultBlockParam:`
+        - `class ToolSearchToolResultBlockParam`
 
           - `JsonElement Type = "tool_search_tool_result"`
 
           - `required Content Content`
 
-            - `class ToolSearchToolResultErrorParam:`
+            - `class ToolSearchToolResultErrorParam`
 
               - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -1016,7 +1016,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `string? ErrorMessage`
 
-            - `class ToolSearchToolSearchResultBlockParam:`
+            - `class ToolSearchToolSearchResultBlockParam`
 
               - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -1040,7 +1040,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class ContainerUploadBlockParam:`
+        - `class ContainerUploadBlockParam`
 
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
@@ -1203,7 +1203,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-    - `class Tool:`
+    - `class Tool`
 
       - `Type? Type`
 
@@ -1261,7 +1261,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolBash20250124:`
+    - `class ToolBash20250124`
 
       - `JsonElement Type = "bash_20250124"`
 
@@ -1295,7 +1295,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20250522:`
+    - `class CodeExecutionTool20250522`
 
       - `JsonElement Type = "code_execution_20250522"`
 
@@ -1327,7 +1327,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20250825:`
+    - `class CodeExecutionTool20250825`
 
       - `JsonElement Type = "code_execution_20250825"`
 
@@ -1359,7 +1359,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20260120:`
+    - `class CodeExecutionTool20260120`
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -1393,7 +1393,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20260521:`
+    - `class CodeExecutionTool20260521`
 
       Code execution tool with REPL state persistence.
 
@@ -1427,7 +1427,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BrowserToolset20260801:`
+    - `class BrowserToolset20260801`
 
       The browser toolset: a single `tools[]` entry (carrying no
       `name`) that declares the browser tool family. The model is served
@@ -1821,7 +1821,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class MemoryTool20250818:`
+    - `class MemoryTool20250818`
 
       - `JsonElement Type = "memory_20250818"`
 
@@ -1855,7 +1855,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ComputerToolset20260801:`
+    - `class ComputerToolset20260801`
 
       The computer toolset: a single `tools[]` entry (carrying no
       `name`) that declares the computer tool family. The model is
@@ -2085,7 +2085,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class ToolTextEditor20250124:`
+    - `class ToolTextEditor20250124`
 
       - `JsonElement Type = "text_editor_20250124"`
 
@@ -2119,7 +2119,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolTextEditor20250429:`
+    - `class ToolTextEditor20250429`
 
       - `JsonElement Type = "text_editor_20250429"`
 
@@ -2153,7 +2153,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolTextEditor20250728:`
+    - `class ToolTextEditor20250728`
 
       - `JsonElement Type = "text_editor_20250728"`
 
@@ -2193,7 +2193,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class WebSearchTool20250305:`
+    - `class WebSearchTool20250305`
 
       - `JsonElement Type = "web_search_20250305"`
 
@@ -2269,7 +2269,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           maxLength: 255, minLength: 1
 
-    - `class WebFetchTool20250910:`
+    - `class WebFetchTool20250910`
 
       - `JsonElement Type = "web_fetch_20250910"`
 
@@ -2325,7 +2325,98 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class WebSearchTool20260209:`
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `ClientToolResults ClientToolResults`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `class WebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `JsonElement Type = "all"`
+
+          - `class WebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `JsonElement Type = "none"`
+
+          - `class WebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `JsonElement Type = "only"`
+
+            - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string Name`
+
+          - `class WebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `JsonElement Type = "except"`
+
+            - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string Name`
+
+        - `ServerToolResults ServerToolResults`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `class WebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class WebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `class WebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `class WebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `UserInput UserInput`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `class WebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class WebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `class WebSearchTool20260209`
 
       - `JsonElement Type = "web_search_20260209"`
 
@@ -2375,7 +2466,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class WebFetchTool20260209:`
+    - `class WebFetchTool20260209`
 
       - `JsonElement Type = "web_fetch_20260209"`
 
@@ -2431,7 +2522,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class WebFetchTool20260309:`
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `class WebFetchTool20260309`
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -2489,11 +2589,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `bool UseCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class WebSearchTool20260318:`
+    - `class WebSearchTool20260318`
 
       - `JsonElement Type = "web_search_20260318"`
 
@@ -2551,7 +2660,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class WebFetchTool20260318:`
+    - `class WebFetchTool20260318`
 
       - `JsonElement Type = "web_fetch_20260318"`
 
@@ -2615,11 +2724,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `bool UseCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class ToolSearchToolBm25_20251119:`
+    - `class ToolSearchToolBm25_20251119`
 
       - `required Type Type`
 
@@ -2655,7 +2773,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolSearchToolRegex20251119:`
+    - `class ToolSearchToolRegex20251119`
 
       - `required Type Type`
 
@@ -2739,7 +2857,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 ### Returns
 
-- `class Message:`
+- `class Message`
 
   - `JsonElement Type = "message"`
 
@@ -2820,7 +2938,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `class TextBlock:`
+    - `class TextBlock`
 
       - `JsonElement Type = "text"`
 
@@ -2830,7 +2948,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class CitationCharLocation:`
+        - `class CitationCharLocation`
 
           - `JsonElement Type = "char_location"`
 
@@ -2850,7 +2968,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-        - `class CitationPageLocation:`
+        - `class CitationPageLocation`
 
           - `JsonElement Type = "page_location"`
 
@@ -2870,7 +2988,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-        - `class CitationContentBlockLocation:`
+        - `class CitationContentBlockLocation`
 
           - `JsonElement Type = "content_block_location"`
 
@@ -2900,7 +3018,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-        - `class CitationsWebSearchResultLocation:`
+        - `class CitationsWebSearchResultLocation`
 
           - `JsonElement Type = "web_search_result_location"`
 
@@ -2914,7 +3032,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `required string Url`
 
-        - `class CitationsSearchResultLocation:`
+        - `class CitationsSearchResultLocation`
 
           - `JsonElement Type = "search_result_location"`
 
@@ -2952,7 +3070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 0
 
-    - `class ThinkingBlock:`
+    - `class ThinkingBlock`
 
       - `JsonElement Type = "thinking"`
 
@@ -2968,7 +3086,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-    - `class RedactedThinkingBlock:`
+    - `class RedactedThinkingBlock`
 
       - `JsonElement Type = "redacted_thinking"`
 
@@ -2980,7 +3098,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class ToolUseBlock:`
+    - `class ToolUseBlock`
 
       - `JsonElement Type = "tool_use"`
 
@@ -2990,13 +3108,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
           - `JsonElement Type = "direct"`
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -3006,7 +3124,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
           - `JsonElement Type = "code_execution_20260120"`
 
@@ -3026,7 +3144,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class ServerToolUseBlock:`
+    - `class ServerToolUseBlock`
 
       - `JsonElement Type = "server_tool_use"`
 
@@ -3036,15 +3154,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -3064,25 +3182,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-    - `class WebSearchToolResultBlock:`
+    - `class WebSearchToolResultBlock`
 
       - `JsonElement Type = "web_search_tool_result"`
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required WebSearchToolResultBlockContent Content`
 
-        - `class WebSearchToolResultError:`
+        - `class WebSearchToolResultError`
 
           - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -3116,25 +3234,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class WebFetchToolResultBlock:`
+    - `class WebFetchToolResultBlock`
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required Content Content`
 
-        - `class WebFetchToolResultErrorBlock:`
+        - `class WebFetchToolResultErrorBlock`
 
           - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -3160,7 +3278,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `ContentTooLarge("content_too_large")`
 
-        - `class WebFetchBlock:`
+        - `class WebFetchBlock`
 
           - `JsonElement Type = "web_fetch_result"`
 
@@ -3176,7 +3294,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `required Source Source`
 
-              - `class Base64PdfSource:`
+              - `class Base64PdfSource`
 
                 - `JsonElement Type = "base64"`
 
@@ -3186,7 +3304,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `JsonElement MediaType = "application/pdf"`
 
-              - `class PlainTextSource:`
+              - `class PlainTextSource`
 
                 - `JsonElement Type = "text"`
 
@@ -3210,13 +3328,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class CodeExecutionToolResultBlock:`
+    - `class CodeExecutionToolResultBlock`
 
       - `JsonElement Type = "code_execution_tool_result"`
 
       - `required CodeExecutionToolResultBlockContent Content`
 
-        - `class CodeExecutionToolResultError:`
+        - `class CodeExecutionToolResultError`
 
           - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -3230,7 +3348,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-        - `class CodeExecutionResultBlock:`
+        - `class CodeExecutionResultBlock`
 
           - `JsonElement Type = "code_execution_result"`
 
@@ -3246,7 +3364,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `required string Stdout`
 
-        - `class EncryptedCodeExecutionResultBlock:`
+        - `class EncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -3268,13 +3386,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BashCodeExecutionToolResultBlock:`
+    - `class BashCodeExecutionToolResultBlock`
 
       - `JsonElement Type = "bash_code_execution_tool_result"`
 
       - `required Content Content`
 
-        - `class BashCodeExecutionToolResultError:`
+        - `class BashCodeExecutionToolResultError`
 
           - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -3290,7 +3408,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `OutputFileTooLarge("output_file_too_large")`
 
-        - `class BashCodeExecutionResultBlock:`
+        - `class BashCodeExecutionResultBlock`
 
           - `JsonElement Type = "bash_code_execution_result"`
 
@@ -3310,13 +3428,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class TextEditorCodeExecutionToolResultBlock:`
+    - `class TextEditorCodeExecutionToolResultBlock`
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
       - `required Content Content`
 
-        - `class TextEditorCodeExecutionToolResultError:`
+        - `class TextEditorCodeExecutionToolResultError`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -3334,7 +3452,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `required string? ErrorMessage`
 
-        - `class TextEditorCodeExecutionViewResultBlock:`
+        - `class TextEditorCodeExecutionViewResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -3354,13 +3472,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `required long? TotalLines`
 
-        - `class TextEditorCodeExecutionCreateResultBlock:`
+        - `class TextEditorCodeExecutionCreateResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_create_result"`
 
           - `required bool IsFileUpdate`
 
-        - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+        - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -3378,13 +3496,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ToolSearchToolResultBlock:`
+    - `class ToolSearchToolResultBlock`
 
       - `JsonElement Type = "tool_search_tool_result"`
 
       - `required Content Content`
 
-        - `class ToolSearchToolResultError:`
+        - `class ToolSearchToolResultError`
 
           - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -3400,7 +3518,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `required string? ErrorMessage`
 
-        - `class ToolSearchToolSearchResultBlock:`
+        - `class ToolSearchToolSearchResultBlock`
 
           - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -3416,7 +3534,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ContainerUploadBlock:`
+    - `class ContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -3682,13 +3800,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `class RawMessageStreamEvent: union`
 
-  - `class RawMessageStartEvent:`
+  - `class RawMessageStartEvent`
 
     - `JsonElement Type = "message_start"`
 
     - `required Message Message`
 
-  - `class RawMessageDeltaEvent:`
+  - `class RawMessageDeltaEvent`
 
     - `JsonElement Type = "message_delta"`
 
@@ -3753,79 +3871,79 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of server tool requests.
 
-  - `class RawMessageStopEvent:`
+  - `class RawMessageStopEvent`
 
     - `JsonElement Type = "message_stop"`
 
-  - `class RawContentBlockStartEvent:`
+  - `class RawContentBlockStartEvent`
 
     - `JsonElement Type = "content_block_start"`
 
     - `required ContentBlock ContentBlock`
 
-      - `class TextBlock:`
+      - `class TextBlock`
 
-      - `class ThinkingBlock:`
+      - `class ThinkingBlock`
 
-      - `class RedactedThinkingBlock:`
+      - `class RedactedThinkingBlock`
 
-      - `class ToolUseBlock:`
+      - `class ToolUseBlock`
 
-      - `class ServerToolUseBlock:`
+      - `class ServerToolUseBlock`
 
-      - `class WebSearchToolResultBlock:`
+      - `class WebSearchToolResultBlock`
 
-      - `class WebFetchToolResultBlock:`
+      - `class WebFetchToolResultBlock`
 
-      - `class CodeExecutionToolResultBlock:`
+      - `class CodeExecutionToolResultBlock`
 
-      - `class BashCodeExecutionToolResultBlock:`
+      - `class BashCodeExecutionToolResultBlock`
 
-      - `class TextEditorCodeExecutionToolResultBlock:`
+      - `class TextEditorCodeExecutionToolResultBlock`
 
-      - `class ToolSearchToolResultBlock:`
+      - `class ToolSearchToolResultBlock`
 
-      - `class ContainerUploadBlock:`
+      - `class ContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
     - `required long Index`
 
-  - `class RawContentBlockDeltaEvent:`
+  - `class RawContentBlockDeltaEvent`
 
     - `JsonElement Type = "content_block_delta"`
 
     - `required RawContentBlockDelta Delta`
 
-      - `class TextDelta:`
+      - `class TextDelta`
 
         - `JsonElement Type = "text_delta"`
 
         - `required string Text`
 
-      - `class InputJsonDelta:`
+      - `class InputJsonDelta`
 
         - `JsonElement Type = "input_json_delta"`
 
         - `required string PartialJson`
 
-      - `class CitationsDelta:`
+      - `class CitationsDelta`
 
         - `JsonElement Type = "citations_delta"`
 
         - `required Citation Citation`
 
-          - `class CitationCharLocation:`
+          - `class CitationCharLocation`
 
-          - `class CitationPageLocation:`
+          - `class CitationPageLocation`
 
-          - `class CitationContentBlockLocation:`
+          - `class CitationContentBlockLocation`
 
-          - `class CitationsWebSearchResultLocation:`
+          - `class CitationsWebSearchResultLocation`
 
-          - `class CitationsSearchResultLocation:`
+          - `class CitationsSearchResultLocation`
 
-      - `class ThinkingDelta:`
+      - `class ThinkingDelta`
 
         - `JsonElement Type = "thinking_delta"`
 
@@ -3833,7 +3951,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `class SignatureDelta:`
+      - `class SignatureDelta`
 
         - `JsonElement Type = "signature_delta"`
 
@@ -3843,7 +3961,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `required long Index`
 
-  - `class RawContentBlockStopEvent:`
+  - `class RawContentBlockStopEvent`
 
     - `JsonElement Type = "content_block_stop"`
 
@@ -4009,7 +4127,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `IReadOnlyList<ContentBlockParam>`
 
-        - `class TextBlockParam:`
+        - `class TextBlockParam`
 
           - `JsonElement Type = "text"`
 
@@ -4040,7 +4158,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `IReadOnlyList<TextCitationParam>? Citations`
 
-            - `class CitationCharLocationParam:`
+            - `class CitationCharLocationParam`
 
               - `JsonElement Type = "char_location"`
 
@@ -4060,7 +4178,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `class CitationPageLocationParam:`
+            - `class CitationPageLocationParam`
 
               - `JsonElement Type = "page_location"`
 
@@ -4080,7 +4198,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 1
 
-            - `class CitationContentBlockLocationParam:`
+            - `class CitationContentBlockLocationParam`
 
               - `JsonElement Type = "content_block_location"`
 
@@ -4110,7 +4228,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `class CitationWebSearchResultLocationParam:`
+            - `class CitationWebSearchResultLocationParam`
 
               - `JsonElement Type = "web_search_result_location"`
 
@@ -4126,7 +4244,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minLength: 1
 
-            - `class CitationSearchResultLocationParam:`
+            - `class CitationSearchResultLocationParam`
 
               - `JsonElement Type = "search_result_location"`
 
@@ -4160,13 +4278,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `required string? Title`
 
-        - `class ImageBlockParam:`
+        - `class ImageBlockParam`
 
           - `JsonElement Type = "image"`
 
           - `required Source Source`
 
-            - `class Base64ImageSource:`
+            - `class Base64ImageSource`
 
               - `JsonElement Type = "base64"`
 
@@ -4184,13 +4302,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `ImageWebP("image/webp")`
 
-            - `class UrlImageSource:`
+            - `class UrlImageSource`
 
               - `JsonElement Type = "url"`
 
               - `required string Url`
 
-            - `class FileImageSource:`
+            - `class FileImageSource`
 
               - `JsonElement Type = "file"`
 
@@ -4212,13 +4330,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Error("error")`
 
-        - `class DocumentBlockParam:`
+        - `class DocumentBlockParam`
 
           - `JsonElement Type = "document"`
 
           - `required Source Source`
 
-            - `class Base64PdfSource:`
+            - `class Base64PdfSource`
 
               - `JsonElement Type = "base64"`
 
@@ -4228,7 +4346,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `JsonElement MediaType = "application/pdf"`
 
-            - `class PlainTextSource:`
+            - `class PlainTextSource`
 
               - `JsonElement Type = "text"`
 
@@ -4236,7 +4354,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `JsonElement MediaType = "text/plain"`
 
-            - `class ContentBlockSource:`
+            - `class ContentBlockSource`
 
               - `JsonElement Type = "content"`
 
@@ -4246,17 +4364,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `IReadOnlyList<ContentBlockSourceContent>`
 
-                  - `class TextBlockParam:`
+                  - `class TextBlockParam`
 
-                  - `class ImageBlockParam:`
+                  - `class ImageBlockParam`
 
-            - `class UrlPdfSource:`
+            - `class UrlPdfSource`
 
               - `JsonElement Type = "url"`
 
               - `required string Url`
 
-            - `class FileDocumentSource:`
+            - `class FileDocumentSource`
 
               - `JsonElement Type = "file"`
 
@@ -4278,7 +4396,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 500, minLength: 1
 
-        - `class SearchResultBlockParam:`
+        - `class SearchResultBlockParam`
 
           - `JsonElement Type = "search_result"`
 
@@ -4306,7 +4424,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `CitationsConfigParam Citations`
 
-        - `class ThinkingBlockParam:`
+        - `class ThinkingBlockParam`
 
           - `JsonElement Type = "thinking"`
 
@@ -4320,7 +4438,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `thinking` text of this block as returned by the API.
 
-        - `class RedactedThinkingBlockParam:`
+        - `class RedactedThinkingBlockParam`
 
           - `JsonElement Type = "redacted_thinking"`
 
@@ -4328,7 +4446,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `class ToolUseBlockParam:`
+        - `class ToolUseBlockParam`
 
           - `JsonElement Type = "tool_use"`
 
@@ -4348,13 +4466,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonElement Type = "direct"`
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -4364,7 +4482,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
               - `JsonElement Type = "code_execution_20260120"`
 
@@ -4378,7 +4496,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class ToolResultBlockParam:`
+        - `class ToolResultBlockParam`
 
           - `JsonElement Type = "tool_result"`
 
@@ -4396,15 +4514,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `IReadOnlyList<Block>`
 
-              - `class TextBlockParam:`
+              - `class TextBlockParam`
 
-              - `class ImageBlockParam:`
+              - `class ImageBlockParam`
 
-              - `class SearchResultBlockParam:`
+              - `class SearchResultBlockParam`
 
-              - `class DocumentBlockParam:`
+              - `class DocumentBlockParam`
 
-              - `class ToolReferenceBlockParam:`
+              - `class ToolReferenceBlockParam`
 
                 Tool reference block that can be included in tool_result content.
 
@@ -4418,7 +4536,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   Create a cache control breakpoint at this content block.
 
-              - `class BrowserStateBlockParam:`
+              - `class BrowserStateBlockParam`
 
                 The caller's browser state after a browser toolset member call —
                 the full inventory of open tabs, which tab is active, and any side
@@ -4468,7 +4586,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   maxItems: 200, minItems: 1
 
-                  - `class BrowserStateChangeTabOpened:`
+                  - `class BrowserStateChangeTabOpened`
 
                     A tab this call's execution opened that remains open at its end —
                     the creation delta of the `tabs` inventory, not an event log.
@@ -4486,7 +4604,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadStarted:`
+                  - `class BrowserStateChangeDownloadStarted`
 
                     A file download that started during this call.
 
@@ -4504,7 +4622,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BrowserStateChangeDownloadCompleted:`
+                  - `class BrowserStateChangeDownloadCompleted`
 
                     A file download that finished during this call, reported with the
                     same `download_id` as its `download_started` — or without a prior
@@ -4537,7 +4655,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       minimum: 0
 
-                  - `class BrowserStateChangeDownloadFailed:`
+                  - `class BrowserStateChangeDownloadFailed`
 
                     A file download that failed — or was cancelled — during this call.
 
@@ -4569,7 +4687,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class ServerToolUseBlockParam:`
+        - `class ServerToolUseBlockParam`
 
           - `JsonElement Type = "server_tool_use"`
 
@@ -4601,17 +4719,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
-        - `class WebSearchToolResultBlockParam:`
+        - `class WebSearchToolResultBlockParam`
 
           - `JsonElement Type = "web_search_tool_result"`
 
@@ -4629,7 +4747,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `string? PageAge`
 
-            - `class WebSearchToolRequestError:`
+            - `class WebSearchToolRequestError`
 
               - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -4657,23 +4775,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
-        - `class WebFetchToolResultBlockParam:`
+        - `class WebFetchToolResultBlockParam`
 
           - `JsonElement Type = "web_fetch_tool_result"`
 
           - `required Content Content`
 
-            - `class WebFetchToolResultErrorBlockParam:`
+            - `class WebFetchToolResultErrorBlockParam`
 
               - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -4699,7 +4817,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `ContentTooLarge("content_too_large")`
 
-            - `class WebFetchBlockParam:`
+            - `class WebFetchBlockParam`
 
               - `JsonElement Type = "web_fetch_result"`
 
@@ -4723,23 +4841,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
-        - `class CodeExecutionToolResultBlockParam:`
+        - `class CodeExecutionToolResultBlockParam`
 
           - `JsonElement Type = "code_execution_tool_result"`
 
           - `required CodeExecutionToolResultBlockParamContent Content`
 
-            - `class CodeExecutionToolResultErrorParam:`
+            - `class CodeExecutionToolResultErrorParam`
 
               - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -4753,7 +4871,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-            - `class CodeExecutionResultBlockParam:`
+            - `class CodeExecutionResultBlockParam`
 
               - `JsonElement Type = "code_execution_result"`
 
@@ -4769,7 +4887,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `required string Stdout`
 
-            - `class EncryptedCodeExecutionResultBlockParam:`
+            - `class EncryptedCodeExecutionResultBlockParam`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -4795,13 +4913,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BashCodeExecutionToolResultBlockParam:`
+        - `class BashCodeExecutionToolResultBlockParam`
 
           - `JsonElement Type = "bash_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class BashCodeExecutionToolResultErrorParam:`
+            - `class BashCodeExecutionToolResultErrorParam`
 
               - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -4817,7 +4935,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `OutputFileTooLarge("output_file_too_large")`
 
-            - `class BashCodeExecutionResultBlockParam:`
+            - `class BashCodeExecutionResultBlockParam`
 
               - `JsonElement Type = "bash_code_execution_result"`
 
@@ -4841,13 +4959,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class TextEditorCodeExecutionToolResultBlockParam:`
+        - `class TextEditorCodeExecutionToolResultBlockParam`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class TextEditorCodeExecutionToolResultErrorParam:`
+            - `class TextEditorCodeExecutionToolResultErrorParam`
 
               - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -4865,7 +4983,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `string? ErrorMessage`
 
-            - `class TextEditorCodeExecutionViewResultBlockParam:`
+            - `class TextEditorCodeExecutionViewResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -4885,13 +5003,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `long? TotalLines`
 
-            - `class TextEditorCodeExecutionCreateResultBlockParam:`
+            - `class TextEditorCodeExecutionCreateResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_create_result"`
 
               - `required bool IsFileUpdate`
 
-            - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+            - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -4913,13 +5031,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class ToolSearchToolResultBlockParam:`
+        - `class ToolSearchToolResultBlockParam`
 
           - `JsonElement Type = "tool_search_tool_result"`
 
           - `required Content Content`
 
-            - `class ToolSearchToolResultErrorParam:`
+            - `class ToolSearchToolResultErrorParam`
 
               - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -4935,7 +5053,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `string? ErrorMessage`
 
-            - `class ToolSearchToolSearchResultBlockParam:`
+            - `class ToolSearchToolSearchResultBlockParam`
 
               - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -4959,7 +5077,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class ContainerUploadBlockParam:`
+        - `class ContainerUploadBlockParam`
 
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
@@ -5092,7 +5210,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-    - `class Tool:`
+    - `class Tool`
 
       - `Type? Type`
 
@@ -5150,7 +5268,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolBash20250124:`
+    - `class ToolBash20250124`
 
       - `JsonElement Type = "bash_20250124"`
 
@@ -5184,7 +5302,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20250522:`
+    - `class CodeExecutionTool20250522`
 
       - `JsonElement Type = "code_execution_20250522"`
 
@@ -5216,7 +5334,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20250825:`
+    - `class CodeExecutionTool20250825`
 
       - `JsonElement Type = "code_execution_20250825"`
 
@@ -5248,7 +5366,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20260120:`
+    - `class CodeExecutionTool20260120`
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -5282,7 +5400,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class CodeExecutionTool20260521:`
+    - `class CodeExecutionTool20260521`
 
       Code execution tool with REPL state persistence.
 
@@ -5316,7 +5434,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BrowserToolset20260801:`
+    - `class BrowserToolset20260801`
 
       The browser toolset: a single `tools[]` entry (carrying no
       `name`) that declares the browser tool family. The model is served
@@ -5710,7 +5828,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class MemoryTool20250818:`
+    - `class MemoryTool20250818`
 
       - `JsonElement Type = "memory_20250818"`
 
@@ -5744,7 +5862,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ComputerToolset20260801:`
+    - `class ComputerToolset20260801`
 
       The computer toolset: a single `tools[]` entry (carrying no
       `name`) that declares the computer tool family. The model is
@@ -5974,7 +6092,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class ToolTextEditor20250124:`
+    - `class ToolTextEditor20250124`
 
       - `JsonElement Type = "text_editor_20250124"`
 
@@ -6008,7 +6126,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolTextEditor20250429:`
+    - `class ToolTextEditor20250429`
 
       - `JsonElement Type = "text_editor_20250429"`
 
@@ -6042,7 +6160,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolTextEditor20250728:`
+    - `class ToolTextEditor20250728`
 
       - `JsonElement Type = "text_editor_20250728"`
 
@@ -6082,7 +6200,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class WebSearchTool20250305:`
+    - `class WebSearchTool20250305`
 
       - `JsonElement Type = "web_search_20250305"`
 
@@ -6158,7 +6276,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           maxLength: 255, minLength: 1
 
-    - `class WebFetchTool20250910:`
+    - `class WebFetchTool20250910`
 
       - `JsonElement Type = "web_fetch_20250910"`
 
@@ -6214,7 +6332,98 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class WebSearchTool20260209:`
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `ClientToolResults ClientToolResults`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `class WebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `JsonElement Type = "all"`
+
+          - `class WebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `JsonElement Type = "none"`
+
+          - `class WebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `JsonElement Type = "only"`
+
+            - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string Name`
+
+          - `class WebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `JsonElement Type = "except"`
+
+            - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+              - `JsonElement Type = "tool_reference"`
+
+              - `required string Name`
+
+        - `ServerToolResults ServerToolResults`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `class WebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class WebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `class WebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `class WebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `UserInput UserInput`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `class WebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class WebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `class WebSearchTool20260209`
 
       - `JsonElement Type = "web_search_20260209"`
 
@@ -6264,7 +6473,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class WebFetchTool20260209:`
+    - `class WebFetchTool20260209`
 
       - `JsonElement Type = "web_fetch_20260209"`
 
@@ -6320,7 +6529,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class WebFetchTool20260309:`
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `class WebFetchTool20260309`
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -6378,11 +6596,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `bool UseCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class WebSearchTool20260318:`
+    - `class WebSearchTool20260318`
 
       - `JsonElement Type = "web_search_20260318"`
 
@@ -6440,7 +6667,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class WebFetchTool20260318:`
+    - `class WebFetchTool20260318`
 
       - `JsonElement Type = "web_fetch_20260318"`
 
@@ -6504,11 +6731,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `WebFetchUrlSources? UrlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `bool UseCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class ToolSearchToolBm25_20251119:`
+    - `class ToolSearchToolBm25_20251119`
 
       - `required Type Type`
 
@@ -6544,7 +6780,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class ToolSearchToolRegex20251119:`
+    - `class ToolSearchToolRegex20251119`
 
       - `required Type Type`
 
@@ -6592,7 +6828,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ### Returns
 
-- `class MessageTokensCount:`
+- `class MessageTokensCount`
 
   - `required long InputTokens`
 
@@ -6631,7 +6867,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Base64 Image Source
 
-- `class Base64ImageSource:`
+- `class Base64ImageSource`
 
   - `JsonElement Type = "base64"`
 
@@ -6651,7 +6887,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Base64 PDF Source
 
-- `class Base64PdfSource:`
+- `class Base64PdfSource`
 
   - `JsonElement Type = "base64"`
 
@@ -6663,7 +6899,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Output Block
 
-- `class BashCodeExecutionOutputBlock:`
+- `class BashCodeExecutionOutputBlock`
 
   - `JsonElement Type = "bash_code_execution_output"`
 
@@ -6671,7 +6907,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Output Block Param
 
-- `class BashCodeExecutionOutputBlockParam:`
+- `class BashCodeExecutionOutputBlockParam`
 
   - `JsonElement Type = "bash_code_execution_output"`
 
@@ -6679,7 +6915,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Result Block
 
-- `class BashCodeExecutionResultBlock:`
+- `class BashCodeExecutionResultBlock`
 
   - `JsonElement Type = "bash_code_execution_result"`
 
@@ -6697,7 +6933,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Result Block Param
 
-- `class BashCodeExecutionResultBlockParam:`
+- `class BashCodeExecutionResultBlockParam`
 
   - `JsonElement Type = "bash_code_execution_result"`
 
@@ -6715,13 +6951,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Tool Result Block
 
-- `class BashCodeExecutionToolResultBlock:`
+- `class BashCodeExecutionToolResultBlock`
 
   - `JsonElement Type = "bash_code_execution_tool_result"`
 
   - `required Content Content`
 
-    - `class BashCodeExecutionToolResultError:`
+    - `class BashCodeExecutionToolResultError`
 
       - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -6737,7 +6973,7 @@ Console.WriteLine(messageTokensCount);
 
         - `OutputFileTooLarge("output_file_too_large")`
 
-    - `class BashCodeExecutionResultBlock:`
+    - `class BashCodeExecutionResultBlock`
 
       - `JsonElement Type = "bash_code_execution_result"`
 
@@ -6759,13 +6995,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Tool Result Block Param
 
-- `class BashCodeExecutionToolResultBlockParam:`
+- `class BashCodeExecutionToolResultBlockParam`
 
   - `JsonElement Type = "bash_code_execution_tool_result"`
 
   - `required Content Content`
 
-    - `class BashCodeExecutionToolResultErrorParam:`
+    - `class BashCodeExecutionToolResultErrorParam`
 
       - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -6781,7 +7017,7 @@ Console.WriteLine(messageTokensCount);
 
         - `OutputFileTooLarge("output_file_too_large")`
 
-    - `class BashCodeExecutionResultBlockParam:`
+    - `class BashCodeExecutionResultBlockParam`
 
       - `JsonElement Type = "bash_code_execution_result"`
 
@@ -6824,7 +7060,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Tool Result Error
 
-- `class BashCodeExecutionToolResultError:`
+- `class BashCodeExecutionToolResultError`
 
   - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -6842,7 +7078,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Tool Result Error Code
 
-- `enum BashCodeExecutionToolResultErrorCode:`
+- `enum BashCodeExecutionToolResultErrorCode`
 
   - `InvalidToolInput("invalid_tool_input")`
 
@@ -6856,7 +7092,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Bash Code Execution Tool Result Error Param
 
-- `class BashCodeExecutionToolResultErrorParam:`
+- `class BashCodeExecutionToolResultErrorParam`
 
   - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -6874,7 +7110,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Close Tab Config
 
-- `class BrowserCloseTabConfig:`
+- `class BrowserCloseTabConfig`
 
   `close_tab`'s config overrides.
 
@@ -6888,7 +7124,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Double Click Config
 
-- `class BrowserDoubleClickConfig:`
+- `class BrowserDoubleClickConfig`
 
   `double_click`'s config overrides.
 
@@ -6902,7 +7138,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser File Upload Config
 
-- `class BrowserFileUploadConfig:`
+- `class BrowserFileUploadConfig`
 
   `file_upload`'s config overrides.
 
@@ -6916,7 +7152,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Find Config
 
-- `class BrowserFindConfig:`
+- `class BrowserFindConfig`
 
   `find`'s config overrides.
 
@@ -6930,7 +7166,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Form Input Config
 
-- `class BrowserFormInputConfig:`
+- `class BrowserFormInputConfig`
 
   `form_input`'s config overrides.
 
@@ -6944,7 +7180,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Get Page Text Config
 
-- `class BrowserGetPageTextConfig:`
+- `class BrowserGetPageTextConfig`
 
   `get_page_text`'s config overrides.
 
@@ -6958,7 +7194,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Hold Key Config
 
-- `class BrowserHoldKeyConfig:`
+- `class BrowserHoldKeyConfig`
 
   `hold_key`'s config overrides.
 
@@ -6972,7 +7208,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Hover Config
 
-- `class BrowserHoverConfig:`
+- `class BrowserHoverConfig`
 
   `hover`'s config overrides.
 
@@ -6986,7 +7222,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Javascript Exec Config
 
-- `class BrowserJavascriptExecConfig:`
+- `class BrowserJavascriptExecConfig`
 
   `javascript_exec`'s config overrides.
 
@@ -7000,7 +7236,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Key Config
 
-- `class BrowserKeyConfig:`
+- `class BrowserKeyConfig`
 
   `key`'s config overrides.
 
@@ -7014,7 +7250,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Left Click Config
 
-- `class BrowserLeftClickConfig:`
+- `class BrowserLeftClickConfig`
 
   `left_click`'s config overrides.
 
@@ -7028,7 +7264,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Left Click Drag Config
 
-- `class BrowserLeftClickDragConfig:`
+- `class BrowserLeftClickDragConfig`
 
   `left_click_drag`'s config overrides.
 
@@ -7042,7 +7278,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Left Mouse Down Config
 
-- `class BrowserLeftMouseDownConfig:`
+- `class BrowserLeftMouseDownConfig`
 
   `left_mouse_down`'s config overrides.
 
@@ -7056,7 +7292,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Left Mouse Up Config
 
-- `class BrowserLeftMouseUpConfig:`
+- `class BrowserLeftMouseUpConfig`
 
   `left_mouse_up`'s config overrides.
 
@@ -7070,7 +7306,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser List Tabs Config
 
-- `class BrowserListTabsConfig:`
+- `class BrowserListTabsConfig`
 
   `list_tabs`'s config overrides.
 
@@ -7084,7 +7320,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Middle Click Config
 
-- `class BrowserMiddleClickConfig:`
+- `class BrowserMiddleClickConfig`
 
   `middle_click`'s config overrides.
 
@@ -7098,7 +7334,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Mouse Move Config
 
-- `class BrowserMouseMoveConfig:`
+- `class BrowserMouseMoveConfig`
 
   `mouse_move`'s config overrides.
 
@@ -7112,7 +7348,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Navigate Config
 
-- `class BrowserNavigateConfig:`
+- `class BrowserNavigateConfig`
 
   `navigate`'s config overrides.
 
@@ -7126,7 +7362,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser New Tab Config
 
-- `class BrowserNewTabConfig:`
+- `class BrowserNewTabConfig`
 
   `new_tab`'s config overrides.
 
@@ -7140,7 +7376,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Read Console Config
 
-- `class BrowserReadConsoleConfig:`
+- `class BrowserReadConsoleConfig`
 
   `read_console`'s config overrides.
 
@@ -7154,7 +7390,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Read Network Config
 
-- `class BrowserReadNetworkConfig:`
+- `class BrowserReadNetworkConfig`
 
   `read_network`'s config overrides.
 
@@ -7168,7 +7404,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Read Page Config
 
-- `class BrowserReadPageConfig:`
+- `class BrowserReadPageConfig`
 
   `read_page`'s config overrides.
 
@@ -7182,7 +7418,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Right Click Config
 
-- `class BrowserRightClickConfig:`
+- `class BrowserRightClickConfig`
 
   `right_click`'s config overrides.
 
@@ -7196,7 +7432,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Screenshot Config
 
-- `class BrowserScreenshotConfig:`
+- `class BrowserScreenshotConfig`
 
   `screenshot`'s config overrides.
 
@@ -7210,7 +7446,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Scroll Config
 
-- `class BrowserScrollConfig:`
+- `class BrowserScrollConfig`
 
   `scroll`'s config overrides.
 
@@ -7224,7 +7460,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Scroll To Config
 
-- `class BrowserScrollToConfig:`
+- `class BrowserScrollToConfig`
 
   `scroll_to`'s config overrides.
 
@@ -7238,7 +7474,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser State Block Param
 
-- `class BrowserStateBlockParam:`
+- `class BrowserStateBlockParam`
 
   The caller's browser state after a browser toolset member call —
   the full inventory of open tabs, which tab is active, and any side
@@ -7305,7 +7541,7 @@ Console.WriteLine(messageTokensCount);
 
     maxItems: 200, minItems: 1
 
-    - `class BrowserStateChangeTabOpened:`
+    - `class BrowserStateChangeTabOpened`
 
       A tab this call's execution opened that remains open at its end —
       the creation delta of the `tabs` inventory, not an event log.
@@ -7323,7 +7559,7 @@ Console.WriteLine(messageTokensCount);
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `class BrowserStateChangeDownloadStarted:`
+    - `class BrowserStateChangeDownloadStarted`
 
       A file download that started during this call.
 
@@ -7341,7 +7577,7 @@ Console.WriteLine(messageTokensCount);
 
         maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `class BrowserStateChangeDownloadCompleted:`
+    - `class BrowserStateChangeDownloadCompleted`
 
       A file download that finished during this call, reported with the
       same `download_id` as its `download_started` — or without a prior
@@ -7374,7 +7610,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class BrowserStateChangeDownloadFailed:`
+    - `class BrowserStateChangeDownloadFailed`
 
       A file download that failed — or was cancelled — during this call.
 
@@ -7402,7 +7638,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class BrowserStateChange: union`
 
-  - `class BrowserStateChangeTabOpened:`
+  - `class BrowserStateChangeTabOpened`
 
     A tab this call's execution opened that remains open at its end —
     the creation delta of the `tabs` inventory, not an event log.
@@ -7420,7 +7656,7 @@ Console.WriteLine(messageTokensCount);
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `class BrowserStateChangeDownloadStarted:`
+  - `class BrowserStateChangeDownloadStarted`
 
     A file download that started during this call.
 
@@ -7438,7 +7674,7 @@ Console.WriteLine(messageTokensCount);
 
       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `class BrowserStateChangeDownloadCompleted:`
+  - `class BrowserStateChangeDownloadCompleted`
 
     A file download that finished during this call, reported with the
     same `download_id` as its `download_started` — or without a prior
@@ -7471,7 +7707,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 0
 
-  - `class BrowserStateChangeDownloadFailed:`
+  - `class BrowserStateChangeDownloadFailed`
 
     A file download that failed — or was cancelled — during this call.
 
@@ -7497,7 +7733,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser State Change Download Completed
 
-- `class BrowserStateChangeDownloadCompleted:`
+- `class BrowserStateChangeDownloadCompleted`
 
   A file download that finished during this call, reported with the
   same `download_id` as its `download_started` — or without a prior
@@ -7532,7 +7768,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser State Change Download Failed
 
-- `class BrowserStateChangeDownloadFailed:`
+- `class BrowserStateChangeDownloadFailed`
 
   A file download that failed — or was cancelled — during this call.
 
@@ -7558,7 +7794,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser State Change Download Started
 
-- `class BrowserStateChangeDownloadStarted:`
+- `class BrowserStateChangeDownloadStarted`
 
   A file download that started during this call.
 
@@ -7578,7 +7814,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser State Change Tab Opened
 
-- `class BrowserStateChangeTabOpened:`
+- `class BrowserStateChangeTabOpened`
 
   A tab this call's execution opened that remains open at its end —
   the creation delta of the `tabs` inventory, not an event log.
@@ -7598,7 +7834,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser State Tab Entry
 
-- `class BrowserStateTabEntry:`
+- `class BrowserStateTabEntry`
 
   One open browser tab reported in a `browser_state` block's `tabs`
   inventory.
@@ -7633,7 +7869,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Switch Tab Config
 
-- `class BrowserSwitchTabConfig:`
+- `class BrowserSwitchTabConfig`
 
   `switch_tab`'s config overrides.
 
@@ -7647,7 +7883,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Toolset 20260801
 
-- `class BrowserToolset20260801:`
+- `class BrowserToolset20260801`
 
   The browser toolset: a single `tools[]` entry (carrying no
   `name`) that declares the browser tool family. The model is served
@@ -8060,7 +8296,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Toolset Configs
 
-- `class BrowserToolsetConfigs:`
+- `class BrowserToolsetConfigs`
 
   Per-member configuration for `browser_toolset_20260801`: one
   optional field per member tool, keyed by the member name — the same
@@ -8443,7 +8679,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Triple Click Config
 
-- `class BrowserTripleClickConfig:`
+- `class BrowserTripleClickConfig`
 
   `triple_click`'s config overrides.
 
@@ -8457,7 +8693,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Type Config
 
-- `class BrowserTypeConfig:`
+- `class BrowserTypeConfig`
 
   `type`'s config overrides.
 
@@ -8471,7 +8707,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Wait Config
 
-- `class BrowserWaitConfig:`
+- `class BrowserWaitConfig`
 
   `wait`'s config overrides.
 
@@ -8485,7 +8721,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Browser Zoom Config
 
-- `class BrowserZoomConfig:`
+- `class BrowserZoomConfig`
 
   `zoom`'s config overrides.
 
@@ -8499,7 +8735,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Cache Control Ephemeral
 
-- `class CacheControlEphemeral:`
+- `class CacheControlEphemeral`
 
   - `JsonElement Type = "ephemeral"`
 
@@ -8520,7 +8756,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Cache Creation
 
-- `class CacheCreation:`
+- `class CacheCreation`
 
   - `required long Ephemeral1hInputTokens`
 
@@ -8536,7 +8772,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Char Location
 
-- `class CitationCharLocation:`
+- `class CitationCharLocation`
 
   - `JsonElement Type = "char_location"`
 
@@ -8558,7 +8794,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Char Location Param
 
-- `class CitationCharLocationParam:`
+- `class CitationCharLocationParam`
 
   - `JsonElement Type = "char_location"`
 
@@ -8580,7 +8816,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Content Block Location
 
-- `class CitationContentBlockLocation:`
+- `class CitationContentBlockLocation`
 
   - `JsonElement Type = "content_block_location"`
 
@@ -8612,7 +8848,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Content Block Location Param
 
-- `class CitationContentBlockLocationParam:`
+- `class CitationContentBlockLocationParam`
 
   - `JsonElement Type = "content_block_location"`
 
@@ -8644,7 +8880,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Page Location
 
-- `class CitationPageLocation:`
+- `class CitationPageLocation`
 
   - `JsonElement Type = "page_location"`
 
@@ -8666,7 +8902,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Page Location Param
 
-- `class CitationPageLocationParam:`
+- `class CitationPageLocationParam`
 
   - `JsonElement Type = "page_location"`
 
@@ -8688,7 +8924,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Search Result Location Param
 
-- `class CitationSearchResultLocationParam:`
+- `class CitationSearchResultLocationParam`
 
   - `JsonElement Type = "search_result_location"`
 
@@ -8724,7 +8960,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citation Web Search Result Location Param
 
-- `class CitationWebSearchResultLocationParam:`
+- `class CitationWebSearchResultLocationParam`
 
   - `JsonElement Type = "web_search_result_location"`
 
@@ -8742,25 +8978,25 @@ Console.WriteLine(messageTokensCount);
 
 ### Citations Config
 
-- `class CitationsConfig:`
+- `class CitationsConfig`
 
   - `required bool Enabled`
 
 ### Citations Config Param
 
-- `class CitationsConfigParam:`
+- `class CitationsConfigParam`
 
   - `bool Enabled`
 
 ### Citations Delta
 
-- `class CitationsDelta:`
+- `class CitationsDelta`
 
   - `JsonElement Type = "citations_delta"`
 
   - `required Citation Citation`
 
-    - `class CitationCharLocation:`
+    - `class CitationCharLocation`
 
       - `JsonElement Type = "char_location"`
 
@@ -8780,7 +9016,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class CitationPageLocation:`
+    - `class CitationPageLocation`
 
       - `JsonElement Type = "page_location"`
 
@@ -8800,7 +9036,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 1
 
-    - `class CitationContentBlockLocation:`
+    - `class CitationContentBlockLocation`
 
       - `JsonElement Type = "content_block_location"`
 
@@ -8830,7 +9066,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class CitationsWebSearchResultLocation:`
+    - `class CitationsWebSearchResultLocation`
 
       - `JsonElement Type = "web_search_result_location"`
 
@@ -8844,7 +9080,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string Url`
 
-    - `class CitationsSearchResultLocation:`
+    - `class CitationsSearchResultLocation`
 
       - `JsonElement Type = "search_result_location"`
 
@@ -8880,7 +9116,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citations Search Result Location
 
-- `class CitationsSearchResultLocation:`
+- `class CitationsSearchResultLocation`
 
   - `JsonElement Type = "search_result_location"`
 
@@ -8916,7 +9152,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Citations Web Search Result Location
 
-- `class CitationsWebSearchResultLocation:`
+- `class CitationsWebSearchResultLocation`
 
   - `JsonElement Type = "web_search_result_location"`
 
@@ -8932,7 +9168,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Output Block
 
-- `class CodeExecutionOutputBlock:`
+- `class CodeExecutionOutputBlock`
 
   - `JsonElement Type = "code_execution_output"`
 
@@ -8940,7 +9176,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Output Block Param
 
-- `class CodeExecutionOutputBlockParam:`
+- `class CodeExecutionOutputBlockParam`
 
   - `JsonElement Type = "code_execution_output"`
 
@@ -8948,7 +9184,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Result Block
 
-- `class CodeExecutionResultBlock:`
+- `class CodeExecutionResultBlock`
 
   - `JsonElement Type = "code_execution_result"`
 
@@ -8966,7 +9202,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Result Block Param
 
-- `class CodeExecutionResultBlockParam:`
+- `class CodeExecutionResultBlockParam`
 
   - `JsonElement Type = "code_execution_result"`
 
@@ -8984,7 +9220,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool 20250522
 
-- `class CodeExecutionTool20250522:`
+- `class CodeExecutionTool20250522`
 
   - `JsonElement Type = "code_execution_20250522"`
 
@@ -9035,7 +9271,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool 20250825
 
-- `class CodeExecutionTool20250825:`
+- `class CodeExecutionTool20250825`
 
   - `JsonElement Type = "code_execution_20250825"`
 
@@ -9086,7 +9322,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool 20260120
 
-- `class CodeExecutionTool20260120:`
+- `class CodeExecutionTool20260120`
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -9139,7 +9375,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool 20260521
 
-- `class CodeExecutionTool20260521:`
+- `class CodeExecutionTool20260521`
 
   Code execution tool with REPL state persistence.
 
@@ -9192,13 +9428,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool Result Block
 
-- `class CodeExecutionToolResultBlock:`
+- `class CodeExecutionToolResultBlock`
 
   - `JsonElement Type = "code_execution_tool_result"`
 
   - `required CodeExecutionToolResultBlockContent Content`
 
-    - `class CodeExecutionToolResultError:`
+    - `class CodeExecutionToolResultError`
 
       - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9212,7 +9448,7 @@ Console.WriteLine(messageTokensCount);
 
         - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-    - `class CodeExecutionResultBlock:`
+    - `class CodeExecutionResultBlock`
 
       - `JsonElement Type = "code_execution_result"`
 
@@ -9228,7 +9464,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string Stdout`
 
-    - `class EncryptedCodeExecutionResultBlock:`
+    - `class EncryptedCodeExecutionResultBlock`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9254,7 +9490,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class CodeExecutionToolResultBlockContent: union`
 
-  - `class CodeExecutionToolResultError:`
+  - `class CodeExecutionToolResultError`
 
     - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9268,7 +9504,7 @@ Console.WriteLine(messageTokensCount);
 
       - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-  - `class CodeExecutionResultBlock:`
+  - `class CodeExecutionResultBlock`
 
     - `JsonElement Type = "code_execution_result"`
 
@@ -9284,7 +9520,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required string Stdout`
 
-  - `class EncryptedCodeExecutionResultBlock:`
+  - `class EncryptedCodeExecutionResultBlock`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9304,13 +9540,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool Result Block Param
 
-- `class CodeExecutionToolResultBlockParam:`
+- `class CodeExecutionToolResultBlockParam`
 
   - `JsonElement Type = "code_execution_tool_result"`
 
   - `required CodeExecutionToolResultBlockParamContent Content`
 
-    - `class CodeExecutionToolResultErrorParam:`
+    - `class CodeExecutionToolResultErrorParam`
 
       - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9324,7 +9560,7 @@ Console.WriteLine(messageTokensCount);
 
         - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-    - `class CodeExecutionResultBlockParam:`
+    - `class CodeExecutionResultBlockParam`
 
       - `JsonElement Type = "code_execution_result"`
 
@@ -9340,7 +9576,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string Stdout`
 
-    - `class EncryptedCodeExecutionResultBlockParam:`
+    - `class EncryptedCodeExecutionResultBlockParam`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9387,7 +9623,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class CodeExecutionToolResultBlockParamContent: union`
 
-  - `class CodeExecutionToolResultErrorParam:`
+  - `class CodeExecutionToolResultErrorParam`
 
     - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9401,7 +9637,7 @@ Console.WriteLine(messageTokensCount);
 
       - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-  - `class CodeExecutionResultBlockParam:`
+  - `class CodeExecutionResultBlockParam`
 
     - `JsonElement Type = "code_execution_result"`
 
@@ -9417,7 +9653,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required string Stdout`
 
-  - `class EncryptedCodeExecutionResultBlockParam:`
+  - `class EncryptedCodeExecutionResultBlockParam`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9437,7 +9673,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool Result Error
 
-- `class CodeExecutionToolResultError:`
+- `class CodeExecutionToolResultError`
 
   - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9453,7 +9689,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool Result Error Code
 
-- `enum CodeExecutionToolResultErrorCode:`
+- `enum CodeExecutionToolResultErrorCode`
 
   - `InvalidToolInput("invalid_tool_input")`
 
@@ -9465,7 +9701,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Code Execution Tool Result Error Param
 
-- `class CodeExecutionToolResultErrorParam:`
+- `class CodeExecutionToolResultErrorParam`
 
   - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9481,7 +9717,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Cursor Position Config
 
-- `class ComputerCursorPositionConfig:`
+- `class ComputerCursorPositionConfig`
 
   `cursor_position`'s config overrides.
 
@@ -9495,7 +9731,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Double Click Config
 
-- `class ComputerDoubleClickConfig:`
+- `class ComputerDoubleClickConfig`
 
   `double_click`'s config overrides.
 
@@ -9509,7 +9745,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Hold Key Config
 
-- `class ComputerHoldKeyConfig:`
+- `class ComputerHoldKeyConfig`
 
   `hold_key`'s config overrides.
 
@@ -9523,7 +9759,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Key Config
 
-- `class ComputerKeyConfig:`
+- `class ComputerKeyConfig`
 
   `key`'s config overrides.
 
@@ -9537,7 +9773,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Left Click Config
 
-- `class ComputerLeftClickConfig:`
+- `class ComputerLeftClickConfig`
 
   `left_click`'s config overrides.
 
@@ -9551,7 +9787,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Left Click Drag Config
 
-- `class ComputerLeftClickDragConfig:`
+- `class ComputerLeftClickDragConfig`
 
   `left_click_drag`'s config overrides.
 
@@ -9565,7 +9801,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Left Mouse Down Config
 
-- `class ComputerLeftMouseDownConfig:`
+- `class ComputerLeftMouseDownConfig`
 
   `left_mouse_down`'s config overrides.
 
@@ -9579,7 +9815,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Left Mouse Up Config
 
-- `class ComputerLeftMouseUpConfig:`
+- `class ComputerLeftMouseUpConfig`
 
   `left_mouse_up`'s config overrides.
 
@@ -9593,7 +9829,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Middle Click Config
 
-- `class ComputerMiddleClickConfig:`
+- `class ComputerMiddleClickConfig`
 
   `middle_click`'s config overrides.
 
@@ -9607,7 +9843,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Mouse Move Config
 
-- `class ComputerMouseMoveConfig:`
+- `class ComputerMouseMoveConfig`
 
   `mouse_move`'s config overrides.
 
@@ -9621,7 +9857,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Right Click Config
 
-- `class ComputerRightClickConfig:`
+- `class ComputerRightClickConfig`
 
   `right_click`'s config overrides.
 
@@ -9635,7 +9871,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Screenshot Config
 
-- `class ComputerScreenshotConfig:`
+- `class ComputerScreenshotConfig`
 
   `screenshot`'s config overrides.
 
@@ -9649,7 +9885,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Scroll Config
 
-- `class ComputerScrollConfig:`
+- `class ComputerScrollConfig`
 
   `scroll`'s config overrides.
 
@@ -9663,7 +9899,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Toolset 20260801
 
-- `class ComputerToolset20260801:`
+- `class ComputerToolset20260801`
 
   The computer toolset: a single `tools[]` entry (carrying no
   `name`) that declares the computer tool family. The model is
@@ -9912,7 +10148,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Toolset Configs
 
-- `class ComputerToolsetConfigs:`
+- `class ComputerToolsetConfigs`
 
   Per-member configuration for `computer_toolset_20260801`: one
   optional field per member tool, keyed by the member name — the same
@@ -10127,7 +10363,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Triple Click Config
 
-- `class ComputerTripleClickConfig:`
+- `class ComputerTripleClickConfig`
 
   `triple_click`'s config overrides.
 
@@ -10141,7 +10377,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Type Config
 
-- `class ComputerTypeConfig:`
+- `class ComputerTypeConfig`
 
   `type`'s config overrides.
 
@@ -10155,7 +10391,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Wait Config
 
-- `class ComputerWaitConfig:`
+- `class ComputerWaitConfig`
 
   `wait`'s config overrides.
 
@@ -10169,7 +10405,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Computer Zoom Config
 
-- `class ComputerZoomConfig:`
+- `class ComputerZoomConfig`
 
   `zoom`'s config overrides.
 
@@ -10183,7 +10419,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Container
 
-- `class Container:`
+- `class Container`
 
   Information about the container used in the request (for the code execution tool)
 
@@ -10223,7 +10459,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Container Params
 
-- `class ContainerParams:`
+- `class ContainerParams`
 
   Container parameters with skills to be loaded.
 
@@ -10259,7 +10495,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Container Skill
 
-- `class ContainerSkill:`
+- `class ContainerSkill`
 
   A skill that was loaded in a container (response model).
 
@@ -10285,7 +10521,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Container Upload Block
 
-- `class ContainerUploadBlock:`
+- `class ContainerUploadBlock`
 
   Response model for a file uploaded to the container.
 
@@ -10295,7 +10531,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Container Upload Block Param
 
-- `class ContainerUploadBlockParam:`
+- `class ContainerUploadBlockParam`
 
   A content block that represents a file to be uploaded to the container
   Files uploaded via this block will be available in the container's input directory.
@@ -10329,7 +10565,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class ContentBlock: union`
 
-  - `class TextBlock:`
+  - `class TextBlock`
 
     - `JsonElement Type = "text"`
 
@@ -10339,7 +10575,7 @@ Console.WriteLine(messageTokensCount);
 
       The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-      - `class CitationCharLocation:`
+      - `class CitationCharLocation`
 
         - `JsonElement Type = "char_location"`
 
@@ -10359,7 +10595,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationPageLocation:`
+      - `class CitationPageLocation`
 
         - `JsonElement Type = "page_location"`
 
@@ -10379,7 +10615,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 1
 
-      - `class CitationContentBlockLocation:`
+      - `class CitationContentBlockLocation`
 
         - `JsonElement Type = "content_block_location"`
 
@@ -10409,7 +10645,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationsWebSearchResultLocation:`
+      - `class CitationsWebSearchResultLocation`
 
         - `JsonElement Type = "web_search_result_location"`
 
@@ -10423,7 +10659,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string Url`
 
-      - `class CitationsSearchResultLocation:`
+      - `class CitationsSearchResultLocation`
 
         - `JsonElement Type = "search_result_location"`
 
@@ -10461,7 +10697,7 @@ Console.WriteLine(messageTokensCount);
 
       minLength: 0
 
-  - `class ThinkingBlock:`
+  - `class ThinkingBlock`
 
     - `JsonElement Type = "thinking"`
 
@@ -10477,7 +10713,7 @@ Console.WriteLine(messageTokensCount);
 
       The text of Claude's thinking process for this block.
 
-  - `class RedactedThinkingBlock:`
+  - `class RedactedThinkingBlock`
 
     - `JsonElement Type = "redacted_thinking"`
 
@@ -10489,7 +10725,7 @@ Console.WriteLine(messageTokensCount);
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-  - `class ToolUseBlock:`
+  - `class ToolUseBlock`
 
     - `JsonElement Type = "tool_use"`
 
@@ -10499,13 +10735,13 @@ Console.WriteLine(messageTokensCount);
 
     - `required Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
         - `JsonElement Type = "direct"`
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
@@ -10515,7 +10751,7 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
         - `JsonElement Type = "code_execution_20260120"`
 
@@ -10535,7 +10771,7 @@ Console.WriteLine(messageTokensCount);
 
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class ServerToolUseBlock:`
+  - `class ServerToolUseBlock`
 
     - `JsonElement Type = "server_tool_use"`
 
@@ -10545,15 +10781,15 @@ Console.WriteLine(messageTokensCount);
 
     - `required Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
     - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -10573,25 +10809,25 @@ Console.WriteLine(messageTokensCount);
 
       - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-  - `class WebSearchToolResultBlock:`
+  - `class WebSearchToolResultBlock`
 
     - `JsonElement Type = "web_search_tool_result"`
 
     - `required Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
     - `required WebSearchToolResultBlockContent Content`
 
-      - `class WebSearchToolResultError:`
+      - `class WebSearchToolResultError`
 
         - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -10625,25 +10861,25 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class WebFetchToolResultBlock:`
+  - `class WebFetchToolResultBlock`
 
     - `JsonElement Type = "web_fetch_tool_result"`
 
     - `required Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
     - `required Content Content`
 
-      - `class WebFetchToolResultErrorBlock:`
+      - `class WebFetchToolResultErrorBlock`
 
         - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -10669,7 +10905,7 @@ Console.WriteLine(messageTokensCount);
 
           - `ContentTooLarge("content_too_large")`
 
-      - `class WebFetchBlock:`
+      - `class WebFetchBlock`
 
         - `JsonElement Type = "web_fetch_result"`
 
@@ -10685,7 +10921,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required Source Source`
 
-            - `class Base64PdfSource:`
+            - `class Base64PdfSource`
 
               - `JsonElement Type = "base64"`
 
@@ -10695,7 +10931,7 @@ Console.WriteLine(messageTokensCount);
 
               - `JsonElement MediaType = "application/pdf"`
 
-            - `class PlainTextSource:`
+            - `class PlainTextSource`
 
               - `JsonElement Type = "text"`
 
@@ -10719,13 +10955,13 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class CodeExecutionToolResultBlock:`
+  - `class CodeExecutionToolResultBlock`
 
     - `JsonElement Type = "code_execution_tool_result"`
 
     - `required CodeExecutionToolResultBlockContent Content`
 
-      - `class CodeExecutionToolResultError:`
+      - `class CodeExecutionToolResultError`
 
         - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -10739,7 +10975,7 @@ Console.WriteLine(messageTokensCount);
 
           - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-      - `class CodeExecutionResultBlock:`
+      - `class CodeExecutionResultBlock`
 
         - `JsonElement Type = "code_execution_result"`
 
@@ -10755,7 +10991,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string Stdout`
 
-      - `class EncryptedCodeExecutionResultBlock:`
+      - `class EncryptedCodeExecutionResultBlock`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -10777,13 +11013,13 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class BashCodeExecutionToolResultBlock:`
+  - `class BashCodeExecutionToolResultBlock`
 
     - `JsonElement Type = "bash_code_execution_tool_result"`
 
     - `required Content Content`
 
-      - `class BashCodeExecutionToolResultError:`
+      - `class BashCodeExecutionToolResultError`
 
         - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -10799,7 +11035,7 @@ Console.WriteLine(messageTokensCount);
 
           - `OutputFileTooLarge("output_file_too_large")`
 
-      - `class BashCodeExecutionResultBlock:`
+      - `class BashCodeExecutionResultBlock`
 
         - `JsonElement Type = "bash_code_execution_result"`
 
@@ -10819,13 +11055,13 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class TextEditorCodeExecutionToolResultBlock:`
+  - `class TextEditorCodeExecutionToolResultBlock`
 
     - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
     - `required Content Content`
 
-      - `class TextEditorCodeExecutionToolResultError:`
+      - `class TextEditorCodeExecutionToolResultError`
 
         - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -10843,7 +11079,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string? ErrorMessage`
 
-      - `class TextEditorCodeExecutionViewResultBlock:`
+      - `class TextEditorCodeExecutionViewResultBlock`
 
         - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -10863,13 +11099,13 @@ Console.WriteLine(messageTokensCount);
 
         - `required long? TotalLines`
 
-      - `class TextEditorCodeExecutionCreateResultBlock:`
+      - `class TextEditorCodeExecutionCreateResultBlock`
 
         - `JsonElement Type = "text_editor_code_execution_create_result"`
 
         - `required bool IsFileUpdate`
 
-      - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+      - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
         - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -10887,13 +11123,13 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class ToolSearchToolResultBlock:`
+  - `class ToolSearchToolResultBlock`
 
     - `JsonElement Type = "tool_search_tool_result"`
 
     - `required Content Content`
 
-      - `class ToolSearchToolResultError:`
+      - `class ToolSearchToolResultError`
 
         - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -10909,7 +11145,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string? ErrorMessage`
 
-      - `class ToolSearchToolSearchResultBlock:`
+      - `class ToolSearchToolSearchResultBlock`
 
         - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -10925,7 +11161,7 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class ContainerUploadBlock:`
+  - `class ContainerUploadBlock`
 
     Response model for a file uploaded to the container.
 
@@ -10937,7 +11173,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class ContentBlockParam: union`
 
-  - `class TextBlockParam:`
+  - `class TextBlockParam`
 
     - `JsonElement Type = "text"`
 
@@ -10968,7 +11204,7 @@ Console.WriteLine(messageTokensCount);
 
     - `IReadOnlyList<TextCitationParam>? Citations`
 
-      - `class CitationCharLocationParam:`
+      - `class CitationCharLocationParam`
 
         - `JsonElement Type = "char_location"`
 
@@ -10988,7 +11224,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationPageLocationParam:`
+      - `class CitationPageLocationParam`
 
         - `JsonElement Type = "page_location"`
 
@@ -11008,7 +11244,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 1
 
-      - `class CitationContentBlockLocationParam:`
+      - `class CitationContentBlockLocationParam`
 
         - `JsonElement Type = "content_block_location"`
 
@@ -11038,7 +11274,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationWebSearchResultLocationParam:`
+      - `class CitationWebSearchResultLocationParam`
 
         - `JsonElement Type = "web_search_result_location"`
 
@@ -11054,7 +11290,7 @@ Console.WriteLine(messageTokensCount);
 
           minLength: 1
 
-      - `class CitationSearchResultLocationParam:`
+      - `class CitationSearchResultLocationParam`
 
         - `JsonElement Type = "search_result_location"`
 
@@ -11088,13 +11324,13 @@ Console.WriteLine(messageTokensCount);
 
         - `required string? Title`
 
-  - `class ImageBlockParam:`
+  - `class ImageBlockParam`
 
     - `JsonElement Type = "image"`
 
     - `required Source Source`
 
-      - `class Base64ImageSource:`
+      - `class Base64ImageSource`
 
         - `JsonElement Type = "base64"`
 
@@ -11112,13 +11348,13 @@ Console.WriteLine(messageTokensCount);
 
           - `ImageWebP("image/webp")`
 
-      - `class UrlImageSource:`
+      - `class UrlImageSource`
 
         - `JsonElement Type = "url"`
 
         - `required string Url`
 
-      - `class FileImageSource:`
+      - `class FileImageSource`
 
         - `JsonElement Type = "file"`
 
@@ -11140,13 +11376,13 @@ Console.WriteLine(messageTokensCount);
 
         - `Error("error")`
 
-  - `class DocumentBlockParam:`
+  - `class DocumentBlockParam`
 
     - `JsonElement Type = "document"`
 
     - `required Source Source`
 
-      - `class Base64PdfSource:`
+      - `class Base64PdfSource`
 
         - `JsonElement Type = "base64"`
 
@@ -11156,7 +11392,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement MediaType = "application/pdf"`
 
-      - `class PlainTextSource:`
+      - `class PlainTextSource`
 
         - `JsonElement Type = "text"`
 
@@ -11164,7 +11400,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement MediaType = "text/plain"`
 
-      - `class ContentBlockSource:`
+      - `class ContentBlockSource`
 
         - `JsonElement Type = "content"`
 
@@ -11174,17 +11410,17 @@ Console.WriteLine(messageTokensCount);
 
           - `IReadOnlyList<ContentBlockSourceContent>`
 
-            - `class TextBlockParam:`
+            - `class TextBlockParam`
 
-            - `class ImageBlockParam:`
+            - `class ImageBlockParam`
 
-      - `class UrlPdfSource:`
+      - `class UrlPdfSource`
 
         - `JsonElement Type = "url"`
 
         - `required string Url`
 
-      - `class FileDocumentSource:`
+      - `class FileDocumentSource`
 
         - `JsonElement Type = "file"`
 
@@ -11206,7 +11442,7 @@ Console.WriteLine(messageTokensCount);
 
       maxLength: 500, minLength: 1
 
-  - `class SearchResultBlockParam:`
+  - `class SearchResultBlockParam`
 
     - `JsonElement Type = "search_result"`
 
@@ -11234,7 +11470,7 @@ Console.WriteLine(messageTokensCount);
 
     - `CitationsConfigParam Citations`
 
-  - `class ThinkingBlockParam:`
+  - `class ThinkingBlockParam`
 
     - `JsonElement Type = "thinking"`
 
@@ -11248,7 +11484,7 @@ Console.WriteLine(messageTokensCount);
 
       The `thinking` text of this block as returned by the API.
 
-  - `class RedactedThinkingBlockParam:`
+  - `class RedactedThinkingBlockParam`
 
     - `JsonElement Type = "redacted_thinking"`
 
@@ -11256,7 +11492,7 @@ Console.WriteLine(messageTokensCount);
 
       The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-  - `class ToolUseBlockParam:`
+  - `class ToolUseBlockParam`
 
     - `JsonElement Type = "tool_use"`
 
@@ -11276,13 +11512,13 @@ Console.WriteLine(messageTokensCount);
 
     - `Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
         - `JsonElement Type = "direct"`
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
@@ -11292,7 +11528,7 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
         - `JsonElement Type = "code_execution_20260120"`
 
@@ -11306,7 +11542,7 @@ Console.WriteLine(messageTokensCount);
 
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class ToolResultBlockParam:`
+  - `class ToolResultBlockParam`
 
     - `JsonElement Type = "tool_result"`
 
@@ -11324,15 +11560,15 @@ Console.WriteLine(messageTokensCount);
 
       - `IReadOnlyList<Block>`
 
-        - `class TextBlockParam:`
+        - `class TextBlockParam`
 
-        - `class ImageBlockParam:`
+        - `class ImageBlockParam`
 
-        - `class SearchResultBlockParam:`
+        - `class SearchResultBlockParam`
 
-        - `class DocumentBlockParam:`
+        - `class DocumentBlockParam`
 
-        - `class ToolReferenceBlockParam:`
+        - `class ToolReferenceBlockParam`
 
           Tool reference block that can be included in tool_result content.
 
@@ -11346,7 +11582,7 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
-        - `class BrowserStateBlockParam:`
+        - `class BrowserStateBlockParam`
 
           The caller's browser state after a browser toolset member call —
           the full inventory of open tabs, which tab is active, and any side
@@ -11396,7 +11632,7 @@ Console.WriteLine(messageTokensCount);
 
             maxItems: 200, minItems: 1
 
-            - `class BrowserStateChangeTabOpened:`
+            - `class BrowserStateChangeTabOpened`
 
               A tab this call's execution opened that remains open at its end —
               the creation delta of the `tabs` inventory, not an event log.
@@ -11414,7 +11650,7 @@ Console.WriteLine(messageTokensCount);
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `class BrowserStateChangeDownloadStarted:`
+            - `class BrowserStateChangeDownloadStarted`
 
               A file download that started during this call.
 
@@ -11432,7 +11668,7 @@ Console.WriteLine(messageTokensCount);
 
                 maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `class BrowserStateChangeDownloadCompleted:`
+            - `class BrowserStateChangeDownloadCompleted`
 
               A file download that finished during this call, reported with the
               same `download_id` as its `download_started` — or without a prior
@@ -11465,7 +11701,7 @@ Console.WriteLine(messageTokensCount);
 
                 minimum: 0
 
-            - `class BrowserStateChangeDownloadFailed:`
+            - `class BrowserStateChangeDownloadFailed`
 
               A file download that failed — or was cancelled — during this call.
 
@@ -11497,7 +11733,7 @@ Console.WriteLine(messageTokensCount);
 
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class ServerToolUseBlockParam:`
+  - `class ServerToolUseBlockParam`
 
     - `JsonElement Type = "server_tool_use"`
 
@@ -11529,17 +11765,17 @@ Console.WriteLine(messageTokensCount);
 
     - `Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
-  - `class WebSearchToolResultBlockParam:`
+  - `class WebSearchToolResultBlockParam`
 
     - `JsonElement Type = "web_search_tool_result"`
 
@@ -11557,7 +11793,7 @@ Console.WriteLine(messageTokensCount);
 
         - `string? PageAge`
 
-      - `class WebSearchToolRequestError:`
+      - `class WebSearchToolRequestError`
 
         - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -11585,23 +11821,23 @@ Console.WriteLine(messageTokensCount);
 
     - `Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
-  - `class WebFetchToolResultBlockParam:`
+  - `class WebFetchToolResultBlockParam`
 
     - `JsonElement Type = "web_fetch_tool_result"`
 
     - `required Content Content`
 
-      - `class WebFetchToolResultErrorBlockParam:`
+      - `class WebFetchToolResultErrorBlockParam`
 
         - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -11627,7 +11863,7 @@ Console.WriteLine(messageTokensCount);
 
           - `ContentTooLarge("content_too_large")`
 
-      - `class WebFetchBlockParam:`
+      - `class WebFetchBlockParam`
 
         - `JsonElement Type = "web_fetch_result"`
 
@@ -11651,23 +11887,23 @@ Console.WriteLine(messageTokensCount);
 
     - `Caller Caller`
 
-      - `class DirectCaller:`
+      - `class DirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class ServerToolCaller:`
+      - `class ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class ServerToolCaller20260120:`
+      - `class ServerToolCaller20260120`
 
-  - `class CodeExecutionToolResultBlockParam:`
+  - `class CodeExecutionToolResultBlockParam`
 
     - `JsonElement Type = "code_execution_tool_result"`
 
     - `required CodeExecutionToolResultBlockParamContent Content`
 
-      - `class CodeExecutionToolResultErrorParam:`
+      - `class CodeExecutionToolResultErrorParam`
 
         - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -11681,7 +11917,7 @@ Console.WriteLine(messageTokensCount);
 
           - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-      - `class CodeExecutionResultBlockParam:`
+      - `class CodeExecutionResultBlockParam`
 
         - `JsonElement Type = "code_execution_result"`
 
@@ -11697,7 +11933,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string Stdout`
 
-      - `class EncryptedCodeExecutionResultBlockParam:`
+      - `class EncryptedCodeExecutionResultBlockParam`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -11723,13 +11959,13 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-  - `class BashCodeExecutionToolResultBlockParam:`
+  - `class BashCodeExecutionToolResultBlockParam`
 
     - `JsonElement Type = "bash_code_execution_tool_result"`
 
     - `required Content Content`
 
-      - `class BashCodeExecutionToolResultErrorParam:`
+      - `class BashCodeExecutionToolResultErrorParam`
 
         - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -11745,7 +11981,7 @@ Console.WriteLine(messageTokensCount);
 
           - `OutputFileTooLarge("output_file_too_large")`
 
-      - `class BashCodeExecutionResultBlockParam:`
+      - `class BashCodeExecutionResultBlockParam`
 
         - `JsonElement Type = "bash_code_execution_result"`
 
@@ -11769,13 +12005,13 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-  - `class TextEditorCodeExecutionToolResultBlockParam:`
+  - `class TextEditorCodeExecutionToolResultBlockParam`
 
     - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
     - `required Content Content`
 
-      - `class TextEditorCodeExecutionToolResultErrorParam:`
+      - `class TextEditorCodeExecutionToolResultErrorParam`
 
         - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -11793,7 +12029,7 @@ Console.WriteLine(messageTokensCount);
 
         - `string? ErrorMessage`
 
-      - `class TextEditorCodeExecutionViewResultBlockParam:`
+      - `class TextEditorCodeExecutionViewResultBlockParam`
 
         - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -11813,13 +12049,13 @@ Console.WriteLine(messageTokensCount);
 
         - `long? TotalLines`
 
-      - `class TextEditorCodeExecutionCreateResultBlockParam:`
+      - `class TextEditorCodeExecutionCreateResultBlockParam`
 
         - `JsonElement Type = "text_editor_code_execution_create_result"`
 
         - `required bool IsFileUpdate`
 
-      - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+      - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
         - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -11841,13 +12077,13 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-  - `class ToolSearchToolResultBlockParam:`
+  - `class ToolSearchToolResultBlockParam`
 
     - `JsonElement Type = "tool_search_tool_result"`
 
     - `required Content Content`
 
-      - `class ToolSearchToolResultErrorParam:`
+      - `class ToolSearchToolResultErrorParam`
 
         - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -11863,7 +12099,7 @@ Console.WriteLine(messageTokensCount);
 
         - `string? ErrorMessage`
 
-      - `class ToolSearchToolSearchResultBlockParam:`
+      - `class ToolSearchToolSearchResultBlockParam`
 
         - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -11887,7 +12123,7 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-  - `class ContainerUploadBlockParam:`
+  - `class ContainerUploadBlockParam`
 
     A content block that represents a file to be uploaded to the container
     Files uploaded via this block will be available in the container's input directory.
@@ -11902,7 +12138,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Content Block Source
 
-- `class ContentBlockSource:`
+- `class ContentBlockSource`
 
   - `JsonElement Type = "content"`
 
@@ -11912,7 +12148,7 @@ Console.WriteLine(messageTokensCount);
 
     - `IReadOnlyList<ContentBlockSourceContent>`
 
-      - `class TextBlockParam:`
+      - `class TextBlockParam`
 
         - `JsonElement Type = "text"`
 
@@ -11943,7 +12179,7 @@ Console.WriteLine(messageTokensCount);
 
         - `IReadOnlyList<TextCitationParam>? Citations`
 
-          - `class CitationCharLocationParam:`
+          - `class CitationCharLocationParam`
 
             - `JsonElement Type = "char_location"`
 
@@ -11963,7 +12199,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationPageLocationParam:`
+          - `class CitationPageLocationParam`
 
             - `JsonElement Type = "page_location"`
 
@@ -11983,7 +12219,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 1
 
-          - `class CitationContentBlockLocationParam:`
+          - `class CitationContentBlockLocationParam`
 
             - `JsonElement Type = "content_block_location"`
 
@@ -12013,7 +12249,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationWebSearchResultLocationParam:`
+          - `class CitationWebSearchResultLocationParam`
 
             - `JsonElement Type = "web_search_result_location"`
 
@@ -12029,7 +12265,7 @@ Console.WriteLine(messageTokensCount);
 
               minLength: 1
 
-          - `class CitationSearchResultLocationParam:`
+          - `class CitationSearchResultLocationParam`
 
             - `JsonElement Type = "search_result_location"`
 
@@ -12063,13 +12299,13 @@ Console.WriteLine(messageTokensCount);
 
             - `required string? Title`
 
-      - `class ImageBlockParam:`
+      - `class ImageBlockParam`
 
         - `JsonElement Type = "image"`
 
         - `required Source Source`
 
-          - `class Base64ImageSource:`
+          - `class Base64ImageSource`
 
             - `JsonElement Type = "base64"`
 
@@ -12087,13 +12323,13 @@ Console.WriteLine(messageTokensCount);
 
               - `ImageWebP("image/webp")`
 
-          - `class UrlImageSource:`
+          - `class UrlImageSource`
 
             - `JsonElement Type = "url"`
 
             - `required string Url`
 
-          - `class FileImageSource:`
+          - `class FileImageSource`
 
             - `JsonElement Type = "file"`
 
@@ -12119,7 +12355,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class ContentBlockSourceContent: union`
 
-  - `class TextBlockParam:`
+  - `class TextBlockParam`
 
     - `JsonElement Type = "text"`
 
@@ -12150,7 +12386,7 @@ Console.WriteLine(messageTokensCount);
 
     - `IReadOnlyList<TextCitationParam>? Citations`
 
-      - `class CitationCharLocationParam:`
+      - `class CitationCharLocationParam`
 
         - `JsonElement Type = "char_location"`
 
@@ -12170,7 +12406,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationPageLocationParam:`
+      - `class CitationPageLocationParam`
 
         - `JsonElement Type = "page_location"`
 
@@ -12190,7 +12426,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 1
 
-      - `class CitationContentBlockLocationParam:`
+      - `class CitationContentBlockLocationParam`
 
         - `JsonElement Type = "content_block_location"`
 
@@ -12220,7 +12456,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationWebSearchResultLocationParam:`
+      - `class CitationWebSearchResultLocationParam`
 
         - `JsonElement Type = "web_search_result_location"`
 
@@ -12236,7 +12472,7 @@ Console.WriteLine(messageTokensCount);
 
           minLength: 1
 
-      - `class CitationSearchResultLocationParam:`
+      - `class CitationSearchResultLocationParam`
 
         - `JsonElement Type = "search_result_location"`
 
@@ -12270,13 +12506,13 @@ Console.WriteLine(messageTokensCount);
 
         - `required string? Title`
 
-  - `class ImageBlockParam:`
+  - `class ImageBlockParam`
 
     - `JsonElement Type = "image"`
 
     - `required Source Source`
 
-      - `class Base64ImageSource:`
+      - `class Base64ImageSource`
 
         - `JsonElement Type = "base64"`
 
@@ -12294,13 +12530,13 @@ Console.WriteLine(messageTokensCount);
 
           - `ImageWebP("image/webp")`
 
-      - `class UrlImageSource:`
+      - `class UrlImageSource`
 
         - `JsonElement Type = "url"`
 
         - `required string Url`
 
-      - `class FileImageSource:`
+      - `class FileImageSource`
 
         - `JsonElement Type = "file"`
 
@@ -12324,7 +12560,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Direct Caller
 
-- `class DirectCaller:`
+- `class DirectCaller`
 
   Tool invocation directly from the model.
 
@@ -12332,7 +12568,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Document Block
 
-- `class DocumentBlock:`
+- `class DocumentBlock`
 
   - `JsonElement Type = "document"`
 
@@ -12344,7 +12580,7 @@ Console.WriteLine(messageTokensCount);
 
   - `required Source Source`
 
-    - `class Base64PdfSource:`
+    - `class Base64PdfSource`
 
       - `JsonElement Type = "base64"`
 
@@ -12354,7 +12590,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement MediaType = "application/pdf"`
 
-    - `class PlainTextSource:`
+    - `class PlainTextSource`
 
       - `JsonElement Type = "text"`
 
@@ -12368,13 +12604,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Document Block Param
 
-- `class DocumentBlockParam:`
+- `class DocumentBlockParam`
 
   - `JsonElement Type = "document"`
 
   - `required Source Source`
 
-    - `class Base64PdfSource:`
+    - `class Base64PdfSource`
 
       - `JsonElement Type = "base64"`
 
@@ -12384,7 +12620,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement MediaType = "application/pdf"`
 
-    - `class PlainTextSource:`
+    - `class PlainTextSource`
 
       - `JsonElement Type = "text"`
 
@@ -12392,7 +12628,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement MediaType = "text/plain"`
 
-    - `class ContentBlockSource:`
+    - `class ContentBlockSource`
 
       - `JsonElement Type = "content"`
 
@@ -12402,7 +12638,7 @@ Console.WriteLine(messageTokensCount);
 
         - `IReadOnlyList<ContentBlockSourceContent>`
 
-          - `class TextBlockParam:`
+          - `class TextBlockParam`
 
             - `JsonElement Type = "text"`
 
@@ -12433,7 +12669,7 @@ Console.WriteLine(messageTokensCount);
 
             - `IReadOnlyList<TextCitationParam>? Citations`
 
-              - `class CitationCharLocationParam:`
+              - `class CitationCharLocationParam`
 
                 - `JsonElement Type = "char_location"`
 
@@ -12453,7 +12689,7 @@ Console.WriteLine(messageTokensCount);
 
                   minimum: 0
 
-              - `class CitationPageLocationParam:`
+              - `class CitationPageLocationParam`
 
                 - `JsonElement Type = "page_location"`
 
@@ -12473,7 +12709,7 @@ Console.WriteLine(messageTokensCount);
 
                   minimum: 1
 
-              - `class CitationContentBlockLocationParam:`
+              - `class CitationContentBlockLocationParam`
 
                 - `JsonElement Type = "content_block_location"`
 
@@ -12503,7 +12739,7 @@ Console.WriteLine(messageTokensCount);
 
                   minimum: 0
 
-              - `class CitationWebSearchResultLocationParam:`
+              - `class CitationWebSearchResultLocationParam`
 
                 - `JsonElement Type = "web_search_result_location"`
 
@@ -12519,7 +12755,7 @@ Console.WriteLine(messageTokensCount);
 
                   minLength: 1
 
-              - `class CitationSearchResultLocationParam:`
+              - `class CitationSearchResultLocationParam`
 
                 - `JsonElement Type = "search_result_location"`
 
@@ -12553,13 +12789,13 @@ Console.WriteLine(messageTokensCount);
 
                 - `required string? Title`
 
-          - `class ImageBlockParam:`
+          - `class ImageBlockParam`
 
             - `JsonElement Type = "image"`
 
             - `required Source Source`
 
-              - `class Base64ImageSource:`
+              - `class Base64ImageSource`
 
                 - `JsonElement Type = "base64"`
 
@@ -12577,13 +12813,13 @@ Console.WriteLine(messageTokensCount);
 
                   - `ImageWebP("image/webp")`
 
-              - `class UrlImageSource:`
+              - `class UrlImageSource`
 
                 - `JsonElement Type = "url"`
 
                 - `required string Url`
 
-              - `class FileImageSource:`
+              - `class FileImageSource`
 
                 - `JsonElement Type = "file"`
 
@@ -12605,13 +12841,13 @@ Console.WriteLine(messageTokensCount);
 
                 - `Error("error")`
 
-    - `class UrlPdfSource:`
+    - `class UrlPdfSource`
 
       - `JsonElement Type = "url"`
 
       - `required string Url`
 
-    - `class FileDocumentSource:`
+    - `class FileDocumentSource`
 
       - `JsonElement Type = "file"`
 
@@ -12635,7 +12871,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Encrypted Code Execution Result Block
 
-- `class EncryptedCodeExecutionResultBlock:`
+- `class EncryptedCodeExecutionResultBlock`
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12655,7 +12891,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Encrypted Code Execution Result Block Param
 
-- `class EncryptedCodeExecutionResultBlockParam:`
+- `class EncryptedCodeExecutionResultBlockParam`
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12675,7 +12911,7 @@ Console.WriteLine(messageTokensCount);
 
 ### File Document Source
 
-- `class FileDocumentSource:`
+- `class FileDocumentSource`
 
   - `JsonElement Type = "file"`
 
@@ -12683,7 +12919,7 @@ Console.WriteLine(messageTokensCount);
 
 ### File Image Source
 
-- `class FileImageSource:`
+- `class FileImageSource`
 
   - `JsonElement Type = "file"`
 
@@ -12691,13 +12927,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Image Block Param
 
-- `class ImageBlockParam:`
+- `class ImageBlockParam`
 
   - `JsonElement Type = "image"`
 
   - `required Source Source`
 
-    - `class Base64ImageSource:`
+    - `class Base64ImageSource`
 
       - `JsonElement Type = "base64"`
 
@@ -12715,13 +12951,13 @@ Console.WriteLine(messageTokensCount);
 
         - `ImageWebP("image/webp")`
 
-    - `class UrlImageSource:`
+    - `class UrlImageSource`
 
       - `JsonElement Type = "url"`
 
       - `required string Url`
 
-    - `class FileImageSource:`
+    - `class FileImageSource`
 
       - `JsonElement Type = "file"`
 
@@ -12762,7 +12998,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Image Transformations Param
 
-- `class ImageTransformationsParam:`
+- `class ImageTransformationsParam`
 
   Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -12776,7 +13012,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Input JSON Delta
 
-- `class InputJsonDelta:`
+- `class InputJsonDelta`
 
   - `JsonElement Type = "input_json_delta"`
 
@@ -12784,7 +13020,7 @@ Console.WriteLine(messageTokensCount);
 
 ### JSON Output Format
 
-- `class JsonOutputFormat:`
+- `class JsonOutputFormat`
 
   - `JsonElement Type = "json_schema"`
 
@@ -12794,7 +13030,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Memory Tool 20250818
 
-- `class MemoryTool20250818:`
+- `class MemoryTool20250818`
 
   - `JsonElement Type = "memory_20250818"`
 
@@ -12847,7 +13083,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Message
 
-- `class Message:`
+- `class Message`
 
   - `JsonElement Type = "message"`
 
@@ -12928,7 +13164,7 @@ Console.WriteLine(messageTokensCount);
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `class TextBlock:`
+    - `class TextBlock`
 
       - `JsonElement Type = "text"`
 
@@ -12938,7 +13174,7 @@ Console.WriteLine(messageTokensCount);
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class CitationCharLocation:`
+        - `class CitationCharLocation`
 
           - `JsonElement Type = "char_location"`
 
@@ -12958,7 +13194,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `class CitationPageLocation:`
+        - `class CitationPageLocation`
 
           - `JsonElement Type = "page_location"`
 
@@ -12978,7 +13214,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 1
 
-        - `class CitationContentBlockLocation:`
+        - `class CitationContentBlockLocation`
 
           - `JsonElement Type = "content_block_location"`
 
@@ -13008,7 +13244,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `class CitationsWebSearchResultLocation:`
+        - `class CitationsWebSearchResultLocation`
 
           - `JsonElement Type = "web_search_result_location"`
 
@@ -13022,7 +13258,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string Url`
 
-        - `class CitationsSearchResultLocation:`
+        - `class CitationsSearchResultLocation`
 
           - `JsonElement Type = "search_result_location"`
 
@@ -13060,7 +13296,7 @@ Console.WriteLine(messageTokensCount);
 
         minLength: 0
 
-    - `class ThinkingBlock:`
+    - `class ThinkingBlock`
 
       - `JsonElement Type = "thinking"`
 
@@ -13076,7 +13312,7 @@ Console.WriteLine(messageTokensCount);
 
         The text of Claude's thinking process for this block.
 
-    - `class RedactedThinkingBlock:`
+    - `class RedactedThinkingBlock`
 
       - `JsonElement Type = "redacted_thinking"`
 
@@ -13088,7 +13324,7 @@ Console.WriteLine(messageTokensCount);
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class ToolUseBlock:`
+    - `class ToolUseBlock`
 
       - `JsonElement Type = "tool_use"`
 
@@ -13098,13 +13334,13 @@ Console.WriteLine(messageTokensCount);
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
           - `JsonElement Type = "direct"`
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -13114,7 +13350,7 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
           - `JsonElement Type = "code_execution_20260120"`
 
@@ -13134,7 +13370,7 @@ Console.WriteLine(messageTokensCount);
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class ServerToolUseBlock:`
+    - `class ServerToolUseBlock`
 
       - `JsonElement Type = "server_tool_use"`
 
@@ -13144,15 +13380,15 @@ Console.WriteLine(messageTokensCount);
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -13172,25 +13408,25 @@ Console.WriteLine(messageTokensCount);
 
         - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-    - `class WebSearchToolResultBlock:`
+    - `class WebSearchToolResultBlock`
 
       - `JsonElement Type = "web_search_tool_result"`
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required WebSearchToolResultBlockContent Content`
 
-        - `class WebSearchToolResultError:`
+        - `class WebSearchToolResultError`
 
           - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -13224,25 +13460,25 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class WebFetchToolResultBlock:`
+    - `class WebFetchToolResultBlock`
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required Content Content`
 
-        - `class WebFetchToolResultErrorBlock:`
+        - `class WebFetchToolResultErrorBlock`
 
           - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -13268,7 +13504,7 @@ Console.WriteLine(messageTokensCount);
 
             - `ContentTooLarge("content_too_large")`
 
-        - `class WebFetchBlock:`
+        - `class WebFetchBlock`
 
           - `JsonElement Type = "web_fetch_result"`
 
@@ -13284,7 +13520,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required Source Source`
 
-              - `class Base64PdfSource:`
+              - `class Base64PdfSource`
 
                 - `JsonElement Type = "base64"`
 
@@ -13294,7 +13530,7 @@ Console.WriteLine(messageTokensCount);
 
                 - `JsonElement MediaType = "application/pdf"`
 
-              - `class PlainTextSource:`
+              - `class PlainTextSource`
 
                 - `JsonElement Type = "text"`
 
@@ -13318,13 +13554,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class CodeExecutionToolResultBlock:`
+    - `class CodeExecutionToolResultBlock`
 
       - `JsonElement Type = "code_execution_tool_result"`
 
       - `required CodeExecutionToolResultBlockContent Content`
 
-        - `class CodeExecutionToolResultError:`
+        - `class CodeExecutionToolResultError`
 
           - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -13338,7 +13574,7 @@ Console.WriteLine(messageTokensCount);
 
             - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-        - `class CodeExecutionResultBlock:`
+        - `class CodeExecutionResultBlock`
 
           - `JsonElement Type = "code_execution_result"`
 
@@ -13354,7 +13590,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string Stdout`
 
-        - `class EncryptedCodeExecutionResultBlock:`
+        - `class EncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -13376,13 +13612,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BashCodeExecutionToolResultBlock:`
+    - `class BashCodeExecutionToolResultBlock`
 
       - `JsonElement Type = "bash_code_execution_tool_result"`
 
       - `required Content Content`
 
-        - `class BashCodeExecutionToolResultError:`
+        - `class BashCodeExecutionToolResultError`
 
           - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -13398,7 +13634,7 @@ Console.WriteLine(messageTokensCount);
 
             - `OutputFileTooLarge("output_file_too_large")`
 
-        - `class BashCodeExecutionResultBlock:`
+        - `class BashCodeExecutionResultBlock`
 
           - `JsonElement Type = "bash_code_execution_result"`
 
@@ -13418,13 +13654,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class TextEditorCodeExecutionToolResultBlock:`
+    - `class TextEditorCodeExecutionToolResultBlock`
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
       - `required Content Content`
 
-        - `class TextEditorCodeExecutionToolResultError:`
+        - `class TextEditorCodeExecutionToolResultError`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -13442,7 +13678,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string? ErrorMessage`
 
-        - `class TextEditorCodeExecutionViewResultBlock:`
+        - `class TextEditorCodeExecutionViewResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -13462,13 +13698,13 @@ Console.WriteLine(messageTokensCount);
 
           - `required long? TotalLines`
 
-        - `class TextEditorCodeExecutionCreateResultBlock:`
+        - `class TextEditorCodeExecutionCreateResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_create_result"`
 
           - `required bool IsFileUpdate`
 
-        - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+        - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -13486,13 +13722,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ToolSearchToolResultBlock:`
+    - `class ToolSearchToolResultBlock`
 
       - `JsonElement Type = "tool_search_tool_result"`
 
       - `required Content Content`
 
-        - `class ToolSearchToolResultError:`
+        - `class ToolSearchToolResultError`
 
           - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -13508,7 +13744,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string? ErrorMessage`
 
-        - `class ToolSearchToolSearchResultBlock:`
+        - `class ToolSearchToolSearchResultBlock`
 
           - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -13524,7 +13760,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ContainerUploadBlock:`
+    - `class ContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -13792,7 +14028,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class MessageCountTokensTool: union`
 
-  - `class Tool:`
+  - `class Tool`
 
     - `Type? Type`
 
@@ -13867,7 +14103,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolBash20250124:`
+  - `class ToolBash20250124`
 
     - `JsonElement Type = "bash_20250124"`
 
@@ -13901,7 +14137,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20250522:`
+  - `class CodeExecutionTool20250522`
 
     - `JsonElement Type = "code_execution_20250522"`
 
@@ -13933,7 +14169,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20250825:`
+  - `class CodeExecutionTool20250825`
 
     - `JsonElement Type = "code_execution_20250825"`
 
@@ -13965,7 +14201,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20260120:`
+  - `class CodeExecutionTool20260120`
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -13999,7 +14235,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20260521:`
+  - `class CodeExecutionTool20260521`
 
     Code execution tool with REPL state persistence.
 
@@ -14033,7 +14269,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BrowserToolset20260801:`
+  - `class BrowserToolset20260801`
 
     The browser toolset: a single `tools[]` entry (carrying no
     `name`) that declares the browser tool family. The model is served
@@ -14427,7 +14663,7 @@ Console.WriteLine(messageTokensCount);
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class MemoryTool20250818:`
+  - `class MemoryTool20250818`
 
     - `JsonElement Type = "memory_20250818"`
 
@@ -14461,7 +14697,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ComputerToolset20260801:`
+  - `class ComputerToolset20260801`
 
     The computer toolset: a single `tools[]` entry (carrying no
     `name`) that declares the computer tool family. The model is
@@ -14691,7 +14927,7 @@ Console.WriteLine(messageTokensCount);
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class ToolTextEditor20250124:`
+  - `class ToolTextEditor20250124`
 
     - `JsonElement Type = "text_editor_20250124"`
 
@@ -14725,7 +14961,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolTextEditor20250429:`
+  - `class ToolTextEditor20250429`
 
     - `JsonElement Type = "text_editor_20250429"`
 
@@ -14759,7 +14995,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolTextEditor20250728:`
+  - `class ToolTextEditor20250728`
 
     - `JsonElement Type = "text_editor_20250728"`
 
@@ -14799,7 +15035,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebSearchTool20250305:`
+  - `class WebSearchTool20250305`
 
     - `JsonElement Type = "web_search_20250305"`
 
@@ -14875,7 +15111,7 @@ Console.WriteLine(messageTokensCount);
 
         maxLength: 255, minLength: 1
 
-  - `class WebFetchTool20250910:`
+  - `class WebFetchTool20250910`
 
     - `JsonElement Type = "web_fetch_20250910"`
 
@@ -14933,7 +15169,98 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebSearchTool20260209:`
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+      - `ClientToolResults ClientToolResults`
+
+        Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+        - `class WebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+          - `JsonElement Type = "all"`
+
+        - `class WebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+          - `JsonElement Type = "none"`
+
+        - `class WebFetchUrlSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+          - `JsonElement Type = "only"`
+
+          - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+            - `JsonElement Type = "tool_reference"`
+
+            - `required string Name`
+
+        - `class WebFetchUrlSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+          - `JsonElement Type = "except"`
+
+          - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+            - `JsonElement Type = "tool_reference"`
+
+            - `required string Name`
+
+      - `ServerToolResults ServerToolResults`
+
+        Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+        - `class WebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class WebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+        - `class WebFetchUrlSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+        - `class WebFetchUrlSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+      - `UserInput UserInput`
+
+        Whether URLs in user messages are fetchable: "all" or "none".
+
+        - `class WebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class WebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+  - `class WebSearchTool20260209`
 
     - `JsonElement Type = "web_search_20260209"`
 
@@ -14983,7 +15310,7 @@ Console.WriteLine(messageTokensCount);
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class WebFetchTool20260209:`
+  - `class WebFetchTool20260209`
 
     - `JsonElement Type = "web_fetch_20260209"`
 
@@ -15039,7 +15366,16 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebFetchTool20260309:`
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+  - `class WebFetchTool20260309`
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -15097,11 +15433,20 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `bool UseCache`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class WebSearchTool20260318:`
+  - `class WebSearchTool20260318`
 
     - `JsonElement Type = "web_search_20260318"`
 
@@ -15159,7 +15504,7 @@ Console.WriteLine(messageTokensCount);
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class WebFetchTool20260318:`
+  - `class WebFetchTool20260318`
 
     - `JsonElement Type = "web_fetch_20260318"`
 
@@ -15223,11 +15568,20 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `bool UseCache`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class ToolSearchToolBm25_20251119:`
+  - `class ToolSearchToolBm25_20251119`
 
     - `required Type Type`
 
@@ -15263,7 +15617,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolSearchToolRegex20251119:`
+  - `class ToolSearchToolRegex20251119`
 
     - `required Type Type`
 
@@ -15305,7 +15659,7 @@ Console.WriteLine(messageTokensCount);
 
   Container identifier for reuse across requests.
 
-  - `class ContainerParams:`
+  - `class ContainerParams`
 
     Container parameters with skills to be loaded.
 
@@ -15343,7 +15697,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Message Delta Usage
 
-- `class MessageDeltaUsage:`
+- `class MessageDeltaUsage`
 
   - `required long? CacheCreationInputTokens`
 
@@ -15407,7 +15761,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Message Param
 
-- `class MessageParam:`
+- `class MessageParam`
 
   - `required Content Content`
 
@@ -15415,7 +15769,7 @@ Console.WriteLine(messageTokensCount);
 
     - `IReadOnlyList<ContentBlockParam>`
 
-      - `class TextBlockParam:`
+      - `class TextBlockParam`
 
         - `JsonElement Type = "text"`
 
@@ -15446,7 +15800,7 @@ Console.WriteLine(messageTokensCount);
 
         - `IReadOnlyList<TextCitationParam>? Citations`
 
-          - `class CitationCharLocationParam:`
+          - `class CitationCharLocationParam`
 
             - `JsonElement Type = "char_location"`
 
@@ -15466,7 +15820,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationPageLocationParam:`
+          - `class CitationPageLocationParam`
 
             - `JsonElement Type = "page_location"`
 
@@ -15486,7 +15840,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 1
 
-          - `class CitationContentBlockLocationParam:`
+          - `class CitationContentBlockLocationParam`
 
             - `JsonElement Type = "content_block_location"`
 
@@ -15516,7 +15870,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationWebSearchResultLocationParam:`
+          - `class CitationWebSearchResultLocationParam`
 
             - `JsonElement Type = "web_search_result_location"`
 
@@ -15532,7 +15886,7 @@ Console.WriteLine(messageTokensCount);
 
               minLength: 1
 
-          - `class CitationSearchResultLocationParam:`
+          - `class CitationSearchResultLocationParam`
 
             - `JsonElement Type = "search_result_location"`
 
@@ -15566,13 +15920,13 @@ Console.WriteLine(messageTokensCount);
 
             - `required string? Title`
 
-      - `class ImageBlockParam:`
+      - `class ImageBlockParam`
 
         - `JsonElement Type = "image"`
 
         - `required Source Source`
 
-          - `class Base64ImageSource:`
+          - `class Base64ImageSource`
 
             - `JsonElement Type = "base64"`
 
@@ -15590,13 +15944,13 @@ Console.WriteLine(messageTokensCount);
 
               - `ImageWebP("image/webp")`
 
-          - `class UrlImageSource:`
+          - `class UrlImageSource`
 
             - `JsonElement Type = "url"`
 
             - `required string Url`
 
-          - `class FileImageSource:`
+          - `class FileImageSource`
 
             - `JsonElement Type = "file"`
 
@@ -15618,13 +15972,13 @@ Console.WriteLine(messageTokensCount);
 
             - `Error("error")`
 
-      - `class DocumentBlockParam:`
+      - `class DocumentBlockParam`
 
         - `JsonElement Type = "document"`
 
         - `required Source Source`
 
-          - `class Base64PdfSource:`
+          - `class Base64PdfSource`
 
             - `JsonElement Type = "base64"`
 
@@ -15634,7 +15988,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "application/pdf"`
 
-          - `class PlainTextSource:`
+          - `class PlainTextSource`
 
             - `JsonElement Type = "text"`
 
@@ -15642,7 +15996,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "text/plain"`
 
-          - `class ContentBlockSource:`
+          - `class ContentBlockSource`
 
             - `JsonElement Type = "content"`
 
@@ -15652,17 +16006,17 @@ Console.WriteLine(messageTokensCount);
 
               - `IReadOnlyList<ContentBlockSourceContent>`
 
-                - `class TextBlockParam:`
+                - `class TextBlockParam`
 
-                - `class ImageBlockParam:`
+                - `class ImageBlockParam`
 
-          - `class UrlPdfSource:`
+          - `class UrlPdfSource`
 
             - `JsonElement Type = "url"`
 
             - `required string Url`
 
-          - `class FileDocumentSource:`
+          - `class FileDocumentSource`
 
             - `JsonElement Type = "file"`
 
@@ -15684,7 +16038,7 @@ Console.WriteLine(messageTokensCount);
 
           maxLength: 500, minLength: 1
 
-      - `class SearchResultBlockParam:`
+      - `class SearchResultBlockParam`
 
         - `JsonElement Type = "search_result"`
 
@@ -15712,7 +16066,7 @@ Console.WriteLine(messageTokensCount);
 
         - `CitationsConfigParam Citations`
 
-      - `class ThinkingBlockParam:`
+      - `class ThinkingBlockParam`
 
         - `JsonElement Type = "thinking"`
 
@@ -15726,7 +16080,7 @@ Console.WriteLine(messageTokensCount);
 
           The `thinking` text of this block as returned by the API.
 
-      - `class RedactedThinkingBlockParam:`
+      - `class RedactedThinkingBlockParam`
 
         - `JsonElement Type = "redacted_thinking"`
 
@@ -15734,7 +16088,7 @@ Console.WriteLine(messageTokensCount);
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-      - `class ToolUseBlockParam:`
+      - `class ToolUseBlockParam`
 
         - `JsonElement Type = "tool_use"`
 
@@ -15754,13 +16108,13 @@ Console.WriteLine(messageTokensCount);
 
         - `Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
             - `JsonElement Type = "direct"`
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
@@ -15770,7 +16124,7 @@ Console.WriteLine(messageTokensCount);
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
             - `JsonElement Type = "code_execution_20260120"`
 
@@ -15784,7 +16138,7 @@ Console.WriteLine(messageTokensCount);
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class ToolResultBlockParam:`
+      - `class ToolResultBlockParam`
 
         - `JsonElement Type = "tool_result"`
 
@@ -15802,15 +16156,15 @@ Console.WriteLine(messageTokensCount);
 
           - `IReadOnlyList<Block>`
 
-            - `class TextBlockParam:`
+            - `class TextBlockParam`
 
-            - `class ImageBlockParam:`
+            - `class ImageBlockParam`
 
-            - `class SearchResultBlockParam:`
+            - `class SearchResultBlockParam`
 
-            - `class DocumentBlockParam:`
+            - `class DocumentBlockParam`
 
-            - `class ToolReferenceBlockParam:`
+            - `class ToolReferenceBlockParam`
 
               Tool reference block that can be included in tool_result content.
 
@@ -15824,7 +16178,7 @@ Console.WriteLine(messageTokensCount);
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BrowserStateBlockParam:`
+            - `class BrowserStateBlockParam`
 
               The caller's browser state after a browser toolset member call —
               the full inventory of open tabs, which tab is active, and any side
@@ -15874,7 +16228,7 @@ Console.WriteLine(messageTokensCount);
 
                 maxItems: 200, minItems: 1
 
-                - `class BrowserStateChangeTabOpened:`
+                - `class BrowserStateChangeTabOpened`
 
                   A tab this call's execution opened that remains open at its end —
                   the creation delta of the `tabs` inventory, not an event log.
@@ -15892,7 +16246,7 @@ Console.WriteLine(messageTokensCount);
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BrowserStateChangeDownloadStarted:`
+                - `class BrowserStateChangeDownloadStarted`
 
                   A file download that started during this call.
 
@@ -15910,7 +16264,7 @@ Console.WriteLine(messageTokensCount);
 
                     maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BrowserStateChangeDownloadCompleted:`
+                - `class BrowserStateChangeDownloadCompleted`
 
                   A file download that finished during this call, reported with the
                   same `download_id` as its `download_started` — or without a prior
@@ -15943,7 +16297,7 @@ Console.WriteLine(messageTokensCount);
 
                     minimum: 0
 
-                - `class BrowserStateChangeDownloadFailed:`
+                - `class BrowserStateChangeDownloadFailed`
 
                   A file download that failed — or was cancelled — during this call.
 
@@ -15975,7 +16329,7 @@ Console.WriteLine(messageTokensCount);
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class ServerToolUseBlockParam:`
+      - `class ServerToolUseBlockParam`
 
         - `JsonElement Type = "server_tool_use"`
 
@@ -16007,17 +16361,17 @@ Console.WriteLine(messageTokensCount);
 
         - `Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
-      - `class WebSearchToolResultBlockParam:`
+      - `class WebSearchToolResultBlockParam`
 
         - `JsonElement Type = "web_search_tool_result"`
 
@@ -16035,7 +16389,7 @@ Console.WriteLine(messageTokensCount);
 
             - `string? PageAge`
 
-          - `class WebSearchToolRequestError:`
+          - `class WebSearchToolRequestError`
 
             - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -16063,23 +16417,23 @@ Console.WriteLine(messageTokensCount);
 
         - `Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
-      - `class WebFetchToolResultBlockParam:`
+      - `class WebFetchToolResultBlockParam`
 
         - `JsonElement Type = "web_fetch_tool_result"`
 
         - `required Content Content`
 
-          - `class WebFetchToolResultErrorBlockParam:`
+          - `class WebFetchToolResultErrorBlockParam`
 
             - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -16105,7 +16459,7 @@ Console.WriteLine(messageTokensCount);
 
               - `ContentTooLarge("content_too_large")`
 
-          - `class WebFetchBlockParam:`
+          - `class WebFetchBlockParam`
 
             - `JsonElement Type = "web_fetch_result"`
 
@@ -16129,23 +16483,23 @@ Console.WriteLine(messageTokensCount);
 
         - `Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
-      - `class CodeExecutionToolResultBlockParam:`
+      - `class CodeExecutionToolResultBlockParam`
 
         - `JsonElement Type = "code_execution_tool_result"`
 
         - `required CodeExecutionToolResultBlockParamContent Content`
 
-          - `class CodeExecutionToolResultErrorParam:`
+          - `class CodeExecutionToolResultErrorParam`
 
             - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -16159,7 +16513,7 @@ Console.WriteLine(messageTokensCount);
 
               - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-          - `class CodeExecutionResultBlockParam:`
+          - `class CodeExecutionResultBlockParam`
 
             - `JsonElement Type = "code_execution_result"`
 
@@ -16175,7 +16529,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string Stdout`
 
-          - `class EncryptedCodeExecutionResultBlockParam:`
+          - `class EncryptedCodeExecutionResultBlockParam`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -16201,13 +16555,13 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-      - `class BashCodeExecutionToolResultBlockParam:`
+      - `class BashCodeExecutionToolResultBlockParam`
 
         - `JsonElement Type = "bash_code_execution_tool_result"`
 
         - `required Content Content`
 
-          - `class BashCodeExecutionToolResultErrorParam:`
+          - `class BashCodeExecutionToolResultErrorParam`
 
             - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -16223,7 +16577,7 @@ Console.WriteLine(messageTokensCount);
 
               - `OutputFileTooLarge("output_file_too_large")`
 
-          - `class BashCodeExecutionResultBlockParam:`
+          - `class BashCodeExecutionResultBlockParam`
 
             - `JsonElement Type = "bash_code_execution_result"`
 
@@ -16247,13 +16601,13 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-      - `class TextEditorCodeExecutionToolResultBlockParam:`
+      - `class TextEditorCodeExecutionToolResultBlockParam`
 
         - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
         - `required Content Content`
 
-          - `class TextEditorCodeExecutionToolResultErrorParam:`
+          - `class TextEditorCodeExecutionToolResultErrorParam`
 
             - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -16271,7 +16625,7 @@ Console.WriteLine(messageTokensCount);
 
             - `string? ErrorMessage`
 
-          - `class TextEditorCodeExecutionViewResultBlockParam:`
+          - `class TextEditorCodeExecutionViewResultBlockParam`
 
             - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -16291,13 +16645,13 @@ Console.WriteLine(messageTokensCount);
 
             - `long? TotalLines`
 
-          - `class TextEditorCodeExecutionCreateResultBlockParam:`
+          - `class TextEditorCodeExecutionCreateResultBlockParam`
 
             - `JsonElement Type = "text_editor_code_execution_create_result"`
 
             - `required bool IsFileUpdate`
 
-          - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+          - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -16319,13 +16673,13 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-      - `class ToolSearchToolResultBlockParam:`
+      - `class ToolSearchToolResultBlockParam`
 
         - `JsonElement Type = "tool_search_tool_result"`
 
         - `required Content Content`
 
-          - `class ToolSearchToolResultErrorParam:`
+          - `class ToolSearchToolResultErrorParam`
 
             - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -16341,7 +16695,7 @@ Console.WriteLine(messageTokensCount);
 
             - `string? ErrorMessage`
 
-          - `class ToolSearchToolSearchResultBlockParam:`
+          - `class ToolSearchToolSearchResultBlockParam`
 
             - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -16365,7 +16719,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-      - `class ContainerUploadBlockParam:`
+      - `class ContainerUploadBlockParam`
 
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
@@ -16388,7 +16742,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Message Tokens Count
 
-- `class MessageTokensCount:`
+- `class MessageTokensCount`
 
   - `required long InputTokens`
 
@@ -16396,7 +16750,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Metadata
 
-- `class Metadata:`
+- `class Metadata`
 
   - `string? UserID`
 
@@ -16408,7 +16762,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Output Config
 
-- `class OutputConfig:`
+- `class OutputConfig`
 
   - `Effort? Effort`
 
@@ -16436,7 +16790,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Output Tokens Details
 
-- `class OutputTokensDetails:`
+- `class OutputTokensDetails`
 
   - `required long ThinkingTokens`
 
@@ -16453,7 +16807,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Plain Text Source
 
-- `class PlainTextSource:`
+- `class PlainTextSource`
 
   - `JsonElement Type = "text"`
 
@@ -16465,25 +16819,25 @@ Console.WriteLine(messageTokensCount);
 
 - `class RawContentBlockDelta: union`
 
-  - `class TextDelta:`
+  - `class TextDelta`
 
     - `JsonElement Type = "text_delta"`
 
     - `required string Text`
 
-  - `class InputJsonDelta:`
+  - `class InputJsonDelta`
 
     - `JsonElement Type = "input_json_delta"`
 
     - `required string PartialJson`
 
-  - `class CitationsDelta:`
+  - `class CitationsDelta`
 
     - `JsonElement Type = "citations_delta"`
 
     - `required Citation Citation`
 
-      - `class CitationCharLocation:`
+      - `class CitationCharLocation`
 
         - `JsonElement Type = "char_location"`
 
@@ -16503,7 +16857,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationPageLocation:`
+      - `class CitationPageLocation`
 
         - `JsonElement Type = "page_location"`
 
@@ -16523,7 +16877,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 1
 
-      - `class CitationContentBlockLocation:`
+      - `class CitationContentBlockLocation`
 
         - `JsonElement Type = "content_block_location"`
 
@@ -16553,7 +16907,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationsWebSearchResultLocation:`
+      - `class CitationsWebSearchResultLocation`
 
         - `JsonElement Type = "web_search_result_location"`
 
@@ -16567,7 +16921,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string Url`
 
-      - `class CitationsSearchResultLocation:`
+      - `class CitationsSearchResultLocation`
 
         - `JsonElement Type = "search_result_location"`
 
@@ -16601,7 +16955,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string? Title`
 
-  - `class ThinkingDelta:`
+  - `class ThinkingDelta`
 
     - `JsonElement Type = "thinking_delta"`
 
@@ -16609,7 +16963,7 @@ Console.WriteLine(messageTokensCount);
 
       The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-  - `class SignatureDelta:`
+  - `class SignatureDelta`
 
     - `JsonElement Type = "signature_delta"`
 
@@ -16619,31 +16973,31 @@ Console.WriteLine(messageTokensCount);
 
 ### Raw Content Block Delta Event
 
-- `class RawContentBlockDeltaEvent:`
+- `class RawContentBlockDeltaEvent`
 
   - `JsonElement Type = "content_block_delta"`
 
   - `required RawContentBlockDelta Delta`
 
-    - `class TextDelta:`
+    - `class TextDelta`
 
       - `JsonElement Type = "text_delta"`
 
       - `required string Text`
 
-    - `class InputJsonDelta:`
+    - `class InputJsonDelta`
 
       - `JsonElement Type = "input_json_delta"`
 
       - `required string PartialJson`
 
-    - `class CitationsDelta:`
+    - `class CitationsDelta`
 
       - `JsonElement Type = "citations_delta"`
 
       - `required Citation Citation`
 
-        - `class CitationCharLocation:`
+        - `class CitationCharLocation`
 
           - `JsonElement Type = "char_location"`
 
@@ -16663,7 +17017,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `class CitationPageLocation:`
+        - `class CitationPageLocation`
 
           - `JsonElement Type = "page_location"`
 
@@ -16683,7 +17037,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 1
 
-        - `class CitationContentBlockLocation:`
+        - `class CitationContentBlockLocation`
 
           - `JsonElement Type = "content_block_location"`
 
@@ -16713,7 +17067,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `class CitationsWebSearchResultLocation:`
+        - `class CitationsWebSearchResultLocation`
 
           - `JsonElement Type = "web_search_result_location"`
 
@@ -16727,7 +17081,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string Url`
 
-        - `class CitationsSearchResultLocation:`
+        - `class CitationsSearchResultLocation`
 
           - `JsonElement Type = "search_result_location"`
 
@@ -16761,7 +17115,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string? Title`
 
-    - `class ThinkingDelta:`
+    - `class ThinkingDelta`
 
       - `JsonElement Type = "thinking_delta"`
 
@@ -16769,7 +17123,7 @@ Console.WriteLine(messageTokensCount);
 
         The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-    - `class SignatureDelta:`
+    - `class SignatureDelta`
 
       - `JsonElement Type = "signature_delta"`
 
@@ -16781,13 +17135,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Raw Content Block Start Event
 
-- `class RawContentBlockStartEvent:`
+- `class RawContentBlockStartEvent`
 
   - `JsonElement Type = "content_block_start"`
 
   - `required ContentBlock ContentBlock`
 
-    - `class TextBlock:`
+    - `class TextBlock`
 
       - `JsonElement Type = "text"`
 
@@ -16797,7 +17151,7 @@ Console.WriteLine(messageTokensCount);
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class CitationCharLocation:`
+        - `class CitationCharLocation`
 
           - `JsonElement Type = "char_location"`
 
@@ -16817,7 +17171,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `class CitationPageLocation:`
+        - `class CitationPageLocation`
 
           - `JsonElement Type = "page_location"`
 
@@ -16837,7 +17191,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 1
 
-        - `class CitationContentBlockLocation:`
+        - `class CitationContentBlockLocation`
 
           - `JsonElement Type = "content_block_location"`
 
@@ -16867,7 +17221,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `class CitationsWebSearchResultLocation:`
+        - `class CitationsWebSearchResultLocation`
 
           - `JsonElement Type = "web_search_result_location"`
 
@@ -16881,7 +17235,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string Url`
 
-        - `class CitationsSearchResultLocation:`
+        - `class CitationsSearchResultLocation`
 
           - `JsonElement Type = "search_result_location"`
 
@@ -16919,7 +17273,7 @@ Console.WriteLine(messageTokensCount);
 
         minLength: 0
 
-    - `class ThinkingBlock:`
+    - `class ThinkingBlock`
 
       - `JsonElement Type = "thinking"`
 
@@ -16935,7 +17289,7 @@ Console.WriteLine(messageTokensCount);
 
         The text of Claude's thinking process for this block.
 
-    - `class RedactedThinkingBlock:`
+    - `class RedactedThinkingBlock`
 
       - `JsonElement Type = "redacted_thinking"`
 
@@ -16947,7 +17301,7 @@ Console.WriteLine(messageTokensCount);
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class ToolUseBlock:`
+    - `class ToolUseBlock`
 
       - `JsonElement Type = "tool_use"`
 
@@ -16957,13 +17311,13 @@ Console.WriteLine(messageTokensCount);
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
           - `JsonElement Type = "direct"`
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -16973,7 +17327,7 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
           - `JsonElement Type = "code_execution_20260120"`
 
@@ -16993,7 +17347,7 @@ Console.WriteLine(messageTokensCount);
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class ServerToolUseBlock:`
+    - `class ServerToolUseBlock`
 
       - `JsonElement Type = "server_tool_use"`
 
@@ -17003,15 +17357,15 @@ Console.WriteLine(messageTokensCount);
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -17031,25 +17385,25 @@ Console.WriteLine(messageTokensCount);
 
         - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-    - `class WebSearchToolResultBlock:`
+    - `class WebSearchToolResultBlock`
 
       - `JsonElement Type = "web_search_tool_result"`
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required WebSearchToolResultBlockContent Content`
 
-        - `class WebSearchToolResultError:`
+        - `class WebSearchToolResultError`
 
           - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -17083,25 +17437,25 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class WebFetchToolResultBlock:`
+    - `class WebFetchToolResultBlock`
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
       - `required Caller Caller`
 
-        - `class DirectCaller:`
+        - `class DirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class ServerToolCaller:`
+        - `class ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class ServerToolCaller20260120:`
+        - `class ServerToolCaller20260120`
 
       - `required Content Content`
 
-        - `class WebFetchToolResultErrorBlock:`
+        - `class WebFetchToolResultErrorBlock`
 
           - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -17127,7 +17481,7 @@ Console.WriteLine(messageTokensCount);
 
             - `ContentTooLarge("content_too_large")`
 
-        - `class WebFetchBlock:`
+        - `class WebFetchBlock`
 
           - `JsonElement Type = "web_fetch_result"`
 
@@ -17143,7 +17497,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required Source Source`
 
-              - `class Base64PdfSource:`
+              - `class Base64PdfSource`
 
                 - `JsonElement Type = "base64"`
 
@@ -17153,7 +17507,7 @@ Console.WriteLine(messageTokensCount);
 
                 - `JsonElement MediaType = "application/pdf"`
 
-              - `class PlainTextSource:`
+              - `class PlainTextSource`
 
                 - `JsonElement Type = "text"`
 
@@ -17177,13 +17531,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class CodeExecutionToolResultBlock:`
+    - `class CodeExecutionToolResultBlock`
 
       - `JsonElement Type = "code_execution_tool_result"`
 
       - `required CodeExecutionToolResultBlockContent Content`
 
-        - `class CodeExecutionToolResultError:`
+        - `class CodeExecutionToolResultError`
 
           - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -17197,7 +17551,7 @@ Console.WriteLine(messageTokensCount);
 
             - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-        - `class CodeExecutionResultBlock:`
+        - `class CodeExecutionResultBlock`
 
           - `JsonElement Type = "code_execution_result"`
 
@@ -17213,7 +17567,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string Stdout`
 
-        - `class EncryptedCodeExecutionResultBlock:`
+        - `class EncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -17235,13 +17589,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BashCodeExecutionToolResultBlock:`
+    - `class BashCodeExecutionToolResultBlock`
 
       - `JsonElement Type = "bash_code_execution_tool_result"`
 
       - `required Content Content`
 
-        - `class BashCodeExecutionToolResultError:`
+        - `class BashCodeExecutionToolResultError`
 
           - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -17257,7 +17611,7 @@ Console.WriteLine(messageTokensCount);
 
             - `OutputFileTooLarge("output_file_too_large")`
 
-        - `class BashCodeExecutionResultBlock:`
+        - `class BashCodeExecutionResultBlock`
 
           - `JsonElement Type = "bash_code_execution_result"`
 
@@ -17277,13 +17631,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class TextEditorCodeExecutionToolResultBlock:`
+    - `class TextEditorCodeExecutionToolResultBlock`
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
       - `required Content Content`
 
-        - `class TextEditorCodeExecutionToolResultError:`
+        - `class TextEditorCodeExecutionToolResultError`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -17301,7 +17655,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string? ErrorMessage`
 
-        - `class TextEditorCodeExecutionViewResultBlock:`
+        - `class TextEditorCodeExecutionViewResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -17321,13 +17675,13 @@ Console.WriteLine(messageTokensCount);
 
           - `required long? TotalLines`
 
-        - `class TextEditorCodeExecutionCreateResultBlock:`
+        - `class TextEditorCodeExecutionCreateResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_create_result"`
 
           - `required bool IsFileUpdate`
 
-        - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+        - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -17345,13 +17699,13 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ToolSearchToolResultBlock:`
+    - `class ToolSearchToolResultBlock`
 
       - `JsonElement Type = "tool_search_tool_result"`
 
       - `required Content Content`
 
-        - `class ToolSearchToolResultError:`
+        - `class ToolSearchToolResultError`
 
           - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -17367,7 +17721,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string? ErrorMessage`
 
-        - `class ToolSearchToolSearchResultBlock:`
+        - `class ToolSearchToolSearchResultBlock`
 
           - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -17383,7 +17737,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ContainerUploadBlock:`
+    - `class ContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -17395,7 +17749,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Raw Content Block Stop Event
 
-- `class RawContentBlockStopEvent:`
+- `class RawContentBlockStopEvent`
 
   - `JsonElement Type = "content_block_stop"`
 
@@ -17403,7 +17757,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Raw Message Delta Event
 
-- `class RawMessageDeltaEvent:`
+- `class RawMessageDeltaEvent`
 
   - `JsonElement Type = "message_delta"`
 
@@ -17575,7 +17929,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Raw Message Start Event
 
-- `class RawMessageStartEvent:`
+- `class RawMessageStartEvent`
 
   - `JsonElement Type = "message_start"`
 
@@ -17660,7 +18014,7 @@ Console.WriteLine(messageTokensCount);
       [{"type": "text", "text": "B)"}]
       ```
 
-      - `class TextBlock:`
+      - `class TextBlock`
 
         - `JsonElement Type = "text"`
 
@@ -17670,7 +18024,7 @@ Console.WriteLine(messageTokensCount);
 
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-          - `class CitationCharLocation:`
+          - `class CitationCharLocation`
 
             - `JsonElement Type = "char_location"`
 
@@ -17690,7 +18044,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationPageLocation:`
+          - `class CitationPageLocation`
 
             - `JsonElement Type = "page_location"`
 
@@ -17710,7 +18064,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 1
 
-          - `class CitationContentBlockLocation:`
+          - `class CitationContentBlockLocation`
 
             - `JsonElement Type = "content_block_location"`
 
@@ -17740,7 +18094,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationsWebSearchResultLocation:`
+          - `class CitationsWebSearchResultLocation`
 
             - `JsonElement Type = "web_search_result_location"`
 
@@ -17754,7 +18108,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string Url`
 
-          - `class CitationsSearchResultLocation:`
+          - `class CitationsSearchResultLocation`
 
             - `JsonElement Type = "search_result_location"`
 
@@ -17792,7 +18146,7 @@ Console.WriteLine(messageTokensCount);
 
           minLength: 0
 
-      - `class ThinkingBlock:`
+      - `class ThinkingBlock`
 
         - `JsonElement Type = "thinking"`
 
@@ -17808,7 +18162,7 @@ Console.WriteLine(messageTokensCount);
 
           The text of Claude's thinking process for this block.
 
-      - `class RedactedThinkingBlock:`
+      - `class RedactedThinkingBlock`
 
         - `JsonElement Type = "redacted_thinking"`
 
@@ -17820,7 +18174,7 @@ Console.WriteLine(messageTokensCount);
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `class ToolUseBlock:`
+      - `class ToolUseBlock`
 
         - `JsonElement Type = "tool_use"`
 
@@ -17830,13 +18184,13 @@ Console.WriteLine(messageTokensCount);
 
         - `required Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
             - `JsonElement Type = "direct"`
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
@@ -17846,7 +18200,7 @@ Console.WriteLine(messageTokensCount);
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
             - `JsonElement Type = "code_execution_20260120"`
 
@@ -17866,7 +18220,7 @@ Console.WriteLine(messageTokensCount);
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class ServerToolUseBlock:`
+      - `class ServerToolUseBlock`
 
         - `JsonElement Type = "server_tool_use"`
 
@@ -17876,15 +18230,15 @@ Console.WriteLine(messageTokensCount);
 
         - `required Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
         - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -17904,25 +18258,25 @@ Console.WriteLine(messageTokensCount);
 
           - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-      - `class WebSearchToolResultBlock:`
+      - `class WebSearchToolResultBlock`
 
         - `JsonElement Type = "web_search_tool_result"`
 
         - `required Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
         - `required WebSearchToolResultBlockContent Content`
 
-          - `class WebSearchToolResultError:`
+          - `class WebSearchToolResultError`
 
             - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -17956,25 +18310,25 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class WebFetchToolResultBlock:`
+      - `class WebFetchToolResultBlock`
 
         - `JsonElement Type = "web_fetch_tool_result"`
 
         - `required Caller Caller`
 
-          - `class DirectCaller:`
+          - `class DirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class ServerToolCaller:`
+          - `class ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class ServerToolCaller20260120:`
+          - `class ServerToolCaller20260120`
 
         - `required Content Content`
 
-          - `class WebFetchToolResultErrorBlock:`
+          - `class WebFetchToolResultErrorBlock`
 
             - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -18000,7 +18354,7 @@ Console.WriteLine(messageTokensCount);
 
               - `ContentTooLarge("content_too_large")`
 
-          - `class WebFetchBlock:`
+          - `class WebFetchBlock`
 
             - `JsonElement Type = "web_fetch_result"`
 
@@ -18016,7 +18370,7 @@ Console.WriteLine(messageTokensCount);
 
               - `required Source Source`
 
-                - `class Base64PdfSource:`
+                - `class Base64PdfSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -18026,7 +18380,7 @@ Console.WriteLine(messageTokensCount);
 
                   - `JsonElement MediaType = "application/pdf"`
 
-                - `class PlainTextSource:`
+                - `class PlainTextSource`
 
                   - `JsonElement Type = "text"`
 
@@ -18050,13 +18404,13 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class CodeExecutionToolResultBlock:`
+      - `class CodeExecutionToolResultBlock`
 
         - `JsonElement Type = "code_execution_tool_result"`
 
         - `required CodeExecutionToolResultBlockContent Content`
 
-          - `class CodeExecutionToolResultError:`
+          - `class CodeExecutionToolResultError`
 
             - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -18070,7 +18424,7 @@ Console.WriteLine(messageTokensCount);
 
               - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-          - `class CodeExecutionResultBlock:`
+          - `class CodeExecutionResultBlock`
 
             - `JsonElement Type = "code_execution_result"`
 
@@ -18086,7 +18440,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string Stdout`
 
-          - `class EncryptedCodeExecutionResultBlock:`
+          - `class EncryptedCodeExecutionResultBlock`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -18108,13 +18462,13 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BashCodeExecutionToolResultBlock:`
+      - `class BashCodeExecutionToolResultBlock`
 
         - `JsonElement Type = "bash_code_execution_tool_result"`
 
         - `required Content Content`
 
-          - `class BashCodeExecutionToolResultError:`
+          - `class BashCodeExecutionToolResultError`
 
             - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -18130,7 +18484,7 @@ Console.WriteLine(messageTokensCount);
 
               - `OutputFileTooLarge("output_file_too_large")`
 
-          - `class BashCodeExecutionResultBlock:`
+          - `class BashCodeExecutionResultBlock`
 
             - `JsonElement Type = "bash_code_execution_result"`
 
@@ -18150,13 +18504,13 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class TextEditorCodeExecutionToolResultBlock:`
+      - `class TextEditorCodeExecutionToolResultBlock`
 
         - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
         - `required Content Content`
 
-          - `class TextEditorCodeExecutionToolResultError:`
+          - `class TextEditorCodeExecutionToolResultError`
 
             - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -18174,7 +18528,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string? ErrorMessage`
 
-          - `class TextEditorCodeExecutionViewResultBlock:`
+          - `class TextEditorCodeExecutionViewResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -18194,13 +18548,13 @@ Console.WriteLine(messageTokensCount);
 
             - `required long? TotalLines`
 
-          - `class TextEditorCodeExecutionCreateResultBlock:`
+          - `class TextEditorCodeExecutionCreateResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_create_result"`
 
             - `required bool IsFileUpdate`
 
-          - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+          - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -18218,13 +18572,13 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class ToolSearchToolResultBlock:`
+      - `class ToolSearchToolResultBlock`
 
         - `JsonElement Type = "tool_search_tool_result"`
 
         - `required Content Content`
 
-          - `class ToolSearchToolResultError:`
+          - `class ToolSearchToolResultError`
 
             - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -18240,7 +18594,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string? ErrorMessage`
 
-          - `class ToolSearchToolSearchResultBlock:`
+          - `class ToolSearchToolSearchResultBlock`
 
             - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -18256,7 +18610,7 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class ContainerUploadBlock:`
+      - `class ContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
@@ -18522,7 +18876,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Raw Message Stop Event
 
-- `class RawMessageStopEvent:`
+- `class RawMessageStopEvent`
 
   - `JsonElement Type = "message_stop"`
 
@@ -18530,7 +18884,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class RawMessageStreamEvent: union`
 
-  - `class RawMessageStartEvent:`
+  - `class RawMessageStartEvent`
 
     - `JsonElement Type = "message_start"`
 
@@ -18615,7 +18969,7 @@ Console.WriteLine(messageTokensCount);
         [{"type": "text", "text": "B)"}]
         ```
 
-        - `class TextBlock:`
+        - `class TextBlock`
 
           - `JsonElement Type = "text"`
 
@@ -18625,7 +18979,7 @@ Console.WriteLine(messageTokensCount);
 
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-            - `class CitationCharLocation:`
+            - `class CitationCharLocation`
 
               - `JsonElement Type = "char_location"`
 
@@ -18645,7 +18999,7 @@ Console.WriteLine(messageTokensCount);
 
                 minimum: 0
 
-            - `class CitationPageLocation:`
+            - `class CitationPageLocation`
 
               - `JsonElement Type = "page_location"`
 
@@ -18665,7 +19019,7 @@ Console.WriteLine(messageTokensCount);
 
                 minimum: 1
 
-            - `class CitationContentBlockLocation:`
+            - `class CitationContentBlockLocation`
 
               - `JsonElement Type = "content_block_location"`
 
@@ -18695,7 +19049,7 @@ Console.WriteLine(messageTokensCount);
 
                 minimum: 0
 
-            - `class CitationsWebSearchResultLocation:`
+            - `class CitationsWebSearchResultLocation`
 
               - `JsonElement Type = "web_search_result_location"`
 
@@ -18709,7 +19063,7 @@ Console.WriteLine(messageTokensCount);
 
               - `required string Url`
 
-            - `class CitationsSearchResultLocation:`
+            - `class CitationsSearchResultLocation`
 
               - `JsonElement Type = "search_result_location"`
 
@@ -18747,7 +19101,7 @@ Console.WriteLine(messageTokensCount);
 
             minLength: 0
 
-        - `class ThinkingBlock:`
+        - `class ThinkingBlock`
 
           - `JsonElement Type = "thinking"`
 
@@ -18763,7 +19117,7 @@ Console.WriteLine(messageTokensCount);
 
             The text of Claude's thinking process for this block.
 
-        - `class RedactedThinkingBlock:`
+        - `class RedactedThinkingBlock`
 
           - `JsonElement Type = "redacted_thinking"`
 
@@ -18775,7 +19129,7 @@ Console.WriteLine(messageTokensCount);
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `class ToolUseBlock:`
+        - `class ToolUseBlock`
 
           - `JsonElement Type = "tool_use"`
 
@@ -18785,13 +19139,13 @@ Console.WriteLine(messageTokensCount);
 
           - `required Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonElement Type = "direct"`
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -18801,7 +19155,7 @@ Console.WriteLine(messageTokensCount);
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
               - `JsonElement Type = "code_execution_20260120"`
 
@@ -18821,7 +19175,7 @@ Console.WriteLine(messageTokensCount);
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class ServerToolUseBlock:`
+        - `class ServerToolUseBlock`
 
           - `JsonElement Type = "server_tool_use"`
 
@@ -18831,15 +19185,15 @@ Console.WriteLine(messageTokensCount);
 
           - `required Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
           - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -18859,25 +19213,25 @@ Console.WriteLine(messageTokensCount);
 
             - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-        - `class WebSearchToolResultBlock:`
+        - `class WebSearchToolResultBlock`
 
           - `JsonElement Type = "web_search_tool_result"`
 
           - `required Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
           - `required WebSearchToolResultBlockContent Content`
 
-            - `class WebSearchToolResultError:`
+            - `class WebSearchToolResultError`
 
               - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -18911,25 +19265,25 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class WebFetchToolResultBlock:`
+        - `class WebFetchToolResultBlock`
 
           - `JsonElement Type = "web_fetch_tool_result"`
 
           - `required Caller Caller`
 
-            - `class DirectCaller:`
+            - `class DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class ServerToolCaller:`
+            - `class ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class ServerToolCaller20260120:`
+            - `class ServerToolCaller20260120`
 
           - `required Content Content`
 
-            - `class WebFetchToolResultErrorBlock:`
+            - `class WebFetchToolResultErrorBlock`
 
               - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -18955,7 +19309,7 @@ Console.WriteLine(messageTokensCount);
 
                 - `ContentTooLarge("content_too_large")`
 
-            - `class WebFetchBlock:`
+            - `class WebFetchBlock`
 
               - `JsonElement Type = "web_fetch_result"`
 
@@ -18971,7 +19325,7 @@ Console.WriteLine(messageTokensCount);
 
                 - `required Source Source`
 
-                  - `class Base64PdfSource:`
+                  - `class Base64PdfSource`
 
                     - `JsonElement Type = "base64"`
 
@@ -18981,7 +19335,7 @@ Console.WriteLine(messageTokensCount);
 
                     - `JsonElement MediaType = "application/pdf"`
 
-                  - `class PlainTextSource:`
+                  - `class PlainTextSource`
 
                     - `JsonElement Type = "text"`
 
@@ -19005,13 +19359,13 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class CodeExecutionToolResultBlock:`
+        - `class CodeExecutionToolResultBlock`
 
           - `JsonElement Type = "code_execution_tool_result"`
 
           - `required CodeExecutionToolResultBlockContent Content`
 
-            - `class CodeExecutionToolResultError:`
+            - `class CodeExecutionToolResultError`
 
               - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -19025,7 +19379,7 @@ Console.WriteLine(messageTokensCount);
 
                 - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-            - `class CodeExecutionResultBlock:`
+            - `class CodeExecutionResultBlock`
 
               - `JsonElement Type = "code_execution_result"`
 
@@ -19041,7 +19395,7 @@ Console.WriteLine(messageTokensCount);
 
               - `required string Stdout`
 
-            - `class EncryptedCodeExecutionResultBlock:`
+            - `class EncryptedCodeExecutionResultBlock`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -19063,13 +19417,13 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BashCodeExecutionToolResultBlock:`
+        - `class BashCodeExecutionToolResultBlock`
 
           - `JsonElement Type = "bash_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class BashCodeExecutionToolResultError:`
+            - `class BashCodeExecutionToolResultError`
 
               - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -19085,7 +19439,7 @@ Console.WriteLine(messageTokensCount);
 
                 - `OutputFileTooLarge("output_file_too_large")`
 
-            - `class BashCodeExecutionResultBlock:`
+            - `class BashCodeExecutionResultBlock`
 
               - `JsonElement Type = "bash_code_execution_result"`
 
@@ -19105,13 +19459,13 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class TextEditorCodeExecutionToolResultBlock:`
+        - `class TextEditorCodeExecutionToolResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class TextEditorCodeExecutionToolResultError:`
+            - `class TextEditorCodeExecutionToolResultError`
 
               - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -19129,7 +19483,7 @@ Console.WriteLine(messageTokensCount);
 
               - `required string? ErrorMessage`
 
-            - `class TextEditorCodeExecutionViewResultBlock:`
+            - `class TextEditorCodeExecutionViewResultBlock`
 
               - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -19149,13 +19503,13 @@ Console.WriteLine(messageTokensCount);
 
               - `required long? TotalLines`
 
-            - `class TextEditorCodeExecutionCreateResultBlock:`
+            - `class TextEditorCodeExecutionCreateResultBlock`
 
               - `JsonElement Type = "text_editor_code_execution_create_result"`
 
               - `required bool IsFileUpdate`
 
-            - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+            - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
               - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -19173,13 +19527,13 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class ToolSearchToolResultBlock:`
+        - `class ToolSearchToolResultBlock`
 
           - `JsonElement Type = "tool_search_tool_result"`
 
           - `required Content Content`
 
-            - `class ToolSearchToolResultError:`
+            - `class ToolSearchToolResultError`
 
               - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -19195,7 +19549,7 @@ Console.WriteLine(messageTokensCount);
 
               - `required string? ErrorMessage`
 
-            - `class ToolSearchToolSearchResultBlock:`
+            - `class ToolSearchToolSearchResultBlock`
 
               - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -19211,7 +19565,7 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class ContainerUploadBlock:`
+        - `class ContainerUploadBlock`
 
           Response model for a file uploaded to the container.
 
@@ -19475,7 +19829,7 @@ Console.WriteLine(messageTokensCount);
 
           - `Batch("batch")`
 
-  - `class RawMessageDeltaEvent:`
+  - `class RawMessageDeltaEvent`
 
     - `JsonElement Type = "message_delta"`
 
@@ -19540,79 +19894,79 @@ Console.WriteLine(messageTokensCount);
 
         The number of server tool requests.
 
-  - `class RawMessageStopEvent:`
+  - `class RawMessageStopEvent`
 
     - `JsonElement Type = "message_stop"`
 
-  - `class RawContentBlockStartEvent:`
+  - `class RawContentBlockStartEvent`
 
     - `JsonElement Type = "content_block_start"`
 
     - `required ContentBlock ContentBlock`
 
-      - `class TextBlock:`
+      - `class TextBlock`
 
-      - `class ThinkingBlock:`
+      - `class ThinkingBlock`
 
-      - `class RedactedThinkingBlock:`
+      - `class RedactedThinkingBlock`
 
-      - `class ToolUseBlock:`
+      - `class ToolUseBlock`
 
-      - `class ServerToolUseBlock:`
+      - `class ServerToolUseBlock`
 
-      - `class WebSearchToolResultBlock:`
+      - `class WebSearchToolResultBlock`
 
-      - `class WebFetchToolResultBlock:`
+      - `class WebFetchToolResultBlock`
 
-      - `class CodeExecutionToolResultBlock:`
+      - `class CodeExecutionToolResultBlock`
 
-      - `class BashCodeExecutionToolResultBlock:`
+      - `class BashCodeExecutionToolResultBlock`
 
-      - `class TextEditorCodeExecutionToolResultBlock:`
+      - `class TextEditorCodeExecutionToolResultBlock`
 
-      - `class ToolSearchToolResultBlock:`
+      - `class ToolSearchToolResultBlock`
 
-      - `class ContainerUploadBlock:`
+      - `class ContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
     - `required long Index`
 
-  - `class RawContentBlockDeltaEvent:`
+  - `class RawContentBlockDeltaEvent`
 
     - `JsonElement Type = "content_block_delta"`
 
     - `required RawContentBlockDelta Delta`
 
-      - `class TextDelta:`
+      - `class TextDelta`
 
         - `JsonElement Type = "text_delta"`
 
         - `required string Text`
 
-      - `class InputJsonDelta:`
+      - `class InputJsonDelta`
 
         - `JsonElement Type = "input_json_delta"`
 
         - `required string PartialJson`
 
-      - `class CitationsDelta:`
+      - `class CitationsDelta`
 
         - `JsonElement Type = "citations_delta"`
 
         - `required Citation Citation`
 
-          - `class CitationCharLocation:`
+          - `class CitationCharLocation`
 
-          - `class CitationPageLocation:`
+          - `class CitationPageLocation`
 
-          - `class CitationContentBlockLocation:`
+          - `class CitationContentBlockLocation`
 
-          - `class CitationsWebSearchResultLocation:`
+          - `class CitationsWebSearchResultLocation`
 
-          - `class CitationsSearchResultLocation:`
+          - `class CitationsSearchResultLocation`
 
-      - `class ThinkingDelta:`
+      - `class ThinkingDelta`
 
         - `JsonElement Type = "thinking_delta"`
 
@@ -19620,7 +19974,7 @@ Console.WriteLine(messageTokensCount);
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `class SignatureDelta:`
+      - `class SignatureDelta`
 
         - `JsonElement Type = "signature_delta"`
 
@@ -19630,7 +19984,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required long Index`
 
-  - `class RawContentBlockStopEvent:`
+  - `class RawContentBlockStopEvent`
 
     - `JsonElement Type = "content_block_stop"`
 
@@ -19638,7 +19992,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Redacted Thinking Block
 
-- `class RedactedThinkingBlock:`
+- `class RedactedThinkingBlock`
 
   - `JsonElement Type = "redacted_thinking"`
 
@@ -19652,7 +20006,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Redacted Thinking Block Param
 
-- `class RedactedThinkingBlockParam:`
+- `class RedactedThinkingBlockParam`
 
   - `JsonElement Type = "redacted_thinking"`
 
@@ -19662,7 +20016,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Refusal Stop Details
 
-- `class RefusalStopDetails:`
+- `class RefusalStopDetails`
 
   Structured information about a refusal.
 
@@ -19700,7 +20054,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Search Result Block Param
 
-- `class SearchResultBlockParam:`
+- `class SearchResultBlockParam`
 
   - `JsonElement Type = "search_result"`
 
@@ -19735,7 +20089,7 @@ Console.WriteLine(messageTokensCount);
 
     - `IReadOnlyList<TextCitationParam>? Citations`
 
-      - `class CitationCharLocationParam:`
+      - `class CitationCharLocationParam`
 
         - `JsonElement Type = "char_location"`
 
@@ -19755,7 +20109,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationPageLocationParam:`
+      - `class CitationPageLocationParam`
 
         - `JsonElement Type = "page_location"`
 
@@ -19775,7 +20129,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 1
 
-      - `class CitationContentBlockLocationParam:`
+      - `class CitationContentBlockLocationParam`
 
         - `JsonElement Type = "content_block_location"`
 
@@ -19805,7 +20159,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `class CitationWebSearchResultLocationParam:`
+      - `class CitationWebSearchResultLocationParam`
 
         - `JsonElement Type = "web_search_result_location"`
 
@@ -19821,7 +20175,7 @@ Console.WriteLine(messageTokensCount);
 
           minLength: 1
 
-      - `class CitationSearchResultLocationParam:`
+      - `class CitationSearchResultLocationParam`
 
         - `JsonElement Type = "search_result_location"`
 
@@ -19869,7 +20223,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Server Tool Caller
 
-- `class ServerToolCaller:`
+- `class ServerToolCaller`
 
   Tool invocation generated by a server-side tool.
 
@@ -19881,7 +20235,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Server Tool Caller 20260120
 
-- `class ServerToolCaller20260120:`
+- `class ServerToolCaller20260120`
 
   - `JsonElement Type = "code_execution_20260120"`
 
@@ -19891,7 +20245,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Server Tool Usage
 
-- `class ServerToolUsage:`
+- `class ServerToolUsage`
 
   - `required long WebFetchRequests`
 
@@ -19907,7 +20261,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Server Tool Use Block
 
-- `class ServerToolUseBlock:`
+- `class ServerToolUseBlock`
 
   - `JsonElement Type = "server_tool_use"`
 
@@ -19917,13 +20271,13 @@ Console.WriteLine(messageTokensCount);
 
   - `required Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -19933,7 +20287,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -19961,7 +20315,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Server Tool Use Block Param
 
-- `class ServerToolUseBlockParam:`
+- `class ServerToolUseBlockParam`
 
   - `JsonElement Type = "server_tool_use"`
 
@@ -20010,13 +20364,13 @@ Console.WriteLine(messageTokensCount);
 
   - `Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -20026,7 +20380,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -20036,7 +20390,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Signature Delta
 
-- `class SignatureDelta:`
+- `class SignatureDelta`
 
   - `JsonElement Type = "signature_delta"`
 
@@ -20046,7 +20400,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Skill Params
 
-- `class SkillParams:`
+- `class SkillParams`
 
   Specification for a skill to be loaded in a container (request model).
 
@@ -20072,7 +20426,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Stop Reason
 
-- `enum StopReason:`
+- `enum StopReason`
 
   - `EndTurn("end_turn")`
 
@@ -20090,7 +20444,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Block
 
-- `class TextBlock:`
+- `class TextBlock`
 
   - `JsonElement Type = "text"`
 
@@ -20100,7 +20454,7 @@ Console.WriteLine(messageTokensCount);
 
     The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-    - `class CitationCharLocation:`
+    - `class CitationCharLocation`
 
       - `JsonElement Type = "char_location"`
 
@@ -20120,7 +20474,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class CitationPageLocation:`
+    - `class CitationPageLocation`
 
       - `JsonElement Type = "page_location"`
 
@@ -20140,7 +20494,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 1
 
-    - `class CitationContentBlockLocation:`
+    - `class CitationContentBlockLocation`
 
       - `JsonElement Type = "content_block_location"`
 
@@ -20170,7 +20524,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class CitationsWebSearchResultLocation:`
+    - `class CitationsWebSearchResultLocation`
 
       - `JsonElement Type = "web_search_result_location"`
 
@@ -20184,7 +20538,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string Url`
 
-    - `class CitationsSearchResultLocation:`
+    - `class CitationsSearchResultLocation`
 
       - `JsonElement Type = "search_result_location"`
 
@@ -20224,7 +20578,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Block Param
 
-- `class TextBlockParam:`
+- `class TextBlockParam`
 
   - `JsonElement Type = "text"`
 
@@ -20255,7 +20609,7 @@ Console.WriteLine(messageTokensCount);
 
   - `IReadOnlyList<TextCitationParam>? Citations`
 
-    - `class CitationCharLocationParam:`
+    - `class CitationCharLocationParam`
 
       - `JsonElement Type = "char_location"`
 
@@ -20275,7 +20629,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class CitationPageLocationParam:`
+    - `class CitationPageLocationParam`
 
       - `JsonElement Type = "page_location"`
 
@@ -20295,7 +20649,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 1
 
-    - `class CitationContentBlockLocationParam:`
+    - `class CitationContentBlockLocationParam`
 
       - `JsonElement Type = "content_block_location"`
 
@@ -20325,7 +20679,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `class CitationWebSearchResultLocationParam:`
+    - `class CitationWebSearchResultLocationParam`
 
       - `JsonElement Type = "web_search_result_location"`
 
@@ -20341,7 +20695,7 @@ Console.WriteLine(messageTokensCount);
 
         minLength: 1
 
-    - `class CitationSearchResultLocationParam:`
+    - `class CitationSearchResultLocationParam`
 
       - `JsonElement Type = "search_result_location"`
 
@@ -20379,7 +20733,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class TextCitation: union`
 
-  - `class CitationCharLocation:`
+  - `class CitationCharLocation`
 
     - `JsonElement Type = "char_location"`
 
@@ -20399,7 +20753,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 0
 
-  - `class CitationPageLocation:`
+  - `class CitationPageLocation`
 
     - `JsonElement Type = "page_location"`
 
@@ -20419,7 +20773,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 1
 
-  - `class CitationContentBlockLocation:`
+  - `class CitationContentBlockLocation`
 
     - `JsonElement Type = "content_block_location"`
 
@@ -20449,7 +20803,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 0
 
-  - `class CitationsWebSearchResultLocation:`
+  - `class CitationsWebSearchResultLocation`
 
     - `JsonElement Type = "web_search_result_location"`
 
@@ -20463,7 +20817,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required string Url`
 
-  - `class CitationsSearchResultLocation:`
+  - `class CitationsSearchResultLocation`
 
     - `JsonElement Type = "search_result_location"`
 
@@ -20501,7 +20855,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class TextCitationParam: union`
 
-  - `class CitationCharLocationParam:`
+  - `class CitationCharLocationParam`
 
     - `JsonElement Type = "char_location"`
 
@@ -20521,7 +20875,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 0
 
-  - `class CitationPageLocationParam:`
+  - `class CitationPageLocationParam`
 
     - `JsonElement Type = "page_location"`
 
@@ -20541,7 +20895,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 1
 
-  - `class CitationContentBlockLocationParam:`
+  - `class CitationContentBlockLocationParam`
 
     - `JsonElement Type = "content_block_location"`
 
@@ -20571,7 +20925,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 0
 
-  - `class CitationWebSearchResultLocationParam:`
+  - `class CitationWebSearchResultLocationParam`
 
     - `JsonElement Type = "web_search_result_location"`
 
@@ -20587,7 +20941,7 @@ Console.WriteLine(messageTokensCount);
 
       minLength: 1
 
-  - `class CitationSearchResultLocationParam:`
+  - `class CitationSearchResultLocationParam`
 
     - `JsonElement Type = "search_result_location"`
 
@@ -20623,7 +20977,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Delta
 
-- `class TextDelta:`
+- `class TextDelta`
 
   - `JsonElement Type = "text_delta"`
 
@@ -20631,7 +20985,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Create Result Block
 
-- `class TextEditorCodeExecutionCreateResultBlock:`
+- `class TextEditorCodeExecutionCreateResultBlock`
 
   - `JsonElement Type = "text_editor_code_execution_create_result"`
 
@@ -20639,7 +20993,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Create Result Block Param
 
-- `class TextEditorCodeExecutionCreateResultBlockParam:`
+- `class TextEditorCodeExecutionCreateResultBlockParam`
 
   - `JsonElement Type = "text_editor_code_execution_create_result"`
 
@@ -20647,7 +21001,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Str Replace Result Block
 
-- `class TextEditorCodeExecutionStrReplaceResultBlock:`
+- `class TextEditorCodeExecutionStrReplaceResultBlock`
 
   - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -20663,7 +21017,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Str Replace Result Block Param
 
-- `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+- `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
   - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -20679,13 +21033,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Tool Result Block
 
-- `class TextEditorCodeExecutionToolResultBlock:`
+- `class TextEditorCodeExecutionToolResultBlock`
 
   - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
   - `required Content Content`
 
-    - `class TextEditorCodeExecutionToolResultError:`
+    - `class TextEditorCodeExecutionToolResultError`
 
       - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -20703,7 +21057,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string? ErrorMessage`
 
-    - `class TextEditorCodeExecutionViewResultBlock:`
+    - `class TextEditorCodeExecutionViewResultBlock`
 
       - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -20723,13 +21077,13 @@ Console.WriteLine(messageTokensCount);
 
       - `required long? TotalLines`
 
-    - `class TextEditorCodeExecutionCreateResultBlock:`
+    - `class TextEditorCodeExecutionCreateResultBlock`
 
       - `JsonElement Type = "text_editor_code_execution_create_result"`
 
       - `required bool IsFileUpdate`
 
-    - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+    - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
       - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -20749,13 +21103,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Tool Result Block Param
 
-- `class TextEditorCodeExecutionToolResultBlockParam:`
+- `class TextEditorCodeExecutionToolResultBlockParam`
 
   - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
   - `required Content Content`
 
-    - `class TextEditorCodeExecutionToolResultErrorParam:`
+    - `class TextEditorCodeExecutionToolResultErrorParam`
 
       - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -20773,7 +21127,7 @@ Console.WriteLine(messageTokensCount);
 
       - `string? ErrorMessage`
 
-    - `class TextEditorCodeExecutionViewResultBlockParam:`
+    - `class TextEditorCodeExecutionViewResultBlockParam`
 
       - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -20793,13 +21147,13 @@ Console.WriteLine(messageTokensCount);
 
       - `long? TotalLines`
 
-    - `class TextEditorCodeExecutionCreateResultBlockParam:`
+    - `class TextEditorCodeExecutionCreateResultBlockParam`
 
       - `JsonElement Type = "text_editor_code_execution_create_result"`
 
       - `required bool IsFileUpdate`
 
-    - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+    - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
       - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -20840,7 +21194,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Tool Result Error
 
-- `class TextEditorCodeExecutionToolResultError:`
+- `class TextEditorCodeExecutionToolResultError`
 
   - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -20860,7 +21214,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Tool Result Error Code
 
-- `enum TextEditorCodeExecutionToolResultErrorCode:`
+- `enum TextEditorCodeExecutionToolResultErrorCode`
 
   - `InvalidToolInput("invalid_tool_input")`
 
@@ -20874,7 +21228,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution Tool Result Error Param
 
-- `class TextEditorCodeExecutionToolResultErrorParam:`
+- `class TextEditorCodeExecutionToolResultErrorParam`
 
   - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -20894,7 +21248,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution View Result Block
 
-- `class TextEditorCodeExecutionViewResultBlock:`
+- `class TextEditorCodeExecutionViewResultBlock`
 
   - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -20916,7 +21270,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Text Editor Code Execution View Result Block Param
 
-- `class TextEditorCodeExecutionViewResultBlockParam:`
+- `class TextEditorCodeExecutionViewResultBlockParam`
 
   - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -20938,7 +21292,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Thinking Block
 
-- `class ThinkingBlock:`
+- `class ThinkingBlock`
 
   - `JsonElement Type = "thinking"`
 
@@ -20956,7 +21310,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Thinking Block Param
 
-- `class ThinkingBlockParam:`
+- `class ThinkingBlockParam`
 
   - `JsonElement Type = "thinking"`
 
@@ -20972,7 +21326,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Thinking Config Adaptive
 
-- `class ThinkingConfigAdaptive:`
+- `class ThinkingConfigAdaptive`
 
   - `JsonElement Type = "adaptive"`
 
@@ -20986,13 +21340,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Thinking Config Disabled
 
-- `class ThinkingConfigDisabled:`
+- `class ThinkingConfigDisabled`
 
   - `JsonElement Type = "disabled"`
 
 ### Thinking Config Enabled
 
-- `class ThinkingConfigEnabled:`
+- `class ThinkingConfigEnabled`
 
   - `JsonElement Type = "enabled"`
 
@@ -21024,7 +21378,7 @@ Console.WriteLine(messageTokensCount);
 
   See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `class ThinkingConfigEnabled:`
+  - `class ThinkingConfigEnabled`
 
     - `JsonElement Type = "enabled"`
 
@@ -21046,11 +21400,11 @@ Console.WriteLine(messageTokensCount);
 
       - `Omitted("omitted")`
 
-  - `class ThinkingConfigDisabled:`
+  - `class ThinkingConfigDisabled`
 
     - `JsonElement Type = "disabled"`
 
-  - `class ThinkingConfigAdaptive:`
+  - `class ThinkingConfigAdaptive`
 
     - `JsonElement Type = "adaptive"`
 
@@ -21064,7 +21418,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Thinking Delta
 
-- `class ThinkingDelta:`
+- `class ThinkingDelta`
 
   - `JsonElement Type = "thinking_delta"`
 
@@ -21074,7 +21428,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool
 
-- `class Tool:`
+- `class Tool`
 
   - `Type? Type`
 
@@ -21151,7 +21505,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Bash 20250124
 
-- `class ToolBash20250124:`
+- `class ToolBash20250124`
 
   - `JsonElement Type = "bash_20250124"`
 
@@ -21208,7 +21562,7 @@ Console.WriteLine(messageTokensCount);
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `class ToolChoiceAuto:`
+  - `class ToolChoiceAuto`
 
     The model will automatically decide whether to use tools.
 
@@ -21220,7 +21574,7 @@ Console.WriteLine(messageTokensCount);
 
       Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-  - `class ToolChoiceAny:`
+  - `class ToolChoiceAny`
 
     The model will use any available tools.
 
@@ -21232,7 +21586,7 @@ Console.WriteLine(messageTokensCount);
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class ToolChoiceTool:`
+  - `class ToolChoiceTool`
 
     The model will use the specified tool with `tool_choice.name`.
 
@@ -21248,7 +21602,7 @@ Console.WriteLine(messageTokensCount);
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class ToolChoiceNone:`
+  - `class ToolChoiceNone`
 
     The model will not be allowed to use tools.
 
@@ -21256,7 +21610,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Choice Any
 
-- `class ToolChoiceAny:`
+- `class ToolChoiceAny`
 
   The model will use any available tools.
 
@@ -21270,7 +21624,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Choice Auto
 
-- `class ToolChoiceAuto:`
+- `class ToolChoiceAuto`
 
   The model will automatically decide whether to use tools.
 
@@ -21284,7 +21638,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Choice None
 
-- `class ToolChoiceNone:`
+- `class ToolChoiceNone`
 
   The model will not be allowed to use tools.
 
@@ -21292,7 +21646,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Choice Tool
 
-- `class ToolChoiceTool:`
+- `class ToolChoiceTool`
 
   The model will use the specified tool with `tool_choice.name`.
 
@@ -21310,7 +21664,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Reference Block
 
-- `class ToolReferenceBlock:`
+- `class ToolReferenceBlock`
 
   - `JsonElement Type = "tool_reference"`
 
@@ -21320,7 +21674,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Reference Block Param
 
-- `class ToolReferenceBlockParam:`
+- `class ToolReferenceBlockParam`
 
   Tool reference block that can be included in tool_result content.
 
@@ -21353,7 +21707,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Result Block Param
 
-- `class ToolResultBlockParam:`
+- `class ToolResultBlockParam`
 
   - `JsonElement Type = "tool_result"`
 
@@ -21388,7 +21742,7 @@ Console.WriteLine(messageTokensCount);
 
     - `IReadOnlyList<Block>`
 
-      - `class TextBlockParam:`
+      - `class TextBlockParam`
 
         - `JsonElement Type = "text"`
 
@@ -21402,7 +21756,7 @@ Console.WriteLine(messageTokensCount);
 
         - `IReadOnlyList<TextCitationParam>? Citations`
 
-          - `class CitationCharLocationParam:`
+          - `class CitationCharLocationParam`
 
             - `JsonElement Type = "char_location"`
 
@@ -21422,7 +21776,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationPageLocationParam:`
+          - `class CitationPageLocationParam`
 
             - `JsonElement Type = "page_location"`
 
@@ -21442,7 +21796,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 1
 
-          - `class CitationContentBlockLocationParam:`
+          - `class CitationContentBlockLocationParam`
 
             - `JsonElement Type = "content_block_location"`
 
@@ -21472,7 +21826,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class CitationWebSearchResultLocationParam:`
+          - `class CitationWebSearchResultLocationParam`
 
             - `JsonElement Type = "web_search_result_location"`
 
@@ -21488,7 +21842,7 @@ Console.WriteLine(messageTokensCount);
 
               minLength: 1
 
-          - `class CitationSearchResultLocationParam:`
+          - `class CitationSearchResultLocationParam`
 
             - `JsonElement Type = "search_result_location"`
 
@@ -21522,13 +21876,13 @@ Console.WriteLine(messageTokensCount);
 
             - `required string? Title`
 
-      - `class ImageBlockParam:`
+      - `class ImageBlockParam`
 
         - `JsonElement Type = "image"`
 
         - `required Source Source`
 
-          - `class Base64ImageSource:`
+          - `class Base64ImageSource`
 
             - `JsonElement Type = "base64"`
 
@@ -21546,13 +21900,13 @@ Console.WriteLine(messageTokensCount);
 
               - `ImageWebP("image/webp")`
 
-          - `class UrlImageSource:`
+          - `class UrlImageSource`
 
             - `JsonElement Type = "url"`
 
             - `required string Url`
 
-          - `class FileImageSource:`
+          - `class FileImageSource`
 
             - `JsonElement Type = "file"`
 
@@ -21574,7 +21928,7 @@ Console.WriteLine(messageTokensCount);
 
             - `Error("error")`
 
-      - `class SearchResultBlockParam:`
+      - `class SearchResultBlockParam`
 
         - `JsonElement Type = "search_result"`
 
@@ -21604,13 +21958,13 @@ Console.WriteLine(messageTokensCount);
 
           - `bool Enabled`
 
-      - `class DocumentBlockParam:`
+      - `class DocumentBlockParam`
 
         - `JsonElement Type = "document"`
 
         - `required Source Source`
 
-          - `class Base64PdfSource:`
+          - `class Base64PdfSource`
 
             - `JsonElement Type = "base64"`
 
@@ -21620,7 +21974,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "application/pdf"`
 
-          - `class PlainTextSource:`
+          - `class PlainTextSource`
 
             - `JsonElement Type = "text"`
 
@@ -21628,7 +21982,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "text/plain"`
 
-          - `class ContentBlockSource:`
+          - `class ContentBlockSource`
 
             - `JsonElement Type = "content"`
 
@@ -21638,17 +21992,17 @@ Console.WriteLine(messageTokensCount);
 
               - `IReadOnlyList<ContentBlockSourceContent>`
 
-                - `class TextBlockParam:`
+                - `class TextBlockParam`
 
-                - `class ImageBlockParam:`
+                - `class ImageBlockParam`
 
-          - `class UrlPdfSource:`
+          - `class UrlPdfSource`
 
             - `JsonElement Type = "url"`
 
             - `required string Url`
 
-          - `class FileDocumentSource:`
+          - `class FileDocumentSource`
 
             - `JsonElement Type = "file"`
 
@@ -21668,7 +22022,7 @@ Console.WriteLine(messageTokensCount);
 
           maxLength: 500, minLength: 1
 
-      - `class ToolReferenceBlockParam:`
+      - `class ToolReferenceBlockParam`
 
         Tool reference block that can be included in tool_result content.
 
@@ -21682,7 +22036,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-      - `class BrowserStateBlockParam:`
+      - `class BrowserStateBlockParam`
 
         The caller's browser state after a browser toolset member call —
         the full inventory of open tabs, which tab is active, and any side
@@ -21732,7 +22086,7 @@ Console.WriteLine(messageTokensCount);
 
           maxItems: 200, minItems: 1
 
-          - `class BrowserStateChangeTabOpened:`
+          - `class BrowserStateChangeTabOpened`
 
             A tab this call's execution opened that remains open at its end —
             the creation delta of the `tabs` inventory, not an event log.
@@ -21750,7 +22104,7 @@ Console.WriteLine(messageTokensCount);
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `class BrowserStateChangeDownloadStarted:`
+          - `class BrowserStateChangeDownloadStarted`
 
             A file download that started during this call.
 
@@ -21768,7 +22122,7 @@ Console.WriteLine(messageTokensCount);
 
               maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `class BrowserStateChangeDownloadCompleted:`
+          - `class BrowserStateChangeDownloadCompleted`
 
             A file download that finished during this call, reported with the
             same `download_id` as its `download_started` — or without a prior
@@ -21801,7 +22155,7 @@ Console.WriteLine(messageTokensCount);
 
               minimum: 0
 
-          - `class BrowserStateChangeDownloadFailed:`
+          - `class BrowserStateChangeDownloadFailed`
 
             A file download that failed — or was cancelled — during this call.
 
@@ -21835,7 +22189,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Bm25 20251119
 
-- `class ToolSearchToolBm25_20251119:`
+- `class ToolSearchToolBm25_20251119`
 
   - `required Type Type`
 
@@ -21890,7 +22244,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Regex 20251119
 
-- `class ToolSearchToolRegex20251119:`
+- `class ToolSearchToolRegex20251119`
 
   - `required Type Type`
 
@@ -21945,13 +22299,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Result Block
 
-- `class ToolSearchToolResultBlock:`
+- `class ToolSearchToolResultBlock`
 
   - `JsonElement Type = "tool_search_tool_result"`
 
   - `required Content Content`
 
-    - `class ToolSearchToolResultError:`
+    - `class ToolSearchToolResultError`
 
       - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -21967,7 +22321,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string? ErrorMessage`
 
-    - `class ToolSearchToolSearchResultBlock:`
+    - `class ToolSearchToolSearchResultBlock`
 
       - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -21985,13 +22339,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Result Block Param
 
-- `class ToolSearchToolResultBlockParam:`
+- `class ToolSearchToolResultBlockParam`
 
   - `JsonElement Type = "tool_search_tool_result"`
 
   - `required Content Content`
 
-    - `class ToolSearchToolResultErrorParam:`
+    - `class ToolSearchToolResultErrorParam`
 
       - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -22007,7 +22361,7 @@ Console.WriteLine(messageTokensCount);
 
       - `string? ErrorMessage`
 
-    - `class ToolSearchToolSearchResultBlockParam:`
+    - `class ToolSearchToolSearchResultBlockParam`
 
       - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -22050,7 +22404,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Result Error
 
-- `class ToolSearchToolResultError:`
+- `class ToolSearchToolResultError`
 
   - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -22068,7 +22422,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Result Error Code
 
-- `enum ToolSearchToolResultErrorCode:`
+- `enum ToolSearchToolResultErrorCode`
 
   - `InvalidToolInput("invalid_tool_input")`
 
@@ -22080,7 +22434,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Result Error Param
 
-- `class ToolSearchToolResultErrorParam:`
+- `class ToolSearchToolResultErrorParam`
 
   - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -22098,7 +22452,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Search Result Block
 
-- `class ToolSearchToolSearchResultBlock:`
+- `class ToolSearchToolSearchResultBlock`
 
   - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -22112,7 +22466,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Search Tool Search Result Block Param
 
-- `class ToolSearchToolSearchResultBlockParam:`
+- `class ToolSearchToolSearchResultBlockParam`
 
   - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -22147,7 +22501,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Text Editor 20250124
 
-- `class ToolTextEditor20250124:`
+- `class ToolTextEditor20250124`
 
   - `JsonElement Type = "text_editor_20250124"`
 
@@ -22200,7 +22554,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Text Editor 20250429
 
-- `class ToolTextEditor20250429:`
+- `class ToolTextEditor20250429`
 
   - `JsonElement Type = "text_editor_20250429"`
 
@@ -22253,7 +22607,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Text Editor 20250728
 
-- `class ToolTextEditor20250728:`
+- `class ToolTextEditor20250728`
 
   - `JsonElement Type = "text_editor_20250728"`
 
@@ -22314,7 +22668,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class ToolUnion: union`
 
-  - `class Tool:`
+  - `class Tool`
 
     - `Type? Type`
 
@@ -22389,7 +22743,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolBash20250124:`
+  - `class ToolBash20250124`
 
     - `JsonElement Type = "bash_20250124"`
 
@@ -22423,7 +22777,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20250522:`
+  - `class CodeExecutionTool20250522`
 
     - `JsonElement Type = "code_execution_20250522"`
 
@@ -22455,7 +22809,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20250825:`
+  - `class CodeExecutionTool20250825`
 
     - `JsonElement Type = "code_execution_20250825"`
 
@@ -22487,7 +22841,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20260120:`
+  - `class CodeExecutionTool20260120`
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -22521,7 +22875,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20260521:`
+  - `class CodeExecutionTool20260521`
 
     Code execution tool with REPL state persistence.
 
@@ -22555,7 +22909,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BrowserToolset20260801:`
+  - `class BrowserToolset20260801`
 
     The browser toolset: a single `tools[]` entry (carrying no
     `name`) that declares the browser tool family. The model is served
@@ -22949,7 +23303,7 @@ Console.WriteLine(messageTokensCount);
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class MemoryTool20250818:`
+  - `class MemoryTool20250818`
 
     - `JsonElement Type = "memory_20250818"`
 
@@ -22983,7 +23337,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ComputerToolset20260801:`
+  - `class ComputerToolset20260801`
 
     The computer toolset: a single `tools[]` entry (carrying no
     `name`) that declares the computer tool family. The model is
@@ -23213,7 +23567,7 @@ Console.WriteLine(messageTokensCount);
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class ToolTextEditor20250124:`
+  - `class ToolTextEditor20250124`
 
     - `JsonElement Type = "text_editor_20250124"`
 
@@ -23247,7 +23601,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolTextEditor20250429:`
+  - `class ToolTextEditor20250429`
 
     - `JsonElement Type = "text_editor_20250429"`
 
@@ -23281,7 +23635,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolTextEditor20250728:`
+  - `class ToolTextEditor20250728`
 
     - `JsonElement Type = "text_editor_20250728"`
 
@@ -23321,7 +23675,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebSearchTool20250305:`
+  - `class WebSearchTool20250305`
 
     - `JsonElement Type = "web_search_20250305"`
 
@@ -23397,7 +23751,7 @@ Console.WriteLine(messageTokensCount);
 
         maxLength: 255, minLength: 1
 
-  - `class WebFetchTool20250910:`
+  - `class WebFetchTool20250910`
 
     - `JsonElement Type = "web_fetch_20250910"`
 
@@ -23455,7 +23809,98 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebSearchTool20260209:`
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+      - `ClientToolResults ClientToolResults`
+
+        Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+        - `class WebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+          - `JsonElement Type = "all"`
+
+        - `class WebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+          - `JsonElement Type = "none"`
+
+        - `class WebFetchUrlSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+          - `JsonElement Type = "only"`
+
+          - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+            - `JsonElement Type = "tool_reference"`
+
+            - `required string Name`
+
+        - `class WebFetchUrlSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+          - `JsonElement Type = "except"`
+
+          - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+            - `JsonElement Type = "tool_reference"`
+
+            - `required string Name`
+
+      - `ServerToolResults ServerToolResults`
+
+        Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+        - `class WebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class WebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+        - `class WebFetchUrlSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+        - `class WebFetchUrlSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+      - `UserInput UserInput`
+
+        Whether URLs in user messages are fetchable: "all" or "none".
+
+        - `class WebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class WebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+  - `class WebSearchTool20260209`
 
     - `JsonElement Type = "web_search_20260209"`
 
@@ -23505,7 +23950,7 @@ Console.WriteLine(messageTokensCount);
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class WebFetchTool20260209:`
+  - `class WebFetchTool20260209`
 
     - `JsonElement Type = "web_fetch_20260209"`
 
@@ -23561,7 +24006,16 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebFetchTool20260309:`
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+  - `class WebFetchTool20260309`
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -23619,11 +24073,20 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `bool UseCache`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class WebSearchTool20260318:`
+  - `class WebSearchTool20260318`
 
     - `JsonElement Type = "web_search_20260318"`
 
@@ -23681,7 +24144,7 @@ Console.WriteLine(messageTokensCount);
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class WebFetchTool20260318:`
+  - `class WebFetchTool20260318`
 
     - `JsonElement Type = "web_fetch_20260318"`
 
@@ -23745,11 +24208,20 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `WebFetchUrlSources? UrlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `bool UseCache`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class ToolSearchToolBm25_20251119:`
+  - `class ToolSearchToolBm25_20251119`
 
     - `required Type Type`
 
@@ -23785,7 +24257,7 @@ Console.WriteLine(messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolSearchToolRegex20251119:`
+  - `class ToolSearchToolRegex20251119`
 
     - `required Type Type`
 
@@ -23823,7 +24295,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Use Block
 
-- `class ToolUseBlock:`
+- `class ToolUseBlock`
 
   - `JsonElement Type = "tool_use"`
 
@@ -23833,13 +24305,13 @@ Console.WriteLine(messageTokensCount);
 
   - `required Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -23849,7 +24321,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -23871,7 +24343,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Tool Use Block Param
 
-- `class ToolUseBlockParam:`
+- `class ToolUseBlockParam`
 
   - `JsonElement Type = "tool_use"`
 
@@ -23908,13 +24380,13 @@ Console.WriteLine(messageTokensCount);
 
   - `Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -23924,7 +24396,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -23940,7 +24412,7 @@ Console.WriteLine(messageTokensCount);
 
 ### URL Image Source
 
-- `class UrlImageSource:`
+- `class UrlImageSource`
 
   - `JsonElement Type = "url"`
 
@@ -23948,7 +24420,7 @@ Console.WriteLine(messageTokensCount);
 
 ### URL PDF Source
 
-- `class UrlPdfSource:`
+- `class UrlPdfSource`
 
   - `JsonElement Type = "url"`
 
@@ -23956,7 +24428,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Usage
 
-- `class Usage:`
+- `class Usage`
 
   - `required CacheCreation? CacheCreation`
 
@@ -24052,7 +24524,7 @@ Console.WriteLine(messageTokensCount);
 
 ### User Location
 
-- `class UserLocation:`
+- `class UserLocation`
 
   - `JsonElement Type = "approximate"`
 
@@ -24082,7 +24554,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Block
 
-- `class WebFetchBlock:`
+- `class WebFetchBlock`
 
   - `JsonElement Type = "web_fetch_result"`
 
@@ -24098,7 +24570,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required Source Source`
 
-      - `class Base64PdfSource:`
+      - `class Base64PdfSource`
 
         - `JsonElement Type = "base64"`
 
@@ -24108,7 +24580,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement MediaType = "application/pdf"`
 
-      - `class PlainTextSource:`
+      - `class PlainTextSource`
 
         - `JsonElement Type = "text"`
 
@@ -24130,7 +24602,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Block Param
 
-- `class WebFetchBlockParam:`
+- `class WebFetchBlockParam`
 
   - `JsonElement Type = "web_fetch_result"`
 
@@ -24140,7 +24612,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required Source Source`
 
-      - `class Base64PdfSource:`
+      - `class Base64PdfSource`
 
         - `JsonElement Type = "base64"`
 
@@ -24150,7 +24622,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement MediaType = "application/pdf"`
 
-      - `class PlainTextSource:`
+      - `class PlainTextSource`
 
         - `JsonElement Type = "text"`
 
@@ -24158,7 +24630,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement MediaType = "text/plain"`
 
-      - `class ContentBlockSource:`
+      - `class ContentBlockSource`
 
         - `JsonElement Type = "content"`
 
@@ -24168,7 +24640,7 @@ Console.WriteLine(messageTokensCount);
 
           - `IReadOnlyList<ContentBlockSourceContent>`
 
-            - `class TextBlockParam:`
+            - `class TextBlockParam`
 
               - `JsonElement Type = "text"`
 
@@ -24199,7 +24671,7 @@ Console.WriteLine(messageTokensCount);
 
               - `IReadOnlyList<TextCitationParam>? Citations`
 
-                - `class CitationCharLocationParam:`
+                - `class CitationCharLocationParam`
 
                   - `JsonElement Type = "char_location"`
 
@@ -24219,7 +24691,7 @@ Console.WriteLine(messageTokensCount);
 
                     minimum: 0
 
-                - `class CitationPageLocationParam:`
+                - `class CitationPageLocationParam`
 
                   - `JsonElement Type = "page_location"`
 
@@ -24239,7 +24711,7 @@ Console.WriteLine(messageTokensCount);
 
                     minimum: 1
 
-                - `class CitationContentBlockLocationParam:`
+                - `class CitationContentBlockLocationParam`
 
                   - `JsonElement Type = "content_block_location"`
 
@@ -24269,7 +24741,7 @@ Console.WriteLine(messageTokensCount);
 
                     minimum: 0
 
-                - `class CitationWebSearchResultLocationParam:`
+                - `class CitationWebSearchResultLocationParam`
 
                   - `JsonElement Type = "web_search_result_location"`
 
@@ -24285,7 +24757,7 @@ Console.WriteLine(messageTokensCount);
 
                     minLength: 1
 
-                - `class CitationSearchResultLocationParam:`
+                - `class CitationSearchResultLocationParam`
 
                   - `JsonElement Type = "search_result_location"`
 
@@ -24319,13 +24791,13 @@ Console.WriteLine(messageTokensCount);
 
                   - `required string? Title`
 
-            - `class ImageBlockParam:`
+            - `class ImageBlockParam`
 
               - `JsonElement Type = "image"`
 
               - `required Source Source`
 
-                - `class Base64ImageSource:`
+                - `class Base64ImageSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -24343,13 +24815,13 @@ Console.WriteLine(messageTokensCount);
 
                     - `ImageWebP("image/webp")`
 
-                - `class UrlImageSource:`
+                - `class UrlImageSource`
 
                   - `JsonElement Type = "url"`
 
                   - `required string Url`
 
-                - `class FileImageSource:`
+                - `class FileImageSource`
 
                   - `JsonElement Type = "file"`
 
@@ -24371,13 +24843,13 @@ Console.WriteLine(messageTokensCount);
 
                   - `Error("error")`
 
-      - `class UrlPdfSource:`
+      - `class UrlPdfSource`
 
         - `JsonElement Type = "url"`
 
         - `required string Url`
 
-      - `class FileDocumentSource:`
+      - `class FileDocumentSource`
 
         - `JsonElement Type = "file"`
 
@@ -24409,7 +24881,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Tool 20250910
 
-- `class WebFetchTool20250910:`
+- `class WebFetchTool20250910`
 
   - `JsonElement Type = "web_fetch_20250910"`
 
@@ -24484,9 +24956,100 @@ Console.WriteLine(messageTokensCount);
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `WebFetchUrlSources? UrlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `ClientToolResults ClientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonElement Type = "all"`
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonElement Type = "none"`
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonElement Type = "only"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonElement Type = "except"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+    - `ServerToolResults ServerToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `UserInput UserInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
 ### Web Fetch Tool 20260209
 
-- `class WebFetchTool20260209:`
+- `class WebFetchTool20260209`
 
   - `JsonElement Type = "web_fetch_20260209"`
 
@@ -24561,9 +25124,100 @@ Console.WriteLine(messageTokensCount);
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `WebFetchUrlSources? UrlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `ClientToolResults ClientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonElement Type = "all"`
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonElement Type = "none"`
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonElement Type = "only"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonElement Type = "except"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+    - `ServerToolResults ServerToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `UserInput UserInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
 ### Web Fetch Tool 20260309
 
-- `class WebFetchTool20260309:`
+- `class WebFetchTool20260309`
 
   Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -24640,13 +25294,104 @@ Console.WriteLine(messageTokensCount);
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `WebFetchUrlSources? UrlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `ClientToolResults ClientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonElement Type = "all"`
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonElement Type = "none"`
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonElement Type = "only"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonElement Type = "except"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+    - `ServerToolResults ServerToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `UserInput UserInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
   - `bool UseCache`
 
     Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
 ### Web Fetch Tool 20260318
 
-- `class WebFetchTool20260318:`
+- `class WebFetchTool20260318`
 
   - `JsonElement Type = "web_fetch_20260318"`
 
@@ -24729,25 +25474,116 @@ Console.WriteLine(messageTokensCount);
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `WebFetchUrlSources? UrlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `ClientToolResults ClientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonElement Type = "all"`
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonElement Type = "none"`
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonElement Type = "only"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonElement Type = "except"`
+
+        - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+          - `JsonElement Type = "tool_reference"`
+
+          - `required string Name`
+
+    - `ServerToolResults ServerToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class WebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class WebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `UserInput UserInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class WebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class WebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
   - `bool UseCache`
 
     Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
 ### Web Fetch Tool Result Block
 
-- `class WebFetchToolResultBlock:`
+- `class WebFetchToolResultBlock`
 
   - `JsonElement Type = "web_fetch_tool_result"`
 
   - `required Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -24757,7 +25593,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -24767,7 +25603,7 @@ Console.WriteLine(messageTokensCount);
 
   - `required Content Content`
 
-    - `class WebFetchToolResultErrorBlock:`
+    - `class WebFetchToolResultErrorBlock`
 
       - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -24793,7 +25629,7 @@ Console.WriteLine(messageTokensCount);
 
         - `ContentTooLarge("content_too_large")`
 
-    - `class WebFetchBlock:`
+    - `class WebFetchBlock`
 
       - `JsonElement Type = "web_fetch_result"`
 
@@ -24809,7 +25645,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required Source Source`
 
-          - `class Base64PdfSource:`
+          - `class Base64PdfSource`
 
             - `JsonElement Type = "base64"`
 
@@ -24819,7 +25655,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "application/pdf"`
 
-          - `class PlainTextSource:`
+          - `class PlainTextSource`
 
             - `JsonElement Type = "text"`
 
@@ -24845,13 +25681,13 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Tool Result Block Param
 
-- `class WebFetchToolResultBlockParam:`
+- `class WebFetchToolResultBlockParam`
 
   - `JsonElement Type = "web_fetch_tool_result"`
 
   - `required Content Content`
 
-    - `class WebFetchToolResultErrorBlockParam:`
+    - `class WebFetchToolResultErrorBlockParam`
 
       - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -24877,7 +25713,7 @@ Console.WriteLine(messageTokensCount);
 
         - `ContentTooLarge("content_too_large")`
 
-    - `class WebFetchBlockParam:`
+    - `class WebFetchBlockParam`
 
       - `JsonElement Type = "web_fetch_result"`
 
@@ -24887,7 +25723,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required Source Source`
 
-          - `class Base64PdfSource:`
+          - `class Base64PdfSource`
 
             - `JsonElement Type = "base64"`
 
@@ -24897,7 +25733,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "application/pdf"`
 
-          - `class PlainTextSource:`
+          - `class PlainTextSource`
 
             - `JsonElement Type = "text"`
 
@@ -24905,7 +25741,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement MediaType = "text/plain"`
 
-          - `class ContentBlockSource:`
+          - `class ContentBlockSource`
 
             - `JsonElement Type = "content"`
 
@@ -24915,7 +25751,7 @@ Console.WriteLine(messageTokensCount);
 
               - `IReadOnlyList<ContentBlockSourceContent>`
 
-                - `class TextBlockParam:`
+                - `class TextBlockParam`
 
                   - `JsonElement Type = "text"`
 
@@ -24946,7 +25782,7 @@ Console.WriteLine(messageTokensCount);
 
                   - `IReadOnlyList<TextCitationParam>? Citations`
 
-                    - `class CitationCharLocationParam:`
+                    - `class CitationCharLocationParam`
 
                       - `JsonElement Type = "char_location"`
 
@@ -24966,7 +25802,7 @@ Console.WriteLine(messageTokensCount);
 
                         minimum: 0
 
-                    - `class CitationPageLocationParam:`
+                    - `class CitationPageLocationParam`
 
                       - `JsonElement Type = "page_location"`
 
@@ -24986,7 +25822,7 @@ Console.WriteLine(messageTokensCount);
 
                         minimum: 1
 
-                    - `class CitationContentBlockLocationParam:`
+                    - `class CitationContentBlockLocationParam`
 
                       - `JsonElement Type = "content_block_location"`
 
@@ -25016,7 +25852,7 @@ Console.WriteLine(messageTokensCount);
 
                         minimum: 0
 
-                    - `class CitationWebSearchResultLocationParam:`
+                    - `class CitationWebSearchResultLocationParam`
 
                       - `JsonElement Type = "web_search_result_location"`
 
@@ -25032,7 +25868,7 @@ Console.WriteLine(messageTokensCount);
 
                         minLength: 1
 
-                    - `class CitationSearchResultLocationParam:`
+                    - `class CitationSearchResultLocationParam`
 
                       - `JsonElement Type = "search_result_location"`
 
@@ -25066,13 +25902,13 @@ Console.WriteLine(messageTokensCount);
 
                       - `required string? Title`
 
-                - `class ImageBlockParam:`
+                - `class ImageBlockParam`
 
                   - `JsonElement Type = "image"`
 
                   - `required Source Source`
 
-                    - `class Base64ImageSource:`
+                    - `class Base64ImageSource`
 
                       - `JsonElement Type = "base64"`
 
@@ -25090,13 +25926,13 @@ Console.WriteLine(messageTokensCount);
 
                         - `ImageWebP("image/webp")`
 
-                    - `class UrlImageSource:`
+                    - `class UrlImageSource`
 
                       - `JsonElement Type = "url"`
 
                       - `required string Url`
 
-                    - `class FileImageSource:`
+                    - `class FileImageSource`
 
                       - `JsonElement Type = "file"`
 
@@ -25118,13 +25954,13 @@ Console.WriteLine(messageTokensCount);
 
                       - `Error("error")`
 
-          - `class UrlPdfSource:`
+          - `class UrlPdfSource`
 
             - `JsonElement Type = "url"`
 
             - `required string Url`
 
-          - `class FileDocumentSource:`
+          - `class FileDocumentSource`
 
             - `JsonElement Type = "file"`
 
@@ -25164,13 +26000,13 @@ Console.WriteLine(messageTokensCount);
 
   - `Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -25180,7 +26016,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -25190,7 +26026,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Tool Result Error Block
 
-- `class WebFetchToolResultErrorBlock:`
+- `class WebFetchToolResultErrorBlock`
 
   - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -25218,7 +26054,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Tool Result Error Block Param
 
-- `class WebFetchToolResultErrorBlockParam:`
+- `class WebFetchToolResultErrorBlockParam`
 
   - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -25246,7 +26082,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Fetch Tool Result Error Code
 
-- `enum WebFetchToolResultErrorCode:`
+- `enum WebFetchToolResultErrorCode`
 
   - `InvalidToolInput("invalid_tool_input")`
 
@@ -25268,9 +26104,161 @@ Console.WriteLine(messageTokensCount);
 
   - `ContentTooLarge("content_too_large")`
 
+### Web Fetch URL Source All
+
+- `class WebFetchUrlSourceAll`
+
+  The `url_sources` variant under which a source contributes in
+  full: every result of the tool filter's source, or all user input.
+
+  - `JsonElement Type = "all"`
+
+### Web Fetch URL Source Except
+
+- `class WebFetchUrlSourceExcept`
+
+  The tool filter variant under which every result but the named
+  tools' contributes.
+
+  - `JsonElement Type = "except"`
+
+  - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+    - `JsonElement Type = "tool_reference"`
+
+    - `required string Name`
+
+### Web Fetch URL Source None
+
+- `class WebFetchUrlSourceNone`
+
+  The `url_sources` variant under which a source contributes nothing:
+  no result of the tool filter's source, or no user input.
+
+  - `JsonElement Type = "none"`
+
+### Web Fetch URL Source Only
+
+- `class WebFetchUrlSourceOnly`
+
+  The tool filter variant under which only the named tools' results
+  contribute.
+
+  - `JsonElement Type = "only"`
+
+  - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+    - `JsonElement Type = "tool_reference"`
+
+    - `required string Name`
+
+### Web Fetch URL Source Tool Reference
+
+- `class WebFetchUrlSourceToolReference`
+
+  One entry of a tool filter's `tools`: it must name a tool declared
+  in this request's `tools[]`.
+
+  - `JsonElement Type = "tool_reference"`
+
+  - `required string Name`
+
+### Web Fetch URL Sources
+
+- `class WebFetchUrlSources`
+
+  Which sources contribute to the set of URLs web fetch may fetch.
+
+  Each key is a tagged variant: `user_input` is `all` or `none`; the
+  two tool filters are `all`, `none`, `only` (only the named tools'
+  results) or `except` (every result but the named tools'). A named tool
+  must be declared in this request's `tools[]`.
+
+  - `ClientToolResults ClientToolResults`
+
+    Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+    - `class WebFetchUrlSourceAll`
+
+      The `url_sources` variant under which a source contributes in
+      full: every result of the tool filter's source, or all user input.
+
+      - `JsonElement Type = "all"`
+
+    - `class WebFetchUrlSourceNone`
+
+      The `url_sources` variant under which a source contributes nothing:
+      no result of the tool filter's source, or no user input.
+
+      - `JsonElement Type = "none"`
+
+    - `class WebFetchUrlSourceOnly`
+
+      The tool filter variant under which only the named tools' results
+      contribute.
+
+      - `JsonElement Type = "only"`
+
+      - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+        - `JsonElement Type = "tool_reference"`
+
+        - `required string Name`
+
+    - `class WebFetchUrlSourceExcept`
+
+      The tool filter variant under which every result but the named
+      tools' contributes.
+
+      - `JsonElement Type = "except"`
+
+      - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+        - `JsonElement Type = "tool_reference"`
+
+        - `required string Name`
+
+  - `ServerToolResults ServerToolResults`
+
+    Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+    - `class WebFetchUrlSourceAll`
+
+      The `url_sources` variant under which a source contributes in
+      full: every result of the tool filter's source, or all user input.
+
+    - `class WebFetchUrlSourceNone`
+
+      The `url_sources` variant under which a source contributes nothing:
+      no result of the tool filter's source, or no user input.
+
+    - `class WebFetchUrlSourceOnly`
+
+      The tool filter variant under which only the named tools' results
+      contribute.
+
+    - `class WebFetchUrlSourceExcept`
+
+      The tool filter variant under which every result but the named
+      tools' contributes.
+
+  - `UserInput UserInput`
+
+    Whether URLs in user messages are fetchable: "all" or "none".
+
+    - `class WebFetchUrlSourceAll`
+
+      The `url_sources` variant under which a source contributes in
+      full: every result of the tool filter's source, or all user input.
+
+    - `class WebFetchUrlSourceNone`
+
+      The `url_sources` variant under which a source contributes nothing:
+      no result of the tool filter's source, or no user input.
+
 ### Web Search Result Block
 
-- `class WebSearchResultBlock:`
+- `class WebSearchResultBlock`
 
   - `JsonElement Type = "web_search_result"`
 
@@ -25284,7 +26272,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Result Block Param
 
-- `class WebSearchResultBlockParam:`
+- `class WebSearchResultBlockParam`
 
   - `JsonElement Type = "web_search_result"`
 
@@ -25298,7 +26286,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool 20250305
 
-- `class WebSearchTool20250305:`
+- `class WebSearchTool20250305`
 
   - `JsonElement Type = "web_search_20250305"`
 
@@ -25393,7 +26381,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool 20260209
 
-- `class WebSearchTool20260209:`
+- `class WebSearchTool20260209`
 
   - `JsonElement Type = "web_search_20260209"`
 
@@ -25488,7 +26476,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool 20260318
 
-- `class WebSearchTool20260318:`
+- `class WebSearchTool20260318`
 
   - `JsonElement Type = "web_search_20260318"`
 
@@ -25591,7 +26579,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool Request Error
 
-- `class WebSearchToolRequestError:`
+- `class WebSearchToolRequestError`
 
   - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -25611,19 +26599,19 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool Result Block
 
-- `class WebSearchToolResultBlock:`
+- `class WebSearchToolResultBlock`
 
   - `JsonElement Type = "web_search_tool_result"`
 
   - `required Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -25633,7 +26621,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -25643,7 +26631,7 @@ Console.WriteLine(messageTokensCount);
 
   - `required WebSearchToolResultBlockContent Content`
 
-    - `class WebSearchToolResultError:`
+    - `class WebSearchToolResultError`
 
       - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -25681,7 +26669,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class WebSearchToolResultBlockContent: union`
 
-  - `class WebSearchToolResultError:`
+  - `class WebSearchToolResultError`
 
     - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -25713,7 +26701,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool Result Block Param
 
-- `class WebSearchToolResultBlockParam:`
+- `class WebSearchToolResultBlockParam`
 
   - `JsonElement Type = "web_search_tool_result"`
 
@@ -25731,7 +26719,7 @@ Console.WriteLine(messageTokensCount);
 
       - `string? PageAge`
 
-    - `class WebSearchToolRequestError:`
+    - `class WebSearchToolRequestError`
 
       - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -25776,13 +26764,13 @@ Console.WriteLine(messageTokensCount);
 
   - `Caller Caller`
 
-    - `class DirectCaller:`
+    - `class DirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonElement Type = "direct"`
 
-    - `class ServerToolCaller:`
+    - `class ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -25792,7 +26780,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class ServerToolCaller20260120:`
+    - `class ServerToolCaller20260120`
 
       - `JsonElement Type = "code_execution_20260120"`
 
@@ -25816,7 +26804,7 @@ Console.WriteLine(messageTokensCount);
 
     - `string? PageAge`
 
-  - `class WebSearchToolRequestError:`
+  - `class WebSearchToolRequestError`
 
     - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -25836,7 +26824,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool Result Error
 
-- `class WebSearchToolResultError:`
+- `class WebSearchToolResultError`
 
   - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -25856,7 +26844,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Web Search Tool Result Error Code
 
-- `enum WebSearchToolResultErrorCode:`
+- `enum WebSearchToolResultErrorCode`
 
   - `InvalidToolInput("invalid_tool_input")`
 
@@ -25977,7 +26965,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `IReadOnlyList<ContentBlockParam>`
 
-            - `class TextBlockParam:`
+            - `class TextBlockParam`
 
               - `JsonElement Type = "text"`
 
@@ -26008,7 +26996,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `IReadOnlyList<TextCitationParam>? Citations`
 
-                - `class CitationCharLocationParam:`
+                - `class CitationCharLocationParam`
 
                   - `JsonElement Type = "char_location"`
 
@@ -26028,7 +27016,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `class CitationPageLocationParam:`
+                - `class CitationPageLocationParam`
 
                   - `JsonElement Type = "page_location"`
 
@@ -26048,7 +27036,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                - `class CitationContentBlockLocationParam:`
+                - `class CitationContentBlockLocationParam`
 
                   - `JsonElement Type = "content_block_location"`
 
@@ -26078,7 +27066,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `class CitationWebSearchResultLocationParam:`
+                - `class CitationWebSearchResultLocationParam`
 
                   - `JsonElement Type = "web_search_result_location"`
 
@@ -26094,7 +27082,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minLength: 1
 
-                - `class CitationSearchResultLocationParam:`
+                - `class CitationSearchResultLocationParam`
 
                   - `JsonElement Type = "search_result_location"`
 
@@ -26128,13 +27116,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string? Title`
 
-            - `class ImageBlockParam:`
+            - `class ImageBlockParam`
 
               - `JsonElement Type = "image"`
 
               - `required Source Source`
 
-                - `class Base64ImageSource:`
+                - `class Base64ImageSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -26152,13 +27140,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ImageWebP("image/webp")`
 
-                - `class UrlImageSource:`
+                - `class UrlImageSource`
 
                   - `JsonElement Type = "url"`
 
                   - `required string Url`
 
-                - `class FileImageSource:`
+                - `class FileImageSource`
 
                   - `JsonElement Type = "file"`
 
@@ -26180,13 +27168,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Error("error")`
 
-            - `class DocumentBlockParam:`
+            - `class DocumentBlockParam`
 
               - `JsonElement Type = "document"`
 
               - `required Source Source`
 
-                - `class Base64PdfSource:`
+                - `class Base64PdfSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -26196,7 +27184,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `JsonElement MediaType = "application/pdf"`
 
-                - `class PlainTextSource:`
+                - `class PlainTextSource`
 
                   - `JsonElement Type = "text"`
 
@@ -26204,7 +27192,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `JsonElement MediaType = "text/plain"`
 
-                - `class ContentBlockSource:`
+                - `class ContentBlockSource`
 
                   - `JsonElement Type = "content"`
 
@@ -26214,17 +27202,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `IReadOnlyList<ContentBlockSourceContent>`
 
-                      - `class TextBlockParam:`
+                      - `class TextBlockParam`
 
-                      - `class ImageBlockParam:`
+                      - `class ImageBlockParam`
 
-                - `class UrlPdfSource:`
+                - `class UrlPdfSource`
 
                   - `JsonElement Type = "url"`
 
                   - `required string Url`
 
-                - `class FileDocumentSource:`
+                - `class FileDocumentSource`
 
                   - `JsonElement Type = "file"`
 
@@ -26246,7 +27234,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 500, minLength: 1
 
-            - `class SearchResultBlockParam:`
+            - `class SearchResultBlockParam`
 
               - `JsonElement Type = "search_result"`
 
@@ -26274,7 +27262,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `CitationsConfigParam Citations`
 
-            - `class ThinkingBlockParam:`
+            - `class ThinkingBlockParam`
 
               - `JsonElement Type = "thinking"`
 
@@ -26288,7 +27276,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-            - `class RedactedThinkingBlockParam:`
+            - `class RedactedThinkingBlockParam`
 
               - `JsonElement Type = "redacted_thinking"`
 
@@ -26296,7 +27284,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `class ToolUseBlockParam:`
+            - `class ToolUseBlockParam`
 
               - `JsonElement Type = "tool_use"`
 
@@ -26316,13 +27304,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class DirectCaller:`
+                - `class DirectCaller`
 
                   Tool invocation directly from the model.
 
                   - `JsonElement Type = "direct"`
 
-                - `class ServerToolCaller:`
+                - `class ServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
@@ -26332,7 +27320,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `class ServerToolCaller20260120:`
+                - `class ServerToolCaller20260120`
 
                   - `JsonElement Type = "code_execution_20260120"`
 
@@ -26346,7 +27334,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `class ToolResultBlockParam:`
+            - `class ToolResultBlockParam`
 
               - `JsonElement Type = "tool_result"`
 
@@ -26364,15 +27352,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `IReadOnlyList<Block>`
 
-                  - `class TextBlockParam:`
+                  - `class TextBlockParam`
 
-                  - `class ImageBlockParam:`
+                  - `class ImageBlockParam`
 
-                  - `class SearchResultBlockParam:`
+                  - `class SearchResultBlockParam`
 
-                  - `class DocumentBlockParam:`
+                  - `class DocumentBlockParam`
 
-                  - `class ToolReferenceBlockParam:`
+                  - `class ToolReferenceBlockParam`
 
                     Tool reference block that can be included in tool_result content.
 
@@ -26386,7 +27374,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       Create a cache control breakpoint at this content block.
 
-                  - `class BrowserStateBlockParam:`
+                  - `class BrowserStateBlockParam`
 
                     The caller's browser state after a browser toolset member call —
                     the full inventory of open tabs, which tab is active, and any side
@@ -26436,7 +27424,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxItems: 200, minItems: 1
 
-                      - `class BrowserStateChangeTabOpened:`
+                      - `class BrowserStateChangeTabOpened`
 
                         A tab this call's execution opened that remains open at its end —
                         the creation delta of the `tabs` inventory, not an event log.
@@ -26454,7 +27442,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BrowserStateChangeDownloadStarted:`
+                      - `class BrowserStateChangeDownloadStarted`
 
                         A file download that started during this call.
 
@@ -26472,7 +27460,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BrowserStateChangeDownloadCompleted:`
+                      - `class BrowserStateChangeDownloadCompleted`
 
                         A file download that finished during this call, reported with the
                         same `download_id` as its `download_started` — or without a prior
@@ -26505,7 +27493,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minimum: 0
 
-                      - `class BrowserStateChangeDownloadFailed:`
+                      - `class BrowserStateChangeDownloadFailed`
 
                         A file download that failed — or was cancelled — during this call.
 
@@ -26537,7 +27525,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `class ServerToolUseBlockParam:`
+            - `class ServerToolUseBlockParam`
 
               - `JsonElement Type = "server_tool_use"`
 
@@ -26569,17 +27557,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class DirectCaller:`
+                - `class DirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class ServerToolCaller:`
+                - `class ServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class ServerToolCaller20260120:`
+                - `class ServerToolCaller20260120`
 
-            - `class WebSearchToolResultBlockParam:`
+            - `class WebSearchToolResultBlockParam`
 
               - `JsonElement Type = "web_search_tool_result"`
 
@@ -26597,7 +27585,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? PageAge`
 
-                - `class WebSearchToolRequestError:`
+                - `class WebSearchToolRequestError`
 
                   - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -26625,23 +27613,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class DirectCaller:`
+                - `class DirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class ServerToolCaller:`
+                - `class ServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class ServerToolCaller20260120:`
+                - `class ServerToolCaller20260120`
 
-            - `class WebFetchToolResultBlockParam:`
+            - `class WebFetchToolResultBlockParam`
 
               - `JsonElement Type = "web_fetch_tool_result"`
 
               - `required Content Content`
 
-                - `class WebFetchToolResultErrorBlockParam:`
+                - `class WebFetchToolResultErrorBlockParam`
 
                   - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -26667,7 +27655,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ContentTooLarge("content_too_large")`
 
-                - `class WebFetchBlockParam:`
+                - `class WebFetchBlockParam`
 
                   - `JsonElement Type = "web_fetch_result"`
 
@@ -26691,23 +27679,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class DirectCaller:`
+                - `class DirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class ServerToolCaller:`
+                - `class ServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class ServerToolCaller20260120:`
+                - `class ServerToolCaller20260120`
 
-            - `class CodeExecutionToolResultBlockParam:`
+            - `class CodeExecutionToolResultBlockParam`
 
               - `JsonElement Type = "code_execution_tool_result"`
 
               - `required CodeExecutionToolResultBlockParamContent Content`
 
-                - `class CodeExecutionToolResultErrorParam:`
+                - `class CodeExecutionToolResultErrorParam`
 
                   - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -26721,7 +27709,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `class CodeExecutionResultBlockParam:`
+                - `class CodeExecutionResultBlockParam`
 
                   - `JsonElement Type = "code_execution_result"`
 
@@ -26737,7 +27725,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string Stdout`
 
-                - `class EncryptedCodeExecutionResultBlockParam:`
+                - `class EncryptedCodeExecutionResultBlockParam`
 
                   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -26763,13 +27751,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BashCodeExecutionToolResultBlockParam:`
+            - `class BashCodeExecutionToolResultBlockParam`
 
               - `JsonElement Type = "bash_code_execution_tool_result"`
 
               - `required Content Content`
 
-                - `class BashCodeExecutionToolResultErrorParam:`
+                - `class BashCodeExecutionToolResultErrorParam`
 
                   - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -26785,7 +27773,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `OutputFileTooLarge("output_file_too_large")`
 
-                - `class BashCodeExecutionResultBlockParam:`
+                - `class BashCodeExecutionResultBlockParam`
 
                   - `JsonElement Type = "bash_code_execution_result"`
 
@@ -26809,13 +27797,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class TextEditorCodeExecutionToolResultBlockParam:`
+            - `class TextEditorCodeExecutionToolResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
               - `required Content Content`
 
-                - `class TextEditorCodeExecutionToolResultErrorParam:`
+                - `class TextEditorCodeExecutionToolResultErrorParam`
 
                   - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -26833,7 +27821,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? ErrorMessage`
 
-                - `class TextEditorCodeExecutionViewResultBlockParam:`
+                - `class TextEditorCodeExecutionViewResultBlockParam`
 
                   - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -26853,13 +27841,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `long? TotalLines`
 
-                - `class TextEditorCodeExecutionCreateResultBlockParam:`
+                - `class TextEditorCodeExecutionCreateResultBlockParam`
 
                   - `JsonElement Type = "text_editor_code_execution_create_result"`
 
                   - `required bool IsFileUpdate`
 
-                - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
+                - `class TextEditorCodeExecutionStrReplaceResultBlockParam`
 
                   - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -26881,13 +27869,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class ToolSearchToolResultBlockParam:`
+            - `class ToolSearchToolResultBlockParam`
 
               - `JsonElement Type = "tool_search_tool_result"`
 
               - `required Content Content`
 
-                - `class ToolSearchToolResultErrorParam:`
+                - `class ToolSearchToolResultErrorParam`
 
                   - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -26903,7 +27891,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? ErrorMessage`
 
-                - `class ToolSearchToolSearchResultBlockParam:`
+                - `class ToolSearchToolSearchResultBlockParam`
 
                   - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -26927,7 +27915,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class ContainerUploadBlockParam:`
+            - `class ContainerUploadBlockParam`
 
               A content block that represents a file to be uploaded to the container
               Files uploaded via this block will be available in the container's input directory.
@@ -27030,7 +28018,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Container identifier for reuse across requests.
 
-        - `class ContainerParams:`
+        - `class ContainerParams`
 
           Container parameters with skills to be loaded.
 
@@ -27164,7 +28152,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `class ThinkingConfigEnabled:`
+        - `class ThinkingConfigEnabled`
 
           - `JsonElement Type = "enabled"`
 
@@ -27186,11 +28174,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Omitted("omitted")`
 
-        - `class ThinkingConfigDisabled:`
+        - `class ThinkingConfigDisabled`
 
           - `JsonElement Type = "disabled"`
 
-        - `class ThinkingConfigAdaptive:`
+        - `class ThinkingConfigAdaptive`
 
           - `JsonElement Type = "adaptive"`
 
@@ -27206,7 +28194,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-        - `class ToolChoiceAuto:`
+        - `class ToolChoiceAuto`
 
           The model will automatically decide whether to use tools.
 
@@ -27218,7 +28206,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-        - `class ToolChoiceAny:`
+        - `class ToolChoiceAny`
 
           The model will use any available tools.
 
@@ -27230,7 +28218,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `class ToolChoiceTool:`
+        - `class ToolChoiceTool`
 
           The model will use the specified tool with `tool_choice.name`.
 
@@ -27246,7 +28234,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `class ToolChoiceNone:`
+        - `class ToolChoiceNone`
 
           The model will not be allowed to use tools.
 
@@ -27316,7 +28304,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-        - `class Tool:`
+        - `class Tool`
 
           - `Type? Type`
 
@@ -27374,7 +28362,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class ToolBash20250124:`
+        - `class ToolBash20250124`
 
           - `JsonElement Type = "bash_20250124"`
 
@@ -27408,7 +28396,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class CodeExecutionTool20250522:`
+        - `class CodeExecutionTool20250522`
 
           - `JsonElement Type = "code_execution_20250522"`
 
@@ -27440,7 +28428,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class CodeExecutionTool20250825:`
+        - `class CodeExecutionTool20250825`
 
           - `JsonElement Type = "code_execution_20250825"`
 
@@ -27472,7 +28460,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class CodeExecutionTool20260120:`
+        - `class CodeExecutionTool20260120`
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -27506,7 +28494,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class CodeExecutionTool20260521:`
+        - `class CodeExecutionTool20260521`
 
           Code execution tool with REPL state persistence.
 
@@ -27540,7 +28528,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BrowserToolset20260801:`
+        - `class BrowserToolset20260801`
 
           The browser toolset: a single `tools[]` entry (carrying no
           `name`) that declares the browser tool family. The model is served
@@ -27934,7 +28922,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `class MemoryTool20250818:`
+        - `class MemoryTool20250818`
 
           - `JsonElement Type = "memory_20250818"`
 
@@ -27968,7 +28956,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class ComputerToolset20260801:`
+        - `class ComputerToolset20260801`
 
           The computer toolset: a single `tools[]` entry (carrying no
           `name`) that declares the computer tool family. The model is
@@ -28198,7 +29186,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `class ToolTextEditor20250124:`
+        - `class ToolTextEditor20250124`
 
           - `JsonElement Type = "text_editor_20250124"`
 
@@ -28232,7 +29220,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class ToolTextEditor20250429:`
+        - `class ToolTextEditor20250429`
 
           - `JsonElement Type = "text_editor_20250429"`
 
@@ -28266,7 +29254,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class ToolTextEditor20250728:`
+        - `class ToolTextEditor20250728`
 
           - `JsonElement Type = "text_editor_20250728"`
 
@@ -28306,7 +29294,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class WebSearchTool20250305:`
+        - `class WebSearchTool20250305`
 
           - `JsonElement Type = "web_search_20250305"`
 
@@ -28382,7 +29370,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 255, minLength: 1
 
-        - `class WebFetchTool20250910:`
+        - `class WebFetchTool20250910`
 
           - `JsonElement Type = "web_fetch_20250910"`
 
@@ -28438,7 +29426,98 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class WebSearchTool20260209:`
+          - `WebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
+            - `ClientToolResults ClientToolResults`
+
+              Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+              - `class WebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+                - `JsonElement Type = "all"`
+
+              - `class WebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+                - `JsonElement Type = "none"`
+
+              - `class WebFetchUrlSourceOnly`
+
+                The tool filter variant under which only the named tools' results
+                contribute.
+
+                - `JsonElement Type = "only"`
+
+                - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string Name`
+
+              - `class WebFetchUrlSourceExcept`
+
+                The tool filter variant under which every result but the named
+                tools' contributes.
+
+                - `JsonElement Type = "except"`
+
+                - `required IReadOnlyList<WebFetchUrlSourceToolReference> Tools`
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string Name`
+
+            - `ServerToolResults ServerToolResults`
+
+              Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+              - `class WebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+              - `class WebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+              - `class WebFetchUrlSourceOnly`
+
+                The tool filter variant under which only the named tools' results
+                contribute.
+
+              - `class WebFetchUrlSourceExcept`
+
+                The tool filter variant under which every result but the named
+                tools' contributes.
+
+            - `UserInput UserInput`
+
+              Whether URLs in user messages are fetchable: "all" or "none".
+
+              - `class WebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+              - `class WebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+        - `class WebSearchTool20260209`
 
           - `JsonElement Type = "web_search_20260209"`
 
@@ -28488,7 +29567,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `class WebFetchTool20260209:`
+        - `class WebFetchTool20260209`
 
           - `JsonElement Type = "web_fetch_20260209"`
 
@@ -28544,7 +29623,16 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class WebFetchTool20260309:`
+          - `WebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
+        - `class WebFetchTool20260309`
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -28602,11 +29690,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+          - `WebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
           - `bool UseCache`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `class WebSearchTool20260318:`
+        - `class WebSearchTool20260318`
 
           - `JsonElement Type = "web_search_20260318"`
 
@@ -28664,7 +29761,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `class WebFetchTool20260318:`
+        - `class WebFetchTool20260318`
 
           - `JsonElement Type = "web_fetch_20260318"`
 
@@ -28728,11 +29825,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+          - `WebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
           - `bool UseCache`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `class ToolSearchToolBm25_20251119:`
+        - `class ToolSearchToolBm25_20251119`
 
           - `required Type Type`
 
@@ -28768,7 +29874,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class ToolSearchToolRegex20251119:`
+        - `class ToolSearchToolRegex20251119`
 
           - `required Type Type`
 
@@ -28852,7 +29958,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class MessageBatch:`
+- `class MessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -29133,7 +30239,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class MessageBatch:`
+- `class MessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -29300,7 +30406,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class MessageBatch:`
+- `class MessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -29466,7 +30572,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class MessageBatch:`
+- `class MessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -29623,7 +30729,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class DeletedMessageBatch:`
+- `class DeletedMessageBatch`
 
   - `JsonElement Type = "message_batch_deleted"`
 
@@ -29682,7 +30788,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class MessageBatchIndividualResponse:`
+- `class MessageBatchIndividualResponse`
 
   This is a single line in the response `.jsonl` file and does not represent the response as a whole.
 
@@ -29698,7 +30804,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-    - `class MessageBatchSucceededResult:`
+    - `class MessageBatchSucceededResult`
 
       - `JsonElement Type = "succeeded"`
 
@@ -29783,7 +30889,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           [{"type": "text", "text": "B)"}]
           ```
 
-          - `class TextBlock:`
+          - `class TextBlock`
 
             - `JsonElement Type = "text"`
 
@@ -29793,7 +30899,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-              - `class CitationCharLocation:`
+              - `class CitationCharLocation`
 
                 - `JsonElement Type = "char_location"`
 
@@ -29813,7 +30919,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-              - `class CitationPageLocation:`
+              - `class CitationPageLocation`
 
                 - `JsonElement Type = "page_location"`
 
@@ -29833,7 +30939,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class CitationContentBlockLocation:`
+              - `class CitationContentBlockLocation`
 
                 - `JsonElement Type = "content_block_location"`
 
@@ -29863,7 +30969,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-              - `class CitationsWebSearchResultLocation:`
+              - `class CitationsWebSearchResultLocation`
 
                 - `JsonElement Type = "web_search_result_location"`
 
@@ -29877,7 +30983,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Url`
 
-              - `class CitationsSearchResultLocation:`
+              - `class CitationsSearchResultLocation`
 
                 - `JsonElement Type = "search_result_location"`
 
@@ -29915,7 +31021,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 0
 
-          - `class ThinkingBlock:`
+          - `class ThinkingBlock`
 
             - `JsonElement Type = "thinking"`
 
@@ -29931,7 +31037,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-          - `class RedactedThinkingBlock:`
+          - `class RedactedThinkingBlock`
 
             - `JsonElement Type = "redacted_thinking"`
 
@@ -29943,7 +31049,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `class ToolUseBlock:`
+          - `class ToolUseBlock`
 
             - `JsonElement Type = "tool_use"`
 
@@ -29953,13 +31059,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required Caller Caller`
 
-              - `class DirectCaller:`
+              - `class DirectCaller`
 
                 Tool invocation directly from the model.
 
                 - `JsonElement Type = "direct"`
 
-              - `class ServerToolCaller:`
+              - `class ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
@@ -29969,7 +31075,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `class ServerToolCaller20260120:`
+              - `class ServerToolCaller20260120`
 
                 - `JsonElement Type = "code_execution_20260120"`
 
@@ -29989,7 +31095,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class ServerToolUseBlock:`
+          - `class ServerToolUseBlock`
 
             - `JsonElement Type = "server_tool_use"`
 
@@ -29999,15 +31105,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required Caller Caller`
 
-              - `class DirectCaller:`
+              - `class DirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class ServerToolCaller:`
+              - `class ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class ServerToolCaller20260120:`
+              - `class ServerToolCaller20260120`
 
             - `required IReadOnlyDictionary<string, JsonElement> Input`
 
@@ -30027,25 +31133,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `ToolSearchToolBm25("tool_search_tool_bm25")`
 
-          - `class WebSearchToolResultBlock:`
+          - `class WebSearchToolResultBlock`
 
             - `JsonElement Type = "web_search_tool_result"`
 
             - `required Caller Caller`
 
-              - `class DirectCaller:`
+              - `class DirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class ServerToolCaller:`
+              - `class ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class ServerToolCaller20260120:`
+              - `class ServerToolCaller20260120`
 
             - `required WebSearchToolResultBlockContent Content`
 
-              - `class WebSearchToolResultError:`
+              - `class WebSearchToolResultError`
 
                 - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -30079,25 +31185,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class WebFetchToolResultBlock:`
+          - `class WebFetchToolResultBlock`
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
             - `required Caller Caller`
 
-              - `class DirectCaller:`
+              - `class DirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class ServerToolCaller:`
+              - `class ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class ServerToolCaller20260120:`
+              - `class ServerToolCaller20260120`
 
             - `required Content Content`
 
-              - `class WebFetchToolResultErrorBlock:`
+              - `class WebFetchToolResultErrorBlock`
 
                 - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -30123,7 +31229,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ContentTooLarge("content_too_large")`
 
-              - `class WebFetchBlock:`
+              - `class WebFetchBlock`
 
                 - `JsonElement Type = "web_fetch_result"`
 
@@ -30139,7 +31245,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required Source Source`
 
-                    - `class Base64PdfSource:`
+                    - `class Base64PdfSource`
 
                       - `JsonElement Type = "base64"`
 
@@ -30149,7 +31255,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `JsonElement MediaType = "application/pdf"`
 
-                    - `class PlainTextSource:`
+                    - `class PlainTextSource`
 
                       - `JsonElement Type = "text"`
 
@@ -30173,13 +31279,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class CodeExecutionToolResultBlock:`
+          - `class CodeExecutionToolResultBlock`
 
             - `JsonElement Type = "code_execution_tool_result"`
 
             - `required CodeExecutionToolResultBlockContent Content`
 
-              - `class CodeExecutionToolResultError:`
+              - `class CodeExecutionToolResultError`
 
                 - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -30193,7 +31299,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `class CodeExecutionResultBlock:`
+              - `class CodeExecutionResultBlock`
 
                 - `JsonElement Type = "code_execution_result"`
 
@@ -30209,7 +31315,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Stdout`
 
-              - `class EncryptedCodeExecutionResultBlock:`
+              - `class EncryptedCodeExecutionResultBlock`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -30231,13 +31337,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BashCodeExecutionToolResultBlock:`
+          - `class BashCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
             - `required Content Content`
 
-              - `class BashCodeExecutionToolResultError:`
+              - `class BashCodeExecutionToolResultError`
 
                 - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -30253,7 +31359,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OutputFileTooLarge("output_file_too_large")`
 
-              - `class BashCodeExecutionResultBlock:`
+              - `class BashCodeExecutionResultBlock`
 
                 - `JsonElement Type = "bash_code_execution_result"`
 
@@ -30273,13 +31379,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class TextEditorCodeExecutionToolResultBlock:`
+          - `class TextEditorCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
             - `required Content Content`
 
-              - `class TextEditorCodeExecutionToolResultError:`
+              - `class TextEditorCodeExecutionToolResultError`
 
                 - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -30297,7 +31403,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? ErrorMessage`
 
-              - `class TextEditorCodeExecutionViewResultBlock:`
+              - `class TextEditorCodeExecutionViewResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -30317,13 +31423,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required long? TotalLines`
 
-              - `class TextEditorCodeExecutionCreateResultBlock:`
+              - `class TextEditorCodeExecutionCreateResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_create_result"`
 
                 - `required bool IsFileUpdate`
 
-              - `class TextEditorCodeExecutionStrReplaceResultBlock:`
+              - `class TextEditorCodeExecutionStrReplaceResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -30341,13 +31447,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class ToolSearchToolResultBlock:`
+          - `class ToolSearchToolResultBlock`
 
             - `JsonElement Type = "tool_search_tool_result"`
 
             - `required Content Content`
 
-              - `class ToolSearchToolResultError:`
+              - `class ToolSearchToolResultError`
 
                 - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -30363,7 +31469,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? ErrorMessage`
 
-              - `class ToolSearchToolSearchResultBlock:`
+              - `class ToolSearchToolSearchResultBlock`
 
                 - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -30379,7 +31485,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class ContainerUploadBlock:`
+          - `class ContainerUploadBlock`
 
             Response model for a file uploaded to the container.
 
@@ -30643,7 +31749,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Batch("batch")`
 
-    - `class MessageBatchErroredResult:`
+    - `class MessageBatchErroredResult`
 
       - `JsonElement Type = "errored"`
 
@@ -30653,55 +31759,55 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `required ErrorObject Error`
 
-          - `class InvalidRequestError:`
+          - `class InvalidRequestError`
 
             - `JsonElement Type = "invalid_request_error"`
 
             - `required string Message`
 
-          - `class AuthenticationError:`
+          - `class AuthenticationError`
 
             - `JsonElement Type = "authentication_error"`
 
             - `required string Message`
 
-          - `class BillingError:`
+          - `class BillingError`
 
             - `JsonElement Type = "billing_error"`
 
             - `required string Message`
 
-          - `class PermissionError:`
+          - `class PermissionError`
 
             - `JsonElement Type = "permission_error"`
 
             - `required string Message`
 
-          - `class NotFoundError:`
+          - `class NotFoundError`
 
             - `JsonElement Type = "not_found_error"`
 
             - `required string Message`
 
-          - `class RateLimitError:`
+          - `class RateLimitError`
 
             - `JsonElement Type = "rate_limit_error"`
 
             - `required string Message`
 
-          - `class GatewayTimeoutError:`
+          - `class GatewayTimeoutError`
 
             - `JsonElement Type = "timeout_error"`
 
             - `required string Message`
 
-          - `class ApiErrorObject:`
+          - `class ApiErrorObject`
 
             - `JsonElement Type = "api_error"`
 
             - `required string Message`
 
-          - `class OverloadedError:`
+          - `class OverloadedError`
 
             - `JsonElement Type = "overloaded_error"`
 
@@ -30709,11 +31815,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `required string? RequestID`
 
-    - `class MessageBatchCanceledResult:`
+    - `class MessageBatchCanceledResult`
 
       - `JsonElement Type = "canceled"`
 
-    - `class MessageBatchExpiredResult:`
+    - `class MessageBatchExpiredResult`
 
       - `JsonElement Type = "expired"`
 

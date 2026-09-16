@@ -125,6 +125,8 @@ Stream Session Thread Events
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -137,7 +139,7 @@ Stream Session Thread Events
 
   Server-sent event in a single thread's stream.
 
-  - `class BetaManagedAgentsUserMessageEvent:`
+  - `class BetaManagedAgentsUserMessageEvent`
 
     A user message event in the session conversation.
 
@@ -151,7 +153,7 @@ Stream Session Thread Events
 
       Array of content blocks comprising the user message.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
@@ -163,7 +165,7 @@ Stream Session Thread Events
 
           minLength: 1
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
@@ -173,7 +175,7 @@ Stream Session Thread Events
 
           Union type for image source variants.
 
-          - `class BetaManagedAgentsBase64ImageSource:`
+          - `class BetaManagedAgentsBase64ImageSource`
 
             Base64-encoded image data.
 
@@ -191,7 +193,7 @@ Stream Session Thread Events
 
               minLength: 1
 
-          - `class BetaManagedAgentsUrlImageSource:`
+          - `class BetaManagedAgentsUrlImageSource`
 
             Image referenced by URL.
 
@@ -203,7 +205,7 @@ Stream Session Thread Events
 
               minLength: 1
 
-          - `class BetaManagedAgentsFileImageSource:`
+          - `class BetaManagedAgentsFileImageSource`
 
             Image referenced by file ID.
 
@@ -215,7 +217,7 @@ Stream Session Thread Events
 
               minLength: 1
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
@@ -225,7 +227,7 @@ Stream Session Thread Events
 
           Union type for document source variants.
 
-          - `class BetaManagedAgentsBase64DocumentSource:`
+          - `class BetaManagedAgentsBase64DocumentSource`
 
             Base64-encoded document data.
 
@@ -243,7 +245,7 @@ Stream Session Thread Events
 
               minLength: 1
 
-          - `class BetaManagedAgentsPlainTextDocumentSource:`
+          - `class BetaManagedAgentsPlainTextDocumentSource`
 
             Plain text document content.
 
@@ -259,7 +261,7 @@ Stream Session Thread Events
 
               MIME type of the text content. Must be "text/plain".
 
-          - `class BetaManagedAgentsUrlDocumentSource:`
+          - `class BetaManagedAgentsUrlDocumentSource`
 
             Document referenced by URL.
 
@@ -271,7 +273,7 @@ Stream Session Thread Events
 
               minLength: 1
 
-          - `class BetaManagedAgentsFileDocumentSource:`
+          - `class BetaManagedAgentsFileDocumentSource`
 
             Document referenced by file ID.
 
@@ -291,7 +293,7 @@ Stream Session Thread Events
 
           The title of the document.
 
-      - `class BetaManagedAgentsRedactedBlock:`
+      - `class BetaManagedAgentsRedactedBlock`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -303,7 +305,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsUserInterruptEvent:`
+  - `class BetaManagedAgentsUserInterruptEvent`
 
     An interrupt event that pauses agent execution and returns control to the user.
 
@@ -323,7 +325,7 @@ Stream Session Thread Events
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-  - `class BetaManagedAgentsUserToolConfirmationEvent:`
+  - `class BetaManagedAgentsUserToolConfirmationEvent`
 
     A tool confirmation event that approves or denies a pending tool execution.
 
@@ -361,7 +363,7 @@ Stream Session Thread Events
 
       Set by the server to the subagent thread this confirmation was routed to. Omitted when it was routed to the primary thread.
 
-  - `class BetaManagedAgentsUserCustomToolResultEvent:`
+  - `class BetaManagedAgentsUserCustomToolResultEvent`
 
     Event sent by the client providing the result of a custom tool execution.
 
@@ -379,19 +381,19 @@ Stream Session Thread Events
 
       The result content returned by the tool.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `class BetaManagedAgentsSearchResultBlock:`
+      - `class BetaManagedAgentsSearchResultBlock`
 
         A block containing a web search result.
 
@@ -443,7 +445,7 @@ Stream Session Thread Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `class BetaManagedAgentsAgentCustomToolUseEvent:`
+  - `class BetaManagedAgentsAgentCustomToolUseEvent`
 
     Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
 
@@ -471,7 +473,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
-  - `class BetaManagedAgentsAgentMessageEvent:`
+  - `class BetaManagedAgentsAgentMessageEvent`
 
     An agent response event in the session conversation.
 
@@ -485,11 +487,11 @@ Stream Session Thread Events
 
       Array of text blocks comprising the agent response.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsRedactedBlock:`
+      - `class BetaManagedAgentsRedactedBlock`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -499,7 +501,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsAgentThinkingEvent:`
+  - `class BetaManagedAgentsAgentThinkingEvent`
 
     Indicates the agent is making forward progress via extended thinking. A progress signal, not a content carrier.
 
@@ -515,7 +517,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsAgentMcpToolUseEvent:`
+  - `class BetaManagedAgentsAgentMcpToolUseEvent`
 
     Event emitted when the agent invokes a tool provided by an MCP server.
 
@@ -557,19 +559,19 @@ Stream Session Thread Events
 
       Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
 
-      - `class BetaManagedAgentsAgentToolEvaluationAlwaysAllow:`
+      - `class BetaManagedAgentsAgentToolEvaluationAlwaysAllow`
 
         The resolved permission_policy was always_allow; accompanies evaluated_permission "allow".
 
         - `JsonElement Type = "always_allow"`
 
-      - `class BetaManagedAgentsAgentToolEvaluationAlwaysAsk:`
+      - `class BetaManagedAgentsAgentToolEvaluationAlwaysAsk`
 
         The resolved permission_policy was always_ask; accompanies evaluated_permission "ask".
 
         - `JsonElement Type = "always_ask"`
 
-      - `class BetaManagedAgentsAgentToolEvaluationAuto:`
+      - `class BetaManagedAgentsAgentToolEvaluationAuto`
 
         The resolved permission_policy was auto: the server judged this invocation individually.
 
@@ -579,13 +581,13 @@ Stream Session Thread Events
 
           The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
 
-          - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAllow:`
+          - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAllow`
 
             The server judged the invocation safe to execute without client approval.
 
             - `JsonElement Type = "allow"`
 
-          - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAsk:`
+          - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAsk`
 
             The server reached no judgement; the invocation is held for client approval.
 
@@ -597,7 +599,7 @@ Stream Session Thread Events
 
               maxLength: 64
 
-          - `class BetaManagedAgentsAgentAutoEvaluatedPermissionDeny:`
+          - `class BetaManagedAgentsAgentAutoEvaluatedPermissionDeny`
 
             The server judged the invocation high-risk; it does not execute and a synthetic error tool result is appended.
 
@@ -613,7 +615,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` by `tool_use_id`, so clients do not send it back.
 
-  - `class BetaManagedAgentsAgentMcpToolResultEvent:`
+  - `class BetaManagedAgentsAgentMcpToolResultEvent`
 
     Event representing the result of an MCP tool execution.
 
@@ -637,19 +639,19 @@ Stream Session Thread Events
 
       The result content returned by the tool.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `class BetaManagedAgentsSearchResultBlock:`
+      - `class BetaManagedAgentsSearchResultBlock`
 
         A block containing a web search result.
 
@@ -657,7 +659,7 @@ Stream Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `class BetaManagedAgentsAgentToolUseEvent:`
+  - `class BetaManagedAgentsAgentToolUseEvent`
 
     Event emitted when the agent invokes a built-in agent tool.
 
@@ -699,7 +701,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.tool_confirmation` or `user.tool_result` by `tool_use_id`, so clients do not send it back.
 
-  - `class BetaManagedAgentsAgentToolResultEvent:`
+  - `class BetaManagedAgentsAgentToolResultEvent`
 
     Event representing the result of an agent tool execution.
 
@@ -723,19 +725,19 @@ Stream Session Thread Events
 
       The result content returned by the tool.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `class BetaManagedAgentsSearchResultBlock:`
+      - `class BetaManagedAgentsSearchResultBlock`
 
         A block containing a web search result.
 
@@ -743,7 +745,7 @@ Stream Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `class BetaManagedAgentsAgentThreadMessageReceivedEvent:`
+  - `class BetaManagedAgentsAgentThreadMessageReceivedEvent`
 
     Delivery event written to the target thread's input stream when an agent-to-agent message arrives.
 
@@ -757,19 +759,19 @@ Stream Session Thread Events
 
       Message content blocks.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `class BetaManagedAgentsRedactedBlock:`
+      - `class BetaManagedAgentsRedactedBlock`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -787,7 +789,7 @@ Stream Session Thread Events
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
-  - `class BetaManagedAgentsAgentThreadMessageSentEvent:`
+  - `class BetaManagedAgentsAgentThreadMessageSentEvent`
 
     Observability event emitted to the sender's output stream when an agent-to-agent message is sent.
 
@@ -801,19 +803,19 @@ Stream Session Thread Events
 
       Message content blocks.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `class BetaManagedAgentsRedactedBlock:`
+      - `class BetaManagedAgentsRedactedBlock`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -831,7 +833,7 @@ Stream Session Thread Events
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
-  - `class BetaManagedAgentsAgentThreadContextCompactedEvent:`
+  - `class BetaManagedAgentsAgentThreadContextCompactedEvent`
 
     Indicates that context compaction (summarization) occurred during the session.
 
@@ -847,7 +849,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionErrorEvent:`
+  - `class BetaManagedAgentsSessionErrorEvent`
 
     An error event indicating a problem occurred during session execution.
 
@@ -859,7 +861,7 @@ Stream Session Thread Events
 
     - `required Error Error`
 
-      - `class BetaManagedAgentsUnknownError:`
+      - `class BetaManagedAgentsUnknownError`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
@@ -873,25 +875,25 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
             - `required Type Type`
 
-      - `class BetaManagedAgentsModelOverloadedError:`
+      - `class BetaManagedAgentsModelOverloadedError`
 
         The model is currently overloaded. Emitted after automatic retries are exhausted.
 
@@ -905,19 +907,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRateLimitedError:`
+      - `class BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
 
@@ -931,19 +933,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRequestFailedError:`
+      - `class BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
 
@@ -957,19 +959,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMcpConnectionFailedError:`
+      - `class BetaManagedAgentsMcpConnectionFailedError`
 
         Failed to connect to an MCP server.
 
@@ -987,19 +989,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMcpAuthenticationFailedError:`
+      - `class BetaManagedAgentsMcpAuthenticationFailedError`
 
         Authentication to an MCP server failed.
 
@@ -1017,19 +1019,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsBillingError:`
+      - `class BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
 
@@ -1043,19 +1045,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCredentialHostUnreachableError:`
+      - `class BetaManagedAgentsCredentialHostUnreachableError`
 
         An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
 
@@ -1073,15 +1075,15 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `class BetaManagedAgentsRetryStatusRetrying:`
+          - `class BetaManagedAgentsRetryStatusRetrying`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `class BetaManagedAgentsRetryStatusExhausted:`
+          - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `class BetaManagedAgentsRetryStatusTerminal:`
+          - `class BetaManagedAgentsRetryStatusTerminal`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
@@ -1095,7 +1097,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionStatusRescheduledEvent:`
+  - `class BetaManagedAgentsSessionStatusRescheduledEvent`
 
     Indicates the session is recovering from an error state and is rescheduled for execution.
 
@@ -1111,7 +1113,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionStatusRunningEvent:`
+  - `class BetaManagedAgentsSessionStatusRunningEvent`
 
     Indicates the session is actively running and the agent is working.
 
@@ -1127,7 +1129,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionStatusIdleEvent:`
+  - `class BetaManagedAgentsSessionStatusIdleEvent`
 
     Indicates the agent has paused and is awaiting user input.
 
@@ -1145,13 +1147,13 @@ Stream Session Thread Events
 
     - `required StopReason StopReason`
 
-      - `class BetaManagedAgentsSessionEndTurn:`
+      - `class BetaManagedAgentsSessionEndTurn`
 
         The agent completed its turn naturally and is ready for the next user message.
 
         - `required Type Type`
 
-      - `class BetaManagedAgentsSessionRequiresAction:`
+      - `class BetaManagedAgentsSessionRequiresAction`
 
         The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
 
@@ -1161,19 +1163,19 @@ Stream Session Thread Events
 
           The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder.
 
-      - `class BetaManagedAgentsSessionRetriesExhausted:`
+      - `class BetaManagedAgentsSessionRetriesExhausted`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `required Type Type`
 
-      - `class BetaManagedAgentsSessionBudgetReached:`
+      - `class BetaManagedAgentsSessionBudgetReached`
 
         The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
         - `required Type Type`
 
-  - `class BetaManagedAgentsSessionStatusTerminatedEvent:`
+  - `class BetaManagedAgentsSessionStatusTerminatedEvent`
 
     Indicates the session has terminated, either due to an error or completion.
 
@@ -1189,7 +1191,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionThreadCreatedEvent:`
+  - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
     Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
 
@@ -1213,7 +1215,7 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
-  - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent:`
+  - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     Emitted when an outcome evaluation cycle begins.
 
@@ -1239,7 +1241,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent:`
+  - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
     Emitted when an outcome evaluation cycle completes. Carries the verdict and aggregate token usage. A verdict of `needs_revision` means another evaluation cycle follows; `satisfied`, `max_iterations_reached`, `failed`, or `interrupted` are terminal — no further evaluation cycles follow.
 
@@ -1313,7 +1315,7 @@ Stream Session Thread Events
 
         - `Fast("fast")`
 
-  - `class BetaManagedAgentsSpanModelRequestStartEvent:`
+  - `class BetaManagedAgentsSpanModelRequestStartEvent`
 
     Emitted when a model request is initiated by the agent.
 
@@ -1329,7 +1331,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSpanModelRequestEndEvent:`
+  - `class BetaManagedAgentsSpanModelRequestEndEvent`
 
     Emitted when a model request completes.
 
@@ -1357,7 +1359,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent:`
+  - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
     Periodic heartbeat emitted while an outcome evaluation cycle is in progress. Distinguishes 'evaluation is actively running' from 'evaluation is stuck' between the corresponding `span.outcome_evaluation_start` and `span.outcome_evaluation_end` events.
 
@@ -1383,7 +1385,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsUserDefineOutcomeEvent:`
+  - `class BetaManagedAgentsUserDefineOutcomeEvent`
 
     Echo of a `user.define_outcome` input event. Carries the server-generated `outcome_id` that subsequent `span.outcome_evaluation_*` events reference.
 
@@ -1417,7 +1419,7 @@ Stream Session Thread Events
 
       Rubric for grading the quality of an outcome.
 
-      - `class BetaManagedAgentsFileRubric:`
+      - `class BetaManagedAgentsFileRubric`
 
         Rubric referenced by a file uploaded via the Files API.
 
@@ -1427,7 +1429,7 @@ Stream Session Thread Events
 
           ID of the rubric file.
 
-      - `class BetaManagedAgentsTextRubric:`
+      - `class BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
 
@@ -1437,7 +1439,7 @@ Stream Session Thread Events
 
           Rubric content. Plain text or markdown — the grader treats it as freeform text.
 
-  - `class BetaManagedAgentsSessionDeletedEvent:`
+  - `class BetaManagedAgentsSessionDeletedEvent`
 
     Emitted when a session has been deleted. Terminates any active event stream — no further events will be emitted for this session.
 
@@ -1453,7 +1455,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionThreadStatusRunningEvent:`
+  - `class BetaManagedAgentsSessionThreadStatusRunningEvent`
 
     A session thread has begun executing. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1477,7 +1479,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that started running.
 
-  - `class BetaManagedAgentsSessionThreadStatusIdleEvent:`
+  - `class BetaManagedAgentsSessionThreadStatusIdleEvent`
 
     A session thread has yielded and is awaiting input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1503,23 +1505,23 @@ Stream Session Thread Events
 
     - `required StopReason StopReason`
 
-      - `class BetaManagedAgentsSessionEndTurn:`
+      - `class BetaManagedAgentsSessionEndTurn`
 
         The agent completed its turn naturally and is ready for the next user message.
 
-      - `class BetaManagedAgentsSessionRequiresAction:`
+      - `class BetaManagedAgentsSessionRequiresAction`
 
         The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
 
-      - `class BetaManagedAgentsSessionRetriesExhausted:`
+      - `class BetaManagedAgentsSessionRetriesExhausted`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
-      - `class BetaManagedAgentsSessionBudgetReached:`
+      - `class BetaManagedAgentsSessionBudgetReached`
 
         The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
-  - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent:`
+  - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
     A session thread has terminated and will accept no further input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1543,7 +1545,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that terminated.
 
-  - `class BetaManagedAgentsUserToolResultEvent:`
+  - `class BetaManagedAgentsUserToolResultEvent`
 
     Event sent by the client providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
 
@@ -1561,19 +1563,19 @@ Stream Session Thread Events
 
       The result content returned by the tool.
 
-      - `class BetaManagedAgentsTextBlock:`
+      - `class BetaManagedAgentsTextBlock`
 
         Regular text content.
 
-      - `class BetaManagedAgentsImageBlock:`
+      - `class BetaManagedAgentsImageBlock`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `class BetaManagedAgentsDocumentBlock:`
+      - `class BetaManagedAgentsDocumentBlock`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `class BetaManagedAgentsSearchResultBlock:`
+      - `class BetaManagedAgentsSearchResultBlock`
 
         A block containing a web search result.
 
@@ -1591,7 +1593,7 @@ Stream Session Thread Events
 
       Set by the server to the subagent thread this result was routed to. Omitted when it was routed to the primary thread.
 
-  - `class BetaManagedAgentsSessionThreadStatusRescheduledEvent:`
+  - `class BetaManagedAgentsSessionThreadStatusRescheduledEvent`
 
     A session thread hit a transient error and is retrying automatically. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1615,7 +1617,7 @@ Stream Session Thread Events
 
       Public sthr_ ID of the thread that is retrying.
 
-  - `class BetaManagedAgentsSessionUpdatedEvent:`
+  - `class BetaManagedAgentsSessionUpdatedEvent`
 
     Emitted when an UpdateSession request changed at least one field. Carries only the fields that changed; absent fields were not part of the update. The new configuration applies from the next turn.
 
@@ -1719,31 +1721,31 @@ Stream Session Thread Events
 
           How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
 
-          - `class BetaManagedAgentsEffortLow:`
+          - `class BetaManagedAgentsEffortLow`
 
             Low effort. Favors latency over reasoning depth.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsEffortMedium:`
+          - `class BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsEffortHigh:`
+          - `class BetaManagedAgentsEffortHigh`
 
             High effort. Favors reasoning depth.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsEffortXhigh:`
+          - `class BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsEffortMax:`
+          - `class BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
@@ -1771,7 +1773,7 @@ Stream Session Thread Events
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `class BetaManagedAgentsSessionThreadAgent:`
+          - `class BetaManagedAgentsSessionThreadAgent`
 
             Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
@@ -1797,7 +1799,7 @@ Stream Session Thread Events
 
             - `required IReadOnlyList<Skill> Skills`
 
-              - `class BetaManagedAgentsAnthropicSkill:`
+              - `class BetaManagedAgentsAnthropicSkill`
 
                 A resolved Anthropic-managed skill.
 
@@ -1807,7 +1809,7 @@ Stream Session Thread Events
 
                 - `required string Version`
 
-              - `class BetaManagedAgentsCustomSkill:`
+              - `class BetaManagedAgentsCustomSkill`
 
                 A resolved user-created custom skill.
 
@@ -1821,13 +1823,13 @@ Stream Session Thread Events
 
             - `required IReadOnlyList<Tool> Tools`
 
-              - `class BetaManagedAgentsAgentToolset20260401:`
+              - `class BetaManagedAgentsAgentToolset20260401`
 
                 - `required Type Type`
 
                 - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
-                  - `class BetaManagedAgentsBashToolConfig:`
+                  - `class BetaManagedAgentsBashToolConfig`
 
                     Configuration for the bash tool.
 
@@ -1841,25 +1843,25 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
                         - `required Type Type`
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
                         - `required Type Type`
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                         - `JsonElement Type = "auto"`
 
-                  - `class BetaManagedAgentsEditToolConfig:`
+                  - `class BetaManagedAgentsEditToolConfig`
 
                     Configuration for the edit tool.
 
@@ -1873,19 +1875,19 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                  - `class BetaManagedAgentsReadToolConfig:`
+                  - `class BetaManagedAgentsReadToolConfig`
 
                     Configuration for the read tool.
 
@@ -1899,19 +1901,19 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                  - `class BetaManagedAgentsWriteToolConfig:`
+                  - `class BetaManagedAgentsWriteToolConfig`
 
                     Configuration for the write tool.
 
@@ -1925,19 +1927,19 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                  - `class BetaManagedAgentsGlobToolConfig:`
+                  - `class BetaManagedAgentsGlobToolConfig`
 
                     Configuration for the glob tool.
 
@@ -1951,19 +1953,19 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                  - `class BetaManagedAgentsGrepToolConfig:`
+                  - `class BetaManagedAgentsGrepToolConfig`
 
                     Configuration for the grep tool.
 
@@ -1977,19 +1979,19 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                  - `class BetaManagedAgentsWebFetchToolConfig:`
+                  - `class BetaManagedAgentsWebFetchToolConfig`
 
                     Configuration for the web_fetch tool.
 
@@ -2003,15 +2005,15 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -2023,7 +2025,7 @@ Stream Session Thread Events
 
                       format: int32
 
-                  - `class BetaManagedAgentsWebSearchToolConfig:`
+                  - `class BetaManagedAgentsWebSearchToolConfig`
 
                     Configuration for the web_search tool.
 
@@ -2037,15 +2039,15 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
-                      - `class BetaManagedAgentsAutoPolicy:`
+                      - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -2093,19 +2095,19 @@ Stream Session Thread Events
 
                     Permission policy for tool execution.
 
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `class BetaManagedAgentsAutoPolicy:`
+                    - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-              - `class BetaManagedAgentsMcpToolset:`
+              - `class BetaManagedAgentsMcpToolset`
 
                 - `required Type Type`
 
@@ -2119,15 +2121,15 @@ Stream Session Thread Events
 
                     Permission policy for tool execution.
 
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `class BetaManagedAgentsAutoPolicy:`
+                    - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -2141,21 +2143,21 @@ Stream Session Thread Events
 
                     Permission policy for tool execution.
 
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `class BetaManagedAgentsAutoPolicy:`
+                    - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                 - `required string McpServerName`
 
-              - `class BetaManagedAgentsCustomTool:`
+              - `class BetaManagedAgentsCustomTool`
 
                 A custom tool as returned in API responses.
 
@@ -2179,7 +2181,7 @@ Stream Session Thread Events
 
               format: int32
 
-          - `class BetaManagedAgentsAdvisor:`
+          - `class BetaManagedAgentsAdvisor`
 
             Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
@@ -2193,11 +2195,11 @@ Stream Session Thread Events
 
       - `required IReadOnlyList<Skill> Skills`
 
-        - `class BetaManagedAgentsAnthropicSkill:`
+        - `class BetaManagedAgentsAnthropicSkill`
 
           A resolved Anthropic-managed skill.
 
-        - `class BetaManagedAgentsCustomSkill:`
+        - `class BetaManagedAgentsCustomSkill`
 
           A resolved user-created custom skill.
 
@@ -2205,11 +2207,11 @@ Stream Session Thread Events
 
       - `required IReadOnlyList<Tool> Tools`
 
-        - `class BetaManagedAgentsAgentToolset20260401:`
+        - `class BetaManagedAgentsAgentToolset20260401`
 
-        - `class BetaManagedAgentsMcpToolset:`
+        - `class BetaManagedAgentsMcpToolset`
 
-        - `class BetaManagedAgentsCustomTool:`
+        - `class BetaManagedAgentsCustomTool`
 
           A custom tool as returned in API responses.
 
@@ -2243,7 +2245,7 @@ Stream Session Thread Events
 
       The session's new title. Present only when the update changed it.
 
-  - `class BetaManagedAgentsStartEvent:`
+  - `class BetaManagedAgentsStartEvent`
 
     Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
 
@@ -2253,7 +2255,7 @@ Stream Session Thread Events
 
       The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
 
-      - `class BetaManagedAgentsAgentMessagePreview:`
+      - `class BetaManagedAgentsAgentMessagePreview`
 
         - `required Type Type`
 
@@ -2261,7 +2263,7 @@ Stream Session Thread Events
 
           The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
 
-      - `class BetaManagedAgentsAgentThinkingPreview:`
+      - `class BetaManagedAgentsAgentThinkingPreview`
 
         - `required Type Type`
 
@@ -2269,7 +2271,7 @@ Stream Session Thread Events
 
           The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
 
-  - `class BetaManagedAgentsDeltaEvent:`
+  - `class BetaManagedAgentsDeltaEvent`
 
     An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
 
@@ -2295,7 +2297,7 @@ Stream Session Thread Events
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
-  - `class BetaManagedAgentsSystemMessageEvent:`
+  - `class BetaManagedAgentsSystemMessageEvent`
 
     A mid-conversation system message event. Carries system-role content that is appended to the session as a `role: "system"` turn.
 
@@ -2323,7 +2325,7 @@ Stream Session Thread Events
 
       format: date-time
 
-  - `class BetaManagedAgentsSessionUsageEvent:`
+  - `class BetaManagedAgentsSessionUsageEvent`
 
     Periodic snapshot of the session's cumulative usage and tracked list cost.
 

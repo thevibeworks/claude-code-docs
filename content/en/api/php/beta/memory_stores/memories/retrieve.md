@@ -29,7 +29,7 @@ Retrieve a memory
 
 ## Returns
 
-- `ManagedAgentsMemory`
+- `class ManagedAgentsMemory`
 
   - `Type type`
 

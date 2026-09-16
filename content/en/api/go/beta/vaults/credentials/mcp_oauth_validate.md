@@ -119,6 +119,8 @@ Validate Credential
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -127,7 +129,7 @@ Validate Credential
 
 ## Returns
 
-- `type BetaManagedAgentsCredentialValidation struct{…}`
+- `type BetaManagedAgentsCredentialValidation`
 
   Result of live-probing a credential against its configured MCP server.
 

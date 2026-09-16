@@ -21,7 +21,7 @@ Create Session
 
     - `string`
 
-    - `type BetaManagedAgentsAgentParamsResp struct{…}`
+    - `type BetaManagedAgentsAgentParamsResp`
 
       Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
@@ -39,7 +39,7 @@ Create Session
 
         format: int32
 
-    - `type BetaManagedAgentsAgentWithOverridesParamsResp struct{…}`
+    - `type BetaManagedAgentsAgentWithOverridesParamsResp`
 
       Reference to an `agent` plus optional configuration overrides. Each provided field replaces the agent's value for the caller's use; the agent resource is unchanged.
 
@@ -73,7 +73,7 @@ Create Session
 
         Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
 
-        - `type BetaManagedAgentsModelConfigParamsResp struct{…}`
+        - `type BetaManagedAgentsModelConfigParamsResp`
 
           An object that defines additional configuration control over model use
 
@@ -163,31 +163,31 @@ Create Session
 
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMax BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "max"`
 
-            - `type BetaManagedAgentsEffortLow struct{…}`
+            - `type BetaManagedAgentsEffortLow`
 
               Low effort. Favors latency over reasoning depth.
 
               - `Type BetaManagedAgentsEffortLowType`
 
-            - `type BetaManagedAgentsEffortMedium struct{…}`
+            - `type BetaManagedAgentsEffortMedium`
 
               Medium effort. Balances latency and reasoning depth.
 
               - `Type BetaManagedAgentsEffortMediumType`
 
-            - `type BetaManagedAgentsEffortHigh struct{…}`
+            - `type BetaManagedAgentsEffortHigh`
 
               High effort. Favors reasoning depth.
 
               - `Type BetaManagedAgentsEffortHighType`
 
-            - `type BetaManagedAgentsEffortXhigh struct{…}`
+            - `type BetaManagedAgentsEffortXhigh`
 
               Extra-high effort. Not all models accept this level.
 
               - `Type BetaManagedAgentsEffortXhighType`
 
-            - `type BetaManagedAgentsEffortMax struct{…}`
+            - `type BetaManagedAgentsEffortMax`
 
               Maximum effort. Favors reasoning depth over latency.
 
@@ -209,7 +209,7 @@ Create Session
 
         Replacement skill list. Full replacement: the provided array becomes the skills. Send an empty array to clear; omit to preserve the agent's skills.
 
-        - `type BetaManagedAgentsAnthropicSkillParamsResp struct{…}`
+        - `type BetaManagedAgentsAnthropicSkillParamsResp`
 
           An Anthropic-managed skill.
 
@@ -227,7 +227,7 @@ Create Session
 
             minLength: 1, maxLength: 64
 
-        - `type BetaManagedAgentsCustomSkillParamsResp struct{…}`
+        - `type BetaManagedAgentsCustomSkillParamsResp`
 
           A user-created custom skill.
 
@@ -255,7 +255,7 @@ Create Session
 
         Replacement tool list. Full replacement: the provided array becomes the tool configuration. Send an empty array to clear; omit to preserve the agent's tools.
 
-        - `type BetaManagedAgentsAgentToolset20260401ParamsResp struct{…}`
+        - `type BetaManagedAgentsAgentToolset20260401ParamsResp`
 
           Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
 
@@ -265,7 +265,7 @@ Create Session
 
             Per-tool configuration overrides.
 
-            - `type BetaManagedAgentsBashToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsBashToolConfigParamsResp`
 
               Configuration override for the bash tool.
 
@@ -283,25 +283,25 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
                   - `Type BetaManagedAgentsAlwaysAllowPolicyType`
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
                   - `Type BetaManagedAgentsAlwaysAskPolicyType`
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                   - `Type Auto`
 
-            - `type BetaManagedAgentsEditToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsEditToolConfigParamsResp`
 
               Configuration override for the edit tool.
 
@@ -319,19 +319,19 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsReadToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsReadToolConfigParamsResp`
 
               Configuration override for the read tool.
 
@@ -349,19 +349,19 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsWriteToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsWriteToolConfigParamsResp`
 
               Configuration override for the write tool.
 
@@ -379,19 +379,19 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsGlobToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsGlobToolConfigParamsResp`
 
               Configuration override for the glob tool.
 
@@ -409,19 +409,19 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsGrepToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsGrepToolConfigParamsResp`
 
               Configuration override for the grep tool.
 
@@ -439,19 +439,19 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsWebFetchToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsWebFetchToolConfigParamsResp`
 
               Configuration override for the web_fetch tool.
 
@@ -483,19 +483,19 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsWebSearchToolConfigParamsResp struct{…}`
+            - `type BetaManagedAgentsWebSearchToolConfigParamsResp`
 
               Configuration override for the web_search tool.
 
@@ -521,15 +521,15 @@ Create Session
 
                 Permission policy for tool execution.
 
-                - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                - `type BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
-                - `type BetaManagedAgentsAutoPolicy struct{…}`
+                - `type BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -575,19 +575,19 @@ Create Session
 
               Permission policy for tool execution.
 
-              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+              - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                 Tool calls are automatically approved without user confirmation.
 
-              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+              - `type BetaManagedAgentsAlwaysAskPolicy`
 
                 Tool calls require user confirmation before execution.
 
-              - `type BetaManagedAgentsAutoPolicy struct{…}`
+              - `type BetaManagedAgentsAutoPolicy`
 
                 The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-        - `type BetaManagedAgentsMCPToolsetParamsResp struct{…}`
+        - `type BetaManagedAgentsMCPToolsetParamsResp`
 
           Configuration for tools from an MCP server defined in `mcp_servers`.
 
@@ -617,15 +617,15 @@ Create Session
 
               Permission policy for tool execution.
 
-              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+              - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                 Tool calls are automatically approved without user confirmation.
 
-              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+              - `type BetaManagedAgentsAlwaysAskPolicy`
 
                 Tool calls require user confirmation before execution.
 
-              - `type BetaManagedAgentsAutoPolicy struct{…}`
+              - `type BetaManagedAgentsAutoPolicy`
 
                 The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -641,19 +641,19 @@ Create Session
 
               Permission policy for tool execution.
 
-              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+              - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                 Tool calls are automatically approved without user confirmation.
 
-              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+              - `type BetaManagedAgentsAlwaysAskPolicy`
 
                 Tool calls require user confirmation before execution.
 
-              - `type BetaManagedAgentsAutoPolicy struct{…}`
+              - `type BetaManagedAgentsAutoPolicy`
 
                 The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-        - `type BetaManagedAgentsCustomToolParamsResp struct{…}`
+        - `type BetaManagedAgentsCustomToolParamsResp`
 
           A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
 
@@ -701,7 +701,7 @@ Create Session
 
     Body param: Initial events to send to the `session` at creation, processed in order. Supports `user.message` and `user.define_outcome` events. Maximum 50 events.
 
-    - `type BetaManagedAgentsUserMessageEventParams struct{…}`
+    - `type BetaManagedAgentsUserMessageEventParams`
 
       Parameters for sending a user message to the session.
 
@@ -711,7 +711,7 @@ Create Session
 
         Array of content blocks for the user message.
 
-        - `type BetaManagedAgentsTextBlock struct{…}`
+        - `type BetaManagedAgentsTextBlock`
 
           Regular text content.
 
@@ -723,7 +723,7 @@ Create Session
 
             minLength: 1
 
-        - `type BetaManagedAgentsImageBlock struct{…}`
+        - `type BetaManagedAgentsImageBlock`
 
           Image content specified directly as base64 data or as a reference via a URL.
 
@@ -733,7 +733,7 @@ Create Session
 
             Union type for image source variants.
 
-            - `type BetaManagedAgentsBase64ImageSource struct{…}`
+            - `type BetaManagedAgentsBase64ImageSource`
 
               Base64-encoded image data.
 
@@ -751,7 +751,7 @@ Create Session
 
                 minLength: 1
 
-            - `type BetaManagedAgentsURLImageSource struct{…}`
+            - `type BetaManagedAgentsURLImageSource`
 
               Image referenced by URL.
 
@@ -763,7 +763,7 @@ Create Session
 
                 minLength: 1
 
-            - `type BetaManagedAgentsFileImageSource struct{…}`
+            - `type BetaManagedAgentsFileImageSource`
 
               Image referenced by file ID.
 
@@ -775,7 +775,7 @@ Create Session
 
                 minLength: 1
 
-        - `type BetaManagedAgentsDocumentBlock struct{…}`
+        - `type BetaManagedAgentsDocumentBlock`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
@@ -785,7 +785,7 @@ Create Session
 
             Union type for document source variants.
 
-            - `type BetaManagedAgentsBase64DocumentSource struct{…}`
+            - `type BetaManagedAgentsBase64DocumentSource`
 
               Base64-encoded document data.
 
@@ -803,7 +803,7 @@ Create Session
 
                 minLength: 1
 
-            - `type BetaManagedAgentsPlainTextDocumentSource struct{…}`
+            - `type BetaManagedAgentsPlainTextDocumentSource`
 
               Plain text document content.
 
@@ -819,7 +819,7 @@ Create Session
 
                 MIME type of the text content. Must be "text/plain".
 
-            - `type BetaManagedAgentsURLDocumentSource struct{…}`
+            - `type BetaManagedAgentsURLDocumentSource`
 
               Document referenced by URL.
 
@@ -831,7 +831,7 @@ Create Session
 
                 minLength: 1
 
-            - `type BetaManagedAgentsFileDocumentSource struct{…}`
+            - `type BetaManagedAgentsFileDocumentSource`
 
               Document referenced by file ID.
 
@@ -851,13 +851,13 @@ Create Session
 
             The title of the document.
 
-        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
+        - `type BetaManagedAgentsRedactedBlockParam`
 
           Placeholder for content withheld by Anthropic model policy.
 
           - `Type BetaManagedAgentsRedactedBlockType`
 
-    - `type BetaManagedAgentsUserDefineOutcomeEventParams struct{…}`
+    - `type BetaManagedAgentsUserDefineOutcomeEventParams`
 
       Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
 
@@ -871,7 +871,7 @@ Create Session
 
         Rubric for grading the quality of an outcome.
 
-        - `type BetaManagedAgentsFileRubricParams struct{…}`
+        - `type BetaManagedAgentsFileRubricParams`
 
           Rubric referenced by a file uploaded via the Files API.
 
@@ -881,7 +881,7 @@ Create Session
 
             ID of the rubric file.
 
-        - `type BetaManagedAgentsTextRubricParams struct{…}`
+        - `type BetaManagedAgentsTextRubricParams`
 
           Rubric content provided inline as text.
 
@@ -907,7 +907,7 @@ Create Session
 
     Body param: Resources (e.g. repositories, files) to mount into the session's container.
 
-    - `type BetaManagedAgentsGitHubRepositoryResourceParamsResp struct{…}`
+    - `type BetaManagedAgentsGitHubRepositoryResourceParamsResp`
 
       Mount a GitHub repository into the session's container.
 
@@ -929,7 +929,7 @@ Create Session
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
-        - `type BetaManagedAgentsBranchCheckout struct{…}`
+        - `type BetaManagedAgentsBranchCheckout`
 
           - `Type BetaManagedAgentsBranchCheckoutType`
 
@@ -939,7 +939,7 @@ Create Session
 
             minLength: 1, maxLength: 255
 
-        - `type BetaManagedAgentsCommitCheckout struct{…}`
+        - `type BetaManagedAgentsCommitCheckout`
 
           - `Type BetaManagedAgentsCommitCheckoutType`
 
@@ -955,7 +955,7 @@ Create Session
 
         minLength: 1, maxLength: 4096
 
-    - `type BetaManagedAgentsFileResourceParamsResp struct{…}`
+    - `type BetaManagedAgentsFileResourceParamsResp`
 
       Mount a file uploaded via the Files API into the session.
 
@@ -973,7 +973,7 @@ Create Session
 
         minLength: 1, maxLength: 4096
 
-    - `type BetaManagedAgentsMemoryStoreResourceParamResp struct{…}`
+    - `type BetaManagedAgentsMemoryStoreResourceParamResp`
 
       Parameters for attaching a memory store to an agent session.
 
@@ -1105,6 +1105,8 @@ Create Session
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1113,7 +1115,7 @@ Create Session
 
 ## Returns
 
-- `type BetaManagedAgentsSession struct{…}`
+- `type BetaManagedAgentsSession`
 
   A Managed Agents `session`.
 
@@ -1217,31 +1219,31 @@ Create Session
 
         How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
 
-        - `type BetaManagedAgentsEffortLow struct{…}`
+        - `type BetaManagedAgentsEffortLow`
 
           Low effort. Favors latency over reasoning depth.
 
           - `Type BetaManagedAgentsEffortLowType`
 
-        - `type BetaManagedAgentsEffortMedium struct{…}`
+        - `type BetaManagedAgentsEffortMedium`
 
           Medium effort. Balances latency and reasoning depth.
 
           - `Type BetaManagedAgentsEffortMediumType`
 
-        - `type BetaManagedAgentsEffortHigh struct{…}`
+        - `type BetaManagedAgentsEffortHigh`
 
           High effort. Favors reasoning depth.
 
           - `Type BetaManagedAgentsEffortHighType`
 
-        - `type BetaManagedAgentsEffortXhigh struct{…}`
+        - `type BetaManagedAgentsEffortXhigh`
 
           Extra-high effort. Not all models accept this level.
 
           - `Type BetaManagedAgentsEffortXhighType`
 
-        - `type BetaManagedAgentsEffortMax struct{…}`
+        - `type BetaManagedAgentsEffortMax`
 
           Maximum effort. Favors reasoning depth over latency.
 
@@ -1269,7 +1271,7 @@ Create Session
 
         Full `agent` definitions the coordinator may spawn as session threads.
 
-        - `type BetaManagedAgentsSessionThreadAgent struct{…}`
+        - `type BetaManagedAgentsSessionThreadAgent`
 
           Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
@@ -1295,7 +1297,7 @@ Create Session
 
           - `Skills []BetaManagedAgentsSessionThreadAgentSkillUnion`
 
-            - `type BetaManagedAgentsAnthropicSkill struct{…}`
+            - `type BetaManagedAgentsAnthropicSkill`
 
               A resolved Anthropic-managed skill.
 
@@ -1305,7 +1307,7 @@ Create Session
 
               - `Version string`
 
-            - `type BetaManagedAgentsCustomSkill struct{…}`
+            - `type BetaManagedAgentsCustomSkill`
 
               A resolved user-created custom skill.
 
@@ -1319,13 +1321,13 @@ Create Session
 
           - `Tools []BetaManagedAgentsSessionThreadAgentToolUnion`
 
-            - `type BetaManagedAgentsAgentToolset20260401 struct{…}`
+            - `type BetaManagedAgentsAgentToolset20260401`
 
               - `Type BetaManagedAgentsAgentToolset20260401Type`
 
               - `Configs []BetaManagedAgentsAgentToolConfigUnion`
 
-                - `type BetaManagedAgentsBashToolConfig struct{…}`
+                - `type BetaManagedAgentsBashToolConfig`
 
                   Configuration for the bash tool.
 
@@ -1339,25 +1341,25 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
                       - `Type BetaManagedAgentsAlwaysAllowPolicyType`
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
                       - `Type BetaManagedAgentsAlwaysAskPolicyType`
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
                       - `Type Auto`
 
-                - `type BetaManagedAgentsEditToolConfig struct{…}`
+                - `type BetaManagedAgentsEditToolConfig`
 
                   Configuration for the edit tool.
 
@@ -1371,19 +1373,19 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                - `type BetaManagedAgentsReadToolConfig struct{…}`
+                - `type BetaManagedAgentsReadToolConfig`
 
                   Configuration for the read tool.
 
@@ -1397,19 +1399,19 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                - `type BetaManagedAgentsWriteToolConfig struct{…}`
+                - `type BetaManagedAgentsWriteToolConfig`
 
                   Configuration for the write tool.
 
@@ -1423,19 +1425,19 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                - `type BetaManagedAgentsGlobToolConfig struct{…}`
+                - `type BetaManagedAgentsGlobToolConfig`
 
                   Configuration for the glob tool.
 
@@ -1449,19 +1451,19 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                - `type BetaManagedAgentsGrepToolConfig struct{…}`
+                - `type BetaManagedAgentsGrepToolConfig`
 
                   Configuration for the grep tool.
 
@@ -1475,19 +1477,19 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-                - `type BetaManagedAgentsWebFetchToolConfig struct{…}`
+                - `type BetaManagedAgentsWebFetchToolConfig`
 
                   Configuration for the web_fetch tool.
 
@@ -1501,15 +1503,15 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -1521,7 +1523,7 @@ Create Session
 
                     format: int32
 
-                - `type BetaManagedAgentsWebSearchToolConfig struct{…}`
+                - `type BetaManagedAgentsWebSearchToolConfig`
 
                   Configuration for the web_search tool.
 
@@ -1535,15 +1537,15 @@ Create Session
 
                     Permission policy for tool execution.
 
-                    - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                    - `type BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
-                    - `type BetaManagedAgentsAutoPolicy struct{…}`
+                    - `type BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -1591,19 +1593,19 @@ Create Session
 
                   Permission policy for tool execution.
 
-                  - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                  - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                     Tool calls are automatically approved without user confirmation.
 
-                  - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                  - `type BetaManagedAgentsAlwaysAskPolicy`
 
                     Tool calls require user confirmation before execution.
 
-                  - `type BetaManagedAgentsAutoPolicy struct{…}`
+                  - `type BetaManagedAgentsAutoPolicy`
 
                     The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-            - `type BetaManagedAgentsMCPToolset struct{…}`
+            - `type BetaManagedAgentsMCPToolset`
 
               - `Type BetaManagedAgentsMCPToolsetType`
 
@@ -1617,15 +1619,15 @@ Create Session
 
                   Permission policy for tool execution.
 
-                  - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                  - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                     Tool calls are automatically approved without user confirmation.
 
-                  - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                  - `type BetaManagedAgentsAlwaysAskPolicy`
 
                     Tool calls require user confirmation before execution.
 
-                  - `type BetaManagedAgentsAutoPolicy struct{…}`
+                  - `type BetaManagedAgentsAutoPolicy`
 
                     The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
@@ -1639,21 +1641,21 @@ Create Session
 
                   Permission policy for tool execution.
 
-                  - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+                  - `type BetaManagedAgentsAlwaysAllowPolicy`
 
                     Tool calls are automatically approved without user confirmation.
 
-                  - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+                  - `type BetaManagedAgentsAlwaysAskPolicy`
 
                     Tool calls require user confirmation before execution.
 
-                  - `type BetaManagedAgentsAutoPolicy struct{…}`
+                  - `type BetaManagedAgentsAutoPolicy`
 
                     The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
               - `MCPServerName string`
 
-            - `type BetaManagedAgentsCustomTool struct{…}`
+            - `type BetaManagedAgentsCustomTool`
 
               A custom tool as returned in API responses.
 
@@ -1677,7 +1679,7 @@ Create Session
 
             format: int32
 
-        - `type BetaManagedAgentsAdvisor struct{…}`
+        - `type BetaManagedAgentsAdvisor`
 
           Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
@@ -1691,11 +1693,11 @@ Create Session
 
     - `Skills []BetaManagedAgentsSessionAgentSkillUnion`
 
-      - `type BetaManagedAgentsAnthropicSkill struct{…}`
+      - `type BetaManagedAgentsAnthropicSkill`
 
         A resolved Anthropic-managed skill.
 
-      - `type BetaManagedAgentsCustomSkill struct{…}`
+      - `type BetaManagedAgentsCustomSkill`
 
         A resolved user-created custom skill.
 
@@ -1703,11 +1705,11 @@ Create Session
 
     - `Tools []BetaManagedAgentsSessionAgentToolUnion`
 
-      - `type BetaManagedAgentsAgentToolset20260401 struct{…}`
+      - `type BetaManagedAgentsAgentToolset20260401`
 
-      - `type BetaManagedAgentsMCPToolset struct{…}`
+      - `type BetaManagedAgentsMCPToolset`
 
-      - `type BetaManagedAgentsCustomTool struct{…}`
+      - `type BetaManagedAgentsCustomTool`
 
         A custom tool as returned in API responses.
 
@@ -1785,7 +1787,7 @@ Create Session
 
   - `Resources []BetaManagedAgentsSessionResourceUnion`
 
-    - `type BetaManagedAgentsGitHubRepositoryResource struct{…}`
+    - `type BetaManagedAgentsGitHubRepositoryResource`
 
       - `Type BetaManagedAgentsGitHubRepositoryResourceType`
 
@@ -1809,7 +1811,7 @@ Create Session
 
       - `Checkout BetaManagedAgentsGitHubRepositoryResourceCheckoutUnion Optional`
 
-        - `type BetaManagedAgentsBranchCheckout struct{…}`
+        - `type BetaManagedAgentsBranchCheckout`
 
           - `Type BetaManagedAgentsBranchCheckoutType`
 
@@ -1819,7 +1821,7 @@ Create Session
 
             minLength: 1, maxLength: 255
 
-        - `type BetaManagedAgentsCommitCheckout struct{…}`
+        - `type BetaManagedAgentsCommitCheckout`
 
           - `Type BetaManagedAgentsCommitCheckoutType`
 
@@ -1829,7 +1831,7 @@ Create Session
 
             minLength: 7, maxLength: 64
 
-    - `type BetaManagedAgentsFileResource struct{…}`
+    - `type BetaManagedAgentsFileResource`
 
       - `Type BetaManagedAgentsFileResourceType`
 
@@ -1851,7 +1853,7 @@ Create Session
 
         format: date-time
 
-    - `type BetaManagedAgentsMemoryStoreResource struct{…}`
+    - `type BetaManagedAgentsMemoryStoreResource`
 
       A memory store attached to an agent session.
 

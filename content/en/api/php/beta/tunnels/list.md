@@ -35,7 +35,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ## Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 

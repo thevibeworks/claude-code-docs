@@ -172,7 +172,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ## Returns
 
-- `MessageTokensCount`
+- `class MessageTokensCount`
 
   - `int inputTokens`
 

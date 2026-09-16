@@ -39,7 +39,7 @@ The Models API response can be used to determine which models are available for 
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -131,11 +131,13 @@ The Models API response can be used to determine which models are available for 
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaModelInfo: …`
+- `class BetaModelInfo`
 
   - `type: Literal["model"]`
 
@@ -172,6 +174,20 @@ The Models API response can be used to determine which models are available for 
     - `code_execution: BetaCapabilitySupport`
 
       Whether the model supports code execution tools.
+
+    - `compaction: Optional[BetaCompactionCapability]`
+
+      Compaction capability details: whether the model accepts the top-level
+      `compaction` request parameter, with one entry per supported
+      `compaction.type` value.
+
+      - `summarize: BetaCapabilitySupport`
+
+        Whether the summarize compaction type is supported.
+
+      - `supported: bool`
+
+        Whether this capability is supported by the model.
 
     - `context_management: BetaContextManagementCapability`
 
@@ -307,6 +323,12 @@ print(page.id)
         "code_execution": {
           "supported": true
         },
+        "compaction": {
+          "summarize": {
+            "supported": true
+          },
+          "supported": true
+        },
         "context_management": {
           "clear_thinking_20251015": {
             "supported": true
@@ -393,7 +415,7 @@ The Models API response can be used to determine information about a specific mo
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -485,11 +507,13 @@ The Models API response can be used to determine information about a specific mo
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaModelInfo: …`
+- `class BetaModelInfo`
 
   - `type: Literal["model"]`
 
@@ -526,6 +550,20 @@ The Models API response can be used to determine information about a specific mo
     - `code_execution: BetaCapabilitySupport`
 
       Whether the model supports code execution tools.
+
+    - `compaction: Optional[BetaCompactionCapability]`
+
+      Compaction capability details: whether the model accepts the top-level
+      `compaction` request parameter, with one entry per supported
+      `compaction.type` value.
+
+      - `summarize: BetaCapabilitySupport`
+
+        Whether the summarize compaction type is supported.
+
+      - `supported: bool`
+
+        Whether this capability is supported by the model.
 
     - `context_management: BetaContextManagementCapability`
 
@@ -660,6 +698,12 @@ print(beta_model_info.id)
     "code_execution": {
       "supported": true
     },
+    "compaction": {
+      "summarize": {
+        "supported": true
+      },
+      "supported": true
+    },
     "context_management": {
       "clear_thinking_20251015": {
         "supported": true
@@ -723,7 +767,7 @@ print(beta_model_info.id)
 
 ### Beta Capability Support
 
-- `class BetaCapabilitySupport: …`
+- `class BetaCapabilitySupport`
 
   Indicates whether a capability is supported.
 
@@ -731,9 +775,29 @@ print(beta_model_info.id)
 
     Whether this capability is supported by the model.
 
+### Beta Compaction Capability
+
+- `class BetaCompactionCapability`
+
+  Compaction capability details: whether the model accepts the top-level
+  `compaction` request parameter, with one entry per supported
+  `compaction.type` value.
+
+  - `summarize: BetaCapabilitySupport`
+
+    Whether the summarize compaction type is supported.
+
+    - `supported: bool`
+
+      Whether this capability is supported by the model.
+
+  - `supported: bool`
+
+    Whether this capability is supported by the model.
+
 ### Beta Context Management Capability
 
-- `class BetaContextManagementCapability: …`
+- `class BetaContextManagementCapability`
 
   Context management capability details.
 
@@ -759,7 +823,7 @@ print(beta_model_info.id)
 
 ### Beta Effort Capability
 
-- `class BetaEffortCapability: …`
+- `class BetaEffortCapability`
 
   Effort (reasoning_effort) capability details.
 
@@ -793,7 +857,7 @@ print(beta_model_info.id)
 
 ### Beta Model Capabilities
 
-- `class BetaModelCapabilities: …`
+- `class BetaModelCapabilities`
 
   Model capability information.
 
@@ -812,6 +876,20 @@ print(beta_model_info.id)
   - `code_execution: BetaCapabilitySupport`
 
     Whether the model supports code execution tools.
+
+  - `compaction: Optional[BetaCompactionCapability]`
+
+    Compaction capability details: whether the model accepts the top-level
+    `compaction` request parameter, with one entry per supported
+    `compaction.type` value.
+
+    - `summarize: BetaCapabilitySupport`
+
+      Whether the summarize compaction type is supported.
+
+    - `supported: bool`
+
+      Whether this capability is supported by the model.
 
   - `context_management: BetaContextManagementCapability`
 
@@ -895,7 +973,7 @@ print(beta_model_info.id)
 
 ### Beta Model Info
 
-- `class BetaModelInfo: …`
+- `class BetaModelInfo`
 
   - `type: Literal["model"]`
 
@@ -932,6 +1010,20 @@ print(beta_model_info.id)
     - `code_execution: BetaCapabilitySupport`
 
       Whether the model supports code execution tools.
+
+    - `compaction: Optional[BetaCompactionCapability]`
+
+      Compaction capability details: whether the model accepts the top-level
+      `compaction` request parameter, with one entry per supported
+      `compaction.type` value.
+
+      - `summarize: BetaCapabilitySupport`
+
+        Whether the summarize compaction type is supported.
+
+      - `supported: bool`
+
+        Whether this capability is supported by the model.
 
     - `context_management: BetaContextManagementCapability`
 
@@ -1033,7 +1125,7 @@ print(beta_model_info.id)
 
 ### Beta Thinking Capability
 
-- `class BetaThinkingCapability: …`
+- `class BetaThinkingCapability`
 
   Thinking capability details.
 
@@ -1059,7 +1151,7 @@ print(beta_model_info.id)
 
 ### Beta Thinking Types
 
-- `class BetaThinkingTypes: …`
+- `class BetaThinkingTypes`
 
   Supported thinking type configurations.
 

@@ -41,7 +41,7 @@ Create a new environment with the specified configuration.
 
 ## Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 

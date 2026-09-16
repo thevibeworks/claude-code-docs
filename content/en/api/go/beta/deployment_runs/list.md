@@ -159,6 +159,8 @@ List Deployment Runs
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -167,7 +169,7 @@ List Deployment Runs
 
 ## Returns
 
-- `type BetaManagedAgentsDeploymentRun struct{…}`
+- `type BetaManagedAgentsDeploymentRun`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
 
@@ -203,7 +205,7 @@ List Deployment Runs
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
-    - `type BetaManagedAgentsEnvironmentArchivedRunError struct{…}`
+    - `type BetaManagedAgentsEnvironmentArchivedRunError`
 
       The deployment's environment was archived.
 
@@ -213,7 +215,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsAgentArchivedRunError struct{…}`
+    - `type BetaManagedAgentsAgentArchivedRunError`
 
       The deployment's agent was archived.
 
@@ -223,7 +225,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsEnvironmentNotFoundRunError struct{…}`
+    - `type BetaManagedAgentsEnvironmentNotFoundRunError`
 
       The deployment's environment no longer exists.
 
@@ -233,7 +235,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultNotFoundRunError struct{…}`
+    - `type BetaManagedAgentsVaultNotFoundRunError`
 
       A vault referenced by the deployment no longer exists.
 
@@ -243,7 +245,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultArchivedRunError struct{…}`
+    - `type BetaManagedAgentsVaultArchivedRunError`
 
       A vault referenced by the deployment is archived.
 
@@ -253,7 +255,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsFileNotFoundRunError struct{…}`
+    - `type BetaManagedAgentsFileNotFoundRunError`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -263,7 +265,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMemoryStoreArchivedRunError struct{…}`
+    - `type BetaManagedAgentsMemoryStoreArchivedRunError`
 
       A memory store referenced by the deployment is archived.
 
@@ -273,7 +275,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSkillNotFoundRunError struct{…}`
+    - `type BetaManagedAgentsSkillNotFoundRunError`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -283,7 +285,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionResourceNotFoundRunError struct{…}`
+    - `type BetaManagedAgentsSessionResourceNotFoundRunError`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -293,7 +295,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsWorkspaceArchivedRunError struct{…}`
+    - `type BetaManagedAgentsWorkspaceArchivedRunError`
 
       The deployment's workspace was archived.
 
@@ -303,7 +305,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsOrganizationDisabledRunError struct{…}`
+    - `type BetaManagedAgentsOrganizationDisabledRunError`
 
       The deployment's organization is disabled.
 
@@ -313,7 +315,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionRateLimitedRunError struct{…}`
+    - `type BetaManagedAgentsSessionRateLimitedRunError`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -323,7 +325,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionCreationRejectedRunError struct{…}`
+    - `type BetaManagedAgentsSessionCreationRejectedRunError`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -333,7 +335,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsUnknownRunError struct{…}`
+    - `type BetaManagedAgentsUnknownRunError`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -343,7 +345,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError struct{…}`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -353,7 +355,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMCPEgressBlockedRunError struct{…}`
+    - `type BetaManagedAgentsMCPEgressBlockedRunError`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -371,7 +373,7 @@ List Deployment Runs
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-    - `type BetaManagedAgentsScheduleTriggerContext struct{…}`
+    - `type BetaManagedAgentsScheduleTriggerContext`
 
       The run was fired by the deployment's cron schedule.
 
@@ -383,7 +385,7 @@ List Deployment Runs
 
         format: date-time
 
-    - `type BetaManagedAgentsManualTriggerContext struct{…}`
+    - `type BetaManagedAgentsManualTriggerContext`
 
       The run was started manually by creating a session directly against the deployment.
 

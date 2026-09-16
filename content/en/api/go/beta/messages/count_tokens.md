@@ -74,7 +74,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `[]BetaContentBlockParamUnionResp`
 
-        - `type BetaTextBlockParamResp struct{…}`
+        - `type BetaTextBlockParamResp`
 
           - `Type Text`
 
@@ -105,7 +105,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Citations []BetaTextCitationParamUnionResp Optional`
 
-            - `type BetaCitationCharLocationParamResp struct{…}`
+            - `type BetaCitationCharLocationParamResp`
 
               - `Type CharLocation`
 
@@ -125,7 +125,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `type BetaCitationPageLocationParamResp struct{…}`
+            - `type BetaCitationPageLocationParamResp`
 
               - `Type PageLocation`
 
@@ -145,7 +145,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 1
 
-            - `type BetaCitationContentBlockLocationParamResp struct{…}`
+            - `type BetaCitationContentBlockLocationParamResp`
 
               - `Type ContentBlockLocation`
 
@@ -175,7 +175,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `type BetaCitationWebSearchResultLocationParamResp struct{…}`
+            - `type BetaCitationWebSearchResultLocationParamResp`
 
               - `Type WebSearchResultLocation`
 
@@ -191,7 +191,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minLength: 1
 
-            - `type BetaCitationSearchResultLocationParamResp struct{…}`
+            - `type BetaCitationSearchResultLocationParamResp`
 
               - `Type SearchResultLocation`
 
@@ -225,13 +225,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Title string`
 
-        - `type BetaImageBlockParamResp struct{…}`
+        - `type BetaImageBlockParamResp`
 
           - `Type Image`
 
           - `Source BetaImageBlockParamSourceUnionResp`
 
-            - `type BetaBase64ImageSource struct{…}`
+            - `type BetaBase64ImageSource`
 
               - `Type Base64`
 
@@ -249,13 +249,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const BetaBase64ImageSourceMediaTypeImageWebP BetaBase64ImageSourceMediaType = "image/webp"`
 
-            - `type BetaURLImageSource struct{…}`
+            - `type BetaURLImageSource`
 
               - `Type URL`
 
               - `URL string`
 
-            - `type BetaFileImageSource struct{…}`
+            - `type BetaFileImageSource`
 
               - `Type File`
 
@@ -277,13 +277,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `const BetaImageTransformationsParamOversizedImageError BetaImageTransformationsParamOversizedImage = "error"`
 
-        - `type BetaRequestDocumentBlock struct{…}`
+        - `type BetaRequestDocumentBlock`
 
           - `Type Document`
 
           - `Source BetaRequestDocumentBlockSourceUnion`
 
-            - `type BetaBase64PDFSource struct{…}`
+            - `type BetaBase64PDFSource`
 
               - `Type Base64`
 
@@ -293,7 +293,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `MediaType ApplicationPDF`
 
-            - `type BetaPlainTextSource struct{…}`
+            - `type BetaPlainTextSource`
 
               - `Type Text`
 
@@ -301,7 +301,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `MediaType TextPlain`
 
-            - `type BetaContentBlockSource struct{…}`
+            - `type BetaContentBlockSource`
 
               - `Type Content`
 
@@ -311,17 +311,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `[]BetaContentBlockSourceContentUnion`
 
-                  - `type BetaTextBlockParamResp struct{…}`
+                  - `type BetaTextBlockParamResp`
 
-                  - `type BetaImageBlockParamResp struct{…}`
+                  - `type BetaImageBlockParamResp`
 
-            - `type BetaURLPDFSource struct{…}`
+            - `type BetaURLPDFSource`
 
               - `Type URL`
 
               - `URL string`
 
-            - `type BetaFileDocumentSource struct{…}`
+            - `type BetaFileDocumentSource`
 
               - `Type File`
 
@@ -343,7 +343,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 500, minLength: 1
 
-        - `type BetaSearchResultBlockParamResp struct{…}`
+        - `type BetaSearchResultBlockParamResp`
 
           - `Type SearchResult`
 
@@ -371,7 +371,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Citations BetaCitationsConfigParamResp Optional`
 
-        - `type BetaThinkingBlockParamResp struct{…}`
+        - `type BetaThinkingBlockParamResp`
 
           - `Type Thinking`
 
@@ -385,7 +385,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `thinking` text of this block as returned by the API.
 
-        - `type BetaRedactedThinkingBlockParamResp struct{…}`
+        - `type BetaRedactedThinkingBlockParamResp`
 
           - `Type RedactedThinking`
 
@@ -393,7 +393,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type BetaToolUseBlockParamResp struct{…}`
+        - `type BetaToolUseBlockParamResp`
 
           - `Type ToolUse`
 
@@ -413,13 +413,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaToolUseBlockParamCallerUnionResp Optional`
 
-            - `type BetaDirectCaller struct{…}`
+            - `type BetaDirectCaller`
 
               Tool invocation directly from the model.
 
               - `Type Direct`
 
-            - `type BetaServerToolCaller struct{…}`
+            - `type BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -429,7 +429,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type BetaServerToolCaller20260120 struct{…}`
+            - `type BetaServerToolCaller20260120`
 
               - `Type CodeExecution20260120`
 
@@ -443,7 +443,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `type BetaToolResultBlockParamResp struct{…}`
+        - `type BetaToolResultBlockParamResp`
 
           - `Type ToolResult`
 
@@ -459,15 +459,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `[]BetaToolResultBlockParamContentUnionResp`
 
-              - `type BetaTextBlockParamResp struct{…}`
+              - `type BetaTextBlockParamResp`
 
-              - `type BetaImageBlockParamResp struct{…}`
+              - `type BetaImageBlockParamResp`
 
-              - `type BetaSearchResultBlockParamResp struct{…}`
+              - `type BetaSearchResultBlockParamResp`
 
-              - `type BetaRequestDocumentBlock struct{…}`
+              - `type BetaRequestDocumentBlock`
 
-              - `type BetaToolReferenceBlockParamResp struct{…}`
+              - `type BetaToolReferenceBlockParamResp`
 
                 Tool reference block that can be included in tool_result content.
 
@@ -481,7 +481,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   Create a cache control breakpoint at this content block.
 
-              - `type BetaBrowserStateBlockParamResp struct{…}`
+              - `type BetaBrowserStateBlockParamResp`
 
                 The caller's browser state after a browser toolset member call —
                 the full inventory of open tabs, which tab is active, and any side
@@ -531,7 +531,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   maxItems: 200, minItems: 1
 
-                  - `type BetaBrowserStateChangeTabOpened struct{…}`
+                  - `type BetaBrowserStateChangeTabOpened`
 
                     A tab this call's execution opened that remains open at its end —
                     the creation delta of the `tabs` inventory, not an event log.
@@ -549,7 +549,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type BetaBrowserStateChangeDownloadStarted struct{…}`
+                  - `type BetaBrowserStateChangeDownloadStarted`
 
                     A file download that started during this call.
 
@@ -567,7 +567,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type BetaBrowserStateChangeDownloadCompleted struct{…}`
+                  - `type BetaBrowserStateChangeDownloadCompleted`
 
                     A file download that finished during this call, reported with the
                     same `download_id` as its `download_started` — or without a prior
@@ -600,7 +600,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       minimum: 0
 
-                  - `type BetaBrowserStateChangeDownloadFailed struct{…}`
+                  - `type BetaBrowserStateChangeDownloadFailed`
 
                     A file download that failed — or was cancelled — during this call.
 
@@ -632,7 +632,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `type BetaServerToolUseBlockParamResp struct{…}`
+        - `type BetaServerToolUseBlockParamResp`
 
           - `Type ServerToolUse`
 
@@ -666,17 +666,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaServerToolUseBlockParamCallerUnionResp Optional`
 
-            - `type BetaDirectCaller struct{…}`
+            - `type BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `type BetaServerToolCaller struct{…}`
+            - `type BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `type BetaServerToolCaller20260120 struct{…}`
+            - `type BetaServerToolCaller20260120`
 
-        - `type BetaWebSearchToolResultBlockParamResp struct{…}`
+        - `type BetaWebSearchToolResultBlockParamResp`
 
           - `Type WebSearchToolResult`
 
@@ -694,7 +694,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `PageAge string Optional`
 
-            - `type BetaWebSearchToolRequestError struct{…}`
+            - `type BetaWebSearchToolRequestError`
 
               - `Type WebSearchToolResultError`
 
@@ -722,23 +722,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaWebSearchToolResultBlockParamCallerUnionResp Optional`
 
-            - `type BetaDirectCaller struct{…}`
+            - `type BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `type BetaServerToolCaller struct{…}`
+            - `type BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `type BetaServerToolCaller20260120 struct{…}`
+            - `type BetaServerToolCaller20260120`
 
-        - `type BetaWebFetchToolResultBlockParamResp struct{…}`
+        - `type BetaWebFetchToolResultBlockParamResp`
 
           - `Type WebFetchToolResult`
 
           - `Content BetaWebFetchToolResultBlockParamContentUnionResp`
 
-            - `type BetaWebFetchToolResultErrorBlockParamResp struct{…}`
+            - `type BetaWebFetchToolResultErrorBlockParamResp`
 
               - `Type WebFetchToolResultError`
 
@@ -764,7 +764,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const BetaWebFetchToolResultErrorCodeContentTooLarge BetaWebFetchToolResultErrorCode = "content_too_large"`
 
-            - `type BetaWebFetchBlockParamResp struct{…}`
+            - `type BetaWebFetchBlockParamResp`
 
               - `Type WebFetchResult`
 
@@ -788,23 +788,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller BetaWebFetchToolResultBlockParamCallerUnionResp Optional`
 
-            - `type BetaDirectCaller struct{…}`
+            - `type BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `type BetaServerToolCaller struct{…}`
+            - `type BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `type BetaServerToolCaller20260120 struct{…}`
+            - `type BetaServerToolCaller20260120`
 
-        - `type BetaAdvisorToolResultBlockParamResp struct{…}`
+        - `type BetaAdvisorToolResultBlockParamResp`
 
           - `Type AdvisorToolResult`
 
           - `Content BetaAdvisorToolResultBlockParamContentUnionResp`
 
-            - `type BetaAdvisorToolResultErrorParamResp struct{…}`
+            - `type BetaAdvisorToolResultErrorParamResp`
 
               - `Type AdvisorToolResultError`
 
@@ -824,7 +824,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const BetaAdvisorToolResultErrorParamErrorCodeModelNotFound BetaAdvisorToolResultErrorParamErrorCode = "model_not_found"`
 
-            - `type BetaAdvisorResultBlockParamResp struct{…}`
+            - `type BetaAdvisorResultBlockParamResp`
 
               - `Type AdvisorResult`
 
@@ -832,7 +832,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `StopReason string Optional`
 
-            - `type BetaAdvisorRedactedResultBlockParamResp struct{…}`
+            - `type BetaAdvisorRedactedResultBlockParamResp`
 
               - `Type AdvisorRedactedResult`
 
@@ -850,13 +850,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaCodeExecutionToolResultBlockParamResp struct{…}`
+        - `type BetaCodeExecutionToolResultBlockParamResp`
 
           - `Type CodeExecutionToolResult`
 
           - `Content BetaCodeExecutionToolResultBlockParamContentUnionResp`
 
-            - `type BetaCodeExecutionToolResultErrorParamResp struct{…}`
+            - `type BetaCodeExecutionToolResultErrorParamResp`
 
               - `Type CodeExecutionToolResultError`
 
@@ -870,7 +870,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const BetaCodeExecutionToolResultErrorCodeExecutionTimeExceeded BetaCodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-            - `type BetaCodeExecutionResultBlockParamResp struct{…}`
+            - `type BetaCodeExecutionResultBlockParamResp`
 
               - `Type CodeExecutionResult`
 
@@ -886,7 +886,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Stdout string`
 
-            - `type BetaEncryptedCodeExecutionResultBlockParamResp struct{…}`
+            - `type BetaEncryptedCodeExecutionResultBlockParamResp`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -912,13 +912,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaBashCodeExecutionToolResultBlockParamResp struct{…}`
+        - `type BetaBashCodeExecutionToolResultBlockParamResp`
 
           - `Type BashCodeExecutionToolResult`
 
           - `Content BetaBashCodeExecutionToolResultBlockParamContentUnionResp`
 
-            - `type BetaBashCodeExecutionToolResultErrorParamResp struct{…}`
+            - `type BetaBashCodeExecutionToolResultErrorParamResp`
 
               - `Type BashCodeExecutionToolResultError`
 
@@ -934,7 +934,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const BetaBashCodeExecutionToolResultErrorParamErrorCodeOutputFileTooLarge BetaBashCodeExecutionToolResultErrorParamErrorCode = "output_file_too_large"`
 
-            - `type BetaBashCodeExecutionResultBlockParamResp struct{…}`
+            - `type BetaBashCodeExecutionResultBlockParamResp`
 
               - `Type BashCodeExecutionResult`
 
@@ -958,13 +958,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaTextEditorCodeExecutionToolResultBlockParamResp struct{…}`
+        - `type BetaTextEditorCodeExecutionToolResultBlockParamResp`
 
           - `Type TextEditorCodeExecutionToolResult`
 
           - `Content BetaTextEditorCodeExecutionToolResultBlockParamContentUnionResp`
 
-            - `type BetaTextEditorCodeExecutionToolResultErrorParamResp struct{…}`
+            - `type BetaTextEditorCodeExecutionToolResultErrorParamResp`
 
               - `Type TextEditorCodeExecutionToolResultError`
 
@@ -982,7 +982,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `ErrorMessage string Optional`
 
-            - `type BetaTextEditorCodeExecutionViewResultBlockParamResp struct{…}`
+            - `type BetaTextEditorCodeExecutionViewResultBlockParamResp`
 
               - `Type TextEditorCodeExecutionViewResult`
 
@@ -1002,13 +1002,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `TotalLines int64 Optional`
 
-            - `type BetaTextEditorCodeExecutionCreateResultBlockParamResp struct{…}`
+            - `type BetaTextEditorCodeExecutionCreateResultBlockParamResp`
 
               - `Type TextEditorCodeExecutionCreateResult`
 
               - `IsFileUpdate bool`
 
-            - `type BetaTextEditorCodeExecutionStrReplaceResultBlockParamResp struct{…}`
+            - `type BetaTextEditorCodeExecutionStrReplaceResultBlockParamResp`
 
               - `Type TextEditorCodeExecutionStrReplaceResult`
 
@@ -1030,13 +1030,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaToolSearchToolResultBlockParamResp struct{…}`
+        - `type BetaToolSearchToolResultBlockParamResp`
 
           - `Type ToolSearchToolResult`
 
           - `Content BetaToolSearchToolResultBlockParamContentUnionResp`
 
-            - `type BetaToolSearchToolResultErrorParamResp struct{…}`
+            - `type BetaToolSearchToolResultErrorParamResp`
 
               - `Type ToolSearchToolResultError`
 
@@ -1052,7 +1052,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `ErrorMessage string Optional`
 
-            - `type BetaToolSearchToolSearchResultBlockParamResp struct{…}`
+            - `type BetaToolSearchToolSearchResultBlockParamResp`
 
               - `Type ToolSearchToolSearchResult`
 
@@ -1076,7 +1076,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaMCPToolUseBlockParamResp struct{…}`
+        - `type BetaMCPToolUseBlockParamResp`
 
           - `Type MCPToolUse`
 
@@ -1096,7 +1096,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaRequestMCPToolResultBlockParamResp struct{…}`
+        - `type BetaRequestMCPToolResultBlockParamResp`
 
           - `Type MCPToolResult`
 
@@ -1128,7 +1128,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `IsError bool Optional`
 
-        - `type BetaContainerUploadBlockParamResp struct{…}`
+        - `type BetaContainerUploadBlockParamResp`
 
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
@@ -1141,7 +1141,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaCompactionBlockParamResp struct{…}`
+        - `type BetaCompactionBlockParamResp`
 
           A compaction block containing summary of previous context.
 
@@ -1165,7 +1165,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `type BetaRequestToolAdditionBlock struct{…}`
+          - `Signature string Optional`
+
+            The block's signature as returned, to be sent back verbatim
+
+        - `type BetaRequestToolAdditionBlock`
 
           Mid-conversation directive to surface a declared tool.
 
@@ -1177,7 +1181,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Tool BetaRequestToolAdditionBlockToolUnion`
 
-            - `type BetaToolChangeToolReference struct{…}`
+            - `type BetaToolChangeToolReference`
 
               Reference to a single tool the caller declared directly in
               `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -1190,7 +1194,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-            - `type BetaToolChangeMCPToolReference struct{…}`
+            - `type BetaToolChangeMCPToolReference`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -1201,7 +1205,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `ServerName string`
 
-            - `type BetaToolChangeMCPToolsetReference struct{…}`
+            - `type BetaToolChangeMCPToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
 
@@ -1213,7 +1217,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaRequestToolRemovalBlock struct{…}`
+        - `type BetaRequestToolRemovalBlock`
 
           Mid-conversation directive to withdraw a tool.
 
@@ -1225,19 +1229,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Tool BetaRequestToolRemovalBlockToolUnion`
 
-            - `type BetaToolChangeToolReference struct{…}`
+            - `type BetaToolChangeToolReference`
 
               Reference to a single tool the caller declared directly in
               `tools[]`. Does not accept the composed `{server}_{name}` form the
               server assigns to MCP-resolved tools — use `mcp_tool_reference` or
               `mcp_toolset_reference` for those.
 
-            - `type BetaToolChangeMCPToolReference struct{…}`
+            - `type BetaToolChangeMCPToolReference`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
 
-            - `type BetaToolChangeMCPToolsetReference struct{…}`
+            - `type BetaToolChangeMCPToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
 
@@ -1245,7 +1249,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BetaFallbackBlockParamResp struct{…}`
+        - `type BetaFallbackBlockParamResp`
 
           A `fallback` block echoed back from a prior response.
 
@@ -1405,6 +1409,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+  - `Compaction param.Field[BetaCompactionConfig] Optional`
+
+    Body param: Compact the whole conversation and return a signed `compaction` block,
+    alone, that a later request sends back first in `messages`, in place of
+    the messages it summarizes. There is no trigger and no pause flag: sending
+    the parameter compacts, and nothing is sampled after the block.
+
+    The summarization prompt is the server's own unless `instructions` are
+    given, which then replace it for this request; a value that is empty or
+    only whitespace counts as absent.
+
   - `ContextManagement param.Field[BetaContextManagementConfig] Optional`
 
     Body param: Context management configuration.
@@ -1541,7 +1556,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-    - `type BetaTool struct{…}`
+    - `type BetaTool`
 
       - `Type BetaToolType Optional`
 
@@ -1599,7 +1614,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolBash20241022 struct{…}`
+    - `type BetaToolBash20241022`
 
       - `Type Bash20241022`
 
@@ -1633,7 +1648,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolBash20250124 struct{…}`
+    - `type BetaToolBash20250124`
 
       - `Type Bash20250124`
 
@@ -1667,7 +1682,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaCodeExecutionTool20250522 struct{…}`
+    - `type BetaCodeExecutionTool20250522`
 
       - `Type CodeExecution20250522`
 
@@ -1699,7 +1714,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaCodeExecutionTool20250825 struct{…}`
+    - `type BetaCodeExecutionTool20250825`
 
       - `Type CodeExecution20250825`
 
@@ -1731,7 +1746,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaCodeExecutionTool20260120 struct{…}`
+    - `type BetaCodeExecutionTool20260120`
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -1765,7 +1780,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaCodeExecutionTool20260521 struct{…}`
+    - `type BetaCodeExecutionTool20260521`
 
       Code execution tool with REPL state persistence.
 
@@ -1799,7 +1814,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaBrowserToolset20260801 struct{…}`
+    - `type BetaBrowserToolset20260801`
 
       The browser toolset: a single `tools[]` entry (carrying no
       `name`) that declares the browser tool family. The model is served
@@ -2193,7 +2208,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type BetaToolComputerUse20241022 struct{…}`
+    - `type BetaToolComputerUse20241022`
 
       - `Type Computer20241022`
 
@@ -2245,7 +2260,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaMemoryTool20250818 struct{…}`
+    - `type BetaMemoryTool20250818`
 
       - `Type Memory20250818`
 
@@ -2279,7 +2294,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolComputerUse20250124 struct{…}`
+    - `type BetaToolComputerUse20250124`
 
       - `Type Computer20250124`
 
@@ -2331,7 +2346,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolTextEditor20241022 struct{…}`
+    - `type BetaToolTextEditor20241022`
 
       - `Type TextEditor20241022`
 
@@ -2365,7 +2380,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolComputerUse20251124 struct{…}`
+    - `type BetaToolComputerUse20251124`
 
       - `Type Computer20251124`
 
@@ -2421,7 +2436,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaComputerToolset20260801 struct{…}`
+    - `type BetaComputerToolset20260801`
 
       The computer toolset: a single `tools[]` entry (carrying no
       `name`) that declares the computer tool family. The model is
@@ -2651,7 +2666,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type BetaToolTextEditor20250124 struct{…}`
+    - `type BetaToolTextEditor20250124`
 
       - `Type TextEditor20250124`
 
@@ -2685,7 +2700,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolTextEditor20250429 struct{…}`
+    - `type BetaToolTextEditor20250429`
 
       - `Type TextEditor20250429`
 
@@ -2719,7 +2734,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolTextEditor20250728 struct{…}`
+    - `type BetaToolTextEditor20250728`
 
       - `Type TextEditor20250728`
 
@@ -2759,7 +2774,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaWebSearchTool20250305 struct{…}`
+    - `type BetaWebSearchTool20250305`
 
       - `Type WebSearch20250305`
 
@@ -2835,7 +2850,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           maxLength: 255, minLength: 1
 
-    - `type BetaWebFetchTool20250910 struct{…}`
+    - `type BetaWebFetchTool20250910`
 
       - `Type WebFetch20250910`
 
@@ -2891,7 +2906,98 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaWebSearchTool20260209 struct{…}`
+      - `URLSources BetaWebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `ClientToolResults BetaWebFetchURLSourcesClientToolResultsUnion Optional`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `type BetaWebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `Type All`
+
+          - `type BetaWebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `Type None`
+
+          - `type BetaWebFetchURLSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `Type Only`
+
+            - `Tools []BetaWebFetchURLSourceToolReference`
+
+              - `Type ToolReference`
+
+              - `Name string`
+
+          - `type BetaWebFetchURLSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `Type Except`
+
+            - `Tools []BetaWebFetchURLSourceToolReference`
+
+              - `Type ToolReference`
+
+              - `Name string`
+
+        - `ServerToolResults BetaWebFetchURLSourcesServerToolResultsUnion Optional`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `type BetaWebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `type BetaWebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `type BetaWebFetchURLSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `type BetaWebFetchURLSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `UserInput BetaWebFetchURLSourcesUserInputUnion Optional`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `type BetaWebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `type BetaWebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `type BetaWebSearchTool20260209`
 
       - `Type WebSearch20260209`
 
@@ -2941,7 +3047,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `type BetaWebFetchTool20260209 struct{…}`
+    - `type BetaWebFetchTool20260209`
 
       - `Type WebFetch20260209`
 
@@ -2997,7 +3103,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaWebFetchTool20260309 struct{…}`
+      - `URLSources BetaWebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `type BetaWebFetchTool20260309`
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -3055,11 +3170,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `URLSources BetaWebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `UseCache bool Optional`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `type BetaWebSearchTool20260318 struct{…}`
+    - `type BetaWebSearchTool20260318`
 
       - `Type WebSearch20260318`
 
@@ -3117,7 +3241,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `type BetaWebFetchTool20260318 struct{…}`
+    - `type BetaWebFetchTool20260318`
 
       - `Type WebFetch20260318`
 
@@ -3181,11 +3305,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `URLSources BetaWebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `UseCache bool Optional`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `type BetaAdvisorTool20260301 struct{…}`
+    - `type BetaAdvisorTool20260301`
 
       - `Type Advisor20260301`
 
@@ -3239,7 +3372,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolSearchToolBm25_20251119 struct{…}`
+    - `type BetaToolSearchToolBm25_20251119`
 
       - `Type BetaToolSearchToolBm25_20251119Type`
 
@@ -3275,7 +3408,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaToolSearchToolRegex20251119 struct{…}`
+    - `type BetaToolSearchToolRegex20251119`
 
       - `Type BetaToolSearchToolRegex20251119Type`
 
@@ -3311,7 +3444,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BetaMCPToolset struct{…}`
+    - `type BetaMCPToolset`
 
       Configuration for a group of tools from an MCP server.
 
@@ -3444,6 +3577,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `UserProfileID param.Field[string] Optional`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -3464,7 +3599,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ## Returns
 
-- `type BetaMessageTokensCount struct{…}`
+- `type BetaMessageTokensCount`
 
   - `ContextManagement BetaCountTokensContextManagementResponse`
 

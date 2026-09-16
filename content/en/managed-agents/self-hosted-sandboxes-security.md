@@ -4,6 +4,10 @@ url: https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-se
 description: Shared responsibility model for self-hosted sandbox environments.
 ---
 
+## Compatibility
+- Status: Beta
+- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `managed-agents-2026-04-01`
+
 Anthropic secures the control plane across all environments: session and work queue integrity, multitenant isolation, and agent-context minimization. When you self-host, the following responsibilities fall to you.
 
 ## What you own

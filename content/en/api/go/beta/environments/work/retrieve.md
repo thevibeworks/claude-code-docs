@@ -121,6 +121,8 @@ Retrieve detailed information about a specific work item.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -129,7 +131,7 @@ Retrieve detailed information about a specific work item.
 
 ## Returns
 
-- `type BetaSelfHostedWork struct{…}`
+- `type BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 

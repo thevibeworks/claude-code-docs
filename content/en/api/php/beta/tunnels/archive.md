@@ -25,7 +25,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 ## Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 

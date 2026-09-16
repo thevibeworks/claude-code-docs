@@ -25,7 +25,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ## Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 

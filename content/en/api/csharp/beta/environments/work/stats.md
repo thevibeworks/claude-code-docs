@@ -111,6 +111,8 @@ Get statistics about the work queue for an environment.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -119,7 +121,7 @@ Get statistics about the work queue for an environment.
 
 ## Returns
 
-- `class BetaSelfHostedWorkQueueStats:`
+- `class BetaSelfHostedWorkQueueStats`
 
   Statistics about the work queue for an environment.
 

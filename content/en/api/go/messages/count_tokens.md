@@ -74,7 +74,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `[]ContentBlockParamUnionResp`
 
-        - `type TextBlockParamResp struct{…}`
+        - `type TextBlockParamResp`
 
           - `Type Text`
 
@@ -105,7 +105,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Citations []TextCitationParamUnionResp Optional`
 
-            - `type CitationCharLocationParamResp struct{…}`
+            - `type CitationCharLocationParamResp`
 
               - `Type CharLocation`
 
@@ -125,7 +125,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `type CitationPageLocationParamResp struct{…}`
+            - `type CitationPageLocationParamResp`
 
               - `Type PageLocation`
 
@@ -145,7 +145,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 1
 
-            - `type CitationContentBlockLocationParamResp struct{…}`
+            - `type CitationContentBlockLocationParamResp`
 
               - `Type ContentBlockLocation`
 
@@ -175,7 +175,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `type CitationWebSearchResultLocationParamResp struct{…}`
+            - `type CitationWebSearchResultLocationParamResp`
 
               - `Type WebSearchResultLocation`
 
@@ -191,7 +191,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minLength: 1
 
-            - `type CitationSearchResultLocationParamResp struct{…}`
+            - `type CitationSearchResultLocationParamResp`
 
               - `Type SearchResultLocation`
 
@@ -225,13 +225,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Title string`
 
-        - `type ImageBlockParamResp struct{…}`
+        - `type ImageBlockParamResp`
 
           - `Type Image`
 
           - `Source ImageBlockParamSourceUnionResp`
 
-            - `type Base64ImageSource struct{…}`
+            - `type Base64ImageSource`
 
               - `Type Base64`
 
@@ -249,13 +249,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const Base64ImageSourceMediaTypeImageWebP Base64ImageSourceMediaType = "image/webp"`
 
-            - `type URLImageSource struct{…}`
+            - `type URLImageSource`
 
               - `Type URL`
 
               - `URL string`
 
-            - `type FileImageSource struct{…}`
+            - `type FileImageSource`
 
               - `Type File`
 
@@ -277,13 +277,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `const ImageTransformationsParamOversizedImageError ImageTransformationsParamOversizedImage = "error"`
 
-        - `type DocumentBlockParamResp struct{…}`
+        - `type DocumentBlockParamResp`
 
           - `Type Document`
 
           - `Source DocumentBlockParamSourceUnionResp`
 
-            - `type Base64PDFSource struct{…}`
+            - `type Base64PDFSource`
 
               - `Type Base64`
 
@@ -293,7 +293,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `MediaType ApplicationPDF`
 
-            - `type PlainTextSource struct{…}`
+            - `type PlainTextSource`
 
               - `Type Text`
 
@@ -301,7 +301,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `MediaType TextPlain`
 
-            - `type ContentBlockSource struct{…}`
+            - `type ContentBlockSource`
 
               - `Type Content`
 
@@ -311,17 +311,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `[]ContentBlockSourceContentItemUnion`
 
-                  - `type TextBlockParamResp struct{…}`
+                  - `type TextBlockParamResp`
 
-                  - `type ImageBlockParamResp struct{…}`
+                  - `type ImageBlockParamResp`
 
-            - `type URLPDFSource struct{…}`
+            - `type URLPDFSource`
 
               - `Type URL`
 
               - `URL string`
 
-            - `type FileDocumentSource struct{…}`
+            - `type FileDocumentSource`
 
               - `Type File`
 
@@ -343,7 +343,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 500, minLength: 1
 
-        - `type SearchResultBlockParamResp struct{…}`
+        - `type SearchResultBlockParamResp`
 
           - `Type SearchResult`
 
@@ -371,7 +371,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Citations CitationsConfigParamResp Optional`
 
-        - `type ThinkingBlockParamResp struct{…}`
+        - `type ThinkingBlockParamResp`
 
           - `Type Thinking`
 
@@ -385,7 +385,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `thinking` text of this block as returned by the API.
 
-        - `type RedactedThinkingBlockParamResp struct{…}`
+        - `type RedactedThinkingBlockParamResp`
 
           - `Type RedactedThinking`
 
@@ -393,7 +393,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `type ToolUseBlockParamResp struct{…}`
+        - `type ToolUseBlockParamResp`
 
           - `Type ToolUse`
 
@@ -413,13 +413,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller ToolUseBlockParamCallerUnionResp Optional`
 
-            - `type DirectCaller struct{…}`
+            - `type DirectCaller`
 
               Tool invocation directly from the model.
 
               - `Type Direct`
 
-            - `type ServerToolCaller struct{…}`
+            - `type ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -429,7 +429,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `type ServerToolCaller20260120 struct{…}`
+            - `type ServerToolCaller20260120`
 
               - `Type CodeExecution20260120`
 
@@ -443,7 +443,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `type ToolResultBlockParamResp struct{…}`
+        - `type ToolResultBlockParamResp`
 
           - `Type ToolResult`
 
@@ -459,15 +459,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `[]ToolResultBlockParamContentUnionResp`
 
-              - `type TextBlockParamResp struct{…}`
+              - `type TextBlockParamResp`
 
-              - `type ImageBlockParamResp struct{…}`
+              - `type ImageBlockParamResp`
 
-              - `type SearchResultBlockParamResp struct{…}`
+              - `type SearchResultBlockParamResp`
 
-              - `type DocumentBlockParamResp struct{…}`
+              - `type DocumentBlockParamResp`
 
-              - `type ToolReferenceBlockParamResp struct{…}`
+              - `type ToolReferenceBlockParamResp`
 
                 Tool reference block that can be included in tool_result content.
 
@@ -481,7 +481,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   Create a cache control breakpoint at this content block.
 
-              - `type BrowserStateBlockParamResp struct{…}`
+              - `type BrowserStateBlockParamResp`
 
                 The caller's browser state after a browser toolset member call —
                 the full inventory of open tabs, which tab is active, and any side
@@ -531,7 +531,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   maxItems: 200, minItems: 1
 
-                  - `type BrowserStateChangeTabOpened struct{…}`
+                  - `type BrowserStateChangeTabOpened`
 
                     A tab this call's execution opened that remains open at its end —
                     the creation delta of the `tabs` inventory, not an event log.
@@ -549,7 +549,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type BrowserStateChangeDownloadStarted struct{…}`
+                  - `type BrowserStateChangeDownloadStarted`
 
                     A file download that started during this call.
 
@@ -567,7 +567,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `type BrowserStateChangeDownloadCompleted struct{…}`
+                  - `type BrowserStateChangeDownloadCompleted`
 
                     A file download that finished during this call, reported with the
                     same `download_id` as its `download_started` — or without a prior
@@ -600,7 +600,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       minimum: 0
 
-                  - `type BrowserStateChangeDownloadFailed struct{…}`
+                  - `type BrowserStateChangeDownloadFailed`
 
                     A file download that failed — or was cancelled — during this call.
 
@@ -632,7 +632,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `type ServerToolUseBlockParamResp struct{…}`
+        - `type ServerToolUseBlockParamResp`
 
           - `Type ServerToolUse`
 
@@ -664,17 +664,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller ServerToolUseBlockParamCallerUnionResp Optional`
 
-            - `type DirectCaller struct{…}`
+            - `type DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `type ServerToolCaller struct{…}`
+            - `type ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `type ServerToolCaller20260120 struct{…}`
+            - `type ServerToolCaller20260120`
 
-        - `type WebSearchToolResultBlockParamResp struct{…}`
+        - `type WebSearchToolResultBlockParamResp`
 
           - `Type WebSearchToolResult`
 
@@ -692,7 +692,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `PageAge string Optional`
 
-            - `type WebSearchToolRequestError struct{…}`
+            - `type WebSearchToolRequestError`
 
               - `Type WebSearchToolResultError`
 
@@ -720,23 +720,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller WebSearchToolResultBlockParamCallerUnionResp Optional`
 
-            - `type DirectCaller struct{…}`
+            - `type DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `type ServerToolCaller struct{…}`
+            - `type ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `type ServerToolCaller20260120 struct{…}`
+            - `type ServerToolCaller20260120`
 
-        - `type WebFetchToolResultBlockParamResp struct{…}`
+        - `type WebFetchToolResultBlockParamResp`
 
           - `Type WebFetchToolResult`
 
           - `Content WebFetchToolResultBlockParamContentUnionResp`
 
-            - `type WebFetchToolResultErrorBlockParamResp struct{…}`
+            - `type WebFetchToolResultErrorBlockParamResp`
 
               - `Type WebFetchToolResultError`
 
@@ -762,7 +762,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const WebFetchToolResultErrorCodeContentTooLarge WebFetchToolResultErrorCode = "content_too_large"`
 
-            - `type WebFetchBlockParamResp struct{…}`
+            - `type WebFetchBlockParamResp`
 
               - `Type WebFetchResult`
 
@@ -786,23 +786,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Caller WebFetchToolResultBlockParamCallerUnionResp Optional`
 
-            - `type DirectCaller struct{…}`
+            - `type DirectCaller`
 
               Tool invocation directly from the model.
 
-            - `type ServerToolCaller struct{…}`
+            - `type ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `type ServerToolCaller20260120 struct{…}`
+            - `type ServerToolCaller20260120`
 
-        - `type CodeExecutionToolResultBlockParamResp struct{…}`
+        - `type CodeExecutionToolResultBlockParamResp`
 
           - `Type CodeExecutionToolResult`
 
           - `Content CodeExecutionToolResultBlockParamContentUnionResp`
 
-            - `type CodeExecutionToolResultErrorParamResp struct{…}`
+            - `type CodeExecutionToolResultErrorParamResp`
 
               - `Type CodeExecutionToolResultError`
 
@@ -816,7 +816,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const CodeExecutionToolResultErrorCodeExecutionTimeExceeded CodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-            - `type CodeExecutionResultBlockParamResp struct{…}`
+            - `type CodeExecutionResultBlockParamResp`
 
               - `Type CodeExecutionResult`
 
@@ -832,7 +832,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Stdout string`
 
-            - `type EncryptedCodeExecutionResultBlockParamResp struct{…}`
+            - `type EncryptedCodeExecutionResultBlockParamResp`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -858,13 +858,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type BashCodeExecutionToolResultBlockParamResp struct{…}`
+        - `type BashCodeExecutionToolResultBlockParamResp`
 
           - `Type BashCodeExecutionToolResult`
 
           - `Content BashCodeExecutionToolResultBlockParamContentUnionResp`
 
-            - `type BashCodeExecutionToolResultErrorParamResp struct{…}`
+            - `type BashCodeExecutionToolResultErrorParamResp`
 
               - `Type BashCodeExecutionToolResultError`
 
@@ -880,7 +880,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `const BashCodeExecutionToolResultErrorCodeOutputFileTooLarge BashCodeExecutionToolResultErrorCode = "output_file_too_large"`
 
-            - `type BashCodeExecutionResultBlockParamResp struct{…}`
+            - `type BashCodeExecutionResultBlockParamResp`
 
               - `Type BashCodeExecutionResult`
 
@@ -904,13 +904,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type TextEditorCodeExecutionToolResultBlockParamResp struct{…}`
+        - `type TextEditorCodeExecutionToolResultBlockParamResp`
 
           - `Type TextEditorCodeExecutionToolResult`
 
           - `Content TextEditorCodeExecutionToolResultBlockParamContentUnionResp`
 
-            - `type TextEditorCodeExecutionToolResultErrorParamResp struct{…}`
+            - `type TextEditorCodeExecutionToolResultErrorParamResp`
 
               - `Type TextEditorCodeExecutionToolResultError`
 
@@ -928,7 +928,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `ErrorMessage string Optional`
 
-            - `type TextEditorCodeExecutionViewResultBlockParamResp struct{…}`
+            - `type TextEditorCodeExecutionViewResultBlockParamResp`
 
               - `Type TextEditorCodeExecutionViewResult`
 
@@ -948,13 +948,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `TotalLines int64 Optional`
 
-            - `type TextEditorCodeExecutionCreateResultBlockParamResp struct{…}`
+            - `type TextEditorCodeExecutionCreateResultBlockParamResp`
 
               - `Type TextEditorCodeExecutionCreateResult`
 
               - `IsFileUpdate bool`
 
-            - `type TextEditorCodeExecutionStrReplaceResultBlockParamResp struct{…}`
+            - `type TextEditorCodeExecutionStrReplaceResultBlockParamResp`
 
               - `Type TextEditorCodeExecutionStrReplaceResult`
 
@@ -976,13 +976,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type ToolSearchToolResultBlockParamResp struct{…}`
+        - `type ToolSearchToolResultBlockParamResp`
 
           - `Type ToolSearchToolResult`
 
           - `Content ToolSearchToolResultBlockParamContentUnionResp`
 
-            - `type ToolSearchToolResultErrorParamResp struct{…}`
+            - `type ToolSearchToolResultErrorParamResp`
 
               - `Type ToolSearchToolResultError`
 
@@ -998,7 +998,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `ErrorMessage string Optional`
 
-            - `type ToolSearchToolSearchResultBlockParamResp struct{…}`
+            - `type ToolSearchToolSearchResultBlockParamResp`
 
               - `Type ToolSearchToolSearchResult`
 
@@ -1022,7 +1022,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `type ContainerUploadBlockParamResp struct{…}`
+        - `type ContainerUploadBlockParamResp`
 
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
@@ -1155,7 +1155,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-    - `type Tool struct{…}`
+    - `type Tool`
 
       - `Type ToolType Optional`
 
@@ -1213,7 +1213,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type ToolBash20250124 struct{…}`
+    - `type ToolBash20250124`
 
       - `Type Bash20250124`
 
@@ -1247,7 +1247,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type CodeExecutionTool20250522 struct{…}`
+    - `type CodeExecutionTool20250522`
 
       - `Type CodeExecution20250522`
 
@@ -1279,7 +1279,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type CodeExecutionTool20250825 struct{…}`
+    - `type CodeExecutionTool20250825`
 
       - `Type CodeExecution20250825`
 
@@ -1311,7 +1311,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type CodeExecutionTool20260120 struct{…}`
+    - `type CodeExecutionTool20260120`
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -1345,7 +1345,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type CodeExecutionTool20260521 struct{…}`
+    - `type CodeExecutionTool20260521`
 
       Code execution tool with REPL state persistence.
 
@@ -1379,7 +1379,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type BrowserToolset20260801 struct{…}`
+    - `type BrowserToolset20260801`
 
       The browser toolset: a single `tools[]` entry (carrying no
       `name`) that declares the browser tool family. The model is served
@@ -1773,7 +1773,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type MemoryTool20250818 struct{…}`
+    - `type MemoryTool20250818`
 
       - `Type Memory20250818`
 
@@ -1807,7 +1807,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type ComputerToolset20260801 struct{…}`
+    - `type ComputerToolset20260801`
 
       The computer toolset: a single `tools[]` entry (carrying no
       `name`) that declares the computer tool family. The model is
@@ -2037,7 +2037,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type ToolTextEditor20250124 struct{…}`
+    - `type ToolTextEditor20250124`
 
       - `Type TextEditor20250124`
 
@@ -2071,7 +2071,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type ToolTextEditor20250429 struct{…}`
+    - `type ToolTextEditor20250429`
 
       - `Type TextEditor20250429`
 
@@ -2105,7 +2105,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type ToolTextEditor20250728 struct{…}`
+    - `type ToolTextEditor20250728`
 
       - `Type TextEditor20250728`
 
@@ -2145,7 +2145,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type WebSearchTool20250305 struct{…}`
+    - `type WebSearchTool20250305`
 
       - `Type WebSearch20250305`
 
@@ -2221,7 +2221,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           maxLength: 255, minLength: 1
 
-    - `type WebFetchTool20250910 struct{…}`
+    - `type WebFetchTool20250910`
 
       - `Type WebFetch20250910`
 
@@ -2277,7 +2277,98 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type WebSearchTool20260209 struct{…}`
+      - `URLSources WebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `ClientToolResults WebFetchURLSourcesClientToolResultsUnion Optional`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `type WebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `Type All`
+
+          - `type WebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `Type None`
+
+          - `type WebFetchURLSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `Type Only`
+
+            - `Tools []WebFetchURLSourceToolReference`
+
+              - `Type ToolReference`
+
+              - `Name string`
+
+          - `type WebFetchURLSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `Type Except`
+
+            - `Tools []WebFetchURLSourceToolReference`
+
+              - `Type ToolReference`
+
+              - `Name string`
+
+        - `ServerToolResults WebFetchURLSourcesServerToolResultsUnion Optional`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `type WebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `type WebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `type WebFetchURLSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `type WebFetchURLSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `UserInput WebFetchURLSourcesUserInputUnion Optional`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `type WebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `type WebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `type WebSearchTool20260209`
 
       - `Type WebSearch20260209`
 
@@ -2327,7 +2418,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `type WebFetchTool20260209 struct{…}`
+    - `type WebFetchTool20260209`
 
       - `Type WebFetch20260209`
 
@@ -2383,7 +2474,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type WebFetchTool20260309 struct{…}`
+      - `URLSources WebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `type WebFetchTool20260309`
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -2441,11 +2541,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `URLSources WebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `UseCache bool Optional`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `type WebSearchTool20260318 struct{…}`
+    - `type WebSearchTool20260318`
 
       - `Type WebSearch20260318`
 
@@ -2503,7 +2612,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `type WebFetchTool20260318 struct{…}`
+    - `type WebFetchTool20260318`
 
       - `Type WebFetch20260318`
 
@@ -2567,11 +2676,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `URLSources WebFetchURLSources Optional`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `UseCache bool Optional`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `type ToolSearchToolBm25_20251119 struct{…}`
+    - `type ToolSearchToolBm25_20251119`
 
       - `Type ToolSearchToolBm25_20251119Type`
 
@@ -2607,7 +2725,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `type ToolSearchToolRegex20251119 struct{…}`
+    - `type ToolSearchToolRegex20251119`
 
       - `Type ToolSearchToolRegex20251119Type`
 
@@ -2655,7 +2773,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ## Returns
 
-- `type MessageTokensCount struct{…}`
+- `type MessageTokensCount`
 
   - `InputTokens int64`
 

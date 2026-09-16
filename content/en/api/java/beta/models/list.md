@@ -127,11 +127,13 @@ The Models API response can be used to determine which models are available for 
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ## Returns
 
-- `class BetaModelInfo:`
+- `class BetaModelInfo`
 
   - `JsonValue type = "model"`
 
@@ -166,6 +168,20 @@ The Models API response can be used to determine which models are available for 
     - `BetaCapabilitySupport codeExecution`
 
       Whether the model supports code execution tools.
+
+    - `Optional<BetaCompactionCapability> compaction`
+
+      Compaction capability details: whether the model accepts the top-level
+      `compaction` request parameter, with one entry per supported
+      `compaction.type` value.
+
+      - `BetaCapabilitySupport summarize`
+
+        Whether the summarize compaction type is supported.
+
+      - `boolean supported`
+
+        Whether this capability is supported by the model.
 
     - `BetaContextManagementCapability contextManagement`
 
@@ -304,6 +320,12 @@ public final class Main {
           "supported": true
         },
         "code_execution": {
+          "supported": true
+        },
+        "compaction": {
+          "summarize": {
+            "supported": true
+          },
           "supported": true
         },
         "context_management": {

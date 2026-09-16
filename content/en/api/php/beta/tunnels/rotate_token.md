@@ -29,7 +29,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ## Returns
 
-- `BetaTunnelToken`
+- `class BetaTunnelToken`
 
   - `"tunnel_token" type`
 

@@ -27,7 +27,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 ## Returns
 
-- `TunnelCertificate`
+- `class TunnelCertificate`
 
   - `"tunnel_certificate" type`
 

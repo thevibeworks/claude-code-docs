@@ -23,7 +23,7 @@ Retrieve a specific environment by ID.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -115,6 +115,8 @@ Retrieve a specific environment by ID.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -123,7 +125,7 @@ Retrieve a specific environment by ID.
 
 ## Returns
 
-- `BetaEnvironment`
+- `interface BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -145,7 +147,7 @@ Retrieve a specific environment by ID.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `BetaCloudConfig`
+    - `interface BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -157,7 +159,7 @@ Retrieve a specific environment by ID.
 
         Network configuration policy.
 
-        - `BetaUnrestrictedNetwork`
+        - `interface BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -165,7 +167,7 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-        - `BetaLimitedNetwork`
+        - `interface BetaLimitedNetwork`
 
           Limited network access.
 
@@ -219,7 +221,7 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-    - `BetaSelfHostedConfig`
+    - `interface BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 

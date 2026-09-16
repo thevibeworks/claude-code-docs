@@ -9,7 +9,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Agent Archived Event Data
 
-- `class BetaWebhookAgentArchivedEventData:`
+- `class BetaWebhookAgentArchivedEventData`
 
   - `JsonValue type = "agent.archived"`
 
@@ -23,7 +23,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Agent Created Event Data
 
-- `class BetaWebhookAgentCreatedEventData:`
+- `class BetaWebhookAgentCreatedEventData`
 
   - `JsonValue type = "agent.created"`
 
@@ -37,7 +37,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Agent Deleted Event Data
 
-- `class BetaWebhookAgentDeletedEventData:`
+- `class BetaWebhookAgentDeletedEventData`
 
   - `JsonValue type = "agent.deleted"`
 
@@ -51,7 +51,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Agent Updated Event Data
 
-- `class BetaWebhookAgentUpdatedEventData:`
+- `class BetaWebhookAgentUpdatedEventData`
 
   - `JsonValue type = "agent.updated"`
 
@@ -65,7 +65,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Archived Event Data
 
-- `class BetaWebhookDeploymentArchivedEventData:`
+- `class BetaWebhookDeploymentArchivedEventData`
 
   - `JsonValue type = "deployment.archived"`
 
@@ -79,7 +79,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Created Event Data
 
-- `class BetaWebhookDeploymentCreatedEventData:`
+- `class BetaWebhookDeploymentCreatedEventData`
 
   - `JsonValue type = "deployment.created"`
 
@@ -93,7 +93,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Deleted Event Data
 
-- `class BetaWebhookDeploymentDeletedEventData:`
+- `class BetaWebhookDeploymentDeletedEventData`
 
   - `JsonValue type = "deployment.deleted"`
 
@@ -107,7 +107,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Paused Event Data
 
-- `class BetaWebhookDeploymentPausedEventData:`
+- `class BetaWebhookDeploymentPausedEventData`
 
   - `JsonValue type = "deployment.paused"`
 
@@ -121,7 +121,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Run Failed Event Data
 
-- `class BetaWebhookDeploymentRunFailedEventData:`
+- `class BetaWebhookDeploymentRunFailedEventData`
 
   - `JsonValue type = "deployment_run.failed"`
 
@@ -135,7 +135,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Run Started Event Data
 
-- `class BetaWebhookDeploymentRunStartedEventData:`
+- `class BetaWebhookDeploymentRunStartedEventData`
 
   - `JsonValue type = "deployment_run.started"`
 
@@ -149,7 +149,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Run Succeeded Event Data
 
-- `class BetaWebhookDeploymentRunSucceededEventData:`
+- `class BetaWebhookDeploymentRunSucceededEventData`
 
   - `JsonValue type = "deployment_run.succeeded"`
 
@@ -163,7 +163,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Unpaused Event Data
 
-- `class BetaWebhookDeploymentUnpausedEventData:`
+- `class BetaWebhookDeploymentUnpausedEventData`
 
   - `JsonValue type = "deployment.unpaused"`
 
@@ -177,7 +177,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Deployment Updated Event Data
 
-- `class BetaWebhookDeploymentUpdatedEventData:`
+- `class BetaWebhookDeploymentUpdatedEventData`
 
   - `JsonValue type = "deployment.updated"`
 
@@ -191,7 +191,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Environment Archived Event Data
 
-- `class BetaWebhookEnvironmentArchivedEventData:`
+- `class BetaWebhookEnvironmentArchivedEventData`
 
   - `JsonValue type = "environment.archived"`
 
@@ -205,7 +205,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Environment Created Event Data
 
-- `class BetaWebhookEnvironmentCreatedEventData:`
+- `class BetaWebhookEnvironmentCreatedEventData`
 
   - `JsonValue type = "environment.created"`
 
@@ -219,7 +219,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Environment Deleted Event Data
 
-- `class BetaWebhookEnvironmentDeletedEventData:`
+- `class BetaWebhookEnvironmentDeletedEventData`
 
   - `JsonValue type = "environment.deleted"`
 
@@ -233,7 +233,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Environment Updated Event Data
 
-- `class BetaWebhookEnvironmentUpdatedEventData:`
+- `class BetaWebhookEnvironmentUpdatedEventData`
 
   - `JsonValue type = "environment.updated"`
 
@@ -247,7 +247,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Event
 
-- `class UnwrapWebhookEvent:`
+- `class UnwrapWebhookEvent`
 
   - `JsonValue type = "event"`
 
@@ -265,7 +265,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
   - `BetaWebhookEventData data`
 
-    - `class BetaWebhookSessionCreatedEventData:`
+    - `class BetaWebhookSessionCreatedEventData`
 
       - `JsonValue type = "session.created"`
 
@@ -277,7 +277,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionPendingEventData:`
+    - `class BetaWebhookSessionPendingEventData`
 
       - `JsonValue type = "session.pending"`
 
@@ -289,7 +289,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionRunningEventData:`
+    - `class BetaWebhookSessionRunningEventData`
 
       - `JsonValue type = "session.running"`
 
@@ -301,7 +301,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionIdledEventData:`
+    - `class BetaWebhookSessionIdledEventData`
 
       - `JsonValue type = "session.idled"`
 
@@ -313,7 +313,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionRequiresActionEventData:`
+    - `class BetaWebhookSessionRequiresActionEventData`
 
       - `JsonValue type = "session.requires_action"`
 
@@ -325,7 +325,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionArchivedEventData:`
+    - `class BetaWebhookSessionArchivedEventData`
 
       - `JsonValue type = "session.archived"`
 
@@ -337,7 +337,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionDeletedEventData:`
+    - `class BetaWebhookSessionDeletedEventData`
 
       - `JsonValue type = "session.deleted"`
 
@@ -349,7 +349,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionStatusRescheduledEventData:`
+    - `class BetaWebhookSessionStatusRescheduledEventData`
 
       - `JsonValue type = "session.status_rescheduled"`
 
@@ -361,7 +361,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionStatusRunStartedEventData:`
+    - `class BetaWebhookSessionStatusRunStartedEventData`
 
       - `JsonValue type = "session.status_run_started"`
 
@@ -373,7 +373,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionStatusIdledEventData:`
+    - `class BetaWebhookSessionStatusIdledEventData`
 
       - `JsonValue type = "session.status_idled"`
 
@@ -385,7 +385,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionStatusTerminatedEventData:`
+    - `class BetaWebhookSessionStatusTerminatedEventData`
 
       - `JsonValue type = "session.status_terminated"`
 
@@ -397,7 +397,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionThreadCreatedEventData:`
+    - `class BetaWebhookSessionThreadCreatedEventData`
 
       - `JsonValue type = "session.thread_created"`
 
@@ -413,7 +413,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionThreadIdledEventData:`
+    - `class BetaWebhookSessionThreadIdledEventData`
 
       - `JsonValue type = "session.thread_idled"`
 
@@ -429,7 +429,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionThreadTerminatedEventData:`
+    - `class BetaWebhookSessionThreadTerminatedEventData`
 
       - `JsonValue type = "session.thread_terminated"`
 
@@ -445,7 +445,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionOutcomeEvaluationEndedEventData:`
+    - `class BetaWebhookSessionOutcomeEvaluationEndedEventData`
 
       - `JsonValue type = "session.outcome_evaluation_ended"`
 
@@ -457,7 +457,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultCreatedEventData:`
+    - `class BetaWebhookVaultCreatedEventData`
 
       - `JsonValue type = "vault.created"`
 
@@ -469,7 +469,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultArchivedEventData:`
+    - `class BetaWebhookVaultArchivedEventData`
 
       - `JsonValue type = "vault.archived"`
 
@@ -481,7 +481,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultDeletedEventData:`
+    - `class BetaWebhookVaultDeletedEventData`
 
       - `JsonValue type = "vault.deleted"`
 
@@ -493,7 +493,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultCredentialCreatedEventData:`
+    - `class BetaWebhookVaultCredentialCreatedEventData`
 
       - `JsonValue type = "vault_credential.created"`
 
@@ -509,7 +509,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultCredentialArchivedEventData:`
+    - `class BetaWebhookVaultCredentialArchivedEventData`
 
       - `JsonValue type = "vault_credential.archived"`
 
@@ -525,7 +525,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultCredentialDeletedEventData:`
+    - `class BetaWebhookVaultCredentialDeletedEventData`
 
       - `JsonValue type = "vault_credential.deleted"`
 
@@ -541,7 +541,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookVaultCredentialRefreshFailedEventData:`
+    - `class BetaWebhookVaultCredentialRefreshFailedEventData`
 
       - `JsonValue type = "vault_credential.refresh_failed"`
 
@@ -557,7 +557,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionUpdatedEventData:`
+    - `class BetaWebhookSessionUpdatedEventData`
 
       - `JsonValue type = "session.updated"`
 
@@ -569,7 +569,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookAgentCreatedEventData:`
+    - `class BetaWebhookAgentCreatedEventData`
 
       - `JsonValue type = "agent.created"`
 
@@ -581,7 +581,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookAgentArchivedEventData:`
+    - `class BetaWebhookAgentArchivedEventData`
 
       - `JsonValue type = "agent.archived"`
 
@@ -593,7 +593,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookAgentDeletedEventData:`
+    - `class BetaWebhookAgentDeletedEventData`
 
       - `JsonValue type = "agent.deleted"`
 
@@ -605,7 +605,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentPausedEventData:`
+    - `class BetaWebhookDeploymentPausedEventData`
 
       - `JsonValue type = "deployment.paused"`
 
@@ -617,7 +617,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentRunFailedEventData:`
+    - `class BetaWebhookDeploymentRunFailedEventData`
 
       - `JsonValue type = "deployment_run.failed"`
 
@@ -629,7 +629,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentCreatedEventData:`
+    - `class BetaWebhookDeploymentCreatedEventData`
 
       - `JsonValue type = "deployment.created"`
 
@@ -641,7 +641,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentUpdatedEventData:`
+    - `class BetaWebhookDeploymentUpdatedEventData`
 
       - `JsonValue type = "deployment.updated"`
 
@@ -653,7 +653,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentUnpausedEventData:`
+    - `class BetaWebhookDeploymentUnpausedEventData`
 
       - `JsonValue type = "deployment.unpaused"`
 
@@ -665,7 +665,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookAgentUpdatedEventData:`
+    - `class BetaWebhookAgentUpdatedEventData`
 
       - `JsonValue type = "agent.updated"`
 
@@ -677,7 +677,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentArchivedEventData:`
+    - `class BetaWebhookDeploymentArchivedEventData`
 
       - `JsonValue type = "deployment.archived"`
 
@@ -689,7 +689,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentRunStartedEventData:`
+    - `class BetaWebhookDeploymentRunStartedEventData`
 
       - `JsonValue type = "deployment_run.started"`
 
@@ -701,7 +701,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentDeletedEventData:`
+    - `class BetaWebhookDeploymentDeletedEventData`
 
       - `JsonValue type = "deployment.deleted"`
 
@@ -713,7 +713,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookDeploymentRunSucceededEventData:`
+    - `class BetaWebhookDeploymentRunSucceededEventData`
 
       - `JsonValue type = "deployment_run.succeeded"`
 
@@ -725,7 +725,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookEnvironmentCreatedEventData:`
+    - `class BetaWebhookEnvironmentCreatedEventData`
 
       - `JsonValue type = "environment.created"`
 
@@ -737,7 +737,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookEnvironmentUpdatedEventData:`
+    - `class BetaWebhookEnvironmentUpdatedEventData`
 
       - `JsonValue type = "environment.updated"`
 
@@ -749,7 +749,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookEnvironmentArchivedEventData:`
+    - `class BetaWebhookEnvironmentArchivedEventData`
 
       - `JsonValue type = "environment.archived"`
 
@@ -761,7 +761,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookEnvironmentDeletedEventData:`
+    - `class BetaWebhookEnvironmentDeletedEventData`
 
       - `JsonValue type = "environment.deleted"`
 
@@ -773,7 +773,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookMemoryStoreCreatedEventData:`
+    - `class BetaWebhookMemoryStoreCreatedEventData`
 
       - `JsonValue type = "memory_store.created"`
 
@@ -785,7 +785,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookMemoryStoreArchivedEventData:`
+    - `class BetaWebhookMemoryStoreArchivedEventData`
 
       - `JsonValue type = "memory_store.archived"`
 
@@ -797,7 +797,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookMemoryStoreDeletedEventData:`
+    - `class BetaWebhookMemoryStoreDeletedEventData`
 
       - `JsonValue type = "memory_store.deleted"`
 
@@ -809,7 +809,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionBudgetReachedEventData:`
+    - `class BetaWebhookSessionBudgetReachedEventData`
 
       - `JsonValue type = "session.budget_reached"`
 
@@ -825,7 +825,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 - `class BetaWebhookEventData: union`
 
-  - `class BetaWebhookSessionCreatedEventData:`
+  - `class BetaWebhookSessionCreatedEventData`
 
     - `JsonValue type = "session.created"`
 
@@ -837,7 +837,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionPendingEventData:`
+  - `class BetaWebhookSessionPendingEventData`
 
     - `JsonValue type = "session.pending"`
 
@@ -849,7 +849,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionRunningEventData:`
+  - `class BetaWebhookSessionRunningEventData`
 
     - `JsonValue type = "session.running"`
 
@@ -861,7 +861,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionIdledEventData:`
+  - `class BetaWebhookSessionIdledEventData`
 
     - `JsonValue type = "session.idled"`
 
@@ -873,7 +873,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionRequiresActionEventData:`
+  - `class BetaWebhookSessionRequiresActionEventData`
 
     - `JsonValue type = "session.requires_action"`
 
@@ -885,7 +885,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionArchivedEventData:`
+  - `class BetaWebhookSessionArchivedEventData`
 
     - `JsonValue type = "session.archived"`
 
@@ -897,7 +897,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionDeletedEventData:`
+  - `class BetaWebhookSessionDeletedEventData`
 
     - `JsonValue type = "session.deleted"`
 
@@ -909,7 +909,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionStatusRescheduledEventData:`
+  - `class BetaWebhookSessionStatusRescheduledEventData`
 
     - `JsonValue type = "session.status_rescheduled"`
 
@@ -921,7 +921,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionStatusRunStartedEventData:`
+  - `class BetaWebhookSessionStatusRunStartedEventData`
 
     - `JsonValue type = "session.status_run_started"`
 
@@ -933,7 +933,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionStatusIdledEventData:`
+  - `class BetaWebhookSessionStatusIdledEventData`
 
     - `JsonValue type = "session.status_idled"`
 
@@ -945,7 +945,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionStatusTerminatedEventData:`
+  - `class BetaWebhookSessionStatusTerminatedEventData`
 
     - `JsonValue type = "session.status_terminated"`
 
@@ -957,7 +957,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionThreadCreatedEventData:`
+  - `class BetaWebhookSessionThreadCreatedEventData`
 
     - `JsonValue type = "session.thread_created"`
 
@@ -973,7 +973,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionThreadIdledEventData:`
+  - `class BetaWebhookSessionThreadIdledEventData`
 
     - `JsonValue type = "session.thread_idled"`
 
@@ -989,7 +989,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionThreadTerminatedEventData:`
+  - `class BetaWebhookSessionThreadTerminatedEventData`
 
     - `JsonValue type = "session.thread_terminated"`
 
@@ -1005,7 +1005,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionOutcomeEvaluationEndedEventData:`
+  - `class BetaWebhookSessionOutcomeEvaluationEndedEventData`
 
     - `JsonValue type = "session.outcome_evaluation_ended"`
 
@@ -1017,7 +1017,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultCreatedEventData:`
+  - `class BetaWebhookVaultCreatedEventData`
 
     - `JsonValue type = "vault.created"`
 
@@ -1029,7 +1029,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultArchivedEventData:`
+  - `class BetaWebhookVaultArchivedEventData`
 
     - `JsonValue type = "vault.archived"`
 
@@ -1041,7 +1041,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultDeletedEventData:`
+  - `class BetaWebhookVaultDeletedEventData`
 
     - `JsonValue type = "vault.deleted"`
 
@@ -1053,7 +1053,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultCredentialCreatedEventData:`
+  - `class BetaWebhookVaultCredentialCreatedEventData`
 
     - `JsonValue type = "vault_credential.created"`
 
@@ -1069,7 +1069,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultCredentialArchivedEventData:`
+  - `class BetaWebhookVaultCredentialArchivedEventData`
 
     - `JsonValue type = "vault_credential.archived"`
 
@@ -1085,7 +1085,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultCredentialDeletedEventData:`
+  - `class BetaWebhookVaultCredentialDeletedEventData`
 
     - `JsonValue type = "vault_credential.deleted"`
 
@@ -1101,7 +1101,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookVaultCredentialRefreshFailedEventData:`
+  - `class BetaWebhookVaultCredentialRefreshFailedEventData`
 
     - `JsonValue type = "vault_credential.refresh_failed"`
 
@@ -1117,7 +1117,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionUpdatedEventData:`
+  - `class BetaWebhookSessionUpdatedEventData`
 
     - `JsonValue type = "session.updated"`
 
@@ -1129,7 +1129,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookAgentCreatedEventData:`
+  - `class BetaWebhookAgentCreatedEventData`
 
     - `JsonValue type = "agent.created"`
 
@@ -1141,7 +1141,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookAgentArchivedEventData:`
+  - `class BetaWebhookAgentArchivedEventData`
 
     - `JsonValue type = "agent.archived"`
 
@@ -1153,7 +1153,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookAgentDeletedEventData:`
+  - `class BetaWebhookAgentDeletedEventData`
 
     - `JsonValue type = "agent.deleted"`
 
@@ -1165,7 +1165,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentPausedEventData:`
+  - `class BetaWebhookDeploymentPausedEventData`
 
     - `JsonValue type = "deployment.paused"`
 
@@ -1177,7 +1177,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentRunFailedEventData:`
+  - `class BetaWebhookDeploymentRunFailedEventData`
 
     - `JsonValue type = "deployment_run.failed"`
 
@@ -1189,7 +1189,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentCreatedEventData:`
+  - `class BetaWebhookDeploymentCreatedEventData`
 
     - `JsonValue type = "deployment.created"`
 
@@ -1201,7 +1201,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentUpdatedEventData:`
+  - `class BetaWebhookDeploymentUpdatedEventData`
 
     - `JsonValue type = "deployment.updated"`
 
@@ -1213,7 +1213,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentUnpausedEventData:`
+  - `class BetaWebhookDeploymentUnpausedEventData`
 
     - `JsonValue type = "deployment.unpaused"`
 
@@ -1225,7 +1225,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookAgentUpdatedEventData:`
+  - `class BetaWebhookAgentUpdatedEventData`
 
     - `JsonValue type = "agent.updated"`
 
@@ -1237,7 +1237,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentArchivedEventData:`
+  - `class BetaWebhookDeploymentArchivedEventData`
 
     - `JsonValue type = "deployment.archived"`
 
@@ -1249,7 +1249,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentRunStartedEventData:`
+  - `class BetaWebhookDeploymentRunStartedEventData`
 
     - `JsonValue type = "deployment_run.started"`
 
@@ -1261,7 +1261,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentDeletedEventData:`
+  - `class BetaWebhookDeploymentDeletedEventData`
 
     - `JsonValue type = "deployment.deleted"`
 
@@ -1273,7 +1273,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookDeploymentRunSucceededEventData:`
+  - `class BetaWebhookDeploymentRunSucceededEventData`
 
     - `JsonValue type = "deployment_run.succeeded"`
 
@@ -1285,7 +1285,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookEnvironmentCreatedEventData:`
+  - `class BetaWebhookEnvironmentCreatedEventData`
 
     - `JsonValue type = "environment.created"`
 
@@ -1297,7 +1297,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookEnvironmentUpdatedEventData:`
+  - `class BetaWebhookEnvironmentUpdatedEventData`
 
     - `JsonValue type = "environment.updated"`
 
@@ -1309,7 +1309,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookEnvironmentArchivedEventData:`
+  - `class BetaWebhookEnvironmentArchivedEventData`
 
     - `JsonValue type = "environment.archived"`
 
@@ -1321,7 +1321,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookEnvironmentDeletedEventData:`
+  - `class BetaWebhookEnvironmentDeletedEventData`
 
     - `JsonValue type = "environment.deleted"`
 
@@ -1333,7 +1333,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookMemoryStoreCreatedEventData:`
+  - `class BetaWebhookMemoryStoreCreatedEventData`
 
     - `JsonValue type = "memory_store.created"`
 
@@ -1345,7 +1345,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookMemoryStoreArchivedEventData:`
+  - `class BetaWebhookMemoryStoreArchivedEventData`
 
     - `JsonValue type = "memory_store.archived"`
 
@@ -1357,7 +1357,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookMemoryStoreDeletedEventData:`
+  - `class BetaWebhookMemoryStoreDeletedEventData`
 
     - `JsonValue type = "memory_store.deleted"`
 
@@ -1369,7 +1369,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionBudgetReachedEventData:`
+  - `class BetaWebhookSessionBudgetReachedEventData`
 
     - `JsonValue type = "session.budget_reached"`
 
@@ -1383,7 +1383,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Memory Store Archived Event Data
 
-- `class BetaWebhookMemoryStoreArchivedEventData:`
+- `class BetaWebhookMemoryStoreArchivedEventData`
 
   - `JsonValue type = "memory_store.archived"`
 
@@ -1397,7 +1397,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Memory Store Created Event Data
 
-- `class BetaWebhookMemoryStoreCreatedEventData:`
+- `class BetaWebhookMemoryStoreCreatedEventData`
 
   - `JsonValue type = "memory_store.created"`
 
@@ -1411,7 +1411,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Memory Store Deleted Event Data
 
-- `class BetaWebhookMemoryStoreDeletedEventData:`
+- `class BetaWebhookMemoryStoreDeletedEventData`
 
   - `JsonValue type = "memory_store.deleted"`
 
@@ -1425,7 +1425,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Archived Event Data
 
-- `class BetaWebhookSessionArchivedEventData:`
+- `class BetaWebhookSessionArchivedEventData`
 
   - `JsonValue type = "session.archived"`
 
@@ -1439,7 +1439,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Budget Reached Event Data
 
-- `class BetaWebhookSessionBudgetReachedEventData:`
+- `class BetaWebhookSessionBudgetReachedEventData`
 
   - `JsonValue type = "session.budget_reached"`
 
@@ -1453,7 +1453,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Created Event Data
 
-- `class BetaWebhookSessionCreatedEventData:`
+- `class BetaWebhookSessionCreatedEventData`
 
   - `JsonValue type = "session.created"`
 
@@ -1467,7 +1467,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Deleted Event Data
 
-- `class BetaWebhookSessionDeletedEventData:`
+- `class BetaWebhookSessionDeletedEventData`
 
   - `JsonValue type = "session.deleted"`
 
@@ -1481,7 +1481,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Idled Event Data
 
-- `class BetaWebhookSessionIdledEventData:`
+- `class BetaWebhookSessionIdledEventData`
 
   - `JsonValue type = "session.idled"`
 
@@ -1495,7 +1495,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Outcome Evaluation Ended Event Data
 
-- `class BetaWebhookSessionOutcomeEvaluationEndedEventData:`
+- `class BetaWebhookSessionOutcomeEvaluationEndedEventData`
 
   - `JsonValue type = "session.outcome_evaluation_ended"`
 
@@ -1509,7 +1509,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Pending Event Data
 
-- `class BetaWebhookSessionPendingEventData:`
+- `class BetaWebhookSessionPendingEventData`
 
   - `JsonValue type = "session.pending"`
 
@@ -1523,7 +1523,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Requires Action Event Data
 
-- `class BetaWebhookSessionRequiresActionEventData:`
+- `class BetaWebhookSessionRequiresActionEventData`
 
   - `JsonValue type = "session.requires_action"`
 
@@ -1537,7 +1537,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Running Event Data
 
-- `class BetaWebhookSessionRunningEventData:`
+- `class BetaWebhookSessionRunningEventData`
 
   - `JsonValue type = "session.running"`
 
@@ -1551,7 +1551,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Status Idled Event Data
 
-- `class BetaWebhookSessionStatusIdledEventData:`
+- `class BetaWebhookSessionStatusIdledEventData`
 
   - `JsonValue type = "session.status_idled"`
 
@@ -1565,7 +1565,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Status Rescheduled Event Data
 
-- `class BetaWebhookSessionStatusRescheduledEventData:`
+- `class BetaWebhookSessionStatusRescheduledEventData`
 
   - `JsonValue type = "session.status_rescheduled"`
 
@@ -1579,7 +1579,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Status Run Started Event Data
 
-- `class BetaWebhookSessionStatusRunStartedEventData:`
+- `class BetaWebhookSessionStatusRunStartedEventData`
 
   - `JsonValue type = "session.status_run_started"`
 
@@ -1593,7 +1593,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Status Terminated Event Data
 
-- `class BetaWebhookSessionStatusTerminatedEventData:`
+- `class BetaWebhookSessionStatusTerminatedEventData`
 
   - `JsonValue type = "session.status_terminated"`
 
@@ -1607,7 +1607,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Thread Created Event Data
 
-- `class BetaWebhookSessionThreadCreatedEventData:`
+- `class BetaWebhookSessionThreadCreatedEventData`
 
   - `JsonValue type = "session.thread_created"`
 
@@ -1625,7 +1625,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Thread Idled Event Data
 
-- `class BetaWebhookSessionThreadIdledEventData:`
+- `class BetaWebhookSessionThreadIdledEventData`
 
   - `JsonValue type = "session.thread_idled"`
 
@@ -1643,7 +1643,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Thread Terminated Event Data
 
-- `class BetaWebhookSessionThreadTerminatedEventData:`
+- `class BetaWebhookSessionThreadTerminatedEventData`
 
   - `JsonValue type = "session.thread_terminated"`
 
@@ -1661,7 +1661,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Session Updated Event Data
 
-- `class BetaWebhookSessionUpdatedEventData:`
+- `class BetaWebhookSessionUpdatedEventData`
 
   - `JsonValue type = "session.updated"`
 
@@ -1675,7 +1675,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Archived Event Data
 
-- `class BetaWebhookVaultArchivedEventData:`
+- `class BetaWebhookVaultArchivedEventData`
 
   - `JsonValue type = "vault.archived"`
 
@@ -1689,7 +1689,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Created Event Data
 
-- `class BetaWebhookVaultCreatedEventData:`
+- `class BetaWebhookVaultCreatedEventData`
 
   - `JsonValue type = "vault.created"`
 
@@ -1703,7 +1703,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Credential Archived Event Data
 
-- `class BetaWebhookVaultCredentialArchivedEventData:`
+- `class BetaWebhookVaultCredentialArchivedEventData`
 
   - `JsonValue type = "vault_credential.archived"`
 
@@ -1721,7 +1721,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Credential Created Event Data
 
-- `class BetaWebhookVaultCredentialCreatedEventData:`
+- `class BetaWebhookVaultCredentialCreatedEventData`
 
   - `JsonValue type = "vault_credential.created"`
 
@@ -1739,7 +1739,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Credential Deleted Event Data
 
-- `class BetaWebhookVaultCredentialDeletedEventData:`
+- `class BetaWebhookVaultCredentialDeletedEventData`
 
   - `JsonValue type = "vault_credential.deleted"`
 
@@ -1757,7 +1757,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Credential Refresh Failed Event Data
 
-- `class BetaWebhookVaultCredentialRefreshFailedEventData:`
+- `class BetaWebhookVaultCredentialRefreshFailedEventData`
 
   - `JsonValue type = "vault_credential.refresh_failed"`
 
@@ -1775,7 +1775,7 @@ url: https://platform.claude.com/docs/en/api/java/beta/webhooks
 
 ### Beta Webhook Vault Deleted Event Data
 
-- `class BetaWebhookVaultDeletedEventData:`
+- `class BetaWebhookVaultDeletedEventData`
 
   - `JsonValue type = "vault.deleted"`
 

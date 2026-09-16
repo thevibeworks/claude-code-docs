@@ -27,7 +27,7 @@ Retrieve detailed information about a specific work item.
 
 ## Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 

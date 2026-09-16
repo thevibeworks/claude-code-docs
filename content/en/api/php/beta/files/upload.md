@@ -29,7 +29,7 @@ Upload File
 
 ## Returns
 
-- `BetaFileMetadata`
+- `class BetaFileMetadata`
 
   - `"file" type`
 

@@ -35,7 +35,7 @@ List work items in an environment.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -127,9 +127,11 @@ List work items in an environment.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
 ## Returns
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 

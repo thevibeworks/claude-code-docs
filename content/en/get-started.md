@@ -7,7 +7,7 @@ description: Make your first API call to Claude and build a simple web search as
 ## Prerequisites
 
 * A [Claude Console account](https://platform.claude.com)
-* An [API key](https://platform.claude.com/settings/keys)
+* An [API key](https://platform.claude.com/docs/en/get-api-key)
 
 ## Call the API
 

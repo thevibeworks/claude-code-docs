@@ -78,6 +78,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+- `--compaction: optional object`
+
+  Body param: Compact the whole conversation and return a signed `compaction` block,
+  alone, that a later request sends back first in `messages`, in place of
+  the messages it summarizes. There is no trigger and no pause flag: sending
+  the parameter compacts, and nothing is sampled after the block.
+
+  The summarization prompt is the server's own unless `instructions` are
+  given, which then replace it for this request; a value that is empty or
+  only whitespace counts as absent.
+
 - `--context-management: optional object`
 
   Body param: Context management configuration.

@@ -111,6 +111,8 @@ Create Skill
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
   - `List<String> files`
@@ -127,7 +129,7 @@ Create Skill
 
 ### Returns
 
-- `class BetaSkill:`
+- `class BetaSkill`
 
   - `JsonValue type = "skill"`
 
@@ -363,11 +365,13 @@ List Skills
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaSkill:`
+- `class BetaSkill`
 
   - `JsonValue type = "skill"`
 
@@ -587,11 +591,13 @@ Get Skill
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaSkill:`
+- `class BetaSkill`
 
   - `JsonValue type = "skill"`
 
@@ -806,11 +812,13 @@ Delete Skill
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaDeletedSkill:`
+- `class BetaDeletedSkill`
 
   - `JsonValue type = "skill_deleted"`
 
@@ -858,7 +866,7 @@ public final class Main {
 
 ### Beta Deleted Skill
 
-- `class BetaDeletedSkill:`
+- `class BetaDeletedSkill`
 
   - `JsonValue type = "skill_deleted"`
 
@@ -874,7 +882,7 @@ public final class Main {
 
 ### Beta Skill
 
-- `class BetaSkill:`
+- `class BetaSkill`
 
   - `JsonValue type = "skill"`
 
@@ -942,7 +950,7 @@ public final class Main {
 
 ### Beta Skill Source
 
-- `class BetaSkillSource:`
+- `class BetaSkillSource`
 
   - `Type type`
 
@@ -1077,6 +1085,8 @@ Create Skill Version
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
   - `List<String> files`
@@ -1087,7 +1097,7 @@ Create Skill Version
 
 #### Returns
 
-- `class BetaSkillVersion:`
+- `class BetaSkillVersion`
 
   - `JsonValue type = "skill_version"`
 
@@ -1288,11 +1298,13 @@ List Skill Versions
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaSkillVersion:`
+- `class BetaSkillVersion`
 
   - `JsonValue type = "skill_version"`
 
@@ -1487,6 +1499,8 @@ Download a skill version's content as a zip archive.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Example
@@ -1632,11 +1646,13 @@ Get Skill Version
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaSkillVersion:`
+- `class BetaSkillVersion`
 
   - `JsonValue type = "skill_version"`
 
@@ -1830,11 +1846,13 @@ Delete Skill Version
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaDeletedSkillVersion:`
+- `class BetaDeletedSkillVersion`
 
   - `JsonValue type = "skill_version_deleted"`
 

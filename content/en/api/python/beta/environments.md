@@ -25,7 +25,7 @@ Create a new environment with the specified configuration.
 
   Environment configuration
 
-  - `class BetaCloudConfigParams: …`
+  - `class BetaCloudConfigParams`
 
     Request params for `cloud` environment configuration.
 
@@ -40,7 +40,7 @@ Create a new environment with the specified configuration.
 
       Network configuration policy. Omit on update to preserve the existing value.
 
-      - `class BetaUnrestrictedNetwork: …`
+      - `class BetaUnrestrictedNetwork`
 
         Unrestricted network access.
 
@@ -48,7 +48,7 @@ Create a new environment with the specified configuration.
 
           Network policy type
 
-      - `class BetaLimitedNetworkParams: …`
+      - `class BetaLimitedNetworkParams`
 
         Limited network request params.
 
@@ -109,7 +109,7 @@ Create a new environment with the specified configuration.
 
         Python packages to install
 
-  - `class BetaSelfHostedConfigParams: …`
+  - `class BetaSelfHostedConfigParams`
 
     Request params for `self_hosted` environment configuration.
 
@@ -141,7 +141,7 @@ Create a new environment with the specified configuration.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -233,11 +233,13 @@ Create a new environment with the specified configuration.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaEnvironment: …`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -259,7 +261,7 @@ Create a new environment with the specified configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig: …`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -271,7 +273,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork: …`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -279,7 +281,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetwork: …`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -333,7 +335,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig: …`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -467,7 +469,7 @@ List environments with pagination support.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -559,11 +561,13 @@ List environments with pagination support.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaEnvironment: …`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -585,7 +589,7 @@ List environments with pagination support.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig: …`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -597,7 +601,7 @@ List environments with pagination support.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork: …`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -605,7 +609,7 @@ List environments with pagination support.
 
             Network policy type
 
-        - `class BetaLimitedNetwork: …`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -659,7 +663,7 @@ List environments with pagination support.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig: …`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -783,7 +787,7 @@ Retrieve a specific environment by ID.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -875,11 +879,13 @@ Retrieve a specific environment by ID.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaEnvironment: …`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -901,7 +907,7 @@ Retrieve a specific environment by ID.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig: …`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -913,7 +919,7 @@ Retrieve a specific environment by ID.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork: …`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -921,7 +927,7 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-        - `class BetaLimitedNetwork: …`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -975,7 +981,7 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig: …`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1093,7 +1099,7 @@ Update an existing environment's configuration.
 
   Updated environment configuration
 
-  - `class BetaCloudConfigParams: …`
+  - `class BetaCloudConfigParams`
 
     Request params for `cloud` environment configuration.
 
@@ -1108,7 +1114,7 @@ Update an existing environment's configuration.
 
       Network configuration policy. Omit on update to preserve the existing value.
 
-      - `class BetaUnrestrictedNetwork: …`
+      - `class BetaUnrestrictedNetwork`
 
         Unrestricted network access.
 
@@ -1116,7 +1122,7 @@ Update an existing environment's configuration.
 
           Network policy type
 
-      - `class BetaLimitedNetworkParams: …`
+      - `class BetaLimitedNetworkParams`
 
         Limited network request params.
 
@@ -1177,7 +1183,7 @@ Update an existing environment's configuration.
 
         Python packages to install
 
-  - `class BetaSelfHostedConfigParams: …`
+  - `class BetaSelfHostedConfigParams`
 
     Request params for `self_hosted` environment configuration.
 
@@ -1215,7 +1221,7 @@ Update an existing environment's configuration.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1307,11 +1313,13 @@ Update an existing environment's configuration.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaEnvironment: …`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1333,7 +1341,7 @@ Update an existing environment's configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig: …`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -1345,7 +1353,7 @@ Update an existing environment's configuration.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork: …`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1353,7 +1361,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetwork: …`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1407,7 +1415,7 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig: …`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1527,7 +1535,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1619,11 +1627,13 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaEnvironmentDeleteResponse: …`
+- `class BetaEnvironmentDeleteResponse`
 
   Response after deleting an environment.
 
@@ -1681,7 +1691,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1773,11 +1783,13 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaEnvironment: …`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1799,7 +1811,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig: …`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -1811,7 +1823,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork: …`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1819,7 +1831,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-        - `class BetaLimitedNetwork: …`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1873,7 +1885,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig: …`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1979,7 +1991,7 @@ print(beta_environment.id)
 
 ### Beta Cloud Config
 
-- `class BetaCloudConfig: …`
+- `class BetaCloudConfig`
 
   `cloud` environment configuration.
 
@@ -1991,7 +2003,7 @@ print(beta_environment.id)
 
     Network configuration policy.
 
-    - `class BetaUnrestrictedNetwork: …`
+    - `class BetaUnrestrictedNetwork`
 
       Unrestricted network access.
 
@@ -1999,7 +2011,7 @@ print(beta_environment.id)
 
         Network policy type
 
-    - `class BetaLimitedNetwork: …`
+    - `class BetaLimitedNetwork`
 
       Limited network access.
 
@@ -2055,7 +2067,7 @@ print(beta_environment.id)
 
 ### Beta Cloud Config Params
 
-- `class BetaCloudConfigParams: …`
+- `class BetaCloudConfigParams`
 
   Request params for `cloud` environment configuration.
 
@@ -2070,7 +2082,7 @@ print(beta_environment.id)
 
     Network configuration policy. Omit on update to preserve the existing value.
 
-    - `class BetaUnrestrictedNetwork: …`
+    - `class BetaUnrestrictedNetwork`
 
       Unrestricted network access.
 
@@ -2078,7 +2090,7 @@ print(beta_environment.id)
 
         Network policy type
 
-    - `class BetaLimitedNetworkParams: …`
+    - `class BetaLimitedNetworkParams`
 
       Limited network request params.
 
@@ -2141,7 +2153,7 @@ print(beta_environment.id)
 
 ### Beta Environment
 
-- `class BetaEnvironment: …`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -2163,7 +2175,7 @@ print(beta_environment.id)
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig: …`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -2175,7 +2187,7 @@ print(beta_environment.id)
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork: …`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -2183,7 +2195,7 @@ print(beta_environment.id)
 
             Network policy type
 
-        - `class BetaLimitedNetwork: …`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -2237,7 +2249,7 @@ print(beta_environment.id)
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig: …`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -2275,7 +2287,7 @@ print(beta_environment.id)
 
 ### Beta Environment Delete Response
 
-- `class BetaEnvironmentDeleteResponse: …`
+- `class BetaEnvironmentDeleteResponse`
 
   Response after deleting an environment.
 
@@ -2291,7 +2303,7 @@ print(beta_environment.id)
 
 ### Beta Limited Network
 
-- `class BetaLimitedNetwork: …`
+- `class BetaLimitedNetwork`
 
   Limited network access.
 
@@ -2313,7 +2325,7 @@ print(beta_environment.id)
 
 ### Beta Limited Network Params
 
-- `class BetaLimitedNetworkParams: …`
+- `class BetaLimitedNetworkParams`
 
   Limited network request params.
 
@@ -2338,7 +2350,7 @@ print(beta_environment.id)
 
 ### Beta Packages
 
-- `class BetaPackages: …`
+- `class BetaPackages`
 
   Packages (and their versions) available in this environment.
 
@@ -2374,7 +2386,7 @@ print(beta_environment.id)
 
 ### Beta Packages Params
 
-- `class BetaPackagesParams: …`
+- `class BetaPackagesParams`
 
   Specify packages (and optionally their versions) available in this environment.
 
@@ -2414,7 +2426,7 @@ print(beta_environment.id)
 
 ### Beta Self Hosted Config
 
-- `class BetaSelfHostedConfig: …`
+- `class BetaSelfHostedConfig`
 
   Configuration for self-hosted environments.
 
@@ -2424,7 +2436,7 @@ print(beta_environment.id)
 
 ### Beta Self Hosted Config Params
 
-- `class BetaSelfHostedConfigParams: …`
+- `class BetaSelfHostedConfigParams`
 
   Request params for `self_hosted` environment configuration.
 
@@ -2434,7 +2446,7 @@ print(beta_environment.id)
 
 ### Beta Unrestricted Network
 
-- `class BetaUnrestrictedNetwork: …`
+- `class BetaUnrestrictedNetwork`
 
   Unrestricted network access.
 
@@ -2466,7 +2478,7 @@ Retrieve detailed information about a specific work item.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2558,11 +2570,13 @@ Retrieve detailed information about a specific work item.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 #### Returns
 
-- `class BetaSelfHostedWork: …`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2717,7 +2731,7 @@ Long poll for work items in the queue.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2809,13 +2823,15 @@ Long poll for work items in the queue.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `anthropic_worker_id: Optional[str]`
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
 #### Returns
 
-- `class BetaSelfHostedWork: …`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2959,7 +2975,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3051,9 +3067,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 #### Returns
 
-- `class BetaSelfHostedWork: …`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3206,7 +3224,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3298,9 +3316,11 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 #### Returns
 
-- `class BetaSelfHostedWorkHeartbeatResponse: …`
+- `class BetaSelfHostedWorkHeartbeatResponse`
 
   Response after recording a heartbeat for a work item.
 
@@ -3394,7 +3414,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3486,11 +3506,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 #### Returns
 
-- `class BetaSelfHostedWork: …`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3643,7 +3665,7 @@ List work items in an environment.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3735,9 +3757,11 @@ List work items in an environment.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 #### Returns
 
-- `class BetaSelfHostedWork: …`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3891,7 +3915,7 @@ Update work item metadata with merge semantics.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -3983,11 +4007,13 @@ Update work item metadata with merge semantics.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 #### Returns
 
-- `class BetaSelfHostedWork: …`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -4129,7 +4155,7 @@ Get statistics about the work queue for an environment.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -4221,11 +4247,13 @@ Get statistics about the work queue for an environment.
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 #### Returns
 
-- `class BetaSelfHostedWorkQueueStats: …`
+- `class BetaSelfHostedWorkQueueStats`
 
   Statistics about the work queue for an environment.
 

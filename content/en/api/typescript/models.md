@@ -41,7 +41,7 @@ The Models API response can be used to determine which models are available for 
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -133,6 +133,8 @@ The Models API response can be used to determine which models are available for 
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -141,7 +143,7 @@ The Models API response can be used to determine which models are available for 
 
 ### Returns
 
-- `ModelInfo`
+- `interface ModelInfo`
 
   - `type: "model"`
 
@@ -393,7 +395,7 @@ The Models API response can be used to determine information about a specific mo
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -485,6 +487,8 @@ The Models API response can be used to determine information about a specific mo
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -493,7 +497,7 @@ The Models API response can be used to determine information about a specific mo
 
 ### Returns
 
-- `ModelInfo`
+- `interface ModelInfo`
 
   - `type: "model"`
 
@@ -717,7 +721,7 @@ console.log(modelInfo.id);
 
 ### Capability Support
 
-- `CapabilitySupport`
+- `interface CapabilitySupport`
 
   Indicates whether a capability is supported.
 
@@ -727,7 +731,7 @@ console.log(modelInfo.id);
 
 ### Context Management Capability
 
-- `ContextManagementCapability`
+- `interface ContextManagementCapability`
 
   Context management capability details.
 
@@ -753,7 +757,7 @@ console.log(modelInfo.id);
 
 ### Effort Capability
 
-- `EffortCapability`
+- `interface EffortCapability`
 
   Effort (reasoning_effort) capability details.
 
@@ -787,7 +791,7 @@ console.log(modelInfo.id);
 
 ### Model Capabilities
 
-- `ModelCapabilities`
+- `interface ModelCapabilities`
 
   Model capability information.
 
@@ -889,7 +893,7 @@ console.log(modelInfo.id);
 
 ### Model Info
 
-- `ModelInfo`
+- `interface ModelInfo`
 
   - `type: "model"`
 
@@ -1023,7 +1027,7 @@ console.log(modelInfo.id);
 
 ### Thinking Capability
 
-- `ThinkingCapability`
+- `interface ThinkingCapability`
 
   Thinking capability details.
 
@@ -1049,7 +1053,7 @@ console.log(modelInfo.id);
 
 ### Thinking Types
 
-- `ThinkingTypes`
+- `interface ThinkingTypes`
 
   Supported thinking type configurations.
 

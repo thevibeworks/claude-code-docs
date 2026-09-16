@@ -39,7 +39,7 @@ The Models API response can be used to determine which models are available for 
 
 ## Returns
 
-- `BetaModelInfo`
+- `class BetaModelInfo`
 
   - `"model" type`
 
@@ -113,6 +113,12 @@ var_dump($page);
           "supported": true
         },
         "code_execution": {
+          "supported": true
+        },
+        "compaction": {
+          "summarize": {
+            "supported": true
+          },
           "supported": true
         },
         "context_management": {

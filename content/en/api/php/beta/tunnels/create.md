@@ -27,7 +27,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 ## Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 

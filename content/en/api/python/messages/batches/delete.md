@@ -25,7 +25,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ## Returns
 
-- `class DeletedMessageBatch: …`
+- `class DeletedMessageBatch`
 
   - `type: Literal["message_batch_deleted"]`
 

@@ -113,6 +113,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
   - `Optional<String> displayName`
@@ -123,7 +125,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 ### Returns
 
-- `class BetaTunnel:`
+- `class BetaTunnel`
 
   An MCP tunnel.
 
@@ -297,11 +299,13 @@ Fetches a tunnel by ID.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaTunnel:`
+- `class BetaTunnel`
 
   An MCP tunnel.
 
@@ -487,11 +491,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaTunnel:`
+- `class BetaTunnel`
 
   An MCP tunnel.
 
@@ -670,11 +676,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaTunnel:`
+- `class BetaTunnel`
 
   An MCP tunnel.
 
@@ -848,11 +856,13 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaTunnelToken:`
+- `class BetaTunnelToken`
 
   A tunnel's connector token.
 
@@ -1007,6 +1017,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
   - `Optional<String> reason`
@@ -1017,7 +1029,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ### Returns
 
-- `class BetaTunnelToken:`
+- `class BetaTunnelToken`
 
   A tunnel's connector token.
 
@@ -1066,7 +1078,7 @@ public final class Main {
 
 ### Beta Tunnel
 
-- `class BetaTunnel:`
+- `class BetaTunnel`
 
   An MCP tunnel.
 
@@ -1098,7 +1110,7 @@ public final class Main {
 
 ### Beta Tunnel Token
 
-- `class BetaTunnelToken:`
+- `class BetaTunnelToken`
 
   A tunnel's connector token.
 
@@ -1224,6 +1236,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
   - `String caCertificatePem`
@@ -1234,7 +1248,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 #### Returns
 
-- `class BetaTunnelCertificate:`
+- `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
 
@@ -1421,11 +1435,13 @@ Fetches a tunnel certificate by ID.
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaTunnelCertificate:`
+- `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
 
@@ -1624,11 +1640,13 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaTunnelCertificate:`
+- `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
 
@@ -1816,11 +1834,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaTunnelCertificate:`
+- `class BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
 
