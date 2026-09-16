@@ -1,5 +1,7 @@
 # Use Claude Cowork on Team and Enterprise plans
 
+**Note:** Claude Cowork and chat are now one Claude, rolling out gradually to Pro and Max plans. Ask for what you need, and Claude decides whether that's a quick answer or a task. Team and Enterprise organizations keep chat and Claude Cowork as they are today, so everything in this article still applies. Learn more in our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 This article explains important limitations and considerations for Team and Enterprise organizations using Claude Cowork.
 
 ## Availability
@@ -130,7 +132,7 @@ Cowork now surfaces your organization's branding, including a redesigned home sc
 
 Team and Enterprise owners can stream Cowork events to your SIEM and observability tools through OpenTelemetry. This gives security teams visibility into tool calls, file access, human approval decisions, and more—though it doesn't replace audit logging for compliance purposes. For setup, supported events, and security considerations, see **[Monitor Cowork activity with OpenTelemetry](https://support.claude.com/en/articles/14477985-monitor-cowork-activity-with-opentelemetry).**
 
-You can also refer to **[Monitoring](https://claude.com/docs/cowork/monitoring)** in our Claude Docs for more information.
+You can also refer to[**Monitoring**](https://claude.com/docs/cowork/monitoring) on **claude.com/docs** for more information.
 
 Cowork via Claude, Claude Desktop, and Claude Mobile is captured in the Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
 

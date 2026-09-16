@@ -1,20 +1,34 @@
 # Get started with Claude Design
 
-**[Claude Design](https://claude.ai/design)** lets you create designs, interactive prototypes, presentations, and more by having a conversation with Claude. This guide walks you through creating your first project, iterating on designs, and getting the most out of the tool.
+**[Claude Design](https://claude.ai/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by having a conversation with Claude. You can use it in any conversation with Claude, including in Claude Code and the Artifacts tab, and all of its features come with it, including on-canvas editing and importing your design system. To make presentations, use Claude Slides. This guide walks you through creating your first design, iterating on it, and getting the most out of the tool.
 
-Claude Design is now available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans. You can use it on the web at claude.ai/design or from the sidebar in Claude Desktop.
+Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It isn't available on the Free plan. It's on by default on Pro and Max plans, and you can turn it off in Settings > Capabilities. It's also on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
 
 This guide assumes your organization’s design system has already been set up, so everything you create will automatically use your brand’s colors, typography, and component patterns. If you’re a design lead who needs to set up or modify the design system itself, see **[Set up your design system in Claude Design](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)**.
+
+**[Create an artifact with Claude](https://claude.ai/artifacts)**
+
+## Where you can use Claude Design
+
+- **In a conversation:** Ask Claude for a design, like "Make a one-pager from this proposal" or "Mock up the onboarding flow we just discussed." Claude builds it beside your conversation, and you refine it there. You can also select **Output** > **Design** in the message box.
+
+- **In the Artifacts tab:** Go to the **Artifacts** tab and pick a Design template.
+
+- **In Claude Code:** Ask Claude to turn your idea into a design, or use /design to create, edit, and sync designs, on desktop or in the terminal.
+
+- **In the Claude app for iOS and Android:** Ask for a design in any conversation and check back later for the result, then view it full screen in the **Artifacts** tab. To start from a template, edit on the canvas, or change sharing settings, use Claude on web or desktop.
+
+- **At claude.ai/design:** The standalone experience keeps working, and your existing projects stay where they are.
 
 ---
 
 ## How Claude Design works
 
-Claude Design has two main areas: a chat interface on the left and a canvas on the right. You describe what you want in the chat, and Claude generates a working design on the canvas. From there, you iterate—refining through conversation, inline comments, and directly on the canvas until it’s right.
+Claude Design pairs a conversation with a canvas. You describe what you want, and Claude generates a working design on the canvas beside the conversation. From there, you iterate—refining through conversation, inline comments, and directly on the canvas until it’s right.
 
 The typical flow is:
 
-1. Create a project.
+1. Start a design from a conversation, the Artifacts tab, or claude.ai/design.
 
 2. Attach or import the design system you want Claude to build with.
 
@@ -30,16 +44,9 @@ The typical flow is:
 
 ### Move between Claude Design and Claude Code
 
-You can move between working in Claude Design and Claude Code while keeping your work synced. Use `/design-sync` to pull in your design system, so everything you build in Claude Design starts from your existing components. When a design is ready to become software, you can hand it off to Claude Code, which continues from your existing work instead of starting over from a screenshot.
+You can move between working in Claude Design and Claude Code while keeping your work synced. Use /design-sync to pull in your design system, so everything you build in Claude Design starts from your existing components. When a design is ready to become software, you can hand it off to Claude Code, which continues from your existing work instead of starting over from a screenshot.
 
-If you prefer to work from Claude Code, connect the Claude Design MCP server to create and edit designs without leaving your terminal:
-
-1. Add the server:
-​`claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp`
-
-2. Run `/design-login` to sign in.
-
-Once you're connected, you can import a design into your codebase, export your code as a live prototype, or let Claude build the whole thing from start to finish.
+From Claude Code, use /design to import a design into your codebase, export your code as a live prototype, or let Claude build the whole thing from start to finish.
 
 ---
 
@@ -49,9 +56,15 @@ When you create a project, it automatically inherits your organization’s desig
 
 ### Attach or import your design system
 
-Bring in one or several design systems from a GitHub repo, design files, raw uploads, or your local codebase using the `/design-sync` command in Claude Code. Claude builds with your real design system components, checks its own output against your design system, and makes corrections before you see them.
+Bring in one or several design systems from a GitHub repo, design files, raw uploads, or your local codebase using the /design-sync command in Claude Code. Claude builds with your real design system components, checks its own output against your design system, and makes corrections before you see them.
 
-For larger teams, the Claude Design Admin custom role lets an admin approve a standard system and lock down edits, so the work always matches your company guidelines.
+For larger teams, the Claude Design Admin permission in custom roles lets an admin approve a standard system and lock down edits, so the work always matches your company guidelines.
+
+### Migrate your design system to Artifacts
+
+The new, integrated Claude Design has a revamped Design Systems feature, which you can manage in **[Settings > Design systems](https://claude.ai/settings/design-systems)**.
+
+To bring an existing design system over, open the “Design” tab at the bottom of the sidebar and click “Migrate team design systems” in the banner. Each design system becomes an artifact Claude can use in any conversation, including in Claude Code. Migrated systems aren't perfect, so each one shows a banner: click “Let Claude clean it up” and Claude tidies the guide, the tokens and the components.
 
 ### Add context to your project
 
@@ -141,11 +154,11 @@ Use the “Export” button in the upper right corner when viewing your project 
 
 - Export as PPTX
 
-- Send to Canva
+- Export to Google Slides (available only at claude.ai/design)
 
 - Export as standalone HTML
 
-- Send to the tools you already use, including Adobe, Base44, Canva, Gamma, Lovable, Miro, Replit, Vercel, and Wix, with more destinations coming soon.
+- Send to the tools you already use: Adobe Experience Manager, Adobe for Creativity, Adobe Journey Optimizer, Base44, Canva, Gamma, HubSpot, Hyperframes, Lovable, Miro, Netlify, Replit, v0, Vercel, and Wix
 
 - Handoff to Claude Code
 
@@ -153,15 +166,19 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287510952/553a03eec5cea7b9eff53b473552/6dc33363-38b1-444e-96bb-f8218b588173?expires=1789573500&amp;signature=4a493af725648297a9f6007ed38158e730b11492f0b9e8d9d82ed7f4d735d3fc&amp;req=diIvEcx%2FnYhaW%2FMW1HO4zQFD4SVfnG5xnfz9ljnuyXT0bYP9dI9oCBt0aWBm%0AhPdjnpgFPkrp3ER4fZU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2675065762/1a4b6d1921e063e14420f56a72d6/72422fce-b339-49b6-bc59-bebf752e0644?expires=1789711200&amp;signature=306a6dd6443831abdfcaf92692d42e42b1b7361a9bbbb6a6b2b3544e022f8d72&amp;req=diYgE8l4mIZZW%2FMW3nq%2BgSZsMZfe9bH%2FCiGXzwAXv0e0mlE%2FKhx0CXra4g5K%0AGpk%2FfhB4tvD1HokPt%2Bsxtj20hh4%3D%0A)
 
-You can also share projects within your organization using a shareable link. Sharing options include view-only, comment, and edit access.
+Designs are private until you share them:
+
+- **Enterprise plans:** You can also share with anyone in your organization who has the link. Links stay inside your organization unless an owner turns on **External sharing** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+- **Pro, Max, and Team plans:** You can also share with anyone who has the link. They need a Claude account to open it.
 
 ---
 
 ## Usage and pricing
 
-Claude Design counts toward the same usage limits as the rest of Claude. Design activity draws from the shared pool you use for chat, Claude Code, and Cowork, so there's no separate Claude Design allowance to track. Complex projects with large codebases or many iterations consume more usage.
+Claude Design counts toward the same usage limits as the rest of Claude. Design activity draws from the same pool as the rest of your work with Claude, including Claude Code, so there's no separate Claude Design allowance to track. Complex projects with large codebases or many iterations consume more usage.
 
 If you reach your usage limits, Claude Design is unavailable until your limits reset. If you've enabled usage credits, you can keep working after reaching your included limits. Learn more about **[how usage and length limits work](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)**.
 
@@ -193,12 +210,14 @@ Claude Design is now available in beta. A few things to be aware of:
 
 - **Comment persistence:** Inline comments occasionally don't appear on the page, but you can still see them by opening the comments view.
 
-- **Large codebases:** Consider  linking very large repositories from Claude Code to avoid lag or browser issues. To sync a design system, use `/design-sync` from Claude Code.
+- **Large codebases:** Consider linking very large repositories from Claude Code to avoid lag or browser issues. To sync a design system, use /design-sync from Claude Code.
 
 - **Chat errors:** If you hit a "chat upstream error," try starting a new chat tab within the same project.
 
-- **Availability:** Claude Design is available on web and desktop only.
+- **Mobile:** In the Claude app for iOS and Android, you can ask for a design and view it in the Artifacts tab. Editing on the canvas and changing sharing settings need Claude on web or desktop.
 
 - **Multi-person editing:** Two or more people editing a design project at the same time is still basic and may not work reliably.
 
 - **Design system import:** Design system import is only as good as its source. A messy codebase or an incomplete file will show up in the output.
+
+- **Version history:** Claude Design doesn't have version history yet.

@@ -28,6 +28,8 @@ An Owner or Primary Owner must first enable web search for the entire workspace 
 
 Once this is enabled at the workspace level, any member of the organization can switch it on while starting a chat by clicking the “+” button in the lower left corner of the chat window and selecting “Web search." Users can toggle this off for chats that don’t require web search capabilities.
 
+**Note:** If you have the new Claude experience, there's no web search toggle. Claude searches the web when it helps.
+
 ## Enable web search in a chat
 
 1. Click on the “+” button in the lower left corner of the chat window.

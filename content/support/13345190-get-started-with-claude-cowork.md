@@ -1,5 +1,7 @@
 # Get started with Claude Cowork
 
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 This article explains how to use **[Claude Cowork](https://claude.com/product/cowork)**, which brings Claude Code's agentic capabilities to knowledge work beyond coding.
 
 ## Availability
@@ -17,6 +19,8 @@ Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availabil
 - **Claude in Chrome side panel** — Available on Max and Team plans, and rolling out to Pro plans. On Enterprise plans, available where an admin has enabled it. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)** for more information.
 
 On desktop, web, and mobile, chat and Cowork share one home, so you start both from the same place. Find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat." In the Chrome side panel, opening the panel starts a Cowork session directly.
+
+If you have the new Claude experience, there's no "Cowork" option to select. Describe your task in any conversation, and Claude takes it from there. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -106,6 +110,8 @@ You maintain visibility into what Claude is planning and doing throughout the pr
 
 ## Start a Cowork session
 
+**Note:** If you're on a Pro or Max plan and your message box doesn't show "Chat" and "Cowork" options, you have the new Claude experience. Skip step 2, since every conversation can take on a Cowork task.
+
 Chat and Cowork share one home. To start a session on any surface:
 
 1. Open Claude on the web at claude.ai, in the Claude Desktop app, or in the Claude mobile app.
@@ -142,6 +148,8 @@ Tasks can run for extended periods depending on complexity. You can monitor prog
 
 Cowork has three modes that control when Claude asks your permission before taking an action, like using your connectors. You can change the mode at any time from the mode selector in the chat box.
 
+**Note:** If you have the new Claude experience, the permission setting in the message box offers **Auto** and **Manual** (default).
+
 |                   | **Connector tool permission: "Always allow"**                          | **Connector tool permission: "Needs approval"** | **Connector tool permission: "Blocked"** |
 | ----------------- | ---------------------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------- |
 | **"Manual" mode** | Approved                                                               | Asks for permission                             | Denied                                   |
@@ -170,6 +178,8 @@ Auto mode applies to all of your existing connectors, plugins, the built-in brow
 
 You can give Claude standing instructions that apply to every Cowork session. Use this to specify your preferred tone, output format, or background on your role.
 
+**Note:** In the new Claude experience, **Global instructions** are part of **Instructions for Claude** in **[Settings > General](https://claude.ai/settings/general)**, and they apply to every conversation.
+
 To set global instructions:
 
 1. Navigate to **[Settings > Cowork](https://claude.ai/settings/cowork)**.
@@ -178,7 +188,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1789573500&amp;signature=899e999470d3fde8925a5dd0a493eef11b05adba429ee7ac2aeee43dc21e4042&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6tHpMVK18iWjaktE940xQrM1sHHdudgxCeUV%0AgL3%2BTk59APE%2FPwmA7T8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1789711200&amp;signature=93a0b3e457be04e4e1a5533fcf33fc0b389a7da92cba951f1f7b700d0b5775b5&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD1bHdalOMqW%2FkK1db2bHGjJX%2BUYTsDQnc%0Av8iv0FbHiqaxf5CF1bk0SmqmVRI%3D%0A)
 
 ### Folder instructions
 
@@ -204,15 +214,17 @@ For more in-depth details, see **[Schedule recurring tasks in Cowork](https://su
 
 ## Usage limits
 
-Working on tasks with Cowork consumes more of your usage allocation than chatting with Claude. This is because complex, multi-step tasks are compute-intensive and require more tokens to execute.
+Multi-step tasks, like ones that run code, create files, or use your connected apps and browser, use more of your usage than a quick question. Each step Claude takes uses tokens.
 
-If you find yourself hitting usage limits frequently when using Cowork, consider:
+If you're hitting usage limits often, try:
 
-- Batching related work into single sessions.
+- Grouping related work into one task instead of several.
 
-- Using standard chat for simpler tasks that don't require file access or extended execution.
+- Starting a new conversation for unrelated work, so Claude isn't carrying extra context.
 
-- Monitoring your individual usage in **[Settings > Usage](https://claude.ai/settings/usage)**.
+- Telling Claude when you only need a quick answer, not a file or finished deliverable.
+
+- Checking your usage in **[Settings > Usage](https://claude.ai/settings/usage)**.
 
 For more information, see **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
@@ -302,7 +314,7 @@ For local sessions, ensure the Claude Desktop app was open throughout the entire
 
 ### I'm hitting usage limits quickly
 
-Cowork consumes more usage than standard chat. Try using standard chat for simpler tasks and reserve Cowork for complex, multi-step work that benefits from file access.
+Multi-step tasks use more of your usage than quick questions. Group related work into one task, start a new conversation for unrelated work, and check your usage in **[Settings > Usage](https://claude.ai/settings/usage)**. Learn more in **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
 ### Files aren't appearing where expected
 

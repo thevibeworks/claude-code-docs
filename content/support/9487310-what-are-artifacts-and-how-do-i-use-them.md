@@ -1,12 +1,10 @@
 # What are artifacts and how do I use them?
 
-Accessing artifacts in the sidebar and Claude-powered artifacts are supported on Free, Pro, Max, Team, and Enterprise plans. Artifacts are available in Claude Code on Team and Enterprise plans, and in Claude Cowork on Pro, Max, Team, and Enterprise plans.
+An artifact is anything Claude makes for you that you'd put in front of someone: a design, a deck, a document, a dashboard, or a small interactive tool. It opens beside your conversation, and you can edit it, come back to it, and share it with a link. Ask for one in any conversation with Claude, including in Claude Code, or pick a template in the **Artifacts** tab.
 
-Artifacts allow you to turn ideas into shareable apps, tools, or content—build tools, visualizations, and experiences by simply describing what you need. Claude can share substantial, standalone content with you in a dedicated window separate from the main conversation. This makes it easy to work with significant pieces of content that you may want to modify, build upon, or reference later.
+Artifacts are available on Free, Pro, Max, Team, and Enterprise plans, and in Claude Code on every plan that includes Claude Code. Claude Design, Claude Slides, and Claude Docs are in beta on paid plans only. They're on by default on Pro, Max, and Team plans, and off by default on Enterprise plans until an owner turns each one on. On the Free plan, you can still create artifacts in any conversation.
 
 **Important:** We no longer support artifacts without **Code execution and file creation** enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** (Team, Enterprise).
-
-Artifacts are available in Claude, Claude Desktop, Claude Cowork, and Claude Code. This article focuses on Claude and Claude Desktop. For artifacts you create in Cowork, see **[Use artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**. To learn how to create, update, and share artifacts in Claude Code, see the **[artifacts documentation on Claude Code Docs](https://code.claude.com/docs/en/artifacts)**.
 
 ---
 
@@ -38,6 +36,26 @@ Common examples of artifact content include:
 
 ---
 
+## Create designs, decks, and docs
+
+Three tools help with work you'll share with others. Ask for a design, deck, or doc in any conversation, select “Output” in the message box and choose one, or pick a template in the **Artifacts** tab. Edit what Claude makes by talking to Claude or directly in the artifact, and it updates live as you work. When it's ready, share it with a link or export it. The final say is always yours.
+
+- **Claude Design:** Visuals, mockups, prototypes, one-pagers, and landing pages, built with your design system. Learn more in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
+
+- **Claude Slides:** Presentations built from your notes, reports, or the work already in your conversation. Edit any slide directly, present without leaving Claude, and export to PowerPoint or PDF.
+
+- **Claude Docs:** Living documents you write with Claude and your team in real time. Learn more in **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645)**.
+
+Claude Design, Claude Slides, and Claude Docs are in beta and available on paid plans. On Enterprise plans, they're off by default until an owner turns on **Design**, **Slides**, or **Docs** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+In the Claude app for iOS and Android, you can ask for a design, deck, or doc in any conversation and view the result in the **Artifacts** tab. To start from a template, edit, or change sharing settings, use Claude on web or desktop.
+
+**Note:** Artifacts count toward your plan's usage limits.
+
+**[Create an artifact with Claude](https://claude.ai/artifacts)**
+
+---
+
 ## Enable artifacts
 
 To enable artifacts individually on a Free, Pro, or Max plan:
@@ -66,11 +84,11 @@ You can access all your artifacts through the dedicated **[Artifacts](https://cl
 
 - View all your creations in one organized location
 
-- Create new artifacts from scratch
+- Start a new artifact from a template
 
 - Manage and organize your artifact collection
 
-**Note:** Artifacts you create in a conversation don't appear in your sidebar automatically. To add an artifact to your **Artifacts** section, open it and click "Publish." Learn more about **[publishing and sharing artifacts](https://support.claude.com/en/articles/9547008)**.
+**Note:** In the new Claude experience, everything you make is saved to the **Artifacts** tab automatically. If you have the previous chat experience, artifacts you create in a conversation don't appear there until you open the artifact and click "Publish."
 
 ---
 
@@ -186,11 +204,17 @@ When you interact with an artifact that uses shared storage for the first time, 
 
 ## Artifacts in Claude Code
 
-Artifacts are available in Claude Code on Team and Enterprise plans.
+Artifacts are available in Claude Code on every plan that includes Claude Code.
 
-Claude Code can publish its session output as an artifact—a live, interactive page at a private URL. The page updates in place as your session continues, and you can share it with people in your organization. An artifact might be a pull-request walkthrough with annotated diffs, a dashboard built from session data, or an investigation timeline that fills in as Claude works.
+Claude Code can publish its session output as an artifact—a live, interactive page at a private URL. The page updates in place as your session continues, and you can share it with others. An artifact might be a pull-request walkthrough with annotated diffs, a dashboard built from session data, or an investigation timeline that fills in as Claude works.
 
-By default, artifacts in Claude Code are only visible to the individual who created them. They can choose to share artifacts with the rest of their organization, and they can’t be shared publicly.
+By default, artifacts in Claude Code are visible only to the person who created them.
+
+- **Team and Enterprise plans:** Share them with people in your organization. Sharing with anyone who has the link requires an owner to turn on **External sharing** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+- **Pro and Max plans:** Share them with anyone who has the link.
+
+You can also make designs and docs from Claude Code. Use /design for Claude Design, or ask for a doc. On desktop, the doc opens in the side panel. In the terminal, Claude gives you a link to open it on the web.
 
 To learn how to create, update, and share artifacts in Claude Code, see the **[artifacts documentation on Claude Code Docs](https://code.claude.com/docs/en/artifacts)**.
 

@@ -1,5 +1,7 @@
 # Use Claude Cowork on web, desktop, and mobile
 
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 Claude Cowork is available on desktop, web, mobile, and in the Claude in Chrome side panel. Your sessions and files live with your Claude account and go where you go, on any device. This article explains how to start a Cowork session and what's available on each surface.
 
 Claude Cowork is in beta on web and mobile for Pro, Max, and Team plans, and on Enterprise plans where an admin has enabled it. Cowork is also available in the Claude in Chrome side panel on Max and Team plans, on Pro plans as it rolls out, and on Enterprise plans where an admin has enabled it. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)** for enablement steps.
@@ -9,6 +11,8 @@ Claude Cowork is in beta on web and mobile for Pro, Max, and Team plans, and on 
 ## Start a Cowork session
 
 On desktop, web, and mobile, chat and Cowork share one home, so you start both from the same place. Find the message box, select "Cowork" in the bottom left corner, then describe your task. To go back to a regular conversation, select "Chat."
+
+If you have the new Claude experience, there's no "Cowork" option to select. Describe your task in any conversation, and Claude takes it from there.
 
 The Chrome side panel works differently. Opening the side panel starts a Cowork session directly, with no selector to switch between chat and Cowork.
 

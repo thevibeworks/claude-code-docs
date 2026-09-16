@@ -4,7 +4,7 @@ This guide explains how to choose the Claude model that new conversations start 
 
 Default model settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
-You can also set the default effort level that new conversations start on, or leave it on Anthropic's recommended default effort. To control which models members can use and cap the effort level they can select, see **[Manage model access for your organization](https://support.claude.com/en/articles/15330089)**.
+You can also set the default effort level that new conversations start on, or leave it on Anthropic's recommended default effort. To control which models members can use and cap the effort level they can select, see **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
 ---
 
@@ -50,7 +50,7 @@ The organization default applies to every member. To set it:
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1789573500&amp;signature=0d616acebeaf33853030b76b151ca86af26b9949f3f64de624440a3143a165cf&amp;req=diUmEs58n4BcUPMW1HO4zelOdztFKktCfdGVZ664dGF3lYyhi1WQERMKGI5F%0AMb5azEMH5ExiEO%2BQDVU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1789711200&amp;signature=24294561f3363f6bcd19f890ce18ebcb3ee9e4004ed9f4443d8ecb86e28f0682&amp;req=diUmEs58n4BcUPMW3nq%2Bga5jDn%2BYGc9CegCMkc502AUsRv22C4riXHuvbpUq%0A7SjTxMF%2FRu7afF6wqZ4YP5BG3B0%3D%0A)
 
 ---
 

@@ -2,9 +2,11 @@
 
 Creating a design system allows Claude Design to produce outputs that fit your specifications. It extracts reusable components, colors, typography, and patterns from the assets you provide—codebases, slide decks, or other design references—and uses them as the foundation for every project created within your account.
 
-Claude Design is now available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans.
+Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It isn't available on the Free plan. It's on by default on Pro and Max plans, and you can turn it off in Settings > Capabilities. It's also on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
 
 This guide is for the designer or brand owner who will set up the design system. You only need to do this once; after setup, all team members’ projects automatically use it (for Team and Enterprise plans).
+
+**Note:** When you use Claude Design outside claude.ai/design, you manage design systems in **[Settings > Design systems](https://claude.ai/settings/design-systems)**. To bring over an existing design system, click "Migrate team design systems" in the banner on the **Design** tab. Migrated design systems may need some cleanup, so each one shows a banner where you can click "Let Claude clean it up," and Claude tidies its guide, tokens, and components. The steps below use standalone Claude Design at claude.ai/design.
 
 ## Prerequisites
 
@@ -66,13 +68,19 @@ To validate your design system, create a test project and see if the output matc
 
 - “Design a dashboard showing [relevant metrics].”
 
-- “Make a presentation about [a topic your team commonly presents on].”
+- “Make a one-pager about [a topic your team commonly presents on].”
 
 ## Step 4: Make it available to your team
 
 Once you’re satisfied with the design system quality, make sure the “Published” toggle is switched on. After publishing, any projects created from the Claude Design homescreen while in your organization will use your design system instead of the default.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287527007/b1c46cb8dba4cd7e8bbea85fb0c3/2819c6cf-9ce1-4df5-84c8-feae0164bf2e?expires=1789573500&amp;signature=691db9715f6d020dec0712ae0c18ba038afc2d8edf1cecac65feec2fe5a3d174&amp;req=diIvEcx8moFfXvMW1HO4zWNHF%2FuOCTgSIQKNMXlu0T9RimJvsEwakDx0cnO%2B%0AhxvJnBWZXcTuy%2Fsa35k%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287527007/b1c46cb8dba4cd7e8bbea85fb0c3/2819c6cf-9ce1-4df5-84c8-feae0164bf2e?expires=1789711200&amp;signature=e35d57d6c2d83ba5a13981a11492f4cf3901bd51750886ccc1fda5d427611d5a&amp;req=diIvEcx8moFfXvMW3nq%2BgXXF9DaJVXm2My61OlB9RQumjxfxHGxKRXfBysV9%0A%2Fz5UYIAlz6Xl%2FCuOYglNoLiGkOU%3D%0A)
+
+## Other ways to create a design system
+
+- **From Claude Code:** If your design system already exists as React components, run /design-sync in Claude Code. It reads your tokens and components directly, and works best for product design systems in code.
+
+- **From a conversation:** Ask Claude to build a design system from your connected apps, uploaded files, Figma files, decks, logos, and fonts. This works best for brand design systems with fonts, colors, and guidelines.
 
 ---
 
@@ -82,6 +90,6 @@ Once you’re satisfied with the design system quality, make sure the “Publish
 
 - **Iterate.** If the first extraction doesn’t capture your brand well, try uploading additional or different assets.
 
-## Updating your design system
+## Update your design system
 
 Brands evolve. When your design system changes, you can update it within Claude Design. From your Claude Design organization settings, click the “Open” button next to the design system you want to edit. Click the “Remix” button in the upper right corner to open the chat interface on the left side of the window. From here, you can work with Claude to change your design system.

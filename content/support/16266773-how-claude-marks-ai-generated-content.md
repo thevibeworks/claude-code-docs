@@ -50,7 +50,7 @@ When Claude generates a supported file type, such as a .svg, .png, or .jpg, it w
 
 Detection checks whether a piece of text or a file carries a supported Claude mark. If a supported mark is found, it indicates that the content may have been processed by Claude.
 
-To check whether a file contains a Claude-issued Content Credential, use the free **[Claude Content Checker](https://claude.com/check-content)**. To learn more about how Claude marks files and how to verify Claude-issued Content Credentials, see **[Content Credentials on generated files](https://platform.claude.com/docs/en/build-with-claude/watermark-detection)**.
+To check whether a file contains a Claude-issued Content Credential, use the free **[Claude Content Checker](https://claude.com/check-content)**. To learn more about how Claude marks files and how to verify Claude-issued Content Credentials, see **[Content Credentials on generated files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#content-credentials-on-generated-files)**.
 
 Watermark detection is currently in private preview, available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 

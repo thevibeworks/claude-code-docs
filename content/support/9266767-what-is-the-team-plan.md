@@ -6,7 +6,7 @@ The Team plan is a paid plan for our Claude chat experience built for ambitious 
 
 Users with Standard seats on the Team plan can access the following:
 
-- **Increased usage:** More usage than the Pro plan per five-hour session, so every team member can get what they need from Claude.
+- **Increased usage:** A larger per-session usage allowance than the Pro plan, so every team member can get what they need from Claude.
 
 - **Option to purchase usage credits:** Prepay for usage credits, allowing team members to continue working after reaching limits.
 
@@ -94,9 +94,9 @@ Yes. For both Standard and Premium seats, weekly limits reset at a fixed time ea
 ​
 Usage limits differ between Standard and Premium seats in the following ways:
 
-**Standard seats:** Team plan Standard seats offer 1.25x more usage per session than the Pro plan and have a weekly usage limit that applies across all models.
+**Standard seats:** Team plan Standard seats include 1.25x the Pro plan's per-session usage allowance and have a weekly usage limit that applies across all models.
 
-**Premium seats:** Team plan Premium seats offer 6.25x more usage per session than the Pro plan and have a weekly usage limit that applies across all models.
+**Premium seats:** Team plan Premium seats include 6.25x the Pro plan's per-session usage allowance and have a weekly usage limit that applies across all models.
 
 ### Do usage limits apply across the team or to individual members?
 
