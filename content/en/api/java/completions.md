@@ -115,6 +115,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
   - `long maxTokensToSample`
@@ -203,7 +205,7 @@ Future models and features will not be compatible with Text Completions. See our
 
 ### Returns
 
-- `class Completion:`
+- `class Completion`
 
   - `JsonValue type = "completion"`
 
@@ -347,7 +349,7 @@ public final class Main {
 
 ### Completion
 
-- `class Completion:`
+- `class Completion`
 
   - `JsonValue type = "completion"`
 

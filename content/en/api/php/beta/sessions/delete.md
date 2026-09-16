@@ -23,7 +23,7 @@ Delete Session
 
 ## Returns
 
-- `BetaManagedAgentsDeletedSession`
+- `class BetaManagedAgentsDeletedSession`
 
   - `Type type`
 

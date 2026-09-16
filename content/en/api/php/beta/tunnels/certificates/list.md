@@ -37,7 +37,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ## Returns
 
-- `TunnelCertificate`
+- `class TunnelCertificate`
 
   - `"tunnel_certificate" type`
 

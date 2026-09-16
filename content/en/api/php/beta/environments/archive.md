@@ -23,7 +23,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ## Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 

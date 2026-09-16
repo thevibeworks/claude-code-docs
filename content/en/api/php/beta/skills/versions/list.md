@@ -39,7 +39,7 @@ List Skill Versions
 
 ## Returns
 
-- `SkillVersion`
+- `class SkillVersion`
 
   - `"skill_version" type`
 

@@ -127,6 +127,8 @@ Create Skill Version
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -135,7 +137,7 @@ Create Skill Version
 
 ### Returns
 
-- `type BetaSkillVersion struct{…}`
+- `type BetaSkillVersion`
 
   - `Type SkillVersion`
 
@@ -349,6 +351,8 @@ List Skill Versions
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -357,7 +361,7 @@ List Skill Versions
 
 ### Returns
 
-- `type BetaSkillVersion struct{…}`
+- `type BetaSkillVersion`
 
   - `Type SkillVersion`
 
@@ -566,6 +570,8 @@ Download a skill version's content as a zip archive.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -729,6 +735,8 @@ Get Skill Version
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -737,7 +745,7 @@ Get Skill Version
 
 ### Returns
 
-- `type BetaSkillVersion struct{…}`
+- `type BetaSkillVersion`
 
   - `Type SkillVersion`
 
@@ -943,6 +951,8 @@ Delete Skill Version
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -951,7 +961,7 @@ Delete Skill Version
 
 ### Returns
 
-- `type BetaDeletedSkillVersion struct{…}`
+- `type BetaDeletedSkillVersion`
 
   - `Type SkillVersionDeleted`
 
@@ -1010,7 +1020,7 @@ func main() {
 
 ### Beta Deleted Skill Version
 
-- `type BetaDeletedSkillVersion struct{…}`
+- `type BetaDeletedSkillVersion`
 
   - `Type SkillVersionDeleted`
 
@@ -1027,7 +1037,7 @@ func main() {
 
 ### Beta Skill Version
 
-- `type BetaSkillVersion struct{…}`
+- `type BetaSkillVersion`
 
   - `Type SkillVersion`
 

@@ -27,7 +27,7 @@ Create a new environment with the specified configuration.
 
     Body param: Environment configuration
 
-    - `class BetaCloudConfigParams:`
+    - `class BetaCloudConfigParams`
 
       Request params for `cloud` environment configuration.
 
@@ -42,7 +42,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy. Omit on update to preserve the existing value.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -50,7 +50,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetworkParams:`
+        - `class BetaLimitedNetworkParams`
 
           Limited network request params.
 
@@ -109,7 +109,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfigParams:`
+    - `class BetaSelfHostedConfigParams`
 
       Request params for `self_hosted` environment configuration.
 
@@ -229,6 +229,8 @@ Create a new environment with the specified configuration.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -237,7 +239,7 @@ Create a new environment with the specified configuration.
 
 ### Returns
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -257,7 +259,7 @@ Create a new environment with the specified configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -269,7 +271,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -277,7 +279,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -329,7 +331,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -544,6 +546,8 @@ List environments with pagination support.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -552,7 +556,7 @@ List environments with pagination support.
 
 ### Returns
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -572,7 +576,7 @@ List environments with pagination support.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -584,7 +588,7 @@ List environments with pagination support.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -592,7 +596,7 @@ List environments with pagination support.
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -644,7 +648,7 @@ List environments with pagination support.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -854,6 +858,8 @@ Retrieve a specific environment by ID.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -862,7 +868,7 @@ Retrieve a specific environment by ID.
 
 ### Returns
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -882,7 +888,7 @@ Retrieve a specific environment by ID.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -894,7 +900,7 @@ Retrieve a specific environment by ID.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -902,7 +908,7 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -954,7 +960,7 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1072,7 +1078,7 @@ Update an existing environment's configuration.
 
     Body param: Updated environment configuration
 
-    - `class BetaCloudConfigParams:`
+    - `class BetaCloudConfigParams`
 
       Request params for `cloud` environment configuration.
 
@@ -1087,7 +1093,7 @@ Update an existing environment's configuration.
 
         Network configuration policy. Omit on update to preserve the existing value.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1095,7 +1101,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetworkParams:`
+        - `class BetaLimitedNetworkParams`
 
           Limited network request params.
 
@@ -1154,7 +1160,7 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfigParams:`
+    - `class BetaSelfHostedConfigParams`
 
       Request params for `self_hosted` environment configuration.
 
@@ -1280,6 +1286,8 @@ Update an existing environment's configuration.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1288,7 +1296,7 @@ Update an existing environment's configuration.
 
 ### Returns
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1308,7 +1316,7 @@ Update an existing environment's configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -1320,7 +1328,7 @@ Update an existing environment's configuration.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1328,7 +1336,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1380,7 +1388,7 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1586,6 +1594,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1594,7 +1604,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ### Returns
 
-- `class BetaEnvironmentDeleteResponse:`
+- `class BetaEnvironmentDeleteResponse`
 
   Response after deleting an environment.
 
@@ -1736,6 +1746,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1744,7 +1756,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ### Returns
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1764,7 +1776,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -1776,7 +1788,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -1784,7 +1796,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -1836,7 +1848,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -1938,7 +1950,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Cloud Config
 
-- `class BetaCloudConfig:`
+- `class BetaCloudConfig`
 
   `cloud` environment configuration.
 
@@ -1950,7 +1962,7 @@ Console.WriteLine(betaEnvironment);
 
     Network configuration policy.
 
-    - `class BetaUnrestrictedNetwork:`
+    - `class BetaUnrestrictedNetwork`
 
       Unrestricted network access.
 
@@ -1958,7 +1970,7 @@ Console.WriteLine(betaEnvironment);
 
         Network policy type
 
-    - `class BetaLimitedNetwork:`
+    - `class BetaLimitedNetwork`
 
       Limited network access.
 
@@ -2012,7 +2024,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Cloud Config Params
 
-- `class BetaCloudConfigParams:`
+- `class BetaCloudConfigParams`
 
   Request params for `cloud` environment configuration.
 
@@ -2027,7 +2039,7 @@ Console.WriteLine(betaEnvironment);
 
     Network configuration policy. Omit on update to preserve the existing value.
 
-    - `class BetaUnrestrictedNetwork:`
+    - `class BetaUnrestrictedNetwork`
 
       Unrestricted network access.
 
@@ -2035,7 +2047,7 @@ Console.WriteLine(betaEnvironment);
 
         Network policy type
 
-    - `class BetaLimitedNetworkParams:`
+    - `class BetaLimitedNetworkParams`
 
       Limited network request params.
 
@@ -2096,7 +2108,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Environment
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -2116,7 +2128,7 @@ Console.WriteLine(betaEnvironment);
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -2128,7 +2140,7 @@ Console.WriteLine(betaEnvironment);
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -2136,7 +2148,7 @@ Console.WriteLine(betaEnvironment);
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -2188,7 +2200,7 @@ Console.WriteLine(betaEnvironment);
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 
@@ -2226,7 +2238,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Environment Delete Response
 
-- `class BetaEnvironmentDeleteResponse:`
+- `class BetaEnvironmentDeleteResponse`
 
   Response after deleting an environment.
 
@@ -2240,7 +2252,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Limited Network
 
-- `class BetaLimitedNetwork:`
+- `class BetaLimitedNetwork`
 
   Limited network access.
 
@@ -2262,7 +2274,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Limited Network Params
 
-- `class BetaLimitedNetworkParams:`
+- `class BetaLimitedNetworkParams`
 
   Limited network request params.
 
@@ -2287,7 +2299,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Packages
 
-- `class BetaPackages:`
+- `class BetaPackages`
 
   Packages (and their versions) available in this environment.
 
@@ -2321,7 +2333,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Packages Params
 
-- `class BetaPackagesParams:`
+- `class BetaPackagesParams`
 
   Specify packages (and optionally their versions) available in this environment.
 
@@ -2359,7 +2371,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Self Hosted Config
 
-- `class BetaSelfHostedConfig:`
+- `class BetaSelfHostedConfig`
 
   Configuration for self-hosted environments.
 
@@ -2369,7 +2381,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Self Hosted Config Params
 
-- `class BetaSelfHostedConfigParams:`
+- `class BetaSelfHostedConfigParams`
 
   Request params for `self_hosted` environment configuration.
 
@@ -2379,7 +2391,7 @@ Console.WriteLine(betaEnvironment);
 
 ### Beta Unrestricted Network
 
-- `class BetaUnrestrictedNetwork:`
+- `class BetaUnrestrictedNetwork`
 
   Unrestricted network access.
 
@@ -2505,6 +2517,8 @@ Retrieve detailed information about a specific work item.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2513,7 +2527,7 @@ Retrieve detailed information about a specific work item.
 
 #### Returns
 
-- `class BetaSelfHostedWork:`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2754,13 +2768,15 @@ Long poll for work items in the queue.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string anthropicWorkerID`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
 #### Returns
 
-- `class BetaSelfHostedWork:`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2992,9 +3008,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
 #### Returns
 
-- `class BetaSelfHostedWork:`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3235,9 +3253,11 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
 #### Returns
 
-- `class BetaSelfHostedWorkHeartbeatResponse:`
+- `class BetaSelfHostedWorkHeartbeatResponse`
 
   Response after recording a heartbeat for a work item.
 
@@ -3417,6 +3437,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3425,7 +3447,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
 #### Returns
 
-- `class BetaSelfHostedWork:`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3664,9 +3686,11 @@ List work items in an environment.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
 #### Returns
 
-- `class BetaSelfHostedWork:`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -3909,6 +3933,8 @@ Update work item metadata with merge semantics.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3917,7 +3943,7 @@ Update work item metadata with merge semantics.
 
 #### Returns
 
-- `class BetaSelfHostedWork:`
+- `class BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -4143,6 +4169,8 @@ Get statistics about the work queue for an environment.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4151,7 +4179,7 @@ Get statistics about the work queue for an environment.
 
 #### Returns
 
-- `class BetaSelfHostedWorkQueueStats:`
+- `class BetaSelfHostedWorkQueueStats`
 
   Statistics about the work queue for an environment.
 

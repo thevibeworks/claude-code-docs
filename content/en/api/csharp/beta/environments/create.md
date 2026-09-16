@@ -25,7 +25,7 @@ Create a new environment with the specified configuration.
 
     Body param: Environment configuration
 
-    - `class BetaCloudConfigParams:`
+    - `class BetaCloudConfigParams`
 
       Request params for `cloud` environment configuration.
 
@@ -40,7 +40,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy. Omit on update to preserve the existing value.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -48,7 +48,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetworkParams:`
+        - `class BetaLimitedNetworkParams`
 
           Limited network request params.
 
@@ -107,7 +107,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfigParams:`
+    - `class BetaSelfHostedConfigParams`
 
       Request params for `self_hosted` environment configuration.
 
@@ -227,6 +227,8 @@ Create a new environment with the specified configuration.
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -235,7 +237,7 @@ Create a new environment with the specified configuration.
 
 ## Returns
 
-- `class BetaEnvironment:`
+- `class BetaEnvironment`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -255,7 +257,7 @@ Create a new environment with the specified configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `class BetaCloudConfig:`
+    - `class BetaCloudConfig`
 
       `cloud` environment configuration.
 
@@ -267,7 +269,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy.
 
-        - `class BetaUnrestrictedNetwork:`
+        - `class BetaUnrestrictedNetwork`
 
           Unrestricted network access.
 
@@ -275,7 +277,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `class BetaLimitedNetwork:`
+        - `class BetaLimitedNetwork`
 
           Limited network access.
 
@@ -327,7 +329,7 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-    - `class BetaSelfHostedConfig:`
+    - `class BetaSelfHostedConfig`
 
       Configuration for self-hosted environments.
 

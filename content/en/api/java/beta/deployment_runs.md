@@ -157,11 +157,13 @@ List Deployment Runs
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaManagedAgentsDeploymentRun:`
+- `class BetaManagedAgentsDeploymentRun`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
 
@@ -197,7 +199,7 @@ List Deployment Runs
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
-    - `class BetaManagedAgentsEnvironmentArchivedRunError:`
+    - `class BetaManagedAgentsEnvironmentArchivedRunError`
 
       The deployment's environment was archived.
 
@@ -207,7 +209,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsAgentArchivedRunError:`
+    - `class BetaManagedAgentsAgentArchivedRunError`
 
       The deployment's agent was archived.
 
@@ -217,7 +219,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsEnvironmentNotFoundRunError:`
+    - `class BetaManagedAgentsEnvironmentNotFoundRunError`
 
       The deployment's environment no longer exists.
 
@@ -227,7 +229,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsVaultNotFoundRunError:`
+    - `class BetaManagedAgentsVaultNotFoundRunError`
 
       A vault referenced by the deployment no longer exists.
 
@@ -237,7 +239,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsVaultArchivedRunError:`
+    - `class BetaManagedAgentsVaultArchivedRunError`
 
       A vault referenced by the deployment is archived.
 
@@ -247,7 +249,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsFileNotFoundRunError:`
+    - `class BetaManagedAgentsFileNotFoundRunError`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -257,7 +259,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsMemoryStoreArchivedRunError:`
+    - `class BetaManagedAgentsMemoryStoreArchivedRunError`
 
       A memory store referenced by the deployment is archived.
 
@@ -267,7 +269,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSkillNotFoundRunError:`
+    - `class BetaManagedAgentsSkillNotFoundRunError`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -277,7 +279,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionResourceNotFoundRunError:`
+    - `class BetaManagedAgentsSessionResourceNotFoundRunError`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -287,7 +289,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsWorkspaceArchivedRunError:`
+    - `class BetaManagedAgentsWorkspaceArchivedRunError`
 
       The deployment's workspace was archived.
 
@@ -297,7 +299,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsOrganizationDisabledRunError:`
+    - `class BetaManagedAgentsOrganizationDisabledRunError`
 
       The deployment's organization is disabled.
 
@@ -307,7 +309,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionRateLimitedRunError:`
+    - `class BetaManagedAgentsSessionRateLimitedRunError`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -317,7 +319,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionCreationRejectedRunError:`
+    - `class BetaManagedAgentsSessionCreationRejectedRunError`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -327,7 +329,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsUnknownRunError:`
+    - `class BetaManagedAgentsUnknownRunError`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -337,7 +339,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError:`
+    - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -347,7 +349,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsMcpEgressBlockedRunError:`
+    - `class BetaManagedAgentsMcpEgressBlockedRunError`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -365,7 +367,7 @@ List Deployment Runs
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-    - `class BetaManagedAgentsScheduleTriggerContext:`
+    - `class BetaManagedAgentsScheduleTriggerContext`
 
       The run was fired by the deployment's cron schedule.
 
@@ -377,7 +379,7 @@ List Deployment Runs
 
         format: date-time
 
-    - `class BetaManagedAgentsManualTriggerContext:`
+    - `class BetaManagedAgentsManualTriggerContext`
 
       The run was started manually by creating a session directly against the deployment.
 
@@ -542,11 +544,13 @@ Get Deployment Run
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 ### Returns
 
-- `class BetaManagedAgentsDeploymentRun:`
+- `class BetaManagedAgentsDeploymentRun`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
 
@@ -582,7 +586,7 @@ Get Deployment Run
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
-    - `class BetaManagedAgentsEnvironmentArchivedRunError:`
+    - `class BetaManagedAgentsEnvironmentArchivedRunError`
 
       The deployment's environment was archived.
 
@@ -592,7 +596,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsAgentArchivedRunError:`
+    - `class BetaManagedAgentsAgentArchivedRunError`
 
       The deployment's agent was archived.
 
@@ -602,7 +606,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsEnvironmentNotFoundRunError:`
+    - `class BetaManagedAgentsEnvironmentNotFoundRunError`
 
       The deployment's environment no longer exists.
 
@@ -612,7 +616,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsVaultNotFoundRunError:`
+    - `class BetaManagedAgentsVaultNotFoundRunError`
 
       A vault referenced by the deployment no longer exists.
 
@@ -622,7 +626,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsVaultArchivedRunError:`
+    - `class BetaManagedAgentsVaultArchivedRunError`
 
       A vault referenced by the deployment is archived.
 
@@ -632,7 +636,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsFileNotFoundRunError:`
+    - `class BetaManagedAgentsFileNotFoundRunError`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -642,7 +646,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsMemoryStoreArchivedRunError:`
+    - `class BetaManagedAgentsMemoryStoreArchivedRunError`
 
       A memory store referenced by the deployment is archived.
 
@@ -652,7 +656,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSkillNotFoundRunError:`
+    - `class BetaManagedAgentsSkillNotFoundRunError`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -662,7 +666,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionResourceNotFoundRunError:`
+    - `class BetaManagedAgentsSessionResourceNotFoundRunError`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -672,7 +676,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsWorkspaceArchivedRunError:`
+    - `class BetaManagedAgentsWorkspaceArchivedRunError`
 
       The deployment's workspace was archived.
 
@@ -682,7 +686,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsOrganizationDisabledRunError:`
+    - `class BetaManagedAgentsOrganizationDisabledRunError`
 
       The deployment's organization is disabled.
 
@@ -692,7 +696,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionRateLimitedRunError:`
+    - `class BetaManagedAgentsSessionRateLimitedRunError`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -702,7 +706,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionCreationRejectedRunError:`
+    - `class BetaManagedAgentsSessionCreationRejectedRunError`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -712,7 +716,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsUnknownRunError:`
+    - `class BetaManagedAgentsUnknownRunError`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -722,7 +726,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError:`
+    - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -732,7 +736,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsMcpEgressBlockedRunError:`
+    - `class BetaManagedAgentsMcpEgressBlockedRunError`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -750,7 +754,7 @@ Get Deployment Run
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-    - `class BetaManagedAgentsScheduleTriggerContext:`
+    - `class BetaManagedAgentsScheduleTriggerContext`
 
       The run was fired by the deployment's cron schedule.
 
@@ -762,7 +766,7 @@ Get Deployment Run
 
         format: date-time
 
-    - `class BetaManagedAgentsManualTriggerContext:`
+    - `class BetaManagedAgentsManualTriggerContext`
 
       The run was started manually by creating a session directly against the deployment.
 
@@ -818,7 +822,7 @@ public final class Main {
 
 ### Beta Managed Agents Agent Archived Run Error
 
-- `class BetaManagedAgentsAgentArchivedRunError:`
+- `class BetaManagedAgentsAgentArchivedRunError`
 
   The deployment's agent was archived.
 
@@ -830,7 +834,7 @@ public final class Main {
 
 ### Beta Managed Agents Deployment Run
 
-- `class BetaManagedAgentsDeploymentRun:`
+- `class BetaManagedAgentsDeploymentRun`
 
   A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
 
@@ -866,7 +870,7 @@ public final class Main {
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
-    - `class BetaManagedAgentsEnvironmentArchivedRunError:`
+    - `class BetaManagedAgentsEnvironmentArchivedRunError`
 
       The deployment's environment was archived.
 
@@ -876,7 +880,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsAgentArchivedRunError:`
+    - `class BetaManagedAgentsAgentArchivedRunError`
 
       The deployment's agent was archived.
 
@@ -886,7 +890,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsEnvironmentNotFoundRunError:`
+    - `class BetaManagedAgentsEnvironmentNotFoundRunError`
 
       The deployment's environment no longer exists.
 
@@ -896,7 +900,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsVaultNotFoundRunError:`
+    - `class BetaManagedAgentsVaultNotFoundRunError`
 
       A vault referenced by the deployment no longer exists.
 
@@ -906,7 +910,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsVaultArchivedRunError:`
+    - `class BetaManagedAgentsVaultArchivedRunError`
 
       A vault referenced by the deployment is archived.
 
@@ -916,7 +920,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsFileNotFoundRunError:`
+    - `class BetaManagedAgentsFileNotFoundRunError`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -926,7 +930,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsMemoryStoreArchivedRunError:`
+    - `class BetaManagedAgentsMemoryStoreArchivedRunError`
 
       A memory store referenced by the deployment is archived.
 
@@ -936,7 +940,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSkillNotFoundRunError:`
+    - `class BetaManagedAgentsSkillNotFoundRunError`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -946,7 +950,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionResourceNotFoundRunError:`
+    - `class BetaManagedAgentsSessionResourceNotFoundRunError`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -956,7 +960,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsWorkspaceArchivedRunError:`
+    - `class BetaManagedAgentsWorkspaceArchivedRunError`
 
       The deployment's workspace was archived.
 
@@ -966,7 +970,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsOrganizationDisabledRunError:`
+    - `class BetaManagedAgentsOrganizationDisabledRunError`
 
       The deployment's organization is disabled.
 
@@ -976,7 +980,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionRateLimitedRunError:`
+    - `class BetaManagedAgentsSessionRateLimitedRunError`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -986,7 +990,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSessionCreationRejectedRunError:`
+    - `class BetaManagedAgentsSessionCreationRejectedRunError`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -996,7 +1000,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsUnknownRunError:`
+    - `class BetaManagedAgentsUnknownRunError`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -1006,7 +1010,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError:`
+    - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -1016,7 +1020,7 @@ public final class Main {
 
         Human-readable error description.
 
-    - `class BetaManagedAgentsMcpEgressBlockedRunError:`
+    - `class BetaManagedAgentsMcpEgressBlockedRunError`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -1034,7 +1038,7 @@ public final class Main {
 
     Describes what triggered a deployment run, with trigger-specific metadata.
 
-    - `class BetaManagedAgentsScheduleTriggerContext:`
+    - `class BetaManagedAgentsScheduleTriggerContext`
 
       The run was fired by the deployment's cron schedule.
 
@@ -1046,7 +1050,7 @@ public final class Main {
 
         format: date-time
 
-    - `class BetaManagedAgentsManualTriggerContext:`
+    - `class BetaManagedAgentsManualTriggerContext`
 
       The run was started manually by creating a session directly against the deployment.
 
@@ -1054,7 +1058,7 @@ public final class Main {
 
 ### Beta Managed Agents Environment Archived Run Error
 
-- `class BetaManagedAgentsEnvironmentArchivedRunError:`
+- `class BetaManagedAgentsEnvironmentArchivedRunError`
 
   The deployment's environment was archived.
 
@@ -1066,7 +1070,7 @@ public final class Main {
 
 ### Beta Managed Agents Environment Not Found Run Error
 
-- `class BetaManagedAgentsEnvironmentNotFoundRunError:`
+- `class BetaManagedAgentsEnvironmentNotFoundRunError`
 
   The deployment's environment no longer exists.
 
@@ -1078,7 +1082,7 @@ public final class Main {
 
 ### Beta Managed Agents File Not Found Run Error
 
-- `class BetaManagedAgentsFileNotFoundRunError:`
+- `class BetaManagedAgentsFileNotFoundRunError`
 
   A file resource referenced by the deployment no longer exists.
 
@@ -1090,7 +1094,7 @@ public final class Main {
 
 ### Beta Managed Agents Manual Trigger Context
 
-- `class BetaManagedAgentsManualTriggerContext:`
+- `class BetaManagedAgentsManualTriggerContext`
 
   The run was started manually by creating a session directly against the deployment.
 
@@ -1098,7 +1102,7 @@ public final class Main {
 
 ### Beta Managed Agents MCP Egress Blocked Run Error
 
-- `class BetaManagedAgentsMcpEgressBlockedRunError:`
+- `class BetaManagedAgentsMcpEgressBlockedRunError`
 
   An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -1110,7 +1114,7 @@ public final class Main {
 
 ### Beta Managed Agents Memory Store Archived Run Error
 
-- `class BetaManagedAgentsMemoryStoreArchivedRunError:`
+- `class BetaManagedAgentsMemoryStoreArchivedRunError`
 
   A memory store referenced by the deployment is archived.
 
@@ -1122,7 +1126,7 @@ public final class Main {
 
 ### Beta Managed Agents Organization Disabled Run Error
 
-- `class BetaManagedAgentsOrganizationDisabledRunError:`
+- `class BetaManagedAgentsOrganizationDisabledRunError`
 
   The deployment's organization is disabled.
 
@@ -1134,7 +1138,7 @@ public final class Main {
 
 ### Beta Managed Agents Schedule Trigger Context
 
-- `class BetaManagedAgentsScheduleTriggerContext:`
+- `class BetaManagedAgentsScheduleTriggerContext`
 
   The run was fired by the deployment's cron schedule.
 
@@ -1148,7 +1152,7 @@ public final class Main {
 
 ### Beta Managed Agents Self Hosted Resources Unsupported Run Error
 
-- `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError:`
+- `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
 
   The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -1160,7 +1164,7 @@ public final class Main {
 
 ### Beta Managed Agents Session Creation Rejected Run Error
 
-- `class BetaManagedAgentsSessionCreationRejectedRunError:`
+- `class BetaManagedAgentsSessionCreationRejectedRunError`
 
   The session create request was rejected with a non-retryable validation error.
 
@@ -1172,7 +1176,7 @@ public final class Main {
 
 ### Beta Managed Agents Session Rate Limited Run Error
 
-- `class BetaManagedAgentsSessionRateLimitedRunError:`
+- `class BetaManagedAgentsSessionRateLimitedRunError`
 
   Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -1184,7 +1188,7 @@ public final class Main {
 
 ### Beta Managed Agents Session Resource Not Found Run Error
 
-- `class BetaManagedAgentsSessionResourceNotFoundRunError:`
+- `class BetaManagedAgentsSessionResourceNotFoundRunError`
 
   A referenced resource no longer exists and its kind was not reported.
 
@@ -1196,7 +1200,7 @@ public final class Main {
 
 ### Beta Managed Agents Skill Not Found Run Error
 
-- `class BetaManagedAgentsSkillNotFoundRunError:`
+- `class BetaManagedAgentsSkillNotFoundRunError`
 
   A skill referenced by the deployment's agent no longer exists.
 
@@ -1212,7 +1216,7 @@ public final class Main {
 
   Describes what triggered a deployment run, with trigger-specific metadata.
 
-  - `class BetaManagedAgentsScheduleTriggerContext:`
+  - `class BetaManagedAgentsScheduleTriggerContext`
 
     The run was fired by the deployment's cron schedule.
 
@@ -1224,7 +1228,7 @@ public final class Main {
 
       format: date-time
 
-  - `class BetaManagedAgentsManualTriggerContext:`
+  - `class BetaManagedAgentsManualTriggerContext`
 
     The run was started manually by creating a session directly against the deployment.
 
@@ -1232,7 +1236,7 @@ public final class Main {
 
 ### Beta Managed Agents Trigger Type
 
-- `enum BetaManagedAgentsTriggerType:`
+- `enum BetaManagedAgentsTriggerType`
 
   What triggered a deployment run.
 
@@ -1242,7 +1246,7 @@ public final class Main {
 
 ### Beta Managed Agents Unknown Run Error
 
-- `class BetaManagedAgentsUnknownRunError:`
+- `class BetaManagedAgentsUnknownRunError`
 
   An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -1254,7 +1258,7 @@ public final class Main {
 
 ### Beta Managed Agents Vault Archived Run Error
 
-- `class BetaManagedAgentsVaultArchivedRunError:`
+- `class BetaManagedAgentsVaultArchivedRunError`
 
   A vault referenced by the deployment is archived.
 
@@ -1266,7 +1270,7 @@ public final class Main {
 
 ### Beta Managed Agents Vault Not Found Run Error
 
-- `class BetaManagedAgentsVaultNotFoundRunError:`
+- `class BetaManagedAgentsVaultNotFoundRunError`
 
   A vault referenced by the deployment no longer exists.
 
@@ -1278,7 +1282,7 @@ public final class Main {
 
 ### Beta Managed Agents Workspace Archived Run Error
 
-- `class BetaManagedAgentsWorkspaceArchivedRunError:`
+- `class BetaManagedAgentsWorkspaceArchivedRunError`
 
   The deployment's workspace was archived.
 

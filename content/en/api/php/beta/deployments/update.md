@@ -63,7 +63,7 @@ Update Deployment
 
 ## Returns
 
-- `BetaManagedAgentsDeployment`
+- `class BetaManagedAgentsDeployment`
 
   - `Type type`
 

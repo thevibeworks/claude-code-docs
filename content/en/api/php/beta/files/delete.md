@@ -25,7 +25,7 @@ Delete File
 
 ## Returns
 
-- `BetaDeletedFile`
+- `class BetaDeletedFile`
 
   - `?Type type`
 

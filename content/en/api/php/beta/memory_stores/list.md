@@ -41,7 +41,7 @@ List memory stores
 
 ## Returns
 
-- `BetaManagedAgentsMemoryStore`
+- `class BetaManagedAgentsMemoryStore`
 
   - `Type type`
 

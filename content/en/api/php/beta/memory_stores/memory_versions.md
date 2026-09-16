@@ -65,7 +65,7 @@ List memory versions
 
 ### Returns
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -202,7 +202,7 @@ Retrieve a memory version
 
 ### Returns
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -326,7 +326,7 @@ Redact a memory version
 
 ### Returns
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -431,9 +431,9 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents Actor
 
-- `ManagedAgentsActor`
+- `class ManagedAgentsActor`
 
-  - `ManagedAgentsSessionActor`
+  - `class ManagedAgentsSessionActor`
 
     - `Type type`
 
@@ -441,7 +441,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
       ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/beta/sessions/retrieve) for further provenance.
 
-  - `ManagedAgentsAPIActor`
+  - `class ManagedAgentsAPIActor`
 
     - `Type type`
 
@@ -449,7 +449,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
       ID of the API key that performed the write. This identifies the key, not the secret.
 
-  - `ManagedAgentsUserActor`
+  - `class ManagedAgentsUserActor`
 
     - `Type type`
 
@@ -457,7 +457,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
       ID of the user who performed the write (a `user_...` value).
 
-  - `ManagedAgentsServiceAccountActor`
+  - `class ManagedAgentsServiceAccountActor`
 
     - `"service_account_actor" type`
 
@@ -467,7 +467,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents API Actor
 
-- `ManagedAgentsAPIActor`
+- `class ManagedAgentsAPIActor`
 
   - `Type type`
 
@@ -477,7 +477,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents Memory Version
 
-- `ManagedAgentsMemoryVersion`
+- `class ManagedAgentsMemoryVersion`
 
   - `Type type`
 
@@ -531,7 +531,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents Memory Version Operation
 
-- `ManagedAgentsMemoryVersionOperation`
+- `enum ManagedAgentsMemoryVersionOperation`
 
   - `"created"`
 
@@ -541,7 +541,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents Service Account Actor
 
-- `ManagedAgentsServiceAccountActor`
+- `class ManagedAgentsServiceAccountActor`
 
   - `"service_account_actor" type`
 
@@ -551,7 +551,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents Session Actor
 
-- `ManagedAgentsSessionActor`
+- `class ManagedAgentsSessionActor`
 
   - `Type type`
 
@@ -561,7 +561,7 @@ var_dump($betaManagedAgentsMemoryVersion);
 
 ### Beta Managed Agents User Actor
 
-- `ManagedAgentsUserActor`
+- `class ManagedAgentsUserActor`
 
   - `Type type`
 

@@ -110,7 +110,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `IReadOnlyList<BetaContentBlockParam>`
 
-            - `class BetaTextBlockParam:`
+            - `class BetaTextBlockParam`
 
               - `JsonElement Type = "text"`
 
@@ -141,7 +141,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `IReadOnlyList<BetaTextCitationParam>? Citations`
 
-                - `class BetaCitationCharLocationParam:`
+                - `class BetaCitationCharLocationParam`
 
                   - `JsonElement Type = "char_location"`
 
@@ -161,7 +161,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `class BetaCitationPageLocationParam:`
+                - `class BetaCitationPageLocationParam`
 
                   - `JsonElement Type = "page_location"`
 
@@ -181,7 +181,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                - `class BetaCitationContentBlockLocationParam:`
+                - `class BetaCitationContentBlockLocationParam`
 
                   - `JsonElement Type = "content_block_location"`
 
@@ -211,7 +211,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `class BetaCitationWebSearchResultLocationParam:`
+                - `class BetaCitationWebSearchResultLocationParam`
 
                   - `JsonElement Type = "web_search_result_location"`
 
@@ -227,7 +227,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minLength: 1
 
-                - `class BetaCitationSearchResultLocationParam:`
+                - `class BetaCitationSearchResultLocationParam`
 
                   - `JsonElement Type = "search_result_location"`
 
@@ -261,13 +261,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string? Title`
 
-            - `class BetaImageBlockParam:`
+            - `class BetaImageBlockParam`
 
               - `JsonElement Type = "image"`
 
               - `required Source Source`
 
-                - `class BetaBase64ImageSource:`
+                - `class BetaBase64ImageSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -285,13 +285,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ImageWebP("image/webp")`
 
-                - `class BetaUrlImageSource:`
+                - `class BetaUrlImageSource`
 
                   - `JsonElement Type = "url"`
 
                   - `required string Url`
 
-                - `class BetaFileImageSource:`
+                - `class BetaFileImageSource`
 
                   - `JsonElement Type = "file"`
 
@@ -313,13 +313,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Error("error")`
 
-            - `class BetaRequestDocumentBlock:`
+            - `class BetaRequestDocumentBlock`
 
               - `JsonElement Type = "document"`
 
               - `required Source Source`
 
-                - `class BetaBase64PdfSource:`
+                - `class BetaBase64PdfSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -329,7 +329,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `JsonElement MediaType = "application/pdf"`
 
-                - `class BetaPlainTextSource:`
+                - `class BetaPlainTextSource`
 
                   - `JsonElement Type = "text"`
 
@@ -337,7 +337,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `JsonElement MediaType = "text/plain"`
 
-                - `class BetaContentBlockSource:`
+                - `class BetaContentBlockSource`
 
                   - `JsonElement Type = "content"`
 
@@ -347,17 +347,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `IReadOnlyList<BetaContentBlockSourceContent>`
 
-                      - `class BetaTextBlockParam:`
+                      - `class BetaTextBlockParam`
 
-                      - `class BetaImageBlockParam:`
+                      - `class BetaImageBlockParam`
 
-                - `class BetaUrlPdfSource:`
+                - `class BetaUrlPdfSource`
 
                   - `JsonElement Type = "url"`
 
                   - `required string Url`
 
-                - `class BetaFileDocumentSource:`
+                - `class BetaFileDocumentSource`
 
                   - `JsonElement Type = "file"`
 
@@ -379,7 +379,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 500, minLength: 1
 
-            - `class BetaSearchResultBlockParam:`
+            - `class BetaSearchResultBlockParam`
 
               - `JsonElement Type = "search_result"`
 
@@ -407,7 +407,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `BetaCitationsConfigParam Citations`
 
-            - `class BetaThinkingBlockParam:`
+            - `class BetaThinkingBlockParam`
 
               - `JsonElement Type = "thinking"`
 
@@ -421,7 +421,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-            - `class BetaRedactedThinkingBlockParam:`
+            - `class BetaRedactedThinkingBlockParam`
 
               - `JsonElement Type = "redacted_thinking"`
 
@@ -429,7 +429,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `class BetaToolUseBlockParam:`
+            - `class BetaToolUseBlockParam`
 
               - `JsonElement Type = "tool_use"`
 
@@ -449,13 +449,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
                   - `JsonElement Type = "direct"`
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
@@ -465,7 +465,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
                   - `JsonElement Type = "code_execution_20260120"`
 
@@ -479,7 +479,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `class BetaToolResultBlockParam:`
+            - `class BetaToolResultBlockParam`
 
               - `JsonElement Type = "tool_result"`
 
@@ -497,15 +497,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `IReadOnlyList<Block>`
 
-                  - `class BetaTextBlockParam:`
+                  - `class BetaTextBlockParam`
 
-                  - `class BetaImageBlockParam:`
+                  - `class BetaImageBlockParam`
 
-                  - `class BetaSearchResultBlockParam:`
+                  - `class BetaSearchResultBlockParam`
 
-                  - `class BetaRequestDocumentBlock:`
+                  - `class BetaRequestDocumentBlock`
 
-                  - `class BetaToolReferenceBlockParam:`
+                  - `class BetaToolReferenceBlockParam`
 
                     Tool reference block that can be included in tool_result content.
 
@@ -519,7 +519,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       Create a cache control breakpoint at this content block.
 
-                  - `class BetaBrowserStateBlockParam:`
+                  - `class BetaBrowserStateBlockParam`
 
                     The caller's browser state after a browser toolset member call —
                     the full inventory of open tabs, which tab is active, and any side
@@ -569,7 +569,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxItems: 200, minItems: 1
 
-                      - `class BetaBrowserStateChangeTabOpened:`
+                      - `class BetaBrowserStateChangeTabOpened`
 
                         A tab this call's execution opened that remains open at its end —
                         the creation delta of the `tabs` inventory, not an event log.
@@ -587,7 +587,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BetaBrowserStateChangeDownloadStarted:`
+                      - `class BetaBrowserStateChangeDownloadStarted`
 
                         A file download that started during this call.
 
@@ -605,7 +605,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BetaBrowserStateChangeDownloadCompleted:`
+                      - `class BetaBrowserStateChangeDownloadCompleted`
 
                         A file download that finished during this call, reported with the
                         same `download_id` as its `download_started` — or without a prior
@@ -638,7 +638,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minimum: 0
 
-                      - `class BetaBrowserStateChangeDownloadFailed:`
+                      - `class BetaBrowserStateChangeDownloadFailed`
 
                         A file download that failed — or was cancelled — during this call.
 
@@ -670,7 +670,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `class BetaServerToolUseBlockParam:`
+            - `class BetaServerToolUseBlockParam`
 
               - `JsonElement Type = "server_tool_use"`
 
@@ -704,17 +704,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
-            - `class BetaWebSearchToolResultBlockParam:`
+            - `class BetaWebSearchToolResultBlockParam`
 
               - `JsonElement Type = "web_search_tool_result"`
 
@@ -732,7 +732,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? PageAge`
 
-                - `class BetaWebSearchToolRequestError:`
+                - `class BetaWebSearchToolRequestError`
 
                   - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -760,23 +760,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
-            - `class BetaWebFetchToolResultBlockParam:`
+            - `class BetaWebFetchToolResultBlockParam`
 
               - `JsonElement Type = "web_fetch_tool_result"`
 
               - `required Content Content`
 
-                - `class BetaWebFetchToolResultErrorBlockParam:`
+                - `class BetaWebFetchToolResultErrorBlockParam`
 
                   - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -802,7 +802,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ContentTooLarge("content_too_large")`
 
-                - `class BetaWebFetchBlockParam:`
+                - `class BetaWebFetchBlockParam`
 
                   - `JsonElement Type = "web_fetch_result"`
 
@@ -826,23 +826,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Caller Caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
-            - `class BetaAdvisorToolResultBlockParam:`
+            - `class BetaAdvisorToolResultBlockParam`
 
               - `JsonElement Type = "advisor_tool_result"`
 
               - `required Content Content`
 
-                - `class BetaAdvisorToolResultErrorParam:`
+                - `class BetaAdvisorToolResultErrorParam`
 
                   - `JsonElement Type = "advisor_tool_result_error"`
 
@@ -862,7 +862,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ModelNotFound("model_not_found")`
 
-                - `class BetaAdvisorResultBlockParam:`
+                - `class BetaAdvisorResultBlockParam`
 
                   - `JsonElement Type = "advisor_result"`
 
@@ -870,7 +870,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? StopReason`
 
-                - `class BetaAdvisorRedactedResultBlockParam:`
+                - `class BetaAdvisorRedactedResultBlockParam`
 
                   - `JsonElement Type = "advisor_redacted_result"`
 
@@ -888,13 +888,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaCodeExecutionToolResultBlockParam:`
+            - `class BetaCodeExecutionToolResultBlockParam`
 
               - `JsonElement Type = "code_execution_tool_result"`
 
               - `required BetaCodeExecutionToolResultBlockParamContent Content`
 
-                - `class BetaCodeExecutionToolResultErrorParam:`
+                - `class BetaCodeExecutionToolResultErrorParam`
 
                   - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -908,7 +908,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-                - `class BetaCodeExecutionResultBlockParam:`
+                - `class BetaCodeExecutionResultBlockParam`
 
                   - `JsonElement Type = "code_execution_result"`
 
@@ -924,7 +924,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string Stdout`
 
-                - `class BetaEncryptedCodeExecutionResultBlockParam:`
+                - `class BetaEncryptedCodeExecutionResultBlockParam`
 
                   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -950,13 +950,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaBashCodeExecutionToolResultBlockParam:`
+            - `class BetaBashCodeExecutionToolResultBlockParam`
 
               - `JsonElement Type = "bash_code_execution_tool_result"`
 
               - `required Content Content`
 
-                - `class BetaBashCodeExecutionToolResultErrorParam:`
+                - `class BetaBashCodeExecutionToolResultErrorParam`
 
                   - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -972,7 +972,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `OutputFileTooLarge("output_file_too_large")`
 
-                - `class BetaBashCodeExecutionResultBlockParam:`
+                - `class BetaBashCodeExecutionResultBlockParam`
 
                   - `JsonElement Type = "bash_code_execution_result"`
 
@@ -996,13 +996,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
               - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
               - `required Content Content`
 
-                - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+                - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
                   - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -1020,7 +1020,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? ErrorMessage`
 
-                - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+                - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
                   - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -1040,13 +1040,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `long? TotalLines`
 
-                - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+                - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
                   - `JsonElement Type = "text_editor_code_execution_create_result"`
 
                   - `required bool IsFileUpdate`
 
-                - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+                - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
                   - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -1068,13 +1068,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaToolSearchToolResultBlockParam:`
+            - `class BetaToolSearchToolResultBlockParam`
 
               - `JsonElement Type = "tool_search_tool_result"`
 
               - `required Content Content`
 
-                - `class BetaToolSearchToolResultErrorParam:`
+                - `class BetaToolSearchToolResultErrorParam`
 
                   - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -1090,7 +1090,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `string? ErrorMessage`
 
-                - `class BetaToolSearchToolSearchResultBlockParam:`
+                - `class BetaToolSearchToolSearchResultBlockParam`
 
                   - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -1114,7 +1114,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaMcpToolUseBlockParam:`
+            - `class BetaMcpToolUseBlockParam`
 
               - `JsonElement Type = "mcp_tool_use"`
 
@@ -1134,7 +1134,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaRequestMcpToolResultBlockParam:`
+            - `class BetaRequestMcpToolResultBlockParam`
 
               - `JsonElement Type = "mcp_tool_result"`
 
@@ -1166,7 +1166,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `bool IsError`
 
-            - `class BetaContainerUploadBlockParam:`
+            - `class BetaContainerUploadBlockParam`
 
               A content block that represents a file to be uploaded to the container
               Files uploaded via this block will be available in the container's input directory.
@@ -1179,7 +1179,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaCompactionBlockParam:`
+            - `class BetaCompactionBlockParam`
 
               A compaction block containing summary of previous context.
 
@@ -1203,7 +1203,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Opaque metadata from prior compaction, to be round-tripped verbatim
 
-            - `class BetaRequestToolAdditionBlock:`
+              - `string? Signature`
+
+                The block's signature as returned, to be sent back verbatim
+
+            - `class BetaRequestToolAdditionBlock`
 
               Mid-conversation directive to surface a declared tool.
 
@@ -1215,7 +1219,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `required Tool Tool`
 
-                - `class BetaToolChangeToolReference:`
+                - `class BetaToolChangeToolReference`
 
                   Reference to a single tool the caller declared directly in
                   `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -1228,7 +1232,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                - `class BetaToolChangeMcpToolReference:`
+                - `class BetaToolChangeMcpToolReference`
 
                   Reference to a single MCP tool by its server and remote name — the
                   same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -1239,7 +1243,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string ServerName`
 
-                - `class BetaToolChangeMcpToolsetReference:`
+                - `class BetaToolChangeMcpToolsetReference`
 
                   Reference to every tool in the named MCP server's toolset.
 
@@ -1251,7 +1255,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaRequestToolRemovalBlock:`
+            - `class BetaRequestToolRemovalBlock`
 
               Mid-conversation directive to withdraw a tool.
 
@@ -1263,19 +1267,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `required Tool Tool`
 
-                - `class BetaToolChangeToolReference:`
+                - `class BetaToolChangeToolReference`
 
                   Reference to a single tool the caller declared directly in
                   `tools[]`. Does not accept the composed `{server}_{name}` form the
                   server assigns to MCP-resolved tools — use `mcp_tool_reference` or
                   `mcp_toolset_reference` for those.
 
-                - `class BetaToolChangeMcpToolReference:`
+                - `class BetaToolChangeMcpToolReference`
 
                   Reference to a single MCP tool by its server and remote name — the
                   same `server_name`/`name` pair `mcp_tool_use` carries.
 
-                - `class BetaToolChangeMcpToolsetReference:`
+                - `class BetaToolChangeMcpToolsetReference`
 
                   Reference to every tool in the named MCP server's toolset.
 
@@ -1283,7 +1287,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaFallbackBlockParam:`
+            - `class BetaFallbackBlockParam`
 
               A `fallback` block echoed back from a prior response.
 
@@ -1435,11 +1439,30 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+      - `BetaCompactionConfig? Compaction`
+
+        Compact the whole conversation and return a signed `compaction` block,
+        alone, that a later request sends back first in `messages`, in place of
+        the messages it summarizes. There is no trigger and no pause flag: sending
+        the parameter compacts, and nothing is sampled after the block.
+
+        The summarization prompt is the server's own unless `instructions` are
+        given, which then replace it for this request; a value that is empty or
+        only whitespace counts as absent.
+
+        - `JsonElement Type = "summarize"`
+
+        - `string? Instructions`
+
+          Replaces the server's default summarization prompt for this request. An empty or whitespace-only value counts as absent.
+
+          maxLength: 16384
+
       - `Container? Container`
 
         Container identifier for reuse across requests.
 
-        - `class BetaContainerParams:`
+        - `class BetaContainerParams`
 
           Container parameters with skills to be loaded.
 
@@ -1487,7 +1510,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           minItems: 0
 
-          - `class BetaClearToolUses20250919Edit:`
+          - `class BetaClearToolUses20250919Edit`
 
             - `JsonElement Type = "clear_tool_uses_20250919"`
 
@@ -1527,7 +1550,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Condition that triggers the context management strategy
 
-              - `class BetaInputTokensTrigger:`
+              - `class BetaInputTokensTrigger`
 
                 - `JsonElement Type = "input_tokens"`
 
@@ -1535,7 +1558,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class BetaToolUsesTrigger:`
+              - `class BetaToolUsesTrigger`
 
                 - `JsonElement Type = "tool_uses"`
 
@@ -1543,7 +1566,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-          - `class BetaClearThinking20251015Edit:`
+          - `class BetaClearThinking20251015Edit`
 
             - `JsonElement Type = "clear_thinking_20251015"`
 
@@ -1551,7 +1574,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-              - `class BetaThinkingTurns:`
+              - `class BetaThinkingTurns`
 
                 - `JsonElement Type = "thinking_turns"`
 
@@ -1559,13 +1582,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class BetaAllThinkingTurns:`
+              - `class BetaAllThinkingTurns`
 
                 - `JsonElement Type = "all"`
 
               - `class All:`
 
-          - `class BetaCompact20260112Edit:`
+          - `class BetaCompact20260112Edit`
 
             Automatically compact older context when reaching the configured trigger threshold.
 
@@ -1619,7 +1642,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `string`
 
-        - `class BetaFallbackCreditTokenParam:`
+        - `class BetaFallbackCreditTokenParam`
 
           Object form of `fallback_credit_token`: the token plus a redemption
           mode.
@@ -1713,7 +1736,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Thinking? Thinking`
 
-            - `class BetaThinkingConfigEnabled:`
+            - `class BetaThinkingConfigEnabled`
 
               - `JsonElement Type = "enabled"`
 
@@ -1755,11 +1778,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Updates("updates")`
 
-            - `class BetaThinkingConfigDisabled:`
+            - `class BetaThinkingConfigDisabled`
 
               - `JsonElement Type = "disabled"`
 
-            - `class BetaThinkingConfigAdaptive:`
+            - `class BetaThinkingConfigAdaptive`
 
               - `JsonElement Type = "adaptive"`
 
@@ -1883,17 +1906,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `class BetaThinkingConfigEnabled:`
+        - `class BetaThinkingConfigEnabled`
 
-        - `class BetaThinkingConfigDisabled:`
+        - `class BetaThinkingConfigDisabled`
 
-        - `class BetaThinkingConfigAdaptive:`
+        - `class BetaThinkingConfigAdaptive`
 
       - `BetaToolChoice ToolChoice`
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-        - `class BetaToolChoiceAuto:`
+        - `class BetaToolChoiceAuto`
 
           The model will automatically decide whether to use tools.
 
@@ -1905,7 +1928,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-        - `class BetaToolChoiceAny:`
+        - `class BetaToolChoiceAny`
 
           The model will use any available tools.
 
@@ -1917,7 +1940,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `class BetaToolChoiceTool:`
+        - `class BetaToolChoiceTool`
 
           The model will use the specified tool with `tool_choice.name`.
 
@@ -1933,7 +1956,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `class BetaToolChoiceNone:`
+        - `class BetaToolChoiceNone`
 
           The model will not be allowed to use tools.
 
@@ -2003,7 +2026,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-        - `class BetaTool:`
+        - `class BetaTool`
 
           - `Type? Type`
 
@@ -2061,7 +2084,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolBash20241022:`
+        - `class BetaToolBash20241022`
 
           - `JsonElement Type = "bash_20241022"`
 
@@ -2095,7 +2118,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolBash20250124:`
+        - `class BetaToolBash20250124`
 
           - `JsonElement Type = "bash_20250124"`
 
@@ -2129,7 +2152,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20250522:`
+        - `class BetaCodeExecutionTool20250522`
 
           - `JsonElement Type = "code_execution_20250522"`
 
@@ -2161,7 +2184,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20250825:`
+        - `class BetaCodeExecutionTool20250825`
 
           - `JsonElement Type = "code_execution_20250825"`
 
@@ -2193,7 +2216,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20260120:`
+        - `class BetaCodeExecutionTool20260120`
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -2227,7 +2250,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20260521:`
+        - `class BetaCodeExecutionTool20260521`
 
           Code execution tool with REPL state persistence.
 
@@ -2261,7 +2284,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaBrowserToolset20260801:`
+        - `class BetaBrowserToolset20260801`
 
           The browser toolset: a single `tools[]` entry (carrying no
           `name`) that declares the browser tool family. The model is served
@@ -2655,7 +2678,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `class BetaToolComputerUse20241022:`
+        - `class BetaToolComputerUse20241022`
 
           - `JsonElement Type = "computer_20241022"`
 
@@ -2707,7 +2730,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaMemoryTool20250818:`
+        - `class BetaMemoryTool20250818`
 
           - `JsonElement Type = "memory_20250818"`
 
@@ -2741,7 +2764,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolComputerUse20250124:`
+        - `class BetaToolComputerUse20250124`
 
           - `JsonElement Type = "computer_20250124"`
 
@@ -2793,7 +2816,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolTextEditor20241022:`
+        - `class BetaToolTextEditor20241022`
 
           - `JsonElement Type = "text_editor_20241022"`
 
@@ -2827,7 +2850,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolComputerUse20251124:`
+        - `class BetaToolComputerUse20251124`
 
           - `JsonElement Type = "computer_20251124"`
 
@@ -2883,7 +2906,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaComputerToolset20260801:`
+        - `class BetaComputerToolset20260801`
 
           The computer toolset: a single `tools[]` entry (carrying no
           `name`) that declares the computer tool family. The model is
@@ -3113,7 +3136,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `class BetaToolTextEditor20250124:`
+        - `class BetaToolTextEditor20250124`
 
           - `JsonElement Type = "text_editor_20250124"`
 
@@ -3147,7 +3170,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolTextEditor20250429:`
+        - `class BetaToolTextEditor20250429`
 
           - `JsonElement Type = "text_editor_20250429"`
 
@@ -3181,7 +3204,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolTextEditor20250728:`
+        - `class BetaToolTextEditor20250728`
 
           - `JsonElement Type = "text_editor_20250728"`
 
@@ -3221,7 +3244,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaWebSearchTool20250305:`
+        - `class BetaWebSearchTool20250305`
 
           - `JsonElement Type = "web_search_20250305"`
 
@@ -3297,7 +3320,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 255, minLength: 1
 
-        - `class BetaWebFetchTool20250910:`
+        - `class BetaWebFetchTool20250910`
 
           - `JsonElement Type = "web_fetch_20250910"`
 
@@ -3353,7 +3376,98 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaWebSearchTool20260209:`
+          - `BetaWebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
+            - `ClientToolResults ClientToolResults`
+
+              Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+              - `class BetaWebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+                - `JsonElement Type = "all"`
+
+              - `class BetaWebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+                - `JsonElement Type = "none"`
+
+              - `class BetaWebFetchUrlSourceOnly`
+
+                The tool filter variant under which only the named tools' results
+                contribute.
+
+                - `JsonElement Type = "only"`
+
+                - `required IReadOnlyList<BetaWebFetchUrlSourceToolReference> Tools`
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string Name`
+
+              - `class BetaWebFetchUrlSourceExcept`
+
+                The tool filter variant under which every result but the named
+                tools' contributes.
+
+                - `JsonElement Type = "except"`
+
+                - `required IReadOnlyList<BetaWebFetchUrlSourceToolReference> Tools`
+
+                  - `JsonElement Type = "tool_reference"`
+
+                  - `required string Name`
+
+            - `ServerToolResults ServerToolResults`
+
+              Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+              - `class BetaWebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+              - `class BetaWebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+              - `class BetaWebFetchUrlSourceOnly`
+
+                The tool filter variant under which only the named tools' results
+                contribute.
+
+              - `class BetaWebFetchUrlSourceExcept`
+
+                The tool filter variant under which every result but the named
+                tools' contributes.
+
+            - `UserInput UserInput`
+
+              Whether URLs in user messages are fetchable: "all" or "none".
+
+              - `class BetaWebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+              - `class BetaWebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+        - `class BetaWebSearchTool20260209`
 
           - `JsonElement Type = "web_search_20260209"`
 
@@ -3403,7 +3517,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `class BetaWebFetchTool20260209:`
+        - `class BetaWebFetchTool20260209`
 
           - `JsonElement Type = "web_fetch_20260209"`
 
@@ -3459,7 +3573,16 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaWebFetchTool20260309:`
+          - `BetaWebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
+        - `class BetaWebFetchTool20260309`
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -3517,11 +3640,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+          - `BetaWebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
           - `bool UseCache`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `class BetaWebSearchTool20260318:`
+        - `class BetaWebSearchTool20260318`
 
           - `JsonElement Type = "web_search_20260318"`
 
@@ -3579,7 +3711,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `class BetaWebFetchTool20260318:`
+        - `class BetaWebFetchTool20260318`
 
           - `JsonElement Type = "web_fetch_20260318"`
 
@@ -3643,11 +3775,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+          - `BetaWebFetchUrlSources? UrlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
           - `bool UseCache`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `class BetaAdvisorTool20260301:`
+        - `class BetaAdvisorTool20260301`
 
           - `JsonElement Type = "advisor_20260301"`
 
@@ -3701,7 +3842,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolSearchToolBm25_20251119:`
+        - `class BetaToolSearchToolBm25_20251119`
 
           - `required Type Type`
 
@@ -3737,7 +3878,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolSearchToolRegex20251119:`
+        - `class BetaToolSearchToolRegex20251119`
 
           - `required Type Type`
 
@@ -3773,7 +3914,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaMcpToolset:`
+        - `class BetaMcpToolset`
 
           Configuration for a group of tools from an MCP server.
 
@@ -3946,6 +4087,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -3958,7 +4101,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -4079,6 +4222,7 @@ BatchCreateParams parameters = new()
                 ],
                 Model = Model.ClaudeOpus5,
                 CacheControl = new() { Ttl = Ttl.Ttl5m },
+                Compaction = new() { Instructions = "instructions" },
                 Container = new BetaContainerParams()
                 {
                     ID = "id",
@@ -4384,6 +4528,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4392,7 +4538,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -4645,6 +4791,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4653,7 +4801,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -4905,6 +5053,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4913,7 +5063,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -5156,6 +5306,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -5164,7 +5316,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ### Returns
 
-- `class BetaDeletedMessageBatch:`
+- `class BetaDeletedMessageBatch`
 
   - `JsonElement Type = "message_batch_deleted"`
 
@@ -5309,6 +5461,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -5317,7 +5471,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ### Returns
 
-- `class BetaMessageBatchIndividualResponse:`
+- `class BetaMessageBatchIndividualResponse`
 
   This is a single line in the response `.jsonl` file and does not represent the response as a whole.
 
@@ -5333,7 +5487,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-    - `class BetaMessageBatchSucceededResult:`
+    - `class BetaMessageBatchSucceededResult`
 
       - `JsonElement Type = "succeeded"`
 
@@ -5418,7 +5572,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           [{"type": "text", "text": "B)"}]
           ```
 
-          - `class BetaTextBlock:`
+          - `class BetaTextBlock`
 
             - `JsonElement Type = "text"`
 
@@ -5428,7 +5582,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-              - `class BetaCitationCharLocation:`
+              - `class BetaCitationCharLocation`
 
                 - `JsonElement Type = "char_location"`
 
@@ -5448,7 +5602,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-              - `class BetaCitationPageLocation:`
+              - `class BetaCitationPageLocation`
 
                 - `JsonElement Type = "page_location"`
 
@@ -5468,7 +5622,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class BetaCitationContentBlockLocation:`
+              - `class BetaCitationContentBlockLocation`
 
                 - `JsonElement Type = "content_block_location"`
 
@@ -5498,7 +5652,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-              - `class BetaCitationsWebSearchResultLocation:`
+              - `class BetaCitationsWebSearchResultLocation`
 
                 - `JsonElement Type = "web_search_result_location"`
 
@@ -5512,7 +5666,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Url`
 
-              - `class BetaCitationSearchResultLocation:`
+              - `class BetaCitationSearchResultLocation`
 
                 - `JsonElement Type = "search_result_location"`
 
@@ -5550,7 +5704,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 0
 
-          - `class BetaThinkingBlock:`
+          - `class BetaThinkingBlock`
 
             - `JsonElement Type = "thinking"`
 
@@ -5566,7 +5720,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-          - `class BetaRedactedThinkingBlock:`
+          - `class BetaRedactedThinkingBlock`
 
             - `JsonElement Type = "redacted_thinking"`
 
@@ -5578,7 +5732,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `class BetaToolUseBlock:`
+          - `class BetaToolUseBlock`
 
             - `JsonElement Type = "tool_use"`
 
@@ -5594,13 +5748,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
                 - `JsonElement Type = "direct"`
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
@@ -5610,7 +5764,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
                 - `JsonElement Type = "code_execution_20260120"`
 
@@ -5624,7 +5778,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class BetaServerToolUseBlock:`
+          - `class BetaServerToolUseBlock`
 
             - `JsonElement Type = "server_tool_use"`
 
@@ -5654,23 +5808,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaWebSearchToolResultBlock:`
+          - `class BetaWebSearchToolResultBlock`
 
             - `JsonElement Type = "web_search_tool_result"`
 
             - `required BetaWebSearchToolResultBlockContent Content`
 
-              - `class BetaWebSearchToolResultError:`
+              - `class BetaWebSearchToolResultError`
 
                 - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -5706,23 +5860,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaWebFetchToolResultBlock:`
+          - `class BetaWebFetchToolResultBlock`
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaWebFetchToolResultErrorBlock:`
+              - `class BetaWebFetchToolResultErrorBlock`
 
                 - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -5748,7 +5902,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ContentTooLarge("content_too_large")`
 
-              - `class BetaWebFetchBlock:`
+              - `class BetaWebFetchBlock`
 
                 - `JsonElement Type = "web_fetch_result"`
 
@@ -5764,7 +5918,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required Source Source`
 
-                    - `class BetaBase64PdfSource:`
+                    - `class BetaBase64PdfSource`
 
                       - `JsonElement Type = "base64"`
 
@@ -5774,7 +5928,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `JsonElement MediaType = "application/pdf"`
 
-                    - `class BetaPlainTextSource:`
+                    - `class BetaPlainTextSource`
 
                       - `JsonElement Type = "text"`
 
@@ -5800,23 +5954,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaAdvisorToolResultBlock:`
+          - `class BetaAdvisorToolResultBlock`
 
             - `JsonElement Type = "advisor_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaAdvisorToolResultError:`
+              - `class BetaAdvisorToolResultError`
 
                 - `JsonElement Type = "advisor_tool_result_error"`
 
@@ -5836,7 +5990,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ModelNotFound("model_not_found")`
 
-              - `class BetaAdvisorResultBlock:`
+              - `class BetaAdvisorResultBlock`
 
                 - `JsonElement Type = "advisor_result"`
 
@@ -5846,7 +6000,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Text`
 
-              - `class BetaAdvisorRedactedResultBlock:`
+              - `class BetaAdvisorRedactedResultBlock`
 
                 - `JsonElement Type = "advisor_redacted_result"`
 
@@ -5862,13 +6016,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaCodeExecutionToolResultBlock:`
+          - `class BetaCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "code_execution_tool_result"`
 
             - `required BetaCodeExecutionToolResultBlockContent Content`
 
-              - `class BetaCodeExecutionToolResultError:`
+              - `class BetaCodeExecutionToolResultError`
 
                 - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -5882,7 +6036,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `class BetaCodeExecutionResultBlock:`
+              - `class BetaCodeExecutionResultBlock`
 
                 - `JsonElement Type = "code_execution_result"`
 
@@ -5898,7 +6052,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Stdout`
 
-              - `class BetaEncryptedCodeExecutionResultBlock:`
+              - `class BetaEncryptedCodeExecutionResultBlock`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -5920,13 +6074,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaBashCodeExecutionToolResultBlock:`
+          - `class BetaBashCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaBashCodeExecutionToolResultError:`
+              - `class BetaBashCodeExecutionToolResultError`
 
                 - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -5942,7 +6096,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OutputFileTooLarge("output_file_too_large")`
 
-              - `class BetaBashCodeExecutionResultBlock:`
+              - `class BetaBashCodeExecutionResultBlock`
 
                 - `JsonElement Type = "bash_code_execution_result"`
 
@@ -5962,13 +6116,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaTextEditorCodeExecutionToolResultBlock:`
+          - `class BetaTextEditorCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaTextEditorCodeExecutionToolResultError:`
+              - `class BetaTextEditorCodeExecutionToolResultError`
 
                 - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -5986,7 +6140,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? ErrorMessage`
 
-              - `class BetaTextEditorCodeExecutionViewResultBlock:`
+              - `class BetaTextEditorCodeExecutionViewResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -6006,13 +6160,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required long? TotalLines`
 
-              - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+              - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_create_result"`
 
                 - `required bool IsFileUpdate`
 
-              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -6030,13 +6184,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaToolSearchToolResultBlock:`
+          - `class BetaToolSearchToolResultBlock`
 
             - `JsonElement Type = "tool_search_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaToolSearchToolResultError:`
+              - `class BetaToolSearchToolResultError`
 
                 - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -6052,7 +6206,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? ErrorMessage`
 
-              - `class BetaToolSearchToolSearchResultBlock:`
+              - `class BetaToolSearchToolSearchResultBlock`
 
                 - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -6068,7 +6222,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaMcpToolUseBlock:`
+          - `class BetaMcpToolUseBlock`
 
             - `JsonElement Type = "mcp_tool_use"`
 
@@ -6086,7 +6240,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-          - `class BetaMcpToolResultBlock:`
+          - `class BetaMcpToolResultBlock`
 
             - `JsonElement Type = "mcp_tool_result"`
 
@@ -6114,7 +6268,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class BetaContainerUploadBlock:`
+          - `class BetaContainerUploadBlock`
 
             Response model for a file uploaded to the container.
 
@@ -6122,7 +6276,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required string FileID`
 
-          - `class BetaCompactionBlock:`
+          - `class BetaCompactionBlock`
 
             A compaction block returned when autocompact is triggered.
 
@@ -6140,7 +6294,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-          - `class BetaFallbackBlock:`
+            - `string? Signature`
+
+              Signature over the summary, to be sent back with the block verbatim
+
+          - `class BetaFallbackBlock`
 
             Marks the point in `content` where one model's output gives way to the next.
 
@@ -6278,7 +6436,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of context management edits that were applied.
 
-            - `class BetaClearToolUses20250919EditResponse:`
+            - `class BetaClearToolUses20250919EditResponse`
 
               - `JsonElement Type = "clear_tool_uses_20250919"`
 
@@ -6296,7 +6454,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaClearThinking20251015EditResponse:`
+            - `class BetaClearThinking20251015EditResponse`
 
               - `JsonElement Type = "clear_thinking_20251015"`
 
@@ -6323,7 +6481,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-            - `class BetaCacheMissModelChanged:`
+            - `class BetaCacheMissModelChanged`
 
               - `JsonElement Type = "model_changed"`
 
@@ -6331,7 +6489,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissSystemChanged:`
+            - `class BetaCacheMissSystemChanged`
 
               - `JsonElement Type = "system_changed"`
 
@@ -6339,7 +6497,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissToolsChanged:`
+            - `class BetaCacheMissToolsChanged`
 
               - `JsonElement Type = "tools_changed"`
 
@@ -6347,7 +6505,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissMessagesChanged:`
+            - `class BetaCacheMissMessagesChanged`
 
               - `JsonElement Type = "messages_changed"`
 
@@ -6355,11 +6513,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissPreviousMessageNotFound:`
+            - `class BetaCacheMissPreviousMessageNotFound`
 
               - `JsonElement Type = "previous_message_not_found"`
 
-            - `class BetaCacheMissUnavailable:`
+            - `class BetaCacheMissUnavailable`
 
               - `JsonElement Type = "unavailable"`
 
@@ -6551,14 +6709,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               resulting shift is zero because there was nothing to move. `not_applied`:
               no reprice was applied; the arm's `reason` says why.
 
-              - `class BetaFallbackCreditRedeemed:`
+              - `class BetaFallbackCreditRedeemed`
 
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
                 - `JsonElement Type = "redeemed"`
 
-              - `class BetaFallbackCreditNotApplied:`
+              - `class BetaFallbackCreditNotApplied`
 
                 No reprice was applied; `reason` says why.
 
@@ -6628,7 +6786,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-            - `class BetaMessageIterationUsage:`
+            - `class BetaMessageIterationUsage`
 
               Token usage for a sampling iteration.
 
@@ -6670,7 +6828,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaCompactionIterationUsage:`
+            - `class BetaCompactionIterationUsage`
 
               Token usage for a compaction iteration.
 
@@ -6706,7 +6864,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaAdvisorMessageIterationUsage:`
+            - `class BetaAdvisorMessageIterationUsage`
 
               Token usage for an advisor sub-inference iteration.
 
@@ -6748,7 +6906,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaFallbackMessageIterationUsage:`
+            - `class BetaFallbackMessageIterationUsage`
 
               Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -6859,59 +7017,99 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Fast("fast")`
 
-        - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+        - `IReadOnlyList<BetaInputTransformation>? InputTransformations`
 
-          Changes the API made to the request's input before showing it to the model:
-          one entry per change, in request order. Today the only entry type is
-          `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-          block from the request's `messages` that was removed from the prompt instead
-          of being shown to the model because it failed a binding check. More entry
-          types may be added over time; ignore types you do not recognize.
+          Changes the API made to the request's input before showing it to the model,
+          and blocks that failed a binding check but were left unchanged: one entry per
+          block, in request order. Two entry types today. `thinking_dropped` — a
+          `thinking`, `redacted_thinking` or `connector_text` block from the request's
+          `messages` that was removed from the prompt instead of being shown to the
+          model because it failed a binding check. `thinking_mismatch_allowed` — a
+          `thinking` or `redacted_thinking` block that failed the conversation check
+          (the conversation before it differs from the one it was created in, or it
+          carries no record of one on a model that requires it) and was shown to the
+          model all the same, because that check is not enforced for this request.
+          More entry types may be added over time; ignore types you do not recognize.
 
           Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
           every such response from a model that supports extended thinking, as `[]`
-          when nothing was changed; without the beta, blocks are removed all the same
-          but nothing is reported. Removed blocks contribute nothing to
-          `usage.input_tokens`. When streaming, the array is final in `message_start`;
-          the final `message_delta` event carries it only when a server-side model
-          fallback happened mid-stream, in which case it holds the serving model's
-          entries and replaces the one in `message_start`.
+          when there is no entry to report; without the beta, blocks are removed or
+          left in place all the same but nothing is reported. Removed blocks contribute
+          nothing to `usage.input_tokens`; blocks left in place count as sent. When
+          streaming, the array is final in `message_start`; the final `message_delta`
+          event carries it only when a server-side model fallback happened mid-stream,
+          in which case it holds the serving model's entries and replaces the one in
+          `message_start`.
 
-          - `JsonElement Type = "thinking_dropped"`
+          - `class BetaThinkingDroppedInputTransformation`
 
-            Always `thinking_dropped` for this entry type.
+            - `JsonElement Type = "thinking_dropped"`
 
-          - `required string Path`
+              Always `thinking_dropped` for this entry type.
 
-            Where the removed block was in your request, as `messages.{i}.content.{j}`:
-            `i` indexes the `messages` array you sent and `j` that message's `content`
-            array — the same form error messages use.
+            - `required string Path`
 
-          - `required Reason Reason`
+              Where the removed block was in your request, as `messages.{i}.content.{j}`:
+              `i` indexes the `messages` array you sent and `j` that message's `content`
+              array — the same form error messages use.
 
-            Which binding check removed the block: `model_binding_mismatch` — it was
-            created by a model whose reasoning the requested model may not read;
-            `prefix_binding_mismatch` — the conversation before it differs from the
-            conversation it was created in (the rest of that turn's consecutive thinking
-            blocks are removed with it, each with this reason);
-            `organization_binding_mismatch` — it was created under a different
-            organization (an Anthropic organization, AWS account or Google Cloud project)
-            and this organization is not one of its additional organizations;
-            `end_user_binding_mismatch` — it was created for a different end user, or
-            was removed by the consumer-organization binding. A block that would fail
-            several checks reports one reason, in this order of precedence:
-            `organization_binding_mismatch`, `end_user_binding_mismatch`,
-            `model_binding_mismatch`, `prefix_binding_mismatch`.
+            - `required Reason Reason`
 
-            - `ModelBindingMismatch("model_binding_mismatch")`
+              Which binding check removed the block: `model_binding_mismatch` — it was
+              created by a model whose reasoning the requested model may not read;
+              `prefix_binding_mismatch` — the conversation before it differs from the
+              conversation it was created in (the rest of that turn's consecutive thinking
+              blocks are removed with it, each with this reason);
+              `organization_binding_mismatch` — it was created under a different
+              organization (an Anthropic organization, AWS account or Google Cloud project)
+              and this organization is not one of its additional organizations;
+              `end_user_binding_mismatch` — it was created for a different end user, or
+              was removed by the consumer-organization binding. A block that would fail
+              several checks reports one reason, in this order of precedence:
+              `organization_binding_mismatch`, `end_user_binding_mismatch`,
+              `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-            - `PrefixBindingMismatch("prefix_binding_mismatch")`
+              - `ModelBindingMismatch("model_binding_mismatch")`
 
-            - `OrganizationBindingMismatch("organization_binding_mismatch")`
+              - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-            - `EndUserBindingMismatch("end_user_binding_mismatch")`
+              - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-    - `class BetaMessageBatchErroredResult:`
+              - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+          - `class BetaThinkingMismatchAllowedInputTransformation`
+
+            - `JsonElement Type = "thinking_mismatch_allowed"`
+
+              Always `thinking_mismatch_allowed` for this entry type.
+
+            - `required string Path`
+
+              Where the block is in your request, as `messages.{i}.content.{j}`:
+              `i` indexes the `messages` array you sent and `j` that message's `content`
+              array — the same form error messages use.
+
+            - `required Reason Reason`
+
+              Which binding check the block failed; the block was shown to the model all
+              the same. Always `prefix_binding_mismatch` today — the conversation before
+              the block differs from the conversation it was created in, or the block
+              carries no record of one on a model that requires it. Were the check
+              enforced for this request, the block would have been removed or the request
+              rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+              takes the rest of that turn's consecutive thinking blocks, whereas here each
+              block is checked on its own, so `thinking_mismatch_allowed` entries are a
+              lower bound on what enforcement would remove.
+
+              - `ModelBindingMismatch("model_binding_mismatch")`
+
+              - `PrefixBindingMismatch("prefix_binding_mismatch")`
+
+              - `OrganizationBindingMismatch("organization_binding_mismatch")`
+
+              - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+    - `class BetaMessageBatchErroredResult`
 
       - `JsonElement Type = "errored"`
 
@@ -6921,55 +7119,55 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `required BetaError Error`
 
-          - `class BetaInvalidRequestError:`
+          - `class BetaInvalidRequestError`
 
             - `JsonElement Type = "invalid_request_error"`
 
             - `required string Message`
 
-          - `class BetaAuthenticationError:`
+          - `class BetaAuthenticationError`
 
             - `JsonElement Type = "authentication_error"`
 
             - `required string Message`
 
-          - `class BetaBillingError:`
+          - `class BetaBillingError`
 
             - `JsonElement Type = "billing_error"`
 
             - `required string Message`
 
-          - `class BetaPermissionError:`
+          - `class BetaPermissionError`
 
             - `JsonElement Type = "permission_error"`
 
             - `required string Message`
 
-          - `class BetaNotFoundError:`
+          - `class BetaNotFoundError`
 
             - `JsonElement Type = "not_found_error"`
 
             - `required string Message`
 
-          - `class BetaRateLimitError:`
+          - `class BetaRateLimitError`
 
             - `JsonElement Type = "rate_limit_error"`
 
             - `required string Message`
 
-          - `class BetaGatewayTimeoutError:`
+          - `class BetaGatewayTimeoutError`
 
             - `JsonElement Type = "timeout_error"`
 
             - `required string Message`
 
-          - `class BetaApiError:`
+          - `class BetaApiError`
 
             - `JsonElement Type = "api_error"`
 
             - `required string Message`
 
-          - `class BetaOverloadedError:`
+          - `class BetaOverloadedError`
 
             - `JsonElement Type = "overloaded_error"`
 
@@ -6977,11 +7175,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `required string? RequestID`
 
-    - `class BetaMessageBatchCanceledResult:`
+    - `class BetaMessageBatchCanceledResult`
 
       - `JsonElement Type = "canceled"`
 
-    - `class BetaMessageBatchExpiredResult:`
+    - `class BetaMessageBatchExpiredResult`
 
       - `JsonElement Type = "expired"`
 
@@ -7000,7 +7198,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
 ### Beta Deleted Message Batch
 
-- `class BetaDeletedMessageBatch:`
+- `class BetaDeletedMessageBatch`
 
   - `JsonElement Type = "message_batch_deleted"`
 
@@ -7014,7 +7212,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
 ### Beta Message Batch
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonElement Type = "message_batch"`
 
@@ -7112,13 +7310,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
 ### Beta Message Batch Canceled Result
 
-- `class BetaMessageBatchCanceledResult:`
+- `class BetaMessageBatchCanceledResult`
 
   - `JsonElement Type = "canceled"`
 
 ### Beta Message Batch Errored Result
 
-- `class BetaMessageBatchErroredResult:`
+- `class BetaMessageBatchErroredResult`
 
   - `JsonElement Type = "errored"`
 
@@ -7128,55 +7326,55 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
     - `required BetaError Error`
 
-      - `class BetaInvalidRequestError:`
+      - `class BetaInvalidRequestError`
 
         - `JsonElement Type = "invalid_request_error"`
 
         - `required string Message`
 
-      - `class BetaAuthenticationError:`
+      - `class BetaAuthenticationError`
 
         - `JsonElement Type = "authentication_error"`
 
         - `required string Message`
 
-      - `class BetaBillingError:`
+      - `class BetaBillingError`
 
         - `JsonElement Type = "billing_error"`
 
         - `required string Message`
 
-      - `class BetaPermissionError:`
+      - `class BetaPermissionError`
 
         - `JsonElement Type = "permission_error"`
 
         - `required string Message`
 
-      - `class BetaNotFoundError:`
+      - `class BetaNotFoundError`
 
         - `JsonElement Type = "not_found_error"`
 
         - `required string Message`
 
-      - `class BetaRateLimitError:`
+      - `class BetaRateLimitError`
 
         - `JsonElement Type = "rate_limit_error"`
 
         - `required string Message`
 
-      - `class BetaGatewayTimeoutError:`
+      - `class BetaGatewayTimeoutError`
 
         - `JsonElement Type = "timeout_error"`
 
         - `required string Message`
 
-      - `class BetaApiError:`
+      - `class BetaApiError`
 
         - `JsonElement Type = "api_error"`
 
         - `required string Message`
 
-      - `class BetaOverloadedError:`
+      - `class BetaOverloadedError`
 
         - `JsonElement Type = "overloaded_error"`
 
@@ -7186,13 +7384,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
 ### Beta Message Batch Expired Result
 
-- `class BetaMessageBatchExpiredResult:`
+- `class BetaMessageBatchExpiredResult`
 
   - `JsonElement Type = "expired"`
 
 ### Beta Message Batch Individual Response
 
-- `class BetaMessageBatchIndividualResponse:`
+- `class BetaMessageBatchIndividualResponse`
 
   This is a single line in the response `.jsonl` file and does not represent the response as a whole.
 
@@ -7208,7 +7406,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-    - `class BetaMessageBatchSucceededResult:`
+    - `class BetaMessageBatchSucceededResult`
 
       - `JsonElement Type = "succeeded"`
 
@@ -7293,7 +7491,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
           [{"type": "text", "text": "B)"}]
           ```
 
-          - `class BetaTextBlock:`
+          - `class BetaTextBlock`
 
             - `JsonElement Type = "text"`
 
@@ -7303,7 +7501,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-              - `class BetaCitationCharLocation:`
+              - `class BetaCitationCharLocation`
 
                 - `JsonElement Type = "char_location"`
 
@@ -7323,7 +7521,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   minimum: 0
 
-              - `class BetaCitationPageLocation:`
+              - `class BetaCitationPageLocation`
 
                 - `JsonElement Type = "page_location"`
 
@@ -7343,7 +7541,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   minimum: 1
 
-              - `class BetaCitationContentBlockLocation:`
+              - `class BetaCitationContentBlockLocation`
 
                 - `JsonElement Type = "content_block_location"`
 
@@ -7373,7 +7571,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   minimum: 0
 
-              - `class BetaCitationsWebSearchResultLocation:`
+              - `class BetaCitationsWebSearchResultLocation`
 
                 - `JsonElement Type = "web_search_result_location"`
 
@@ -7387,7 +7585,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Url`
 
-              - `class BetaCitationSearchResultLocation:`
+              - `class BetaCitationSearchResultLocation`
 
                 - `JsonElement Type = "search_result_location"`
 
@@ -7425,7 +7623,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minLength: 0
 
-          - `class BetaThinkingBlock:`
+          - `class BetaThinkingBlock`
 
             - `JsonElement Type = "thinking"`
 
@@ -7441,7 +7639,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The text of Claude's thinking process for this block.
 
-          - `class BetaRedactedThinkingBlock:`
+          - `class BetaRedactedThinkingBlock`
 
             - `JsonElement Type = "redacted_thinking"`
 
@@ -7453,7 +7651,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `class BetaToolUseBlock:`
+          - `class BetaToolUseBlock`
 
             - `JsonElement Type = "tool_use"`
 
@@ -7469,13 +7667,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
                 - `JsonElement Type = "direct"`
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
@@ -7485,7 +7683,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
                 - `JsonElement Type = "code_execution_20260120"`
 
@@ -7499,7 +7697,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class BetaServerToolUseBlock:`
+          - `class BetaServerToolUseBlock`
 
             - `JsonElement Type = "server_tool_use"`
 
@@ -7529,23 +7727,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaWebSearchToolResultBlock:`
+          - `class BetaWebSearchToolResultBlock`
 
             - `JsonElement Type = "web_search_tool_result"`
 
             - `required BetaWebSearchToolResultBlockContent Content`
 
-              - `class BetaWebSearchToolResultError:`
+              - `class BetaWebSearchToolResultError`
 
                 - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -7581,23 +7779,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaWebFetchToolResultBlock:`
+          - `class BetaWebFetchToolResultBlock`
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaWebFetchToolResultErrorBlock:`
+              - `class BetaWebFetchToolResultErrorBlock`
 
                 - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -7623,7 +7821,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `ContentTooLarge("content_too_large")`
 
-              - `class BetaWebFetchBlock:`
+              - `class BetaWebFetchBlock`
 
                 - `JsonElement Type = "web_fetch_result"`
 
@@ -7639,7 +7837,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `required Source Source`
 
-                    - `class BetaBase64PdfSource:`
+                    - `class BetaBase64PdfSource`
 
                       - `JsonElement Type = "base64"`
 
@@ -7649,7 +7847,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                       - `JsonElement MediaType = "application/pdf"`
 
-                    - `class BetaPlainTextSource:`
+                    - `class BetaPlainTextSource`
 
                       - `JsonElement Type = "text"`
 
@@ -7675,23 +7873,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `Caller Caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaAdvisorToolResultBlock:`
+          - `class BetaAdvisorToolResultBlock`
 
             - `JsonElement Type = "advisor_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaAdvisorToolResultError:`
+              - `class BetaAdvisorToolResultError`
 
                 - `JsonElement Type = "advisor_tool_result_error"`
 
@@ -7711,7 +7909,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `ModelNotFound("model_not_found")`
 
-              - `class BetaAdvisorResultBlock:`
+              - `class BetaAdvisorResultBlock`
 
                 - `JsonElement Type = "advisor_result"`
 
@@ -7721,7 +7919,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Text`
 
-              - `class BetaAdvisorRedactedResultBlock:`
+              - `class BetaAdvisorRedactedResultBlock`
 
                 - `JsonElement Type = "advisor_redacted_result"`
 
@@ -7737,13 +7935,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaCodeExecutionToolResultBlock:`
+          - `class BetaCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "code_execution_tool_result"`
 
             - `required BetaCodeExecutionToolResultBlockContent Content`
 
-              - `class BetaCodeExecutionToolResultError:`
+              - `class BetaCodeExecutionToolResultError`
 
                 - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -7757,7 +7955,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-              - `class BetaCodeExecutionResultBlock:`
+              - `class BetaCodeExecutionResultBlock`
 
                 - `JsonElement Type = "code_execution_result"`
 
@@ -7773,7 +7971,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string Stdout`
 
-              - `class BetaEncryptedCodeExecutionResultBlock:`
+              - `class BetaEncryptedCodeExecutionResultBlock`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -7795,13 +7993,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaBashCodeExecutionToolResultBlock:`
+          - `class BetaBashCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaBashCodeExecutionToolResultError:`
+              - `class BetaBashCodeExecutionToolResultError`
 
                 - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -7817,7 +8015,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `OutputFileTooLarge("output_file_too_large")`
 
-              - `class BetaBashCodeExecutionResultBlock:`
+              - `class BetaBashCodeExecutionResultBlock`
 
                 - `JsonElement Type = "bash_code_execution_result"`
 
@@ -7837,13 +8035,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaTextEditorCodeExecutionToolResultBlock:`
+          - `class BetaTextEditorCodeExecutionToolResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaTextEditorCodeExecutionToolResultError:`
+              - `class BetaTextEditorCodeExecutionToolResultError`
 
                 - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -7861,7 +8059,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string? ErrorMessage`
 
-              - `class BetaTextEditorCodeExecutionViewResultBlock:`
+              - `class BetaTextEditorCodeExecutionViewResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -7881,13 +8079,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required long? TotalLines`
 
-              - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+              - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_create_result"`
 
                 - `required bool IsFileUpdate`
 
-              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
                 - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -7905,13 +8103,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaToolSearchToolResultBlock:`
+          - `class BetaToolSearchToolResultBlock`
 
             - `JsonElement Type = "tool_search_tool_result"`
 
             - `required Content Content`
 
-              - `class BetaToolSearchToolResultError:`
+              - `class BetaToolSearchToolResultError`
 
                 - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -7927,7 +8125,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required string? ErrorMessage`
 
-              - `class BetaToolSearchToolSearchResultBlock:`
+              - `class BetaToolSearchToolSearchResultBlock`
 
                 - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -7943,7 +8141,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaMcpToolUseBlock:`
+          - `class BetaMcpToolUseBlock`
 
             - `JsonElement Type = "mcp_tool_use"`
 
@@ -7961,7 +8159,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               The name of the MCP server
 
-          - `class BetaMcpToolResultBlock:`
+          - `class BetaMcpToolResultBlock`
 
             - `JsonElement Type = "mcp_tool_result"`
 
@@ -7989,7 +8187,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class BetaContainerUploadBlock:`
+          - `class BetaContainerUploadBlock`
 
             Response model for a file uploaded to the container.
 
@@ -7997,7 +8195,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string FileID`
 
-          - `class BetaCompactionBlock:`
+          - `class BetaCompactionBlock`
 
             A compaction block returned when autocompact is triggered.
 
@@ -8015,7 +8213,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-          - `class BetaFallbackBlock:`
+            - `string? Signature`
+
+              Signature over the summary, to be sent back with the block verbatim
+
+          - `class BetaFallbackBlock`
 
             Marks the point in `content` where one model's output gives way to the next.
 
@@ -8153,7 +8355,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             List of context management edits that were applied.
 
-            - `class BetaClearToolUses20250919EditResponse:`
+            - `class BetaClearToolUses20250919EditResponse`
 
               - `JsonElement Type = "clear_tool_uses_20250919"`
 
@@ -8171,7 +8373,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-            - `class BetaClearThinking20251015EditResponse:`
+            - `class BetaClearThinking20251015EditResponse`
 
               - `JsonElement Type = "clear_thinking_20251015"`
 
@@ -8198,7 +8400,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-            - `class BetaCacheMissModelChanged:`
+            - `class BetaCacheMissModelChanged`
 
               - `JsonElement Type = "model_changed"`
 
@@ -8206,7 +8408,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissSystemChanged:`
+            - `class BetaCacheMissSystemChanged`
 
               - `JsonElement Type = "system_changed"`
 
@@ -8214,7 +8416,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissToolsChanged:`
+            - `class BetaCacheMissToolsChanged`
 
               - `JsonElement Type = "tools_changed"`
 
@@ -8222,7 +8424,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissMessagesChanged:`
+            - `class BetaCacheMissMessagesChanged`
 
               - `JsonElement Type = "messages_changed"`
 
@@ -8230,11 +8432,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissPreviousMessageNotFound:`
+            - `class BetaCacheMissPreviousMessageNotFound`
 
               - `JsonElement Type = "previous_message_not_found"`
 
-            - `class BetaCacheMissUnavailable:`
+            - `class BetaCacheMissUnavailable`
 
               - `JsonElement Type = "unavailable"`
 
@@ -8426,14 +8628,14 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
               resulting shift is zero because there was nothing to move. `not_applied`:
               no reprice was applied; the arm's `reason` says why.
 
-              - `class BetaFallbackCreditRedeemed:`
+              - `class BetaFallbackCreditRedeemed`
 
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
                 - `JsonElement Type = "redeemed"`
 
-              - `class BetaFallbackCreditNotApplied:`
+              - `class BetaFallbackCreditNotApplied`
 
                 No reprice was applied; `reason` says why.
 
@@ -8503,7 +8705,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-            - `class BetaMessageIterationUsage:`
+            - `class BetaMessageIterationUsage`
 
               Token usage for a sampling iteration.
 
@@ -8545,7 +8747,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-            - `class BetaCompactionIterationUsage:`
+            - `class BetaCompactionIterationUsage`
 
               Token usage for a compaction iteration.
 
@@ -8581,7 +8783,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-            - `class BetaAdvisorMessageIterationUsage:`
+            - `class BetaAdvisorMessageIterationUsage`
 
               Token usage for an advisor sub-inference iteration.
 
@@ -8623,7 +8825,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-            - `class BetaFallbackMessageIterationUsage:`
+            - `class BetaFallbackMessageIterationUsage`
 
               Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -8734,59 +8936,99 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `Fast("fast")`
 
-        - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+        - `IReadOnlyList<BetaInputTransformation>? InputTransformations`
 
-          Changes the API made to the request's input before showing it to the model:
-          one entry per change, in request order. Today the only entry type is
-          `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-          block from the request's `messages` that was removed from the prompt instead
-          of being shown to the model because it failed a binding check. More entry
-          types may be added over time; ignore types you do not recognize.
+          Changes the API made to the request's input before showing it to the model,
+          and blocks that failed a binding check but were left unchanged: one entry per
+          block, in request order. Two entry types today. `thinking_dropped` — a
+          `thinking`, `redacted_thinking` or `connector_text` block from the request's
+          `messages` that was removed from the prompt instead of being shown to the
+          model because it failed a binding check. `thinking_mismatch_allowed` — a
+          `thinking` or `redacted_thinking` block that failed the conversation check
+          (the conversation before it differs from the one it was created in, or it
+          carries no record of one on a model that requires it) and was shown to the
+          model all the same, because that check is not enforced for this request.
+          More entry types may be added over time; ignore types you do not recognize.
 
           Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
           every such response from a model that supports extended thinking, as `[]`
-          when nothing was changed; without the beta, blocks are removed all the same
-          but nothing is reported. Removed blocks contribute nothing to
-          `usage.input_tokens`. When streaming, the array is final in `message_start`;
-          the final `message_delta` event carries it only when a server-side model
-          fallback happened mid-stream, in which case it holds the serving model's
-          entries and replaces the one in `message_start`.
+          when there is no entry to report; without the beta, blocks are removed or
+          left in place all the same but nothing is reported. Removed blocks contribute
+          nothing to `usage.input_tokens`; blocks left in place count as sent. When
+          streaming, the array is final in `message_start`; the final `message_delta`
+          event carries it only when a server-side model fallback happened mid-stream,
+          in which case it holds the serving model's entries and replaces the one in
+          `message_start`.
 
-          - `JsonElement Type = "thinking_dropped"`
+          - `class BetaThinkingDroppedInputTransformation`
 
-            Always `thinking_dropped` for this entry type.
+            - `JsonElement Type = "thinking_dropped"`
 
-          - `required string Path`
+              Always `thinking_dropped` for this entry type.
 
-            Where the removed block was in your request, as `messages.{i}.content.{j}`:
-            `i` indexes the `messages` array you sent and `j` that message's `content`
-            array — the same form error messages use.
+            - `required string Path`
 
-          - `required Reason Reason`
+              Where the removed block was in your request, as `messages.{i}.content.{j}`:
+              `i` indexes the `messages` array you sent and `j` that message's `content`
+              array — the same form error messages use.
 
-            Which binding check removed the block: `model_binding_mismatch` — it was
-            created by a model whose reasoning the requested model may not read;
-            `prefix_binding_mismatch` — the conversation before it differs from the
-            conversation it was created in (the rest of that turn's consecutive thinking
-            blocks are removed with it, each with this reason);
-            `organization_binding_mismatch` — it was created under a different
-            organization (an Anthropic organization, AWS account or Google Cloud project)
-            and this organization is not one of its additional organizations;
-            `end_user_binding_mismatch` — it was created for a different end user, or
-            was removed by the consumer-organization binding. A block that would fail
-            several checks reports one reason, in this order of precedence:
-            `organization_binding_mismatch`, `end_user_binding_mismatch`,
-            `model_binding_mismatch`, `prefix_binding_mismatch`.
+            - `required Reason Reason`
 
-            - `ModelBindingMismatch("model_binding_mismatch")`
+              Which binding check removed the block: `model_binding_mismatch` — it was
+              created by a model whose reasoning the requested model may not read;
+              `prefix_binding_mismatch` — the conversation before it differs from the
+              conversation it was created in (the rest of that turn's consecutive thinking
+              blocks are removed with it, each with this reason);
+              `organization_binding_mismatch` — it was created under a different
+              organization (an Anthropic organization, AWS account or Google Cloud project)
+              and this organization is not one of its additional organizations;
+              `end_user_binding_mismatch` — it was created for a different end user, or
+              was removed by the consumer-organization binding. A block that would fail
+              several checks reports one reason, in this order of precedence:
+              `organization_binding_mismatch`, `end_user_binding_mismatch`,
+              `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-            - `PrefixBindingMismatch("prefix_binding_mismatch")`
+              - `ModelBindingMismatch("model_binding_mismatch")`
 
-            - `OrganizationBindingMismatch("organization_binding_mismatch")`
+              - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-            - `EndUserBindingMismatch("end_user_binding_mismatch")`
+              - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-    - `class BetaMessageBatchErroredResult:`
+              - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+          - `class BetaThinkingMismatchAllowedInputTransformation`
+
+            - `JsonElement Type = "thinking_mismatch_allowed"`
+
+              Always `thinking_mismatch_allowed` for this entry type.
+
+            - `required string Path`
+
+              Where the block is in your request, as `messages.{i}.content.{j}`:
+              `i` indexes the `messages` array you sent and `j` that message's `content`
+              array — the same form error messages use.
+
+            - `required Reason Reason`
+
+              Which binding check the block failed; the block was shown to the model all
+              the same. Always `prefix_binding_mismatch` today — the conversation before
+              the block differs from the conversation it was created in, or the block
+              carries no record of one on a model that requires it. Were the check
+              enforced for this request, the block would have been removed or the request
+              rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+              takes the rest of that turn's consecutive thinking blocks, whereas here each
+              block is checked on its own, so `thinking_mismatch_allowed` entries are a
+              lower bound on what enforcement would remove.
+
+              - `ModelBindingMismatch("model_binding_mismatch")`
+
+              - `PrefixBindingMismatch("prefix_binding_mismatch")`
+
+              - `OrganizationBindingMismatch("organization_binding_mismatch")`
+
+              - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+    - `class BetaMessageBatchErroredResult`
 
       - `JsonElement Type = "errored"`
 
@@ -8796,55 +9038,55 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `required BetaError Error`
 
-          - `class BetaInvalidRequestError:`
+          - `class BetaInvalidRequestError`
 
             - `JsonElement Type = "invalid_request_error"`
 
             - `required string Message`
 
-          - `class BetaAuthenticationError:`
+          - `class BetaAuthenticationError`
 
             - `JsonElement Type = "authentication_error"`
 
             - `required string Message`
 
-          - `class BetaBillingError:`
+          - `class BetaBillingError`
 
             - `JsonElement Type = "billing_error"`
 
             - `required string Message`
 
-          - `class BetaPermissionError:`
+          - `class BetaPermissionError`
 
             - `JsonElement Type = "permission_error"`
 
             - `required string Message`
 
-          - `class BetaNotFoundError:`
+          - `class BetaNotFoundError`
 
             - `JsonElement Type = "not_found_error"`
 
             - `required string Message`
 
-          - `class BetaRateLimitError:`
+          - `class BetaRateLimitError`
 
             - `JsonElement Type = "rate_limit_error"`
 
             - `required string Message`
 
-          - `class BetaGatewayTimeoutError:`
+          - `class BetaGatewayTimeoutError`
 
             - `JsonElement Type = "timeout_error"`
 
             - `required string Message`
 
-          - `class BetaApiError:`
+          - `class BetaApiError`
 
             - `JsonElement Type = "api_error"`
 
             - `required string Message`
 
-          - `class BetaOverloadedError:`
+          - `class BetaOverloadedError`
 
             - `JsonElement Type = "overloaded_error"`
 
@@ -8852,17 +9094,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `required string? RequestID`
 
-    - `class BetaMessageBatchCanceledResult:`
+    - `class BetaMessageBatchCanceledResult`
 
       - `JsonElement Type = "canceled"`
 
-    - `class BetaMessageBatchExpiredResult:`
+    - `class BetaMessageBatchExpiredResult`
 
       - `JsonElement Type = "expired"`
 
 ### Beta Message Batch Request Counts
 
-- `class BetaMessageBatchRequestCounts:`
+- `class BetaMessageBatchRequestCounts`
 
   - `required long Canceled`
 
@@ -8900,7 +9142,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
   Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-  - `class BetaMessageBatchSucceededResult:`
+  - `class BetaMessageBatchSucceededResult`
 
     - `JsonElement Type = "succeeded"`
 
@@ -8985,7 +9227,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
         [{"type": "text", "text": "B)"}]
         ```
 
-        - `class BetaTextBlock:`
+        - `class BetaTextBlock`
 
           - `JsonElement Type = "text"`
 
@@ -8995,7 +9237,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-            - `class BetaCitationCharLocation:`
+            - `class BetaCitationCharLocation`
 
               - `JsonElement Type = "char_location"`
 
@@ -9015,7 +9257,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-            - `class BetaCitationPageLocation:`
+            - `class BetaCitationPageLocation`
 
               - `JsonElement Type = "page_location"`
 
@@ -9035,7 +9277,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 1
 
-            - `class BetaCitationContentBlockLocation:`
+            - `class BetaCitationContentBlockLocation`
 
               - `JsonElement Type = "content_block_location"`
 
@@ -9065,7 +9307,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 minimum: 0
 
-            - `class BetaCitationsWebSearchResultLocation:`
+            - `class BetaCitationsWebSearchResultLocation`
 
               - `JsonElement Type = "web_search_result_location"`
 
@@ -9079,7 +9321,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Url`
 
-            - `class BetaCitationSearchResultLocation:`
+            - `class BetaCitationSearchResultLocation`
 
               - `JsonElement Type = "search_result_location"`
 
@@ -9117,7 +9359,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minLength: 0
 
-        - `class BetaThinkingBlock:`
+        - `class BetaThinkingBlock`
 
           - `JsonElement Type = "thinking"`
 
@@ -9133,7 +9375,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The text of Claude's thinking process for this block.
 
-        - `class BetaRedactedThinkingBlock:`
+        - `class BetaRedactedThinkingBlock`
 
           - `JsonElement Type = "redacted_thinking"`
 
@@ -9145,7 +9387,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `class BetaToolUseBlock:`
+        - `class BetaToolUseBlock`
 
           - `JsonElement Type = "tool_use"`
 
@@ -9161,13 +9403,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `Caller Caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonElement Type = "direct"`
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -9177,7 +9419,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
               - `JsonElement Type = "code_execution_20260120"`
 
@@ -9191,7 +9433,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaServerToolUseBlock:`
+        - `class BetaServerToolUseBlock`
 
           - `JsonElement Type = "server_tool_use"`
 
@@ -9221,23 +9463,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `Caller Caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebSearchToolResultBlock:`
+        - `class BetaWebSearchToolResultBlock`
 
           - `JsonElement Type = "web_search_tool_result"`
 
           - `required BetaWebSearchToolResultBlockContent Content`
 
-            - `class BetaWebSearchToolResultError:`
+            - `class BetaWebSearchToolResultError`
 
               - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -9273,23 +9515,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `Caller Caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebFetchToolResultBlock:`
+        - `class BetaWebFetchToolResultBlock`
 
           - `JsonElement Type = "web_fetch_tool_result"`
 
           - `required Content Content`
 
-            - `class BetaWebFetchToolResultErrorBlock:`
+            - `class BetaWebFetchToolResultErrorBlock`
 
               - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -9315,7 +9557,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `ContentTooLarge("content_too_large")`
 
-            - `class BetaWebFetchBlock:`
+            - `class BetaWebFetchBlock`
 
               - `JsonElement Type = "web_fetch_result"`
 
@@ -9331,7 +9573,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `required Source Source`
 
-                  - `class BetaBase64PdfSource:`
+                  - `class BetaBase64PdfSource`
 
                     - `JsonElement Type = "base64"`
 
@@ -9341,7 +9583,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                     - `JsonElement MediaType = "application/pdf"`
 
-                  - `class BetaPlainTextSource:`
+                  - `class BetaPlainTextSource`
 
                     - `JsonElement Type = "text"`
 
@@ -9367,23 +9609,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `Caller Caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaAdvisorToolResultBlock:`
+        - `class BetaAdvisorToolResultBlock`
 
           - `JsonElement Type = "advisor_tool_result"`
 
           - `required Content Content`
 
-            - `class BetaAdvisorToolResultError:`
+            - `class BetaAdvisorToolResultError`
 
               - `JsonElement Type = "advisor_tool_result_error"`
 
@@ -9403,7 +9645,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `ModelNotFound("model_not_found")`
 
-            - `class BetaAdvisorResultBlock:`
+            - `class BetaAdvisorResultBlock`
 
               - `JsonElement Type = "advisor_result"`
 
@@ -9413,7 +9655,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Text`
 
-            - `class BetaAdvisorRedactedResultBlock:`
+            - `class BetaAdvisorRedactedResultBlock`
 
               - `JsonElement Type = "advisor_redacted_result"`
 
@@ -9429,13 +9671,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaCodeExecutionToolResultBlock:`
+        - `class BetaCodeExecutionToolResultBlock`
 
           - `JsonElement Type = "code_execution_tool_result"`
 
           - `required BetaCodeExecutionToolResultBlockContent Content`
 
-            - `class BetaCodeExecutionToolResultError:`
+            - `class BetaCodeExecutionToolResultError`
 
               - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -9449,7 +9691,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-            - `class BetaCodeExecutionResultBlock:`
+            - `class BetaCodeExecutionResultBlock`
 
               - `JsonElement Type = "code_execution_result"`
 
@@ -9465,7 +9707,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string Stdout`
 
-            - `class BetaEncryptedCodeExecutionResultBlock:`
+            - `class BetaEncryptedCodeExecutionResultBlock`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9487,13 +9729,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaBashCodeExecutionToolResultBlock:`
+        - `class BetaBashCodeExecutionToolResultBlock`
 
           - `JsonElement Type = "bash_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class BetaBashCodeExecutionToolResultError:`
+            - `class BetaBashCodeExecutionToolResultError`
 
               - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -9509,7 +9751,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                 - `OutputFileTooLarge("output_file_too_large")`
 
-            - `class BetaBashCodeExecutionResultBlock:`
+            - `class BetaBashCodeExecutionResultBlock`
 
               - `JsonElement Type = "bash_code_execution_result"`
 
@@ -9529,13 +9771,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaTextEditorCodeExecutionToolResultBlock:`
+        - `class BetaTextEditorCodeExecutionToolResultBlock`
 
           - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
           - `required Content Content`
 
-            - `class BetaTextEditorCodeExecutionToolResultError:`
+            - `class BetaTextEditorCodeExecutionToolResultError`
 
               - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -9553,7 +9795,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string? ErrorMessage`
 
-            - `class BetaTextEditorCodeExecutionViewResultBlock:`
+            - `class BetaTextEditorCodeExecutionViewResultBlock`
 
               - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -9573,13 +9815,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required long? TotalLines`
 
-            - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+            - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
               - `JsonElement Type = "text_editor_code_execution_create_result"`
 
               - `required bool IsFileUpdate`
 
-            - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+            - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
               - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -9597,13 +9839,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaToolSearchToolResultBlock:`
+        - `class BetaToolSearchToolResultBlock`
 
           - `JsonElement Type = "tool_search_tool_result"`
 
           - `required Content Content`
 
-            - `class BetaToolSearchToolResultError:`
+            - `class BetaToolSearchToolResultError`
 
               - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -9619,7 +9861,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required string? ErrorMessage`
 
-            - `class BetaToolSearchToolSearchResultBlock:`
+            - `class BetaToolSearchToolSearchResultBlock`
 
               - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -9635,7 +9877,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaMcpToolUseBlock:`
+        - `class BetaMcpToolUseBlock`
 
           - `JsonElement Type = "mcp_tool_use"`
 
@@ -9653,7 +9895,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             The name of the MCP server
 
-        - `class BetaMcpToolResultBlock:`
+        - `class BetaMcpToolResultBlock`
 
           - `JsonElement Type = "mcp_tool_result"`
 
@@ -9681,7 +9923,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaContainerUploadBlock:`
+        - `class BetaContainerUploadBlock`
 
           Response model for a file uploaded to the container.
 
@@ -9689,7 +9931,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `required string FileID`
 
-        - `class BetaCompactionBlock:`
+        - `class BetaCompactionBlock`
 
           A compaction block returned when autocompact is triggered.
 
@@ -9707,7 +9949,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `class BetaFallbackBlock:`
+          - `string? Signature`
+
+            Signature over the summary, to be sent back with the block verbatim
+
+        - `class BetaFallbackBlock`
 
           Marks the point in `content` where one model's output gives way to the next.
 
@@ -9845,7 +10091,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           List of context management edits that were applied.
 
-          - `class BetaClearToolUses20250919EditResponse:`
+          - `class BetaClearToolUses20250919EditResponse`
 
             - `JsonElement Type = "clear_tool_uses_20250919"`
 
@@ -9863,7 +10109,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-          - `class BetaClearThinking20251015EditResponse:`
+          - `class BetaClearThinking20251015EditResponse`
 
             - `JsonElement Type = "clear_thinking_20251015"`
 
@@ -9890,7 +10136,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-          - `class BetaCacheMissModelChanged:`
+          - `class BetaCacheMissModelChanged`
 
             - `JsonElement Type = "model_changed"`
 
@@ -9898,7 +10144,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissSystemChanged:`
+          - `class BetaCacheMissSystemChanged`
 
             - `JsonElement Type = "system_changed"`
 
@@ -9906,7 +10152,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissToolsChanged:`
+          - `class BetaCacheMissToolsChanged`
 
             - `JsonElement Type = "tools_changed"`
 
@@ -9914,7 +10160,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissMessagesChanged:`
+          - `class BetaCacheMissMessagesChanged`
 
             - `JsonElement Type = "messages_changed"`
 
@@ -9922,11 +10168,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissPreviousMessageNotFound:`
+          - `class BetaCacheMissPreviousMessageNotFound`
 
             - `JsonElement Type = "previous_message_not_found"`
 
-          - `class BetaCacheMissUnavailable:`
+          - `class BetaCacheMissUnavailable`
 
             - `JsonElement Type = "unavailable"`
 
@@ -10118,14 +10364,14 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
             resulting shift is zero because there was nothing to move. `not_applied`:
             no reprice was applied; the arm's `reason` says why.
 
-            - `class BetaFallbackCreditRedeemed:`
+            - `class BetaFallbackCreditRedeemed`
 
               The reprice was applied: the retry is billed as if the conversation
               had been on the retry model all along.
 
               - `JsonElement Type = "redeemed"`
 
-            - `class BetaFallbackCreditNotApplied:`
+            - `class BetaFallbackCreditNotApplied`
 
               No reprice was applied; `reason` says why.
 
@@ -10195,7 +10441,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-          - `class BetaMessageIterationUsage:`
+          - `class BetaMessageIterationUsage`
 
             Token usage for a sampling iteration.
 
@@ -10237,7 +10483,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-          - `class BetaCompactionIterationUsage:`
+          - `class BetaCompactionIterationUsage`
 
             Token usage for a compaction iteration.
 
@@ -10273,7 +10519,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-          - `class BetaAdvisorMessageIterationUsage:`
+          - `class BetaAdvisorMessageIterationUsage`
 
             Token usage for an advisor sub-inference iteration.
 
@@ -10315,7 +10561,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-          - `class BetaFallbackMessageIterationUsage:`
+          - `class BetaFallbackMessageIterationUsage`
 
             Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -10426,59 +10672,99 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           - `Fast("fast")`
 
-      - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+      - `IReadOnlyList<BetaInputTransformation>? InputTransformations`
 
-        Changes the API made to the request's input before showing it to the model:
-        one entry per change, in request order. Today the only entry type is
-        `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-        block from the request's `messages` that was removed from the prompt instead
-        of being shown to the model because it failed a binding check. More entry
-        types may be added over time; ignore types you do not recognize.
+        Changes the API made to the request's input before showing it to the model,
+        and blocks that failed a binding check but were left unchanged: one entry per
+        block, in request order. Two entry types today. `thinking_dropped` — a
+        `thinking`, `redacted_thinking` or `connector_text` block from the request's
+        `messages` that was removed from the prompt instead of being shown to the
+        model because it failed a binding check. `thinking_mismatch_allowed` — a
+        `thinking` or `redacted_thinking` block that failed the conversation check
+        (the conversation before it differs from the one it was created in, or it
+        carries no record of one on a model that requires it) and was shown to the
+        model all the same, because that check is not enforced for this request.
+        More entry types may be added over time; ignore types you do not recognize.
 
         Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
         every such response from a model that supports extended thinking, as `[]`
-        when nothing was changed; without the beta, blocks are removed all the same
-        but nothing is reported. Removed blocks contribute nothing to
-        `usage.input_tokens`. When streaming, the array is final in `message_start`;
-        the final `message_delta` event carries it only when a server-side model
-        fallback happened mid-stream, in which case it holds the serving model's
-        entries and replaces the one in `message_start`.
+        when there is no entry to report; without the beta, blocks are removed or
+        left in place all the same but nothing is reported. Removed blocks contribute
+        nothing to `usage.input_tokens`; blocks left in place count as sent. When
+        streaming, the array is final in `message_start`; the final `message_delta`
+        event carries it only when a server-side model fallback happened mid-stream,
+        in which case it holds the serving model's entries and replaces the one in
+        `message_start`.
 
-        - `JsonElement Type = "thinking_dropped"`
+        - `class BetaThinkingDroppedInputTransformation`
 
-          Always `thinking_dropped` for this entry type.
+          - `JsonElement Type = "thinking_dropped"`
 
-        - `required string Path`
+            Always `thinking_dropped` for this entry type.
 
-          Where the removed block was in your request, as `messages.{i}.content.{j}`:
-          `i` indexes the `messages` array you sent and `j` that message's `content`
-          array — the same form error messages use.
+          - `required string Path`
 
-        - `required Reason Reason`
+            Where the removed block was in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
 
-          Which binding check removed the block: `model_binding_mismatch` — it was
-          created by a model whose reasoning the requested model may not read;
-          `prefix_binding_mismatch` — the conversation before it differs from the
-          conversation it was created in (the rest of that turn's consecutive thinking
-          blocks are removed with it, each with this reason);
-          `organization_binding_mismatch` — it was created under a different
-          organization (an Anthropic organization, AWS account or Google Cloud project)
-          and this organization is not one of its additional organizations;
-          `end_user_binding_mismatch` — it was created for a different end user, or
-          was removed by the consumer-organization binding. A block that would fail
-          several checks reports one reason, in this order of precedence:
-          `organization_binding_mismatch`, `end_user_binding_mismatch`,
-          `model_binding_mismatch`, `prefix_binding_mismatch`.
+          - `required Reason Reason`
 
-          - `ModelBindingMismatch("model_binding_mismatch")`
+            Which binding check removed the block: `model_binding_mismatch` — it was
+            created by a model whose reasoning the requested model may not read;
+            `prefix_binding_mismatch` — the conversation before it differs from the
+            conversation it was created in (the rest of that turn's consecutive thinking
+            blocks are removed with it, each with this reason);
+            `organization_binding_mismatch` — it was created under a different
+            organization (an Anthropic organization, AWS account or Google Cloud project)
+            and this organization is not one of its additional organizations;
+            `end_user_binding_mismatch` — it was created for a different end user, or
+            was removed by the consumer-organization binding. A block that would fail
+            several checks reports one reason, in this order of precedence:
+            `organization_binding_mismatch`, `end_user_binding_mismatch`,
+            `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-          - `PrefixBindingMismatch("prefix_binding_mismatch")`
+            - `ModelBindingMismatch("model_binding_mismatch")`
 
-          - `OrganizationBindingMismatch("organization_binding_mismatch")`
+            - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-          - `EndUserBindingMismatch("end_user_binding_mismatch")`
+            - `OrganizationBindingMismatch("organization_binding_mismatch")`
 
-  - `class BetaMessageBatchErroredResult:`
+            - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+        - `class BetaThinkingMismatchAllowedInputTransformation`
+
+          - `JsonElement Type = "thinking_mismatch_allowed"`
+
+            Always `thinking_mismatch_allowed` for this entry type.
+
+          - `required string Path`
+
+            Where the block is in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
+
+          - `required Reason Reason`
+
+            Which binding check the block failed; the block was shown to the model all
+            the same. Always `prefix_binding_mismatch` today — the conversation before
+            the block differs from the conversation it was created in, or the block
+            carries no record of one on a model that requires it. Were the check
+            enforced for this request, the block would have been removed or the request
+            rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+            takes the rest of that turn's consecutive thinking blocks, whereas here each
+            block is checked on its own, so `thinking_mismatch_allowed` entries are a
+            lower bound on what enforcement would remove.
+
+            - `ModelBindingMismatch("model_binding_mismatch")`
+
+            - `PrefixBindingMismatch("prefix_binding_mismatch")`
+
+            - `OrganizationBindingMismatch("organization_binding_mismatch")`
+
+            - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+  - `class BetaMessageBatchErroredResult`
 
     - `JsonElement Type = "errored"`
 
@@ -10488,55 +10774,55 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
       - `required BetaError Error`
 
-        - `class BetaInvalidRequestError:`
+        - `class BetaInvalidRequestError`
 
           - `JsonElement Type = "invalid_request_error"`
 
           - `required string Message`
 
-        - `class BetaAuthenticationError:`
+        - `class BetaAuthenticationError`
 
           - `JsonElement Type = "authentication_error"`
 
           - `required string Message`
 
-        - `class BetaBillingError:`
+        - `class BetaBillingError`
 
           - `JsonElement Type = "billing_error"`
 
           - `required string Message`
 
-        - `class BetaPermissionError:`
+        - `class BetaPermissionError`
 
           - `JsonElement Type = "permission_error"`
 
           - `required string Message`
 
-        - `class BetaNotFoundError:`
+        - `class BetaNotFoundError`
 
           - `JsonElement Type = "not_found_error"`
 
           - `required string Message`
 
-        - `class BetaRateLimitError:`
+        - `class BetaRateLimitError`
 
           - `JsonElement Type = "rate_limit_error"`
 
           - `required string Message`
 
-        - `class BetaGatewayTimeoutError:`
+        - `class BetaGatewayTimeoutError`
 
           - `JsonElement Type = "timeout_error"`
 
           - `required string Message`
 
-        - `class BetaApiError:`
+        - `class BetaApiError`
 
           - `JsonElement Type = "api_error"`
 
           - `required string Message`
 
-        - `class BetaOverloadedError:`
+        - `class BetaOverloadedError`
 
           - `JsonElement Type = "overloaded_error"`
 
@@ -10544,17 +10830,17 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
       - `required string? RequestID`
 
-  - `class BetaMessageBatchCanceledResult:`
+  - `class BetaMessageBatchCanceledResult`
 
     - `JsonElement Type = "canceled"`
 
-  - `class BetaMessageBatchExpiredResult:`
+  - `class BetaMessageBatchExpiredResult`
 
     - `JsonElement Type = "expired"`
 
 ### Beta Message Batch Succeeded Result
 
-- `class BetaMessageBatchSucceededResult:`
+- `class BetaMessageBatchSucceededResult`
 
   - `JsonElement Type = "succeeded"`
 
@@ -10639,7 +10925,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
       [{"type": "text", "text": "B)"}]
       ```
 
-      - `class BetaTextBlock:`
+      - `class BetaTextBlock`
 
         - `JsonElement Type = "text"`
 
@@ -10649,7 +10935,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-          - `class BetaCitationCharLocation:`
+          - `class BetaCitationCharLocation`
 
             - `JsonElement Type = "char_location"`
 
@@ -10669,7 +10955,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-          - `class BetaCitationPageLocation:`
+          - `class BetaCitationPageLocation`
 
             - `JsonElement Type = "page_location"`
 
@@ -10689,7 +10975,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 1
 
-          - `class BetaCitationContentBlockLocation:`
+          - `class BetaCitationContentBlockLocation`
 
             - `JsonElement Type = "content_block_location"`
 
@@ -10719,7 +11005,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               minimum: 0
 
-          - `class BetaCitationsWebSearchResultLocation:`
+          - `class BetaCitationsWebSearchResultLocation`
 
             - `JsonElement Type = "web_search_result_location"`
 
@@ -10733,7 +11019,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Url`
 
-          - `class BetaCitationSearchResultLocation:`
+          - `class BetaCitationSearchResultLocation`
 
             - `JsonElement Type = "search_result_location"`
 
@@ -10771,7 +11057,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           minLength: 0
 
-      - `class BetaThinkingBlock:`
+      - `class BetaThinkingBlock`
 
         - `JsonElement Type = "thinking"`
 
@@ -10787,7 +11073,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The text of Claude's thinking process for this block.
 
-      - `class BetaRedactedThinkingBlock:`
+      - `class BetaRedactedThinkingBlock`
 
         - `JsonElement Type = "redacted_thinking"`
 
@@ -10799,7 +11085,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `class BetaToolUseBlock:`
+      - `class BetaToolUseBlock`
 
         - `JsonElement Type = "tool_use"`
 
@@ -10815,13 +11101,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `Caller Caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
             - `JsonElement Type = "direct"`
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
@@ -10831,7 +11117,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
             - `JsonElement Type = "code_execution_20260120"`
 
@@ -10845,7 +11131,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaServerToolUseBlock:`
+      - `class BetaServerToolUseBlock`
 
         - `JsonElement Type = "server_tool_use"`
 
@@ -10875,23 +11161,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `Caller Caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebSearchToolResultBlock:`
+      - `class BetaWebSearchToolResultBlock`
 
         - `JsonElement Type = "web_search_tool_result"`
 
         - `required BetaWebSearchToolResultBlockContent Content`
 
-          - `class BetaWebSearchToolResultError:`
+          - `class BetaWebSearchToolResultError`
 
             - `JsonElement Type = "web_search_tool_result_error"`
 
@@ -10927,23 +11213,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `Caller Caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebFetchToolResultBlock:`
+      - `class BetaWebFetchToolResultBlock`
 
         - `JsonElement Type = "web_fetch_tool_result"`
 
         - `required Content Content`
 
-          - `class BetaWebFetchToolResultErrorBlock:`
+          - `class BetaWebFetchToolResultErrorBlock`
 
             - `JsonElement Type = "web_fetch_tool_result_error"`
 
@@ -10969,7 +11255,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `ContentTooLarge("content_too_large")`
 
-          - `class BetaWebFetchBlock:`
+          - `class BetaWebFetchBlock`
 
             - `JsonElement Type = "web_fetch_result"`
 
@@ -10985,7 +11271,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `required Source Source`
 
-                - `class BetaBase64PdfSource:`
+                - `class BetaBase64PdfSource`
 
                   - `JsonElement Type = "base64"`
 
@@ -10995,7 +11281,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
                   - `JsonElement MediaType = "application/pdf"`
 
-                - `class BetaPlainTextSource:`
+                - `class BetaPlainTextSource`
 
                   - `JsonElement Type = "text"`
 
@@ -11021,23 +11307,23 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `Caller Caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaAdvisorToolResultBlock:`
+      - `class BetaAdvisorToolResultBlock`
 
         - `JsonElement Type = "advisor_tool_result"`
 
         - `required Content Content`
 
-          - `class BetaAdvisorToolResultError:`
+          - `class BetaAdvisorToolResultError`
 
             - `JsonElement Type = "advisor_tool_result_error"`
 
@@ -11057,7 +11343,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `ModelNotFound("model_not_found")`
 
-          - `class BetaAdvisorResultBlock:`
+          - `class BetaAdvisorResultBlock`
 
             - `JsonElement Type = "advisor_result"`
 
@@ -11067,7 +11353,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Text`
 
-          - `class BetaAdvisorRedactedResultBlock:`
+          - `class BetaAdvisorRedactedResultBlock`
 
             - `JsonElement Type = "advisor_redacted_result"`
 
@@ -11083,13 +11369,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaCodeExecutionToolResultBlock:`
+      - `class BetaCodeExecutionToolResultBlock`
 
         - `JsonElement Type = "code_execution_tool_result"`
 
         - `required BetaCodeExecutionToolResultBlockContent Content`
 
-          - `class BetaCodeExecutionToolResultError:`
+          - `class BetaCodeExecutionToolResultError`
 
             - `JsonElement Type = "code_execution_tool_result_error"`
 
@@ -11103,7 +11389,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `ExecutionTimeExceeded("execution_time_exceeded")`
 
-          - `class BetaCodeExecutionResultBlock:`
+          - `class BetaCodeExecutionResultBlock`
 
             - `JsonElement Type = "code_execution_result"`
 
@@ -11119,7 +11405,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string Stdout`
 
-          - `class BetaEncryptedCodeExecutionResultBlock:`
+          - `class BetaEncryptedCodeExecutionResultBlock`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -11141,13 +11427,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaBashCodeExecutionToolResultBlock:`
+      - `class BetaBashCodeExecutionToolResultBlock`
 
         - `JsonElement Type = "bash_code_execution_tool_result"`
 
         - `required Content Content`
 
-          - `class BetaBashCodeExecutionToolResultError:`
+          - `class BetaBashCodeExecutionToolResultError`
 
             - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
@@ -11163,7 +11449,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
               - `OutputFileTooLarge("output_file_too_large")`
 
-          - `class BetaBashCodeExecutionResultBlock:`
+          - `class BetaBashCodeExecutionResultBlock`
 
             - `JsonElement Type = "bash_code_execution_result"`
 
@@ -11183,13 +11469,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaTextEditorCodeExecutionToolResultBlock:`
+      - `class BetaTextEditorCodeExecutionToolResultBlock`
 
         - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
         - `required Content Content`
 
-          - `class BetaTextEditorCodeExecutionToolResultError:`
+          - `class BetaTextEditorCodeExecutionToolResultError`
 
             - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
@@ -11207,7 +11493,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string? ErrorMessage`
 
-          - `class BetaTextEditorCodeExecutionViewResultBlock:`
+          - `class BetaTextEditorCodeExecutionViewResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_view_result"`
 
@@ -11227,13 +11513,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required long? TotalLines`
 
-          - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+          - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_create_result"`
 
             - `required bool IsFileUpdate`
 
-          - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+          - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
             - `JsonElement Type = "text_editor_code_execution_str_replace_result"`
 
@@ -11251,13 +11537,13 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaToolSearchToolResultBlock:`
+      - `class BetaToolSearchToolResultBlock`
 
         - `JsonElement Type = "tool_search_tool_result"`
 
         - `required Content Content`
 
-          - `class BetaToolSearchToolResultError:`
+          - `class BetaToolSearchToolResultError`
 
             - `JsonElement Type = "tool_search_tool_result_error"`
 
@@ -11273,7 +11559,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             - `required string? ErrorMessage`
 
-          - `class BetaToolSearchToolSearchResultBlock:`
+          - `class BetaToolSearchToolSearchResultBlock`
 
             - `JsonElement Type = "tool_search_tool_search_result"`
 
@@ -11289,7 +11575,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaMcpToolUseBlock:`
+      - `class BetaMcpToolUseBlock`
 
         - `JsonElement Type = "mcp_tool_use"`
 
@@ -11307,7 +11593,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           The name of the MCP server
 
-      - `class BetaMcpToolResultBlock:`
+      - `class BetaMcpToolResultBlock`
 
         - `JsonElement Type = "mcp_tool_result"`
 
@@ -11335,7 +11621,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaContainerUploadBlock:`
+      - `class BetaContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
@@ -11343,7 +11629,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `required string FileID`
 
-      - `class BetaCompactionBlock:`
+      - `class BetaCompactionBlock`
 
         A compaction block returned when autocompact is triggered.
 
@@ -11361,7 +11647,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-      - `class BetaFallbackBlock:`
+        - `string? Signature`
+
+          Signature over the summary, to be sent back with the block verbatim
+
+      - `class BetaFallbackBlock`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -11499,7 +11789,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         List of context management edits that were applied.
 
-        - `class BetaClearToolUses20250919EditResponse:`
+        - `class BetaClearToolUses20250919EditResponse`
 
           - `JsonElement Type = "clear_tool_uses_20250919"`
 
@@ -11517,7 +11807,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-        - `class BetaClearThinking20251015EditResponse:`
+        - `class BetaClearThinking20251015EditResponse`
 
           - `JsonElement Type = "clear_thinking_20251015"`
 
@@ -11544,7 +11834,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-        - `class BetaCacheMissModelChanged:`
+        - `class BetaCacheMissModelChanged`
 
           - `JsonElement Type = "model_changed"`
 
@@ -11552,7 +11842,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissSystemChanged:`
+        - `class BetaCacheMissSystemChanged`
 
           - `JsonElement Type = "system_changed"`
 
@@ -11560,7 +11850,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissToolsChanged:`
+        - `class BetaCacheMissToolsChanged`
 
           - `JsonElement Type = "tools_changed"`
 
@@ -11568,7 +11858,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissMessagesChanged:`
+        - `class BetaCacheMissMessagesChanged`
 
           - `JsonElement Type = "messages_changed"`
 
@@ -11576,11 +11866,11 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissPreviousMessageNotFound:`
+        - `class BetaCacheMissPreviousMessageNotFound`
 
           - `JsonElement Type = "previous_message_not_found"`
 
-        - `class BetaCacheMissUnavailable:`
+        - `class BetaCacheMissUnavailable`
 
           - `JsonElement Type = "unavailable"`
 
@@ -11772,14 +12062,14 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
           resulting shift is zero because there was nothing to move. `not_applied`:
           no reprice was applied; the arm's `reason` says why.
 
-          - `class BetaFallbackCreditRedeemed:`
+          - `class BetaFallbackCreditRedeemed`
 
             The reprice was applied: the retry is billed as if the conversation
             had been on the retry model all along.
 
             - `JsonElement Type = "redeemed"`
 
-          - `class BetaFallbackCreditNotApplied:`
+          - `class BetaFallbackCreditNotApplied`
 
             No reprice was applied; `reason` says why.
 
@@ -11849,7 +12139,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-        - `class BetaMessageIterationUsage:`
+        - `class BetaMessageIterationUsage`
 
           Token usage for a sampling iteration.
 
@@ -11891,7 +12181,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-        - `class BetaCompactionIterationUsage:`
+        - `class BetaCompactionIterationUsage`
 
           Token usage for a compaction iteration.
 
@@ -11927,7 +12217,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-        - `class BetaAdvisorMessageIterationUsage:`
+        - `class BetaAdvisorMessageIterationUsage`
 
           Token usage for an advisor sub-inference iteration.
 
@@ -11969,7 +12259,7 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
             minimum: 0
 
-        - `class BetaFallbackMessageIterationUsage:`
+        - `class BetaFallbackMessageIterationUsage`
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -12080,54 +12370,94 @@ await foreach (var betaMessageBatchIndividualResponse in client.Beta.Messages.Ba
 
         - `Fast("fast")`
 
-    - `IReadOnlyList<BetaThinkingDroppedInputTransformation>? InputTransformations`
+    - `IReadOnlyList<BetaInputTransformation>? InputTransformations`
 
-      Changes the API made to the request's input before showing it to the model:
-      one entry per change, in request order. Today the only entry type is
-      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-      block from the request's `messages` that was removed from the prompt instead
-      of being shown to the model because it failed a binding check. More entry
-      types may be added over time; ignore types you do not recognize.
+      Changes the API made to the request's input before showing it to the model,
+      and blocks that failed a binding check but were left unchanged: one entry per
+      block, in request order. Two entry types today. `thinking_dropped` — a
+      `thinking`, `redacted_thinking` or `connector_text` block from the request's
+      `messages` that was removed from the prompt instead of being shown to the
+      model because it failed a binding check. `thinking_mismatch_allowed` — a
+      `thinking` or `redacted_thinking` block that failed the conversation check
+      (the conversation before it differs from the one it was created in, or it
+      carries no record of one on a model that requires it) and was shown to the
+      model all the same, because that check is not enforced for this request.
+      More entry types may be added over time; ignore types you do not recognize.
 
       Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
       every such response from a model that supports extended thinking, as `[]`
-      when nothing was changed; without the beta, blocks are removed all the same
-      but nothing is reported. Removed blocks contribute nothing to
-      `usage.input_tokens`. When streaming, the array is final in `message_start`;
-      the final `message_delta` event carries it only when a server-side model
-      fallback happened mid-stream, in which case it holds the serving model's
-      entries and replaces the one in `message_start`.
+      when there is no entry to report; without the beta, blocks are removed or
+      left in place all the same but nothing is reported. Removed blocks contribute
+      nothing to `usage.input_tokens`; blocks left in place count as sent. When
+      streaming, the array is final in `message_start`; the final `message_delta`
+      event carries it only when a server-side model fallback happened mid-stream,
+      in which case it holds the serving model's entries and replaces the one in
+      `message_start`.
 
-      - `JsonElement Type = "thinking_dropped"`
+      - `class BetaThinkingDroppedInputTransformation`
 
-        Always `thinking_dropped` for this entry type.
+        - `JsonElement Type = "thinking_dropped"`
 
-      - `required string Path`
+          Always `thinking_dropped` for this entry type.
 
-        Where the removed block was in your request, as `messages.{i}.content.{j}`:
-        `i` indexes the `messages` array you sent and `j` that message's `content`
-        array — the same form error messages use.
+        - `required string Path`
 
-      - `required Reason Reason`
+          Where the removed block was in your request, as `messages.{i}.content.{j}`:
+          `i` indexes the `messages` array you sent and `j` that message's `content`
+          array — the same form error messages use.
 
-        Which binding check removed the block: `model_binding_mismatch` — it was
-        created by a model whose reasoning the requested model may not read;
-        `prefix_binding_mismatch` — the conversation before it differs from the
-        conversation it was created in (the rest of that turn's consecutive thinking
-        blocks are removed with it, each with this reason);
-        `organization_binding_mismatch` — it was created under a different
-        organization (an Anthropic organization, AWS account or Google Cloud project)
-        and this organization is not one of its additional organizations;
-        `end_user_binding_mismatch` — it was created for a different end user, or
-        was removed by the consumer-organization binding. A block that would fail
-        several checks reports one reason, in this order of precedence:
-        `organization_binding_mismatch`, `end_user_binding_mismatch`,
-        `model_binding_mismatch`, `prefix_binding_mismatch`.
+        - `required Reason Reason`
 
-        - `ModelBindingMismatch("model_binding_mismatch")`
+          Which binding check removed the block: `model_binding_mismatch` — it was
+          created by a model whose reasoning the requested model may not read;
+          `prefix_binding_mismatch` — the conversation before it differs from the
+          conversation it was created in (the rest of that turn's consecutive thinking
+          blocks are removed with it, each with this reason);
+          `organization_binding_mismatch` — it was created under a different
+          organization (an Anthropic organization, AWS account or Google Cloud project)
+          and this organization is not one of its additional organizations;
+          `end_user_binding_mismatch` — it was created for a different end user, or
+          was removed by the consumer-organization binding. A block that would fail
+          several checks reports one reason, in this order of precedence:
+          `organization_binding_mismatch`, `end_user_binding_mismatch`,
+          `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-        - `PrefixBindingMismatch("prefix_binding_mismatch")`
+          - `ModelBindingMismatch("model_binding_mismatch")`
 
-        - `OrganizationBindingMismatch("organization_binding_mismatch")`
+          - `PrefixBindingMismatch("prefix_binding_mismatch")`
 
-        - `EndUserBindingMismatch("end_user_binding_mismatch")`
+          - `OrganizationBindingMismatch("organization_binding_mismatch")`
+
+          - `EndUserBindingMismatch("end_user_binding_mismatch")`
+
+      - `class BetaThinkingMismatchAllowedInputTransformation`
+
+        - `JsonElement Type = "thinking_mismatch_allowed"`
+
+          Always `thinking_mismatch_allowed` for this entry type.
+
+        - `required string Path`
+
+          Where the block is in your request, as `messages.{i}.content.{j}`:
+          `i` indexes the `messages` array you sent and `j` that message's `content`
+          array — the same form error messages use.
+
+        - `required Reason Reason`
+
+          Which binding check the block failed; the block was shown to the model all
+          the same. Always `prefix_binding_mismatch` today — the conversation before
+          the block differs from the conversation it was created in, or the block
+          carries no record of one on a model that requires it. Were the check
+          enforced for this request, the block would have been removed or the request
+          rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+          takes the rest of that turn's consecutive thinking blocks, whereas here each
+          block is checked on its own, so `thinking_mismatch_allowed` entries are a
+          lower bound on what enforcement would remove.
+
+          - `ModelBindingMismatch("model_binding_mismatch")`
+
+          - `PrefixBindingMismatch("prefix_binding_mismatch")`
+
+          - `OrganizationBindingMismatch("organization_binding_mismatch")`
+
+          - `EndUserBindingMismatch("end_user_binding_mismatch")`

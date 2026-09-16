@@ -25,7 +25,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ## Returns
 
-- `BetaTunnelToken`
+- `class BetaTunnelToken`
 
   - `"tunnel_token" type`
 

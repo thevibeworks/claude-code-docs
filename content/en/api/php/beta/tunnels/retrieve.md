@@ -25,7 +25,7 @@ Fetches a tunnel by ID.
 
 ## Returns
 
-- `BetaTunnel`
+- `class BetaTunnel`
 
   - `"tunnel" type`
 

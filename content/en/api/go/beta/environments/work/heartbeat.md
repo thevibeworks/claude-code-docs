@@ -129,9 +129,11 @@ Record a heartbeat for a work item to maintain the lease.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
 ## Returns
 
-- `type BetaSelfHostedWorkHeartbeatResponse struct{…}`
+- `type BetaSelfHostedWorkHeartbeatResponse`
 
   Response after recording a heartbeat for a work item.
 

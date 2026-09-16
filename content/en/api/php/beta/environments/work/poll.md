@@ -35,7 +35,7 @@ Long poll for work items in the queue.
 
 ## Returns
 
-- `SelfHostedWork`
+- `class SelfHostedWork`
 
   - `"work" type`
 

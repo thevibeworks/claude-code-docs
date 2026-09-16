@@ -31,7 +31,7 @@ Retrieve detailed information about a specific work item.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -123,6 +123,8 @@ Retrieve detailed information about a specific work item.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -131,7 +133,7 @@ Retrieve detailed information about a specific work item.
 
 ### Returns
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -286,7 +288,7 @@ Long poll for work items in the queue.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -377,6 +379,8 @@ Long poll for work items in the queue.
       - `"thinking-binding-controls-2026-08-01"`
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
+
+      - `"compact-2026-09-04"`
 
   - `"Anthropic-Worker-ID"?: string`
 
@@ -525,7 +529,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -617,9 +621,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
 ### Returns
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -774,7 +780,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -866,9 +872,11 @@ Record a heartbeat for a work item to maintain the lease.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
 ### Returns
 
-- `BetaSelfHostedWorkHeartbeatResponse`
+- `interface BetaSelfHostedWorkHeartbeatResponse`
 
   Response after recording a heartbeat for a work item.
 
@@ -963,7 +971,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1055,6 +1063,8 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1063,7 +1073,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
 ### Returns
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1216,7 +1226,7 @@ List work items in an environment.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1308,9 +1318,11 @@ List work items in an environment.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
 ### Returns
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1467,7 +1479,7 @@ Update work item metadata with merge semantics.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1559,6 +1571,8 @@ Update work item metadata with merge semantics.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1567,7 +1581,7 @@ Update work item metadata with merge semantics.
 
 ### Returns
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1709,7 +1723,7 @@ Get statistics about the work queue for an environment.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1801,6 +1815,8 @@ Get statistics about the work queue for an environment.
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1809,7 +1825,7 @@ Get statistics about the work queue for an environment.
 
 ### Returns
 
-- `BetaSelfHostedWorkQueueStats`
+- `interface BetaSelfHostedWorkQueueStats`
 
   Statistics about the work queue for an environment.
 
@@ -1871,7 +1887,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Self Hosted Work
 
-- `BetaSelfHostedWork`
+- `interface BetaSelfHostedWork`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1953,7 +1969,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Self Hosted Work Heartbeat Response
 
-- `BetaSelfHostedWorkHeartbeatResponse`
+- `interface BetaSelfHostedWorkHeartbeatResponse`
 
   Response after recording a heartbeat for a work item.
 
@@ -1991,7 +2007,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Self Hosted Work List Response
 
-- `BetaSelfHostedWorkListResponse`
+- `interface BetaSelfHostedWorkListResponse`
 
   Response when listing work items with cursor-based pagination.
 
@@ -2077,7 +2093,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Self Hosted Work Queue Stats
 
-- `BetaSelfHostedWorkQueueStats`
+- `interface BetaSelfHostedWorkQueueStats`
 
   Statistics about the work queue for an environment.
 
@@ -2109,7 +2125,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Self Hosted Work Stop Request
 
-- `BetaSelfHostedWorkStopRequest`
+- `interface BetaSelfHostedWorkStopRequest`
 
   Request to stop a work item.
 
@@ -2121,7 +2137,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Self Hosted Work Update Request
 
-- `BetaSelfHostedWorkUpdateRequest`
+- `interface BetaSelfHostedWorkUpdateRequest`
 
   Request to update work item metadata.
 
@@ -2131,7 +2147,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
 ### Beta Session Work Data
 
-- `BetaSessionWorkData`
+- `interface BetaSessionWorkData`
 
   Work data for session work items.
 

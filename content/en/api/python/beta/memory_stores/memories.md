@@ -41,7 +41,7 @@ Create a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -133,11 +133,13 @@ Create a memory
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaManagedAgentsMemory: …`
+- `class BetaManagedAgentsMemory`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -267,7 +269,7 @@ List memories
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -359,15 +361,17 @@ List memories
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `BetaManagedAgentsMemoryListItem`
+- `type BetaManagedAgentsMemoryListItem = ...`
 
   One item in a [List memories](/docs/en/api/beta/memory_stores/memories/list) response: either a `memory` object or, when `depth` is set, a `memory_prefix` rollup marker.
 
-  - `class BetaManagedAgentsMemory: …`
+  - `class BetaManagedAgentsMemory`
 
     A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -415,7 +419,7 @@ List memories
 
       The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-  - `class BetaManagedAgentsMemoryPrefix: …`
+  - `class BetaManagedAgentsMemoryPrefix`
 
     A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
@@ -493,7 +497,7 @@ Retrieve a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -585,11 +589,13 @@ Retrieve a memory
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaManagedAgentsMemory: …`
+- `class BetaManagedAgentsMemory`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -720,7 +726,7 @@ Update a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -812,11 +818,13 @@ Update a memory
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaManagedAgentsMemory: …`
+- `class BetaManagedAgentsMemory`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -923,7 +931,7 @@ Delete a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 42 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1015,11 +1023,13 @@ Delete a memory
 
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
+    - `"compact-2026-09-04"`
+
 - `workspace_id: Optional[str]`
 
 ### Returns
 
-- `class BetaManagedAgentsDeletedMemory: …`
+- `class BetaManagedAgentsDeletedMemory`
 
   Tombstone returned by [Delete a memory](/docs/en/api/beta/memory_stores/memories/delete). Deleting a memory does not erase its version history: its versions remain listable via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
 
@@ -1060,7 +1070,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Conflict Error
 
-- `class BetaManagedAgentsConflictError: …`
+- `class BetaManagedAgentsConflictError`
 
   - `type: Literal["conflict_error"]`
 
@@ -1068,7 +1078,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Content Sha256 Precondition
 
-- `class BetaManagedAgentsContentSha256Precondition: …`
+- `class BetaManagedAgentsContentSha256Precondition`
 
   Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 
@@ -1080,7 +1090,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Deleted Memory
 
-- `class BetaManagedAgentsDeletedMemory: …`
+- `class BetaManagedAgentsDeletedMemory`
 
   Tombstone returned by [Delete a memory](/docs/en/api/beta/memory_stores/memories/delete). Deleting a memory does not erase its version history: its versions remain listable via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
 
@@ -1092,9 +1102,9 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Error
 
-- `BetaManagedAgentsError`
+- `type BetaManagedAgentsError = ...`
 
-  - `class BetaInvalidRequestError: …`
+  - `class BetaInvalidRequestError`
 
     - `type: Literal["invalid_request_error"]`
 
@@ -1104,7 +1114,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Invalid request
 
-  - `class BetaAuthenticationError: …`
+  - `class BetaAuthenticationError`
 
     - `type: Literal["authentication_error"]`
 
@@ -1114,7 +1124,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Authentication error
 
-  - `class BetaBillingError: …`
+  - `class BetaBillingError`
 
     - `type: Literal["billing_error"]`
 
@@ -1124,7 +1134,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Billing error
 
-  - `class BetaPermissionError: …`
+  - `class BetaPermissionError`
 
     - `type: Literal["permission_error"]`
 
@@ -1134,7 +1144,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Permission denied
 
-  - `class BetaNotFoundError: …`
+  - `class BetaNotFoundError`
 
     - `type: Literal["not_found_error"]`
 
@@ -1144,7 +1154,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Not found
 
-  - `class BetaRateLimitError: …`
+  - `class BetaRateLimitError`
 
     - `type: Literal["rate_limit_error"]`
 
@@ -1154,7 +1164,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Rate limited
 
-  - `class BetaGatewayTimeoutError: …`
+  - `class BetaGatewayTimeoutError`
 
     - `type: Literal["timeout_error"]`
 
@@ -1164,7 +1174,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Request timeout
 
-  - `class BetaAPIError: …`
+  - `class BetaAPIError`
 
     - `type: Literal["api_error"]`
 
@@ -1174,7 +1184,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Internal server error
 
-  - `class BetaOverloadedError: …`
+  - `class BetaOverloadedError`
 
     - `type: Literal["overloaded_error"]`
 
@@ -1184,13 +1194,13 @@ print(beta_managed_agents_deleted_memory.id)
 
       default: Overloaded
 
-  - `class BetaManagedAgentsMemoryPreconditionFailedError: …`
+  - `class BetaManagedAgentsMemoryPreconditionFailedError`
 
     - `type: Literal["memory_precondition_failed_error"]`
 
     - `message: Optional[str]`
 
-  - `class BetaManagedAgentsMemoryPathConflictError: …`
+  - `class BetaManagedAgentsMemoryPathConflictError`
 
     - `type: Literal["memory_path_conflict_error"]`
 
@@ -1200,7 +1210,7 @@ print(beta_managed_agents_deleted_memory.id)
 
     - `message: Optional[str]`
 
-  - `class BetaManagedAgentsConflictError: …`
+  - `class BetaManagedAgentsConflictError`
 
     - `type: Literal["conflict_error"]`
 
@@ -1208,7 +1218,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Memory
 
-- `class BetaManagedAgentsMemory: …`
+- `class BetaManagedAgentsMemory`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -1258,11 +1268,11 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Memory List Item
 
-- `BetaManagedAgentsMemoryListItem`
+- `type BetaManagedAgentsMemoryListItem = ...`
 
   One item in a [List memories](/docs/en/api/beta/memory_stores/memories/list) response: either a `memory` object or, when `depth` is set, a `memory_prefix` rollup marker.
 
-  - `class BetaManagedAgentsMemory: …`
+  - `class BetaManagedAgentsMemory`
 
     A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -1310,7 +1320,7 @@ print(beta_managed_agents_deleted_memory.id)
 
       The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-  - `class BetaManagedAgentsMemoryPrefix: …`
+  - `class BetaManagedAgentsMemoryPrefix`
 
     A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
@@ -1322,7 +1332,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Memory Path Conflict Error
 
-- `class BetaManagedAgentsMemoryPathConflictError: …`
+- `class BetaManagedAgentsMemoryPathConflictError`
 
   - `type: Literal["memory_path_conflict_error"]`
 
@@ -1334,7 +1344,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Memory Precondition Failed Error
 
-- `class BetaManagedAgentsMemoryPreconditionFailedError: …`
+- `class BetaManagedAgentsMemoryPreconditionFailedError`
 
   - `type: Literal["memory_precondition_failed_error"]`
 
@@ -1342,7 +1352,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Memory Prefix
 
-- `class BetaManagedAgentsMemoryPrefix: …`
+- `class BetaManagedAgentsMemoryPrefix`
 
   A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
@@ -1354,7 +1364,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Memory View
 
-- `Literal["basic", "full"]`
+- `type BetaManagedAgentsMemoryView = Literal["basic", "full"]`
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
@@ -1364,7 +1374,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Precondition
 
-- `class BetaManagedAgentsPrecondition: …`
+- `class BetaManagedAgentsPrecondition`
 
   Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 

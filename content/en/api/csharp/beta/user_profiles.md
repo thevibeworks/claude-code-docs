@@ -145,6 +145,8 @@ Create User Profile
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -153,7 +155,7 @@ Create User Profile
 
 ### Returns
 
-- `class BetaUserProfile:`
+- `class BetaUserProfile`
 
   - `required Type Type`
 
@@ -435,6 +437,8 @@ List User Profiles
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -443,7 +447,7 @@ List User Profiles
 
 ### Returns
 
-- `class BetaUserProfile:`
+- `class BetaUserProfile`
 
   - `required Type Type`
 
@@ -710,6 +714,8 @@ Get User Profile
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -718,7 +724,7 @@ Get User Profile
 
 ### Returns
 
-- `class BetaUserProfile:`
+- `class BetaUserProfile`
 
   - `required Type Type`
 
@@ -1015,6 +1021,8 @@ Update User Profile
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1023,7 +1031,7 @@ Update User Profile
 
 ### Returns
 
-- `class BetaUserProfile:`
+- `class BetaUserProfile`
 
   - `required Type Type`
 
@@ -1286,6 +1294,8 @@ Create Enrollment URL
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1294,7 +1304,7 @@ Create Enrollment URL
 
 ### Returns
 
-- `class BetaUserProfileEnrollmentUrl:`
+- `class BetaUserProfileEnrollmentUrl`
 
   - `required Type Type`
 
@@ -1337,7 +1347,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
 ### Beta User Profile
 
-- `class BetaUserProfile:`
+- `class BetaUserProfile`
 
   - `required Type Type`
 
@@ -1449,7 +1459,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
 ### Beta User Profile Enrollment URL
 
-- `class BetaUserProfileEnrollmentUrl:`
+- `class BetaUserProfileEnrollmentUrl`
 
   - `required Type Type`
 
@@ -1467,7 +1477,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
 ### Beta User Profile External User Details
 
-- `class BetaUserProfileExternalUserDetails:`
+- `class BetaUserProfileExternalUserDetails`
 
   Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
 
@@ -1517,7 +1527,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
 ### Beta User Profile External User Details Params
 
-- `class BetaUserProfileExternalUserDetailsParams:`
+- `class BetaUserProfileExternalUserDetailsParams`
 
   - `AccountStatus? AccountStatus`
 
@@ -1571,7 +1581,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
 ### Beta User Profile Trust Grant
 
-- `class BetaUserProfileTrustGrant:`
+- `class BetaUserProfileTrustGrant`
 
   - `required Status Status`
 

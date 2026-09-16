@@ -91,6 +91,24 @@ The Models API response can be used to determine which models are available for 
 
           Whether this capability is supported by the model.
 
+      - `compaction: object`
+
+        Compaction capability details: whether the model accepts the top-level
+        `compaction` request parameter, with one entry per supported
+        `compaction.type` value.
+
+        - `summarize: object`
+
+          Whether the summarize compaction type is supported.
+
+          - `supported: boolean`
+
+            Whether this capability is supported by the model.
+
+        - `supported: boolean`
+
+          Whether this capability is supported by the model.
+
       - `context_management: object`
 
         Context management support and available strategies.
@@ -280,6 +298,12 @@ ant beta:models list \
         "code_execution": {
           "supported": true
         },
+        "compaction": {
+          "summarize": {
+            "supported": true
+          },
+          "supported": true
+        },
         "context_management": {
           "clear_thinking_20251015": {
             "supported": true
@@ -411,6 +435,24 @@ The Models API response can be used to determine information about a specific mo
     - `code_execution: object`
 
       Whether the model supports code execution tools.
+
+      - `supported: boolean`
+
+        Whether this capability is supported by the model.
+
+    - `compaction: object`
+
+      Compaction capability details: whether the model accepts the top-level
+      `compaction` request parameter, with one entry per supported
+      `compaction.type` value.
+
+      - `summarize: object`
+
+        Whether the summarize compaction type is supported.
+
+        - `supported: boolean`
+
+          Whether this capability is supported by the model.
 
       - `supported: boolean`
 
@@ -592,6 +634,12 @@ ant beta:models retrieve \
     "code_execution": {
       "supported": true
     },
+    "compaction": {
+      "summarize": {
+        "supported": true
+      },
+      "supported": true
+    },
     "context_management": {
       "clear_thinking_20251015": {
         "supported": true
@@ -658,6 +706,26 @@ ant beta:models retrieve \
 - `beta_capability_support: object`
 
   Indicates whether a capability is supported.
+
+  - `supported: boolean`
+
+    Whether this capability is supported by the model.
+
+### Beta Compaction Capability
+
+- `beta_compaction_capability: object`
+
+  Compaction capability details: whether the model accepts the top-level
+  `compaction` request parameter, with one entry per supported
+  `compaction.type` value.
+
+  - `summarize: object`
+
+    Whether the summarize compaction type is supported.
+
+    - `supported: boolean`
+
+      Whether this capability is supported by the model.
 
   - `supported: boolean`
 
@@ -772,6 +840,24 @@ ant beta:models retrieve \
   - `code_execution: object`
 
     Whether the model supports code execution tools.
+
+    - `supported: boolean`
+
+      Whether this capability is supported by the model.
+
+  - `compaction: object`
+
+    Compaction capability details: whether the model accepts the top-level
+    `compaction` request parameter, with one entry per supported
+    `compaction.type` value.
+
+    - `summarize: object`
+
+      Whether the summarize compaction type is supported.
+
+      - `supported: boolean`
+
+        Whether this capability is supported by the model.
 
     - `supported: boolean`
 
@@ -950,6 +1036,24 @@ ant beta:models retrieve \
     - `code_execution: object`
 
       Whether the model supports code execution tools.
+
+      - `supported: boolean`
+
+        Whether this capability is supported by the model.
+
+    - `compaction: object`
+
+      Compaction capability details: whether the model accepts the top-level
+      `compaction` request parameter, with one entry per supported
+      `compaction.type` value.
+
+      - `summarize: object`
+
+        Whether the summarize compaction type is supported.
+
+        - `supported: boolean`
+
+          Whether this capability is supported by the model.
 
       - `supported: boolean`
 

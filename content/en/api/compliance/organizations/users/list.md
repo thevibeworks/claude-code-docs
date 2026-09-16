@@ -55,7 +55,7 @@ List current user members of an organization.
 
     User's current full name
 
-  - `organization_role: "admin" or "billing" or "claude_code_user" or 6 more`
+  - `organization_role: "admin" or "billing" or "claude_code_user" or 8 more`
 
     User's built-in role within the organization. This is distinct from any custom RBAC roles that may also be assigned.
 
@@ -72,6 +72,10 @@ List current user members of an organization.
     - `"membership_admin"`
 
     - `"owner"`
+
+    - `"parent_org_admin"`
+
+    - `"parent_org_owner"`
 
     - `"primary_owner"`
 

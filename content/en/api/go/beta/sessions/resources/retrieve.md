@@ -119,6 +119,8 @@ Get Session Resource
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -131,7 +133,7 @@ Get Session Resource
 
   The requested session resource.
 
-  - `type BetaManagedAgentsGitHubRepositoryResource struct{…}`
+  - `type BetaManagedAgentsGitHubRepositoryResource`
 
     - `Type BetaManagedAgentsGitHubRepositoryResourceType`
 
@@ -155,7 +157,7 @@ Get Session Resource
 
     - `Checkout BetaManagedAgentsGitHubRepositoryResourceCheckoutUnion Optional`
 
-      - `type BetaManagedAgentsBranchCheckout struct{…}`
+      - `type BetaManagedAgentsBranchCheckout`
 
         - `Type BetaManagedAgentsBranchCheckoutType`
 
@@ -165,7 +167,7 @@ Get Session Resource
 
           minLength: 1, maxLength: 255
 
-      - `type BetaManagedAgentsCommitCheckout struct{…}`
+      - `type BetaManagedAgentsCommitCheckout`
 
         - `Type BetaManagedAgentsCommitCheckoutType`
 
@@ -175,7 +177,7 @@ Get Session Resource
 
           minLength: 7, maxLength: 64
 
-  - `type BetaManagedAgentsFileResource struct{…}`
+  - `type BetaManagedAgentsFileResource`
 
     - `Type BetaManagedAgentsFileResourceType`
 
@@ -197,7 +199,7 @@ Get Session Resource
 
       format: date-time
 
-  - `type BetaManagedAgentsMemoryStoreResource struct{…}`
+  - `type BetaManagedAgentsMemoryStoreResource`
 
     A memory store attached to an agent session.
 

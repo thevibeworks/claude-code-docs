@@ -55,7 +55,7 @@ The address is the same for every device and user in your agency and carries no 
 
 When a user chooses **Sign in with your organization**, the app asks the Claude for Government host to start a sign-in, shows the pairing code it receives, and opens the host's sign-in page in the user's default browser. That page asks for the user's agency email address, then sends the browser to the sign-in service and on to your agency's identity provider. After signing in, the user acknowledges the system-use notification, confirms that the code shown in the browser matches the one in the app, and approves.
 
-Claude for Government then issues the app a session for that user, which the app stores encrypted on the device. The app presents that session, and nothing from the profile, when it downloads the user's configuration from this address and when it sends chat traffic to the same host. It re-checks the configuration about every 30 minutes and at each launch.
+Claude for Government then issues the app a session for that user, which the app stores encrypted on the device. The app presents that session, and nothing from the profile, when it downloads the user's configuration from this address and when it sends chat traffic to the same host. It re-checks the configuration about every 10 minutes (about every 30 minutes on Claude Desktop versions earlier than 1.46388.1) and at each launch.
 
 A session lasts until the user has gone without using Claude for longer than the [Session idle timeout](/docs/government/config/settings#session-idle-timeout) your tenant administrators set, which is 24 hours unless they change it, or until it reaches the [Maximum session length](/docs/government/config/settings#maximum-session-length) if one is set. Using Claude extends the session, but leaving the app open on an idle, locked, or sleeping device does not. When a session has ended, the app keeps the user's configuration and asks them to sign in again, with a message and a **Sign in again** button while the app is open, or with the sign-in screen the next time it starts, and it reloads the configuration once they sign in. Claude Desktop 1.34493.0 or later shows these prompts. Earlier versions can report an ended session as a **Configuration sync issue**, so update them.
 
@@ -255,6 +255,6 @@ For anything else, the app writes its log to `~/Library/Logs/Claude-3p/main.log`
 
 ## Things to know
 
-* Configuration changes made in this portal do not need to be pushed to devices. The app re-checks Claude for Government for changes about every 30 minutes and at each launch, and prompts users to relaunch when something changed.
+* Configuration changes made in this portal do not need to be pushed to devices. The app re-checks Claude for Government for changes about every 10 minutes (about every 30 minutes on Claude Desktop versions earlier than 1.46388.1) and at each launch, and prompts users to relaunch when something changed.
 * New and retired models appear in the model picker without any profile change or app update; model access is controlled through [seat tiers](/docs/government/org-admin/seat-tiers).
 * The sign-in flow and what a user sees on the [Sessions](/docs/government/account/sessions) page after pairing a device are covered on that page.

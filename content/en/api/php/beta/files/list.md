@@ -41,7 +41,7 @@ List Files
 
 ## Returns
 
-- `BetaFileMetadata`
+- `class BetaFileMetadata`
 
   - `"file" type`
 

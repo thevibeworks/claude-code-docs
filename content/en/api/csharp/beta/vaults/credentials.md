@@ -25,7 +25,7 @@ Create Credential
 
     Body param: Authentication details for creating a credential.
 
-    - `class BetaManagedAgentsMcpOAuthCreateParams:`
+    - `class BetaManagedAgentsMcpOAuthCreateParams`
 
       Parameters for creating an MCP OAuth credential.
 
@@ -73,13 +73,13 @@ Create Credential
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneParam`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
@@ -91,7 +91,7 @@ Create Credential
 
               minLength: 1, maxLength: 512
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostParam:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostParam`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -115,7 +115,7 @@ Create Credential
 
           minLength: 1, maxLength: 8192
 
-    - `class BetaManagedAgentsStaticBearerCreateParams:`
+    - `class BetaManagedAgentsStaticBearerCreateParams`
 
       Parameters for creating a static bearer token credential.
 
@@ -133,7 +133,7 @@ Create Credential
 
         minLength: 1, maxLength: 2047
 
-    - `class BetaManagedAgentsEnvironmentVariableCreateParams:`
+    - `class BetaManagedAgentsEnvironmentVariableCreateParams`
 
       Parameters for creating an environment variable credential.
 
@@ -143,13 +143,13 @@ Create Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
@@ -287,6 +287,8 @@ Create Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -295,7 +297,7 @@ Create Credential
 
 ### Returns
 
-- `class BetaManagedAgentsCredential:`
+- `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -315,7 +317,7 @@ Create Credential
 
     Authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthAuthResponse:`
+    - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
       OAuth credential details for an MCP server.
 
@@ -345,19 +347,19 @@ Create Credential
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -371,7 +373,7 @@ Create Credential
 
           OAuth scope for the refresh request.
 
-    - `class BetaManagedAgentsStaticBearerAuthResponse:`
+    - `class BetaManagedAgentsStaticBearerAuthResponse`
 
       Static bearer token credential details for an MCP server.
 
@@ -381,7 +383,7 @@ Create Credential
 
         URL of the MCP server this credential authenticates against.
 
-    - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+    - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -403,13 +405,13 @@ Create Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -611,6 +613,8 @@ List Credentials
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -619,7 +623,7 @@ List Credentials
 
 ### Returns
 
-- `class BetaManagedAgentsCredential:`
+- `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -639,7 +643,7 @@ List Credentials
 
     Authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthAuthResponse:`
+    - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
       OAuth credential details for an MCP server.
 
@@ -669,19 +673,19 @@ List Credentials
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -695,7 +699,7 @@ List Credentials
 
           OAuth scope for the refresh request.
 
-    - `class BetaManagedAgentsStaticBearerAuthResponse:`
+    - `class BetaManagedAgentsStaticBearerAuthResponse`
 
       Static bearer token credential details for an MCP server.
 
@@ -705,7 +709,7 @@ List Credentials
 
         URL of the MCP server this credential authenticates against.
 
-    - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+    - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -727,13 +731,13 @@ List Credentials
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -926,6 +930,8 @@ Get Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -934,7 +940,7 @@ Get Credential
 
 ### Returns
 
-- `class BetaManagedAgentsCredential:`
+- `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -954,7 +960,7 @@ Get Credential
 
     Authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthAuthResponse:`
+    - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
       OAuth credential details for an MCP server.
 
@@ -984,19 +990,19 @@ Get Credential
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -1010,7 +1016,7 @@ Get Credential
 
           OAuth scope for the refresh request.
 
-    - `class BetaManagedAgentsStaticBearerAuthResponse:`
+    - `class BetaManagedAgentsStaticBearerAuthResponse`
 
       Static bearer token credential details for an MCP server.
 
@@ -1020,7 +1026,7 @@ Get Credential
 
         URL of the MCP server this credential authenticates against.
 
-    - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+    - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -1042,13 +1048,13 @@ Get Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -1145,7 +1151,7 @@ Update Credential
 
     Body param: Updated authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthUpdateParams:`
+    - `class BetaManagedAgentsMcpOAuthUpdateParams`
 
       Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
@@ -1181,7 +1187,7 @@ Update Credential
 
         - `TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
             Updated HTTP Basic authentication parameters for the token endpoint.
 
@@ -1193,7 +1199,7 @@ Update Credential
 
               minLength: 1, maxLength: 512
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
             Updated POST body authentication parameters for the token endpoint.
 
@@ -1205,7 +1211,7 @@ Update Credential
 
               minLength: 1, maxLength: 512
 
-    - `class BetaManagedAgentsStaticBearerUpdateParams:`
+    - `class BetaManagedAgentsStaticBearerUpdateParams`
 
       Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
@@ -1217,7 +1223,7 @@ Update Credential
 
         minLength: 1, maxLength: 8192
 
-    - `class BetaManagedAgentsEnvironmentVariableUpdateParams:`
+    - `class BetaManagedAgentsEnvironmentVariableUpdateParams`
 
       Parameters for updating an environment variable credential. `secret_name` is immutable.
 
@@ -1239,13 +1245,13 @@ Update Credential
 
         Updated networking scope. Full replacement.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 
@@ -1365,6 +1371,8 @@ Update Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1373,7 +1381,7 @@ Update Credential
 
 ### Returns
 
-- `class BetaManagedAgentsCredential:`
+- `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -1393,7 +1401,7 @@ Update Credential
 
     Authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthAuthResponse:`
+    - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
       OAuth credential details for an MCP server.
 
@@ -1423,19 +1431,19 @@ Update Credential
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -1449,7 +1457,7 @@ Update Credential
 
           OAuth scope for the refresh request.
 
-    - `class BetaManagedAgentsStaticBearerAuthResponse:`
+    - `class BetaManagedAgentsStaticBearerAuthResponse`
 
       Static bearer token credential details for an MCP server.
 
@@ -1459,7 +1467,7 @@ Update Credential
 
         URL of the MCP server this credential authenticates against.
 
-    - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+    - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -1481,13 +1489,13 @@ Update Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -1674,6 +1682,8 @@ Delete Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1682,7 +1692,7 @@ Delete Credential
 
 ### Returns
 
-- `class BetaManagedAgentsDeletedCredential:`
+- `class BetaManagedAgentsDeletedCredential`
 
   Confirmation of a deleted credential.
 
@@ -1829,6 +1839,8 @@ Archive Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1837,7 +1849,7 @@ Archive Credential
 
 ### Returns
 
-- `class BetaManagedAgentsCredential:`
+- `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -1857,7 +1869,7 @@ Archive Credential
 
     Authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthAuthResponse:`
+    - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
       OAuth credential details for an MCP server.
 
@@ -1887,19 +1899,19 @@ Archive Credential
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -1913,7 +1925,7 @@ Archive Credential
 
           OAuth scope for the refresh request.
 
-    - `class BetaManagedAgentsStaticBearerAuthResponse:`
+    - `class BetaManagedAgentsStaticBearerAuthResponse`
 
       Static bearer token credential details for an MCP server.
 
@@ -1923,7 +1935,7 @@ Archive Credential
 
         URL of the MCP server this credential authenticates against.
 
-    - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+    - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -1945,13 +1957,13 @@ Archive Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -2138,6 +2150,8 @@ Validate Credential
 
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `Compact2026_09_04("compact-2026-09-04")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2146,7 +2160,7 @@ Validate Credential
 
 ### Returns
 
-- `class BetaManagedAgentsCredentialValidation:`
+- `class BetaManagedAgentsCredentialValidation`
 
   Result of live-probing a credential against its configured MCP server.
 
@@ -2279,7 +2293,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Credential
 
-- `class BetaManagedAgentsCredential:`
+- `class BetaManagedAgentsCredential`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -2299,7 +2313,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Authentication details for a credential.
 
-    - `class BetaManagedAgentsMcpOAuthAuthResponse:`
+    - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
       OAuth credential details for an MCP server.
 
@@ -2329,19 +2343,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
-          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
             Token endpoint requires no client authentication.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-          - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+          - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
@@ -2355,7 +2369,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           OAuth scope for the refresh request.
 
-    - `class BetaManagedAgentsStaticBearerAuthResponse:`
+    - `class BetaManagedAgentsStaticBearerAuthResponse`
 
       Static bearer token credential details for an MCP server.
 
@@ -2365,7 +2379,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         URL of the MCP server this credential authenticates against.
 
-    - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+    - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -2387,13 +2401,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Outbound hosts the secret value is substituted on.
 
-        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `required Type Type`
 
-        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+        - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -2435,13 +2449,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 - `class BetaManagedAgentsCredentialNetworkingParams: union`
 
-  - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
+  - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
     Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
     - `required Type Type`
 
-  - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
+  - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
     Substitute the secret only on requests to the listed hosts.
 
@@ -2453,7 +2467,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Credential Validation
 
-- `class BetaManagedAgentsCredentialValidation:`
+- `class BetaManagedAgentsCredentialValidation`
 
   Result of live-probing a credential against its configured MCP server.
 
@@ -2539,7 +2553,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Credential Validation Status
 
-- `enum BetaManagedAgentsCredentialValidationStatus:`
+- `enum BetaManagedAgentsCredentialValidationStatus`
 
   Overall verdict of a credential validation probe.
 
@@ -2551,7 +2565,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Deleted Credential
 
-- `class BetaManagedAgentsDeletedCredential:`
+- `class BetaManagedAgentsDeletedCredential`
 
   Confirmation of a deleted credential.
 
@@ -2563,7 +2577,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Environment Variable Auth Response
 
-- `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
+- `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
   Environment variable credential details. The secret value is never returned.
 
@@ -2585,13 +2599,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Outbound hosts the secret value is substituted on.
 
-    - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+    - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
       The secret is substituted on any host the session's Environment network policy permits egress to.
 
       - `required Type Type`
 
-    - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+    - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
       The secret is substituted only on requests to the listed hosts.
 
@@ -2607,7 +2621,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Environment Variable Create Params
 
-- `class BetaManagedAgentsEnvironmentVariableCreateParams:`
+- `class BetaManagedAgentsEnvironmentVariableCreateParams`
 
   Parameters for creating an environment variable credential.
 
@@ -2617,13 +2631,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Outbound hosts the secret value is substituted on.
 
-    - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
+    - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
       Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
       - `required Type Type`
 
-    - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
+    - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
       Substitute the secret only on requests to the listed hosts.
 
@@ -2659,7 +2673,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Environment Variable Update Params
 
-- `class BetaManagedAgentsEnvironmentVariableUpdateParams:`
+- `class BetaManagedAgentsEnvironmentVariableUpdateParams`
 
   Parameters for updating an environment variable credential. `secret_name` is immutable.
 
@@ -2681,13 +2695,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Updated networking scope. Full replacement.
 
-    - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
+    - `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
       Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
       - `required Type Type`
 
-    - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
+    - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
       Substitute the secret only on requests to the listed hosts.
 
@@ -2705,7 +2719,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Injection Location Params
 
-- `class BetaManagedAgentsInjectionLocationParams:`
+- `class BetaManagedAgentsInjectionLocationParams`
 
   Where in the outbound request the secret value may be substituted.
 
@@ -2719,7 +2733,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Injection Location Response
 
-- `class BetaManagedAgentsInjectionLocationResponse:`
+- `class BetaManagedAgentsInjectionLocationResponse`
 
   Where in the outbound request the secret value is substituted.
 
@@ -2733,7 +2747,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Injection Location Update Params
 
-- `class BetaManagedAgentsInjectionLocationUpdateParams:`
+- `class BetaManagedAgentsInjectionLocationUpdateParams`
 
   Updated injection location.
 
@@ -2747,7 +2761,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Limited Credential Networking Params
 
-- `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
+- `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
   Substitute the secret only on requests to the listed hosts.
 
@@ -2759,7 +2773,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Limited Credential Networking Response
 
-- `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
+- `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
   The secret is substituted only on requests to the listed hosts.
 
@@ -2771,7 +2785,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP OAuth Auth Response
 
-- `class BetaManagedAgentsMcpOAuthAuthResponse:`
+- `class BetaManagedAgentsMcpOAuthAuthResponse`
 
   OAuth credential details for an MCP server.
 
@@ -2801,19 +2815,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     - `required TokenEndpointAuth TokenEndpointAuth`
 
-      - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+      - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
         Token endpoint requires no client authentication.
 
         - `required Type Type`
 
-      - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+      - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
         - `required Type Type`
 
-      - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+      - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
         Token endpoint uses POST body authentication with client credentials.
 
@@ -2829,7 +2843,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP OAuth Create Params
 
-- `class BetaManagedAgentsMcpOAuthCreateParams:`
+- `class BetaManagedAgentsMcpOAuthCreateParams`
 
   Parameters for creating an MCP OAuth credential.
 
@@ -2877,13 +2891,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     - `required TokenEndpointAuth TokenEndpointAuth`
 
-      - `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
+      - `class BetaManagedAgentsTokenEndpointAuthNoneParam`
 
         Token endpoint requires no client authentication.
 
         - `required Type Type`
 
-      - `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
+      - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
@@ -2895,7 +2909,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           minLength: 1, maxLength: 512
 
-      - `class BetaManagedAgentsTokenEndpointAuthPostParam:`
+      - `class BetaManagedAgentsTokenEndpointAuthPostParam`
 
         Token endpoint uses POST body authentication with client credentials.
 
@@ -2921,7 +2935,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP OAuth Refresh Params
 
-- `class BetaManagedAgentsMcpOAuthRefreshParams:`
+- `class BetaManagedAgentsMcpOAuthRefreshParams`
 
   OAuth refresh token parameters for creating a credential with refresh support.
 
@@ -2945,13 +2959,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required TokenEndpointAuth TokenEndpointAuth`
 
-    - `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
+    - `class BetaManagedAgentsTokenEndpointAuthNoneParam`
 
       Token endpoint requires no client authentication.
 
       - `required Type Type`
 
-    - `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
+    - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
@@ -2963,7 +2977,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         minLength: 1, maxLength: 512
 
-    - `class BetaManagedAgentsTokenEndpointAuthPostParam:`
+    - `class BetaManagedAgentsTokenEndpointAuthPostParam`
 
       Token endpoint uses POST body authentication with client credentials.
 
@@ -2989,7 +3003,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP OAuth Refresh Response
 
-- `class BetaManagedAgentsMcpOAuthRefreshResponse:`
+- `class BetaManagedAgentsMcpOAuthRefreshResponse`
 
   OAuth refresh token configuration returned in credential responses.
 
@@ -3003,19 +3017,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required TokenEndpointAuth TokenEndpointAuth`
 
-    - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+    - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
       Token endpoint requires no client authentication.
 
       - `required Type Type`
 
-    - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+    - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
       - `required Type Type`
 
-    - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+    - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
       Token endpoint uses POST body authentication with client credentials.
 
@@ -3031,7 +3045,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP OAuth Refresh Update Params
 
-- `class BetaManagedAgentsMcpOAuthRefreshUpdateParams:`
+- `class BetaManagedAgentsMcpOAuthRefreshUpdateParams`
 
   Parameters for updating OAuth refresh token configuration.
 
@@ -3049,7 +3063,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `TokenEndpointAuth TokenEndpointAuth`
 
-    - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
+    - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
       Updated HTTP Basic authentication parameters for the token endpoint.
 
@@ -3061,7 +3075,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         minLength: 1, maxLength: 512
 
-    - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
+    - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
       Updated POST body authentication parameters for the token endpoint.
 
@@ -3075,7 +3089,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP OAuth Update Params
 
-- `class BetaManagedAgentsMcpOAuthUpdateParams:`
+- `class BetaManagedAgentsMcpOAuthUpdateParams`
 
   Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
@@ -3111,7 +3125,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     - `TokenEndpointAuth TokenEndpointAuth`
 
-      - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
+      - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
         Updated HTTP Basic authentication parameters for the token endpoint.
 
@@ -3123,7 +3137,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           minLength: 1, maxLength: 512
 
-      - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
+      - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
         Updated POST body authentication parameters for the token endpoint.
 
@@ -3137,7 +3151,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents MCP Probe
 
-- `class BetaManagedAgentsMcpProbe:`
+- `class BetaManagedAgentsMcpProbe`
 
   The failing step of an MCP validation probe.
 
@@ -3169,7 +3183,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Refresh HTTP Response
 
-- `class BetaManagedAgentsRefreshHttpResponse:`
+- `class BetaManagedAgentsRefreshHttpResponse`
 
   An HTTP response captured during a credential validation probe.
 
@@ -3193,7 +3207,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Refresh Object
 
-- `class BetaManagedAgentsRefreshObject:`
+- `class BetaManagedAgentsRefreshObject`
 
   Outcome of a refresh-token exchange attempted during credential validation.
 
@@ -3233,7 +3247,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Static Bearer Auth Response
 
-- `class BetaManagedAgentsStaticBearerAuthResponse:`
+- `class BetaManagedAgentsStaticBearerAuthResponse`
 
   Static bearer token credential details for an MCP server.
 
@@ -3245,7 +3259,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Static Bearer Create Params
 
-- `class BetaManagedAgentsStaticBearerCreateParams:`
+- `class BetaManagedAgentsStaticBearerCreateParams`
 
   Parameters for creating a static bearer token credential.
 
@@ -3265,7 +3279,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Static Bearer Update Params
 
-- `class BetaManagedAgentsStaticBearerUpdateParams:`
+- `class BetaManagedAgentsStaticBearerUpdateParams`
 
   Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
@@ -3279,7 +3293,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth Basic Param
 
-- `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
+- `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
@@ -3293,7 +3307,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth Basic Response
 
-- `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
+- `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
   Token endpoint uses HTTP Basic authentication with client credentials.
 
@@ -3301,7 +3315,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth Basic Update Param
 
-- `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
+- `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
   Updated HTTP Basic authentication parameters for the token endpoint.
 
@@ -3315,7 +3329,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth None Param
 
-- `class BetaManagedAgentsTokenEndpointAuthNoneParam:`
+- `class BetaManagedAgentsTokenEndpointAuthNoneParam`
 
   Token endpoint requires no client authentication.
 
@@ -3323,7 +3337,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth None Response
 
-- `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
+- `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
   Token endpoint requires no client authentication.
 
@@ -3331,7 +3345,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth Post Param
 
-- `class BetaManagedAgentsTokenEndpointAuthPostParam:`
+- `class BetaManagedAgentsTokenEndpointAuthPostParam`
 
   Token endpoint uses POST body authentication with client credentials.
 
@@ -3345,7 +3359,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth Post Response
 
-- `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
+- `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
   Token endpoint uses POST body authentication with client credentials.
 
@@ -3353,7 +3367,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Token Endpoint Auth Post Update Param
 
-- `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
+- `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
   Updated POST body authentication parameters for the token endpoint.
 
@@ -3367,7 +3381,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Unrestricted Credential Networking Params
 
-- `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams:`
+- `class BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
   Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
@@ -3375,7 +3389,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Unrestricted Credential Networking Response
 
-- `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
+- `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse`
 
   The secret is substituted on any host the session's Environment network policy permits egress to.
 

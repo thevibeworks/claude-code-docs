@@ -133,6 +133,8 @@ The Models API response can be used to determine which models are available for 
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -141,7 +143,7 @@ The Models API response can be used to determine which models are available for 
 
 ### Returns
 
-- `type ModelInfo struct{…}`
+- `type ModelInfo`
 
   - `Type Model`
 
@@ -495,6 +497,8 @@ The Models API response can be used to determine information about a specific mo
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -503,7 +507,7 @@ The Models API response can be used to determine information about a specific mo
 
 ### Returns
 
-- `type ModelInfo struct{…}`
+- `type ModelInfo`
 
   - `Type Model`
 
@@ -742,7 +746,7 @@ func main() {
 
 ### Capability Support
 
-- `type CapabilitySupport struct{…}`
+- `type CapabilitySupport`
 
   Indicates whether a capability is supported.
 
@@ -752,7 +756,7 @@ func main() {
 
 ### Context Management Capability
 
-- `type ContextManagementCapability struct{…}`
+- `type ContextManagementCapability`
 
   Context management capability details.
 
@@ -778,7 +782,7 @@ func main() {
 
 ### Effort Capability
 
-- `type EffortCapability struct{…}`
+- `type EffortCapability`
 
   Effort (reasoning_effort) capability details.
 
@@ -812,7 +816,7 @@ func main() {
 
 ### Model Capabilities
 
-- `type ModelCapabilities struct{…}`
+- `type ModelCapabilities`
 
   Model capability information.
 
@@ -914,7 +918,7 @@ func main() {
 
 ### Model Info
 
-- `type ModelInfo struct{…}`
+- `type ModelInfo`
 
   - `Type Model`
 
@@ -1048,7 +1052,7 @@ func main() {
 
 ### Thinking Capability
 
-- `type ThinkingCapability struct{…}`
+- `type ThinkingCapability`
 
   Thinking capability details.
 
@@ -1074,7 +1078,7 @@ func main() {
 
 ### Thinking Types
 
-- `type ThinkingTypes struct{…}`
+- `type ThinkingTypes`
 
   Supported thinking type configurations.
 

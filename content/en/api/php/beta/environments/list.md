@@ -37,7 +37,7 @@ List environments with pagination support.
 
 ## Returns
 
-- `BetaEnvironment`
+- `class BetaEnvironment`
 
   - `"environment" type`
 

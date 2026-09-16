@@ -121,6 +121,8 @@ Fetches a tunnel certificate by ID.
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -129,7 +131,7 @@ Fetches a tunnel certificate by ID.
 
 ## Returns
 
-- `type BetaTunnelCertificate struct{…}`
+- `type BetaTunnelCertificate`
 
   A CA certificate attached to a tunnel.
 

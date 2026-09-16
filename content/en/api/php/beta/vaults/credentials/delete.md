@@ -25,7 +25,7 @@ Delete Credential
 
 ## Returns
 
-- `ManagedAgentsDeletedCredential`
+- `class ManagedAgentsDeletedCredential`
 
   - `Type type`
 

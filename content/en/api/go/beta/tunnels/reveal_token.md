@@ -117,6 +117,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
       - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
+      - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -125,7 +127,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ## Returns
 
-- `type BetaTunnelToken struct{…}`
+- `type BetaTunnelToken`
 
   A tunnel's connector token.
 

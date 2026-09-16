@@ -23,7 +23,7 @@ Delete a memory store
 
 ## Returns
 
-- `BetaManagedAgentsDeletedMemoryStore`
+- `class BetaManagedAgentsDeletedMemoryStore`
 
   - `Type type`
 

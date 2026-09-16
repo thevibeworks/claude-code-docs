@@ -115,6 +115,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> userProfileId`
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -190,7 +192,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `List<BetaContentBlockParam>`
 
-        - `class BetaTextBlockParam:`
+        - `class BetaTextBlockParam`
 
           - `JsonValue type = "text"`
 
@@ -221,7 +223,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<List<BetaTextCitationParam>> citations`
 
-            - `class BetaCitationCharLocationParam:`
+            - `class BetaCitationCharLocationParam`
 
               - `JsonValue type = "char_location"`
 
@@ -241,7 +243,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-            - `class BetaCitationPageLocationParam:`
+            - `class BetaCitationPageLocationParam`
 
               - `JsonValue type = "page_location"`
 
@@ -261,7 +263,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 1
 
-            - `class BetaCitationContentBlockLocationParam:`
+            - `class BetaCitationContentBlockLocationParam`
 
               - `JsonValue type = "content_block_location"`
 
@@ -291,7 +293,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minimum: 0
 
-            - `class BetaCitationWebSearchResultLocationParam:`
+            - `class BetaCitationWebSearchResultLocationParam`
 
               - `JsonValue type = "web_search_result_location"`
 
@@ -307,7 +309,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minLength: 1
 
-            - `class BetaCitationSearchResultLocationParam:`
+            - `class BetaCitationSearchResultLocationParam`
 
               - `JsonValue type = "search_result_location"`
 
@@ -341,13 +343,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<String> title`
 
-        - `class BetaImageBlockParam:`
+        - `class BetaImageBlockParam`
 
           - `JsonValue type = "image"`
 
           - `Source source`
 
-            - `class BetaBase64ImageSource:`
+            - `class BetaBase64ImageSource`
 
               - `JsonValue type = "base64"`
 
@@ -365,13 +367,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `IMAGE_WEBP("image/webp")`
 
-            - `class BetaUrlImageSource:`
+            - `class BetaUrlImageSource`
 
               - `JsonValue type = "url"`
 
               - `String url`
 
-            - `class BetaFileImageSource:`
+            - `class BetaFileImageSource`
 
               - `JsonValue type = "file"`
 
@@ -393,13 +395,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `ERROR("error")`
 
-        - `class BetaRequestDocumentBlock:`
+        - `class BetaRequestDocumentBlock`
 
           - `JsonValue type = "document"`
 
           - `Source source`
 
-            - `class BetaBase64PdfSource:`
+            - `class BetaBase64PdfSource`
 
               - `JsonValue type = "base64"`
 
@@ -409,7 +411,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `JsonValue mediaType = "application/pdf"`
 
-            - `class BetaPlainTextSource:`
+            - `class BetaPlainTextSource`
 
               - `JsonValue type = "text"`
 
@@ -417,7 +419,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `JsonValue mediaType = "text/plain"`
 
-            - `class BetaContentBlockSource:`
+            - `class BetaContentBlockSource`
 
               - `JsonValue type = "content"`
 
@@ -427,17 +429,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `List<BetaContentBlockSourceContent>`
 
-                  - `class BetaTextBlockParam:`
+                  - `class BetaTextBlockParam`
 
-                  - `class BetaImageBlockParam:`
+                  - `class BetaImageBlockParam`
 
-            - `class BetaUrlPdfSource:`
+            - `class BetaUrlPdfSource`
 
               - `JsonValue type = "url"`
 
               - `String url`
 
-            - `class BetaFileDocumentSource:`
+            - `class BetaFileDocumentSource`
 
               - `JsonValue type = "file"`
 
@@ -459,7 +461,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 500, minLength: 1
 
-        - `class BetaSearchResultBlockParam:`
+        - `class BetaSearchResultBlockParam`
 
           - `JsonValue type = "search_result"`
 
@@ -487,7 +489,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<BetaCitationsConfigParam> citations`
 
-        - `class BetaThinkingBlockParam:`
+        - `class BetaThinkingBlockParam`
 
           - `JsonValue type = "thinking"`
 
@@ -501,7 +503,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `thinking` text of this block as returned by the API.
 
-        - `class BetaRedactedThinkingBlockParam:`
+        - `class BetaRedactedThinkingBlockParam`
 
           - `JsonValue type = "redacted_thinking"`
 
@@ -509,7 +511,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `class BetaToolUseBlockParam:`
+        - `class BetaToolUseBlockParam`
 
           - `JsonValue type = "tool_use"`
 
@@ -529,13 +531,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonValue type = "direct"`
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -545,7 +547,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
               - `JsonValue type = "code_execution_20260120"`
 
@@ -559,7 +561,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaToolResultBlockParam:`
+        - `class BetaToolResultBlockParam`
 
           - `JsonValue type = "tool_result"`
 
@@ -577,15 +579,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `List<Block>`
 
-              - `class BetaTextBlockParam:`
+              - `class BetaTextBlockParam`
 
-              - `class BetaImageBlockParam:`
+              - `class BetaImageBlockParam`
 
-              - `class BetaSearchResultBlockParam:`
+              - `class BetaSearchResultBlockParam`
 
-              - `class BetaRequestDocumentBlock:`
+              - `class BetaRequestDocumentBlock`
 
-              - `class BetaToolReferenceBlockParam:`
+              - `class BetaToolReferenceBlockParam`
 
                 Tool reference block that can be included in tool_result content.
 
@@ -599,7 +601,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Create a cache control breakpoint at this content block.
 
-              - `class BetaBrowserStateBlockParam:`
+              - `class BetaBrowserStateBlockParam`
 
                 The caller's browser state after a browser toolset member call —
                 the full inventory of open tabs, which tab is active, and any side
@@ -649,7 +651,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   maxItems: 200, minItems: 1
 
-                  - `class BetaBrowserStateChangeTabOpened:`
+                  - `class BetaBrowserStateChangeTabOpened`
 
                     A tab this call's execution opened that remains open at its end —
                     the creation delta of the `tabs` inventory, not an event log.
@@ -667,7 +669,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BetaBrowserStateChangeDownloadStarted:`
+                  - `class BetaBrowserStateChangeDownloadStarted`
 
                     A file download that started during this call.
 
@@ -685,7 +687,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BetaBrowserStateChangeDownloadCompleted:`
+                  - `class BetaBrowserStateChangeDownloadCompleted`
 
                     A file download that finished during this call, reported with the
                     same `download_id` as its `download_started` — or without a prior
@@ -718,7 +720,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       minimum: 0
 
-                  - `class BetaBrowserStateChangeDownloadFailed:`
+                  - `class BetaBrowserStateChangeDownloadFailed`
 
                     A file download that failed — or was cancelled — during this call.
 
@@ -750,7 +752,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaServerToolUseBlockParam:`
+        - `class BetaServerToolUseBlockParam`
 
           - `JsonValue type = "server_tool_use"`
 
@@ -784,17 +786,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebSearchToolResultBlockParam:`
+        - `class BetaWebSearchToolResultBlockParam`
 
           - `JsonValue type = "web_search_tool_result"`
 
@@ -812,7 +814,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<String> pageAge`
 
-            - `class BetaWebSearchToolRequestError:`
+            - `class BetaWebSearchToolRequestError`
 
               - `JsonValue type = "web_search_tool_result_error"`
 
@@ -840,23 +842,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebFetchToolResultBlockParam:`
+        - `class BetaWebFetchToolResultBlockParam`
 
           - `JsonValue type = "web_fetch_tool_result"`
 
           - `Content content`
 
-            - `class BetaWebFetchToolResultErrorBlockParam:`
+            - `class BetaWebFetchToolResultErrorBlockParam`
 
               - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -882,7 +884,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `CONTENT_TOO_LARGE("content_too_large")`
 
-            - `class BetaWebFetchBlockParam:`
+            - `class BetaWebFetchBlockParam`
 
               - `JsonValue type = "web_fetch_result"`
 
@@ -906,23 +908,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaAdvisorToolResultBlockParam:`
+        - `class BetaAdvisorToolResultBlockParam`
 
           - `JsonValue type = "advisor_tool_result"`
 
           - `Content content`
 
-            - `class BetaAdvisorToolResultErrorParam:`
+            - `class BetaAdvisorToolResultErrorParam`
 
               - `JsonValue type = "advisor_tool_result_error"`
 
@@ -942,7 +944,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `MODEL_NOT_FOUND("model_not_found")`
 
-            - `class BetaAdvisorResultBlockParam:`
+            - `class BetaAdvisorResultBlockParam`
 
               - `JsonValue type = "advisor_result"`
 
@@ -950,7 +952,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<String> stopReason`
 
-            - `class BetaAdvisorRedactedResultBlockParam:`
+            - `class BetaAdvisorRedactedResultBlockParam`
 
               - `JsonValue type = "advisor_redacted_result"`
 
@@ -968,13 +970,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaCodeExecutionToolResultBlockParam:`
+        - `class BetaCodeExecutionToolResultBlockParam`
 
           - `JsonValue type = "code_execution_tool_result"`
 
           - `BetaCodeExecutionToolResultBlockParamContent content`
 
-            - `class BetaCodeExecutionToolResultErrorParam:`
+            - `class BetaCodeExecutionToolResultErrorParam`
 
               - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -988,7 +990,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `class BetaCodeExecutionResultBlockParam:`
+            - `class BetaCodeExecutionResultBlockParam`
 
               - `JsonValue type = "code_execution_result"`
 
@@ -1004,7 +1006,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String stdout`
 
-            - `class BetaEncryptedCodeExecutionResultBlockParam:`
+            - `class BetaEncryptedCodeExecutionResultBlockParam`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -1030,13 +1032,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaBashCodeExecutionToolResultBlockParam:`
+        - `class BetaBashCodeExecutionToolResultBlockParam`
 
           - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `Content content`
 
-            - `class BetaBashCodeExecutionToolResultErrorParam:`
+            - `class BetaBashCodeExecutionToolResultErrorParam`
 
               - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -1052,7 +1054,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-            - `class BetaBashCodeExecutionResultBlockParam:`
+            - `class BetaBashCodeExecutionResultBlockParam`
 
               - `JsonValue type = "bash_code_execution_result"`
 
@@ -1076,13 +1078,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+        - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
           - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `Content content`
 
-            - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+            - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
               - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -1100,7 +1102,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<String> errorMessage`
 
-            - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -1120,13 +1122,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<Long> totalLines`
 
-            - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_create_result"`
 
               - `boolean isFileUpdate`
 
-            - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -1148,13 +1150,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaToolSearchToolResultBlockParam:`
+        - `class BetaToolSearchToolResultBlockParam`
 
           - `JsonValue type = "tool_search_tool_result"`
 
           - `Content content`
 
-            - `class BetaToolSearchToolResultErrorParam:`
+            - `class BetaToolSearchToolResultErrorParam`
 
               - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -1170,7 +1172,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Optional<String> errorMessage`
 
-            - `class BetaToolSearchToolSearchResultBlockParam:`
+            - `class BetaToolSearchToolSearchResultBlockParam`
 
               - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -1194,7 +1196,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaMcpToolUseBlockParam:`
+        - `class BetaMcpToolUseBlockParam`
 
           - `JsonValue type = "mcp_tool_use"`
 
@@ -1214,7 +1216,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaRequestMcpToolResultBlockParam:`
+        - `class BetaRequestMcpToolResultBlockParam`
 
           - `JsonValue type = "mcp_tool_result"`
 
@@ -1246,7 +1248,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Boolean> isError`
 
-        - `class BetaContainerUploadBlockParam:`
+        - `class BetaContainerUploadBlockParam`
 
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
@@ -1259,7 +1261,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaCompactionBlockParam:`
+        - `class BetaCompactionBlockParam`
 
           A compaction block containing summary of previous context.
 
@@ -1283,7 +1285,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `class BetaRequestToolAdditionBlock:`
+          - `Optional<String> signature`
+
+            The block's signature as returned, to be sent back verbatim
+
+        - `class BetaRequestToolAdditionBlock`
 
           Mid-conversation directive to surface a declared tool.
 
@@ -1295,7 +1301,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Tool tool`
 
-            - `class BetaToolChangeToolReference:`
+            - `class BetaToolChangeToolReference`
 
               Reference to a single tool the caller declared directly in
               `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -1308,7 +1314,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-            - `class BetaToolChangeMcpToolReference:`
+            - `class BetaToolChangeMcpToolReference`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -1319,7 +1325,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `String serverName`
 
-            - `class BetaToolChangeMcpToolsetReference:`
+            - `class BetaToolChangeMcpToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
 
@@ -1331,7 +1337,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaRequestToolRemovalBlock:`
+        - `class BetaRequestToolRemovalBlock`
 
           Mid-conversation directive to withdraw a tool.
 
@@ -1343,19 +1349,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Tool tool`
 
-            - `class BetaToolChangeToolReference:`
+            - `class BetaToolChangeToolReference`
 
               Reference to a single tool the caller declared directly in
               `tools[]`. Does not accept the composed `{server}_{name}` form the
               server assigns to MCP-resolved tools — use `mcp_tool_reference` or
               `mcp_toolset_reference` for those.
 
-            - `class BetaToolChangeMcpToolReference:`
+            - `class BetaToolChangeMcpToolReference`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
 
-            - `class BetaToolChangeMcpToolsetReference:`
+            - `class BetaToolChangeMcpToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
 
@@ -1363,7 +1369,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaFallbackBlockParam:`
+        - `class BetaFallbackBlockParam`
 
           A `fallback` block echoed back from a prior response.
 
@@ -1515,11 +1521,22 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+  - `Optional<BetaCompactionConfig> compaction`
+
+    Compact the whole conversation and return a signed `compaction` block,
+    alone, that a later request sends back first in `messages`, in place of
+    the messages it summarizes. There is no trigger and no pause flag: sending
+    the parameter compacts, and nothing is sampled after the block.
+
+    The summarization prompt is the server's own unless `instructions` are
+    given, which then replace it for this request; a value that is empty or
+    only whitespace counts as absent.
+
   - `Optional<Container> container`
 
     Container identifier for reuse across requests.
 
-    - `class BetaContainerParams:`
+    - `class BetaContainerParams`
 
       Container parameters with skills to be loaded.
 
@@ -1591,7 +1608,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `String`
 
-    - `class BetaFallbackCreditTokenParam:`
+    - `class BetaFallbackCreditTokenParam`
 
       Object form of `fallback_credit_token`: the token plus a redemption
       mode.
@@ -1775,7 +1792,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-    - `class BetaTool:`
+    - `class BetaTool`
 
       - `Optional<Type> type`
 
@@ -1833,7 +1850,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolBash20241022:`
+    - `class BetaToolBash20241022`
 
       - `JsonValue type = "bash_20241022"`
 
@@ -1867,7 +1884,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolBash20250124:`
+    - `class BetaToolBash20250124`
 
       - `JsonValue type = "bash_20250124"`
 
@@ -1901,7 +1918,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20250522:`
+    - `class BetaCodeExecutionTool20250522`
 
       - `JsonValue type = "code_execution_20250522"`
 
@@ -1933,7 +1950,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20250825:`
+    - `class BetaCodeExecutionTool20250825`
 
       - `JsonValue type = "code_execution_20250825"`
 
@@ -1965,7 +1982,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20260120:`
+    - `class BetaCodeExecutionTool20260120`
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -1999,7 +2016,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20260521:`
+    - `class BetaCodeExecutionTool20260521`
 
       Code execution tool with REPL state persistence.
 
@@ -2033,7 +2050,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaBrowserToolset20260801:`
+    - `class BetaBrowserToolset20260801`
 
       The browser toolset: a single `tools[]` entry (carrying no
       `name`) that declares the browser tool family. The model is served
@@ -2427,7 +2444,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class BetaToolComputerUse20241022:`
+    - `class BetaToolComputerUse20241022`
 
       - `JsonValue type = "computer_20241022"`
 
@@ -2479,7 +2496,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaMemoryTool20250818:`
+    - `class BetaMemoryTool20250818`
 
       - `JsonValue type = "memory_20250818"`
 
@@ -2513,7 +2530,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolComputerUse20250124:`
+    - `class BetaToolComputerUse20250124`
 
       - `JsonValue type = "computer_20250124"`
 
@@ -2565,7 +2582,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolTextEditor20241022:`
+    - `class BetaToolTextEditor20241022`
 
       - `JsonValue type = "text_editor_20241022"`
 
@@ -2599,7 +2616,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolComputerUse20251124:`
+    - `class BetaToolComputerUse20251124`
 
       - `JsonValue type = "computer_20251124"`
 
@@ -2655,7 +2672,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaComputerToolset20260801:`
+    - `class BetaComputerToolset20260801`
 
       The computer toolset: a single `tools[]` entry (carrying no
       `name`) that declares the computer tool family. The model is
@@ -2885,7 +2902,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class BetaToolTextEditor20250124:`
+    - `class BetaToolTextEditor20250124`
 
       - `JsonValue type = "text_editor_20250124"`
 
@@ -2919,7 +2936,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolTextEditor20250429:`
+    - `class BetaToolTextEditor20250429`
 
       - `JsonValue type = "text_editor_20250429"`
 
@@ -2953,7 +2970,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolTextEditor20250728:`
+    - `class BetaToolTextEditor20250728`
 
       - `JsonValue type = "text_editor_20250728"`
 
@@ -2993,7 +3010,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaWebSearchTool20250305:`
+    - `class BetaWebSearchTool20250305`
 
       - `JsonValue type = "web_search_20250305"`
 
@@ -3069,7 +3086,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           maxLength: 255, minLength: 1
 
-    - `class BetaWebFetchTool20250910:`
+    - `class BetaWebFetchTool20250910`
 
       - `JsonValue type = "web_fetch_20250910"`
 
@@ -3125,7 +3142,98 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaWebSearchTool20260209:`
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `Optional<ClientToolResults> clientToolResults`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `class BetaWebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `JsonValue type = "all"`
+
+          - `class BetaWebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `JsonValue type = "none"`
+
+          - `class BetaWebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `JsonValue type = "only"`
+
+            - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+              - `JsonValue type = "tool_reference"`
+
+              - `String name`
+
+          - `class BetaWebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `JsonValue type = "except"`
+
+            - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+              - `JsonValue type = "tool_reference"`
+
+              - `String name`
+
+        - `Optional<ServerToolResults> serverToolResults`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `class BetaWebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class BetaWebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `class BetaWebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `class BetaWebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `Optional<UserInput> userInput`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `class BetaWebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class BetaWebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `class BetaWebSearchTool20260209`
 
       - `JsonValue type = "web_search_20260209"`
 
@@ -3175,7 +3283,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class BetaWebFetchTool20260209:`
+    - `class BetaWebFetchTool20260209`
 
       - `JsonValue type = "web_fetch_20260209"`
 
@@ -3231,7 +3339,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaWebFetchTool20260309:`
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `class BetaWebFetchTool20260309`
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -3289,11 +3406,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `Optional<Boolean> useCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class BetaWebSearchTool20260318:`
+    - `class BetaWebSearchTool20260318`
 
       - `JsonValue type = "web_search_20260318"`
 
@@ -3351,7 +3477,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class BetaWebFetchTool20260318:`
+    - `class BetaWebFetchTool20260318`
 
       - `JsonValue type = "web_fetch_20260318"`
 
@@ -3415,11 +3541,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `Optional<Boolean> useCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class BetaAdvisorTool20260301:`
+    - `class BetaAdvisorTool20260301`
 
       - `JsonValue type = "advisor_20260301"`
 
@@ -3473,7 +3608,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolSearchToolBm25_20251119:`
+    - `class BetaToolSearchToolBm25_20251119`
 
       - `Type type`
 
@@ -3509,7 +3644,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolSearchToolRegex20251119:`
+    - `class BetaToolSearchToolRegex20251119`
 
       - `Type type`
 
@@ -3545,7 +3680,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaMcpToolset:`
+    - `class BetaMcpToolset`
 
       Configuration for a group of tools from an MCP server.
 
@@ -3626,7 +3761,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 ### Returns
 
-- `class BetaMessage:`
+- `class BetaMessage`
 
   - `JsonValue type = "message"`
 
@@ -3707,7 +3842,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `class BetaTextBlock:`
+    - `class BetaTextBlock`
 
       - `JsonValue type = "text"`
 
@@ -3717,7 +3852,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class BetaCitationCharLocation:`
+        - `class BetaCitationCharLocation`
 
           - `JsonValue type = "char_location"`
 
@@ -3737,7 +3872,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-        - `class BetaCitationPageLocation:`
+        - `class BetaCitationPageLocation`
 
           - `JsonValue type = "page_location"`
 
@@ -3757,7 +3892,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocation:`
+        - `class BetaCitationContentBlockLocation`
 
           - `JsonValue type = "content_block_location"`
 
@@ -3787,7 +3922,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minimum: 0
 
-        - `class BetaCitationsWebSearchResultLocation:`
+        - `class BetaCitationsWebSearchResultLocation`
 
           - `JsonValue type = "web_search_result_location"`
 
@@ -3801,7 +3936,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String url`
 
-        - `class BetaCitationSearchResultLocation:`
+        - `class BetaCitationSearchResultLocation`
 
           - `JsonValue type = "search_result_location"`
 
@@ -3839,7 +3974,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 0
 
-    - `class BetaThinkingBlock:`
+    - `class BetaThinkingBlock`
 
       - `JsonValue type = "thinking"`
 
@@ -3855,7 +3990,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The text of Claude's thinking process for this block.
 
-    - `class BetaRedactedThinkingBlock:`
+    - `class BetaRedactedThinkingBlock`
 
       - `JsonValue type = "redacted_thinking"`
 
@@ -3867,7 +4002,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class BetaToolUseBlock:`
+    - `class BetaToolUseBlock`
 
       - `JsonValue type = "tool_use"`
 
@@ -3883,13 +4018,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
           - `JsonValue type = "direct"`
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -3899,7 +4034,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
           - `JsonValue type = "code_execution_20260120"`
 
@@ -3913,7 +4048,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaServerToolUseBlock:`
+    - `class BetaServerToolUseBlock`
 
       - `JsonValue type = "server_tool_use"`
 
@@ -3943,23 +4078,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebSearchToolResultBlock:`
+    - `class BetaWebSearchToolResultBlock`
 
       - `JsonValue type = "web_search_tool_result"`
 
       - `BetaWebSearchToolResultBlockContent content`
 
-        - `class BetaWebSearchToolResultError:`
+        - `class BetaWebSearchToolResultError`
 
           - `JsonValue type = "web_search_tool_result_error"`
 
@@ -3995,23 +4130,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebFetchToolResultBlock:`
+    - `class BetaWebFetchToolResultBlock`
 
       - `JsonValue type = "web_fetch_tool_result"`
 
       - `Content content`
 
-        - `class BetaWebFetchToolResultErrorBlock:`
+        - `class BetaWebFetchToolResultErrorBlock`
 
           - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -4037,7 +4172,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `CONTENT_TOO_LARGE("content_too_large")`
 
-        - `class BetaWebFetchBlock:`
+        - `class BetaWebFetchBlock`
 
           - `JsonValue type = "web_fetch_result"`
 
@@ -4053,7 +4188,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `Source source`
 
-              - `class BetaBase64PdfSource:`
+              - `class BetaBase64PdfSource`
 
                 - `JsonValue type = "base64"`
 
@@ -4063,7 +4198,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `JsonValue mediaType = "application/pdf"`
 
-              - `class BetaPlainTextSource:`
+              - `class BetaPlainTextSource`
 
                 - `JsonValue type = "text"`
 
@@ -4089,23 +4224,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaAdvisorToolResultBlock:`
+    - `class BetaAdvisorToolResultBlock`
 
       - `JsonValue type = "advisor_tool_result"`
 
       - `Content content`
 
-        - `class BetaAdvisorToolResultError:`
+        - `class BetaAdvisorToolResultError`
 
           - `JsonValue type = "advisor_tool_result_error"`
 
@@ -4125,7 +4260,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `MODEL_NOT_FOUND("model_not_found")`
 
-        - `class BetaAdvisorResultBlock:`
+        - `class BetaAdvisorResultBlock`
 
           - `JsonValue type = "advisor_result"`
 
@@ -4135,7 +4270,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String text`
 
-        - `class BetaAdvisorRedactedResultBlock:`
+        - `class BetaAdvisorRedactedResultBlock`
 
           - `JsonValue type = "advisor_redacted_result"`
 
@@ -4151,13 +4286,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaCodeExecutionToolResultBlock:`
+    - `class BetaCodeExecutionToolResultBlock`
 
       - `JsonValue type = "code_execution_tool_result"`
 
       - `BetaCodeExecutionToolResultBlockContent content`
 
-        - `class BetaCodeExecutionToolResultError:`
+        - `class BetaCodeExecutionToolResultError`
 
           - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -4171,7 +4306,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-        - `class BetaCodeExecutionResultBlock:`
+        - `class BetaCodeExecutionResultBlock`
 
           - `JsonValue type = "code_execution_result"`
 
@@ -4187,7 +4322,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `String stdout`
 
-        - `class BetaEncryptedCodeExecutionResultBlock:`
+        - `class BetaEncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -4209,13 +4344,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaBashCodeExecutionToolResultBlock:`
+    - `class BetaBashCodeExecutionToolResultBlock`
 
       - `JsonValue type = "bash_code_execution_tool_result"`
 
       - `Content content`
 
-        - `class BetaBashCodeExecutionToolResultError:`
+        - `class BetaBashCodeExecutionToolResultError`
 
           - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -4231,7 +4366,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-        - `class BetaBashCodeExecutionResultBlock:`
+        - `class BetaBashCodeExecutionResultBlock`
 
           - `JsonValue type = "bash_code_execution_result"`
 
@@ -4251,13 +4386,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaTextEditorCodeExecutionToolResultBlock:`
+    - `class BetaTextEditorCodeExecutionToolResultBlock`
 
       - `JsonValue type = "text_editor_code_execution_tool_result"`
 
       - `Content content`
 
-        - `class BetaTextEditorCodeExecutionToolResultError:`
+        - `class BetaTextEditorCodeExecutionToolResultError`
 
           - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -4275,7 +4410,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<String> errorMessage`
 
-        - `class BetaTextEditorCodeExecutionViewResultBlock:`
+        - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -4295,13 +4430,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<Long> totalLines`
 
-        - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+        - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_create_result"`
 
           - `boolean isFileUpdate`
 
-        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -4319,13 +4454,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaToolSearchToolResultBlock:`
+    - `class BetaToolSearchToolResultBlock`
 
       - `JsonValue type = "tool_search_tool_result"`
 
       - `Content content`
 
-        - `class BetaToolSearchToolResultError:`
+        - `class BetaToolSearchToolResultError`
 
           - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -4341,7 +4476,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Optional<String> errorMessage`
 
-        - `class BetaToolSearchToolSearchResultBlock:`
+        - `class BetaToolSearchToolSearchResultBlock`
 
           - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -4357,7 +4492,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaMcpToolUseBlock:`
+    - `class BetaMcpToolUseBlock`
 
       - `JsonValue type = "mcp_tool_use"`
 
@@ -4375,7 +4510,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The name of the MCP server
 
-    - `class BetaMcpToolResultBlock:`
+    - `class BetaMcpToolResultBlock`
 
       - `JsonValue type = "mcp_tool_result"`
 
@@ -4403,7 +4538,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaContainerUploadBlock:`
+    - `class BetaContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -4411,7 +4546,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `String fileId`
 
-    - `class BetaCompactionBlock:`
+    - `class BetaCompactionBlock`
 
       A compaction block returned when autocompact is triggered.
 
@@ -4429,7 +4564,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
-    - `class BetaFallbackBlock:`
+      - `Optional<String> signature`
+
+        Signature over the summary, to be sent back with the block verbatim
+
+    - `class BetaFallbackBlock`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -4567,7 +4706,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       List of context management edits that were applied.
 
-      - `class BetaClearToolUses20250919EditResponse:`
+      - `class BetaClearToolUses20250919EditResponse`
 
         - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -4585,7 +4724,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaClearThinking20251015EditResponse:`
+      - `class BetaClearThinking20251015EditResponse`
 
         - `JsonValue type = "clear_thinking_20251015"`
 
@@ -4612,7 +4751,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-      - `class BetaCacheMissModelChanged:`
+      - `class BetaCacheMissModelChanged`
 
         - `JsonValue type = "model_changed"`
 
@@ -4620,7 +4759,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissSystemChanged:`
+      - `class BetaCacheMissSystemChanged`
 
         - `JsonValue type = "system_changed"`
 
@@ -4628,7 +4767,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissToolsChanged:`
+      - `class BetaCacheMissToolsChanged`
 
         - `JsonValue type = "tools_changed"`
 
@@ -4636,7 +4775,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissMessagesChanged:`
+      - `class BetaCacheMissMessagesChanged`
 
         - `JsonValue type = "messages_changed"`
 
@@ -4644,11 +4783,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissPreviousMessageNotFound:`
+      - `class BetaCacheMissPreviousMessageNotFound`
 
         - `JsonValue type = "previous_message_not_found"`
 
-      - `class BetaCacheMissUnavailable:`
+      - `class BetaCacheMissUnavailable`
 
         - `JsonValue type = "unavailable"`
 
@@ -4840,14 +4979,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `class BetaFallbackCreditRedeemed:`
+        - `class BetaFallbackCreditRedeemed`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
 
           - `JsonValue type = "redeemed"`
 
-        - `class BetaFallbackCreditNotApplied:`
+        - `class BetaFallbackCreditNotApplied`
 
           No reprice was applied; `reason` says why.
 
@@ -4917,7 +5056,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-      - `class BetaMessageIterationUsage:`
+      - `class BetaMessageIterationUsage`
 
         Token usage for a sampling iteration.
 
@@ -4959,7 +5098,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaCompactionIterationUsage:`
+      - `class BetaCompactionIterationUsage`
 
         Token usage for a compaction iteration.
 
@@ -4995,7 +5134,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaAdvisorMessageIterationUsage:`
+      - `class BetaAdvisorMessageIterationUsage`
 
         Token usage for an advisor sub-inference iteration.
 
@@ -5037,7 +5176,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-      - `class BetaFallbackMessageIterationUsage:`
+      - `class BetaFallbackMessageIterationUsage`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -5148,67 +5287,107 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `FAST("fast")`
 
-  - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+  - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-    Changes the API made to the request's input before showing it to the model:
-    one entry per change, in request order. Today the only entry type is
-    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-    block from the request's `messages` that was removed from the prompt instead
-    of being shown to the model because it failed a binding check. More entry
-    types may be added over time; ignore types you do not recognize.
+    Changes the API made to the request's input before showing it to the model,
+    and blocks that failed a binding check but were left unchanged: one entry per
+    block, in request order. Two entry types today. `thinking_dropped` — a
+    `thinking`, `redacted_thinking` or `connector_text` block from the request's
+    `messages` that was removed from the prompt instead of being shown to the
+    model because it failed a binding check. `thinking_mismatch_allowed` — a
+    `thinking` or `redacted_thinking` block that failed the conversation check
+    (the conversation before it differs from the one it was created in, or it
+    carries no record of one on a model that requires it) and was shown to the
+    model all the same, because that check is not enforced for this request.
+    More entry types may be added over time; ignore types you do not recognize.
 
     Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
     every such response from a model that supports extended thinking, as `[]`
-    when nothing was changed; without the beta, blocks are removed all the same
-    but nothing is reported. Removed blocks contribute nothing to
-    `usage.input_tokens`. When streaming, the array is final in `message_start`;
-    the final `message_delta` event carries it only when a server-side model
-    fallback happened mid-stream, in which case it holds the serving model's
-    entries and replaces the one in `message_start`.
+    when there is no entry to report; without the beta, blocks are removed or
+    left in place all the same but nothing is reported. Removed blocks contribute
+    nothing to `usage.input_tokens`; blocks left in place count as sent. When
+    streaming, the array is final in `message_start`; the final `message_delta`
+    event carries it only when a server-side model fallback happened mid-stream,
+    in which case it holds the serving model's entries and replaces the one in
+    `message_start`.
 
-    - `JsonValue type = "thinking_dropped"`
+    - `class BetaThinkingDroppedInputTransformation`
 
-      Always `thinking_dropped` for this entry type.
+      - `JsonValue type = "thinking_dropped"`
 
-    - `String path`
+        Always `thinking_dropped` for this entry type.
 
-      Where the removed block was in your request, as `messages.{i}.content.{j}`:
-      `i` indexes the `messages` array you sent and `j` that message's `content`
-      array — the same form error messages use.
+      - `String path`
 
-    - `Reason reason`
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
 
-      Which binding check removed the block: `model_binding_mismatch` — it was
-      created by a model whose reasoning the requested model may not read;
-      `prefix_binding_mismatch` — the conversation before it differs from the
-      conversation it was created in (the rest of that turn's consecutive thinking
-      blocks are removed with it, each with this reason);
-      `organization_binding_mismatch` — it was created under a different
-      organization (an Anthropic organization, AWS account or Google Cloud project)
-      and this organization is not one of its additional organizations;
-      `end_user_binding_mismatch` — it was created for a different end user, or
-      was removed by the consumer-organization binding. A block that would fail
-      several checks reports one reason, in this order of precedence:
-      `organization_binding_mismatch`, `end_user_binding_mismatch`,
-      `model_binding_mismatch`, `prefix_binding_mismatch`.
+      - `Reason reason`
 
-      - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
 
-      - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
 
-      - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+    - `class BetaThinkingMismatchAllowedInputTransformation`
+
+      - `JsonValue type = "thinking_mismatch_allowed"`
+
+        Always `thinking_mismatch_allowed` for this entry type.
+
+      - `String path`
+
+        Where the block is in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `Reason reason`
+
+        Which binding check the block failed; the block was shown to the model all
+        the same. Always `prefix_binding_mismatch` today — the conversation before
+        the block differs from the conversation it was created in, or the block
+        carries no record of one on a model that requires it. Were the check
+        enforced for this request, the block would have been removed or the request
+        rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+        takes the rest of that turn's consecutive thinking blocks, whereas here each
+        block is checked on its own, so `thinking_mismatch_allowed` entries are a
+        lower bound on what enforcement would remove.
+
+        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
 - `class BetaRawMessageStreamEvent: union`
 
-  - `class BetaRawMessageStartEvent:`
+  - `class BetaRawMessageStartEvent`
 
     - `JsonValue type = "message_start"`
 
     - `BetaMessage message`
 
-  - `class BetaRawMessageDeltaEvent:`
+  - `class BetaRawMessageDeltaEvent`
 
     - `JsonValue type = "message_delta"`
 
@@ -5276,19 +5455,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-        - `class BetaMessageIterationUsage:`
+        - `class BetaMessageIterationUsage`
 
           Token usage for a sampling iteration.
 
-        - `class BetaCompactionIterationUsage:`
+        - `class BetaCompactionIterationUsage`
 
           Token usage for a compaction iteration.
 
-        - `class BetaAdvisorMessageIterationUsage:`
+        - `class BetaAdvisorMessageIterationUsage`
 
           Token usage for an advisor sub-inference iteration.
 
-        - `class BetaFallbackMessageIterationUsage:`
+        - `class BetaFallbackMessageIterationUsage`
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -5316,93 +5495,77 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of server tool requests.
 
-    - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+    - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-      Changes the API made to the request's input before showing it to the model:
-      one entry per change, in request order. Today the only entry type is
-      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-      block from the request's `messages` that was removed from the prompt instead
-      of being shown to the model because it failed a binding check. More entry
-      types may be added over time; ignore types you do not recognize.
+      Changes the API made to the request's input before showing it to the model,
+      and blocks that failed a binding check but were left unchanged: one entry per
+      block, in request order. Two entry types today. `thinking_dropped` — a
+      `thinking`, `redacted_thinking` or `connector_text` block from the request's
+      `messages` that was removed from the prompt instead of being shown to the
+      model because it failed a binding check. `thinking_mismatch_allowed` — a
+      `thinking` or `redacted_thinking` block that failed the conversation check
+      (the conversation before it differs from the one it was created in, or it
+      carries no record of one on a model that requires it) and was shown to the
+      model all the same, because that check is not enforced for this request.
+      More entry types may be added over time; ignore types you do not recognize.
 
       Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
       every such response from a model that supports extended thinking, as `[]`
-      when nothing was changed; without the beta, blocks are removed all the same
-      but nothing is reported. Removed blocks contribute nothing to
-      `usage.input_tokens`. When streaming, the array is final in `message_start`;
-      the final `message_delta` event carries it only when a server-side model
-      fallback happened mid-stream, in which case it holds the serving model's
-      entries and replaces the one in `message_start`.
+      when there is no entry to report; without the beta, blocks are removed or
+      left in place all the same but nothing is reported. Removed blocks contribute
+      nothing to `usage.input_tokens`; blocks left in place count as sent. When
+      streaming, the array is final in `message_start`; the final `message_delta`
+      event carries it only when a server-side model fallback happened mid-stream,
+      in which case it holds the serving model's entries and replaces the one in
+      `message_start`.
 
-      - `JsonValue type = "thinking_dropped"`
+      - `class BetaThinkingDroppedInputTransformation`
 
-        Always `thinking_dropped` for this entry type.
+      - `class BetaThinkingMismatchAllowedInputTransformation`
 
-      - `String path`
-
-        Where the removed block was in your request, as `messages.{i}.content.{j}`:
-        `i` indexes the `messages` array you sent and `j` that message's `content`
-        array — the same form error messages use.
-
-      - `Reason reason`
-
-        Which binding check removed the block: `model_binding_mismatch` — it was
-        created by a model whose reasoning the requested model may not read;
-        `prefix_binding_mismatch` — the conversation before it differs from the
-        conversation it was created in (the rest of that turn's consecutive thinking
-        blocks are removed with it, each with this reason);
-        `organization_binding_mismatch` — it was created under a different
-        organization (an Anthropic organization, AWS account or Google Cloud project)
-        and this organization is not one of its additional organizations;
-        `end_user_binding_mismatch` — it was created for a different end user, or
-        was removed by the consumer-organization binding. A block that would fail
-        several checks reports one reason, in this order of precedence:
-        `organization_binding_mismatch`, `end_user_binding_mismatch`,
-        `model_binding_mismatch`, `prefix_binding_mismatch`.
-
-  - `class BetaRawMessageStopEvent:`
+  - `class BetaRawMessageStopEvent`
 
     - `JsonValue type = "message_stop"`
 
-  - `class BetaRawContentBlockStartEvent:`
+  - `class BetaRawContentBlockStartEvent`
 
     - `JsonValue type = "content_block_start"`
 
     - `ContentBlock contentBlock`
 
-      - `class BetaTextBlock:`
+      - `class BetaTextBlock`
 
-      - `class BetaThinkingBlock:`
+      - `class BetaThinkingBlock`
 
-      - `class BetaRedactedThinkingBlock:`
+      - `class BetaRedactedThinkingBlock`
 
-      - `class BetaToolUseBlock:`
+      - `class BetaToolUseBlock`
 
-      - `class BetaServerToolUseBlock:`
+      - `class BetaServerToolUseBlock`
 
-      - `class BetaWebSearchToolResultBlock:`
+      - `class BetaWebSearchToolResultBlock`
 
-      - `class BetaWebFetchToolResultBlock:`
+      - `class BetaWebFetchToolResultBlock`
 
-      - `class BetaAdvisorToolResultBlock:`
+      - `class BetaAdvisorToolResultBlock`
 
-      - `class BetaCodeExecutionToolResultBlock:`
+      - `class BetaCodeExecutionToolResultBlock`
 
-      - `class BetaBashCodeExecutionToolResultBlock:`
+      - `class BetaBashCodeExecutionToolResultBlock`
 
-      - `class BetaTextEditorCodeExecutionToolResultBlock:`
+      - `class BetaTextEditorCodeExecutionToolResultBlock`
 
-      - `class BetaToolSearchToolResultBlock:`
+      - `class BetaToolSearchToolResultBlock`
 
-      - `class BetaMcpToolUseBlock:`
+      - `class BetaMcpToolUseBlock`
 
-      - `class BetaMcpToolResultBlock:`
+      - `class BetaMcpToolResultBlock`
 
-      - `class BetaContainerUploadBlock:`
+      - `class BetaContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
-      - `class BetaCompactionBlock:`
+      - `class BetaCompactionBlock`
 
         A compaction block returned when autocompact is triggered.
 
@@ -5410,7 +5573,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         summary (e.g., malformed output from the model). Clients may round-trip
         compaction blocks with null content; the server treats them as no-ops.
 
-      - `class BetaFallbackBlock:`
+      - `class BetaFallbackBlock`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -5426,41 +5589,41 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `long index`
 
-  - `class BetaRawContentBlockDeltaEvent:`
+  - `class BetaRawContentBlockDeltaEvent`
 
     - `JsonValue type = "content_block_delta"`
 
     - `BetaRawContentBlockDelta delta`
 
-      - `class BetaTextDelta:`
+      - `class BetaTextDelta`
 
         - `JsonValue type = "text_delta"`
 
         - `String text`
 
-      - `class BetaInputJsonDelta:`
+      - `class BetaInputJsonDelta`
 
         - `JsonValue type = "input_json_delta"`
 
         - `String partialJson`
 
-      - `class BetaCitationsDelta:`
+      - `class BetaCitationsDelta`
 
         - `JsonValue type = "citations_delta"`
 
         - `Citation citation`
 
-          - `class BetaCitationCharLocation:`
+          - `class BetaCitationCharLocation`
 
-          - `class BetaCitationPageLocation:`
+          - `class BetaCitationPageLocation`
 
-          - `class BetaCitationContentBlockLocation:`
+          - `class BetaCitationContentBlockLocation`
 
-          - `class BetaCitationsWebSearchResultLocation:`
+          - `class BetaCitationsWebSearchResultLocation`
 
-          - `class BetaCitationSearchResultLocation:`
+          - `class BetaCitationSearchResultLocation`
 
-      - `class BetaThinkingDelta:`
+      - `class BetaThinkingDelta`
 
         - `JsonValue type = "thinking_delta"`
 
@@ -5472,7 +5635,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `class BetaSignatureDelta:`
+      - `class BetaSignatureDelta`
 
         - `JsonValue type = "signature_delta"`
 
@@ -5480,7 +5643,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-      - `class BetaCompactionContentBlockDelta:`
+      - `class BetaCompactionContentBlockDelta`
 
         - `JsonValue type = "compaction_delta"`
 
@@ -5492,7 +5655,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `long index`
 
-  - `class BetaRawContentBlockStopEvent:`
+  - `class BetaRawContentBlockStopEvent`
 
     - `JsonValue type = "content_block_stop"`
 
@@ -5745,6 +5908,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> userProfileId`
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -5808,7 +5973,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `List<BetaContentBlockParam>`
 
-        - `class BetaTextBlockParam:`
+        - `class BetaTextBlockParam`
 
           - `JsonValue type = "text"`
 
@@ -5839,7 +6004,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<List<BetaTextCitationParam>> citations`
 
-            - `class BetaCitationCharLocationParam:`
+            - `class BetaCitationCharLocationParam`
 
               - `JsonValue type = "char_location"`
 
@@ -5859,7 +6024,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `class BetaCitationPageLocationParam:`
+            - `class BetaCitationPageLocationParam`
 
               - `JsonValue type = "page_location"`
 
@@ -5879,7 +6044,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 1
 
-            - `class BetaCitationContentBlockLocationParam:`
+            - `class BetaCitationContentBlockLocationParam`
 
               - `JsonValue type = "content_block_location"`
 
@@ -5909,7 +6074,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minimum: 0
 
-            - `class BetaCitationWebSearchResultLocationParam:`
+            - `class BetaCitationWebSearchResultLocationParam`
 
               - `JsonValue type = "web_search_result_location"`
 
@@ -5925,7 +6090,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 minLength: 1
 
-            - `class BetaCitationSearchResultLocationParam:`
+            - `class BetaCitationSearchResultLocationParam`
 
               - `JsonValue type = "search_result_location"`
 
@@ -5959,13 +6124,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<String> title`
 
-        - `class BetaImageBlockParam:`
+        - `class BetaImageBlockParam`
 
           - `JsonValue type = "image"`
 
           - `Source source`
 
-            - `class BetaBase64ImageSource:`
+            - `class BetaBase64ImageSource`
 
               - `JsonValue type = "base64"`
 
@@ -5983,13 +6148,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `IMAGE_WEBP("image/webp")`
 
-            - `class BetaUrlImageSource:`
+            - `class BetaUrlImageSource`
 
               - `JsonValue type = "url"`
 
               - `String url`
 
-            - `class BetaFileImageSource:`
+            - `class BetaFileImageSource`
 
               - `JsonValue type = "file"`
 
@@ -6011,13 +6176,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `ERROR("error")`
 
-        - `class BetaRequestDocumentBlock:`
+        - `class BetaRequestDocumentBlock`
 
           - `JsonValue type = "document"`
 
           - `Source source`
 
-            - `class BetaBase64PdfSource:`
+            - `class BetaBase64PdfSource`
 
               - `JsonValue type = "base64"`
 
@@ -6027,7 +6192,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `JsonValue mediaType = "application/pdf"`
 
-            - `class BetaPlainTextSource:`
+            - `class BetaPlainTextSource`
 
               - `JsonValue type = "text"`
 
@@ -6035,7 +6200,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `JsonValue mediaType = "text/plain"`
 
-            - `class BetaContentBlockSource:`
+            - `class BetaContentBlockSource`
 
               - `JsonValue type = "content"`
 
@@ -6045,17 +6210,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `List<BetaContentBlockSourceContent>`
 
-                  - `class BetaTextBlockParam:`
+                  - `class BetaTextBlockParam`
 
-                  - `class BetaImageBlockParam:`
+                  - `class BetaImageBlockParam`
 
-            - `class BetaUrlPdfSource:`
+            - `class BetaUrlPdfSource`
 
               - `JsonValue type = "url"`
 
               - `String url`
 
-            - `class BetaFileDocumentSource:`
+            - `class BetaFileDocumentSource`
 
               - `JsonValue type = "file"`
 
@@ -6077,7 +6242,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 500, minLength: 1
 
-        - `class BetaSearchResultBlockParam:`
+        - `class BetaSearchResultBlockParam`
 
           - `JsonValue type = "search_result"`
 
@@ -6105,7 +6270,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<BetaCitationsConfigParam> citations`
 
-        - `class BetaThinkingBlockParam:`
+        - `class BetaThinkingBlockParam`
 
           - `JsonValue type = "thinking"`
 
@@ -6119,7 +6284,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `thinking` text of this block as returned by the API.
 
-        - `class BetaRedactedThinkingBlockParam:`
+        - `class BetaRedactedThinkingBlockParam`
 
           - `JsonValue type = "redacted_thinking"`
 
@@ -6127,7 +6292,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-        - `class BetaToolUseBlockParam:`
+        - `class BetaToolUseBlockParam`
 
           - `JsonValue type = "tool_use"`
 
@@ -6147,13 +6312,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonValue type = "direct"`
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -6163,7 +6328,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
               - `JsonValue type = "code_execution_20260120"`
 
@@ -6177,7 +6342,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaToolResultBlockParam:`
+        - `class BetaToolResultBlockParam`
 
           - `JsonValue type = "tool_result"`
 
@@ -6195,15 +6360,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `List<Block>`
 
-              - `class BetaTextBlockParam:`
+              - `class BetaTextBlockParam`
 
-              - `class BetaImageBlockParam:`
+              - `class BetaImageBlockParam`
 
-              - `class BetaSearchResultBlockParam:`
+              - `class BetaSearchResultBlockParam`
 
-              - `class BetaRequestDocumentBlock:`
+              - `class BetaRequestDocumentBlock`
 
-              - `class BetaToolReferenceBlockParam:`
+              - `class BetaToolReferenceBlockParam`
 
                 Tool reference block that can be included in tool_result content.
 
@@ -6217,7 +6382,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   Create a cache control breakpoint at this content block.
 
-              - `class BetaBrowserStateBlockParam:`
+              - `class BetaBrowserStateBlockParam`
 
                 The caller's browser state after a browser toolset member call —
                 the full inventory of open tabs, which tab is active, and any side
@@ -6267,7 +6432,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   maxItems: 200, minItems: 1
 
-                  - `class BetaBrowserStateChangeTabOpened:`
+                  - `class BetaBrowserStateChangeTabOpened`
 
                     A tab this call's execution opened that remains open at its end —
                     the creation delta of the `tabs` inventory, not an event log.
@@ -6285,7 +6450,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BetaBrowserStateChangeDownloadStarted:`
+                  - `class BetaBrowserStateChangeDownloadStarted`
 
                     A file download that started during this call.
 
@@ -6303,7 +6468,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `class BetaBrowserStateChangeDownloadCompleted:`
+                  - `class BetaBrowserStateChangeDownloadCompleted`
 
                     A file download that finished during this call, reported with the
                     same `download_id` as its `download_started` — or without a prior
@@ -6336,7 +6501,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       minimum: 0
 
-                  - `class BetaBrowserStateChangeDownloadFailed:`
+                  - `class BetaBrowserStateChangeDownloadFailed`
 
                     A file download that failed — or was cancelled — during this call.
 
@@ -6368,7 +6533,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaServerToolUseBlockParam:`
+        - `class BetaServerToolUseBlockParam`
 
           - `JsonValue type = "server_tool_use"`
 
@@ -6402,17 +6567,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebSearchToolResultBlockParam:`
+        - `class BetaWebSearchToolResultBlockParam`
 
           - `JsonValue type = "web_search_tool_result"`
 
@@ -6430,7 +6595,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<String> pageAge`
 
-            - `class BetaWebSearchToolRequestError:`
+            - `class BetaWebSearchToolRequestError`
 
               - `JsonValue type = "web_search_tool_result_error"`
 
@@ -6458,23 +6623,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebFetchToolResultBlockParam:`
+        - `class BetaWebFetchToolResultBlockParam`
 
           - `JsonValue type = "web_fetch_tool_result"`
 
           - `Content content`
 
-            - `class BetaWebFetchToolResultErrorBlockParam:`
+            - `class BetaWebFetchToolResultErrorBlockParam`
 
               - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -6500,7 +6665,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `CONTENT_TOO_LARGE("content_too_large")`
 
-            - `class BetaWebFetchBlockParam:`
+            - `class BetaWebFetchBlockParam`
 
               - `JsonValue type = "web_fetch_result"`
 
@@ -6524,23 +6689,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaAdvisorToolResultBlockParam:`
+        - `class BetaAdvisorToolResultBlockParam`
 
           - `JsonValue type = "advisor_tool_result"`
 
           - `Content content`
 
-            - `class BetaAdvisorToolResultErrorParam:`
+            - `class BetaAdvisorToolResultErrorParam`
 
               - `JsonValue type = "advisor_tool_result_error"`
 
@@ -6560,7 +6725,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `MODEL_NOT_FOUND("model_not_found")`
 
-            - `class BetaAdvisorResultBlockParam:`
+            - `class BetaAdvisorResultBlockParam`
 
               - `JsonValue type = "advisor_result"`
 
@@ -6568,7 +6733,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<String> stopReason`
 
-            - `class BetaAdvisorRedactedResultBlockParam:`
+            - `class BetaAdvisorRedactedResultBlockParam`
 
               - `JsonValue type = "advisor_redacted_result"`
 
@@ -6586,13 +6751,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaCodeExecutionToolResultBlockParam:`
+        - `class BetaCodeExecutionToolResultBlockParam`
 
           - `JsonValue type = "code_execution_tool_result"`
 
           - `BetaCodeExecutionToolResultBlockParamContent content`
 
-            - `class BetaCodeExecutionToolResultErrorParam:`
+            - `class BetaCodeExecutionToolResultErrorParam`
 
               - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -6606,7 +6771,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `class BetaCodeExecutionResultBlockParam:`
+            - `class BetaCodeExecutionResultBlockParam`
 
               - `JsonValue type = "code_execution_result"`
 
@@ -6622,7 +6787,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String stdout`
 
-            - `class BetaEncryptedCodeExecutionResultBlockParam:`
+            - `class BetaEncryptedCodeExecutionResultBlockParam`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -6648,13 +6813,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaBashCodeExecutionToolResultBlockParam:`
+        - `class BetaBashCodeExecutionToolResultBlockParam`
 
           - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `Content content`
 
-            - `class BetaBashCodeExecutionToolResultErrorParam:`
+            - `class BetaBashCodeExecutionToolResultErrorParam`
 
               - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -6670,7 +6835,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-            - `class BetaBashCodeExecutionResultBlockParam:`
+            - `class BetaBashCodeExecutionResultBlockParam`
 
               - `JsonValue type = "bash_code_execution_result"`
 
@@ -6694,13 +6859,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+        - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
           - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `Content content`
 
-            - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+            - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
               - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -6718,7 +6883,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<String> errorMessage`
 
-            - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -6738,13 +6903,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<Long> totalLines`
 
-            - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_create_result"`
 
               - `boolean isFileUpdate`
 
-            - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -6766,13 +6931,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaToolSearchToolResultBlockParam:`
+        - `class BetaToolSearchToolResultBlockParam`
 
           - `JsonValue type = "tool_search_tool_result"`
 
           - `Content content`
 
-            - `class BetaToolSearchToolResultErrorParam:`
+            - `class BetaToolSearchToolResultErrorParam`
 
               - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -6788,7 +6953,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `Optional<String> errorMessage`
 
-            - `class BetaToolSearchToolSearchResultBlockParam:`
+            - `class BetaToolSearchToolSearchResultBlockParam`
 
               - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -6812,7 +6977,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaMcpToolUseBlockParam:`
+        - `class BetaMcpToolUseBlockParam`
 
           - `JsonValue type = "mcp_tool_use"`
 
@@ -6832,7 +6997,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaRequestMcpToolResultBlockParam:`
+        - `class BetaRequestMcpToolResultBlockParam`
 
           - `JsonValue type = "mcp_tool_result"`
 
@@ -6864,7 +7029,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Optional<Boolean> isError`
 
-        - `class BetaContainerUploadBlockParam:`
+        - `class BetaContainerUploadBlockParam`
 
           A content block that represents a file to be uploaded to the container
           Files uploaded via this block will be available in the container's input directory.
@@ -6877,7 +7042,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaCompactionBlockParam:`
+        - `class BetaCompactionBlockParam`
 
           A compaction block containing summary of previous context.
 
@@ -6901,7 +7066,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `class BetaRequestToolAdditionBlock:`
+          - `Optional<String> signature`
+
+            The block's signature as returned, to be sent back verbatim
+
+        - `class BetaRequestToolAdditionBlock`
 
           Mid-conversation directive to surface a declared tool.
 
@@ -6913,7 +7082,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Tool tool`
 
-            - `class BetaToolChangeToolReference:`
+            - `class BetaToolChangeToolReference`
 
               Reference to a single tool the caller declared directly in
               `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -6926,7 +7095,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-            - `class BetaToolChangeMcpToolReference:`
+            - `class BetaToolChangeMcpToolReference`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -6937,7 +7106,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `String serverName`
 
-            - `class BetaToolChangeMcpToolsetReference:`
+            - `class BetaToolChangeMcpToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
 
@@ -6949,7 +7118,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaRequestToolRemovalBlock:`
+        - `class BetaRequestToolRemovalBlock`
 
           Mid-conversation directive to withdraw a tool.
 
@@ -6961,19 +7130,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `Tool tool`
 
-            - `class BetaToolChangeToolReference:`
+            - `class BetaToolChangeToolReference`
 
               Reference to a single tool the caller declared directly in
               `tools[]`. Does not accept the composed `{server}_{name}` form the
               server assigns to MCP-resolved tools — use `mcp_tool_reference` or
               `mcp_toolset_reference` for those.
 
-            - `class BetaToolChangeMcpToolReference:`
+            - `class BetaToolChangeMcpToolReference`
 
               Reference to a single MCP tool by its server and remote name — the
               same `server_name`/`name` pair `mcp_tool_use` carries.
 
-            - `class BetaToolChangeMcpToolsetReference:`
+            - `class BetaToolChangeMcpToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
 
@@ -6981,7 +7150,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaFallbackBlockParam:`
+        - `class BetaFallbackBlockParam`
 
           A `fallback` block echoed back from a prior response.
 
@@ -7133,6 +7302,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+  - `Optional<BetaCompactionConfig> compaction`
+
+    Compact the whole conversation and return a signed `compaction` block,
+    alone, that a later request sends back first in `messages`, in place of
+    the messages it summarizes. There is no trigger and no pause flag: sending
+    the parameter compacts, and nothing is sampled after the block.
+
+    The summarization prompt is the server's own unless `instructions` are
+    given, which then replace it for this request; a value that is empty or
+    only whitespace counts as absent.
+
   - `Optional<BetaContextManagementConfig> contextManagement`
 
     Context management configuration.
@@ -7269,7 +7449,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-    - `class BetaTool:`
+    - `class BetaTool`
 
       - `Optional<Type> type`
 
@@ -7327,7 +7507,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolBash20241022:`
+    - `class BetaToolBash20241022`
 
       - `JsonValue type = "bash_20241022"`
 
@@ -7361,7 +7541,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolBash20250124:`
+    - `class BetaToolBash20250124`
 
       - `JsonValue type = "bash_20250124"`
 
@@ -7395,7 +7575,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20250522:`
+    - `class BetaCodeExecutionTool20250522`
 
       - `JsonValue type = "code_execution_20250522"`
 
@@ -7427,7 +7607,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20250825:`
+    - `class BetaCodeExecutionTool20250825`
 
       - `JsonValue type = "code_execution_20250825"`
 
@@ -7459,7 +7639,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20260120:`
+    - `class BetaCodeExecutionTool20260120`
 
       Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -7493,7 +7673,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaCodeExecutionTool20260521:`
+    - `class BetaCodeExecutionTool20260521`
 
       Code execution tool with REPL state persistence.
 
@@ -7527,7 +7707,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaBrowserToolset20260801:`
+    - `class BetaBrowserToolset20260801`
 
       The browser toolset: a single `tools[]` entry (carrying no
       `name`) that declares the browser tool family. The model is served
@@ -7921,7 +8101,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class BetaToolComputerUse20241022:`
+    - `class BetaToolComputerUse20241022`
 
       - `JsonValue type = "computer_20241022"`
 
@@ -7973,7 +8153,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaMemoryTool20250818:`
+    - `class BetaMemoryTool20250818`
 
       - `JsonValue type = "memory_20250818"`
 
@@ -8007,7 +8187,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolComputerUse20250124:`
+    - `class BetaToolComputerUse20250124`
 
       - `JsonValue type = "computer_20250124"`
 
@@ -8059,7 +8239,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolTextEditor20241022:`
+    - `class BetaToolTextEditor20241022`
 
       - `JsonValue type = "text_editor_20241022"`
 
@@ -8093,7 +8273,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolComputerUse20251124:`
+    - `class BetaToolComputerUse20251124`
 
       - `JsonValue type = "computer_20251124"`
 
@@ -8149,7 +8329,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaComputerToolset20260801:`
+    - `class BetaComputerToolset20260801`
 
       The computer toolset: a single `tools[]` entry (carrying no
       `name`) that declares the computer tool family. The model is
@@ -8379,7 +8559,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `class BetaToolTextEditor20250124:`
+    - `class BetaToolTextEditor20250124`
 
       - `JsonValue type = "text_editor_20250124"`
 
@@ -8413,7 +8593,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolTextEditor20250429:`
+    - `class BetaToolTextEditor20250429`
 
       - `JsonValue type = "text_editor_20250429"`
 
@@ -8447,7 +8627,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolTextEditor20250728:`
+    - `class BetaToolTextEditor20250728`
 
       - `JsonValue type = "text_editor_20250728"`
 
@@ -8487,7 +8667,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaWebSearchTool20250305:`
+    - `class BetaWebSearchTool20250305`
 
       - `JsonValue type = "web_search_20250305"`
 
@@ -8563,7 +8743,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           maxLength: 255, minLength: 1
 
-    - `class BetaWebFetchTool20250910:`
+    - `class BetaWebFetchTool20250910`
 
       - `JsonValue type = "web_fetch_20250910"`
 
@@ -8619,7 +8799,98 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaWebSearchTool20260209:`
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `Optional<ClientToolResults> clientToolResults`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `class BetaWebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `JsonValue type = "all"`
+
+          - `class BetaWebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `JsonValue type = "none"`
+
+          - `class BetaWebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `JsonValue type = "only"`
+
+            - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+              - `JsonValue type = "tool_reference"`
+
+              - `String name`
+
+          - `class BetaWebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `JsonValue type = "except"`
+
+            - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+              - `JsonValue type = "tool_reference"`
+
+              - `String name`
+
+        - `Optional<ServerToolResults> serverToolResults`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `class BetaWebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class BetaWebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `class BetaWebFetchUrlSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `class BetaWebFetchUrlSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `Optional<UserInput> userInput`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `class BetaWebFetchUrlSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `class BetaWebFetchUrlSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `class BetaWebSearchTool20260209`
 
       - `JsonValue type = "web_search_20260209"`
 
@@ -8669,7 +8940,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class BetaWebFetchTool20260209:`
+    - `class BetaWebFetchTool20260209`
 
       - `JsonValue type = "web_fetch_20260209"`
 
@@ -8725,7 +8996,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaWebFetchTool20260309:`
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `class BetaWebFetchTool20260309`
 
       Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -8783,11 +9063,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `Optional<Boolean> useCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class BetaWebSearchTool20260318:`
+    - `class BetaWebSearchTool20260318`
 
       - `JsonValue type = "web_search_20260318"`
 
@@ -8845,7 +9134,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Parameters for the user's location. Used to provide more relevant search results.
 
-    - `class BetaWebFetchTool20260318:`
+    - `class BetaWebFetchTool20260318`
 
       - `JsonValue type = "web_fetch_20260318"`
 
@@ -8909,11 +9198,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+      - `Optional<BetaWebFetchUrlSources> urlSources`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
       - `Optional<Boolean> useCache`
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-    - `class BetaAdvisorTool20260301:`
+    - `class BetaAdvisorTool20260301`
 
       - `JsonValue type = "advisor_20260301"`
 
@@ -8967,7 +9265,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolSearchToolBm25_20251119:`
+    - `class BetaToolSearchToolBm25_20251119`
 
       - `Type type`
 
@@ -9003,7 +9301,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaToolSearchToolRegex20251119:`
+    - `class BetaToolSearchToolRegex20251119`
 
       - `Type type`
 
@@ -9039,7 +9337,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-    - `class BetaMcpToolset:`
+    - `class BetaMcpToolset`
 
       Configuration for a group of tools from an MCP server.
 
@@ -9084,7 +9382,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ### Returns
 
-- `class BetaMessageTokensCount:`
+- `class BetaMessageTokensCount`
 
   - `Optional<BetaCountTokensContextManagementResponse> contextManagement`
 
@@ -9139,7 +9437,7 @@ public final class Main {
 
 ### Beta Advisor Message Iteration Usage
 
-- `class BetaAdvisorMessageIterationUsage:`
+- `class BetaAdvisorMessageIterationUsage`
 
   Token usage for an advisor sub-inference iteration.
 
@@ -9263,7 +9561,7 @@ public final class Main {
 
 ### Beta Advisor Redacted Result Block
 
-- `class BetaAdvisorRedactedResultBlock:`
+- `class BetaAdvisorRedactedResultBlock`
 
   - `JsonValue type = "advisor_redacted_result"`
 
@@ -9277,7 +9575,7 @@ public final class Main {
 
 ### Beta Advisor Redacted Result Block Param
 
-- `class BetaAdvisorRedactedResultBlockParam:`
+- `class BetaAdvisorRedactedResultBlockParam`
 
   - `JsonValue type = "advisor_redacted_result"`
 
@@ -9289,7 +9587,7 @@ public final class Main {
 
 ### Beta Advisor Result Block
 
-- `class BetaAdvisorResultBlock:`
+- `class BetaAdvisorResultBlock`
 
   - `JsonValue type = "advisor_result"`
 
@@ -9301,7 +9599,7 @@ public final class Main {
 
 ### Beta Advisor Result Block Param
 
-- `class BetaAdvisorResultBlockParam:`
+- `class BetaAdvisorResultBlockParam`
 
   - `JsonValue type = "advisor_result"`
 
@@ -9311,7 +9609,7 @@ public final class Main {
 
 ### Beta Advisor Tool 20260301
 
-- `class BetaAdvisorTool20260301:`
+- `class BetaAdvisorTool20260301`
 
   - `JsonValue type = "advisor_20260301"`
 
@@ -9452,13 +9750,13 @@ public final class Main {
 
 ### Beta Advisor Tool Result Block
 
-- `class BetaAdvisorToolResultBlock:`
+- `class BetaAdvisorToolResultBlock`
 
   - `JsonValue type = "advisor_tool_result"`
 
   - `Content content`
 
-    - `class BetaAdvisorToolResultError:`
+    - `class BetaAdvisorToolResultError`
 
       - `JsonValue type = "advisor_tool_result_error"`
 
@@ -9478,7 +9776,7 @@ public final class Main {
 
         - `MODEL_NOT_FOUND("model_not_found")`
 
-    - `class BetaAdvisorResultBlock:`
+    - `class BetaAdvisorResultBlock`
 
       - `JsonValue type = "advisor_result"`
 
@@ -9488,7 +9786,7 @@ public final class Main {
 
       - `String text`
 
-    - `class BetaAdvisorRedactedResultBlock:`
+    - `class BetaAdvisorRedactedResultBlock`
 
       - `JsonValue type = "advisor_redacted_result"`
 
@@ -9506,13 +9804,13 @@ public final class Main {
 
 ### Beta Advisor Tool Result Block Param
 
-- `class BetaAdvisorToolResultBlockParam:`
+- `class BetaAdvisorToolResultBlockParam`
 
   - `JsonValue type = "advisor_tool_result"`
 
   - `Content content`
 
-    - `class BetaAdvisorToolResultErrorParam:`
+    - `class BetaAdvisorToolResultErrorParam`
 
       - `JsonValue type = "advisor_tool_result_error"`
 
@@ -9532,7 +9830,7 @@ public final class Main {
 
         - `MODEL_NOT_FOUND("model_not_found")`
 
-    - `class BetaAdvisorResultBlockParam:`
+    - `class BetaAdvisorResultBlockParam`
 
       - `JsonValue type = "advisor_result"`
 
@@ -9540,7 +9838,7 @@ public final class Main {
 
       - `Optional<String> stopReason`
 
-    - `class BetaAdvisorRedactedResultBlockParam:`
+    - `class BetaAdvisorRedactedResultBlockParam`
 
       - `JsonValue type = "advisor_redacted_result"`
 
@@ -9577,7 +9875,7 @@ public final class Main {
 
 ### Beta Advisor Tool Result Error
 
-- `class BetaAdvisorToolResultError:`
+- `class BetaAdvisorToolResultError`
 
   - `JsonValue type = "advisor_tool_result_error"`
 
@@ -9599,7 +9897,7 @@ public final class Main {
 
 ### Beta Advisor Tool Result Error Param
 
-- `class BetaAdvisorToolResultErrorParam:`
+- `class BetaAdvisorToolResultErrorParam`
 
   - `JsonValue type = "advisor_tool_result_error"`
 
@@ -9621,13 +9919,13 @@ public final class Main {
 
 ### Beta All Thinking Turns
 
-- `class BetaAllThinkingTurns:`
+- `class BetaAllThinkingTurns`
 
   - `JsonValue type = "all"`
 
 ### Beta Base64 Image Source
 
-- `class BetaBase64ImageSource:`
+- `class BetaBase64ImageSource`
 
   - `JsonValue type = "base64"`
 
@@ -9647,7 +9945,7 @@ public final class Main {
 
 ### Beta Base64 PDF Source
 
-- `class BetaBase64PdfSource:`
+- `class BetaBase64PdfSource`
 
   - `JsonValue type = "base64"`
 
@@ -9659,7 +9957,7 @@ public final class Main {
 
 ### Beta Bash Code Execution Output Block
 
-- `class BetaBashCodeExecutionOutputBlock:`
+- `class BetaBashCodeExecutionOutputBlock`
 
   - `JsonValue type = "bash_code_execution_output"`
 
@@ -9667,7 +9965,7 @@ public final class Main {
 
 ### Beta Bash Code Execution Output Block Param
 
-- `class BetaBashCodeExecutionOutputBlockParam:`
+- `class BetaBashCodeExecutionOutputBlockParam`
 
   - `JsonValue type = "bash_code_execution_output"`
 
@@ -9675,7 +9973,7 @@ public final class Main {
 
 ### Beta Bash Code Execution Result Block
 
-- `class BetaBashCodeExecutionResultBlock:`
+- `class BetaBashCodeExecutionResultBlock`
 
   - `JsonValue type = "bash_code_execution_result"`
 
@@ -9693,7 +9991,7 @@ public final class Main {
 
 ### Beta Bash Code Execution Result Block Param
 
-- `class BetaBashCodeExecutionResultBlockParam:`
+- `class BetaBashCodeExecutionResultBlockParam`
 
   - `JsonValue type = "bash_code_execution_result"`
 
@@ -9711,13 +10009,13 @@ public final class Main {
 
 ### Beta Bash Code Execution Tool Result Block
 
-- `class BetaBashCodeExecutionToolResultBlock:`
+- `class BetaBashCodeExecutionToolResultBlock`
 
   - `JsonValue type = "bash_code_execution_tool_result"`
 
   - `Content content`
 
-    - `class BetaBashCodeExecutionToolResultError:`
+    - `class BetaBashCodeExecutionToolResultError`
 
       - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -9733,7 +10031,7 @@ public final class Main {
 
         - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-    - `class BetaBashCodeExecutionResultBlock:`
+    - `class BetaBashCodeExecutionResultBlock`
 
       - `JsonValue type = "bash_code_execution_result"`
 
@@ -9755,13 +10053,13 @@ public final class Main {
 
 ### Beta Bash Code Execution Tool Result Block Param
 
-- `class BetaBashCodeExecutionToolResultBlockParam:`
+- `class BetaBashCodeExecutionToolResultBlockParam`
 
   - `JsonValue type = "bash_code_execution_tool_result"`
 
   - `Content content`
 
-    - `class BetaBashCodeExecutionToolResultErrorParam:`
+    - `class BetaBashCodeExecutionToolResultErrorParam`
 
       - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -9777,7 +10075,7 @@ public final class Main {
 
         - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-    - `class BetaBashCodeExecutionResultBlockParam:`
+    - `class BetaBashCodeExecutionResultBlockParam`
 
       - `JsonValue type = "bash_code_execution_result"`
 
@@ -9820,7 +10118,7 @@ public final class Main {
 
 ### Beta Bash Code Execution Tool Result Error
 
-- `class BetaBashCodeExecutionToolResultError:`
+- `class BetaBashCodeExecutionToolResultError`
 
   - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -9838,7 +10136,7 @@ public final class Main {
 
 ### Beta Bash Code Execution Tool Result Error Param
 
-- `class BetaBashCodeExecutionToolResultErrorParam:`
+- `class BetaBashCodeExecutionToolResultErrorParam`
 
   - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -9856,7 +10154,7 @@ public final class Main {
 
 ### Beta Browser Close Tab Config
 
-- `class BetaBrowserCloseTabConfig:`
+- `class BetaBrowserCloseTabConfig`
 
   `close_tab`'s config overrides.
 
@@ -9870,7 +10168,7 @@ public final class Main {
 
 ### Beta Browser Double Click Config
 
-- `class BetaBrowserDoubleClickConfig:`
+- `class BetaBrowserDoubleClickConfig`
 
   `double_click`'s config overrides.
 
@@ -9884,7 +10182,7 @@ public final class Main {
 
 ### Beta Browser File Upload Config
 
-- `class BetaBrowserFileUploadConfig:`
+- `class BetaBrowserFileUploadConfig`
 
   `file_upload`'s config overrides.
 
@@ -9898,7 +10196,7 @@ public final class Main {
 
 ### Beta Browser Find Config
 
-- `class BetaBrowserFindConfig:`
+- `class BetaBrowserFindConfig`
 
   `find`'s config overrides.
 
@@ -9912,7 +10210,7 @@ public final class Main {
 
 ### Beta Browser Form Input Config
 
-- `class BetaBrowserFormInputConfig:`
+- `class BetaBrowserFormInputConfig`
 
   `form_input`'s config overrides.
 
@@ -9926,7 +10224,7 @@ public final class Main {
 
 ### Beta Browser Get Page Text Config
 
-- `class BetaBrowserGetPageTextConfig:`
+- `class BetaBrowserGetPageTextConfig`
 
   `get_page_text`'s config overrides.
 
@@ -9940,7 +10238,7 @@ public final class Main {
 
 ### Beta Browser Hold Key Config
 
-- `class BetaBrowserHoldKeyConfig:`
+- `class BetaBrowserHoldKeyConfig`
 
   `hold_key`'s config overrides.
 
@@ -9954,7 +10252,7 @@ public final class Main {
 
 ### Beta Browser Hover Config
 
-- `class BetaBrowserHoverConfig:`
+- `class BetaBrowserHoverConfig`
 
   `hover`'s config overrides.
 
@@ -9968,7 +10266,7 @@ public final class Main {
 
 ### Beta Browser Javascript Exec Config
 
-- `class BetaBrowserJavascriptExecConfig:`
+- `class BetaBrowserJavascriptExecConfig`
 
   `javascript_exec`'s config overrides.
 
@@ -9982,7 +10280,7 @@ public final class Main {
 
 ### Beta Browser Key Config
 
-- `class BetaBrowserKeyConfig:`
+- `class BetaBrowserKeyConfig`
 
   `key`'s config overrides.
 
@@ -9996,7 +10294,7 @@ public final class Main {
 
 ### Beta Browser Left Click Config
 
-- `class BetaBrowserLeftClickConfig:`
+- `class BetaBrowserLeftClickConfig`
 
   `left_click`'s config overrides.
 
@@ -10010,7 +10308,7 @@ public final class Main {
 
 ### Beta Browser Left Click Drag Config
 
-- `class BetaBrowserLeftClickDragConfig:`
+- `class BetaBrowserLeftClickDragConfig`
 
   `left_click_drag`'s config overrides.
 
@@ -10024,7 +10322,7 @@ public final class Main {
 
 ### Beta Browser Left Mouse Down Config
 
-- `class BetaBrowserLeftMouseDownConfig:`
+- `class BetaBrowserLeftMouseDownConfig`
 
   `left_mouse_down`'s config overrides.
 
@@ -10038,7 +10336,7 @@ public final class Main {
 
 ### Beta Browser Left Mouse Up Config
 
-- `class BetaBrowserLeftMouseUpConfig:`
+- `class BetaBrowserLeftMouseUpConfig`
 
   `left_mouse_up`'s config overrides.
 
@@ -10052,7 +10350,7 @@ public final class Main {
 
 ### Beta Browser List Tabs Config
 
-- `class BetaBrowserListTabsConfig:`
+- `class BetaBrowserListTabsConfig`
 
   `list_tabs`'s config overrides.
 
@@ -10066,7 +10364,7 @@ public final class Main {
 
 ### Beta Browser Middle Click Config
 
-- `class BetaBrowserMiddleClickConfig:`
+- `class BetaBrowserMiddleClickConfig`
 
   `middle_click`'s config overrides.
 
@@ -10080,7 +10378,7 @@ public final class Main {
 
 ### Beta Browser Mouse Move Config
 
-- `class BetaBrowserMouseMoveConfig:`
+- `class BetaBrowserMouseMoveConfig`
 
   `mouse_move`'s config overrides.
 
@@ -10094,7 +10392,7 @@ public final class Main {
 
 ### Beta Browser Navigate Config
 
-- `class BetaBrowserNavigateConfig:`
+- `class BetaBrowserNavigateConfig`
 
   `navigate`'s config overrides.
 
@@ -10108,7 +10406,7 @@ public final class Main {
 
 ### Beta Browser New Tab Config
 
-- `class BetaBrowserNewTabConfig:`
+- `class BetaBrowserNewTabConfig`
 
   `new_tab`'s config overrides.
 
@@ -10122,7 +10420,7 @@ public final class Main {
 
 ### Beta Browser Read Console Config
 
-- `class BetaBrowserReadConsoleConfig:`
+- `class BetaBrowserReadConsoleConfig`
 
   `read_console`'s config overrides.
 
@@ -10136,7 +10434,7 @@ public final class Main {
 
 ### Beta Browser Read Network Config
 
-- `class BetaBrowserReadNetworkConfig:`
+- `class BetaBrowserReadNetworkConfig`
 
   `read_network`'s config overrides.
 
@@ -10150,7 +10448,7 @@ public final class Main {
 
 ### Beta Browser Read Page Config
 
-- `class BetaBrowserReadPageConfig:`
+- `class BetaBrowserReadPageConfig`
 
   `read_page`'s config overrides.
 
@@ -10164,7 +10462,7 @@ public final class Main {
 
 ### Beta Browser Right Click Config
 
-- `class BetaBrowserRightClickConfig:`
+- `class BetaBrowserRightClickConfig`
 
   `right_click`'s config overrides.
 
@@ -10178,7 +10476,7 @@ public final class Main {
 
 ### Beta Browser Screenshot Config
 
-- `class BetaBrowserScreenshotConfig:`
+- `class BetaBrowserScreenshotConfig`
 
   `screenshot`'s config overrides.
 
@@ -10192,7 +10490,7 @@ public final class Main {
 
 ### Beta Browser Scroll Config
 
-- `class BetaBrowserScrollConfig:`
+- `class BetaBrowserScrollConfig`
 
   `scroll`'s config overrides.
 
@@ -10206,7 +10504,7 @@ public final class Main {
 
 ### Beta Browser Scroll To Config
 
-- `class BetaBrowserScrollToConfig:`
+- `class BetaBrowserScrollToConfig`
 
   `scroll_to`'s config overrides.
 
@@ -10220,7 +10518,7 @@ public final class Main {
 
 ### Beta Browser State Block Param
 
-- `class BetaBrowserStateBlockParam:`
+- `class BetaBrowserStateBlockParam`
 
   The caller's browser state after a browser toolset member call —
   the full inventory of open tabs, which tab is active, and any side
@@ -10287,7 +10585,7 @@ public final class Main {
 
     maxItems: 200, minItems: 1
 
-    - `class BetaBrowserStateChangeTabOpened:`
+    - `class BetaBrowserStateChangeTabOpened`
 
       A tab this call's execution opened that remains open at its end —
       the creation delta of the `tabs` inventory, not an event log.
@@ -10305,7 +10603,7 @@ public final class Main {
 
         maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `class BetaBrowserStateChangeDownloadStarted:`
+    - `class BetaBrowserStateChangeDownloadStarted`
 
       A file download that started during this call.
 
@@ -10323,7 +10621,7 @@ public final class Main {
 
         maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `class BetaBrowserStateChangeDownloadCompleted:`
+    - `class BetaBrowserStateChangeDownloadCompleted`
 
       A file download that finished during this call, reported with the
       same `download_id` as its `download_started` — or without a prior
@@ -10356,7 +10654,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaBrowserStateChangeDownloadFailed:`
+    - `class BetaBrowserStateChangeDownloadFailed`
 
       A file download that failed — or was cancelled — during this call.
 
@@ -10384,7 +10682,7 @@ public final class Main {
 
 - `class BetaBrowserStateChange: union`
 
-  - `class BetaBrowserStateChangeTabOpened:`
+  - `class BetaBrowserStateChangeTabOpened`
 
     A tab this call's execution opened that remains open at its end —
     the creation delta of the `tabs` inventory, not an event log.
@@ -10402,7 +10700,7 @@ public final class Main {
 
       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `class BetaBrowserStateChangeDownloadStarted:`
+  - `class BetaBrowserStateChangeDownloadStarted`
 
     A file download that started during this call.
 
@@ -10420,7 +10718,7 @@ public final class Main {
 
       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-  - `class BetaBrowserStateChangeDownloadCompleted:`
+  - `class BetaBrowserStateChangeDownloadCompleted`
 
     A file download that finished during this call, reported with the
     same `download_id` as its `download_started` — or without a prior
@@ -10453,7 +10751,7 @@ public final class Main {
 
       minimum: 0
 
-  - `class BetaBrowserStateChangeDownloadFailed:`
+  - `class BetaBrowserStateChangeDownloadFailed`
 
     A file download that failed — or was cancelled — during this call.
 
@@ -10479,7 +10777,7 @@ public final class Main {
 
 ### Beta Browser State Change Download Completed
 
-- `class BetaBrowserStateChangeDownloadCompleted:`
+- `class BetaBrowserStateChangeDownloadCompleted`
 
   A file download that finished during this call, reported with the
   same `download_id` as its `download_started` — or without a prior
@@ -10514,7 +10812,7 @@ public final class Main {
 
 ### Beta Browser State Change Download Failed
 
-- `class BetaBrowserStateChangeDownloadFailed:`
+- `class BetaBrowserStateChangeDownloadFailed`
 
   A file download that failed — or was cancelled — during this call.
 
@@ -10540,7 +10838,7 @@ public final class Main {
 
 ### Beta Browser State Change Download Started
 
-- `class BetaBrowserStateChangeDownloadStarted:`
+- `class BetaBrowserStateChangeDownloadStarted`
 
   A file download that started during this call.
 
@@ -10560,7 +10858,7 @@ public final class Main {
 
 ### Beta Browser State Change Tab Opened
 
-- `class BetaBrowserStateChangeTabOpened:`
+- `class BetaBrowserStateChangeTabOpened`
 
   A tab this call's execution opened that remains open at its end —
   the creation delta of the `tabs` inventory, not an event log.
@@ -10580,7 +10878,7 @@ public final class Main {
 
 ### Beta Browser State Tab Entry
 
-- `class BetaBrowserStateTabEntry:`
+- `class BetaBrowserStateTabEntry`
 
   One open browser tab reported in a `browser_state` block's `tabs`
   inventory.
@@ -10615,7 +10913,7 @@ public final class Main {
 
 ### Beta Browser Switch Tab Config
 
-- `class BetaBrowserSwitchTabConfig:`
+- `class BetaBrowserSwitchTabConfig`
 
   `switch_tab`'s config overrides.
 
@@ -10629,7 +10927,7 @@ public final class Main {
 
 ### Beta Browser Toolset 20260801
 
-- `class BetaBrowserToolset20260801:`
+- `class BetaBrowserToolset20260801`
 
   The browser toolset: a single `tools[]` entry (carrying no
   `name`) that declares the browser tool family. The model is served
@@ -11042,7 +11340,7 @@ public final class Main {
 
 ### Beta Browser Toolset Configs
 
-- `class BetaBrowserToolsetConfigs:`
+- `class BetaBrowserToolsetConfigs`
 
   Per-member configuration for `browser_toolset_20260801`: one
   optional field per member tool, keyed by the member name — the same
@@ -11425,7 +11723,7 @@ public final class Main {
 
 ### Beta Browser Triple Click Config
 
-- `class BetaBrowserTripleClickConfig:`
+- `class BetaBrowserTripleClickConfig`
 
   `triple_click`'s config overrides.
 
@@ -11439,7 +11737,7 @@ public final class Main {
 
 ### Beta Browser Type Config
 
-- `class BetaBrowserTypeConfig:`
+- `class BetaBrowserTypeConfig`
 
   `type`'s config overrides.
 
@@ -11453,7 +11751,7 @@ public final class Main {
 
 ### Beta Browser Wait Config
 
-- `class BetaBrowserWaitConfig:`
+- `class BetaBrowserWaitConfig`
 
   `wait`'s config overrides.
 
@@ -11467,7 +11765,7 @@ public final class Main {
 
 ### Beta Browser Zoom Config
 
-- `class BetaBrowserZoomConfig:`
+- `class BetaBrowserZoomConfig`
 
   `zoom`'s config overrides.
 
@@ -11481,7 +11779,7 @@ public final class Main {
 
 ### Beta Cache Control Ephemeral
 
-- `class BetaCacheControlEphemeral:`
+- `class BetaCacheControlEphemeral`
 
   - `JsonValue type = "ephemeral"`
 
@@ -11502,7 +11800,7 @@ public final class Main {
 
 ### Beta Cache Creation
 
-- `class BetaCacheCreation:`
+- `class BetaCacheCreation`
 
   - `long ephemeral1hInputTokens`
 
@@ -11518,7 +11816,7 @@ public final class Main {
 
 ### Beta Cache Miss Messages Changed
 
-- `class BetaCacheMissMessagesChanged:`
+- `class BetaCacheMissMessagesChanged`
 
   - `JsonValue type = "messages_changed"`
 
@@ -11528,7 +11826,7 @@ public final class Main {
 
 ### Beta Cache Miss Model Changed
 
-- `class BetaCacheMissModelChanged:`
+- `class BetaCacheMissModelChanged`
 
   - `JsonValue type = "model_changed"`
 
@@ -11538,13 +11836,13 @@ public final class Main {
 
 ### Beta Cache Miss Previous Message Not Found
 
-- `class BetaCacheMissPreviousMessageNotFound:`
+- `class BetaCacheMissPreviousMessageNotFound`
 
   - `JsonValue type = "previous_message_not_found"`
 
 ### Beta Cache Miss System Changed
 
-- `class BetaCacheMissSystemChanged:`
+- `class BetaCacheMissSystemChanged`
 
   - `JsonValue type = "system_changed"`
 
@@ -11554,7 +11852,7 @@ public final class Main {
 
 ### Beta Cache Miss Tools Changed
 
-- `class BetaCacheMissToolsChanged:`
+- `class BetaCacheMissToolsChanged`
 
   - `JsonValue type = "tools_changed"`
 
@@ -11564,13 +11862,13 @@ public final class Main {
 
 ### Beta Cache Miss Unavailable
 
-- `class BetaCacheMissUnavailable:`
+- `class BetaCacheMissUnavailable`
 
   - `JsonValue type = "unavailable"`
 
 ### Beta Citation Char Location
 
-- `class BetaCitationCharLocation:`
+- `class BetaCitationCharLocation`
 
   - `JsonValue type = "char_location"`
 
@@ -11592,7 +11890,7 @@ public final class Main {
 
 ### Beta Citation Char Location Param
 
-- `class BetaCitationCharLocationParam:`
+- `class BetaCitationCharLocationParam`
 
   - `JsonValue type = "char_location"`
 
@@ -11614,13 +11912,13 @@ public final class Main {
 
 ### Beta Citation Config
 
-- `class BetaCitationConfig:`
+- `class BetaCitationConfig`
 
   - `boolean enabled`
 
 ### Beta Citation Content Block Location
 
-- `class BetaCitationContentBlockLocation:`
+- `class BetaCitationContentBlockLocation`
 
   - `JsonValue type = "content_block_location"`
 
@@ -11652,7 +11950,7 @@ public final class Main {
 
 ### Beta Citation Content Block Location Param
 
-- `class BetaCitationContentBlockLocationParam:`
+- `class BetaCitationContentBlockLocationParam`
 
   - `JsonValue type = "content_block_location"`
 
@@ -11684,7 +11982,7 @@ public final class Main {
 
 ### Beta Citation Page Location
 
-- `class BetaCitationPageLocation:`
+- `class BetaCitationPageLocation`
 
   - `JsonValue type = "page_location"`
 
@@ -11706,7 +12004,7 @@ public final class Main {
 
 ### Beta Citation Page Location Param
 
-- `class BetaCitationPageLocationParam:`
+- `class BetaCitationPageLocationParam`
 
   - `JsonValue type = "page_location"`
 
@@ -11728,7 +12026,7 @@ public final class Main {
 
 ### Beta Citation Search Result Location
 
-- `class BetaCitationSearchResultLocation:`
+- `class BetaCitationSearchResultLocation`
 
   - `JsonValue type = "search_result_location"`
 
@@ -11764,7 +12062,7 @@ public final class Main {
 
 ### Beta Citation Search Result Location Param
 
-- `class BetaCitationSearchResultLocationParam:`
+- `class BetaCitationSearchResultLocationParam`
 
   - `JsonValue type = "search_result_location"`
 
@@ -11800,7 +12098,7 @@ public final class Main {
 
 ### Beta Citation Web Search Result Location Param
 
-- `class BetaCitationWebSearchResultLocationParam:`
+- `class BetaCitationWebSearchResultLocationParam`
 
   - `JsonValue type = "web_search_result_location"`
 
@@ -11818,19 +12116,19 @@ public final class Main {
 
 ### Beta Citations Config Param
 
-- `class BetaCitationsConfigParam:`
+- `class BetaCitationsConfigParam`
 
   - `Optional<Boolean> enabled`
 
 ### Beta Citations Delta
 
-- `class BetaCitationsDelta:`
+- `class BetaCitationsDelta`
 
   - `JsonValue type = "citations_delta"`
 
   - `Citation citation`
 
-    - `class BetaCitationCharLocation:`
+    - `class BetaCitationCharLocation`
 
       - `JsonValue type = "char_location"`
 
@@ -11850,7 +12148,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCitationPageLocation:`
+    - `class BetaCitationPageLocation`
 
       - `JsonValue type = "page_location"`
 
@@ -11870,7 +12168,7 @@ public final class Main {
 
         minimum: 1
 
-    - `class BetaCitationContentBlockLocation:`
+    - `class BetaCitationContentBlockLocation`
 
       - `JsonValue type = "content_block_location"`
 
@@ -11900,7 +12198,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCitationsWebSearchResultLocation:`
+    - `class BetaCitationsWebSearchResultLocation`
 
       - `JsonValue type = "web_search_result_location"`
 
@@ -11914,7 +12212,7 @@ public final class Main {
 
       - `String url`
 
-    - `class BetaCitationSearchResultLocation:`
+    - `class BetaCitationSearchResultLocation`
 
       - `JsonValue type = "search_result_location"`
 
@@ -11950,7 +12248,7 @@ public final class Main {
 
 ### Beta Citations Web Search Result Location
 
-- `class BetaCitationsWebSearchResultLocation:`
+- `class BetaCitationsWebSearchResultLocation`
 
   - `JsonValue type = "web_search_result_location"`
 
@@ -11966,7 +12264,7 @@ public final class Main {
 
 ### Beta Clear Thinking 20251015 Edit
 
-- `class BetaClearThinking20251015Edit:`
+- `class BetaClearThinking20251015Edit`
 
   - `JsonValue type = "clear_thinking_20251015"`
 
@@ -11974,7 +12272,7 @@ public final class Main {
 
     Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-    - `class BetaThinkingTurns:`
+    - `class BetaThinkingTurns`
 
       - `JsonValue type = "thinking_turns"`
 
@@ -11982,7 +12280,7 @@ public final class Main {
 
         minimum: 1
 
-    - `class BetaAllThinkingTurns:`
+    - `class BetaAllThinkingTurns`
 
       - `JsonValue type = "all"`
 
@@ -11990,7 +12288,7 @@ public final class Main {
 
 ### Beta Clear Thinking 20251015 Edit Response
 
-- `class BetaClearThinking20251015EditResponse:`
+- `class BetaClearThinking20251015EditResponse`
 
   - `JsonValue type = "clear_thinking_20251015"`
 
@@ -12010,7 +12308,7 @@ public final class Main {
 
 ### Beta Clear Tool Uses 20250919 Edit
 
-- `class BetaClearToolUses20250919Edit:`
+- `class BetaClearToolUses20250919Edit`
 
   - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -12050,7 +12348,7 @@ public final class Main {
 
     Condition that triggers the context management strategy
 
-    - `class BetaInputTokensTrigger:`
+    - `class BetaInputTokensTrigger`
 
       - `JsonValue type = "input_tokens"`
 
@@ -12058,7 +12356,7 @@ public final class Main {
 
         minimum: 1
 
-    - `class BetaToolUsesTrigger:`
+    - `class BetaToolUsesTrigger`
 
       - `JsonValue type = "tool_uses"`
 
@@ -12068,7 +12366,7 @@ public final class Main {
 
 ### Beta Clear Tool Uses 20250919 Edit Response
 
-- `class BetaClearToolUses20250919EditResponse:`
+- `class BetaClearToolUses20250919EditResponse`
 
   - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -12088,7 +12386,7 @@ public final class Main {
 
 ### Beta Code Execution Output Block
 
-- `class BetaCodeExecutionOutputBlock:`
+- `class BetaCodeExecutionOutputBlock`
 
   - `JsonValue type = "code_execution_output"`
 
@@ -12096,7 +12394,7 @@ public final class Main {
 
 ### Beta Code Execution Output Block Param
 
-- `class BetaCodeExecutionOutputBlockParam:`
+- `class BetaCodeExecutionOutputBlockParam`
 
   - `JsonValue type = "code_execution_output"`
 
@@ -12104,7 +12402,7 @@ public final class Main {
 
 ### Beta Code Execution Result Block
 
-- `class BetaCodeExecutionResultBlock:`
+- `class BetaCodeExecutionResultBlock`
 
   - `JsonValue type = "code_execution_result"`
 
@@ -12122,7 +12420,7 @@ public final class Main {
 
 ### Beta Code Execution Result Block Param
 
-- `class BetaCodeExecutionResultBlockParam:`
+- `class BetaCodeExecutionResultBlockParam`
 
   - `JsonValue type = "code_execution_result"`
 
@@ -12140,7 +12438,7 @@ public final class Main {
 
 ### Beta Code Execution Tool 20250522
 
-- `class BetaCodeExecutionTool20250522:`
+- `class BetaCodeExecutionTool20250522`
 
   - `JsonValue type = "code_execution_20250522"`
 
@@ -12191,7 +12489,7 @@ public final class Main {
 
 ### Beta Code Execution Tool 20250825
 
-- `class BetaCodeExecutionTool20250825:`
+- `class BetaCodeExecutionTool20250825`
 
   - `JsonValue type = "code_execution_20250825"`
 
@@ -12242,7 +12540,7 @@ public final class Main {
 
 ### Beta Code Execution Tool 20260120
 
-- `class BetaCodeExecutionTool20260120:`
+- `class BetaCodeExecutionTool20260120`
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -12295,7 +12593,7 @@ public final class Main {
 
 ### Beta Code Execution Tool 20260521
 
-- `class BetaCodeExecutionTool20260521:`
+- `class BetaCodeExecutionTool20260521`
 
   Code execution tool with REPL state persistence.
 
@@ -12348,13 +12646,13 @@ public final class Main {
 
 ### Beta Code Execution Tool Result Block
 
-- `class BetaCodeExecutionToolResultBlock:`
+- `class BetaCodeExecutionToolResultBlock`
 
   - `JsonValue type = "code_execution_tool_result"`
 
   - `BetaCodeExecutionToolResultBlockContent content`
 
-    - `class BetaCodeExecutionToolResultError:`
+    - `class BetaCodeExecutionToolResultError`
 
       - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -12368,7 +12666,7 @@ public final class Main {
 
         - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-    - `class BetaCodeExecutionResultBlock:`
+    - `class BetaCodeExecutionResultBlock`
 
       - `JsonValue type = "code_execution_result"`
 
@@ -12384,7 +12682,7 @@ public final class Main {
 
       - `String stdout`
 
-    - `class BetaEncryptedCodeExecutionResultBlock:`
+    - `class BetaEncryptedCodeExecutionResultBlock`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12410,7 +12708,7 @@ public final class Main {
 
 - `class BetaCodeExecutionToolResultBlockContent: union`
 
-  - `class BetaCodeExecutionToolResultError:`
+  - `class BetaCodeExecutionToolResultError`
 
     - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -12424,7 +12722,7 @@ public final class Main {
 
       - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-  - `class BetaCodeExecutionResultBlock:`
+  - `class BetaCodeExecutionResultBlock`
 
     - `JsonValue type = "code_execution_result"`
 
@@ -12440,7 +12738,7 @@ public final class Main {
 
     - `String stdout`
 
-  - `class BetaEncryptedCodeExecutionResultBlock:`
+  - `class BetaEncryptedCodeExecutionResultBlock`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12460,13 +12758,13 @@ public final class Main {
 
 ### Beta Code Execution Tool Result Block Param
 
-- `class BetaCodeExecutionToolResultBlockParam:`
+- `class BetaCodeExecutionToolResultBlockParam`
 
   - `JsonValue type = "code_execution_tool_result"`
 
   - `BetaCodeExecutionToolResultBlockParamContent content`
 
-    - `class BetaCodeExecutionToolResultErrorParam:`
+    - `class BetaCodeExecutionToolResultErrorParam`
 
       - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -12480,7 +12778,7 @@ public final class Main {
 
         - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-    - `class BetaCodeExecutionResultBlockParam:`
+    - `class BetaCodeExecutionResultBlockParam`
 
       - `JsonValue type = "code_execution_result"`
 
@@ -12496,7 +12794,7 @@ public final class Main {
 
       - `String stdout`
 
-    - `class BetaEncryptedCodeExecutionResultBlockParam:`
+    - `class BetaEncryptedCodeExecutionResultBlockParam`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12543,7 +12841,7 @@ public final class Main {
 
 - `class BetaCodeExecutionToolResultBlockParamContent: union`
 
-  - `class BetaCodeExecutionToolResultErrorParam:`
+  - `class BetaCodeExecutionToolResultErrorParam`
 
     - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -12557,7 +12855,7 @@ public final class Main {
 
       - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-  - `class BetaCodeExecutionResultBlockParam:`
+  - `class BetaCodeExecutionResultBlockParam`
 
     - `JsonValue type = "code_execution_result"`
 
@@ -12573,7 +12871,7 @@ public final class Main {
 
     - `String stdout`
 
-  - `class BetaEncryptedCodeExecutionResultBlockParam:`
+  - `class BetaEncryptedCodeExecutionResultBlockParam`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12593,7 +12891,7 @@ public final class Main {
 
 ### Beta Code Execution Tool Result Error
 
-- `class BetaCodeExecutionToolResultError:`
+- `class BetaCodeExecutionToolResultError`
 
   - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -12609,7 +12907,7 @@ public final class Main {
 
 ### Beta Code Execution Tool Result Error Code
 
-- `enum BetaCodeExecutionToolResultErrorCode:`
+- `enum BetaCodeExecutionToolResultErrorCode`
 
   - `INVALID_TOOL_INPUT("invalid_tool_input")`
 
@@ -12621,7 +12919,7 @@ public final class Main {
 
 ### Beta Code Execution Tool Result Error Param
 
-- `class BetaCodeExecutionToolResultErrorParam:`
+- `class BetaCodeExecutionToolResultErrorParam`
 
   - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -12637,7 +12935,7 @@ public final class Main {
 
 ### Beta Compact 20260112 Edit
 
-- `class BetaCompact20260112Edit:`
+- `class BetaCompact20260112Edit`
 
   Automatically compact older context when reaching the configured trigger threshold.
 
@@ -12663,7 +12961,7 @@ public final class Main {
 
 ### Beta Compaction Block
 
-- `class BetaCompactionBlock:`
+- `class BetaCompactionBlock`
 
   A compaction block returned when autocompact is triggered.
 
@@ -12681,9 +12979,13 @@ public final class Main {
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
 
+  - `Optional<String> signature`
+
+    Signature over the summary, to be sent back with the block verbatim
+
 ### Beta Compaction Block Param
 
-- `class BetaCompactionBlockParam:`
+- `class BetaCompactionBlockParam`
 
   A compaction block containing summary of previous context.
 
@@ -12724,9 +13026,34 @@ public final class Main {
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
 
+  - `Optional<String> signature`
+
+    The block's signature as returned, to be sent back verbatim
+
+### Beta Compaction Config
+
+- `class BetaCompactionConfig`
+
+  Compact the whole conversation and return a signed `compaction` block,
+  alone, that a later request sends back first in `messages`, in place of
+  the messages it summarizes. There is no trigger and no pause flag: sending
+  the parameter compacts, and nothing is sampled after the block.
+
+  The summarization prompt is the server's own unless `instructions` are
+  given, which then replace it for this request; a value that is empty or
+  only whitespace counts as absent.
+
+  - `JsonValue type = "summarize"`
+
+  - `Optional<String> instructions`
+
+    Replaces the server's default summarization prompt for this request. An empty or whitespace-only value counts as absent.
+
+    maxLength: 16384
+
 ### Beta Compaction Content Block Delta
 
-- `class BetaCompactionContentBlockDelta:`
+- `class BetaCompactionContentBlockDelta`
 
   - `JsonValue type = "compaction_delta"`
 
@@ -12738,7 +13065,7 @@ public final class Main {
 
 ### Beta Compaction Iteration Usage
 
-- `class BetaCompactionIterationUsage:`
+- `class BetaCompactionIterationUsage`
 
   Token usage for a compaction iteration.
 
@@ -12788,7 +13115,7 @@ public final class Main {
 
 ### Beta Computer Cursor Position Config
 
-- `class BetaComputerCursorPositionConfig:`
+- `class BetaComputerCursorPositionConfig`
 
   `cursor_position`'s config overrides.
 
@@ -12802,7 +13129,7 @@ public final class Main {
 
 ### Beta Computer Double Click Config
 
-- `class BetaComputerDoubleClickConfig:`
+- `class BetaComputerDoubleClickConfig`
 
   `double_click`'s config overrides.
 
@@ -12816,7 +13143,7 @@ public final class Main {
 
 ### Beta Computer Hold Key Config
 
-- `class BetaComputerHoldKeyConfig:`
+- `class BetaComputerHoldKeyConfig`
 
   `hold_key`'s config overrides.
 
@@ -12830,7 +13157,7 @@ public final class Main {
 
 ### Beta Computer Key Config
 
-- `class BetaComputerKeyConfig:`
+- `class BetaComputerKeyConfig`
 
   `key`'s config overrides.
 
@@ -12844,7 +13171,7 @@ public final class Main {
 
 ### Beta Computer Left Click Config
 
-- `class BetaComputerLeftClickConfig:`
+- `class BetaComputerLeftClickConfig`
 
   `left_click`'s config overrides.
 
@@ -12858,7 +13185,7 @@ public final class Main {
 
 ### Beta Computer Left Click Drag Config
 
-- `class BetaComputerLeftClickDragConfig:`
+- `class BetaComputerLeftClickDragConfig`
 
   `left_click_drag`'s config overrides.
 
@@ -12872,7 +13199,7 @@ public final class Main {
 
 ### Beta Computer Left Mouse Down Config
 
-- `class BetaComputerLeftMouseDownConfig:`
+- `class BetaComputerLeftMouseDownConfig`
 
   `left_mouse_down`'s config overrides.
 
@@ -12886,7 +13213,7 @@ public final class Main {
 
 ### Beta Computer Left Mouse Up Config
 
-- `class BetaComputerLeftMouseUpConfig:`
+- `class BetaComputerLeftMouseUpConfig`
 
   `left_mouse_up`'s config overrides.
 
@@ -12900,7 +13227,7 @@ public final class Main {
 
 ### Beta Computer Middle Click Config
 
-- `class BetaComputerMiddleClickConfig:`
+- `class BetaComputerMiddleClickConfig`
 
   `middle_click`'s config overrides.
 
@@ -12914,7 +13241,7 @@ public final class Main {
 
 ### Beta Computer Mouse Move Config
 
-- `class BetaComputerMouseMoveConfig:`
+- `class BetaComputerMouseMoveConfig`
 
   `mouse_move`'s config overrides.
 
@@ -12928,7 +13255,7 @@ public final class Main {
 
 ### Beta Computer Right Click Config
 
-- `class BetaComputerRightClickConfig:`
+- `class BetaComputerRightClickConfig`
 
   `right_click`'s config overrides.
 
@@ -12942,7 +13269,7 @@ public final class Main {
 
 ### Beta Computer Screenshot Config
 
-- `class BetaComputerScreenshotConfig:`
+- `class BetaComputerScreenshotConfig`
 
   `screenshot`'s config overrides.
 
@@ -12956,7 +13283,7 @@ public final class Main {
 
 ### Beta Computer Scroll Config
 
-- `class BetaComputerScrollConfig:`
+- `class BetaComputerScrollConfig`
 
   `scroll`'s config overrides.
 
@@ -12970,7 +13297,7 @@ public final class Main {
 
 ### Beta Computer Toolset 20260801
 
-- `class BetaComputerToolset20260801:`
+- `class BetaComputerToolset20260801`
 
   The computer toolset: a single `tools[]` entry (carrying no
   `name`) that declares the computer tool family. The model is
@@ -13219,7 +13546,7 @@ public final class Main {
 
 ### Beta Computer Toolset Configs
 
-- `class BetaComputerToolsetConfigs:`
+- `class BetaComputerToolsetConfigs`
 
   Per-member configuration for `computer_toolset_20260801`: one
   optional field per member tool, keyed by the member name — the same
@@ -13434,7 +13761,7 @@ public final class Main {
 
 ### Beta Computer Triple Click Config
 
-- `class BetaComputerTripleClickConfig:`
+- `class BetaComputerTripleClickConfig`
 
   `triple_click`'s config overrides.
 
@@ -13448,7 +13775,7 @@ public final class Main {
 
 ### Beta Computer Type Config
 
-- `class BetaComputerTypeConfig:`
+- `class BetaComputerTypeConfig`
 
   `type`'s config overrides.
 
@@ -13462,7 +13789,7 @@ public final class Main {
 
 ### Beta Computer Wait Config
 
-- `class BetaComputerWaitConfig:`
+- `class BetaComputerWaitConfig`
 
   `wait`'s config overrides.
 
@@ -13476,7 +13803,7 @@ public final class Main {
 
 ### Beta Computer Zoom Config
 
-- `class BetaComputerZoomConfig:`
+- `class BetaComputerZoomConfig`
 
   `zoom`'s config overrides.
 
@@ -13490,7 +13817,7 @@ public final class Main {
 
 ### Beta Container
 
-- `class BetaContainer:`
+- `class BetaContainer`
 
   Information about the container used in the request (for the code execution tool)
 
@@ -13530,7 +13857,7 @@ public final class Main {
 
 ### Beta Container Params
 
-- `class BetaContainerParams:`
+- `class BetaContainerParams`
 
   Container parameters with skills to be loaded.
 
@@ -13566,7 +13893,7 @@ public final class Main {
 
 ### Beta Container Skill
 
-- `class BetaContainerSkill:`
+- `class BetaContainerSkill`
 
   A skill that was loaded in a container (response model).
 
@@ -13592,7 +13919,7 @@ public final class Main {
 
 ### Beta Container Upload Block
 
-- `class BetaContainerUploadBlock:`
+- `class BetaContainerUploadBlock`
 
   Response model for a file uploaded to the container.
 
@@ -13602,7 +13929,7 @@ public final class Main {
 
 ### Beta Container Upload Block Param
 
-- `class BetaContainerUploadBlockParam:`
+- `class BetaContainerUploadBlockParam`
 
   A content block that represents a file to be uploaded to the container
   Files uploaded via this block will be available in the container's input directory.
@@ -13636,7 +13963,7 @@ public final class Main {
 
 - `class BetaContentBlock: union`
 
-  - `class BetaTextBlock:`
+  - `class BetaTextBlock`
 
     - `JsonValue type = "text"`
 
@@ -13646,7 +13973,7 @@ public final class Main {
 
       The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-      - `class BetaCitationCharLocation:`
+      - `class BetaCitationCharLocation`
 
         - `JsonValue type = "char_location"`
 
@@ -13666,7 +13993,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationPageLocation:`
+      - `class BetaCitationPageLocation`
 
         - `JsonValue type = "page_location"`
 
@@ -13686,7 +14013,7 @@ public final class Main {
 
           minimum: 1
 
-      - `class BetaCitationContentBlockLocation:`
+      - `class BetaCitationContentBlockLocation`
 
         - `JsonValue type = "content_block_location"`
 
@@ -13716,7 +14043,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationsWebSearchResultLocation:`
+      - `class BetaCitationsWebSearchResultLocation`
 
         - `JsonValue type = "web_search_result_location"`
 
@@ -13730,7 +14057,7 @@ public final class Main {
 
         - `String url`
 
-      - `class BetaCitationSearchResultLocation:`
+      - `class BetaCitationSearchResultLocation`
 
         - `JsonValue type = "search_result_location"`
 
@@ -13768,7 +14095,7 @@ public final class Main {
 
       minLength: 0
 
-  - `class BetaThinkingBlock:`
+  - `class BetaThinkingBlock`
 
     - `JsonValue type = "thinking"`
 
@@ -13784,7 +14111,7 @@ public final class Main {
 
       The text of Claude's thinking process for this block.
 
-  - `class BetaRedactedThinkingBlock:`
+  - `class BetaRedactedThinkingBlock`
 
     - `JsonValue type = "redacted_thinking"`
 
@@ -13796,7 +14123,7 @@ public final class Main {
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-  - `class BetaToolUseBlock:`
+  - `class BetaToolUseBlock`
 
     - `JsonValue type = "tool_use"`
 
@@ -13812,13 +14139,13 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
         - `JsonValue type = "direct"`
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
@@ -13828,7 +14155,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
         - `JsonValue type = "code_execution_20260120"`
 
@@ -13842,7 +14169,7 @@ public final class Main {
 
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class BetaServerToolUseBlock:`
+  - `class BetaServerToolUseBlock`
 
     - `JsonValue type = "server_tool_use"`
 
@@ -13872,23 +14199,23 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
-  - `class BetaWebSearchToolResultBlock:`
+  - `class BetaWebSearchToolResultBlock`
 
     - `JsonValue type = "web_search_tool_result"`
 
     - `BetaWebSearchToolResultBlockContent content`
 
-      - `class BetaWebSearchToolResultError:`
+      - `class BetaWebSearchToolResultError`
 
         - `JsonValue type = "web_search_tool_result_error"`
 
@@ -13924,23 +14251,23 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
-  - `class BetaWebFetchToolResultBlock:`
+  - `class BetaWebFetchToolResultBlock`
 
     - `JsonValue type = "web_fetch_tool_result"`
 
     - `Content content`
 
-      - `class BetaWebFetchToolResultErrorBlock:`
+      - `class BetaWebFetchToolResultErrorBlock`
 
         - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -13966,7 +14293,7 @@ public final class Main {
 
           - `CONTENT_TOO_LARGE("content_too_large")`
 
-      - `class BetaWebFetchBlock:`
+      - `class BetaWebFetchBlock`
 
         - `JsonValue type = "web_fetch_result"`
 
@@ -13982,7 +14309,7 @@ public final class Main {
 
           - `Source source`
 
-            - `class BetaBase64PdfSource:`
+            - `class BetaBase64PdfSource`
 
               - `JsonValue type = "base64"`
 
@@ -13992,7 +14319,7 @@ public final class Main {
 
               - `JsonValue mediaType = "application/pdf"`
 
-            - `class BetaPlainTextSource:`
+            - `class BetaPlainTextSource`
 
               - `JsonValue type = "text"`
 
@@ -14018,23 +14345,23 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
-  - `class BetaAdvisorToolResultBlock:`
+  - `class BetaAdvisorToolResultBlock`
 
     - `JsonValue type = "advisor_tool_result"`
 
     - `Content content`
 
-      - `class BetaAdvisorToolResultError:`
+      - `class BetaAdvisorToolResultError`
 
         - `JsonValue type = "advisor_tool_result_error"`
 
@@ -14054,7 +14381,7 @@ public final class Main {
 
           - `MODEL_NOT_FOUND("model_not_found")`
 
-      - `class BetaAdvisorResultBlock:`
+      - `class BetaAdvisorResultBlock`
 
         - `JsonValue type = "advisor_result"`
 
@@ -14064,7 +14391,7 @@ public final class Main {
 
         - `String text`
 
-      - `class BetaAdvisorRedactedResultBlock:`
+      - `class BetaAdvisorRedactedResultBlock`
 
         - `JsonValue type = "advisor_redacted_result"`
 
@@ -14080,13 +14407,13 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class BetaCodeExecutionToolResultBlock:`
+  - `class BetaCodeExecutionToolResultBlock`
 
     - `JsonValue type = "code_execution_tool_result"`
 
     - `BetaCodeExecutionToolResultBlockContent content`
 
-      - `class BetaCodeExecutionToolResultError:`
+      - `class BetaCodeExecutionToolResultError`
 
         - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -14100,7 +14427,7 @@ public final class Main {
 
           - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-      - `class BetaCodeExecutionResultBlock:`
+      - `class BetaCodeExecutionResultBlock`
 
         - `JsonValue type = "code_execution_result"`
 
@@ -14116,7 +14443,7 @@ public final class Main {
 
         - `String stdout`
 
-      - `class BetaEncryptedCodeExecutionResultBlock:`
+      - `class BetaEncryptedCodeExecutionResultBlock`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -14138,13 +14465,13 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class BetaBashCodeExecutionToolResultBlock:`
+  - `class BetaBashCodeExecutionToolResultBlock`
 
     - `JsonValue type = "bash_code_execution_tool_result"`
 
     - `Content content`
 
-      - `class BetaBashCodeExecutionToolResultError:`
+      - `class BetaBashCodeExecutionToolResultError`
 
         - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -14160,7 +14487,7 @@ public final class Main {
 
           - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-      - `class BetaBashCodeExecutionResultBlock:`
+      - `class BetaBashCodeExecutionResultBlock`
 
         - `JsonValue type = "bash_code_execution_result"`
 
@@ -14180,13 +14507,13 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class BetaTextEditorCodeExecutionToolResultBlock:`
+  - `class BetaTextEditorCodeExecutionToolResultBlock`
 
     - `JsonValue type = "text_editor_code_execution_tool_result"`
 
     - `Content content`
 
-      - `class BetaTextEditorCodeExecutionToolResultError:`
+      - `class BetaTextEditorCodeExecutionToolResultError`
 
         - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -14204,7 +14531,7 @@ public final class Main {
 
         - `Optional<String> errorMessage`
 
-      - `class BetaTextEditorCodeExecutionViewResultBlock:`
+      - `class BetaTextEditorCodeExecutionViewResultBlock`
 
         - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -14224,13 +14551,13 @@ public final class Main {
 
         - `Optional<Long> totalLines`
 
-      - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+      - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
         - `JsonValue type = "text_editor_code_execution_create_result"`
 
         - `boolean isFileUpdate`
 
-      - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+      - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
         - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -14248,13 +14575,13 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class BetaToolSearchToolResultBlock:`
+  - `class BetaToolSearchToolResultBlock`
 
     - `JsonValue type = "tool_search_tool_result"`
 
     - `Content content`
 
-      - `class BetaToolSearchToolResultError:`
+      - `class BetaToolSearchToolResultError`
 
         - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -14270,7 +14597,7 @@ public final class Main {
 
         - `Optional<String> errorMessage`
 
-      - `class BetaToolSearchToolSearchResultBlock:`
+      - `class BetaToolSearchToolSearchResultBlock`
 
         - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -14286,7 +14613,7 @@ public final class Main {
 
       pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `class BetaMcpToolUseBlock:`
+  - `class BetaMcpToolUseBlock`
 
     - `JsonValue type = "mcp_tool_use"`
 
@@ -14304,7 +14631,7 @@ public final class Main {
 
       The name of the MCP server
 
-  - `class BetaMcpToolResultBlock:`
+  - `class BetaMcpToolResultBlock`
 
     - `JsonValue type = "mcp_tool_result"`
 
@@ -14332,7 +14659,7 @@ public final class Main {
 
       pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class BetaContainerUploadBlock:`
+  - `class BetaContainerUploadBlock`
 
     Response model for a file uploaded to the container.
 
@@ -14340,7 +14667,7 @@ public final class Main {
 
     - `String fileId`
 
-  - `class BetaCompactionBlock:`
+  - `class BetaCompactionBlock`
 
     A compaction block returned when autocompact is triggered.
 
@@ -14358,7 +14685,11 @@ public final class Main {
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
-  - `class BetaFallbackBlock:`
+    - `Optional<String> signature`
+
+      Signature over the summary, to be sent back with the block verbatim
+
+  - `class BetaFallbackBlock`
 
     Marks the point in `content` where one model's output gives way to the next.
 
@@ -14490,7 +14821,7 @@ public final class Main {
 
 - `class BetaContentBlockParam: union`
 
-  - `class BetaTextBlockParam:`
+  - `class BetaTextBlockParam`
 
     - `JsonValue type = "text"`
 
@@ -14521,7 +14852,7 @@ public final class Main {
 
     - `Optional<List<BetaTextCitationParam>> citations`
 
-      - `class BetaCitationCharLocationParam:`
+      - `class BetaCitationCharLocationParam`
 
         - `JsonValue type = "char_location"`
 
@@ -14541,7 +14872,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationPageLocationParam:`
+      - `class BetaCitationPageLocationParam`
 
         - `JsonValue type = "page_location"`
 
@@ -14561,7 +14892,7 @@ public final class Main {
 
           minimum: 1
 
-      - `class BetaCitationContentBlockLocationParam:`
+      - `class BetaCitationContentBlockLocationParam`
 
         - `JsonValue type = "content_block_location"`
 
@@ -14591,7 +14922,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationWebSearchResultLocationParam:`
+      - `class BetaCitationWebSearchResultLocationParam`
 
         - `JsonValue type = "web_search_result_location"`
 
@@ -14607,7 +14938,7 @@ public final class Main {
 
           minLength: 1
 
-      - `class BetaCitationSearchResultLocationParam:`
+      - `class BetaCitationSearchResultLocationParam`
 
         - `JsonValue type = "search_result_location"`
 
@@ -14641,13 +14972,13 @@ public final class Main {
 
         - `Optional<String> title`
 
-  - `class BetaImageBlockParam:`
+  - `class BetaImageBlockParam`
 
     - `JsonValue type = "image"`
 
     - `Source source`
 
-      - `class BetaBase64ImageSource:`
+      - `class BetaBase64ImageSource`
 
         - `JsonValue type = "base64"`
 
@@ -14665,13 +14996,13 @@ public final class Main {
 
           - `IMAGE_WEBP("image/webp")`
 
-      - `class BetaUrlImageSource:`
+      - `class BetaUrlImageSource`
 
         - `JsonValue type = "url"`
 
         - `String url`
 
-      - `class BetaFileImageSource:`
+      - `class BetaFileImageSource`
 
         - `JsonValue type = "file"`
 
@@ -14693,13 +15024,13 @@ public final class Main {
 
         - `ERROR("error")`
 
-  - `class BetaRequestDocumentBlock:`
+  - `class BetaRequestDocumentBlock`
 
     - `JsonValue type = "document"`
 
     - `Source source`
 
-      - `class BetaBase64PdfSource:`
+      - `class BetaBase64PdfSource`
 
         - `JsonValue type = "base64"`
 
@@ -14709,7 +15040,7 @@ public final class Main {
 
         - `JsonValue mediaType = "application/pdf"`
 
-      - `class BetaPlainTextSource:`
+      - `class BetaPlainTextSource`
 
         - `JsonValue type = "text"`
 
@@ -14717,7 +15048,7 @@ public final class Main {
 
         - `JsonValue mediaType = "text/plain"`
 
-      - `class BetaContentBlockSource:`
+      - `class BetaContentBlockSource`
 
         - `JsonValue type = "content"`
 
@@ -14727,17 +15058,17 @@ public final class Main {
 
           - `List<BetaContentBlockSourceContent>`
 
-            - `class BetaTextBlockParam:`
+            - `class BetaTextBlockParam`
 
-            - `class BetaImageBlockParam:`
+            - `class BetaImageBlockParam`
 
-      - `class BetaUrlPdfSource:`
+      - `class BetaUrlPdfSource`
 
         - `JsonValue type = "url"`
 
         - `String url`
 
-      - `class BetaFileDocumentSource:`
+      - `class BetaFileDocumentSource`
 
         - `JsonValue type = "file"`
 
@@ -14759,7 +15090,7 @@ public final class Main {
 
       maxLength: 500, minLength: 1
 
-  - `class BetaSearchResultBlockParam:`
+  - `class BetaSearchResultBlockParam`
 
     - `JsonValue type = "search_result"`
 
@@ -14787,7 +15118,7 @@ public final class Main {
 
     - `Optional<BetaCitationsConfigParam> citations`
 
-  - `class BetaThinkingBlockParam:`
+  - `class BetaThinkingBlockParam`
 
     - `JsonValue type = "thinking"`
 
@@ -14801,7 +15132,7 @@ public final class Main {
 
       The `thinking` text of this block as returned by the API.
 
-  - `class BetaRedactedThinkingBlockParam:`
+  - `class BetaRedactedThinkingBlockParam`
 
     - `JsonValue type = "redacted_thinking"`
 
@@ -14809,7 +15140,7 @@ public final class Main {
 
       The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-  - `class BetaToolUseBlockParam:`
+  - `class BetaToolUseBlockParam`
 
     - `JsonValue type = "tool_use"`
 
@@ -14829,13 +15160,13 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
         - `JsonValue type = "direct"`
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
@@ -14845,7 +15176,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
         - `JsonValue type = "code_execution_20260120"`
 
@@ -14859,7 +15190,7 @@ public final class Main {
 
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class BetaToolResultBlockParam:`
+  - `class BetaToolResultBlockParam`
 
     - `JsonValue type = "tool_result"`
 
@@ -14877,15 +15208,15 @@ public final class Main {
 
       - `List<Block>`
 
-        - `class BetaTextBlockParam:`
+        - `class BetaTextBlockParam`
 
-        - `class BetaImageBlockParam:`
+        - `class BetaImageBlockParam`
 
-        - `class BetaSearchResultBlockParam:`
+        - `class BetaSearchResultBlockParam`
 
-        - `class BetaRequestDocumentBlock:`
+        - `class BetaRequestDocumentBlock`
 
-        - `class BetaToolReferenceBlockParam:`
+        - `class BetaToolReferenceBlockParam`
 
           Tool reference block that can be included in tool_result content.
 
@@ -14899,7 +15230,7 @@ public final class Main {
 
             Create a cache control breakpoint at this content block.
 
-        - `class BetaBrowserStateBlockParam:`
+        - `class BetaBrowserStateBlockParam`
 
           The caller's browser state after a browser toolset member call —
           the full inventory of open tabs, which tab is active, and any side
@@ -14949,7 +15280,7 @@ public final class Main {
 
             maxItems: 200, minItems: 1
 
-            - `class BetaBrowserStateChangeTabOpened:`
+            - `class BetaBrowserStateChangeTabOpened`
 
               A tab this call's execution opened that remains open at its end —
               the creation delta of the `tabs` inventory, not an event log.
@@ -14967,7 +15298,7 @@ public final class Main {
 
                 maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `class BetaBrowserStateChangeDownloadStarted:`
+            - `class BetaBrowserStateChangeDownloadStarted`
 
               A file download that started during this call.
 
@@ -14985,7 +15316,7 @@ public final class Main {
 
                 maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-            - `class BetaBrowserStateChangeDownloadCompleted:`
+            - `class BetaBrowserStateChangeDownloadCompleted`
 
               A file download that finished during this call, reported with the
               same `download_id` as its `download_started` — or without a prior
@@ -15018,7 +15349,7 @@ public final class Main {
 
                 minimum: 0
 
-            - `class BetaBrowserStateChangeDownloadFailed:`
+            - `class BetaBrowserStateChangeDownloadFailed`
 
               A file download that failed — or was cancelled — during this call.
 
@@ -15050,7 +15381,7 @@ public final class Main {
 
       maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-  - `class BetaServerToolUseBlockParam:`
+  - `class BetaServerToolUseBlockParam`
 
     - `JsonValue type = "server_tool_use"`
 
@@ -15084,17 +15415,17 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
-  - `class BetaWebSearchToolResultBlockParam:`
+  - `class BetaWebSearchToolResultBlockParam`
 
     - `JsonValue type = "web_search_tool_result"`
 
@@ -15112,7 +15443,7 @@ public final class Main {
 
         - `Optional<String> pageAge`
 
-      - `class BetaWebSearchToolRequestError:`
+      - `class BetaWebSearchToolRequestError`
 
         - `JsonValue type = "web_search_tool_result_error"`
 
@@ -15140,23 +15471,23 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
-  - `class BetaWebFetchToolResultBlockParam:`
+  - `class BetaWebFetchToolResultBlockParam`
 
     - `JsonValue type = "web_fetch_tool_result"`
 
     - `Content content`
 
-      - `class BetaWebFetchToolResultErrorBlockParam:`
+      - `class BetaWebFetchToolResultErrorBlockParam`
 
         - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -15182,7 +15513,7 @@ public final class Main {
 
           - `CONTENT_TOO_LARGE("content_too_large")`
 
-      - `class BetaWebFetchBlockParam:`
+      - `class BetaWebFetchBlockParam`
 
         - `JsonValue type = "web_fetch_result"`
 
@@ -15206,23 +15537,23 @@ public final class Main {
 
     - `Optional<Caller> caller`
 
-      - `class BetaDirectCaller:`
+      - `class BetaDirectCaller`
 
         Tool invocation directly from the model.
 
-      - `class BetaServerToolCaller:`
+      - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
-      - `class BetaServerToolCaller20260120:`
+      - `class BetaServerToolCaller20260120`
 
-  - `class BetaAdvisorToolResultBlockParam:`
+  - `class BetaAdvisorToolResultBlockParam`
 
     - `JsonValue type = "advisor_tool_result"`
 
     - `Content content`
 
-      - `class BetaAdvisorToolResultErrorParam:`
+      - `class BetaAdvisorToolResultErrorParam`
 
         - `JsonValue type = "advisor_tool_result_error"`
 
@@ -15242,7 +15573,7 @@ public final class Main {
 
           - `MODEL_NOT_FOUND("model_not_found")`
 
-      - `class BetaAdvisorResultBlockParam:`
+      - `class BetaAdvisorResultBlockParam`
 
         - `JsonValue type = "advisor_result"`
 
@@ -15250,7 +15581,7 @@ public final class Main {
 
         - `Optional<String> stopReason`
 
-      - `class BetaAdvisorRedactedResultBlockParam:`
+      - `class BetaAdvisorRedactedResultBlockParam`
 
         - `JsonValue type = "advisor_redacted_result"`
 
@@ -15268,13 +15599,13 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaCodeExecutionToolResultBlockParam:`
+  - `class BetaCodeExecutionToolResultBlockParam`
 
     - `JsonValue type = "code_execution_tool_result"`
 
     - `BetaCodeExecutionToolResultBlockParamContent content`
 
-      - `class BetaCodeExecutionToolResultErrorParam:`
+      - `class BetaCodeExecutionToolResultErrorParam`
 
         - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -15288,7 +15619,7 @@ public final class Main {
 
           - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-      - `class BetaCodeExecutionResultBlockParam:`
+      - `class BetaCodeExecutionResultBlockParam`
 
         - `JsonValue type = "code_execution_result"`
 
@@ -15304,7 +15635,7 @@ public final class Main {
 
         - `String stdout`
 
-      - `class BetaEncryptedCodeExecutionResultBlockParam:`
+      - `class BetaEncryptedCodeExecutionResultBlockParam`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -15330,13 +15661,13 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaBashCodeExecutionToolResultBlockParam:`
+  - `class BetaBashCodeExecutionToolResultBlockParam`
 
     - `JsonValue type = "bash_code_execution_tool_result"`
 
     - `Content content`
 
-      - `class BetaBashCodeExecutionToolResultErrorParam:`
+      - `class BetaBashCodeExecutionToolResultErrorParam`
 
         - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -15352,7 +15683,7 @@ public final class Main {
 
           - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-      - `class BetaBashCodeExecutionResultBlockParam:`
+      - `class BetaBashCodeExecutionResultBlockParam`
 
         - `JsonValue type = "bash_code_execution_result"`
 
@@ -15376,13 +15707,13 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+  - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
     - `JsonValue type = "text_editor_code_execution_tool_result"`
 
     - `Content content`
 
-      - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+      - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
         - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -15400,7 +15731,7 @@ public final class Main {
 
         - `Optional<String> errorMessage`
 
-      - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+      - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
         - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -15420,13 +15751,13 @@ public final class Main {
 
         - `Optional<Long> totalLines`
 
-      - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+      - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
         - `JsonValue type = "text_editor_code_execution_create_result"`
 
         - `boolean isFileUpdate`
 
-      - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+      - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
         - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -15448,13 +15779,13 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaToolSearchToolResultBlockParam:`
+  - `class BetaToolSearchToolResultBlockParam`
 
     - `JsonValue type = "tool_search_tool_result"`
 
     - `Content content`
 
-      - `class BetaToolSearchToolResultErrorParam:`
+      - `class BetaToolSearchToolResultErrorParam`
 
         - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -15470,7 +15801,7 @@ public final class Main {
 
         - `Optional<String> errorMessage`
 
-      - `class BetaToolSearchToolSearchResultBlockParam:`
+      - `class BetaToolSearchToolSearchResultBlockParam`
 
         - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -15494,7 +15825,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaMcpToolUseBlockParam:`
+  - `class BetaMcpToolUseBlockParam`
 
     - `JsonValue type = "mcp_tool_use"`
 
@@ -15514,7 +15845,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaRequestMcpToolResultBlockParam:`
+  - `class BetaRequestMcpToolResultBlockParam`
 
     - `JsonValue type = "mcp_tool_result"`
 
@@ -15546,7 +15877,7 @@ public final class Main {
 
     - `Optional<Boolean> isError`
 
-  - `class BetaContainerUploadBlockParam:`
+  - `class BetaContainerUploadBlockParam`
 
     A content block that represents a file to be uploaded to the container
     Files uploaded via this block will be available in the container's input directory.
@@ -15559,7 +15890,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaCompactionBlockParam:`
+  - `class BetaCompactionBlockParam`
 
     A compaction block containing summary of previous context.
 
@@ -15583,7 +15914,11 @@ public final class Main {
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
-  - `class BetaRequestToolAdditionBlock:`
+    - `Optional<String> signature`
+
+      The block's signature as returned, to be sent back verbatim
+
+  - `class BetaRequestToolAdditionBlock`
 
     Mid-conversation directive to surface a declared tool.
 
@@ -15595,7 +15930,7 @@ public final class Main {
 
     - `Tool tool`
 
-      - `class BetaToolChangeToolReference:`
+      - `class BetaToolChangeToolReference`
 
         Reference to a single tool the caller declared directly in
         `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -15608,7 +15943,7 @@ public final class Main {
 
           pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-      - `class BetaToolChangeMcpToolReference:`
+      - `class BetaToolChangeMcpToolReference`
 
         Reference to a single MCP tool by its server and remote name — the
         same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -15619,7 +15954,7 @@ public final class Main {
 
         - `String serverName`
 
-      - `class BetaToolChangeMcpToolsetReference:`
+      - `class BetaToolChangeMcpToolsetReference`
 
         Reference to every tool in the named MCP server's toolset.
 
@@ -15631,7 +15966,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaRequestToolRemovalBlock:`
+  - `class BetaRequestToolRemovalBlock`
 
     Mid-conversation directive to withdraw a tool.
 
@@ -15643,19 +15978,19 @@ public final class Main {
 
     - `Tool tool`
 
-      - `class BetaToolChangeToolReference:`
+      - `class BetaToolChangeToolReference`
 
         Reference to a single tool the caller declared directly in
         `tools[]`. Does not accept the composed `{server}_{name}` form the
         server assigns to MCP-resolved tools — use `mcp_tool_reference` or
         `mcp_toolset_reference` for those.
 
-      - `class BetaToolChangeMcpToolReference:`
+      - `class BetaToolChangeMcpToolReference`
 
         Reference to a single MCP tool by its server and remote name — the
         same `server_name`/`name` pair `mcp_tool_use` carries.
 
-      - `class BetaToolChangeMcpToolsetReference:`
+      - `class BetaToolChangeMcpToolsetReference`
 
         Reference to every tool in the named MCP server's toolset.
 
@@ -15663,7 +15998,7 @@ public final class Main {
 
       Create a cache control breakpoint at this content block.
 
-  - `class BetaFallbackBlockParam:`
+  - `class BetaFallbackBlockParam`
 
     A `fallback` block echoed back from a prior response.
 
@@ -15769,7 +16104,7 @@ public final class Main {
 
 ### Beta Content Block Source
 
-- `class BetaContentBlockSource:`
+- `class BetaContentBlockSource`
 
   - `JsonValue type = "content"`
 
@@ -15779,7 +16114,7 @@ public final class Main {
 
     - `List<BetaContentBlockSourceContent>`
 
-      - `class BetaTextBlockParam:`
+      - `class BetaTextBlockParam`
 
         - `JsonValue type = "text"`
 
@@ -15810,7 +16145,7 @@ public final class Main {
 
         - `Optional<List<BetaTextCitationParam>> citations`
 
-          - `class BetaCitationCharLocationParam:`
+          - `class BetaCitationCharLocationParam`
 
             - `JsonValue type = "char_location"`
 
@@ -15830,7 +16165,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationPageLocationParam:`
+          - `class BetaCitationPageLocationParam`
 
             - `JsonValue type = "page_location"`
 
@@ -15850,7 +16185,7 @@ public final class Main {
 
               minimum: 1
 
-          - `class BetaCitationContentBlockLocationParam:`
+          - `class BetaCitationContentBlockLocationParam`
 
             - `JsonValue type = "content_block_location"`
 
@@ -15880,7 +16215,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationWebSearchResultLocationParam:`
+          - `class BetaCitationWebSearchResultLocationParam`
 
             - `JsonValue type = "web_search_result_location"`
 
@@ -15896,7 +16231,7 @@ public final class Main {
 
               minLength: 1
 
-          - `class BetaCitationSearchResultLocationParam:`
+          - `class BetaCitationSearchResultLocationParam`
 
             - `JsonValue type = "search_result_location"`
 
@@ -15930,13 +16265,13 @@ public final class Main {
 
             - `Optional<String> title`
 
-      - `class BetaImageBlockParam:`
+      - `class BetaImageBlockParam`
 
         - `JsonValue type = "image"`
 
         - `Source source`
 
-          - `class BetaBase64ImageSource:`
+          - `class BetaBase64ImageSource`
 
             - `JsonValue type = "base64"`
 
@@ -15954,13 +16289,13 @@ public final class Main {
 
               - `IMAGE_WEBP("image/webp")`
 
-          - `class BetaUrlImageSource:`
+          - `class BetaUrlImageSource`
 
             - `JsonValue type = "url"`
 
             - `String url`
 
-          - `class BetaFileImageSource:`
+          - `class BetaFileImageSource`
 
             - `JsonValue type = "file"`
 
@@ -15986,7 +16321,7 @@ public final class Main {
 
 - `class BetaContentBlockSourceContent: union`
 
-  - `class BetaTextBlockParam:`
+  - `class BetaTextBlockParam`
 
     - `JsonValue type = "text"`
 
@@ -16017,7 +16352,7 @@ public final class Main {
 
     - `Optional<List<BetaTextCitationParam>> citations`
 
-      - `class BetaCitationCharLocationParam:`
+      - `class BetaCitationCharLocationParam`
 
         - `JsonValue type = "char_location"`
 
@@ -16037,7 +16372,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationPageLocationParam:`
+      - `class BetaCitationPageLocationParam`
 
         - `JsonValue type = "page_location"`
 
@@ -16057,7 +16392,7 @@ public final class Main {
 
           minimum: 1
 
-      - `class BetaCitationContentBlockLocationParam:`
+      - `class BetaCitationContentBlockLocationParam`
 
         - `JsonValue type = "content_block_location"`
 
@@ -16087,7 +16422,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationWebSearchResultLocationParam:`
+      - `class BetaCitationWebSearchResultLocationParam`
 
         - `JsonValue type = "web_search_result_location"`
 
@@ -16103,7 +16438,7 @@ public final class Main {
 
           minLength: 1
 
-      - `class BetaCitationSearchResultLocationParam:`
+      - `class BetaCitationSearchResultLocationParam`
 
         - `JsonValue type = "search_result_location"`
 
@@ -16137,13 +16472,13 @@ public final class Main {
 
         - `Optional<String> title`
 
-  - `class BetaImageBlockParam:`
+  - `class BetaImageBlockParam`
 
     - `JsonValue type = "image"`
 
     - `Source source`
 
-      - `class BetaBase64ImageSource:`
+      - `class BetaBase64ImageSource`
 
         - `JsonValue type = "base64"`
 
@@ -16161,13 +16496,13 @@ public final class Main {
 
           - `IMAGE_WEBP("image/webp")`
 
-      - `class BetaUrlImageSource:`
+      - `class BetaUrlImageSource`
 
         - `JsonValue type = "url"`
 
         - `String url`
 
-      - `class BetaFileImageSource:`
+      - `class BetaFileImageSource`
 
         - `JsonValue type = "file"`
 
@@ -16191,7 +16526,7 @@ public final class Main {
 
 ### Beta Context Management Config
 
-- `class BetaContextManagementConfig:`
+- `class BetaContextManagementConfig`
 
   - `Optional<List<Edit>> edits`
 
@@ -16199,7 +16534,7 @@ public final class Main {
 
     minItems: 0
 
-    - `class BetaClearToolUses20250919Edit:`
+    - `class BetaClearToolUses20250919Edit`
 
       - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -16239,7 +16574,7 @@ public final class Main {
 
         Condition that triggers the context management strategy
 
-        - `class BetaInputTokensTrigger:`
+        - `class BetaInputTokensTrigger`
 
           - `JsonValue type = "input_tokens"`
 
@@ -16247,7 +16582,7 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaToolUsesTrigger:`
+        - `class BetaToolUsesTrigger`
 
           - `JsonValue type = "tool_uses"`
 
@@ -16255,7 +16590,7 @@ public final class Main {
 
             minimum: 1
 
-    - `class BetaClearThinking20251015Edit:`
+    - `class BetaClearThinking20251015Edit`
 
       - `JsonValue type = "clear_thinking_20251015"`
 
@@ -16263,7 +16598,7 @@ public final class Main {
 
         Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-        - `class BetaThinkingTurns:`
+        - `class BetaThinkingTurns`
 
           - `JsonValue type = "thinking_turns"`
 
@@ -16271,13 +16606,13 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaAllThinkingTurns:`
+        - `class BetaAllThinkingTurns`
 
           - `JsonValue type = "all"`
 
         - `JsonValue`
 
-    - `class BetaCompact20260112Edit:`
+    - `class BetaCompact20260112Edit`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
@@ -16297,13 +16632,13 @@ public final class Main {
 
 ### Beta Context Management Response
 
-- `class BetaContextManagementResponse:`
+- `class BetaContextManagementResponse`
 
   - `List<AppliedEdit> appliedEdits`
 
     List of context management edits that were applied.
 
-    - `class BetaClearToolUses20250919EditResponse:`
+    - `class BetaClearToolUses20250919EditResponse`
 
       - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -16321,7 +16656,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaClearThinking20251015EditResponse:`
+    - `class BetaClearThinking20251015EditResponse`
 
       - `JsonValue type = "clear_thinking_20251015"`
 
@@ -16341,7 +16676,7 @@ public final class Main {
 
 ### Beta Count Tokens Context Management Response
 
-- `class BetaCountTokensContextManagementResponse:`
+- `class BetaCountTokensContextManagementResponse`
 
   - `long originalInputTokens`
 
@@ -16349,7 +16684,7 @@ public final class Main {
 
 ### Beta Diagnostics
 
-- `class BetaDiagnostics:`
+- `class BetaDiagnostics`
 
   Response envelope for request-level diagnostics. Present (possibly
   null) whenever the caller supplied `diagnostics` on the request.
@@ -16358,7 +16693,7 @@ public final class Main {
 
     Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-    - `class BetaCacheMissModelChanged:`
+    - `class BetaCacheMissModelChanged`
 
       - `JsonValue type = "model_changed"`
 
@@ -16366,7 +16701,7 @@ public final class Main {
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-    - `class BetaCacheMissSystemChanged:`
+    - `class BetaCacheMissSystemChanged`
 
       - `JsonValue type = "system_changed"`
 
@@ -16374,7 +16709,7 @@ public final class Main {
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-    - `class BetaCacheMissToolsChanged:`
+    - `class BetaCacheMissToolsChanged`
 
       - `JsonValue type = "tools_changed"`
 
@@ -16382,7 +16717,7 @@ public final class Main {
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-    - `class BetaCacheMissMessagesChanged:`
+    - `class BetaCacheMissMessagesChanged`
 
       - `JsonValue type = "messages_changed"`
 
@@ -16390,17 +16725,17 @@ public final class Main {
 
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-    - `class BetaCacheMissPreviousMessageNotFound:`
+    - `class BetaCacheMissPreviousMessageNotFound`
 
       - `JsonValue type = "previous_message_not_found"`
 
-    - `class BetaCacheMissUnavailable:`
+    - `class BetaCacheMissUnavailable`
 
       - `JsonValue type = "unavailable"`
 
 ### Beta Diagnostics Param
 
-- `class BetaDiagnosticsParam:`
+- `class BetaDiagnosticsParam`
 
   Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
@@ -16413,7 +16748,7 @@ public final class Main {
 
 ### Beta Direct Caller
 
-- `class BetaDirectCaller:`
+- `class BetaDirectCaller`
 
   Tool invocation directly from the model.
 
@@ -16421,7 +16756,7 @@ public final class Main {
 
 ### Beta Document Block
 
-- `class BetaDocumentBlock:`
+- `class BetaDocumentBlock`
 
   - `JsonValue type = "document"`
 
@@ -16433,7 +16768,7 @@ public final class Main {
 
   - `Source source`
 
-    - `class BetaBase64PdfSource:`
+    - `class BetaBase64PdfSource`
 
       - `JsonValue type = "base64"`
 
@@ -16443,7 +16778,7 @@ public final class Main {
 
       - `JsonValue mediaType = "application/pdf"`
 
-    - `class BetaPlainTextSource:`
+    - `class BetaPlainTextSource`
 
       - `JsonValue type = "text"`
 
@@ -16457,7 +16792,7 @@ public final class Main {
 
 ### Beta Encrypted Code Execution Result Block
 
-- `class BetaEncryptedCodeExecutionResultBlock:`
+- `class BetaEncryptedCodeExecutionResultBlock`
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -16477,7 +16812,7 @@ public final class Main {
 
 ### Beta Encrypted Code Execution Result Block Param
 
-- `class BetaEncryptedCodeExecutionResultBlockParam:`
+- `class BetaEncryptedCodeExecutionResultBlockParam`
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -16497,7 +16832,7 @@ public final class Main {
 
 ### Beta Fallback Block
 
-- `class BetaFallbackBlock:`
+- `class BetaFallbackBlock`
 
   Marks the point in `content` where one model's output gives way to the next.
 
@@ -16627,7 +16962,7 @@ public final class Main {
 
 ### Beta Fallback Block Param
 
-- `class BetaFallbackBlockParam:`
+- `class BetaFallbackBlockParam`
 
   A `fallback` block echoed back from a prior response.
 
@@ -16733,7 +17068,7 @@ public final class Main {
 
 ### Beta Fallback Credit Not Applied
 
-- `class BetaFallbackCreditNotApplied:`
+- `class BetaFallbackCreditNotApplied`
 
   No reprice was applied; `reason` says why.
 
@@ -16783,7 +17118,7 @@ public final class Main {
 
 ### Beta Fallback Credit Redeemed
 
-- `class BetaFallbackCreditRedeemed:`
+- `class BetaFallbackCreditRedeemed`
 
   The reprice was applied: the retry is billed as if the conversation
   had been on the retry model all along.
@@ -16792,7 +17127,7 @@ public final class Main {
 
 ### Beta Fallback Credit Token Param
 
-- `class BetaFallbackCreditTokenParam:`
+- `class BetaFallbackCreditTokenParam`
 
   Object form of `fallback_credit_token`: the token plus a redemption
   mode.
@@ -16818,7 +17153,7 @@ public final class Main {
 
 ### Beta Fallback Credit Usage
 
-- `class BetaFallbackCreditUsage:`
+- `class BetaFallbackCreditUsage`
 
   Outcome of the `fallback_credit_token` presented on this request.
 
@@ -16831,14 +17166,14 @@ public final class Main {
     resulting shift is zero because there was nothing to move. `not_applied`:
     no reprice was applied; the arm's `reason` says why.
 
-    - `class BetaFallbackCreditRedeemed:`
+    - `class BetaFallbackCreditRedeemed`
 
       The reprice was applied: the retry is billed as if the conversation
       had been on the retry model all along.
 
       - `JsonValue type = "redeemed"`
 
-    - `class BetaFallbackCreditNotApplied:`
+    - `class BetaFallbackCreditNotApplied`
 
       No reprice was applied; `reason` says why.
 
@@ -16888,7 +17223,7 @@ public final class Main {
 
 ### Beta Fallback Info
 
-- `class BetaFallbackInfo:`
+- `class BetaFallbackInfo`
 
   Identifies one hop of a fallback transition.
 
@@ -16968,7 +17303,7 @@ public final class Main {
 
 ### Beta Fallback Info Param
 
-- `class BetaFallbackInfoParam:`
+- `class BetaFallbackInfoParam`
 
   Identifies one hop of a fallback transition.
 
@@ -17048,7 +17383,7 @@ public final class Main {
 
 ### Beta Fallback Message Iteration Usage
 
-- `class BetaFallbackMessageIterationUsage:`
+- `class BetaFallbackMessageIterationUsage`
 
   Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -17179,7 +17514,7 @@ public final class Main {
 
 ### Beta Fallback Param
 
-- `class BetaFallbackParam:`
+- `class BetaFallbackParam`
 
   One entry in the `fallbacks` chain on a `/v1/messages` request.
 
@@ -17320,7 +17655,7 @@ public final class Main {
 
   - `Optional<Thinking> thinking`
 
-    - `class BetaThinkingConfigEnabled:`
+    - `class BetaThinkingConfigEnabled`
 
       - `JsonValue type = "enabled"`
 
@@ -17362,11 +17697,11 @@ public final class Main {
 
         - `UPDATES("updates")`
 
-    - `class BetaThinkingConfigDisabled:`
+    - `class BetaThinkingConfigDisabled`
 
       - `JsonValue type = "disabled"`
 
-    - `class BetaThinkingConfigAdaptive:`
+    - `class BetaThinkingConfigAdaptive`
 
       - `JsonValue type = "adaptive"`
 
@@ -17388,7 +17723,7 @@ public final class Main {
 
 ### Beta Fallback Refusal Trigger
 
-- `class BetaFallbackRefusalTrigger:`
+- `class BetaFallbackRefusalTrigger`
 
   The `from` model declined for policy reasons.
 
@@ -17558,7 +17893,7 @@ public final class Main {
 
     - `Optional<Thinking> thinking`
 
-      - `class BetaThinkingConfigEnabled:`
+      - `class BetaThinkingConfigEnabled`
 
         - `JsonValue type = "enabled"`
 
@@ -17600,11 +17935,11 @@ public final class Main {
 
           - `UPDATES("updates")`
 
-      - `class BetaThinkingConfigDisabled:`
+      - `class BetaThinkingConfigDisabled`
 
         - `JsonValue type = "disabled"`
 
-      - `class BetaThinkingConfigAdaptive:`
+      - `class BetaThinkingConfigAdaptive`
 
         - `JsonValue type = "adaptive"`
 
@@ -17628,7 +17963,7 @@ public final class Main {
 
 ### Beta File Document Source
 
-- `class BetaFileDocumentSource:`
+- `class BetaFileDocumentSource`
 
   - `JsonValue type = "file"`
 
@@ -17636,7 +17971,7 @@ public final class Main {
 
 ### Beta File Image Source
 
-- `class BetaFileImageSource:`
+- `class BetaFileImageSource`
 
   - `JsonValue type = "file"`
 
@@ -17644,13 +17979,13 @@ public final class Main {
 
 ### Beta Image Block Param
 
-- `class BetaImageBlockParam:`
+- `class BetaImageBlockParam`
 
   - `JsonValue type = "image"`
 
   - `Source source`
 
-    - `class BetaBase64ImageSource:`
+    - `class BetaBase64ImageSource`
 
       - `JsonValue type = "base64"`
 
@@ -17668,13 +18003,13 @@ public final class Main {
 
         - `IMAGE_WEBP("image/webp")`
 
-    - `class BetaUrlImageSource:`
+    - `class BetaUrlImageSource`
 
       - `JsonValue type = "url"`
 
       - `String url`
 
-    - `class BetaFileImageSource:`
+    - `class BetaFileImageSource`
 
       - `JsonValue type = "file"`
 
@@ -17715,7 +18050,7 @@ public final class Main {
 
 ### Beta Image Transformations Param
 
-- `class BetaImageTransformationsParam:`
+- `class BetaImageTransformationsParam`
 
   Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -17729,7 +18064,7 @@ public final class Main {
 
 ### Beta Input JSON Delta
 
-- `class BetaInputJsonDelta:`
+- `class BetaInputJsonDelta`
 
   - `JsonValue type = "input_json_delta"`
 
@@ -17737,7 +18072,7 @@ public final class Main {
 
 ### Beta Input Tokens Clear At Least
 
-- `class BetaInputTokensClearAtLeast:`
+- `class BetaInputTokensClearAtLeast`
 
   - `JsonValue type = "input_tokens"`
 
@@ -17747,7 +18082,7 @@ public final class Main {
 
 ### Beta Input Tokens Trigger
 
-- `class BetaInputTokensTrigger:`
+- `class BetaInputTokensTrigger`
 
   - `JsonValue type = "input_tokens"`
 
@@ -17755,9 +18090,86 @@ public final class Main {
 
     minimum: 1
 
+### Beta Input Transformation
+
+- `class BetaInputTransformation: union`
+
+  One entry of `input_transformations`: either a change the API made to the
+  request's input before showing it to the model, or a block that failed a
+  binding check and was still shown to the model unchanged. The `type` field
+  says which.
+
+  - `class BetaThinkingDroppedInputTransformation`
+
+    - `JsonValue type = "thinking_dropped"`
+
+      Always `thinking_dropped` for this entry type.
+
+    - `String path`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `Reason reason`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+      - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+      - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+      - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+  - `class BetaThinkingMismatchAllowedInputTransformation`
+
+    - `JsonValue type = "thinking_mismatch_allowed"`
+
+      Always `thinking_mismatch_allowed` for this entry type.
+
+    - `String path`
+
+      Where the block is in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `Reason reason`
+
+      Which binding check the block failed; the block was shown to the model all
+      the same. Always `prefix_binding_mismatch` today — the conversation before
+      the block differs from the conversation it was created in, or the block
+      carries no record of one on a model that requires it. Were the check
+      enforced for this request, the block would have been removed or the request
+      rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+      takes the rest of that turn's consecutive thinking blocks, whereas here each
+      block is checked on its own, so `thinking_mismatch_allowed` entries are a
+      lower bound on what enforcement would remove.
+
+      - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+      - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+      - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+      - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
 ### Beta JSON Output Format
 
-- `class BetaJsonOutputFormat:`
+- `class BetaJsonOutputFormat`
 
   - `JsonValue type = "json_schema"`
 
@@ -17767,7 +18179,7 @@ public final class Main {
 
 ### Beta MCP Tool Config
 
-- `class BetaMcpToolConfig:`
+- `class BetaMcpToolConfig`
 
   Configuration for a specific tool in an MCP toolset.
 
@@ -17777,7 +18189,7 @@ public final class Main {
 
 ### Beta MCP Tool Default Config
 
-- `class BetaMcpToolDefaultConfig:`
+- `class BetaMcpToolDefaultConfig`
 
   Default configuration for tools in an MCP toolset.
 
@@ -17787,7 +18199,7 @@ public final class Main {
 
 ### Beta MCP Tool Result Block
 
-- `class BetaMcpToolResultBlock:`
+- `class BetaMcpToolResultBlock`
 
   - `JsonValue type = "mcp_tool_result"`
 
@@ -17805,7 +18217,7 @@ public final class Main {
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class BetaCitationCharLocation:`
+        - `class BetaCitationCharLocation`
 
           - `JsonValue type = "char_location"`
 
@@ -17825,7 +18237,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationPageLocation:`
+        - `class BetaCitationPageLocation`
 
           - `JsonValue type = "page_location"`
 
@@ -17845,7 +18257,7 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocation:`
+        - `class BetaCitationContentBlockLocation`
 
           - `JsonValue type = "content_block_location"`
 
@@ -17875,7 +18287,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationsWebSearchResultLocation:`
+        - `class BetaCitationsWebSearchResultLocation`
 
           - `JsonValue type = "web_search_result_location"`
 
@@ -17889,7 +18301,7 @@ public final class Main {
 
           - `String url`
 
-        - `class BetaCitationSearchResultLocation:`
+        - `class BetaCitationSearchResultLocation`
 
           - `JsonValue type = "search_result_location"`
 
@@ -17935,7 +18347,7 @@ public final class Main {
 
 ### Beta MCP Tool Use Block
 
-- `class BetaMcpToolUseBlock:`
+- `class BetaMcpToolUseBlock`
 
   - `JsonValue type = "mcp_tool_use"`
 
@@ -17955,7 +18367,7 @@ public final class Main {
 
 ### Beta MCP Tool Use Block Param
 
-- `class BetaMcpToolUseBlockParam:`
+- `class BetaMcpToolUseBlockParam`
 
   - `JsonValue type = "mcp_tool_use"`
 
@@ -17994,7 +18406,7 @@ public final class Main {
 
 ### Beta MCP Toolset
 
-- `class BetaMcpToolset:`
+- `class BetaMcpToolset`
 
   Configuration for a group of tools from an MCP server.
 
@@ -18048,7 +18460,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818
 
-- `class BetaMemoryTool20250818:`
+- `class BetaMemoryTool20250818`
 
   - `JsonValue type = "memory_20250818"`
 
@@ -18103,7 +18515,7 @@ public final class Main {
 
 - `class BetaMemoryTool20250818Command: union`
 
-  - `class BetaMemoryTool20250818ViewCommand:`
+  - `class BetaMemoryTool20250818ViewCommand`
 
     - `JsonValue command = "view"`
 
@@ -18119,7 +18531,7 @@ public final class Main {
 
       minItems: 2, maxItems: 2
 
-  - `class BetaMemoryTool20250818CreateCommand:`
+  - `class BetaMemoryTool20250818CreateCommand`
 
     - `JsonValue command = "create"`
 
@@ -18133,7 +18545,7 @@ public final class Main {
 
       Path where the file should be created
 
-  - `class BetaMemoryTool20250818StrReplaceCommand:`
+  - `class BetaMemoryTool20250818StrReplaceCommand`
 
     - `JsonValue command = "str_replace"`
 
@@ -18151,7 +18563,7 @@ public final class Main {
 
       Path to the file where text should be replaced
 
-  - `class BetaMemoryTool20250818InsertCommand:`
+  - `class BetaMemoryTool20250818InsertCommand`
 
     - `JsonValue command = "insert"`
 
@@ -18171,7 +18583,7 @@ public final class Main {
 
       Path to the file where text should be inserted
 
-  - `class BetaMemoryTool20250818DeleteCommand:`
+  - `class BetaMemoryTool20250818DeleteCommand`
 
     - `JsonValue command = "delete"`
 
@@ -18181,7 +18593,7 @@ public final class Main {
 
       Path to the file or directory to delete
 
-  - `class BetaMemoryTool20250818RenameCommand:`
+  - `class BetaMemoryTool20250818RenameCommand`
 
     - `JsonValue command = "rename"`
 
@@ -18197,7 +18609,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818 Create Command
 
-- `class BetaMemoryTool20250818CreateCommand:`
+- `class BetaMemoryTool20250818CreateCommand`
 
   - `JsonValue command = "create"`
 
@@ -18213,7 +18625,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818 Delete Command
 
-- `class BetaMemoryTool20250818DeleteCommand:`
+- `class BetaMemoryTool20250818DeleteCommand`
 
   - `JsonValue command = "delete"`
 
@@ -18225,7 +18637,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818 Insert Command
 
-- `class BetaMemoryTool20250818InsertCommand:`
+- `class BetaMemoryTool20250818InsertCommand`
 
   - `JsonValue command = "insert"`
 
@@ -18247,7 +18659,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818 Rename Command
 
-- `class BetaMemoryTool20250818RenameCommand:`
+- `class BetaMemoryTool20250818RenameCommand`
 
   - `JsonValue command = "rename"`
 
@@ -18263,7 +18675,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818 Str Replace Command
 
-- `class BetaMemoryTool20250818StrReplaceCommand:`
+- `class BetaMemoryTool20250818StrReplaceCommand`
 
   - `JsonValue command = "str_replace"`
 
@@ -18283,7 +18695,7 @@ public final class Main {
 
 ### Beta Memory Tool 20250818 View Command
 
-- `class BetaMemoryTool20250818ViewCommand:`
+- `class BetaMemoryTool20250818ViewCommand`
 
   - `JsonValue command = "view"`
 
@@ -18301,7 +18713,7 @@ public final class Main {
 
 ### Beta Message
 
-- `class BetaMessage:`
+- `class BetaMessage`
 
   - `JsonValue type = "message"`
 
@@ -18382,7 +18794,7 @@ public final class Main {
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `class BetaTextBlock:`
+    - `class BetaTextBlock`
 
       - `JsonValue type = "text"`
 
@@ -18392,7 +18804,7 @@ public final class Main {
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class BetaCitationCharLocation:`
+        - `class BetaCitationCharLocation`
 
           - `JsonValue type = "char_location"`
 
@@ -18412,7 +18824,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationPageLocation:`
+        - `class BetaCitationPageLocation`
 
           - `JsonValue type = "page_location"`
 
@@ -18432,7 +18844,7 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocation:`
+        - `class BetaCitationContentBlockLocation`
 
           - `JsonValue type = "content_block_location"`
 
@@ -18462,7 +18874,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationsWebSearchResultLocation:`
+        - `class BetaCitationsWebSearchResultLocation`
 
           - `JsonValue type = "web_search_result_location"`
 
@@ -18476,7 +18888,7 @@ public final class Main {
 
           - `String url`
 
-        - `class BetaCitationSearchResultLocation:`
+        - `class BetaCitationSearchResultLocation`
 
           - `JsonValue type = "search_result_location"`
 
@@ -18514,7 +18926,7 @@ public final class Main {
 
         minLength: 0
 
-    - `class BetaThinkingBlock:`
+    - `class BetaThinkingBlock`
 
       - `JsonValue type = "thinking"`
 
@@ -18530,7 +18942,7 @@ public final class Main {
 
         The text of Claude's thinking process for this block.
 
-    - `class BetaRedactedThinkingBlock:`
+    - `class BetaRedactedThinkingBlock`
 
       - `JsonValue type = "redacted_thinking"`
 
@@ -18542,7 +18954,7 @@ public final class Main {
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class BetaToolUseBlock:`
+    - `class BetaToolUseBlock`
 
       - `JsonValue type = "tool_use"`
 
@@ -18558,13 +18970,13 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
           - `JsonValue type = "direct"`
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -18574,7 +18986,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
           - `JsonValue type = "code_execution_20260120"`
 
@@ -18588,7 +19000,7 @@ public final class Main {
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaServerToolUseBlock:`
+    - `class BetaServerToolUseBlock`
 
       - `JsonValue type = "server_tool_use"`
 
@@ -18618,23 +19030,23 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebSearchToolResultBlock:`
+    - `class BetaWebSearchToolResultBlock`
 
       - `JsonValue type = "web_search_tool_result"`
 
       - `BetaWebSearchToolResultBlockContent content`
 
-        - `class BetaWebSearchToolResultError:`
+        - `class BetaWebSearchToolResultError`
 
           - `JsonValue type = "web_search_tool_result_error"`
 
@@ -18670,23 +19082,23 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebFetchToolResultBlock:`
+    - `class BetaWebFetchToolResultBlock`
 
       - `JsonValue type = "web_fetch_tool_result"`
 
       - `Content content`
 
-        - `class BetaWebFetchToolResultErrorBlock:`
+        - `class BetaWebFetchToolResultErrorBlock`
 
           - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -18712,7 +19124,7 @@ public final class Main {
 
             - `CONTENT_TOO_LARGE("content_too_large")`
 
-        - `class BetaWebFetchBlock:`
+        - `class BetaWebFetchBlock`
 
           - `JsonValue type = "web_fetch_result"`
 
@@ -18728,7 +19140,7 @@ public final class Main {
 
             - `Source source`
 
-              - `class BetaBase64PdfSource:`
+              - `class BetaBase64PdfSource`
 
                 - `JsonValue type = "base64"`
 
@@ -18738,7 +19150,7 @@ public final class Main {
 
                 - `JsonValue mediaType = "application/pdf"`
 
-              - `class BetaPlainTextSource:`
+              - `class BetaPlainTextSource`
 
                 - `JsonValue type = "text"`
 
@@ -18764,23 +19176,23 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaAdvisorToolResultBlock:`
+    - `class BetaAdvisorToolResultBlock`
 
       - `JsonValue type = "advisor_tool_result"`
 
       - `Content content`
 
-        - `class BetaAdvisorToolResultError:`
+        - `class BetaAdvisorToolResultError`
 
           - `JsonValue type = "advisor_tool_result_error"`
 
@@ -18800,7 +19212,7 @@ public final class Main {
 
             - `MODEL_NOT_FOUND("model_not_found")`
 
-        - `class BetaAdvisorResultBlock:`
+        - `class BetaAdvisorResultBlock`
 
           - `JsonValue type = "advisor_result"`
 
@@ -18810,7 +19222,7 @@ public final class Main {
 
           - `String text`
 
-        - `class BetaAdvisorRedactedResultBlock:`
+        - `class BetaAdvisorRedactedResultBlock`
 
           - `JsonValue type = "advisor_redacted_result"`
 
@@ -18826,13 +19238,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaCodeExecutionToolResultBlock:`
+    - `class BetaCodeExecutionToolResultBlock`
 
       - `JsonValue type = "code_execution_tool_result"`
 
       - `BetaCodeExecutionToolResultBlockContent content`
 
-        - `class BetaCodeExecutionToolResultError:`
+        - `class BetaCodeExecutionToolResultError`
 
           - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -18846,7 +19258,7 @@ public final class Main {
 
             - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-        - `class BetaCodeExecutionResultBlock:`
+        - `class BetaCodeExecutionResultBlock`
 
           - `JsonValue type = "code_execution_result"`
 
@@ -18862,7 +19274,7 @@ public final class Main {
 
           - `String stdout`
 
-        - `class BetaEncryptedCodeExecutionResultBlock:`
+        - `class BetaEncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -18884,13 +19296,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaBashCodeExecutionToolResultBlock:`
+    - `class BetaBashCodeExecutionToolResultBlock`
 
       - `JsonValue type = "bash_code_execution_tool_result"`
 
       - `Content content`
 
-        - `class BetaBashCodeExecutionToolResultError:`
+        - `class BetaBashCodeExecutionToolResultError`
 
           - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -18906,7 +19318,7 @@ public final class Main {
 
             - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-        - `class BetaBashCodeExecutionResultBlock:`
+        - `class BetaBashCodeExecutionResultBlock`
 
           - `JsonValue type = "bash_code_execution_result"`
 
@@ -18926,13 +19338,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaTextEditorCodeExecutionToolResultBlock:`
+    - `class BetaTextEditorCodeExecutionToolResultBlock`
 
       - `JsonValue type = "text_editor_code_execution_tool_result"`
 
       - `Content content`
 
-        - `class BetaTextEditorCodeExecutionToolResultError:`
+        - `class BetaTextEditorCodeExecutionToolResultError`
 
           - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -18950,7 +19362,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-        - `class BetaTextEditorCodeExecutionViewResultBlock:`
+        - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -18970,13 +19382,13 @@ public final class Main {
 
           - `Optional<Long> totalLines`
 
-        - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+        - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_create_result"`
 
           - `boolean isFileUpdate`
 
-        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -18994,13 +19406,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaToolSearchToolResultBlock:`
+    - `class BetaToolSearchToolResultBlock`
 
       - `JsonValue type = "tool_search_tool_result"`
 
       - `Content content`
 
-        - `class BetaToolSearchToolResultError:`
+        - `class BetaToolSearchToolResultError`
 
           - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -19016,7 +19428,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-        - `class BetaToolSearchToolSearchResultBlock:`
+        - `class BetaToolSearchToolSearchResultBlock`
 
           - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -19032,7 +19444,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaMcpToolUseBlock:`
+    - `class BetaMcpToolUseBlock`
 
       - `JsonValue type = "mcp_tool_use"`
 
@@ -19050,7 +19462,7 @@ public final class Main {
 
         The name of the MCP server
 
-    - `class BetaMcpToolResultBlock:`
+    - `class BetaMcpToolResultBlock`
 
       - `JsonValue type = "mcp_tool_result"`
 
@@ -19078,7 +19490,7 @@ public final class Main {
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaContainerUploadBlock:`
+    - `class BetaContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -19086,7 +19498,7 @@ public final class Main {
 
       - `String fileId`
 
-    - `class BetaCompactionBlock:`
+    - `class BetaCompactionBlock`
 
       A compaction block returned when autocompact is triggered.
 
@@ -19104,7 +19516,11 @@ public final class Main {
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
-    - `class BetaFallbackBlock:`
+      - `Optional<String> signature`
+
+        Signature over the summary, to be sent back with the block verbatim
+
+    - `class BetaFallbackBlock`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -19242,7 +19658,7 @@ public final class Main {
 
       List of context management edits that were applied.
 
-      - `class BetaClearToolUses20250919EditResponse:`
+      - `class BetaClearToolUses20250919EditResponse`
 
         - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -19260,7 +19676,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaClearThinking20251015EditResponse:`
+      - `class BetaClearThinking20251015EditResponse`
 
         - `JsonValue type = "clear_thinking_20251015"`
 
@@ -19287,7 +19703,7 @@ public final class Main {
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-      - `class BetaCacheMissModelChanged:`
+      - `class BetaCacheMissModelChanged`
 
         - `JsonValue type = "model_changed"`
 
@@ -19295,7 +19711,7 @@ public final class Main {
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissSystemChanged:`
+      - `class BetaCacheMissSystemChanged`
 
         - `JsonValue type = "system_changed"`
 
@@ -19303,7 +19719,7 @@ public final class Main {
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissToolsChanged:`
+      - `class BetaCacheMissToolsChanged`
 
         - `JsonValue type = "tools_changed"`
 
@@ -19311,7 +19727,7 @@ public final class Main {
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissMessagesChanged:`
+      - `class BetaCacheMissMessagesChanged`
 
         - `JsonValue type = "messages_changed"`
 
@@ -19319,11 +19735,11 @@ public final class Main {
 
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-      - `class BetaCacheMissPreviousMessageNotFound:`
+      - `class BetaCacheMissPreviousMessageNotFound`
 
         - `JsonValue type = "previous_message_not_found"`
 
-      - `class BetaCacheMissUnavailable:`
+      - `class BetaCacheMissUnavailable`
 
         - `JsonValue type = "unavailable"`
 
@@ -19515,14 +19931,14 @@ public final class Main {
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `class BetaFallbackCreditRedeemed:`
+        - `class BetaFallbackCreditRedeemed`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
 
           - `JsonValue type = "redeemed"`
 
-        - `class BetaFallbackCreditNotApplied:`
+        - `class BetaFallbackCreditNotApplied`
 
           No reprice was applied; `reason` says why.
 
@@ -19592,7 +20008,7 @@ public final class Main {
 
       A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-      - `class BetaMessageIterationUsage:`
+      - `class BetaMessageIterationUsage`
 
         Token usage for a sampling iteration.
 
@@ -19634,7 +20050,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCompactionIterationUsage:`
+      - `class BetaCompactionIterationUsage`
 
         Token usage for a compaction iteration.
 
@@ -19670,7 +20086,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaAdvisorMessageIterationUsage:`
+      - `class BetaAdvisorMessageIterationUsage`
 
         Token usage for an advisor sub-inference iteration.
 
@@ -19712,7 +20128,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaFallbackMessageIterationUsage:`
+      - `class BetaFallbackMessageIterationUsage`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -19823,61 +20239,101 @@ public final class Main {
 
       - `FAST("fast")`
 
-  - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+  - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-    Changes the API made to the request's input before showing it to the model:
-    one entry per change, in request order. Today the only entry type is
-    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-    block from the request's `messages` that was removed from the prompt instead
-    of being shown to the model because it failed a binding check. More entry
-    types may be added over time; ignore types you do not recognize.
+    Changes the API made to the request's input before showing it to the model,
+    and blocks that failed a binding check but were left unchanged: one entry per
+    block, in request order. Two entry types today. `thinking_dropped` — a
+    `thinking`, `redacted_thinking` or `connector_text` block from the request's
+    `messages` that was removed from the prompt instead of being shown to the
+    model because it failed a binding check. `thinking_mismatch_allowed` — a
+    `thinking` or `redacted_thinking` block that failed the conversation check
+    (the conversation before it differs from the one it was created in, or it
+    carries no record of one on a model that requires it) and was shown to the
+    model all the same, because that check is not enforced for this request.
+    More entry types may be added over time; ignore types you do not recognize.
 
     Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
     every such response from a model that supports extended thinking, as `[]`
-    when nothing was changed; without the beta, blocks are removed all the same
-    but nothing is reported. Removed blocks contribute nothing to
-    `usage.input_tokens`. When streaming, the array is final in `message_start`;
-    the final `message_delta` event carries it only when a server-side model
-    fallback happened mid-stream, in which case it holds the serving model's
-    entries and replaces the one in `message_start`.
+    when there is no entry to report; without the beta, blocks are removed or
+    left in place all the same but nothing is reported. Removed blocks contribute
+    nothing to `usage.input_tokens`; blocks left in place count as sent. When
+    streaming, the array is final in `message_start`; the final `message_delta`
+    event carries it only when a server-side model fallback happened mid-stream,
+    in which case it holds the serving model's entries and replaces the one in
+    `message_start`.
 
-    - `JsonValue type = "thinking_dropped"`
+    - `class BetaThinkingDroppedInputTransformation`
 
-      Always `thinking_dropped` for this entry type.
+      - `JsonValue type = "thinking_dropped"`
 
-    - `String path`
+        Always `thinking_dropped` for this entry type.
 
-      Where the removed block was in your request, as `messages.{i}.content.{j}`:
-      `i` indexes the `messages` array you sent and `j` that message's `content`
-      array — the same form error messages use.
+      - `String path`
 
-    - `Reason reason`
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
 
-      Which binding check removed the block: `model_binding_mismatch` — it was
-      created by a model whose reasoning the requested model may not read;
-      `prefix_binding_mismatch` — the conversation before it differs from the
-      conversation it was created in (the rest of that turn's consecutive thinking
-      blocks are removed with it, each with this reason);
-      `organization_binding_mismatch` — it was created under a different
-      organization (an Anthropic organization, AWS account or Google Cloud project)
-      and this organization is not one of its additional organizations;
-      `end_user_binding_mismatch` — it was created for a different end user, or
-      was removed by the consumer-organization binding. A block that would fail
-      several checks reports one reason, in this order of precedence:
-      `organization_binding_mismatch`, `end_user_binding_mismatch`,
-      `model_binding_mismatch`, `prefix_binding_mismatch`.
+      - `Reason reason`
 
-      - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
 
-      - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
 
-      - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+    - `class BetaThinkingMismatchAllowedInputTransformation`
+
+      - `JsonValue type = "thinking_mismatch_allowed"`
+
+        Always `thinking_mismatch_allowed` for this entry type.
+
+      - `String path`
+
+        Where the block is in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `Reason reason`
+
+        Which binding check the block failed; the block was shown to the model all
+        the same. Always `prefix_binding_mismatch` today — the conversation before
+        the block differs from the conversation it was created in, or the block
+        carries no record of one on a model that requires it. Were the check
+        enforced for this request, the block would have been removed or the request
+        rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+        takes the rest of that turn's consecutive thinking blocks, whereas here each
+        block is checked on its own, so `thinking_mismatch_allowed` entries are a
+        lower bound on what enforcement would remove.
+
+        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
 ### Beta Message Delta Usage
 
-- `class BetaMessageDeltaUsage:`
+- `class BetaMessageDeltaUsage`
 
   - `Optional<Long> cacheCreationInputTokens`
 
@@ -19904,14 +20360,14 @@ public final class Main {
       resulting shift is zero because there was nothing to move. `not_applied`:
       no reprice was applied; the arm's `reason` says why.
 
-      - `class BetaFallbackCreditRedeemed:`
+      - `class BetaFallbackCreditRedeemed`
 
         The reprice was applied: the retry is billed as if the conversation
         had been on the retry model all along.
 
         - `JsonValue type = "redeemed"`
 
-      - `class BetaFallbackCreditNotApplied:`
+      - `class BetaFallbackCreditNotApplied`
 
         No reprice was applied; `reason` says why.
 
@@ -19977,7 +20433,7 @@ public final class Main {
 
     A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-    - `class BetaMessageIterationUsage:`
+    - `class BetaMessageIterationUsage`
 
       Token usage for a sampling iteration.
 
@@ -20099,7 +20555,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCompactionIterationUsage:`
+    - `class BetaCompactionIterationUsage`
 
       Token usage for a compaction iteration.
 
@@ -20135,7 +20591,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaAdvisorMessageIterationUsage:`
+    - `class BetaAdvisorMessageIterationUsage`
 
       Token usage for an advisor sub-inference iteration.
 
@@ -20177,7 +20633,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaFallbackMessageIterationUsage:`
+    - `class BetaFallbackMessageIterationUsage`
 
       Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -20270,7 +20726,7 @@ public final class Main {
 
 ### Beta Message Iteration Usage
 
-- `class BetaMessageIterationUsage:`
+- `class BetaMessageIterationUsage`
 
   Token usage for a sampling iteration.
 
@@ -20394,7 +20850,7 @@ public final class Main {
 
 ### Beta Message Param
 
-- `class BetaMessageParam:`
+- `class BetaMessageParam`
 
   - `Content content`
 
@@ -20402,7 +20858,7 @@ public final class Main {
 
     - `List<BetaContentBlockParam>`
 
-      - `class BetaTextBlockParam:`
+      - `class BetaTextBlockParam`
 
         - `JsonValue type = "text"`
 
@@ -20433,7 +20889,7 @@ public final class Main {
 
         - `Optional<List<BetaTextCitationParam>> citations`
 
-          - `class BetaCitationCharLocationParam:`
+          - `class BetaCitationCharLocationParam`
 
             - `JsonValue type = "char_location"`
 
@@ -20453,7 +20909,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationPageLocationParam:`
+          - `class BetaCitationPageLocationParam`
 
             - `JsonValue type = "page_location"`
 
@@ -20473,7 +20929,7 @@ public final class Main {
 
               minimum: 1
 
-          - `class BetaCitationContentBlockLocationParam:`
+          - `class BetaCitationContentBlockLocationParam`
 
             - `JsonValue type = "content_block_location"`
 
@@ -20503,7 +20959,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationWebSearchResultLocationParam:`
+          - `class BetaCitationWebSearchResultLocationParam`
 
             - `JsonValue type = "web_search_result_location"`
 
@@ -20519,7 +20975,7 @@ public final class Main {
 
               minLength: 1
 
-          - `class BetaCitationSearchResultLocationParam:`
+          - `class BetaCitationSearchResultLocationParam`
 
             - `JsonValue type = "search_result_location"`
 
@@ -20553,13 +21009,13 @@ public final class Main {
 
             - `Optional<String> title`
 
-      - `class BetaImageBlockParam:`
+      - `class BetaImageBlockParam`
 
         - `JsonValue type = "image"`
 
         - `Source source`
 
-          - `class BetaBase64ImageSource:`
+          - `class BetaBase64ImageSource`
 
             - `JsonValue type = "base64"`
 
@@ -20577,13 +21033,13 @@ public final class Main {
 
               - `IMAGE_WEBP("image/webp")`
 
-          - `class BetaUrlImageSource:`
+          - `class BetaUrlImageSource`
 
             - `JsonValue type = "url"`
 
             - `String url`
 
-          - `class BetaFileImageSource:`
+          - `class BetaFileImageSource`
 
             - `JsonValue type = "file"`
 
@@ -20605,13 +21061,13 @@ public final class Main {
 
             - `ERROR("error")`
 
-      - `class BetaRequestDocumentBlock:`
+      - `class BetaRequestDocumentBlock`
 
         - `JsonValue type = "document"`
 
         - `Source source`
 
-          - `class BetaBase64PdfSource:`
+          - `class BetaBase64PdfSource`
 
             - `JsonValue type = "base64"`
 
@@ -20621,7 +21077,7 @@ public final class Main {
 
             - `JsonValue mediaType = "application/pdf"`
 
-          - `class BetaPlainTextSource:`
+          - `class BetaPlainTextSource`
 
             - `JsonValue type = "text"`
 
@@ -20629,7 +21085,7 @@ public final class Main {
 
             - `JsonValue mediaType = "text/plain"`
 
-          - `class BetaContentBlockSource:`
+          - `class BetaContentBlockSource`
 
             - `JsonValue type = "content"`
 
@@ -20639,17 +21095,17 @@ public final class Main {
 
               - `List<BetaContentBlockSourceContent>`
 
-                - `class BetaTextBlockParam:`
+                - `class BetaTextBlockParam`
 
-                - `class BetaImageBlockParam:`
+                - `class BetaImageBlockParam`
 
-          - `class BetaUrlPdfSource:`
+          - `class BetaUrlPdfSource`
 
             - `JsonValue type = "url"`
 
             - `String url`
 
-          - `class BetaFileDocumentSource:`
+          - `class BetaFileDocumentSource`
 
             - `JsonValue type = "file"`
 
@@ -20671,7 +21127,7 @@ public final class Main {
 
           maxLength: 500, minLength: 1
 
-      - `class BetaSearchResultBlockParam:`
+      - `class BetaSearchResultBlockParam`
 
         - `JsonValue type = "search_result"`
 
@@ -20699,7 +21155,7 @@ public final class Main {
 
         - `Optional<BetaCitationsConfigParam> citations`
 
-      - `class BetaThinkingBlockParam:`
+      - `class BetaThinkingBlockParam`
 
         - `JsonValue type = "thinking"`
 
@@ -20713,7 +21169,7 @@ public final class Main {
 
           The `thinking` text of this block as returned by the API.
 
-      - `class BetaRedactedThinkingBlockParam:`
+      - `class BetaRedactedThinkingBlockParam`
 
         - `JsonValue type = "redacted_thinking"`
 
@@ -20721,7 +21177,7 @@ public final class Main {
 
           The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-      - `class BetaToolUseBlockParam:`
+      - `class BetaToolUseBlockParam`
 
         - `JsonValue type = "tool_use"`
 
@@ -20741,13 +21197,13 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
             - `JsonValue type = "direct"`
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
@@ -20757,7 +21213,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
             - `JsonValue type = "code_execution_20260120"`
 
@@ -20771,7 +21227,7 @@ public final class Main {
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaToolResultBlockParam:`
+      - `class BetaToolResultBlockParam`
 
         - `JsonValue type = "tool_result"`
 
@@ -20789,15 +21245,15 @@ public final class Main {
 
           - `List<Block>`
 
-            - `class BetaTextBlockParam:`
+            - `class BetaTextBlockParam`
 
-            - `class BetaImageBlockParam:`
+            - `class BetaImageBlockParam`
 
-            - `class BetaSearchResultBlockParam:`
+            - `class BetaSearchResultBlockParam`
 
-            - `class BetaRequestDocumentBlock:`
+            - `class BetaRequestDocumentBlock`
 
-            - `class BetaToolReferenceBlockParam:`
+            - `class BetaToolReferenceBlockParam`
 
               Tool reference block that can be included in tool_result content.
 
@@ -20811,7 +21267,7 @@ public final class Main {
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaBrowserStateBlockParam:`
+            - `class BetaBrowserStateBlockParam`
 
               The caller's browser state after a browser toolset member call —
               the full inventory of open tabs, which tab is active, and any side
@@ -20861,7 +21317,7 @@ public final class Main {
 
                 maxItems: 200, minItems: 1
 
-                - `class BetaBrowserStateChangeTabOpened:`
+                - `class BetaBrowserStateChangeTabOpened`
 
                   A tab this call's execution opened that remains open at its end —
                   the creation delta of the `tabs` inventory, not an event log.
@@ -20879,7 +21335,7 @@ public final class Main {
 
                     maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BetaBrowserStateChangeDownloadStarted:`
+                - `class BetaBrowserStateChangeDownloadStarted`
 
                   A file download that started during this call.
 
@@ -20897,7 +21353,7 @@ public final class Main {
 
                     maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BetaBrowserStateChangeDownloadCompleted:`
+                - `class BetaBrowserStateChangeDownloadCompleted`
 
                   A file download that finished during this call, reported with the
                   same `download_id` as its `download_started` — or without a prior
@@ -20930,7 +21386,7 @@ public final class Main {
 
                     minimum: 0
 
-                - `class BetaBrowserStateChangeDownloadFailed:`
+                - `class BetaBrowserStateChangeDownloadFailed`
 
                   A file download that failed — or was cancelled — during this call.
 
@@ -20962,7 +21418,7 @@ public final class Main {
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaServerToolUseBlockParam:`
+      - `class BetaServerToolUseBlockParam`
 
         - `JsonValue type = "server_tool_use"`
 
@@ -20996,17 +21452,17 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebSearchToolResultBlockParam:`
+      - `class BetaWebSearchToolResultBlockParam`
 
         - `JsonValue type = "web_search_tool_result"`
 
@@ -21024,7 +21480,7 @@ public final class Main {
 
             - `Optional<String> pageAge`
 
-          - `class BetaWebSearchToolRequestError:`
+          - `class BetaWebSearchToolRequestError`
 
             - `JsonValue type = "web_search_tool_result_error"`
 
@@ -21052,23 +21508,23 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebFetchToolResultBlockParam:`
+      - `class BetaWebFetchToolResultBlockParam`
 
         - `JsonValue type = "web_fetch_tool_result"`
 
         - `Content content`
 
-          - `class BetaWebFetchToolResultErrorBlockParam:`
+          - `class BetaWebFetchToolResultErrorBlockParam`
 
             - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -21094,7 +21550,7 @@ public final class Main {
 
               - `CONTENT_TOO_LARGE("content_too_large")`
 
-          - `class BetaWebFetchBlockParam:`
+          - `class BetaWebFetchBlockParam`
 
             - `JsonValue type = "web_fetch_result"`
 
@@ -21118,23 +21574,23 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaAdvisorToolResultBlockParam:`
+      - `class BetaAdvisorToolResultBlockParam`
 
         - `JsonValue type = "advisor_tool_result"`
 
         - `Content content`
 
-          - `class BetaAdvisorToolResultErrorParam:`
+          - `class BetaAdvisorToolResultErrorParam`
 
             - `JsonValue type = "advisor_tool_result_error"`
 
@@ -21154,7 +21610,7 @@ public final class Main {
 
               - `MODEL_NOT_FOUND("model_not_found")`
 
-          - `class BetaAdvisorResultBlockParam:`
+          - `class BetaAdvisorResultBlockParam`
 
             - `JsonValue type = "advisor_result"`
 
@@ -21162,7 +21618,7 @@ public final class Main {
 
             - `Optional<String> stopReason`
 
-          - `class BetaAdvisorRedactedResultBlockParam:`
+          - `class BetaAdvisorRedactedResultBlockParam`
 
             - `JsonValue type = "advisor_redacted_result"`
 
@@ -21180,13 +21636,13 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaCodeExecutionToolResultBlockParam:`
+      - `class BetaCodeExecutionToolResultBlockParam`
 
         - `JsonValue type = "code_execution_tool_result"`
 
         - `BetaCodeExecutionToolResultBlockParamContent content`
 
-          - `class BetaCodeExecutionToolResultErrorParam:`
+          - `class BetaCodeExecutionToolResultErrorParam`
 
             - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -21200,7 +21656,7 @@ public final class Main {
 
               - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-          - `class BetaCodeExecutionResultBlockParam:`
+          - `class BetaCodeExecutionResultBlockParam`
 
             - `JsonValue type = "code_execution_result"`
 
@@ -21216,7 +21672,7 @@ public final class Main {
 
             - `String stdout`
 
-          - `class BetaEncryptedCodeExecutionResultBlockParam:`
+          - `class BetaEncryptedCodeExecutionResultBlockParam`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -21242,13 +21698,13 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaBashCodeExecutionToolResultBlockParam:`
+      - `class BetaBashCodeExecutionToolResultBlockParam`
 
         - `JsonValue type = "bash_code_execution_tool_result"`
 
         - `Content content`
 
-          - `class BetaBashCodeExecutionToolResultErrorParam:`
+          - `class BetaBashCodeExecutionToolResultErrorParam`
 
             - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -21264,7 +21720,7 @@ public final class Main {
 
               - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-          - `class BetaBashCodeExecutionResultBlockParam:`
+          - `class BetaBashCodeExecutionResultBlockParam`
 
             - `JsonValue type = "bash_code_execution_result"`
 
@@ -21288,13 +21744,13 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+      - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
         - `JsonValue type = "text_editor_code_execution_tool_result"`
 
         - `Content content`
 
-          - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+          - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
             - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -21312,7 +21768,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-          - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+          - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
             - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -21332,13 +21788,13 @@ public final class Main {
 
             - `Optional<Long> totalLines`
 
-          - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+          - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
             - `JsonValue type = "text_editor_code_execution_create_result"`
 
             - `boolean isFileUpdate`
 
-          - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+          - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -21360,13 +21816,13 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaToolSearchToolResultBlockParam:`
+      - `class BetaToolSearchToolResultBlockParam`
 
         - `JsonValue type = "tool_search_tool_result"`
 
         - `Content content`
 
-          - `class BetaToolSearchToolResultErrorParam:`
+          - `class BetaToolSearchToolResultErrorParam`
 
             - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -21382,7 +21838,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-          - `class BetaToolSearchToolSearchResultBlockParam:`
+          - `class BetaToolSearchToolSearchResultBlockParam`
 
             - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -21406,7 +21862,7 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaMcpToolUseBlockParam:`
+      - `class BetaMcpToolUseBlockParam`
 
         - `JsonValue type = "mcp_tool_use"`
 
@@ -21426,7 +21882,7 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaRequestMcpToolResultBlockParam:`
+      - `class BetaRequestMcpToolResultBlockParam`
 
         - `JsonValue type = "mcp_tool_result"`
 
@@ -21458,7 +21914,7 @@ public final class Main {
 
         - `Optional<Boolean> isError`
 
-      - `class BetaContainerUploadBlockParam:`
+      - `class BetaContainerUploadBlockParam`
 
         A content block that represents a file to be uploaded to the container
         Files uploaded via this block will be available in the container's input directory.
@@ -21471,7 +21927,7 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaCompactionBlockParam:`
+      - `class BetaCompactionBlockParam`
 
         A compaction block containing summary of previous context.
 
@@ -21495,7 +21951,11 @@ public final class Main {
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-      - `class BetaRequestToolAdditionBlock:`
+        - `Optional<String> signature`
+
+          The block's signature as returned, to be sent back verbatim
+
+      - `class BetaRequestToolAdditionBlock`
 
         Mid-conversation directive to surface a declared tool.
 
@@ -21507,7 +21967,7 @@ public final class Main {
 
         - `Tool tool`
 
-          - `class BetaToolChangeToolReference:`
+          - `class BetaToolChangeToolReference`
 
             Reference to a single tool the caller declared directly in
             `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -21520,7 +21980,7 @@ public final class Main {
 
               pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-          - `class BetaToolChangeMcpToolReference:`
+          - `class BetaToolChangeMcpToolReference`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -21531,7 +21991,7 @@ public final class Main {
 
             - `String serverName`
 
-          - `class BetaToolChangeMcpToolsetReference:`
+          - `class BetaToolChangeMcpToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
 
@@ -21543,7 +22003,7 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaRequestToolRemovalBlock:`
+      - `class BetaRequestToolRemovalBlock`
 
         Mid-conversation directive to withdraw a tool.
 
@@ -21555,19 +22015,19 @@ public final class Main {
 
         - `Tool tool`
 
-          - `class BetaToolChangeToolReference:`
+          - `class BetaToolChangeToolReference`
 
             Reference to a single tool the caller declared directly in
             `tools[]`. Does not accept the composed `{server}_{name}` form the
             server assigns to MCP-resolved tools — use `mcp_tool_reference` or
             `mcp_toolset_reference` for those.
 
-          - `class BetaToolChangeMcpToolReference:`
+          - `class BetaToolChangeMcpToolReference`
 
             Reference to a single MCP tool by its server and remote name — the
             same `server_name`/`name` pair `mcp_tool_use` carries.
 
-          - `class BetaToolChangeMcpToolsetReference:`
+          - `class BetaToolChangeMcpToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
 
@@ -21575,7 +22035,7 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaFallbackBlockParam:`
+      - `class BetaFallbackBlockParam`
 
         A `fallback` block echoed back from a prior response.
 
@@ -21719,7 +22179,7 @@ public final class Main {
 
 ### Beta Message Tokens Count
 
-- `class BetaMessageTokensCount:`
+- `class BetaMessageTokensCount`
 
   - `Optional<BetaCountTokensContextManagementResponse> contextManagement`
 
@@ -21735,7 +22195,7 @@ public final class Main {
 
 ### Beta Metadata
 
-- `class BetaMetadata:`
+- `class BetaMetadata`
 
   - `Optional<String> userId`
 
@@ -21747,7 +22207,7 @@ public final class Main {
 
 ### Beta Output Config
 
-- `class BetaOutputConfig:`
+- `class BetaOutputConfig`
 
   - `Optional<Effort> effort`
 
@@ -21795,7 +22255,7 @@ public final class Main {
 
 ### Beta Output Tokens Details
 
-- `class BetaOutputTokensDetails:`
+- `class BetaOutputTokensDetails`
 
   - `long thinkingTokens`
 
@@ -21812,7 +22272,7 @@ public final class Main {
 
 ### Beta Plain Text Source
 
-- `class BetaPlainTextSource:`
+- `class BetaPlainTextSource`
 
   - `JsonValue type = "text"`
 
@@ -21824,25 +22284,25 @@ public final class Main {
 
 - `class BetaRawContentBlockDelta: union`
 
-  - `class BetaTextDelta:`
+  - `class BetaTextDelta`
 
     - `JsonValue type = "text_delta"`
 
     - `String text`
 
-  - `class BetaInputJsonDelta:`
+  - `class BetaInputJsonDelta`
 
     - `JsonValue type = "input_json_delta"`
 
     - `String partialJson`
 
-  - `class BetaCitationsDelta:`
+  - `class BetaCitationsDelta`
 
     - `JsonValue type = "citations_delta"`
 
     - `Citation citation`
 
-      - `class BetaCitationCharLocation:`
+      - `class BetaCitationCharLocation`
 
         - `JsonValue type = "char_location"`
 
@@ -21862,7 +22322,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationPageLocation:`
+      - `class BetaCitationPageLocation`
 
         - `JsonValue type = "page_location"`
 
@@ -21882,7 +22342,7 @@ public final class Main {
 
           minimum: 1
 
-      - `class BetaCitationContentBlockLocation:`
+      - `class BetaCitationContentBlockLocation`
 
         - `JsonValue type = "content_block_location"`
 
@@ -21912,7 +22372,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationsWebSearchResultLocation:`
+      - `class BetaCitationsWebSearchResultLocation`
 
         - `JsonValue type = "web_search_result_location"`
 
@@ -21926,7 +22386,7 @@ public final class Main {
 
         - `String url`
 
-      - `class BetaCitationSearchResultLocation:`
+      - `class BetaCitationSearchResultLocation`
 
         - `JsonValue type = "search_result_location"`
 
@@ -21960,7 +22420,7 @@ public final class Main {
 
         - `Optional<String> title`
 
-  - `class BetaThinkingDelta:`
+  - `class BetaThinkingDelta`
 
     - `JsonValue type = "thinking_delta"`
 
@@ -21972,7 +22432,7 @@ public final class Main {
 
       The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-  - `class BetaSignatureDelta:`
+  - `class BetaSignatureDelta`
 
     - `JsonValue type = "signature_delta"`
 
@@ -21980,7 +22440,7 @@ public final class Main {
 
       The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-  - `class BetaCompactionContentBlockDelta:`
+  - `class BetaCompactionContentBlockDelta`
 
     - `JsonValue type = "compaction_delta"`
 
@@ -21992,31 +22452,31 @@ public final class Main {
 
 ### Beta Raw Content Block Delta Event
 
-- `class BetaRawContentBlockDeltaEvent:`
+- `class BetaRawContentBlockDeltaEvent`
 
   - `JsonValue type = "content_block_delta"`
 
   - `BetaRawContentBlockDelta delta`
 
-    - `class BetaTextDelta:`
+    - `class BetaTextDelta`
 
       - `JsonValue type = "text_delta"`
 
       - `String text`
 
-    - `class BetaInputJsonDelta:`
+    - `class BetaInputJsonDelta`
 
       - `JsonValue type = "input_json_delta"`
 
       - `String partialJson`
 
-    - `class BetaCitationsDelta:`
+    - `class BetaCitationsDelta`
 
       - `JsonValue type = "citations_delta"`
 
       - `Citation citation`
 
-        - `class BetaCitationCharLocation:`
+        - `class BetaCitationCharLocation`
 
           - `JsonValue type = "char_location"`
 
@@ -22036,7 +22496,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationPageLocation:`
+        - `class BetaCitationPageLocation`
 
           - `JsonValue type = "page_location"`
 
@@ -22056,7 +22516,7 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocation:`
+        - `class BetaCitationContentBlockLocation`
 
           - `JsonValue type = "content_block_location"`
 
@@ -22086,7 +22546,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationsWebSearchResultLocation:`
+        - `class BetaCitationsWebSearchResultLocation`
 
           - `JsonValue type = "web_search_result_location"`
 
@@ -22100,7 +22560,7 @@ public final class Main {
 
           - `String url`
 
-        - `class BetaCitationSearchResultLocation:`
+        - `class BetaCitationSearchResultLocation`
 
           - `JsonValue type = "search_result_location"`
 
@@ -22134,7 +22594,7 @@ public final class Main {
 
           - `Optional<String> title`
 
-    - `class BetaThinkingDelta:`
+    - `class BetaThinkingDelta`
 
       - `JsonValue type = "thinking_delta"`
 
@@ -22146,7 +22606,7 @@ public final class Main {
 
         The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-    - `class BetaSignatureDelta:`
+    - `class BetaSignatureDelta`
 
       - `JsonValue type = "signature_delta"`
 
@@ -22154,7 +22614,7 @@ public final class Main {
 
         The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-    - `class BetaCompactionContentBlockDelta:`
+    - `class BetaCompactionContentBlockDelta`
 
       - `JsonValue type = "compaction_delta"`
 
@@ -22168,13 +22628,13 @@ public final class Main {
 
 ### Beta Raw Content Block Start Event
 
-- `class BetaRawContentBlockStartEvent:`
+- `class BetaRawContentBlockStartEvent`
 
   - `JsonValue type = "content_block_start"`
 
   - `ContentBlock contentBlock`
 
-    - `class BetaTextBlock:`
+    - `class BetaTextBlock`
 
       - `JsonValue type = "text"`
 
@@ -22184,7 +22644,7 @@ public final class Main {
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `class BetaCitationCharLocation:`
+        - `class BetaCitationCharLocation`
 
           - `JsonValue type = "char_location"`
 
@@ -22204,7 +22664,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationPageLocation:`
+        - `class BetaCitationPageLocation`
 
           - `JsonValue type = "page_location"`
 
@@ -22224,7 +22684,7 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocation:`
+        - `class BetaCitationContentBlockLocation`
 
           - `JsonValue type = "content_block_location"`
 
@@ -22254,7 +22714,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationsWebSearchResultLocation:`
+        - `class BetaCitationsWebSearchResultLocation`
 
           - `JsonValue type = "web_search_result_location"`
 
@@ -22268,7 +22728,7 @@ public final class Main {
 
           - `String url`
 
-        - `class BetaCitationSearchResultLocation:`
+        - `class BetaCitationSearchResultLocation`
 
           - `JsonValue type = "search_result_location"`
 
@@ -22306,7 +22766,7 @@ public final class Main {
 
         minLength: 0
 
-    - `class BetaThinkingBlock:`
+    - `class BetaThinkingBlock`
 
       - `JsonValue type = "thinking"`
 
@@ -22322,7 +22782,7 @@ public final class Main {
 
         The text of Claude's thinking process for this block.
 
-    - `class BetaRedactedThinkingBlock:`
+    - `class BetaRedactedThinkingBlock`
 
       - `JsonValue type = "redacted_thinking"`
 
@@ -22334,7 +22794,7 @@ public final class Main {
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-    - `class BetaToolUseBlock:`
+    - `class BetaToolUseBlock`
 
       - `JsonValue type = "tool_use"`
 
@@ -22350,13 +22810,13 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
           - `JsonValue type = "direct"`
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
@@ -22366,7 +22826,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
           - `JsonValue type = "code_execution_20260120"`
 
@@ -22380,7 +22840,7 @@ public final class Main {
 
         maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaServerToolUseBlock:`
+    - `class BetaServerToolUseBlock`
 
       - `JsonValue type = "server_tool_use"`
 
@@ -22410,23 +22870,23 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebSearchToolResultBlock:`
+    - `class BetaWebSearchToolResultBlock`
 
       - `JsonValue type = "web_search_tool_result"`
 
       - `BetaWebSearchToolResultBlockContent content`
 
-        - `class BetaWebSearchToolResultError:`
+        - `class BetaWebSearchToolResultError`
 
           - `JsonValue type = "web_search_tool_result_error"`
 
@@ -22462,23 +22922,23 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaWebFetchToolResultBlock:`
+    - `class BetaWebFetchToolResultBlock`
 
       - `JsonValue type = "web_fetch_tool_result"`
 
       - `Content content`
 
-        - `class BetaWebFetchToolResultErrorBlock:`
+        - `class BetaWebFetchToolResultErrorBlock`
 
           - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -22504,7 +22964,7 @@ public final class Main {
 
             - `CONTENT_TOO_LARGE("content_too_large")`
 
-        - `class BetaWebFetchBlock:`
+        - `class BetaWebFetchBlock`
 
           - `JsonValue type = "web_fetch_result"`
 
@@ -22520,7 +22980,7 @@ public final class Main {
 
             - `Source source`
 
-              - `class BetaBase64PdfSource:`
+              - `class BetaBase64PdfSource`
 
                 - `JsonValue type = "base64"`
 
@@ -22530,7 +22990,7 @@ public final class Main {
 
                 - `JsonValue mediaType = "application/pdf"`
 
-              - `class BetaPlainTextSource:`
+              - `class BetaPlainTextSource`
 
                 - `JsonValue type = "text"`
 
@@ -22556,23 +23016,23 @@ public final class Main {
 
       - `Optional<Caller> caller`
 
-        - `class BetaDirectCaller:`
+        - `class BetaDirectCaller`
 
           Tool invocation directly from the model.
 
-        - `class BetaServerToolCaller:`
+        - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
-        - `class BetaServerToolCaller20260120:`
+        - `class BetaServerToolCaller20260120`
 
-    - `class BetaAdvisorToolResultBlock:`
+    - `class BetaAdvisorToolResultBlock`
 
       - `JsonValue type = "advisor_tool_result"`
 
       - `Content content`
 
-        - `class BetaAdvisorToolResultError:`
+        - `class BetaAdvisorToolResultError`
 
           - `JsonValue type = "advisor_tool_result_error"`
 
@@ -22592,7 +23052,7 @@ public final class Main {
 
             - `MODEL_NOT_FOUND("model_not_found")`
 
-        - `class BetaAdvisorResultBlock:`
+        - `class BetaAdvisorResultBlock`
 
           - `JsonValue type = "advisor_result"`
 
@@ -22602,7 +23062,7 @@ public final class Main {
 
           - `String text`
 
-        - `class BetaAdvisorRedactedResultBlock:`
+        - `class BetaAdvisorRedactedResultBlock`
 
           - `JsonValue type = "advisor_redacted_result"`
 
@@ -22618,13 +23078,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaCodeExecutionToolResultBlock:`
+    - `class BetaCodeExecutionToolResultBlock`
 
       - `JsonValue type = "code_execution_tool_result"`
 
       - `BetaCodeExecutionToolResultBlockContent content`
 
-        - `class BetaCodeExecutionToolResultError:`
+        - `class BetaCodeExecutionToolResultError`
 
           - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -22638,7 +23098,7 @@ public final class Main {
 
             - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-        - `class BetaCodeExecutionResultBlock:`
+        - `class BetaCodeExecutionResultBlock`
 
           - `JsonValue type = "code_execution_result"`
 
@@ -22654,7 +23114,7 @@ public final class Main {
 
           - `String stdout`
 
-        - `class BetaEncryptedCodeExecutionResultBlock:`
+        - `class BetaEncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -22676,13 +23136,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaBashCodeExecutionToolResultBlock:`
+    - `class BetaBashCodeExecutionToolResultBlock`
 
       - `JsonValue type = "bash_code_execution_tool_result"`
 
       - `Content content`
 
-        - `class BetaBashCodeExecutionToolResultError:`
+        - `class BetaBashCodeExecutionToolResultError`
 
           - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -22698,7 +23158,7 @@ public final class Main {
 
             - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-        - `class BetaBashCodeExecutionResultBlock:`
+        - `class BetaBashCodeExecutionResultBlock`
 
           - `JsonValue type = "bash_code_execution_result"`
 
@@ -22718,13 +23178,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaTextEditorCodeExecutionToolResultBlock:`
+    - `class BetaTextEditorCodeExecutionToolResultBlock`
 
       - `JsonValue type = "text_editor_code_execution_tool_result"`
 
       - `Content content`
 
-        - `class BetaTextEditorCodeExecutionToolResultError:`
+        - `class BetaTextEditorCodeExecutionToolResultError`
 
           - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -22742,7 +23202,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-        - `class BetaTextEditorCodeExecutionViewResultBlock:`
+        - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -22762,13 +23222,13 @@ public final class Main {
 
           - `Optional<Long> totalLines`
 
-        - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+        - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_create_result"`
 
           - `boolean isFileUpdate`
 
-        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+        - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -22786,13 +23246,13 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaToolSearchToolResultBlock:`
+    - `class BetaToolSearchToolResultBlock`
 
       - `JsonValue type = "tool_search_tool_result"`
 
       - `Content content`
 
-        - `class BetaToolSearchToolResultError:`
+        - `class BetaToolSearchToolResultError`
 
           - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -22808,7 +23268,7 @@ public final class Main {
 
           - `Optional<String> errorMessage`
 
-        - `class BetaToolSearchToolSearchResultBlock:`
+        - `class BetaToolSearchToolSearchResultBlock`
 
           - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -22824,7 +23284,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaMcpToolUseBlock:`
+    - `class BetaMcpToolUseBlock`
 
       - `JsonValue type = "mcp_tool_use"`
 
@@ -22842,7 +23302,7 @@ public final class Main {
 
         The name of the MCP server
 
-    - `class BetaMcpToolResultBlock:`
+    - `class BetaMcpToolResultBlock`
 
       - `JsonValue type = "mcp_tool_result"`
 
@@ -22870,7 +23330,7 @@ public final class Main {
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-    - `class BetaContainerUploadBlock:`
+    - `class BetaContainerUploadBlock`
 
       Response model for a file uploaded to the container.
 
@@ -22878,7 +23338,7 @@ public final class Main {
 
       - `String fileId`
 
-    - `class BetaCompactionBlock:`
+    - `class BetaCompactionBlock`
 
       A compaction block returned when autocompact is triggered.
 
@@ -22896,7 +23356,11 @@ public final class Main {
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
-    - `class BetaFallbackBlock:`
+      - `Optional<String> signature`
+
+        Signature over the summary, to be sent back with the block verbatim
+
+    - `class BetaFallbackBlock`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -23028,7 +23492,7 @@ public final class Main {
 
 ### Beta Raw Content Block Stop Event
 
-- `class BetaRawContentBlockStopEvent:`
+- `class BetaRawContentBlockStopEvent`
 
   - `JsonValue type = "content_block_stop"`
 
@@ -23036,7 +23500,7 @@ public final class Main {
 
 ### Beta Raw Message Delta Event
 
-- `class BetaRawMessageDeltaEvent:`
+- `class BetaRawMessageDeltaEvent`
 
   - `JsonValue type = "message_delta"`
 
@@ -23048,7 +23512,7 @@ public final class Main {
 
       List of context management edits that were applied.
 
-      - `class BetaClearToolUses20250919EditResponse:`
+      - `class BetaClearToolUses20250919EditResponse`
 
         - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -23066,7 +23530,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaClearThinking20251015EditResponse:`
+      - `class BetaClearThinking20251015EditResponse`
 
         - `JsonValue type = "clear_thinking_20251015"`
 
@@ -23266,14 +23730,14 @@ public final class Main {
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `class BetaFallbackCreditRedeemed:`
+        - `class BetaFallbackCreditRedeemed`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
 
           - `JsonValue type = "redeemed"`
 
-        - `class BetaFallbackCreditNotApplied:`
+        - `class BetaFallbackCreditNotApplied`
 
           No reprice was applied; `reason` says why.
 
@@ -23339,7 +23803,7 @@ public final class Main {
 
       A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-      - `class BetaMessageIterationUsage:`
+      - `class BetaMessageIterationUsage`
 
         Token usage for a sampling iteration.
 
@@ -23461,7 +23925,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCompactionIterationUsage:`
+      - `class BetaCompactionIterationUsage`
 
         Token usage for a compaction iteration.
 
@@ -23497,7 +23961,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaAdvisorMessageIterationUsage:`
+      - `class BetaAdvisorMessageIterationUsage`
 
         Token usage for an advisor sub-inference iteration.
 
@@ -23539,7 +24003,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaFallbackMessageIterationUsage:`
+      - `class BetaFallbackMessageIterationUsage`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -23630,61 +24094,101 @@ public final class Main {
 
         minimum: 0
 
-  - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+  - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-    Changes the API made to the request's input before showing it to the model:
-    one entry per change, in request order. Today the only entry type is
-    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-    block from the request's `messages` that was removed from the prompt instead
-    of being shown to the model because it failed a binding check. More entry
-    types may be added over time; ignore types you do not recognize.
+    Changes the API made to the request's input before showing it to the model,
+    and blocks that failed a binding check but were left unchanged: one entry per
+    block, in request order. Two entry types today. `thinking_dropped` — a
+    `thinking`, `redacted_thinking` or `connector_text` block from the request's
+    `messages` that was removed from the prompt instead of being shown to the
+    model because it failed a binding check. `thinking_mismatch_allowed` — a
+    `thinking` or `redacted_thinking` block that failed the conversation check
+    (the conversation before it differs from the one it was created in, or it
+    carries no record of one on a model that requires it) and was shown to the
+    model all the same, because that check is not enforced for this request.
+    More entry types may be added over time; ignore types you do not recognize.
 
     Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
     every such response from a model that supports extended thinking, as `[]`
-    when nothing was changed; without the beta, blocks are removed all the same
-    but nothing is reported. Removed blocks contribute nothing to
-    `usage.input_tokens`. When streaming, the array is final in `message_start`;
-    the final `message_delta` event carries it only when a server-side model
-    fallback happened mid-stream, in which case it holds the serving model's
-    entries and replaces the one in `message_start`.
+    when there is no entry to report; without the beta, blocks are removed or
+    left in place all the same but nothing is reported. Removed blocks contribute
+    nothing to `usage.input_tokens`; blocks left in place count as sent. When
+    streaming, the array is final in `message_start`; the final `message_delta`
+    event carries it only when a server-side model fallback happened mid-stream,
+    in which case it holds the serving model's entries and replaces the one in
+    `message_start`.
 
-    - `JsonValue type = "thinking_dropped"`
+    - `class BetaThinkingDroppedInputTransformation`
 
-      Always `thinking_dropped` for this entry type.
+      - `JsonValue type = "thinking_dropped"`
 
-    - `String path`
+        Always `thinking_dropped` for this entry type.
 
-      Where the removed block was in your request, as `messages.{i}.content.{j}`:
-      `i` indexes the `messages` array you sent and `j` that message's `content`
-      array — the same form error messages use.
+      - `String path`
 
-    - `Reason reason`
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
 
-      Which binding check removed the block: `model_binding_mismatch` — it was
-      created by a model whose reasoning the requested model may not read;
-      `prefix_binding_mismatch` — the conversation before it differs from the
-      conversation it was created in (the rest of that turn's consecutive thinking
-      blocks are removed with it, each with this reason);
-      `organization_binding_mismatch` — it was created under a different
-      organization (an Anthropic organization, AWS account or Google Cloud project)
-      and this organization is not one of its additional organizations;
-      `end_user_binding_mismatch` — it was created for a different end user, or
-      was removed by the consumer-organization binding. A block that would fail
-      several checks reports one reason, in this order of precedence:
-      `organization_binding_mismatch`, `end_user_binding_mismatch`,
-      `model_binding_mismatch`, `prefix_binding_mismatch`.
+      - `Reason reason`
 
-      - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-      - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
 
-      - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
 
-      - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+    - `class BetaThinkingMismatchAllowedInputTransformation`
+
+      - `JsonValue type = "thinking_mismatch_allowed"`
+
+        Always `thinking_mismatch_allowed` for this entry type.
+
+      - `String path`
+
+        Where the block is in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `Reason reason`
+
+        Which binding check the block failed; the block was shown to the model all
+        the same. Always `prefix_binding_mismatch` today — the conversation before
+        the block differs from the conversation it was created in, or the block
+        carries no record of one on a model that requires it. Were the check
+        enforced for this request, the block would have been removed or the request
+        rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+        takes the rest of that turn's consecutive thinking blocks, whereas here each
+        block is checked on its own, so `thinking_mismatch_allowed` entries are a
+        lower bound on what enforcement would remove.
+
+        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
 ### Beta Raw Message Start Event
 
-- `class BetaRawMessageStartEvent:`
+- `class BetaRawMessageStartEvent`
 
   - `JsonValue type = "message_start"`
 
@@ -23769,7 +24273,7 @@ public final class Main {
       [{"type": "text", "text": "B)"}]
       ```
 
-      - `class BetaTextBlock:`
+      - `class BetaTextBlock`
 
         - `JsonValue type = "text"`
 
@@ -23779,7 +24283,7 @@ public final class Main {
 
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-          - `class BetaCitationCharLocation:`
+          - `class BetaCitationCharLocation`
 
             - `JsonValue type = "char_location"`
 
@@ -23799,7 +24303,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationPageLocation:`
+          - `class BetaCitationPageLocation`
 
             - `JsonValue type = "page_location"`
 
@@ -23819,7 +24323,7 @@ public final class Main {
 
               minimum: 1
 
-          - `class BetaCitationContentBlockLocation:`
+          - `class BetaCitationContentBlockLocation`
 
             - `JsonValue type = "content_block_location"`
 
@@ -23849,7 +24353,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationsWebSearchResultLocation:`
+          - `class BetaCitationsWebSearchResultLocation`
 
             - `JsonValue type = "web_search_result_location"`
 
@@ -23863,7 +24367,7 @@ public final class Main {
 
             - `String url`
 
-          - `class BetaCitationSearchResultLocation:`
+          - `class BetaCitationSearchResultLocation`
 
             - `JsonValue type = "search_result_location"`
 
@@ -23901,7 +24405,7 @@ public final class Main {
 
           minLength: 0
 
-      - `class BetaThinkingBlock:`
+      - `class BetaThinkingBlock`
 
         - `JsonValue type = "thinking"`
 
@@ -23917,7 +24421,7 @@ public final class Main {
 
           The text of Claude's thinking process for this block.
 
-      - `class BetaRedactedThinkingBlock:`
+      - `class BetaRedactedThinkingBlock`
 
         - `JsonValue type = "redacted_thinking"`
 
@@ -23929,7 +24433,7 @@ public final class Main {
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-      - `class BetaToolUseBlock:`
+      - `class BetaToolUseBlock`
 
         - `JsonValue type = "tool_use"`
 
@@ -23945,13 +24449,13 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
             - `JsonValue type = "direct"`
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
@@ -23961,7 +24465,7 @@ public final class Main {
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
             - `JsonValue type = "code_execution_20260120"`
 
@@ -23975,7 +24479,7 @@ public final class Main {
 
           maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaServerToolUseBlock:`
+      - `class BetaServerToolUseBlock`
 
         - `JsonValue type = "server_tool_use"`
 
@@ -24005,23 +24509,23 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebSearchToolResultBlock:`
+      - `class BetaWebSearchToolResultBlock`
 
         - `JsonValue type = "web_search_tool_result"`
 
         - `BetaWebSearchToolResultBlockContent content`
 
-          - `class BetaWebSearchToolResultError:`
+          - `class BetaWebSearchToolResultError`
 
             - `JsonValue type = "web_search_tool_result_error"`
 
@@ -24057,23 +24561,23 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaWebFetchToolResultBlock:`
+      - `class BetaWebFetchToolResultBlock`
 
         - `JsonValue type = "web_fetch_tool_result"`
 
         - `Content content`
 
-          - `class BetaWebFetchToolResultErrorBlock:`
+          - `class BetaWebFetchToolResultErrorBlock`
 
             - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -24099,7 +24603,7 @@ public final class Main {
 
               - `CONTENT_TOO_LARGE("content_too_large")`
 
-          - `class BetaWebFetchBlock:`
+          - `class BetaWebFetchBlock`
 
             - `JsonValue type = "web_fetch_result"`
 
@@ -24115,7 +24619,7 @@ public final class Main {
 
               - `Source source`
 
-                - `class BetaBase64PdfSource:`
+                - `class BetaBase64PdfSource`
 
                   - `JsonValue type = "base64"`
 
@@ -24125,7 +24629,7 @@ public final class Main {
 
                   - `JsonValue mediaType = "application/pdf"`
 
-                - `class BetaPlainTextSource:`
+                - `class BetaPlainTextSource`
 
                   - `JsonValue type = "text"`
 
@@ -24151,23 +24655,23 @@ public final class Main {
 
         - `Optional<Caller> caller`
 
-          - `class BetaDirectCaller:`
+          - `class BetaDirectCaller`
 
             Tool invocation directly from the model.
 
-          - `class BetaServerToolCaller:`
+          - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
-          - `class BetaServerToolCaller20260120:`
+          - `class BetaServerToolCaller20260120`
 
-      - `class BetaAdvisorToolResultBlock:`
+      - `class BetaAdvisorToolResultBlock`
 
         - `JsonValue type = "advisor_tool_result"`
 
         - `Content content`
 
-          - `class BetaAdvisorToolResultError:`
+          - `class BetaAdvisorToolResultError`
 
             - `JsonValue type = "advisor_tool_result_error"`
 
@@ -24187,7 +24691,7 @@ public final class Main {
 
               - `MODEL_NOT_FOUND("model_not_found")`
 
-          - `class BetaAdvisorResultBlock:`
+          - `class BetaAdvisorResultBlock`
 
             - `JsonValue type = "advisor_result"`
 
@@ -24197,7 +24701,7 @@ public final class Main {
 
             - `String text`
 
-          - `class BetaAdvisorRedactedResultBlock:`
+          - `class BetaAdvisorRedactedResultBlock`
 
             - `JsonValue type = "advisor_redacted_result"`
 
@@ -24213,13 +24717,13 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaCodeExecutionToolResultBlock:`
+      - `class BetaCodeExecutionToolResultBlock`
 
         - `JsonValue type = "code_execution_tool_result"`
 
         - `BetaCodeExecutionToolResultBlockContent content`
 
-          - `class BetaCodeExecutionToolResultError:`
+          - `class BetaCodeExecutionToolResultError`
 
             - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -24233,7 +24737,7 @@ public final class Main {
 
               - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-          - `class BetaCodeExecutionResultBlock:`
+          - `class BetaCodeExecutionResultBlock`
 
             - `JsonValue type = "code_execution_result"`
 
@@ -24249,7 +24753,7 @@ public final class Main {
 
             - `String stdout`
 
-          - `class BetaEncryptedCodeExecutionResultBlock:`
+          - `class BetaEncryptedCodeExecutionResultBlock`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -24271,13 +24775,13 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaBashCodeExecutionToolResultBlock:`
+      - `class BetaBashCodeExecutionToolResultBlock`
 
         - `JsonValue type = "bash_code_execution_tool_result"`
 
         - `Content content`
 
-          - `class BetaBashCodeExecutionToolResultError:`
+          - `class BetaBashCodeExecutionToolResultError`
 
             - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -24293,7 +24797,7 @@ public final class Main {
 
               - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-          - `class BetaBashCodeExecutionResultBlock:`
+          - `class BetaBashCodeExecutionResultBlock`
 
             - `JsonValue type = "bash_code_execution_result"`
 
@@ -24313,13 +24817,13 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaTextEditorCodeExecutionToolResultBlock:`
+      - `class BetaTextEditorCodeExecutionToolResultBlock`
 
         - `JsonValue type = "text_editor_code_execution_tool_result"`
 
         - `Content content`
 
-          - `class BetaTextEditorCodeExecutionToolResultError:`
+          - `class BetaTextEditorCodeExecutionToolResultError`
 
             - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -24337,7 +24841,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-          - `class BetaTextEditorCodeExecutionViewResultBlock:`
+          - `class BetaTextEditorCodeExecutionViewResultBlock`
 
             - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -24357,13 +24861,13 @@ public final class Main {
 
             - `Optional<Long> totalLines`
 
-          - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+          - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
             - `JsonValue type = "text_editor_code_execution_create_result"`
 
             - `boolean isFileUpdate`
 
-          - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+          - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
             - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -24381,13 +24885,13 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaToolSearchToolResultBlock:`
+      - `class BetaToolSearchToolResultBlock`
 
         - `JsonValue type = "tool_search_tool_result"`
 
         - `Content content`
 
-          - `class BetaToolSearchToolResultError:`
+          - `class BetaToolSearchToolResultError`
 
             - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -24403,7 +24907,7 @@ public final class Main {
 
             - `Optional<String> errorMessage`
 
-          - `class BetaToolSearchToolSearchResultBlock:`
+          - `class BetaToolSearchToolSearchResultBlock`
 
             - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -24419,7 +24923,7 @@ public final class Main {
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `class BetaMcpToolUseBlock:`
+      - `class BetaMcpToolUseBlock`
 
         - `JsonValue type = "mcp_tool_use"`
 
@@ -24437,7 +24941,7 @@ public final class Main {
 
           The name of the MCP server
 
-      - `class BetaMcpToolResultBlock:`
+      - `class BetaMcpToolResultBlock`
 
         - `JsonValue type = "mcp_tool_result"`
 
@@ -24465,7 +24969,7 @@ public final class Main {
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-      - `class BetaContainerUploadBlock:`
+      - `class BetaContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
@@ -24473,7 +24977,7 @@ public final class Main {
 
         - `String fileId`
 
-      - `class BetaCompactionBlock:`
+      - `class BetaCompactionBlock`
 
         A compaction block returned when autocompact is triggered.
 
@@ -24491,7 +24995,11 @@ public final class Main {
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-      - `class BetaFallbackBlock:`
+        - `Optional<String> signature`
+
+          Signature over the summary, to be sent back with the block verbatim
+
+      - `class BetaFallbackBlock`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -24629,7 +25137,7 @@ public final class Main {
 
         List of context management edits that were applied.
 
-        - `class BetaClearToolUses20250919EditResponse:`
+        - `class BetaClearToolUses20250919EditResponse`
 
           - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -24647,7 +25155,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaClearThinking20251015EditResponse:`
+        - `class BetaClearThinking20251015EditResponse`
 
           - `JsonValue type = "clear_thinking_20251015"`
 
@@ -24674,7 +25182,7 @@ public final class Main {
 
         Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-        - `class BetaCacheMissModelChanged:`
+        - `class BetaCacheMissModelChanged`
 
           - `JsonValue type = "model_changed"`
 
@@ -24682,7 +25190,7 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissSystemChanged:`
+        - `class BetaCacheMissSystemChanged`
 
           - `JsonValue type = "system_changed"`
 
@@ -24690,7 +25198,7 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissToolsChanged:`
+        - `class BetaCacheMissToolsChanged`
 
           - `JsonValue type = "tools_changed"`
 
@@ -24698,7 +25206,7 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissMessagesChanged:`
+        - `class BetaCacheMissMessagesChanged`
 
           - `JsonValue type = "messages_changed"`
 
@@ -24706,11 +25214,11 @@ public final class Main {
 
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-        - `class BetaCacheMissPreviousMessageNotFound:`
+        - `class BetaCacheMissPreviousMessageNotFound`
 
           - `JsonValue type = "previous_message_not_found"`
 
-        - `class BetaCacheMissUnavailable:`
+        - `class BetaCacheMissUnavailable`
 
           - `JsonValue type = "unavailable"`
 
@@ -24902,14 +25410,14 @@ public final class Main {
           resulting shift is zero because there was nothing to move. `not_applied`:
           no reprice was applied; the arm's `reason` says why.
 
-          - `class BetaFallbackCreditRedeemed:`
+          - `class BetaFallbackCreditRedeemed`
 
             The reprice was applied: the retry is billed as if the conversation
             had been on the retry model all along.
 
             - `JsonValue type = "redeemed"`
 
-          - `class BetaFallbackCreditNotApplied:`
+          - `class BetaFallbackCreditNotApplied`
 
             No reprice was applied; `reason` says why.
 
@@ -24979,7 +25487,7 @@ public final class Main {
 
         A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-        - `class BetaMessageIterationUsage:`
+        - `class BetaMessageIterationUsage`
 
           Token usage for a sampling iteration.
 
@@ -25021,7 +25529,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCompactionIterationUsage:`
+        - `class BetaCompactionIterationUsage`
 
           Token usage for a compaction iteration.
 
@@ -25057,7 +25565,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaAdvisorMessageIterationUsage:`
+        - `class BetaAdvisorMessageIterationUsage`
 
           Token usage for an advisor sub-inference iteration.
 
@@ -25099,7 +25607,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaFallbackMessageIterationUsage:`
+        - `class BetaFallbackMessageIterationUsage`
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -25210,61 +25718,101 @@ public final class Main {
 
         - `FAST("fast")`
 
-    - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+    - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-      Changes the API made to the request's input before showing it to the model:
-      one entry per change, in request order. Today the only entry type is
-      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-      block from the request's `messages` that was removed from the prompt instead
-      of being shown to the model because it failed a binding check. More entry
-      types may be added over time; ignore types you do not recognize.
+      Changes the API made to the request's input before showing it to the model,
+      and blocks that failed a binding check but were left unchanged: one entry per
+      block, in request order. Two entry types today. `thinking_dropped` — a
+      `thinking`, `redacted_thinking` or `connector_text` block from the request's
+      `messages` that was removed from the prompt instead of being shown to the
+      model because it failed a binding check. `thinking_mismatch_allowed` — a
+      `thinking` or `redacted_thinking` block that failed the conversation check
+      (the conversation before it differs from the one it was created in, or it
+      carries no record of one on a model that requires it) and was shown to the
+      model all the same, because that check is not enforced for this request.
+      More entry types may be added over time; ignore types you do not recognize.
 
       Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
       every such response from a model that supports extended thinking, as `[]`
-      when nothing was changed; without the beta, blocks are removed all the same
-      but nothing is reported. Removed blocks contribute nothing to
-      `usage.input_tokens`. When streaming, the array is final in `message_start`;
-      the final `message_delta` event carries it only when a server-side model
-      fallback happened mid-stream, in which case it holds the serving model's
-      entries and replaces the one in `message_start`.
+      when there is no entry to report; without the beta, blocks are removed or
+      left in place all the same but nothing is reported. Removed blocks contribute
+      nothing to `usage.input_tokens`; blocks left in place count as sent. When
+      streaming, the array is final in `message_start`; the final `message_delta`
+      event carries it only when a server-side model fallback happened mid-stream,
+      in which case it holds the serving model's entries and replaces the one in
+      `message_start`.
 
-      - `JsonValue type = "thinking_dropped"`
+      - `class BetaThinkingDroppedInputTransformation`
 
-        Always `thinking_dropped` for this entry type.
+        - `JsonValue type = "thinking_dropped"`
 
-      - `String path`
+          Always `thinking_dropped` for this entry type.
 
-        Where the removed block was in your request, as `messages.{i}.content.{j}`:
-        `i` indexes the `messages` array you sent and `j` that message's `content`
-        array — the same form error messages use.
+        - `String path`
 
-      - `Reason reason`
+          Where the removed block was in your request, as `messages.{i}.content.{j}`:
+          `i` indexes the `messages` array you sent and `j` that message's `content`
+          array — the same form error messages use.
 
-        Which binding check removed the block: `model_binding_mismatch` — it was
-        created by a model whose reasoning the requested model may not read;
-        `prefix_binding_mismatch` — the conversation before it differs from the
-        conversation it was created in (the rest of that turn's consecutive thinking
-        blocks are removed with it, each with this reason);
-        `organization_binding_mismatch` — it was created under a different
-        organization (an Anthropic organization, AWS account or Google Cloud project)
-        and this organization is not one of its additional organizations;
-        `end_user_binding_mismatch` — it was created for a different end user, or
-        was removed by the consumer-organization binding. A block that would fail
-        several checks reports one reason, in this order of precedence:
-        `organization_binding_mismatch`, `end_user_binding_mismatch`,
-        `model_binding_mismatch`, `prefix_binding_mismatch`.
+        - `Reason reason`
 
-        - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+          Which binding check removed the block: `model_binding_mismatch` — it was
+          created by a model whose reasoning the requested model may not read;
+          `prefix_binding_mismatch` — the conversation before it differs from the
+          conversation it was created in (the rest of that turn's consecutive thinking
+          blocks are removed with it, each with this reason);
+          `organization_binding_mismatch` — it was created under a different
+          organization (an Anthropic organization, AWS account or Google Cloud project)
+          and this organization is not one of its additional organizations;
+          `end_user_binding_mismatch` — it was created for a different end user, or
+          was removed by the consumer-organization binding. A block that would fail
+          several checks reports one reason, in this order of precedence:
+          `organization_binding_mismatch`, `end_user_binding_mismatch`,
+          `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-        - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+          - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
 
-        - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+          - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
 
-        - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+          - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+          - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+      - `class BetaThinkingMismatchAllowedInputTransformation`
+
+        - `JsonValue type = "thinking_mismatch_allowed"`
+
+          Always `thinking_mismatch_allowed` for this entry type.
+
+        - `String path`
+
+          Where the block is in your request, as `messages.{i}.content.{j}`:
+          `i` indexes the `messages` array you sent and `j` that message's `content`
+          array — the same form error messages use.
+
+        - `Reason reason`
+
+          Which binding check the block failed; the block was shown to the model all
+          the same. Always `prefix_binding_mismatch` today — the conversation before
+          the block differs from the conversation it was created in, or the block
+          carries no record of one on a model that requires it. Were the check
+          enforced for this request, the block would have been removed or the request
+          rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+          takes the rest of that turn's consecutive thinking blocks, whereas here each
+          block is checked on its own, so `thinking_mismatch_allowed` entries are a
+          lower bound on what enforcement would remove.
+
+          - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+          - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+          - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+          - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
 ### Beta Raw Message Stop Event
 
-- `class BetaRawMessageStopEvent:`
+- `class BetaRawMessageStopEvent`
 
   - `JsonValue type = "message_stop"`
 
@@ -25272,7 +25820,7 @@ public final class Main {
 
 - `class BetaRawMessageStreamEvent: union`
 
-  - `class BetaRawMessageStartEvent:`
+  - `class BetaRawMessageStartEvent`
 
     - `JsonValue type = "message_start"`
 
@@ -25357,7 +25905,7 @@ public final class Main {
         [{"type": "text", "text": "B)"}]
         ```
 
-        - `class BetaTextBlock:`
+        - `class BetaTextBlock`
 
           - `JsonValue type = "text"`
 
@@ -25367,7 +25915,7 @@ public final class Main {
 
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-            - `class BetaCitationCharLocation:`
+            - `class BetaCitationCharLocation`
 
               - `JsonValue type = "char_location"`
 
@@ -25387,7 +25935,7 @@ public final class Main {
 
                 minimum: 0
 
-            - `class BetaCitationPageLocation:`
+            - `class BetaCitationPageLocation`
 
               - `JsonValue type = "page_location"`
 
@@ -25407,7 +25955,7 @@ public final class Main {
 
                 minimum: 1
 
-            - `class BetaCitationContentBlockLocation:`
+            - `class BetaCitationContentBlockLocation`
 
               - `JsonValue type = "content_block_location"`
 
@@ -25437,7 +25985,7 @@ public final class Main {
 
                 minimum: 0
 
-            - `class BetaCitationsWebSearchResultLocation:`
+            - `class BetaCitationsWebSearchResultLocation`
 
               - `JsonValue type = "web_search_result_location"`
 
@@ -25451,7 +25999,7 @@ public final class Main {
 
               - `String url`
 
-            - `class BetaCitationSearchResultLocation:`
+            - `class BetaCitationSearchResultLocation`
 
               - `JsonValue type = "search_result_location"`
 
@@ -25489,7 +26037,7 @@ public final class Main {
 
             minLength: 0
 
-        - `class BetaThinkingBlock:`
+        - `class BetaThinkingBlock`
 
           - `JsonValue type = "thinking"`
 
@@ -25505,7 +26053,7 @@ public final class Main {
 
             The text of Claude's thinking process for this block.
 
-        - `class BetaRedactedThinkingBlock:`
+        - `class BetaRedactedThinkingBlock`
 
           - `JsonValue type = "redacted_thinking"`
 
@@ -25517,7 +26065,7 @@ public final class Main {
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-        - `class BetaToolUseBlock:`
+        - `class BetaToolUseBlock`
 
           - `JsonValue type = "tool_use"`
 
@@ -25533,13 +26081,13 @@ public final class Main {
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
               - `JsonValue type = "direct"`
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
@@ -25549,7 +26097,7 @@ public final class Main {
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
               - `JsonValue type = "code_execution_20260120"`
 
@@ -25563,7 +26111,7 @@ public final class Main {
 
             maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaServerToolUseBlock:`
+        - `class BetaServerToolUseBlock`
 
           - `JsonValue type = "server_tool_use"`
 
@@ -25593,23 +26141,23 @@ public final class Main {
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebSearchToolResultBlock:`
+        - `class BetaWebSearchToolResultBlock`
 
           - `JsonValue type = "web_search_tool_result"`
 
           - `BetaWebSearchToolResultBlockContent content`
 
-            - `class BetaWebSearchToolResultError:`
+            - `class BetaWebSearchToolResultError`
 
               - `JsonValue type = "web_search_tool_result_error"`
 
@@ -25645,23 +26193,23 @@ public final class Main {
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaWebFetchToolResultBlock:`
+        - `class BetaWebFetchToolResultBlock`
 
           - `JsonValue type = "web_fetch_tool_result"`
 
           - `Content content`
 
-            - `class BetaWebFetchToolResultErrorBlock:`
+            - `class BetaWebFetchToolResultErrorBlock`
 
               - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -25687,7 +26235,7 @@ public final class Main {
 
                 - `CONTENT_TOO_LARGE("content_too_large")`
 
-            - `class BetaWebFetchBlock:`
+            - `class BetaWebFetchBlock`
 
               - `JsonValue type = "web_fetch_result"`
 
@@ -25703,7 +26251,7 @@ public final class Main {
 
                 - `Source source`
 
-                  - `class BetaBase64PdfSource:`
+                  - `class BetaBase64PdfSource`
 
                     - `JsonValue type = "base64"`
 
@@ -25713,7 +26261,7 @@ public final class Main {
 
                     - `JsonValue mediaType = "application/pdf"`
 
-                  - `class BetaPlainTextSource:`
+                  - `class BetaPlainTextSource`
 
                     - `JsonValue type = "text"`
 
@@ -25739,23 +26287,23 @@ public final class Main {
 
           - `Optional<Caller> caller`
 
-            - `class BetaDirectCaller:`
+            - `class BetaDirectCaller`
 
               Tool invocation directly from the model.
 
-            - `class BetaServerToolCaller:`
+            - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
-            - `class BetaServerToolCaller20260120:`
+            - `class BetaServerToolCaller20260120`
 
-        - `class BetaAdvisorToolResultBlock:`
+        - `class BetaAdvisorToolResultBlock`
 
           - `JsonValue type = "advisor_tool_result"`
 
           - `Content content`
 
-            - `class BetaAdvisorToolResultError:`
+            - `class BetaAdvisorToolResultError`
 
               - `JsonValue type = "advisor_tool_result_error"`
 
@@ -25775,7 +26323,7 @@ public final class Main {
 
                 - `MODEL_NOT_FOUND("model_not_found")`
 
-            - `class BetaAdvisorResultBlock:`
+            - `class BetaAdvisorResultBlock`
 
               - `JsonValue type = "advisor_result"`
 
@@ -25785,7 +26333,7 @@ public final class Main {
 
               - `String text`
 
-            - `class BetaAdvisorRedactedResultBlock:`
+            - `class BetaAdvisorRedactedResultBlock`
 
               - `JsonValue type = "advisor_redacted_result"`
 
@@ -25801,13 +26349,13 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaCodeExecutionToolResultBlock:`
+        - `class BetaCodeExecutionToolResultBlock`
 
           - `JsonValue type = "code_execution_tool_result"`
 
           - `BetaCodeExecutionToolResultBlockContent content`
 
-            - `class BetaCodeExecutionToolResultError:`
+            - `class BetaCodeExecutionToolResultError`
 
               - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -25821,7 +26369,7 @@ public final class Main {
 
                 - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-            - `class BetaCodeExecutionResultBlock:`
+            - `class BetaCodeExecutionResultBlock`
 
               - `JsonValue type = "code_execution_result"`
 
@@ -25837,7 +26385,7 @@ public final class Main {
 
               - `String stdout`
 
-            - `class BetaEncryptedCodeExecutionResultBlock:`
+            - `class BetaEncryptedCodeExecutionResultBlock`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -25859,13 +26407,13 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaBashCodeExecutionToolResultBlock:`
+        - `class BetaBashCodeExecutionToolResultBlock`
 
           - `JsonValue type = "bash_code_execution_tool_result"`
 
           - `Content content`
 
-            - `class BetaBashCodeExecutionToolResultError:`
+            - `class BetaBashCodeExecutionToolResultError`
 
               - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -25881,7 +26429,7 @@ public final class Main {
 
                 - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-            - `class BetaBashCodeExecutionResultBlock:`
+            - `class BetaBashCodeExecutionResultBlock`
 
               - `JsonValue type = "bash_code_execution_result"`
 
@@ -25901,13 +26449,13 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaTextEditorCodeExecutionToolResultBlock:`
+        - `class BetaTextEditorCodeExecutionToolResultBlock`
 
           - `JsonValue type = "text_editor_code_execution_tool_result"`
 
           - `Content content`
 
-            - `class BetaTextEditorCodeExecutionToolResultError:`
+            - `class BetaTextEditorCodeExecutionToolResultError`
 
               - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -25925,7 +26473,7 @@ public final class Main {
 
               - `Optional<String> errorMessage`
 
-            - `class BetaTextEditorCodeExecutionViewResultBlock:`
+            - `class BetaTextEditorCodeExecutionViewResultBlock`
 
               - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -25945,13 +26493,13 @@ public final class Main {
 
               - `Optional<Long> totalLines`
 
-            - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+            - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
               - `JsonValue type = "text_editor_code_execution_create_result"`
 
               - `boolean isFileUpdate`
 
-            - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+            - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
               - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -25969,13 +26517,13 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaToolSearchToolResultBlock:`
+        - `class BetaToolSearchToolResultBlock`
 
           - `JsonValue type = "tool_search_tool_result"`
 
           - `Content content`
 
-            - `class BetaToolSearchToolResultError:`
+            - `class BetaToolSearchToolResultError`
 
               - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -25991,7 +26539,7 @@ public final class Main {
 
               - `Optional<String> errorMessage`
 
-            - `class BetaToolSearchToolSearchResultBlock:`
+            - `class BetaToolSearchToolSearchResultBlock`
 
               - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -26007,7 +26555,7 @@ public final class Main {
 
             pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `class BetaMcpToolUseBlock:`
+        - `class BetaMcpToolUseBlock`
 
           - `JsonValue type = "mcp_tool_use"`
 
@@ -26025,7 +26573,7 @@ public final class Main {
 
             The name of the MCP server
 
-        - `class BetaMcpToolResultBlock:`
+        - `class BetaMcpToolResultBlock`
 
           - `JsonValue type = "mcp_tool_result"`
 
@@ -26053,7 +26601,7 @@ public final class Main {
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-        - `class BetaContainerUploadBlock:`
+        - `class BetaContainerUploadBlock`
 
           Response model for a file uploaded to the container.
 
@@ -26061,7 +26609,7 @@ public final class Main {
 
           - `String fileId`
 
-        - `class BetaCompactionBlock:`
+        - `class BetaCompactionBlock`
 
           A compaction block returned when autocompact is triggered.
 
@@ -26079,7 +26627,11 @@ public final class Main {
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
-        - `class BetaFallbackBlock:`
+          - `Optional<String> signature`
+
+            Signature over the summary, to be sent back with the block verbatim
+
+        - `class BetaFallbackBlock`
 
           Marks the point in `content` where one model's output gives way to the next.
 
@@ -26217,7 +26769,7 @@ public final class Main {
 
           List of context management edits that were applied.
 
-          - `class BetaClearToolUses20250919EditResponse:`
+          - `class BetaClearToolUses20250919EditResponse`
 
             - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -26235,7 +26787,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaClearThinking20251015EditResponse:`
+          - `class BetaClearThinking20251015EditResponse`
 
             - `JsonValue type = "clear_thinking_20251015"`
 
@@ -26262,7 +26814,7 @@ public final class Main {
 
           Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-          - `class BetaCacheMissModelChanged:`
+          - `class BetaCacheMissModelChanged`
 
             - `JsonValue type = "model_changed"`
 
@@ -26270,7 +26822,7 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissSystemChanged:`
+          - `class BetaCacheMissSystemChanged`
 
             - `JsonValue type = "system_changed"`
 
@@ -26278,7 +26830,7 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissToolsChanged:`
+          - `class BetaCacheMissToolsChanged`
 
             - `JsonValue type = "tools_changed"`
 
@@ -26286,7 +26838,7 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissMessagesChanged:`
+          - `class BetaCacheMissMessagesChanged`
 
             - `JsonValue type = "messages_changed"`
 
@@ -26294,11 +26846,11 @@ public final class Main {
 
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-          - `class BetaCacheMissPreviousMessageNotFound:`
+          - `class BetaCacheMissPreviousMessageNotFound`
 
             - `JsonValue type = "previous_message_not_found"`
 
-          - `class BetaCacheMissUnavailable:`
+          - `class BetaCacheMissUnavailable`
 
             - `JsonValue type = "unavailable"`
 
@@ -26490,14 +27042,14 @@ public final class Main {
             resulting shift is zero because there was nothing to move. `not_applied`:
             no reprice was applied; the arm's `reason` says why.
 
-            - `class BetaFallbackCreditRedeemed:`
+            - `class BetaFallbackCreditRedeemed`
 
               The reprice was applied: the retry is billed as if the conversation
               had been on the retry model all along.
 
               - `JsonValue type = "redeemed"`
 
-            - `class BetaFallbackCreditNotApplied:`
+            - `class BetaFallbackCreditNotApplied`
 
               No reprice was applied; `reason` says why.
 
@@ -26567,7 +27119,7 @@ public final class Main {
 
           A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-          - `class BetaMessageIterationUsage:`
+          - `class BetaMessageIterationUsage`
 
             Token usage for a sampling iteration.
 
@@ -26609,7 +27161,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCompactionIterationUsage:`
+          - `class BetaCompactionIterationUsage`
 
             Token usage for a compaction iteration.
 
@@ -26645,7 +27197,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaAdvisorMessageIterationUsage:`
+          - `class BetaAdvisorMessageIterationUsage`
 
             Token usage for an advisor sub-inference iteration.
 
@@ -26687,7 +27239,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaFallbackMessageIterationUsage:`
+          - `class BetaFallbackMessageIterationUsage`
 
             Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -26798,59 +27350,99 @@ public final class Main {
 
           - `FAST("fast")`
 
-      - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+      - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-        Changes the API made to the request's input before showing it to the model:
-        one entry per change, in request order. Today the only entry type is
-        `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-        block from the request's `messages` that was removed from the prompt instead
-        of being shown to the model because it failed a binding check. More entry
-        types may be added over time; ignore types you do not recognize.
+        Changes the API made to the request's input before showing it to the model,
+        and blocks that failed a binding check but were left unchanged: one entry per
+        block, in request order. Two entry types today. `thinking_dropped` — a
+        `thinking`, `redacted_thinking` or `connector_text` block from the request's
+        `messages` that was removed from the prompt instead of being shown to the
+        model because it failed a binding check. `thinking_mismatch_allowed` — a
+        `thinking` or `redacted_thinking` block that failed the conversation check
+        (the conversation before it differs from the one it was created in, or it
+        carries no record of one on a model that requires it) and was shown to the
+        model all the same, because that check is not enforced for this request.
+        More entry types may be added over time; ignore types you do not recognize.
 
         Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
         every such response from a model that supports extended thinking, as `[]`
-        when nothing was changed; without the beta, blocks are removed all the same
-        but nothing is reported. Removed blocks contribute nothing to
-        `usage.input_tokens`. When streaming, the array is final in `message_start`;
-        the final `message_delta` event carries it only when a server-side model
-        fallback happened mid-stream, in which case it holds the serving model's
-        entries and replaces the one in `message_start`.
+        when there is no entry to report; without the beta, blocks are removed or
+        left in place all the same but nothing is reported. Removed blocks contribute
+        nothing to `usage.input_tokens`; blocks left in place count as sent. When
+        streaming, the array is final in `message_start`; the final `message_delta`
+        event carries it only when a server-side model fallback happened mid-stream,
+        in which case it holds the serving model's entries and replaces the one in
+        `message_start`.
 
-        - `JsonValue type = "thinking_dropped"`
+        - `class BetaThinkingDroppedInputTransformation`
 
-          Always `thinking_dropped` for this entry type.
+          - `JsonValue type = "thinking_dropped"`
 
-        - `String path`
+            Always `thinking_dropped` for this entry type.
 
-          Where the removed block was in your request, as `messages.{i}.content.{j}`:
-          `i` indexes the `messages` array you sent and `j` that message's `content`
-          array — the same form error messages use.
+          - `String path`
 
-        - `Reason reason`
+            Where the removed block was in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
 
-          Which binding check removed the block: `model_binding_mismatch` — it was
-          created by a model whose reasoning the requested model may not read;
-          `prefix_binding_mismatch` — the conversation before it differs from the
-          conversation it was created in (the rest of that turn's consecutive thinking
-          blocks are removed with it, each with this reason);
-          `organization_binding_mismatch` — it was created under a different
-          organization (an Anthropic organization, AWS account or Google Cloud project)
-          and this organization is not one of its additional organizations;
-          `end_user_binding_mismatch` — it was created for a different end user, or
-          was removed by the consumer-organization binding. A block that would fail
-          several checks reports one reason, in this order of precedence:
-          `organization_binding_mismatch`, `end_user_binding_mismatch`,
-          `model_binding_mismatch`, `prefix_binding_mismatch`.
+          - `Reason reason`
 
-          - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+            Which binding check removed the block: `model_binding_mismatch` — it was
+            created by a model whose reasoning the requested model may not read;
+            `prefix_binding_mismatch` — the conversation before it differs from the
+            conversation it was created in (the rest of that turn's consecutive thinking
+            blocks are removed with it, each with this reason);
+            `organization_binding_mismatch` — it was created under a different
+            organization (an Anthropic organization, AWS account or Google Cloud project)
+            and this organization is not one of its additional organizations;
+            `end_user_binding_mismatch` — it was created for a different end user, or
+            was removed by the consumer-organization binding. A block that would fail
+            several checks reports one reason, in this order of precedence:
+            `organization_binding_mismatch`, `end_user_binding_mismatch`,
+            `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-          - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+            - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
 
-          - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+            - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
 
-          - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+            - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
 
-  - `class BetaRawMessageDeltaEvent:`
+            - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+        - `class BetaThinkingMismatchAllowedInputTransformation`
+
+          - `JsonValue type = "thinking_mismatch_allowed"`
+
+            Always `thinking_mismatch_allowed` for this entry type.
+
+          - `String path`
+
+            Where the block is in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
+
+          - `Reason reason`
+
+            Which binding check the block failed; the block was shown to the model all
+            the same. Always `prefix_binding_mismatch` today — the conversation before
+            the block differs from the conversation it was created in, or the block
+            carries no record of one on a model that requires it. Were the check
+            enforced for this request, the block would have been removed or the request
+            rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+            takes the rest of that turn's consecutive thinking blocks, whereas here each
+            block is checked on its own, so `thinking_mismatch_allowed` entries are a
+            lower bound on what enforcement would remove.
+
+            - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+            - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+            - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+            - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+  - `class BetaRawMessageDeltaEvent`
 
     - `JsonValue type = "message_delta"`
 
@@ -26918,19 +27510,19 @@ public final class Main {
 
         A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-        - `class BetaMessageIterationUsage:`
+        - `class BetaMessageIterationUsage`
 
           Token usage for a sampling iteration.
 
-        - `class BetaCompactionIterationUsage:`
+        - `class BetaCompactionIterationUsage`
 
           Token usage for a compaction iteration.
 
-        - `class BetaAdvisorMessageIterationUsage:`
+        - `class BetaAdvisorMessageIterationUsage`
 
           Token usage for an advisor sub-inference iteration.
 
-        - `class BetaFallbackMessageIterationUsage:`
+        - `class BetaFallbackMessageIterationUsage`
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -26958,93 +27550,77 @@ public final class Main {
 
         The number of server tool requests.
 
-    - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+    - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-      Changes the API made to the request's input before showing it to the model:
-      one entry per change, in request order. Today the only entry type is
-      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-      block from the request's `messages` that was removed from the prompt instead
-      of being shown to the model because it failed a binding check. More entry
-      types may be added over time; ignore types you do not recognize.
+      Changes the API made to the request's input before showing it to the model,
+      and blocks that failed a binding check but were left unchanged: one entry per
+      block, in request order. Two entry types today. `thinking_dropped` — a
+      `thinking`, `redacted_thinking` or `connector_text` block from the request's
+      `messages` that was removed from the prompt instead of being shown to the
+      model because it failed a binding check. `thinking_mismatch_allowed` — a
+      `thinking` or `redacted_thinking` block that failed the conversation check
+      (the conversation before it differs from the one it was created in, or it
+      carries no record of one on a model that requires it) and was shown to the
+      model all the same, because that check is not enforced for this request.
+      More entry types may be added over time; ignore types you do not recognize.
 
       Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
       every such response from a model that supports extended thinking, as `[]`
-      when nothing was changed; without the beta, blocks are removed all the same
-      but nothing is reported. Removed blocks contribute nothing to
-      `usage.input_tokens`. When streaming, the array is final in `message_start`;
-      the final `message_delta` event carries it only when a server-side model
-      fallback happened mid-stream, in which case it holds the serving model's
-      entries and replaces the one in `message_start`.
+      when there is no entry to report; without the beta, blocks are removed or
+      left in place all the same but nothing is reported. Removed blocks contribute
+      nothing to `usage.input_tokens`; blocks left in place count as sent. When
+      streaming, the array is final in `message_start`; the final `message_delta`
+      event carries it only when a server-side model fallback happened mid-stream,
+      in which case it holds the serving model's entries and replaces the one in
+      `message_start`.
 
-      - `JsonValue type = "thinking_dropped"`
+      - `class BetaThinkingDroppedInputTransformation`
 
-        Always `thinking_dropped` for this entry type.
+      - `class BetaThinkingMismatchAllowedInputTransformation`
 
-      - `String path`
-
-        Where the removed block was in your request, as `messages.{i}.content.{j}`:
-        `i` indexes the `messages` array you sent and `j` that message's `content`
-        array — the same form error messages use.
-
-      - `Reason reason`
-
-        Which binding check removed the block: `model_binding_mismatch` — it was
-        created by a model whose reasoning the requested model may not read;
-        `prefix_binding_mismatch` — the conversation before it differs from the
-        conversation it was created in (the rest of that turn's consecutive thinking
-        blocks are removed with it, each with this reason);
-        `organization_binding_mismatch` — it was created under a different
-        organization (an Anthropic organization, AWS account or Google Cloud project)
-        and this organization is not one of its additional organizations;
-        `end_user_binding_mismatch` — it was created for a different end user, or
-        was removed by the consumer-organization binding. A block that would fail
-        several checks reports one reason, in this order of precedence:
-        `organization_binding_mismatch`, `end_user_binding_mismatch`,
-        `model_binding_mismatch`, `prefix_binding_mismatch`.
-
-  - `class BetaRawMessageStopEvent:`
+  - `class BetaRawMessageStopEvent`
 
     - `JsonValue type = "message_stop"`
 
-  - `class BetaRawContentBlockStartEvent:`
+  - `class BetaRawContentBlockStartEvent`
 
     - `JsonValue type = "content_block_start"`
 
     - `ContentBlock contentBlock`
 
-      - `class BetaTextBlock:`
+      - `class BetaTextBlock`
 
-      - `class BetaThinkingBlock:`
+      - `class BetaThinkingBlock`
 
-      - `class BetaRedactedThinkingBlock:`
+      - `class BetaRedactedThinkingBlock`
 
-      - `class BetaToolUseBlock:`
+      - `class BetaToolUseBlock`
 
-      - `class BetaServerToolUseBlock:`
+      - `class BetaServerToolUseBlock`
 
-      - `class BetaWebSearchToolResultBlock:`
+      - `class BetaWebSearchToolResultBlock`
 
-      - `class BetaWebFetchToolResultBlock:`
+      - `class BetaWebFetchToolResultBlock`
 
-      - `class BetaAdvisorToolResultBlock:`
+      - `class BetaAdvisorToolResultBlock`
 
-      - `class BetaCodeExecutionToolResultBlock:`
+      - `class BetaCodeExecutionToolResultBlock`
 
-      - `class BetaBashCodeExecutionToolResultBlock:`
+      - `class BetaBashCodeExecutionToolResultBlock`
 
-      - `class BetaTextEditorCodeExecutionToolResultBlock:`
+      - `class BetaTextEditorCodeExecutionToolResultBlock`
 
-      - `class BetaToolSearchToolResultBlock:`
+      - `class BetaToolSearchToolResultBlock`
 
-      - `class BetaMcpToolUseBlock:`
+      - `class BetaMcpToolUseBlock`
 
-      - `class BetaMcpToolResultBlock:`
+      - `class BetaMcpToolResultBlock`
 
-      - `class BetaContainerUploadBlock:`
+      - `class BetaContainerUploadBlock`
 
         Response model for a file uploaded to the container.
 
-      - `class BetaCompactionBlock:`
+      - `class BetaCompactionBlock`
 
         A compaction block returned when autocompact is triggered.
 
@@ -27052,7 +27628,7 @@ public final class Main {
         summary (e.g., malformed output from the model). Clients may round-trip
         compaction blocks with null content; the server treats them as no-ops.
 
-      - `class BetaFallbackBlock:`
+      - `class BetaFallbackBlock`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -27068,41 +27644,41 @@ public final class Main {
 
     - `long index`
 
-  - `class BetaRawContentBlockDeltaEvent:`
+  - `class BetaRawContentBlockDeltaEvent`
 
     - `JsonValue type = "content_block_delta"`
 
     - `BetaRawContentBlockDelta delta`
 
-      - `class BetaTextDelta:`
+      - `class BetaTextDelta`
 
         - `JsonValue type = "text_delta"`
 
         - `String text`
 
-      - `class BetaInputJsonDelta:`
+      - `class BetaInputJsonDelta`
 
         - `JsonValue type = "input_json_delta"`
 
         - `String partialJson`
 
-      - `class BetaCitationsDelta:`
+      - `class BetaCitationsDelta`
 
         - `JsonValue type = "citations_delta"`
 
         - `Citation citation`
 
-          - `class BetaCitationCharLocation:`
+          - `class BetaCitationCharLocation`
 
-          - `class BetaCitationPageLocation:`
+          - `class BetaCitationPageLocation`
 
-          - `class BetaCitationContentBlockLocation:`
+          - `class BetaCitationContentBlockLocation`
 
-          - `class BetaCitationsWebSearchResultLocation:`
+          - `class BetaCitationsWebSearchResultLocation`
 
-          - `class BetaCitationSearchResultLocation:`
+          - `class BetaCitationSearchResultLocation`
 
-      - `class BetaThinkingDelta:`
+      - `class BetaThinkingDelta`
 
         - `JsonValue type = "thinking_delta"`
 
@@ -27114,7 +27690,7 @@ public final class Main {
 
           The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
-      - `class BetaSignatureDelta:`
+      - `class BetaSignatureDelta`
 
         - `JsonValue type = "signature_delta"`
 
@@ -27122,7 +27698,7 @@ public final class Main {
 
           The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
-      - `class BetaCompactionContentBlockDelta:`
+      - `class BetaCompactionContentBlockDelta`
 
         - `JsonValue type = "compaction_delta"`
 
@@ -27134,7 +27710,7 @@ public final class Main {
 
     - `long index`
 
-  - `class BetaRawContentBlockStopEvent:`
+  - `class BetaRawContentBlockStopEvent`
 
     - `JsonValue type = "content_block_stop"`
 
@@ -27142,7 +27718,7 @@ public final class Main {
 
 ### Beta Redacted Thinking Block
 
-- `class BetaRedactedThinkingBlock:`
+- `class BetaRedactedThinkingBlock`
 
   - `JsonValue type = "redacted_thinking"`
 
@@ -27156,7 +27732,7 @@ public final class Main {
 
 ### Beta Redacted Thinking Block Param
 
-- `class BetaRedactedThinkingBlockParam:`
+- `class BetaRedactedThinkingBlockParam`
 
   - `JsonValue type = "redacted_thinking"`
 
@@ -27166,7 +27742,7 @@ public final class Main {
 
 ### Beta Refusal Stop Details
 
-- `class BetaRefusalStopDetails:`
+- `class BetaRefusalStopDetails`
 
   Structured information about a refusal.
 
@@ -27253,13 +27829,13 @@ public final class Main {
 
 ### Beta Request Document Block
 
-- `class BetaRequestDocumentBlock:`
+- `class BetaRequestDocumentBlock`
 
   - `JsonValue type = "document"`
 
   - `Source source`
 
-    - `class BetaBase64PdfSource:`
+    - `class BetaBase64PdfSource`
 
       - `JsonValue type = "base64"`
 
@@ -27269,7 +27845,7 @@ public final class Main {
 
       - `JsonValue mediaType = "application/pdf"`
 
-    - `class BetaPlainTextSource:`
+    - `class BetaPlainTextSource`
 
       - `JsonValue type = "text"`
 
@@ -27277,7 +27853,7 @@ public final class Main {
 
       - `JsonValue mediaType = "text/plain"`
 
-    - `class BetaContentBlockSource:`
+    - `class BetaContentBlockSource`
 
       - `JsonValue type = "content"`
 
@@ -27287,7 +27863,7 @@ public final class Main {
 
         - `List<BetaContentBlockSourceContent>`
 
-          - `class BetaTextBlockParam:`
+          - `class BetaTextBlockParam`
 
             - `JsonValue type = "text"`
 
@@ -27318,7 +27894,7 @@ public final class Main {
 
             - `Optional<List<BetaTextCitationParam>> citations`
 
-              - `class BetaCitationCharLocationParam:`
+              - `class BetaCitationCharLocationParam`
 
                 - `JsonValue type = "char_location"`
 
@@ -27338,7 +27914,7 @@ public final class Main {
 
                   minimum: 0
 
-              - `class BetaCitationPageLocationParam:`
+              - `class BetaCitationPageLocationParam`
 
                 - `JsonValue type = "page_location"`
 
@@ -27358,7 +27934,7 @@ public final class Main {
 
                   minimum: 1
 
-              - `class BetaCitationContentBlockLocationParam:`
+              - `class BetaCitationContentBlockLocationParam`
 
                 - `JsonValue type = "content_block_location"`
 
@@ -27388,7 +27964,7 @@ public final class Main {
 
                   minimum: 0
 
-              - `class BetaCitationWebSearchResultLocationParam:`
+              - `class BetaCitationWebSearchResultLocationParam`
 
                 - `JsonValue type = "web_search_result_location"`
 
@@ -27404,7 +27980,7 @@ public final class Main {
 
                   minLength: 1
 
-              - `class BetaCitationSearchResultLocationParam:`
+              - `class BetaCitationSearchResultLocationParam`
 
                 - `JsonValue type = "search_result_location"`
 
@@ -27438,13 +28014,13 @@ public final class Main {
 
                 - `Optional<String> title`
 
-          - `class BetaImageBlockParam:`
+          - `class BetaImageBlockParam`
 
             - `JsonValue type = "image"`
 
             - `Source source`
 
-              - `class BetaBase64ImageSource:`
+              - `class BetaBase64ImageSource`
 
                 - `JsonValue type = "base64"`
 
@@ -27462,13 +28038,13 @@ public final class Main {
 
                   - `IMAGE_WEBP("image/webp")`
 
-              - `class BetaUrlImageSource:`
+              - `class BetaUrlImageSource`
 
                 - `JsonValue type = "url"`
 
                 - `String url`
 
-              - `class BetaFileImageSource:`
+              - `class BetaFileImageSource`
 
                 - `JsonValue type = "file"`
 
@@ -27490,13 +28066,13 @@ public final class Main {
 
                 - `ERROR("error")`
 
-    - `class BetaUrlPdfSource:`
+    - `class BetaUrlPdfSource`
 
       - `JsonValue type = "url"`
 
       - `String url`
 
-    - `class BetaFileDocumentSource:`
+    - `class BetaFileDocumentSource`
 
       - `JsonValue type = "file"`
 
@@ -27520,7 +28096,7 @@ public final class Main {
 
 ### Beta Request MCP Server Tool Configuration
 
-- `class BetaRequestMcpServerToolConfiguration:`
+- `class BetaRequestMcpServerToolConfiguration`
 
   - `Optional<List<String>> allowedTools`
 
@@ -27528,7 +28104,7 @@ public final class Main {
 
 ### Beta Request MCP Server URL Definition
 
-- `class BetaRequestMcpServerUrlDefinition:`
+- `class BetaRequestMcpServerUrlDefinition`
 
   - `JsonValue type = "url"`
 
@@ -27546,7 +28122,7 @@ public final class Main {
 
 ### Beta Request MCP Tool Result Block Param
 
-- `class BetaRequestMcpToolResultBlockParam:`
+- `class BetaRequestMcpToolResultBlockParam`
 
   - `JsonValue type = "mcp_tool_result"`
 
@@ -27593,7 +28169,7 @@ public final class Main {
 
       - `Optional<List<BetaTextCitationParam>> citations`
 
-        - `class BetaCitationCharLocationParam:`
+        - `class BetaCitationCharLocationParam`
 
           - `JsonValue type = "char_location"`
 
@@ -27613,7 +28189,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationPageLocationParam:`
+        - `class BetaCitationPageLocationParam`
 
           - `JsonValue type = "page_location"`
 
@@ -27633,7 +28209,7 @@ public final class Main {
 
             minimum: 1
 
-        - `class BetaCitationContentBlockLocationParam:`
+        - `class BetaCitationContentBlockLocationParam`
 
           - `JsonValue type = "content_block_location"`
 
@@ -27663,7 +28239,7 @@ public final class Main {
 
             minimum: 0
 
-        - `class BetaCitationWebSearchResultLocationParam:`
+        - `class BetaCitationWebSearchResultLocationParam`
 
           - `JsonValue type = "web_search_result_location"`
 
@@ -27679,7 +28255,7 @@ public final class Main {
 
             minLength: 1
 
-        - `class BetaCitationSearchResultLocationParam:`
+        - `class BetaCitationSearchResultLocationParam`
 
           - `JsonValue type = "search_result_location"`
 
@@ -27717,7 +28293,7 @@ public final class Main {
 
 ### Beta Request Tool Addition Block
 
-- `class BetaRequestToolAdditionBlock:`
+- `class BetaRequestToolAdditionBlock`
 
   Mid-conversation directive to surface a declared tool.
 
@@ -27729,7 +28305,7 @@ public final class Main {
 
   - `Tool tool`
 
-    - `class BetaToolChangeToolReference:`
+    - `class BetaToolChangeToolReference`
 
       Reference to a single tool the caller declared directly in
       `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -27742,7 +28318,7 @@ public final class Main {
 
         pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-    - `class BetaToolChangeMcpToolReference:`
+    - `class BetaToolChangeMcpToolReference`
 
       Reference to a single MCP tool by its server and remote name — the
       same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -27753,7 +28329,7 @@ public final class Main {
 
       - `String serverName`
 
-    - `class BetaToolChangeMcpToolsetReference:`
+    - `class BetaToolChangeMcpToolsetReference`
 
       Reference to every tool in the named MCP server's toolset.
 
@@ -27784,7 +28360,7 @@ public final class Main {
 
 ### Beta Request Tool Removal Block
 
-- `class BetaRequestToolRemovalBlock:`
+- `class BetaRequestToolRemovalBlock`
 
   Mid-conversation directive to withdraw a tool.
 
@@ -27796,7 +28372,7 @@ public final class Main {
 
   - `Tool tool`
 
-    - `class BetaToolChangeToolReference:`
+    - `class BetaToolChangeToolReference`
 
       Reference to a single tool the caller declared directly in
       `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -27809,7 +28385,7 @@ public final class Main {
 
         pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-    - `class BetaToolChangeMcpToolReference:`
+    - `class BetaToolChangeMcpToolReference`
 
       Reference to a single MCP tool by its server and remote name — the
       same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -27820,7 +28396,7 @@ public final class Main {
 
       - `String serverName`
 
-    - `class BetaToolChangeMcpToolsetReference:`
+    - `class BetaToolChangeMcpToolsetReference`
 
       Reference to every tool in the named MCP server's toolset.
 
@@ -27851,7 +28427,7 @@ public final class Main {
 
 ### Beta Search Result Block Param
 
-- `class BetaSearchResultBlockParam:`
+- `class BetaSearchResultBlockParam`
 
   - `JsonValue type = "search_result"`
 
@@ -27886,7 +28462,7 @@ public final class Main {
 
     - `Optional<List<BetaTextCitationParam>> citations`
 
-      - `class BetaCitationCharLocationParam:`
+      - `class BetaCitationCharLocationParam`
 
         - `JsonValue type = "char_location"`
 
@@ -27906,7 +28482,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationPageLocationParam:`
+      - `class BetaCitationPageLocationParam`
 
         - `JsonValue type = "page_location"`
 
@@ -27926,7 +28502,7 @@ public final class Main {
 
           minimum: 1
 
-      - `class BetaCitationContentBlockLocationParam:`
+      - `class BetaCitationContentBlockLocationParam`
 
         - `JsonValue type = "content_block_location"`
 
@@ -27956,7 +28532,7 @@ public final class Main {
 
           minimum: 0
 
-      - `class BetaCitationWebSearchResultLocationParam:`
+      - `class BetaCitationWebSearchResultLocationParam`
 
         - `JsonValue type = "web_search_result_location"`
 
@@ -27972,7 +28548,7 @@ public final class Main {
 
           minLength: 1
 
-      - `class BetaCitationSearchResultLocationParam:`
+      - `class BetaCitationSearchResultLocationParam`
 
         - `JsonValue type = "search_result_location"`
 
@@ -28020,7 +28596,7 @@ public final class Main {
 
 ### Beta Server Tool Caller
 
-- `class BetaServerToolCaller:`
+- `class BetaServerToolCaller`
 
   Tool invocation generated by a server-side tool.
 
@@ -28032,7 +28608,7 @@ public final class Main {
 
 ### Beta Server Tool Caller 20260120
 
-- `class BetaServerToolCaller20260120:`
+- `class BetaServerToolCaller20260120`
 
   - `JsonValue type = "code_execution_20260120"`
 
@@ -28042,7 +28618,7 @@ public final class Main {
 
 ### Beta Server Tool Usage
 
-- `class BetaServerToolUsage:`
+- `class BetaServerToolUsage`
 
   - `long webFetchRequests`
 
@@ -28058,7 +28634,7 @@ public final class Main {
 
 ### Beta Server Tool Use Block
 
-- `class BetaServerToolUseBlock:`
+- `class BetaServerToolUseBlock`
 
   - `JsonValue type = "server_tool_use"`
 
@@ -28088,13 +28664,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -28104,7 +28680,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -28114,7 +28690,7 @@ public final class Main {
 
 ### Beta Server Tool Use Block Param
 
-- `class BetaServerToolUseBlockParam:`
+- `class BetaServerToolUseBlockParam`
 
   - `JsonValue type = "server_tool_use"`
 
@@ -28165,13 +28741,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -28181,7 +28757,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -28191,7 +28767,7 @@ public final class Main {
 
 ### Beta Signature Delta
 
-- `class BetaSignatureDelta:`
+- `class BetaSignatureDelta`
 
   - `JsonValue type = "signature_delta"`
 
@@ -28201,7 +28777,7 @@ public final class Main {
 
 ### Beta Skill Params
 
-- `class BetaSkillParams:`
+- `class BetaSkillParams`
 
   Specification for a skill to be loaded in a container (request model).
 
@@ -28227,7 +28803,7 @@ public final class Main {
 
 ### Beta Stop Reason
 
-- `enum BetaStopReason:`
+- `enum BetaStopReason`
 
   - `END_TURN("end_turn")`
 
@@ -28245,9 +28821,30 @@ public final class Main {
 
   - `MODEL_CONTEXT_WINDOW_EXCEEDED("model_context_window_exceeded")`
 
+### Beta Summarize Compaction
+
+- `class BetaSummarizeCompaction`
+
+  Compact the whole conversation and return a signed `compaction` block,
+  alone, that a later request sends back first in `messages`, in place of
+  the messages it summarizes. There is no trigger and no pause flag: sending
+  the parameter compacts, and nothing is sampled after the block.
+
+  The summarization prompt is the server's own unless `instructions` are
+  given, which then replace it for this request; a value that is empty or
+  only whitespace counts as absent.
+
+  - `JsonValue type = "summarize"`
+
+  - `Optional<String> instructions`
+
+    Replaces the server's default summarization prompt for this request. An empty or whitespace-only value counts as absent.
+
+    maxLength: 16384
+
 ### Beta System Message Output Config
 
-- `class BetaSystemMessageOutputConfig:`
+- `class BetaSystemMessageOutputConfig`
 
   Per-message output configuration on a role:"system" input message.
 
@@ -28271,7 +28868,7 @@ public final class Main {
 
 ### Beta Text Block
 
-- `class BetaTextBlock:`
+- `class BetaTextBlock`
 
   - `JsonValue type = "text"`
 
@@ -28281,7 +28878,7 @@ public final class Main {
 
     The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-    - `class BetaCitationCharLocation:`
+    - `class BetaCitationCharLocation`
 
       - `JsonValue type = "char_location"`
 
@@ -28301,7 +28898,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCitationPageLocation:`
+    - `class BetaCitationPageLocation`
 
       - `JsonValue type = "page_location"`
 
@@ -28321,7 +28918,7 @@ public final class Main {
 
         minimum: 1
 
-    - `class BetaCitationContentBlockLocation:`
+    - `class BetaCitationContentBlockLocation`
 
       - `JsonValue type = "content_block_location"`
 
@@ -28351,7 +28948,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCitationsWebSearchResultLocation:`
+    - `class BetaCitationsWebSearchResultLocation`
 
       - `JsonValue type = "web_search_result_location"`
 
@@ -28365,7 +28962,7 @@ public final class Main {
 
       - `String url`
 
-    - `class BetaCitationSearchResultLocation:`
+    - `class BetaCitationSearchResultLocation`
 
       - `JsonValue type = "search_result_location"`
 
@@ -28405,7 +29002,7 @@ public final class Main {
 
 ### Beta Text Block Param
 
-- `class BetaTextBlockParam:`
+- `class BetaTextBlockParam`
 
   - `JsonValue type = "text"`
 
@@ -28436,7 +29033,7 @@ public final class Main {
 
   - `Optional<List<BetaTextCitationParam>> citations`
 
-    - `class BetaCitationCharLocationParam:`
+    - `class BetaCitationCharLocationParam`
 
       - `JsonValue type = "char_location"`
 
@@ -28456,7 +29053,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCitationPageLocationParam:`
+    - `class BetaCitationPageLocationParam`
 
       - `JsonValue type = "page_location"`
 
@@ -28476,7 +29073,7 @@ public final class Main {
 
         minimum: 1
 
-    - `class BetaCitationContentBlockLocationParam:`
+    - `class BetaCitationContentBlockLocationParam`
 
       - `JsonValue type = "content_block_location"`
 
@@ -28506,7 +29103,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCitationWebSearchResultLocationParam:`
+    - `class BetaCitationWebSearchResultLocationParam`
 
       - `JsonValue type = "web_search_result_location"`
 
@@ -28522,7 +29119,7 @@ public final class Main {
 
         minLength: 1
 
-    - `class BetaCitationSearchResultLocationParam:`
+    - `class BetaCitationSearchResultLocationParam`
 
       - `JsonValue type = "search_result_location"`
 
@@ -28560,7 +29157,7 @@ public final class Main {
 
 - `class BetaTextCitation: union`
 
-  - `class BetaCitationCharLocation:`
+  - `class BetaCitationCharLocation`
 
     - `JsonValue type = "char_location"`
 
@@ -28580,7 +29177,7 @@ public final class Main {
 
       minimum: 0
 
-  - `class BetaCitationPageLocation:`
+  - `class BetaCitationPageLocation`
 
     - `JsonValue type = "page_location"`
 
@@ -28600,7 +29197,7 @@ public final class Main {
 
       minimum: 1
 
-  - `class BetaCitationContentBlockLocation:`
+  - `class BetaCitationContentBlockLocation`
 
     - `JsonValue type = "content_block_location"`
 
@@ -28630,7 +29227,7 @@ public final class Main {
 
       minimum: 0
 
-  - `class BetaCitationsWebSearchResultLocation:`
+  - `class BetaCitationsWebSearchResultLocation`
 
     - `JsonValue type = "web_search_result_location"`
 
@@ -28644,7 +29241,7 @@ public final class Main {
 
     - `String url`
 
-  - `class BetaCitationSearchResultLocation:`
+  - `class BetaCitationSearchResultLocation`
 
     - `JsonValue type = "search_result_location"`
 
@@ -28682,7 +29279,7 @@ public final class Main {
 
 - `class BetaTextCitationParam: union`
 
-  - `class BetaCitationCharLocationParam:`
+  - `class BetaCitationCharLocationParam`
 
     - `JsonValue type = "char_location"`
 
@@ -28702,7 +29299,7 @@ public final class Main {
 
       minimum: 0
 
-  - `class BetaCitationPageLocationParam:`
+  - `class BetaCitationPageLocationParam`
 
     - `JsonValue type = "page_location"`
 
@@ -28722,7 +29319,7 @@ public final class Main {
 
       minimum: 1
 
-  - `class BetaCitationContentBlockLocationParam:`
+  - `class BetaCitationContentBlockLocationParam`
 
     - `JsonValue type = "content_block_location"`
 
@@ -28752,7 +29349,7 @@ public final class Main {
 
       minimum: 0
 
-  - `class BetaCitationWebSearchResultLocationParam:`
+  - `class BetaCitationWebSearchResultLocationParam`
 
     - `JsonValue type = "web_search_result_location"`
 
@@ -28768,7 +29365,7 @@ public final class Main {
 
       minLength: 1
 
-  - `class BetaCitationSearchResultLocationParam:`
+  - `class BetaCitationSearchResultLocationParam`
 
     - `JsonValue type = "search_result_location"`
 
@@ -28804,7 +29401,7 @@ public final class Main {
 
 ### Beta Text Delta
 
-- `class BetaTextDelta:`
+- `class BetaTextDelta`
 
   - `JsonValue type = "text_delta"`
 
@@ -28812,7 +29409,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Create Result Block
 
-- `class BetaTextEditorCodeExecutionCreateResultBlock:`
+- `class BetaTextEditorCodeExecutionCreateResultBlock`
 
   - `JsonValue type = "text_editor_code_execution_create_result"`
 
@@ -28820,7 +29417,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Create Result Block Param
 
-- `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+- `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
   - `JsonValue type = "text_editor_code_execution_create_result"`
 
@@ -28828,7 +29425,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Str Replace Result Block
 
-- `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+- `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
   - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -28844,7 +29441,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Str Replace Result Block Param
 
-- `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+- `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
   - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -28860,13 +29457,13 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Tool Result Block
 
-- `class BetaTextEditorCodeExecutionToolResultBlock:`
+- `class BetaTextEditorCodeExecutionToolResultBlock`
 
   - `JsonValue type = "text_editor_code_execution_tool_result"`
 
   - `Content content`
 
-    - `class BetaTextEditorCodeExecutionToolResultError:`
+    - `class BetaTextEditorCodeExecutionToolResultError`
 
       - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -28884,7 +29481,7 @@ public final class Main {
 
       - `Optional<String> errorMessage`
 
-    - `class BetaTextEditorCodeExecutionViewResultBlock:`
+    - `class BetaTextEditorCodeExecutionViewResultBlock`
 
       - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -28904,13 +29501,13 @@ public final class Main {
 
       - `Optional<Long> totalLines`
 
-    - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+    - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
       - `JsonValue type = "text_editor_code_execution_create_result"`
 
       - `boolean isFileUpdate`
 
-    - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+    - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
       - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -28930,13 +29527,13 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Tool Result Block Param
 
-- `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+- `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
   - `JsonValue type = "text_editor_code_execution_tool_result"`
 
   - `Content content`
 
-    - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+    - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
       - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -28954,7 +29551,7 @@ public final class Main {
 
       - `Optional<String> errorMessage`
 
-    - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+    - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
       - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -28974,13 +29571,13 @@ public final class Main {
 
       - `Optional<Long> totalLines`
 
-    - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+    - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
       - `JsonValue type = "text_editor_code_execution_create_result"`
 
       - `boolean isFileUpdate`
 
-    - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+    - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
       - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -29021,7 +29618,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Tool Result Error
 
-- `class BetaTextEditorCodeExecutionToolResultError:`
+- `class BetaTextEditorCodeExecutionToolResultError`
 
   - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -29041,7 +29638,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution Tool Result Error Param
 
-- `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+- `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
   - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -29061,7 +29658,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution View Result Block
 
-- `class BetaTextEditorCodeExecutionViewResultBlock:`
+- `class BetaTextEditorCodeExecutionViewResultBlock`
 
   - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -29083,7 +29680,7 @@ public final class Main {
 
 ### Beta Text Editor Code Execution View Result Block Param
 
-- `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+- `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
   - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -29105,7 +29702,7 @@ public final class Main {
 
 ### Beta Thinking Block
 
-- `class BetaThinkingBlock:`
+- `class BetaThinkingBlock`
 
   - `JsonValue type = "thinking"`
 
@@ -29123,7 +29720,7 @@ public final class Main {
 
 ### Beta Thinking Block Binding
 
-- `class BetaThinkingBlockBinding:`
+- `class BetaThinkingBlockBinding`
 
   Controls for block binding: what happens when a thinking block this
   request sends back fails the conversation check. Every field is optional;
@@ -29143,7 +29740,7 @@ public final class Main {
 
 ### Beta Thinking Block Param
 
-- `class BetaThinkingBlockParam:`
+- `class BetaThinkingBlockParam`
 
   - `JsonValue type = "thinking"`
 
@@ -29159,7 +29756,7 @@ public final class Main {
 
 ### Beta Thinking Config Adaptive
 
-- `class BetaThinkingConfigAdaptive:`
+- `class BetaThinkingConfigAdaptive`
 
   - `JsonValue type = "adaptive"`
 
@@ -29193,13 +29790,13 @@ public final class Main {
 
 ### Beta Thinking Config Disabled
 
-- `class BetaThinkingConfigDisabled:`
+- `class BetaThinkingConfigDisabled`
 
   - `JsonValue type = "disabled"`
 
 ### Beta Thinking Config Enabled
 
-- `class BetaThinkingConfigEnabled:`
+- `class BetaThinkingConfigEnabled`
 
   - `JsonValue type = "enabled"`
 
@@ -29251,7 +29848,7 @@ public final class Main {
 
   See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `class BetaThinkingConfigEnabled:`
+  - `class BetaThinkingConfigEnabled`
 
     - `JsonValue type = "enabled"`
 
@@ -29293,11 +29890,11 @@ public final class Main {
 
       - `UPDATES("updates")`
 
-  - `class BetaThinkingConfigDisabled:`
+  - `class BetaThinkingConfigDisabled`
 
     - `JsonValue type = "disabled"`
 
-  - `class BetaThinkingConfigAdaptive:`
+  - `class BetaThinkingConfigAdaptive`
 
     - `JsonValue type = "adaptive"`
 
@@ -29319,7 +29916,7 @@ public final class Main {
 
 ### Beta Thinking Delta
 
-- `class BetaThinkingDelta:`
+- `class BetaThinkingDelta`
 
   - `JsonValue type = "thinking_delta"`
 
@@ -29333,7 +29930,7 @@ public final class Main {
 
 ### Beta Thinking Dropped Input Transformation
 
-- `class BetaThinkingDroppedInputTransformation:`
+- `class BetaThinkingDroppedInputTransformation`
 
   - `JsonValue type = "thinking_dropped"`
 
@@ -29369,9 +29966,43 @@ public final class Main {
 
     - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
 
+### Beta Thinking Mismatch Allowed Input Transformation
+
+- `class BetaThinkingMismatchAllowedInputTransformation`
+
+  - `JsonValue type = "thinking_mismatch_allowed"`
+
+    Always `thinking_mismatch_allowed` for this entry type.
+
+  - `String path`
+
+    Where the block is in your request, as `messages.{i}.content.{j}`:
+    `i` indexes the `messages` array you sent and `j` that message's `content`
+    array — the same form error messages use.
+
+  - `Reason reason`
+
+    Which binding check the block failed; the block was shown to the model all
+    the same. Always `prefix_binding_mismatch` today — the conversation before
+    the block differs from the conversation it was created in, or the block
+    carries no record of one on a model that requires it. Were the check
+    enforced for this request, the block would have been removed or the request
+    rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+    takes the rest of that turn's consecutive thinking blocks, whereas here each
+    block is checked on its own, so `thinking_mismatch_allowed` entries are a
+    lower bound on what enforcement would remove.
+
+    - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+    - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+    - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+    - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
 ### Beta Thinking Prefix Mismatch Behavior
 
-- `enum BetaThinkingPrefixMismatchBehavior:`
+- `enum BetaThinkingPrefixMismatchBehavior`
 
   What happens when a thinking block in `messages` fails the conversation
   check: it was created in a different conversation, or the messages before
@@ -29385,7 +30016,7 @@ public final class Main {
 
 ### Beta Thinking Turns
 
-- `class BetaThinkingTurns:`
+- `class BetaThinkingTurns`
 
   - `JsonValue type = "thinking_turns"`
 
@@ -29395,7 +30026,7 @@ public final class Main {
 
 ### Beta Token Task Budget
 
-- `class BetaTokenTaskBudget:`
+- `class BetaTokenTaskBudget`
 
   User-configurable total token budget across contexts.
 
@@ -29417,7 +30048,7 @@ public final class Main {
 
 ### Beta Tool
 
-- `class BetaTool:`
+- `class BetaTool`
 
   - `Optional<Type> type`
 
@@ -29494,7 +30125,7 @@ public final class Main {
 
 ### Beta Tool Bash 20241022
 
-- `class BetaToolBash20241022:`
+- `class BetaToolBash20241022`
 
   - `JsonValue type = "bash_20241022"`
 
@@ -29547,7 +30178,7 @@ public final class Main {
 
 ### Beta Tool Bash 20250124
 
-- `class BetaToolBash20250124:`
+- `class BetaToolBash20250124`
 
   - `JsonValue type = "bash_20250124"`
 
@@ -29600,7 +30231,7 @@ public final class Main {
 
 ### Beta Tool Change MCP Tool Reference
 
-- `class BetaToolChangeMcpToolReference:`
+- `class BetaToolChangeMcpToolReference`
 
   Reference to a single MCP tool by its server and remote name — the
   same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -29613,7 +30244,7 @@ public final class Main {
 
 ### Beta Tool Change MCP Toolset Reference
 
-- `class BetaToolChangeMcpToolsetReference:`
+- `class BetaToolChangeMcpToolsetReference`
 
   Reference to every tool in the named MCP server's toolset.
 
@@ -29623,7 +30254,7 @@ public final class Main {
 
 ### Beta Tool Change Tool Reference
 
-- `class BetaToolChangeToolReference:`
+- `class BetaToolChangeToolReference`
 
   Reference to a single tool the caller declared directly in
   `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -29642,7 +30273,7 @@ public final class Main {
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `class BetaToolChoiceAuto:`
+  - `class BetaToolChoiceAuto`
 
     The model will automatically decide whether to use tools.
 
@@ -29654,7 +30285,7 @@ public final class Main {
 
       Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-  - `class BetaToolChoiceAny:`
+  - `class BetaToolChoiceAny`
 
     The model will use any available tools.
 
@@ -29666,7 +30297,7 @@ public final class Main {
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class BetaToolChoiceTool:`
+  - `class BetaToolChoiceTool`
 
     The model will use the specified tool with `tool_choice.name`.
 
@@ -29682,7 +30313,7 @@ public final class Main {
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class BetaToolChoiceNone:`
+  - `class BetaToolChoiceNone`
 
     The model will not be allowed to use tools.
 
@@ -29690,7 +30321,7 @@ public final class Main {
 
 ### Beta Tool Choice Any
 
-- `class BetaToolChoiceAny:`
+- `class BetaToolChoiceAny`
 
   The model will use any available tools.
 
@@ -29704,7 +30335,7 @@ public final class Main {
 
 ### Beta Tool Choice Auto
 
-- `class BetaToolChoiceAuto:`
+- `class BetaToolChoiceAuto`
 
   The model will automatically decide whether to use tools.
 
@@ -29718,7 +30349,7 @@ public final class Main {
 
 ### Beta Tool Choice None
 
-- `class BetaToolChoiceNone:`
+- `class BetaToolChoiceNone`
 
   The model will not be allowed to use tools.
 
@@ -29726,7 +30357,7 @@ public final class Main {
 
 ### Beta Tool Choice Tool
 
-- `class BetaToolChoiceTool:`
+- `class BetaToolChoiceTool`
 
   The model will use the specified tool with `tool_choice.name`.
 
@@ -29744,7 +30375,7 @@ public final class Main {
 
 ### Beta Tool Computer Use 20241022
 
-- `class BetaToolComputerUse20241022:`
+- `class BetaToolComputerUse20241022`
 
   - `JsonValue type = "computer_20241022"`
 
@@ -29815,7 +30446,7 @@ public final class Main {
 
 ### Beta Tool Computer Use 20250124
 
-- `class BetaToolComputerUse20250124:`
+- `class BetaToolComputerUse20250124`
 
   - `JsonValue type = "computer_20250124"`
 
@@ -29886,7 +30517,7 @@ public final class Main {
 
 ### Beta Tool Computer Use 20251124
 
-- `class BetaToolComputerUse20251124:`
+- `class BetaToolComputerUse20251124`
 
   - `JsonValue type = "computer_20251124"`
 
@@ -29961,7 +30592,7 @@ public final class Main {
 
 ### Beta Tool Reference Block
 
-- `class BetaToolReferenceBlock:`
+- `class BetaToolReferenceBlock`
 
   - `JsonValue type = "tool_reference"`
 
@@ -29971,7 +30602,7 @@ public final class Main {
 
 ### Beta Tool Reference Block Param
 
-- `class BetaToolReferenceBlockParam:`
+- `class BetaToolReferenceBlockParam`
 
   Tool reference block that can be included in tool_result content.
 
@@ -30004,7 +30635,7 @@ public final class Main {
 
 ### Beta Tool Result Block Param
 
-- `class BetaToolResultBlockParam:`
+- `class BetaToolResultBlockParam`
 
   - `JsonValue type = "tool_result"`
 
@@ -30039,7 +30670,7 @@ public final class Main {
 
     - `List<Block>`
 
-      - `class BetaTextBlockParam:`
+      - `class BetaTextBlockParam`
 
         - `JsonValue type = "text"`
 
@@ -30053,7 +30684,7 @@ public final class Main {
 
         - `Optional<List<BetaTextCitationParam>> citations`
 
-          - `class BetaCitationCharLocationParam:`
+          - `class BetaCitationCharLocationParam`
 
             - `JsonValue type = "char_location"`
 
@@ -30073,7 +30704,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationPageLocationParam:`
+          - `class BetaCitationPageLocationParam`
 
             - `JsonValue type = "page_location"`
 
@@ -30093,7 +30724,7 @@ public final class Main {
 
               minimum: 1
 
-          - `class BetaCitationContentBlockLocationParam:`
+          - `class BetaCitationContentBlockLocationParam`
 
             - `JsonValue type = "content_block_location"`
 
@@ -30123,7 +30754,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaCitationWebSearchResultLocationParam:`
+          - `class BetaCitationWebSearchResultLocationParam`
 
             - `JsonValue type = "web_search_result_location"`
 
@@ -30139,7 +30770,7 @@ public final class Main {
 
               minLength: 1
 
-          - `class BetaCitationSearchResultLocationParam:`
+          - `class BetaCitationSearchResultLocationParam`
 
             - `JsonValue type = "search_result_location"`
 
@@ -30173,13 +30804,13 @@ public final class Main {
 
             - `Optional<String> title`
 
-      - `class BetaImageBlockParam:`
+      - `class BetaImageBlockParam`
 
         - `JsonValue type = "image"`
 
         - `Source source`
 
-          - `class BetaBase64ImageSource:`
+          - `class BetaBase64ImageSource`
 
             - `JsonValue type = "base64"`
 
@@ -30197,13 +30828,13 @@ public final class Main {
 
               - `IMAGE_WEBP("image/webp")`
 
-          - `class BetaUrlImageSource:`
+          - `class BetaUrlImageSource`
 
             - `JsonValue type = "url"`
 
             - `String url`
 
-          - `class BetaFileImageSource:`
+          - `class BetaFileImageSource`
 
             - `JsonValue type = "file"`
 
@@ -30225,7 +30856,7 @@ public final class Main {
 
             - `ERROR("error")`
 
-      - `class BetaSearchResultBlockParam:`
+      - `class BetaSearchResultBlockParam`
 
         - `JsonValue type = "search_result"`
 
@@ -30255,13 +30886,13 @@ public final class Main {
 
           - `Optional<Boolean> enabled`
 
-      - `class BetaRequestDocumentBlock:`
+      - `class BetaRequestDocumentBlock`
 
         - `JsonValue type = "document"`
 
         - `Source source`
 
-          - `class BetaBase64PdfSource:`
+          - `class BetaBase64PdfSource`
 
             - `JsonValue type = "base64"`
 
@@ -30271,7 +30902,7 @@ public final class Main {
 
             - `JsonValue mediaType = "application/pdf"`
 
-          - `class BetaPlainTextSource:`
+          - `class BetaPlainTextSource`
 
             - `JsonValue type = "text"`
 
@@ -30279,7 +30910,7 @@ public final class Main {
 
             - `JsonValue mediaType = "text/plain"`
 
-          - `class BetaContentBlockSource:`
+          - `class BetaContentBlockSource`
 
             - `JsonValue type = "content"`
 
@@ -30289,17 +30920,17 @@ public final class Main {
 
               - `List<BetaContentBlockSourceContent>`
 
-                - `class BetaTextBlockParam:`
+                - `class BetaTextBlockParam`
 
-                - `class BetaImageBlockParam:`
+                - `class BetaImageBlockParam`
 
-          - `class BetaUrlPdfSource:`
+          - `class BetaUrlPdfSource`
 
             - `JsonValue type = "url"`
 
             - `String url`
 
-          - `class BetaFileDocumentSource:`
+          - `class BetaFileDocumentSource`
 
             - `JsonValue type = "file"`
 
@@ -30319,7 +30950,7 @@ public final class Main {
 
           maxLength: 500, minLength: 1
 
-      - `class BetaToolReferenceBlockParam:`
+      - `class BetaToolReferenceBlockParam`
 
         Tool reference block that can be included in tool_result content.
 
@@ -30333,7 +30964,7 @@ public final class Main {
 
           Create a cache control breakpoint at this content block.
 
-      - `class BetaBrowserStateBlockParam:`
+      - `class BetaBrowserStateBlockParam`
 
         The caller's browser state after a browser toolset member call —
         the full inventory of open tabs, which tab is active, and any side
@@ -30383,7 +31014,7 @@ public final class Main {
 
           maxItems: 200, minItems: 1
 
-          - `class BetaBrowserStateChangeTabOpened:`
+          - `class BetaBrowserStateChangeTabOpened`
 
             A tab this call's execution opened that remains open at its end —
             the creation delta of the `tabs` inventory, not an event log.
@@ -30401,7 +31032,7 @@ public final class Main {
 
               maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `class BetaBrowserStateChangeDownloadStarted:`
+          - `class BetaBrowserStateChangeDownloadStarted`
 
             A file download that started during this call.
 
@@ -30419,7 +31050,7 @@ public final class Main {
 
               maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-          - `class BetaBrowserStateChangeDownloadCompleted:`
+          - `class BetaBrowserStateChangeDownloadCompleted`
 
             A file download that finished during this call, reported with the
             same `download_id` as its `download_started` — or without a prior
@@ -30452,7 +31083,7 @@ public final class Main {
 
               minimum: 0
 
-          - `class BetaBrowserStateChangeDownloadFailed:`
+          - `class BetaBrowserStateChangeDownloadFailed`
 
             A file download that failed — or was cancelled — during this call.
 
@@ -30486,7 +31117,7 @@ public final class Main {
 
 ### Beta Tool Search Tool Bm25 20251119
 
-- `class BetaToolSearchToolBm25_20251119:`
+- `class BetaToolSearchToolBm25_20251119`
 
   - `Type type`
 
@@ -30541,7 +31172,7 @@ public final class Main {
 
 ### Beta Tool Search Tool Regex 20251119
 
-- `class BetaToolSearchToolRegex20251119:`
+- `class BetaToolSearchToolRegex20251119`
 
   - `Type type`
 
@@ -30596,13 +31227,13 @@ public final class Main {
 
 ### Beta Tool Search Tool Result Block
 
-- `class BetaToolSearchToolResultBlock:`
+- `class BetaToolSearchToolResultBlock`
 
   - `JsonValue type = "tool_search_tool_result"`
 
   - `Content content`
 
-    - `class BetaToolSearchToolResultError:`
+    - `class BetaToolSearchToolResultError`
 
       - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -30618,7 +31249,7 @@ public final class Main {
 
       - `Optional<String> errorMessage`
 
-    - `class BetaToolSearchToolSearchResultBlock:`
+    - `class BetaToolSearchToolSearchResultBlock`
 
       - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -30636,13 +31267,13 @@ public final class Main {
 
 ### Beta Tool Search Tool Result Block Param
 
-- `class BetaToolSearchToolResultBlockParam:`
+- `class BetaToolSearchToolResultBlockParam`
 
   - `JsonValue type = "tool_search_tool_result"`
 
   - `Content content`
 
-    - `class BetaToolSearchToolResultErrorParam:`
+    - `class BetaToolSearchToolResultErrorParam`
 
       - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -30658,7 +31289,7 @@ public final class Main {
 
       - `Optional<String> errorMessage`
 
-    - `class BetaToolSearchToolSearchResultBlockParam:`
+    - `class BetaToolSearchToolSearchResultBlockParam`
 
       - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -30701,7 +31332,7 @@ public final class Main {
 
 ### Beta Tool Search Tool Result Error
 
-- `class BetaToolSearchToolResultError:`
+- `class BetaToolSearchToolResultError`
 
   - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -30719,7 +31350,7 @@ public final class Main {
 
 ### Beta Tool Search Tool Result Error Param
 
-- `class BetaToolSearchToolResultErrorParam:`
+- `class BetaToolSearchToolResultErrorParam`
 
   - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -30737,7 +31368,7 @@ public final class Main {
 
 ### Beta Tool Search Tool Search Result Block
 
-- `class BetaToolSearchToolSearchResultBlock:`
+- `class BetaToolSearchToolSearchResultBlock`
 
   - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -30751,7 +31382,7 @@ public final class Main {
 
 ### Beta Tool Search Tool Search Result Block Param
 
-- `class BetaToolSearchToolSearchResultBlockParam:`
+- `class BetaToolSearchToolSearchResultBlockParam`
 
   - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -30786,7 +31417,7 @@ public final class Main {
 
 ### Beta Tool Text Editor 20241022
 
-- `class BetaToolTextEditor20241022:`
+- `class BetaToolTextEditor20241022`
 
   - `JsonValue type = "text_editor_20241022"`
 
@@ -30839,7 +31470,7 @@ public final class Main {
 
 ### Beta Tool Text Editor 20250124
 
-- `class BetaToolTextEditor20250124:`
+- `class BetaToolTextEditor20250124`
 
   - `JsonValue type = "text_editor_20250124"`
 
@@ -30892,7 +31523,7 @@ public final class Main {
 
 ### Beta Tool Text Editor 20250429
 
-- `class BetaToolTextEditor20250429:`
+- `class BetaToolTextEditor20250429`
 
   - `JsonValue type = "text_editor_20250429"`
 
@@ -30945,7 +31576,7 @@ public final class Main {
 
 ### Beta Tool Text Editor 20250728
 
-- `class BetaToolTextEditor20250728:`
+- `class BetaToolTextEditor20250728`
 
   - `JsonValue type = "text_editor_20250728"`
 
@@ -31006,7 +31637,7 @@ public final class Main {
 
 - `class BetaToolUnion: union`
 
-  - `class BetaTool:`
+  - `class BetaTool`
 
     - `Optional<Type> type`
 
@@ -31081,7 +31712,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolBash20241022:`
+  - `class BetaToolBash20241022`
 
     - `JsonValue type = "bash_20241022"`
 
@@ -31115,7 +31746,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolBash20250124:`
+  - `class BetaToolBash20250124`
 
     - `JsonValue type = "bash_20250124"`
 
@@ -31149,7 +31780,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20250522:`
+  - `class BetaCodeExecutionTool20250522`
 
     - `JsonValue type = "code_execution_20250522"`
 
@@ -31181,7 +31812,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20250825:`
+  - `class BetaCodeExecutionTool20250825`
 
     - `JsonValue type = "code_execution_20250825"`
 
@@ -31213,7 +31844,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20260120:`
+  - `class BetaCodeExecutionTool20260120`
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -31247,7 +31878,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaCodeExecutionTool20260521:`
+  - `class BetaCodeExecutionTool20260521`
 
     Code execution tool with REPL state persistence.
 
@@ -31281,7 +31912,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaBrowserToolset20260801:`
+  - `class BetaBrowserToolset20260801`
 
     The browser toolset: a single `tools[]` entry (carrying no
     `name`) that declares the browser tool family. The model is served
@@ -31675,7 +32306,7 @@ public final class Main {
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class BetaToolComputerUse20241022:`
+  - `class BetaToolComputerUse20241022`
 
     - `JsonValue type = "computer_20241022"`
 
@@ -31727,7 +32358,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaMemoryTool20250818:`
+  - `class BetaMemoryTool20250818`
 
     - `JsonValue type = "memory_20250818"`
 
@@ -31761,7 +32392,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolComputerUse20250124:`
+  - `class BetaToolComputerUse20250124`
 
     - `JsonValue type = "computer_20250124"`
 
@@ -31813,7 +32444,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolTextEditor20241022:`
+  - `class BetaToolTextEditor20241022`
 
     - `JsonValue type = "text_editor_20241022"`
 
@@ -31847,7 +32478,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolComputerUse20251124:`
+  - `class BetaToolComputerUse20251124`
 
     - `JsonValue type = "computer_20251124"`
 
@@ -31903,7 +32534,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaComputerToolset20260801:`
+  - `class BetaComputerToolset20260801`
 
     The computer toolset: a single `tools[]` entry (carrying no
     `name`) that declares the computer tool family. The model is
@@ -32133,7 +32764,7 @@ public final class Main {
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class BetaToolTextEditor20250124:`
+  - `class BetaToolTextEditor20250124`
 
     - `JsonValue type = "text_editor_20250124"`
 
@@ -32167,7 +32798,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolTextEditor20250429:`
+  - `class BetaToolTextEditor20250429`
 
     - `JsonValue type = "text_editor_20250429"`
 
@@ -32201,7 +32832,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolTextEditor20250728:`
+  - `class BetaToolTextEditor20250728`
 
     - `JsonValue type = "text_editor_20250728"`
 
@@ -32241,7 +32872,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaWebSearchTool20250305:`
+  - `class BetaWebSearchTool20250305`
 
     - `JsonValue type = "web_search_20250305"`
 
@@ -32317,7 +32948,7 @@ public final class Main {
 
         maxLength: 255, minLength: 1
 
-  - `class BetaWebFetchTool20250910:`
+  - `class BetaWebFetchTool20250910`
 
     - `JsonValue type = "web_fetch_20250910"`
 
@@ -32375,7 +33006,98 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaWebSearchTool20260209:`
+    - `Optional<BetaWebFetchUrlSources> urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+      - `Optional<ClientToolResults> clientToolResults`
+
+        Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+        - `class BetaWebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+          - `JsonValue type = "all"`
+
+        - `class BetaWebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+          - `JsonValue type = "none"`
+
+        - `class BetaWebFetchUrlSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+          - `JsonValue type = "only"`
+
+          - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+            - `JsonValue type = "tool_reference"`
+
+            - `String name`
+
+        - `class BetaWebFetchUrlSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+          - `JsonValue type = "except"`
+
+          - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+            - `JsonValue type = "tool_reference"`
+
+            - `String name`
+
+      - `Optional<ServerToolResults> serverToolResults`
+
+        Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+        - `class BetaWebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class BetaWebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+        - `class BetaWebFetchUrlSourceOnly`
+
+          The tool filter variant under which only the named tools' results
+          contribute.
+
+        - `class BetaWebFetchUrlSourceExcept`
+
+          The tool filter variant under which every result but the named
+          tools' contributes.
+
+      - `Optional<UserInput> userInput`
+
+        Whether URLs in user messages are fetchable: "all" or "none".
+
+        - `class BetaWebFetchUrlSourceAll`
+
+          The `url_sources` variant under which a source contributes in
+          full: every result of the tool filter's source, or all user input.
+
+        - `class BetaWebFetchUrlSourceNone`
+
+          The `url_sources` variant under which a source contributes nothing:
+          no result of the tool filter's source, or no user input.
+
+  - `class BetaWebSearchTool20260209`
 
     - `JsonValue type = "web_search_20260209"`
 
@@ -32425,7 +33147,7 @@ public final class Main {
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class BetaWebFetchTool20260209:`
+  - `class BetaWebFetchTool20260209`
 
     - `JsonValue type = "web_fetch_20260209"`
 
@@ -32481,7 +33203,16 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaWebFetchTool20260309:`
+    - `Optional<BetaWebFetchUrlSources> urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+  - `class BetaWebFetchTool20260309`
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -32539,11 +33270,20 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `Optional<BetaWebFetchUrlSources> urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `Optional<Boolean> useCache`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class BetaWebSearchTool20260318:`
+  - `class BetaWebSearchTool20260318`
 
     - `JsonValue type = "web_search_20260318"`
 
@@ -32601,7 +33341,7 @@ public final class Main {
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class BetaWebFetchTool20260318:`
+  - `class BetaWebFetchTool20260318`
 
     - `JsonValue type = "web_fetch_20260318"`
 
@@ -32665,11 +33405,20 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
+    - `Optional<BetaWebFetchUrlSources> urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
     - `Optional<Boolean> useCache`
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class BetaAdvisorTool20260301:`
+  - `class BetaAdvisorTool20260301`
 
     - `JsonValue type = "advisor_20260301"`
 
@@ -32791,7 +33540,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolSearchToolBm25_20251119:`
+  - `class BetaToolSearchToolBm25_20251119`
 
     - `Type type`
 
@@ -32827,7 +33576,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaToolSearchToolRegex20251119:`
+  - `class BetaToolSearchToolRegex20251119`
 
     - `Type type`
 
@@ -32863,7 +33612,7 @@ public final class Main {
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BetaMcpToolset:`
+  - `class BetaMcpToolset`
 
     Configuration for a group of tools from an MCP server.
 
@@ -32900,7 +33649,7 @@ public final class Main {
 
 ### Beta Tool Use Block
 
-- `class BetaToolUseBlock:`
+- `class BetaToolUseBlock`
 
   - `JsonValue type = "tool_use"`
 
@@ -32916,13 +33665,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -32932,7 +33681,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -32948,7 +33697,7 @@ public final class Main {
 
 ### Beta Tool Use Block Param
 
-- `class BetaToolUseBlockParam:`
+- `class BetaToolUseBlockParam`
 
   - `JsonValue type = "tool_use"`
 
@@ -32985,13 +33734,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -33001,7 +33750,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -33017,7 +33766,7 @@ public final class Main {
 
 ### Beta Tool Uses Keep
 
-- `class BetaToolUsesKeep:`
+- `class BetaToolUsesKeep`
 
   - `JsonValue type = "tool_uses"`
 
@@ -33027,7 +33776,7 @@ public final class Main {
 
 ### Beta Tool Uses Trigger
 
-- `class BetaToolUsesTrigger:`
+- `class BetaToolUsesTrigger`
 
   - `JsonValue type = "tool_uses"`
 
@@ -33037,7 +33786,7 @@ public final class Main {
 
 ### Beta URL Image Source
 
-- `class BetaUrlImageSource:`
+- `class BetaUrlImageSource`
 
   - `JsonValue type = "url"`
 
@@ -33045,7 +33794,7 @@ public final class Main {
 
 ### Beta URL PDF Source
 
-- `class BetaUrlPdfSource:`
+- `class BetaUrlPdfSource`
 
   - `JsonValue type = "url"`
 
@@ -33053,7 +33802,7 @@ public final class Main {
 
 ### Beta Usage
 
-- `class BetaUsage:`
+- `class BetaUsage`
 
   - `Optional<BetaCacheCreation> cacheCreation`
 
@@ -33096,14 +33845,14 @@ public final class Main {
       resulting shift is zero because there was nothing to move. `not_applied`:
       no reprice was applied; the arm's `reason` says why.
 
-      - `class BetaFallbackCreditRedeemed:`
+      - `class BetaFallbackCreditRedeemed`
 
         The reprice was applied: the retry is billed as if the conversation
         had been on the retry model all along.
 
         - `JsonValue type = "redeemed"`
 
-      - `class BetaFallbackCreditNotApplied:`
+      - `class BetaFallbackCreditNotApplied`
 
         No reprice was applied; `reason` says why.
 
@@ -33173,7 +33922,7 @@ public final class Main {
 
     A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-    - `class BetaMessageIterationUsage:`
+    - `class BetaMessageIterationUsage`
 
       Token usage for a sampling iteration.
 
@@ -33283,7 +34032,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaCompactionIterationUsage:`
+    - `class BetaCompactionIterationUsage`
 
       Token usage for a compaction iteration.
 
@@ -33319,7 +34068,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaAdvisorMessageIterationUsage:`
+    - `class BetaAdvisorMessageIterationUsage`
 
       Token usage for an advisor sub-inference iteration.
 
@@ -33361,7 +34110,7 @@ public final class Main {
 
         minimum: 0
 
-    - `class BetaFallbackMessageIterationUsage:`
+    - `class BetaFallbackMessageIterationUsage`
 
       Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -33474,7 +34223,7 @@ public final class Main {
 
 ### Beta User Location
 
-- `class BetaUserLocation:`
+- `class BetaUserLocation`
 
   - `JsonValue type = "approximate"`
 
@@ -33504,7 +34253,7 @@ public final class Main {
 
 ### Beta Web Fetch Block
 
-- `class BetaWebFetchBlock:`
+- `class BetaWebFetchBlock`
 
   - `JsonValue type = "web_fetch_result"`
 
@@ -33520,7 +34269,7 @@ public final class Main {
 
     - `Source source`
 
-      - `class BetaBase64PdfSource:`
+      - `class BetaBase64PdfSource`
 
         - `JsonValue type = "base64"`
 
@@ -33530,7 +34279,7 @@ public final class Main {
 
         - `JsonValue mediaType = "application/pdf"`
 
-      - `class BetaPlainTextSource:`
+      - `class BetaPlainTextSource`
 
         - `JsonValue type = "text"`
 
@@ -33552,7 +34301,7 @@ public final class Main {
 
 ### Beta Web Fetch Block Param
 
-- `class BetaWebFetchBlockParam:`
+- `class BetaWebFetchBlockParam`
 
   - `JsonValue type = "web_fetch_result"`
 
@@ -33562,7 +34311,7 @@ public final class Main {
 
     - `Source source`
 
-      - `class BetaBase64PdfSource:`
+      - `class BetaBase64PdfSource`
 
         - `JsonValue type = "base64"`
 
@@ -33572,7 +34321,7 @@ public final class Main {
 
         - `JsonValue mediaType = "application/pdf"`
 
-      - `class BetaPlainTextSource:`
+      - `class BetaPlainTextSource`
 
         - `JsonValue type = "text"`
 
@@ -33580,7 +34329,7 @@ public final class Main {
 
         - `JsonValue mediaType = "text/plain"`
 
-      - `class BetaContentBlockSource:`
+      - `class BetaContentBlockSource`
 
         - `JsonValue type = "content"`
 
@@ -33590,7 +34339,7 @@ public final class Main {
 
           - `List<BetaContentBlockSourceContent>`
 
-            - `class BetaTextBlockParam:`
+            - `class BetaTextBlockParam`
 
               - `JsonValue type = "text"`
 
@@ -33621,7 +34370,7 @@ public final class Main {
 
               - `Optional<List<BetaTextCitationParam>> citations`
 
-                - `class BetaCitationCharLocationParam:`
+                - `class BetaCitationCharLocationParam`
 
                   - `JsonValue type = "char_location"`
 
@@ -33641,7 +34390,7 @@ public final class Main {
 
                     minimum: 0
 
-                - `class BetaCitationPageLocationParam:`
+                - `class BetaCitationPageLocationParam`
 
                   - `JsonValue type = "page_location"`
 
@@ -33661,7 +34410,7 @@ public final class Main {
 
                     minimum: 1
 
-                - `class BetaCitationContentBlockLocationParam:`
+                - `class BetaCitationContentBlockLocationParam`
 
                   - `JsonValue type = "content_block_location"`
 
@@ -33691,7 +34440,7 @@ public final class Main {
 
                     minimum: 0
 
-                - `class BetaCitationWebSearchResultLocationParam:`
+                - `class BetaCitationWebSearchResultLocationParam`
 
                   - `JsonValue type = "web_search_result_location"`
 
@@ -33707,7 +34456,7 @@ public final class Main {
 
                     minLength: 1
 
-                - `class BetaCitationSearchResultLocationParam:`
+                - `class BetaCitationSearchResultLocationParam`
 
                   - `JsonValue type = "search_result_location"`
 
@@ -33741,13 +34490,13 @@ public final class Main {
 
                   - `Optional<String> title`
 
-            - `class BetaImageBlockParam:`
+            - `class BetaImageBlockParam`
 
               - `JsonValue type = "image"`
 
               - `Source source`
 
-                - `class BetaBase64ImageSource:`
+                - `class BetaBase64ImageSource`
 
                   - `JsonValue type = "base64"`
 
@@ -33765,13 +34514,13 @@ public final class Main {
 
                     - `IMAGE_WEBP("image/webp")`
 
-                - `class BetaUrlImageSource:`
+                - `class BetaUrlImageSource`
 
                   - `JsonValue type = "url"`
 
                   - `String url`
 
-                - `class BetaFileImageSource:`
+                - `class BetaFileImageSource`
 
                   - `JsonValue type = "file"`
 
@@ -33793,13 +34542,13 @@ public final class Main {
 
                   - `ERROR("error")`
 
-      - `class BetaUrlPdfSource:`
+      - `class BetaUrlPdfSource`
 
         - `JsonValue type = "url"`
 
         - `String url`
 
-      - `class BetaFileDocumentSource:`
+      - `class BetaFileDocumentSource`
 
         - `JsonValue type = "file"`
 
@@ -33831,7 +34580,7 @@ public final class Main {
 
 ### Beta Web Fetch Tool 20250910
 
-- `class BetaWebFetchTool20250910:`
+- `class BetaWebFetchTool20250910`
 
   - `JsonValue type = "web_fetch_20250910"`
 
@@ -33906,9 +34655,100 @@ public final class Main {
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `Optional<BetaWebFetchUrlSources> urlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `Optional<ClientToolResults> clientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonValue type = "all"`
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonValue type = "none"`
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonValue type = "only"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonValue type = "except"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+    - `Optional<ServerToolResults> serverToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `Optional<UserInput> userInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
 ### Beta Web Fetch Tool 20260209
 
-- `class BetaWebFetchTool20260209:`
+- `class BetaWebFetchTool20260209`
 
   - `JsonValue type = "web_fetch_20260209"`
 
@@ -33983,9 +34823,100 @@ public final class Main {
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `Optional<BetaWebFetchUrlSources> urlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `Optional<ClientToolResults> clientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonValue type = "all"`
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonValue type = "none"`
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonValue type = "only"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonValue type = "except"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+    - `Optional<ServerToolResults> serverToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `Optional<UserInput> userInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
 ### Beta Web Fetch Tool 20260309
 
-- `class BetaWebFetchTool20260309:`
+- `class BetaWebFetchTool20260309`
 
   Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -34062,13 +34993,104 @@ public final class Main {
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `Optional<BetaWebFetchUrlSources> urlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `Optional<ClientToolResults> clientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonValue type = "all"`
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonValue type = "none"`
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonValue type = "only"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonValue type = "except"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+    - `Optional<ServerToolResults> serverToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `Optional<UserInput> userInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
   - `Optional<Boolean> useCache`
 
     Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
 ### Beta Web Fetch Tool 20260318
 
-- `class BetaWebFetchTool20260318:`
+- `class BetaWebFetchTool20260318`
 
   - `JsonValue type = "web_fetch_20260318"`
 
@@ -34151,19 +35173,110 @@ public final class Main {
 
     When true, guarantees schema validation on tool names and inputs
 
+  - `Optional<BetaWebFetchUrlSources> urlSources`
+
+    Which sources contribute to the set of URLs web fetch may fetch.
+
+    Each key is a tagged variant: `user_input` is `all` or `none`; the
+    two tool filters are `all`, `none`, `only` (only the named tools'
+    results) or `except` (every result but the named tools'). A named tool
+    must be declared in this request's `tools[]`.
+
+    - `Optional<ClientToolResults> clientToolResults`
+
+      Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+        - `JsonValue type = "all"`
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+        - `JsonValue type = "none"`
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+        - `JsonValue type = "only"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+        - `JsonValue type = "except"`
+
+        - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+          - `JsonValue type = "tool_reference"`
+
+          - `String name`
+
+    - `Optional<ServerToolResults> serverToolResults`
+
+      Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
+      - `class BetaWebFetchUrlSourceOnly`
+
+        The tool filter variant under which only the named tools' results
+        contribute.
+
+      - `class BetaWebFetchUrlSourceExcept`
+
+        The tool filter variant under which every result but the named
+        tools' contributes.
+
+    - `Optional<UserInput> userInput`
+
+      Whether URLs in user messages are fetchable: "all" or "none".
+
+      - `class BetaWebFetchUrlSourceAll`
+
+        The `url_sources` variant under which a source contributes in
+        full: every result of the tool filter's source, or all user input.
+
+      - `class BetaWebFetchUrlSourceNone`
+
+        The `url_sources` variant under which a source contributes nothing:
+        no result of the tool filter's source, or no user input.
+
   - `Optional<Boolean> useCache`
 
     Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
 ### Beta Web Fetch Tool Result Block
 
-- `class BetaWebFetchToolResultBlock:`
+- `class BetaWebFetchToolResultBlock`
 
   - `JsonValue type = "web_fetch_tool_result"`
 
   - `Content content`
 
-    - `class BetaWebFetchToolResultErrorBlock:`
+    - `class BetaWebFetchToolResultErrorBlock`
 
       - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -34189,7 +35302,7 @@ public final class Main {
 
         - `CONTENT_TOO_LARGE("content_too_large")`
 
-    - `class BetaWebFetchBlock:`
+    - `class BetaWebFetchBlock`
 
       - `JsonValue type = "web_fetch_result"`
 
@@ -34205,7 +35318,7 @@ public final class Main {
 
         - `Source source`
 
-          - `class BetaBase64PdfSource:`
+          - `class BetaBase64PdfSource`
 
             - `JsonValue type = "base64"`
 
@@ -34215,7 +35328,7 @@ public final class Main {
 
             - `JsonValue mediaType = "application/pdf"`
 
-          - `class BetaPlainTextSource:`
+          - `class BetaPlainTextSource`
 
             - `JsonValue type = "text"`
 
@@ -34241,13 +35354,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -34257,7 +35370,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -34267,13 +35380,13 @@ public final class Main {
 
 ### Beta Web Fetch Tool Result Block Param
 
-- `class BetaWebFetchToolResultBlockParam:`
+- `class BetaWebFetchToolResultBlockParam`
 
   - `JsonValue type = "web_fetch_tool_result"`
 
   - `Content content`
 
-    - `class BetaWebFetchToolResultErrorBlockParam:`
+    - `class BetaWebFetchToolResultErrorBlockParam`
 
       - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -34299,7 +35412,7 @@ public final class Main {
 
         - `CONTENT_TOO_LARGE("content_too_large")`
 
-    - `class BetaWebFetchBlockParam:`
+    - `class BetaWebFetchBlockParam`
 
       - `JsonValue type = "web_fetch_result"`
 
@@ -34309,7 +35422,7 @@ public final class Main {
 
         - `Source source`
 
-          - `class BetaBase64PdfSource:`
+          - `class BetaBase64PdfSource`
 
             - `JsonValue type = "base64"`
 
@@ -34319,7 +35432,7 @@ public final class Main {
 
             - `JsonValue mediaType = "application/pdf"`
 
-          - `class BetaPlainTextSource:`
+          - `class BetaPlainTextSource`
 
             - `JsonValue type = "text"`
 
@@ -34327,7 +35440,7 @@ public final class Main {
 
             - `JsonValue mediaType = "text/plain"`
 
-          - `class BetaContentBlockSource:`
+          - `class BetaContentBlockSource`
 
             - `JsonValue type = "content"`
 
@@ -34337,7 +35450,7 @@ public final class Main {
 
               - `List<BetaContentBlockSourceContent>`
 
-                - `class BetaTextBlockParam:`
+                - `class BetaTextBlockParam`
 
                   - `JsonValue type = "text"`
 
@@ -34368,7 +35481,7 @@ public final class Main {
 
                   - `Optional<List<BetaTextCitationParam>> citations`
 
-                    - `class BetaCitationCharLocationParam:`
+                    - `class BetaCitationCharLocationParam`
 
                       - `JsonValue type = "char_location"`
 
@@ -34388,7 +35501,7 @@ public final class Main {
 
                         minimum: 0
 
-                    - `class BetaCitationPageLocationParam:`
+                    - `class BetaCitationPageLocationParam`
 
                       - `JsonValue type = "page_location"`
 
@@ -34408,7 +35521,7 @@ public final class Main {
 
                         minimum: 1
 
-                    - `class BetaCitationContentBlockLocationParam:`
+                    - `class BetaCitationContentBlockLocationParam`
 
                       - `JsonValue type = "content_block_location"`
 
@@ -34438,7 +35551,7 @@ public final class Main {
 
                         minimum: 0
 
-                    - `class BetaCitationWebSearchResultLocationParam:`
+                    - `class BetaCitationWebSearchResultLocationParam`
 
                       - `JsonValue type = "web_search_result_location"`
 
@@ -34454,7 +35567,7 @@ public final class Main {
 
                         minLength: 1
 
-                    - `class BetaCitationSearchResultLocationParam:`
+                    - `class BetaCitationSearchResultLocationParam`
 
                       - `JsonValue type = "search_result_location"`
 
@@ -34488,13 +35601,13 @@ public final class Main {
 
                       - `Optional<String> title`
 
-                - `class BetaImageBlockParam:`
+                - `class BetaImageBlockParam`
 
                   - `JsonValue type = "image"`
 
                   - `Source source`
 
-                    - `class BetaBase64ImageSource:`
+                    - `class BetaBase64ImageSource`
 
                       - `JsonValue type = "base64"`
 
@@ -34512,13 +35625,13 @@ public final class Main {
 
                         - `IMAGE_WEBP("image/webp")`
 
-                    - `class BetaUrlImageSource:`
+                    - `class BetaUrlImageSource`
 
                       - `JsonValue type = "url"`
 
                       - `String url`
 
-                    - `class BetaFileImageSource:`
+                    - `class BetaFileImageSource`
 
                       - `JsonValue type = "file"`
 
@@ -34540,13 +35653,13 @@ public final class Main {
 
                       - `ERROR("error")`
 
-          - `class BetaUrlPdfSource:`
+          - `class BetaUrlPdfSource`
 
             - `JsonValue type = "url"`
 
             - `String url`
 
-          - `class BetaFileDocumentSource:`
+          - `class BetaFileDocumentSource`
 
             - `JsonValue type = "file"`
 
@@ -34586,13 +35699,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -34602,7 +35715,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -34612,7 +35725,7 @@ public final class Main {
 
 ### Beta Web Fetch Tool Result Error Block
 
-- `class BetaWebFetchToolResultErrorBlock:`
+- `class BetaWebFetchToolResultErrorBlock`
 
   - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -34640,7 +35753,7 @@ public final class Main {
 
 ### Beta Web Fetch Tool Result Error Block Param
 
-- `class BetaWebFetchToolResultErrorBlockParam:`
+- `class BetaWebFetchToolResultErrorBlockParam`
 
   - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -34668,7 +35781,7 @@ public final class Main {
 
 ### Beta Web Fetch Tool Result Error Code
 
-- `enum BetaWebFetchToolResultErrorCode:`
+- `enum BetaWebFetchToolResultErrorCode`
 
   - `INVALID_TOOL_INPUT("invalid_tool_input")`
 
@@ -34690,9 +35803,161 @@ public final class Main {
 
   - `CONTENT_TOO_LARGE("content_too_large")`
 
+### Beta Web Fetch URL Source All
+
+- `class BetaWebFetchUrlSourceAll`
+
+  The `url_sources` variant under which a source contributes in
+  full: every result of the tool filter's source, or all user input.
+
+  - `JsonValue type = "all"`
+
+### Beta Web Fetch URL Source Except
+
+- `class BetaWebFetchUrlSourceExcept`
+
+  The tool filter variant under which every result but the named
+  tools' contributes.
+
+  - `JsonValue type = "except"`
+
+  - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+    - `JsonValue type = "tool_reference"`
+
+    - `String name`
+
+### Beta Web Fetch URL Source None
+
+- `class BetaWebFetchUrlSourceNone`
+
+  The `url_sources` variant under which a source contributes nothing:
+  no result of the tool filter's source, or no user input.
+
+  - `JsonValue type = "none"`
+
+### Beta Web Fetch URL Source Only
+
+- `class BetaWebFetchUrlSourceOnly`
+
+  The tool filter variant under which only the named tools' results
+  contribute.
+
+  - `JsonValue type = "only"`
+
+  - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+    - `JsonValue type = "tool_reference"`
+
+    - `String name`
+
+### Beta Web Fetch URL Source Tool Reference
+
+- `class BetaWebFetchUrlSourceToolReference`
+
+  One entry of a tool filter's `tools`: it must name a tool declared
+  in this request's `tools[]`.
+
+  - `JsonValue type = "tool_reference"`
+
+  - `String name`
+
+### Beta Web Fetch URL Sources
+
+- `class BetaWebFetchUrlSources`
+
+  Which sources contribute to the set of URLs web fetch may fetch.
+
+  Each key is a tagged variant: `user_input` is `all` or `none`; the
+  two tool filters are `all`, `none`, `only` (only the named tools'
+  results) or `except` (every result but the named tools'). A named tool
+  must be declared in this request's `tools[]`.
+
+  - `Optional<ClientToolResults> clientToolResults`
+
+    Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+    - `class BetaWebFetchUrlSourceAll`
+
+      The `url_sources` variant under which a source contributes in
+      full: every result of the tool filter's source, or all user input.
+
+      - `JsonValue type = "all"`
+
+    - `class BetaWebFetchUrlSourceNone`
+
+      The `url_sources` variant under which a source contributes nothing:
+      no result of the tool filter's source, or no user input.
+
+      - `JsonValue type = "none"`
+
+    - `class BetaWebFetchUrlSourceOnly`
+
+      The tool filter variant under which only the named tools' results
+      contribute.
+
+      - `JsonValue type = "only"`
+
+      - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+        - `JsonValue type = "tool_reference"`
+
+        - `String name`
+
+    - `class BetaWebFetchUrlSourceExcept`
+
+      The tool filter variant under which every result but the named
+      tools' contributes.
+
+      - `JsonValue type = "except"`
+
+      - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+        - `JsonValue type = "tool_reference"`
+
+        - `String name`
+
+  - `Optional<ServerToolResults> serverToolResults`
+
+    Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+    - `class BetaWebFetchUrlSourceAll`
+
+      The `url_sources` variant under which a source contributes in
+      full: every result of the tool filter's source, or all user input.
+
+    - `class BetaWebFetchUrlSourceNone`
+
+      The `url_sources` variant under which a source contributes nothing:
+      no result of the tool filter's source, or no user input.
+
+    - `class BetaWebFetchUrlSourceOnly`
+
+      The tool filter variant under which only the named tools' results
+      contribute.
+
+    - `class BetaWebFetchUrlSourceExcept`
+
+      The tool filter variant under which every result but the named
+      tools' contributes.
+
+  - `Optional<UserInput> userInput`
+
+    Whether URLs in user messages are fetchable: "all" or "none".
+
+    - `class BetaWebFetchUrlSourceAll`
+
+      The `url_sources` variant under which a source contributes in
+      full: every result of the tool filter's source, or all user input.
+
+    - `class BetaWebFetchUrlSourceNone`
+
+      The `url_sources` variant under which a source contributes nothing:
+      no result of the tool filter's source, or no user input.
+
 ### Beta Web Search Result Block
 
-- `class BetaWebSearchResultBlock:`
+- `class BetaWebSearchResultBlock`
 
   - `JsonValue type = "web_search_result"`
 
@@ -34706,7 +35971,7 @@ public final class Main {
 
 ### Beta Web Search Result Block Param
 
-- `class BetaWebSearchResultBlockParam:`
+- `class BetaWebSearchResultBlockParam`
 
   - `JsonValue type = "web_search_result"`
 
@@ -34720,7 +35985,7 @@ public final class Main {
 
 ### Beta Web Search Tool 20250305
 
-- `class BetaWebSearchTool20250305:`
+- `class BetaWebSearchTool20250305`
 
   - `JsonValue type = "web_search_20250305"`
 
@@ -34815,7 +36080,7 @@ public final class Main {
 
 ### Beta Web Search Tool 20260209
 
-- `class BetaWebSearchTool20260209:`
+- `class BetaWebSearchTool20260209`
 
   - `JsonValue type = "web_search_20260209"`
 
@@ -34910,7 +36175,7 @@ public final class Main {
 
 ### Beta Web Search Tool 20260318
 
-- `class BetaWebSearchTool20260318:`
+- `class BetaWebSearchTool20260318`
 
   - `JsonValue type = "web_search_20260318"`
 
@@ -35013,7 +36278,7 @@ public final class Main {
 
 ### Beta Web Search Tool Request Error
 
-- `class BetaWebSearchToolRequestError:`
+- `class BetaWebSearchToolRequestError`
 
   - `JsonValue type = "web_search_tool_result_error"`
 
@@ -35033,13 +36298,13 @@ public final class Main {
 
 ### Beta Web Search Tool Result Block
 
-- `class BetaWebSearchToolResultBlock:`
+- `class BetaWebSearchToolResultBlock`
 
   - `JsonValue type = "web_search_tool_result"`
 
   - `BetaWebSearchToolResultBlockContent content`
 
-    - `class BetaWebSearchToolResultError:`
+    - `class BetaWebSearchToolResultError`
 
       - `JsonValue type = "web_search_tool_result_error"`
 
@@ -35075,13 +36340,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -35091,7 +36356,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -35103,7 +36368,7 @@ public final class Main {
 
 - `class BetaWebSearchToolResultBlockContent: union`
 
-  - `class BetaWebSearchToolResultError:`
+  - `class BetaWebSearchToolResultError`
 
     - `JsonValue type = "web_search_tool_result_error"`
 
@@ -35135,7 +36400,7 @@ public final class Main {
 
 ### Beta Web Search Tool Result Block Param
 
-- `class BetaWebSearchToolResultBlockParam:`
+- `class BetaWebSearchToolResultBlockParam`
 
   - `JsonValue type = "web_search_tool_result"`
 
@@ -35153,7 +36418,7 @@ public final class Main {
 
       - `Optional<String> pageAge`
 
-    - `class BetaWebSearchToolRequestError:`
+    - `class BetaWebSearchToolRequestError`
 
       - `JsonValue type = "web_search_tool_result_error"`
 
@@ -35198,13 +36463,13 @@ public final class Main {
 
   - `Optional<Caller> caller`
 
-    - `class BetaDirectCaller:`
+    - `class BetaDirectCaller`
 
       Tool invocation directly from the model.
 
       - `JsonValue type = "direct"`
 
-    - `class BetaServerToolCaller:`
+    - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
@@ -35214,7 +36479,7 @@ public final class Main {
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `class BetaServerToolCaller20260120:`
+    - `class BetaServerToolCaller20260120`
 
       - `JsonValue type = "code_execution_20260120"`
 
@@ -35238,7 +36503,7 @@ public final class Main {
 
     - `Optional<String> pageAge`
 
-  - `class BetaWebSearchToolRequestError:`
+  - `class BetaWebSearchToolRequestError`
 
     - `JsonValue type = "web_search_tool_result_error"`
 
@@ -35258,7 +36523,7 @@ public final class Main {
 
 ### Beta Web Search Tool Result Error
 
-- `class BetaWebSearchToolResultError:`
+- `class BetaWebSearchToolResultError`
 
   - `JsonValue type = "web_search_tool_result_error"`
 
@@ -35278,7 +36543,7 @@ public final class Main {
 
 ### Beta Web Search Tool Result Error Code
 
-- `enum BetaWebSearchToolResultErrorCode:`
+- `enum BetaWebSearchToolResultErrorCode`
 
   - `INVALID_TOOL_INPUT("invalid_tool_input")`
 
@@ -35404,6 +36669,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> userProfileId`
 
     The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -35499,7 +36766,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `List<BetaContentBlockParam>`
 
-            - `class BetaTextBlockParam:`
+            - `class BetaTextBlockParam`
 
               - `JsonValue type = "text"`
 
@@ -35530,7 +36797,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<List<BetaTextCitationParam>> citations`
 
-                - `class BetaCitationCharLocationParam:`
+                - `class BetaCitationCharLocationParam`
 
                   - `JsonValue type = "char_location"`
 
@@ -35550,7 +36817,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `class BetaCitationPageLocationParam:`
+                - `class BetaCitationPageLocationParam`
 
                   - `JsonValue type = "page_location"`
 
@@ -35570,7 +36837,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                - `class BetaCitationContentBlockLocationParam:`
+                - `class BetaCitationContentBlockLocationParam`
 
                   - `JsonValue type = "content_block_location"`
 
@@ -35600,7 +36867,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `class BetaCitationWebSearchResultLocationParam:`
+                - `class BetaCitationWebSearchResultLocationParam`
 
                   - `JsonValue type = "web_search_result_location"`
 
@@ -35616,7 +36883,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minLength: 1
 
-                - `class BetaCitationSearchResultLocationParam:`
+                - `class BetaCitationSearchResultLocationParam`
 
                   - `JsonValue type = "search_result_location"`
 
@@ -35650,13 +36917,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> title`
 
-            - `class BetaImageBlockParam:`
+            - `class BetaImageBlockParam`
 
               - `JsonValue type = "image"`
 
               - `Source source`
 
-                - `class BetaBase64ImageSource:`
+                - `class BetaBase64ImageSource`
 
                   - `JsonValue type = "base64"`
 
@@ -35674,13 +36941,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `IMAGE_WEBP("image/webp")`
 
-                - `class BetaUrlImageSource:`
+                - `class BetaUrlImageSource`
 
                   - `JsonValue type = "url"`
 
                   - `String url`
 
-                - `class BetaFileImageSource:`
+                - `class BetaFileImageSource`
 
                   - `JsonValue type = "file"`
 
@@ -35702,13 +36969,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ERROR("error")`
 
-            - `class BetaRequestDocumentBlock:`
+            - `class BetaRequestDocumentBlock`
 
               - `JsonValue type = "document"`
 
               - `Source source`
 
-                - `class BetaBase64PdfSource:`
+                - `class BetaBase64PdfSource`
 
                   - `JsonValue type = "base64"`
 
@@ -35718,7 +36985,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `JsonValue mediaType = "application/pdf"`
 
-                - `class BetaPlainTextSource:`
+                - `class BetaPlainTextSource`
 
                   - `JsonValue type = "text"`
 
@@ -35726,7 +36993,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `JsonValue mediaType = "text/plain"`
 
-                - `class BetaContentBlockSource:`
+                - `class BetaContentBlockSource`
 
                   - `JsonValue type = "content"`
 
@@ -35736,17 +37003,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `List<BetaContentBlockSourceContent>`
 
-                      - `class BetaTextBlockParam:`
+                      - `class BetaTextBlockParam`
 
-                      - `class BetaImageBlockParam:`
+                      - `class BetaImageBlockParam`
 
-                - `class BetaUrlPdfSource:`
+                - `class BetaUrlPdfSource`
 
                   - `JsonValue type = "url"`
 
                   - `String url`
 
-                - `class BetaFileDocumentSource:`
+                - `class BetaFileDocumentSource`
 
                   - `JsonValue type = "file"`
 
@@ -35768,7 +37035,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 500, minLength: 1
 
-            - `class BetaSearchResultBlockParam:`
+            - `class BetaSearchResultBlockParam`
 
               - `JsonValue type = "search_result"`
 
@@ -35796,7 +37063,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<BetaCitationsConfigParam> citations`
 
-            - `class BetaThinkingBlockParam:`
+            - `class BetaThinkingBlockParam`
 
               - `JsonValue type = "thinking"`
 
@@ -35810,7 +37077,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-            - `class BetaRedactedThinkingBlockParam:`
+            - `class BetaRedactedThinkingBlockParam`
 
               - `JsonValue type = "redacted_thinking"`
 
@@ -35818,7 +37085,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `class BetaToolUseBlockParam:`
+            - `class BetaToolUseBlockParam`
 
               - `JsonValue type = "tool_use"`
 
@@ -35838,13 +37105,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Caller> caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
                   - `JsonValue type = "direct"`
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
@@ -35854,7 +37121,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
                   - `JsonValue type = "code_execution_20260120"`
 
@@ -35868,7 +37135,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `class BetaToolResultBlockParam:`
+            - `class BetaToolResultBlockParam`
 
               - `JsonValue type = "tool_result"`
 
@@ -35886,15 +37153,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `List<Block>`
 
-                  - `class BetaTextBlockParam:`
+                  - `class BetaTextBlockParam`
 
-                  - `class BetaImageBlockParam:`
+                  - `class BetaImageBlockParam`
 
-                  - `class BetaSearchResultBlockParam:`
+                  - `class BetaSearchResultBlockParam`
 
-                  - `class BetaRequestDocumentBlock:`
+                  - `class BetaRequestDocumentBlock`
 
-                  - `class BetaToolReferenceBlockParam:`
+                  - `class BetaToolReferenceBlockParam`
 
                     Tool reference block that can be included in tool_result content.
 
@@ -35908,7 +37175,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       Create a cache control breakpoint at this content block.
 
-                  - `class BetaBrowserStateBlockParam:`
+                  - `class BetaBrowserStateBlockParam`
 
                     The caller's browser state after a browser toolset member call —
                     the full inventory of open tabs, which tab is active, and any side
@@ -35958,7 +37225,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       maxItems: 200, minItems: 1
 
-                      - `class BetaBrowserStateChangeTabOpened:`
+                      - `class BetaBrowserStateChangeTabOpened`
 
                         A tab this call's execution opened that remains open at its end —
                         the creation delta of the `tabs` inventory, not an event log.
@@ -35976,7 +37243,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BetaBrowserStateChangeDownloadStarted:`
+                      - `class BetaBrowserStateChangeDownloadStarted`
 
                         A file download that started during this call.
 
@@ -35994,7 +37261,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `class BetaBrowserStateChangeDownloadCompleted:`
+                      - `class BetaBrowserStateChangeDownloadCompleted`
 
                         A file download that finished during this call, reported with the
                         same `download_id` as its `download_started` — or without a prior
@@ -36027,7 +37294,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minimum: 0
 
-                      - `class BetaBrowserStateChangeDownloadFailed:`
+                      - `class BetaBrowserStateChangeDownloadFailed`
 
                         A file download that failed — or was cancelled — during this call.
 
@@ -36059,7 +37326,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `class BetaServerToolUseBlockParam:`
+            - `class BetaServerToolUseBlockParam`
 
               - `JsonValue type = "server_tool_use"`
 
@@ -36093,17 +37360,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Caller> caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
-            - `class BetaWebSearchToolResultBlockParam:`
+            - `class BetaWebSearchToolResultBlockParam`
 
               - `JsonValue type = "web_search_tool_result"`
 
@@ -36121,7 +37388,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> pageAge`
 
-                - `class BetaWebSearchToolRequestError:`
+                - `class BetaWebSearchToolRequestError`
 
                   - `JsonValue type = "web_search_tool_result_error"`
 
@@ -36149,23 +37416,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Caller> caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
-            - `class BetaWebFetchToolResultBlockParam:`
+            - `class BetaWebFetchToolResultBlockParam`
 
               - `JsonValue type = "web_fetch_tool_result"`
 
               - `Content content`
 
-                - `class BetaWebFetchToolResultErrorBlockParam:`
+                - `class BetaWebFetchToolResultErrorBlockParam`
 
                   - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -36191,7 +37458,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `CONTENT_TOO_LARGE("content_too_large")`
 
-                - `class BetaWebFetchBlockParam:`
+                - `class BetaWebFetchBlockParam`
 
                   - `JsonValue type = "web_fetch_result"`
 
@@ -36215,23 +37482,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Caller> caller`
 
-                - `class BetaDirectCaller:`
+                - `class BetaDirectCaller`
 
                   Tool invocation directly from the model.
 
-                - `class BetaServerToolCaller:`
+                - `class BetaServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
-                - `class BetaServerToolCaller20260120:`
+                - `class BetaServerToolCaller20260120`
 
-            - `class BetaAdvisorToolResultBlockParam:`
+            - `class BetaAdvisorToolResultBlockParam`
 
               - `JsonValue type = "advisor_tool_result"`
 
               - `Content content`
 
-                - `class BetaAdvisorToolResultErrorParam:`
+                - `class BetaAdvisorToolResultErrorParam`
 
                   - `JsonValue type = "advisor_tool_result_error"`
 
@@ -36251,7 +37518,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `MODEL_NOT_FOUND("model_not_found")`
 
-                - `class BetaAdvisorResultBlockParam:`
+                - `class BetaAdvisorResultBlockParam`
 
                   - `JsonValue type = "advisor_result"`
 
@@ -36259,7 +37526,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> stopReason`
 
-                - `class BetaAdvisorRedactedResultBlockParam:`
+                - `class BetaAdvisorRedactedResultBlockParam`
 
                   - `JsonValue type = "advisor_redacted_result"`
 
@@ -36277,13 +37544,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaCodeExecutionToolResultBlockParam:`
+            - `class BetaCodeExecutionToolResultBlockParam`
 
               - `JsonValue type = "code_execution_tool_result"`
 
               - `BetaCodeExecutionToolResultBlockParamContent content`
 
-                - `class BetaCodeExecutionToolResultErrorParam:`
+                - `class BetaCodeExecutionToolResultErrorParam`
 
                   - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -36297,7 +37564,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                - `class BetaCodeExecutionResultBlockParam:`
+                - `class BetaCodeExecutionResultBlockParam`
 
                   - `JsonValue type = "code_execution_result"`
 
@@ -36313,7 +37580,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                - `class BetaEncryptedCodeExecutionResultBlockParam:`
+                - `class BetaEncryptedCodeExecutionResultBlockParam`
 
                   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -36339,13 +37606,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaBashCodeExecutionToolResultBlockParam:`
+            - `class BetaBashCodeExecutionToolResultBlockParam`
 
               - `JsonValue type = "bash_code_execution_tool_result"`
 
               - `Content content`
 
-                - `class BetaBashCodeExecutionToolResultErrorParam:`
+                - `class BetaBashCodeExecutionToolResultErrorParam`
 
                   - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -36361,7 +37628,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                - `class BetaBashCodeExecutionResultBlockParam:`
+                - `class BetaBashCodeExecutionResultBlockParam`
 
                   - `JsonValue type = "bash_code_execution_result"`
 
@@ -36385,13 +37652,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaTextEditorCodeExecutionToolResultBlockParam:`
+            - `class BetaTextEditorCodeExecutionToolResultBlockParam`
 
               - `JsonValue type = "text_editor_code_execution_tool_result"`
 
               - `Content content`
 
-                - `class BetaTextEditorCodeExecutionToolResultErrorParam:`
+                - `class BetaTextEditorCodeExecutionToolResultErrorParam`
 
                   - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -36409,7 +37676,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> errorMessage`
 
-                - `class BetaTextEditorCodeExecutionViewResultBlockParam:`
+                - `class BetaTextEditorCodeExecutionViewResultBlockParam`
 
                   - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -36429,13 +37696,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<Long> totalLines`
 
-                - `class BetaTextEditorCodeExecutionCreateResultBlockParam:`
+                - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
 
                   - `JsonValue type = "text_editor_code_execution_create_result"`
 
                   - `boolean isFileUpdate`
 
-                - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam:`
+                - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
                   - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -36457,13 +37724,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaToolSearchToolResultBlockParam:`
+            - `class BetaToolSearchToolResultBlockParam`
 
               - `JsonValue type = "tool_search_tool_result"`
 
               - `Content content`
 
-                - `class BetaToolSearchToolResultErrorParam:`
+                - `class BetaToolSearchToolResultErrorParam`
 
                   - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -36479,7 +37746,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> errorMessage`
 
-                - `class BetaToolSearchToolSearchResultBlockParam:`
+                - `class BetaToolSearchToolSearchResultBlockParam`
 
                   - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -36503,7 +37770,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaMcpToolUseBlockParam:`
+            - `class BetaMcpToolUseBlockParam`
 
               - `JsonValue type = "mcp_tool_use"`
 
@@ -36523,7 +37790,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaRequestMcpToolResultBlockParam:`
+            - `class BetaRequestMcpToolResultBlockParam`
 
               - `JsonValue type = "mcp_tool_result"`
 
@@ -36555,7 +37822,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<Boolean> isError`
 
-            - `class BetaContainerUploadBlockParam:`
+            - `class BetaContainerUploadBlockParam`
 
               A content block that represents a file to be uploaded to the container
               Files uploaded via this block will be available in the container's input directory.
@@ -36568,7 +37835,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaCompactionBlockParam:`
+            - `class BetaCompactionBlockParam`
 
               A compaction block containing summary of previous context.
 
@@ -36592,7 +37859,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Opaque metadata from prior compaction, to be round-tripped verbatim
 
-            - `class BetaRequestToolAdditionBlock:`
+              - `Optional<String> signature`
+
+                The block's signature as returned, to be sent back verbatim
+
+            - `class BetaRequestToolAdditionBlock`
 
               Mid-conversation directive to surface a declared tool.
 
@@ -36604,7 +37875,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Tool tool`
 
-                - `class BetaToolChangeToolReference:`
+                - `class BetaToolChangeToolReference`
 
                   Reference to a single tool the caller declared directly in
                   `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -36617,7 +37888,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                - `class BetaToolChangeMcpToolReference:`
+                - `class BetaToolChangeMcpToolReference`
 
                   Reference to a single MCP tool by its server and remote name — the
                   same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -36628,7 +37899,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String serverName`
 
-                - `class BetaToolChangeMcpToolsetReference:`
+                - `class BetaToolChangeMcpToolsetReference`
 
                   Reference to every tool in the named MCP server's toolset.
 
@@ -36640,7 +37911,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaRequestToolRemovalBlock:`
+            - `class BetaRequestToolRemovalBlock`
 
               Mid-conversation directive to withdraw a tool.
 
@@ -36652,19 +37923,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Tool tool`
 
-                - `class BetaToolChangeToolReference:`
+                - `class BetaToolChangeToolReference`
 
                   Reference to a single tool the caller declared directly in
                   `tools[]`. Does not accept the composed `{server}_{name}` form the
                   server assigns to MCP-resolved tools — use `mcp_tool_reference` or
                   `mcp_toolset_reference` for those.
 
-                - `class BetaToolChangeMcpToolReference:`
+                - `class BetaToolChangeMcpToolReference`
 
                   Reference to a single MCP tool by its server and remote name — the
                   same `server_name`/`name` pair `mcp_tool_use` carries.
 
-                - `class BetaToolChangeMcpToolsetReference:`
+                - `class BetaToolChangeMcpToolsetReference`
 
                   Reference to every tool in the named MCP server's toolset.
 
@@ -36672,7 +37943,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Create a cache control breakpoint at this content block.
 
-            - `class BetaFallbackBlockParam:`
+            - `class BetaFallbackBlockParam`
 
               A `fallback` block echoed back from a prior response.
 
@@ -36824,11 +38095,30 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
+      - `Optional<BetaCompactionConfig> compaction`
+
+        Compact the whole conversation and return a signed `compaction` block,
+        alone, that a later request sends back first in `messages`, in place of
+        the messages it summarizes. There is no trigger and no pause flag: sending
+        the parameter compacts, and nothing is sampled after the block.
+
+        The summarization prompt is the server's own unless `instructions` are
+        given, which then replace it for this request; a value that is empty or
+        only whitespace counts as absent.
+
+        - `JsonValue type = "summarize"`
+
+        - `Optional<String> instructions`
+
+          Replaces the server's default summarization prompt for this request. An empty or whitespace-only value counts as absent.
+
+          maxLength: 16384
+
       - `Optional<Container> container`
 
         Container identifier for reuse across requests.
 
-        - `class BetaContainerParams:`
+        - `class BetaContainerParams`
 
           Container parameters with skills to be loaded.
 
@@ -36876,7 +38166,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           minItems: 0
 
-          - `class BetaClearToolUses20250919Edit:`
+          - `class BetaClearToolUses20250919Edit`
 
             - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -36916,7 +38206,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Condition that triggers the context management strategy
 
-              - `class BetaInputTokensTrigger:`
+              - `class BetaInputTokensTrigger`
 
                 - `JsonValue type = "input_tokens"`
 
@@ -36924,7 +38214,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class BetaToolUsesTrigger:`
+              - `class BetaToolUsesTrigger`
 
                 - `JsonValue type = "tool_uses"`
 
@@ -36932,7 +38222,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-          - `class BetaClearThinking20251015Edit:`
+          - `class BetaClearThinking20251015Edit`
 
             - `JsonValue type = "clear_thinking_20251015"`
 
@@ -36940,7 +38230,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-              - `class BetaThinkingTurns:`
+              - `class BetaThinkingTurns`
 
                 - `JsonValue type = "thinking_turns"`
 
@@ -36948,13 +38238,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class BetaAllThinkingTurns:`
+              - `class BetaAllThinkingTurns`
 
                 - `JsonValue type = "all"`
 
               - `JsonValue`
 
-          - `class BetaCompact20260112Edit:`
+          - `class BetaCompact20260112Edit`
 
             Automatically compact older context when reaching the configured trigger threshold.
 
@@ -37008,7 +38298,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `String`
 
-        - `class BetaFallbackCreditTokenParam:`
+        - `class BetaFallbackCreditTokenParam`
 
           Object form of `fallback_credit_token`: the token plus a redemption
           mode.
@@ -37102,7 +38392,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Optional<Thinking> thinking`
 
-            - `class BetaThinkingConfigEnabled:`
+            - `class BetaThinkingConfigEnabled`
 
               - `JsonValue type = "enabled"`
 
@@ -37144,11 +38434,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `UPDATES("updates")`
 
-            - `class BetaThinkingConfigDisabled:`
+            - `class BetaThinkingConfigDisabled`
 
               - `JsonValue type = "disabled"`
 
-            - `class BetaThinkingConfigAdaptive:`
+            - `class BetaThinkingConfigAdaptive`
 
               - `JsonValue type = "adaptive"`
 
@@ -37272,17 +38562,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `class BetaThinkingConfigEnabled:`
+        - `class BetaThinkingConfigEnabled`
 
-        - `class BetaThinkingConfigDisabled:`
+        - `class BetaThinkingConfigDisabled`
 
-        - `class BetaThinkingConfigAdaptive:`
+        - `class BetaThinkingConfigAdaptive`
 
       - `Optional<BetaToolChoice> toolChoice`
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-        - `class BetaToolChoiceAuto:`
+        - `class BetaToolChoiceAuto`
 
           The model will automatically decide whether to use tools.
 
@@ -37294,7 +38584,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-        - `class BetaToolChoiceAny:`
+        - `class BetaToolChoiceAny`
 
           The model will use any available tools.
 
@@ -37306,7 +38596,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `class BetaToolChoiceTool:`
+        - `class BetaToolChoiceTool`
 
           The model will use the specified tool with `tool_choice.name`.
 
@@ -37322,7 +38612,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `class BetaToolChoiceNone:`
+        - `class BetaToolChoiceNone`
 
           The model will not be allowed to use tools.
 
@@ -37392,7 +38682,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-        - `class BetaTool:`
+        - `class BetaTool`
 
           - `Optional<Type> type`
 
@@ -37450,7 +38740,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolBash20241022:`
+        - `class BetaToolBash20241022`
 
           - `JsonValue type = "bash_20241022"`
 
@@ -37484,7 +38774,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolBash20250124:`
+        - `class BetaToolBash20250124`
 
           - `JsonValue type = "bash_20250124"`
 
@@ -37518,7 +38808,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20250522:`
+        - `class BetaCodeExecutionTool20250522`
 
           - `JsonValue type = "code_execution_20250522"`
 
@@ -37550,7 +38840,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20250825:`
+        - `class BetaCodeExecutionTool20250825`
 
           - `JsonValue type = "code_execution_20250825"`
 
@@ -37582,7 +38872,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20260120:`
+        - `class BetaCodeExecutionTool20260120`
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -37616,7 +38906,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaCodeExecutionTool20260521:`
+        - `class BetaCodeExecutionTool20260521`
 
           Code execution tool with REPL state persistence.
 
@@ -37650,7 +38940,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaBrowserToolset20260801:`
+        - `class BetaBrowserToolset20260801`
 
           The browser toolset: a single `tools[]` entry (carrying no
           `name`) that declares the browser tool family. The model is served
@@ -38044,7 +39334,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `class BetaToolComputerUse20241022:`
+        - `class BetaToolComputerUse20241022`
 
           - `JsonValue type = "computer_20241022"`
 
@@ -38096,7 +39386,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaMemoryTool20250818:`
+        - `class BetaMemoryTool20250818`
 
           - `JsonValue type = "memory_20250818"`
 
@@ -38130,7 +39420,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolComputerUse20250124:`
+        - `class BetaToolComputerUse20250124`
 
           - `JsonValue type = "computer_20250124"`
 
@@ -38182,7 +39472,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolTextEditor20241022:`
+        - `class BetaToolTextEditor20241022`
 
           - `JsonValue type = "text_editor_20241022"`
 
@@ -38216,7 +39506,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolComputerUse20251124:`
+        - `class BetaToolComputerUse20251124`
 
           - `JsonValue type = "computer_20251124"`
 
@@ -38272,7 +39562,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaComputerToolset20260801:`
+        - `class BetaComputerToolset20260801`
 
           The computer toolset: a single `tools[]` entry (carrying no
           `name`) that declares the computer tool family. The model is
@@ -38502,7 +39792,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `class BetaToolTextEditor20250124:`
+        - `class BetaToolTextEditor20250124`
 
           - `JsonValue type = "text_editor_20250124"`
 
@@ -38536,7 +39826,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolTextEditor20250429:`
+        - `class BetaToolTextEditor20250429`
 
           - `JsonValue type = "text_editor_20250429"`
 
@@ -38570,7 +39860,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolTextEditor20250728:`
+        - `class BetaToolTextEditor20250728`
 
           - `JsonValue type = "text_editor_20250728"`
 
@@ -38610,7 +39900,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaWebSearchTool20250305:`
+        - `class BetaWebSearchTool20250305`
 
           - `JsonValue type = "web_search_20250305"`
 
@@ -38686,7 +39976,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 255, minLength: 1
 
-        - `class BetaWebFetchTool20250910:`
+        - `class BetaWebFetchTool20250910`
 
           - `JsonValue type = "web_fetch_20250910"`
 
@@ -38742,7 +40032,98 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaWebSearchTool20260209:`
+          - `Optional<BetaWebFetchUrlSources> urlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
+            - `Optional<ClientToolResults> clientToolResults`
+
+              Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+              - `class BetaWebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaWebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaWebFetchUrlSourceOnly`
+
+                The tool filter variant under which only the named tools' results
+                contribute.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+                  - `JsonValue type = "tool_reference"`
+
+                  - `String name`
+
+              - `class BetaWebFetchUrlSourceExcept`
+
+                The tool filter variant under which every result but the named
+                tools' contributes.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaWebFetchUrlSourceToolReference> tools`
+
+                  - `JsonValue type = "tool_reference"`
+
+                  - `String name`
+
+            - `Optional<ServerToolResults> serverToolResults`
+
+              Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+              - `class BetaWebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+              - `class BetaWebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+              - `class BetaWebFetchUrlSourceOnly`
+
+                The tool filter variant under which only the named tools' results
+                contribute.
+
+              - `class BetaWebFetchUrlSourceExcept`
+
+                The tool filter variant under which every result but the named
+                tools' contributes.
+
+            - `Optional<UserInput> userInput`
+
+              Whether URLs in user messages are fetchable: "all" or "none".
+
+              - `class BetaWebFetchUrlSourceAll`
+
+                The `url_sources` variant under which a source contributes in
+                full: every result of the tool filter's source, or all user input.
+
+              - `class BetaWebFetchUrlSourceNone`
+
+                The `url_sources` variant under which a source contributes nothing:
+                no result of the tool filter's source, or no user input.
+
+        - `class BetaWebSearchTool20260209`
 
           - `JsonValue type = "web_search_20260209"`
 
@@ -38792,7 +40173,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `class BetaWebFetchTool20260209:`
+        - `class BetaWebFetchTool20260209`
 
           - `JsonValue type = "web_fetch_20260209"`
 
@@ -38848,7 +40229,16 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaWebFetchTool20260309:`
+          - `Optional<BetaWebFetchUrlSources> urlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
+        - `class BetaWebFetchTool20260309`
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -38906,11 +40296,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+          - `Optional<BetaWebFetchUrlSources> urlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
           - `Optional<Boolean> useCache`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `class BetaWebSearchTool20260318:`
+        - `class BetaWebSearchTool20260318`
 
           - `JsonValue type = "web_search_20260318"`
 
@@ -38968,7 +40367,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `class BetaWebFetchTool20260318:`
+        - `class BetaWebFetchTool20260318`
 
           - `JsonValue type = "web_fetch_20260318"`
 
@@ -39032,11 +40431,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+          - `Optional<BetaWebFetchUrlSources> urlSources`
+
+            Which sources contribute to the set of URLs web fetch may fetch.
+
+            Each key is a tagged variant: `user_input` is `all` or `none`; the
+            two tool filters are `all`, `none`, `only` (only the named tools'
+            results) or `except` (every result but the named tools'). A named tool
+            must be declared in this request's `tools[]`.
+
           - `Optional<Boolean> useCache`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `class BetaAdvisorTool20260301:`
+        - `class BetaAdvisorTool20260301`
 
           - `JsonValue type = "advisor_20260301"`
 
@@ -39090,7 +40498,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolSearchToolBm25_20251119:`
+        - `class BetaToolSearchToolBm25_20251119`
 
           - `Type type`
 
@@ -39126,7 +40534,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaToolSearchToolRegex20251119:`
+        - `class BetaToolSearchToolRegex20251119`
 
           - `Type type`
 
@@ -39162,7 +40570,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `class BetaMcpToolset:`
+        - `class BetaMcpToolset`
 
           Configuration for a group of tools from an MCP server.
 
@@ -39243,7 +40651,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonValue type = "message_batch"`
 
@@ -39506,11 +40914,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonValue type = "message_batch"`
 
@@ -39774,11 +41184,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonValue type = "message_batch"`
 
@@ -40039,11 +41451,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaMessageBatch:`
+- `class BetaMessageBatch`
 
   - `JsonValue type = "message_batch"`
 
@@ -40297,11 +41711,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaDeletedMessageBatch:`
+- `class BetaDeletedMessageBatch`
 
   - `JsonValue type = "message_batch_deleted"`
 
@@ -40457,11 +41873,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
   - `Optional<String> workspaceId`
 
 #### Returns
 
-- `class BetaMessageBatchIndividualResponse:`
+- `class BetaMessageBatchIndividualResponse`
 
   This is a single line in the response `.jsonl` file and does not represent the response as a whole.
 
@@ -40477,7 +41895,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-    - `class BetaMessageBatchSucceededResult:`
+    - `class BetaMessageBatchSucceededResult`
 
       - `JsonValue type = "succeeded"`
 
@@ -40562,7 +41980,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           [{"type": "text", "text": "B)"}]
           ```
 
-          - `class BetaTextBlock:`
+          - `class BetaTextBlock`
 
             - `JsonValue type = "text"`
 
@@ -40572,7 +41990,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-              - `class BetaCitationCharLocation:`
+              - `class BetaCitationCharLocation`
 
                 - `JsonValue type = "char_location"`
 
@@ -40592,7 +42010,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-              - `class BetaCitationPageLocation:`
+              - `class BetaCitationPageLocation`
 
                 - `JsonValue type = "page_location"`
 
@@ -40612,7 +42030,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 1
 
-              - `class BetaCitationContentBlockLocation:`
+              - `class BetaCitationContentBlockLocation`
 
                 - `JsonValue type = "content_block_location"`
 
@@ -40642,7 +42060,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minimum: 0
 
-              - `class BetaCitationsWebSearchResultLocation:`
+              - `class BetaCitationsWebSearchResultLocation`
 
                 - `JsonValue type = "web_search_result_location"`
 
@@ -40656,7 +42074,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String url`
 
-              - `class BetaCitationSearchResultLocation:`
+              - `class BetaCitationSearchResultLocation`
 
                 - `JsonValue type = "search_result_location"`
 
@@ -40694,7 +42112,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 0
 
-          - `class BetaThinkingBlock:`
+          - `class BetaThinkingBlock`
 
             - `JsonValue type = "thinking"`
 
@@ -40710,7 +42128,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-          - `class BetaRedactedThinkingBlock:`
+          - `class BetaRedactedThinkingBlock`
 
             - `JsonValue type = "redacted_thinking"`
 
@@ -40722,7 +42140,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-          - `class BetaToolUseBlock:`
+          - `class BetaToolUseBlock`
 
             - `JsonValue type = "tool_use"`
 
@@ -40738,13 +42156,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Optional<Caller> caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
                 - `JsonValue type = "direct"`
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
@@ -40754,7 +42172,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
                 - `JsonValue type = "code_execution_20260120"`
 
@@ -40768,7 +42186,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class BetaServerToolUseBlock:`
+          - `class BetaServerToolUseBlock`
 
             - `JsonValue type = "server_tool_use"`
 
@@ -40798,23 +42216,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Optional<Caller> caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaWebSearchToolResultBlock:`
+          - `class BetaWebSearchToolResultBlock`
 
             - `JsonValue type = "web_search_tool_result"`
 
             - `BetaWebSearchToolResultBlockContent content`
 
-              - `class BetaWebSearchToolResultError:`
+              - `class BetaWebSearchToolResultError`
 
                 - `JsonValue type = "web_search_tool_result_error"`
 
@@ -40850,23 +42268,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Optional<Caller> caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaWebFetchToolResultBlock:`
+          - `class BetaWebFetchToolResultBlock`
 
             - `JsonValue type = "web_fetch_tool_result"`
 
             - `Content content`
 
-              - `class BetaWebFetchToolResultErrorBlock:`
+              - `class BetaWebFetchToolResultErrorBlock`
 
                 - `JsonValue type = "web_fetch_tool_result_error"`
 
@@ -40892,7 +42310,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `CONTENT_TOO_LARGE("content_too_large")`
 
-              - `class BetaWebFetchBlock:`
+              - `class BetaWebFetchBlock`
 
                 - `JsonValue type = "web_fetch_result"`
 
@@ -40908,7 +42326,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Source source`
 
-                    - `class BetaBase64PdfSource:`
+                    - `class BetaBase64PdfSource`
 
                       - `JsonValue type = "base64"`
 
@@ -40918,7 +42336,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `JsonValue mediaType = "application/pdf"`
 
-                    - `class BetaPlainTextSource:`
+                    - `class BetaPlainTextSource`
 
                       - `JsonValue type = "text"`
 
@@ -40944,23 +42362,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Optional<Caller> caller`
 
-              - `class BetaDirectCaller:`
+              - `class BetaDirectCaller`
 
                 Tool invocation directly from the model.
 
-              - `class BetaServerToolCaller:`
+              - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
-              - `class BetaServerToolCaller20260120:`
+              - `class BetaServerToolCaller20260120`
 
-          - `class BetaAdvisorToolResultBlock:`
+          - `class BetaAdvisorToolResultBlock`
 
             - `JsonValue type = "advisor_tool_result"`
 
             - `Content content`
 
-              - `class BetaAdvisorToolResultError:`
+              - `class BetaAdvisorToolResultError`
 
                 - `JsonValue type = "advisor_tool_result_error"`
 
@@ -40980,7 +42398,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `MODEL_NOT_FOUND("model_not_found")`
 
-              - `class BetaAdvisorResultBlock:`
+              - `class BetaAdvisorResultBlock`
 
                 - `JsonValue type = "advisor_result"`
 
@@ -40990,7 +42408,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String text`
 
-              - `class BetaAdvisorRedactedResultBlock:`
+              - `class BetaAdvisorRedactedResultBlock`
 
                 - `JsonValue type = "advisor_redacted_result"`
 
@@ -41006,13 +42424,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaCodeExecutionToolResultBlock:`
+          - `class BetaCodeExecutionToolResultBlock`
 
             - `JsonValue type = "code_execution_tool_result"`
 
             - `BetaCodeExecutionToolResultBlockContent content`
 
-              - `class BetaCodeExecutionToolResultError:`
+              - `class BetaCodeExecutionToolResultError`
 
                 - `JsonValue type = "code_execution_tool_result_error"`
 
@@ -41026,7 +42444,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-              - `class BetaCodeExecutionResultBlock:`
+              - `class BetaCodeExecutionResultBlock`
 
                 - `JsonValue type = "code_execution_result"`
 
@@ -41042,7 +42460,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String stdout`
 
-              - `class BetaEncryptedCodeExecutionResultBlock:`
+              - `class BetaEncryptedCodeExecutionResultBlock`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -41064,13 +42482,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaBashCodeExecutionToolResultBlock:`
+          - `class BetaBashCodeExecutionToolResultBlock`
 
             - `JsonValue type = "bash_code_execution_tool_result"`
 
             - `Content content`
 
-              - `class BetaBashCodeExecutionToolResultError:`
+              - `class BetaBashCodeExecutionToolResultError`
 
                 - `JsonValue type = "bash_code_execution_tool_result_error"`
 
@@ -41086,7 +42504,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-              - `class BetaBashCodeExecutionResultBlock:`
+              - `class BetaBashCodeExecutionResultBlock`
 
                 - `JsonValue type = "bash_code_execution_result"`
 
@@ -41106,13 +42524,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaTextEditorCodeExecutionToolResultBlock:`
+          - `class BetaTextEditorCodeExecutionToolResultBlock`
 
             - `JsonValue type = "text_editor_code_execution_tool_result"`
 
             - `Content content`
 
-              - `class BetaTextEditorCodeExecutionToolResultError:`
+              - `class BetaTextEditorCodeExecutionToolResultError`
 
                 - `JsonValue type = "text_editor_code_execution_tool_result_error"`
 
@@ -41130,7 +42548,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-              - `class BetaTextEditorCodeExecutionViewResultBlock:`
+              - `class BetaTextEditorCodeExecutionViewResultBlock`
 
                 - `JsonValue type = "text_editor_code_execution_view_result"`
 
@@ -41150,13 +42568,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<Long> totalLines`
 
-              - `class BetaTextEditorCodeExecutionCreateResultBlock:`
+              - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
                 - `JsonValue type = "text_editor_code_execution_create_result"`
 
                 - `boolean isFileUpdate`
 
-              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock:`
+              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
                 - `JsonValue type = "text_editor_code_execution_str_replace_result"`
 
@@ -41174,13 +42592,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaToolSearchToolResultBlock:`
+          - `class BetaToolSearchToolResultBlock`
 
             - `JsonValue type = "tool_search_tool_result"`
 
             - `Content content`
 
-              - `class BetaToolSearchToolResultError:`
+              - `class BetaToolSearchToolResultError`
 
                 - `JsonValue type = "tool_search_tool_result_error"`
 
@@ -41196,7 +42614,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Optional<String> errorMessage`
 
-              - `class BetaToolSearchToolSearchResultBlock:`
+              - `class BetaToolSearchToolSearchResultBlock`
 
                 - `JsonValue type = "tool_search_tool_search_result"`
 
@@ -41212,7 +42630,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `class BetaMcpToolUseBlock:`
+          - `class BetaMcpToolUseBlock`
 
             - `JsonValue type = "mcp_tool_use"`
 
@@ -41230,7 +42648,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server
 
-          - `class BetaMcpToolResultBlock:`
+          - `class BetaMcpToolResultBlock`
 
             - `JsonValue type = "mcp_tool_result"`
 
@@ -41258,7 +42676,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-          - `class BetaContainerUploadBlock:`
+          - `class BetaContainerUploadBlock`
 
             Response model for a file uploaded to the container.
 
@@ -41266,7 +42684,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `String fileId`
 
-          - `class BetaCompactionBlock:`
+          - `class BetaCompactionBlock`
 
             A compaction block returned when autocompact is triggered.
 
@@ -41284,7 +42702,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
-          - `class BetaFallbackBlock:`
+            - `Optional<String> signature`
+
+              Signature over the summary, to be sent back with the block verbatim
+
+          - `class BetaFallbackBlock`
 
             Marks the point in `content` where one model's output gives way to the next.
 
@@ -41422,7 +42844,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of context management edits that were applied.
 
-            - `class BetaClearToolUses20250919EditResponse:`
+            - `class BetaClearToolUses20250919EditResponse`
 
               - `JsonValue type = "clear_tool_uses_20250919"`
 
@@ -41440,7 +42862,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaClearThinking20251015EditResponse:`
+            - `class BetaClearThinking20251015EditResponse`
 
               - `JsonValue type = "clear_thinking_20251015"`
 
@@ -41467,7 +42889,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-            - `class BetaCacheMissModelChanged:`
+            - `class BetaCacheMissModelChanged`
 
               - `JsonValue type = "model_changed"`
 
@@ -41475,7 +42897,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissSystemChanged:`
+            - `class BetaCacheMissSystemChanged`
 
               - `JsonValue type = "system_changed"`
 
@@ -41483,7 +42905,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissToolsChanged:`
+            - `class BetaCacheMissToolsChanged`
 
               - `JsonValue type = "tools_changed"`
 
@@ -41491,7 +42913,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissMessagesChanged:`
+            - `class BetaCacheMissMessagesChanged`
 
               - `JsonValue type = "messages_changed"`
 
@@ -41499,11 +42921,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
-            - `class BetaCacheMissPreviousMessageNotFound:`
+            - `class BetaCacheMissPreviousMessageNotFound`
 
               - `JsonValue type = "previous_message_not_found"`
 
-            - `class BetaCacheMissUnavailable:`
+            - `class BetaCacheMissUnavailable`
 
               - `JsonValue type = "unavailable"`
 
@@ -41695,14 +43117,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               resulting shift is zero because there was nothing to move. `not_applied`:
               no reprice was applied; the arm's `reason` says why.
 
-              - `class BetaFallbackCreditRedeemed:`
+              - `class BetaFallbackCreditRedeemed`
 
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
                 - `JsonValue type = "redeemed"`
 
-              - `class BetaFallbackCreditNotApplied:`
+              - `class BetaFallbackCreditNotApplied`
 
                 No reprice was applied; `reason` says why.
 
@@ -41772,7 +43194,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
-            - `class BetaMessageIterationUsage:`
+            - `class BetaMessageIterationUsage`
 
               Token usage for a sampling iteration.
 
@@ -41814,7 +43236,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaCompactionIterationUsage:`
+            - `class BetaCompactionIterationUsage`
 
               Token usage for a compaction iteration.
 
@@ -41850,7 +43272,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaAdvisorMessageIterationUsage:`
+            - `class BetaAdvisorMessageIterationUsage`
 
               Token usage for an advisor sub-inference iteration.
 
@@ -41892,7 +43314,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-            - `class BetaFallbackMessageIterationUsage:`
+            - `class BetaFallbackMessageIterationUsage`
 
               Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -42003,59 +43425,99 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `FAST("fast")`
 
-        - `Optional<List<BetaThinkingDroppedInputTransformation>> inputTransformations`
+        - `Optional<List<BetaInputTransformation>> inputTransformations`
 
-          Changes the API made to the request's input before showing it to the model:
-          one entry per change, in request order. Today the only entry type is
-          `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
-          block from the request's `messages` that was removed from the prompt instead
-          of being shown to the model because it failed a binding check. More entry
-          types may be added over time; ignore types you do not recognize.
+          Changes the API made to the request's input before showing it to the model,
+          and blocks that failed a binding check but were left unchanged: one entry per
+          block, in request order. Two entry types today. `thinking_dropped` — a
+          `thinking`, `redacted_thinking` or `connector_text` block from the request's
+          `messages` that was removed from the prompt instead of being shown to the
+          model because it failed a binding check. `thinking_mismatch_allowed` — a
+          `thinking` or `redacted_thinking` block that failed the conversation check
+          (the conversation before it differs from the one it was created in, or it
+          carries no record of one on a model that requires it) and was shown to the
+          model all the same, because that check is not enforced for this request.
+          More entry types may be added over time; ignore types you do not recognize.
 
           Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
           every such response from a model that supports extended thinking, as `[]`
-          when nothing was changed; without the beta, blocks are removed all the same
-          but nothing is reported. Removed blocks contribute nothing to
-          `usage.input_tokens`. When streaming, the array is final in `message_start`;
-          the final `message_delta` event carries it only when a server-side model
-          fallback happened mid-stream, in which case it holds the serving model's
-          entries and replaces the one in `message_start`.
+          when there is no entry to report; without the beta, blocks are removed or
+          left in place all the same but nothing is reported. Removed blocks contribute
+          nothing to `usage.input_tokens`; blocks left in place count as sent. When
+          streaming, the array is final in `message_start`; the final `message_delta`
+          event carries it only when a server-side model fallback happened mid-stream,
+          in which case it holds the serving model's entries and replaces the one in
+          `message_start`.
 
-          - `JsonValue type = "thinking_dropped"`
+          - `class BetaThinkingDroppedInputTransformation`
 
-            Always `thinking_dropped` for this entry type.
+            - `JsonValue type = "thinking_dropped"`
 
-          - `String path`
+              Always `thinking_dropped` for this entry type.
 
-            Where the removed block was in your request, as `messages.{i}.content.{j}`:
-            `i` indexes the `messages` array you sent and `j` that message's `content`
-            array — the same form error messages use.
+            - `String path`
 
-          - `Reason reason`
+              Where the removed block was in your request, as `messages.{i}.content.{j}`:
+              `i` indexes the `messages` array you sent and `j` that message's `content`
+              array — the same form error messages use.
 
-            Which binding check removed the block: `model_binding_mismatch` — it was
-            created by a model whose reasoning the requested model may not read;
-            `prefix_binding_mismatch` — the conversation before it differs from the
-            conversation it was created in (the rest of that turn's consecutive thinking
-            blocks are removed with it, each with this reason);
-            `organization_binding_mismatch` — it was created under a different
-            organization (an Anthropic organization, AWS account or Google Cloud project)
-            and this organization is not one of its additional organizations;
-            `end_user_binding_mismatch` — it was created for a different end user, or
-            was removed by the consumer-organization binding. A block that would fail
-            several checks reports one reason, in this order of precedence:
-            `organization_binding_mismatch`, `end_user_binding_mismatch`,
-            `model_binding_mismatch`, `prefix_binding_mismatch`.
+            - `Reason reason`
 
-            - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+              Which binding check removed the block: `model_binding_mismatch` — it was
+              created by a model whose reasoning the requested model may not read;
+              `prefix_binding_mismatch` — the conversation before it differs from the
+              conversation it was created in (the rest of that turn's consecutive thinking
+              blocks are removed with it, each with this reason);
+              `organization_binding_mismatch` — it was created under a different
+              organization (an Anthropic organization, AWS account or Google Cloud project)
+              and this organization is not one of its additional organizations;
+              `end_user_binding_mismatch` — it was created for a different end user, or
+              was removed by the consumer-organization binding. A block that would fail
+              several checks reports one reason, in this order of precedence:
+              `organization_binding_mismatch`, `end_user_binding_mismatch`,
+              `model_binding_mismatch`, `prefix_binding_mismatch`.
 
-            - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+              - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
 
-            - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+              - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
 
-            - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+              - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
 
-    - `class BetaMessageBatchErroredResult:`
+              - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+          - `class BetaThinkingMismatchAllowedInputTransformation`
+
+            - `JsonValue type = "thinking_mismatch_allowed"`
+
+              Always `thinking_mismatch_allowed` for this entry type.
+
+            - `String path`
+
+              Where the block is in your request, as `messages.{i}.content.{j}`:
+              `i` indexes the `messages` array you sent and `j` that message's `content`
+              array — the same form error messages use.
+
+            - `Reason reason`
+
+              Which binding check the block failed; the block was shown to the model all
+              the same. Always `prefix_binding_mismatch` today — the conversation before
+              the block differs from the conversation it was created in, or the block
+              carries no record of one on a model that requires it. Were the check
+              enforced for this request, the block would have been removed or the request
+              rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also
+              takes the rest of that turn's consecutive thinking blocks, whereas here each
+              block is checked on its own, so `thinking_mismatch_allowed` entries are a
+              lower bound on what enforcement would remove.
+
+              - `MODEL_BINDING_MISMATCH("model_binding_mismatch")`
+
+              - `PREFIX_BINDING_MISMATCH("prefix_binding_mismatch")`
+
+              - `ORGANIZATION_BINDING_MISMATCH("organization_binding_mismatch")`
+
+              - `END_USER_BINDING_MISMATCH("end_user_binding_mismatch")`
+
+    - `class BetaMessageBatchErroredResult`
 
       - `JsonValue type = "errored"`
 
@@ -42065,55 +43527,55 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `BetaError error`
 
-          - `class BetaInvalidRequestError:`
+          - `class BetaInvalidRequestError`
 
             - `JsonValue type = "invalid_request_error"`
 
             - `String message`
 
-          - `class BetaAuthenticationError:`
+          - `class BetaAuthenticationError`
 
             - `JsonValue type = "authentication_error"`
 
             - `String message`
 
-          - `class BetaBillingError:`
+          - `class BetaBillingError`
 
             - `JsonValue type = "billing_error"`
 
             - `String message`
 
-          - `class BetaPermissionError:`
+          - `class BetaPermissionError`
 
             - `JsonValue type = "permission_error"`
 
             - `String message`
 
-          - `class BetaNotFoundError:`
+          - `class BetaNotFoundError`
 
             - `JsonValue type = "not_found_error"`
 
             - `String message`
 
-          - `class BetaRateLimitError:`
+          - `class BetaRateLimitError`
 
             - `JsonValue type = "rate_limit_error"`
 
             - `String message`
 
-          - `class BetaGatewayTimeoutError:`
+          - `class BetaGatewayTimeoutError`
 
             - `JsonValue type = "timeout_error"`
 
             - `String message`
 
-          - `class BetaApiError:`
+          - `class BetaApiError`
 
             - `JsonValue type = "api_error"`
 
             - `String message`
 
-          - `class BetaOverloadedError:`
+          - `class BetaOverloadedError`
 
             - `JsonValue type = "overloaded_error"`
 
@@ -42121,11 +43583,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `Optional<String> requestId`
 
-    - `class BetaMessageBatchCanceledResult:`
+    - `class BetaMessageBatchCanceledResult`
 
       - `JsonValue type = "canceled"`
 
-    - `class BetaMessageBatchExpiredResult:`
+    - `class BetaMessageBatchExpiredResult`
 
       - `JsonValue type = "expired"`
 

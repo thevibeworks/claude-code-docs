@@ -33,7 +33,7 @@ List Session Resources
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 42 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -125,6 +125,8 @@ List Session Resources
 
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
+      - `"compact-2026-09-04"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -133,9 +135,9 @@ List Session Resources
 
 ## Returns
 
-- `BetaManagedAgentsSessionResource = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
+- `type BetaManagedAgentsSessionResource = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
 
-  - `BetaManagedAgentsGitHubRepositoryResource`
+  - `interface BetaManagedAgentsGitHubRepositoryResource`
 
     - `type: "github_repository"`
 
@@ -159,7 +161,7 @@ List Session Resources
 
     - `checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null`
 
-      - `BetaManagedAgentsBranchCheckout`
+      - `interface BetaManagedAgentsBranchCheckout`
 
         - `type: "branch"`
 
@@ -169,7 +171,7 @@ List Session Resources
 
           minLength: 1, maxLength: 255
 
-      - `BetaManagedAgentsCommitCheckout`
+      - `interface BetaManagedAgentsCommitCheckout`
 
         - `type: "commit"`
 
@@ -179,7 +181,7 @@ List Session Resources
 
           minLength: 7, maxLength: 64
 
-  - `BetaManagedAgentsFileResource`
+  - `interface BetaManagedAgentsFileResource`
 
     - `type: "file"`
 
@@ -201,7 +203,7 @@ List Session Resources
 
       format: date-time
 
-  - `BetaManagedAgentsMemoryStoreResource`
+  - `interface BetaManagedAgentsMemoryStoreResource`
 
     A memory store attached to an agent session.
 

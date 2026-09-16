@@ -4,7 +4,7 @@
 
 # Available settings
 
-> Reference for the product settings on the Config page in Claude for Government, including session timeout, maximum session length, organization instructions, telemetry, automatic updates, Claude Desktop banner, product availability, member-added plugins, and the tool and connector cards.
+> Reference for the product settings on the Config page in Claude for Government, including session timeout, maximum session length, organization instructions, telemetry, automatic updates, Claude Desktop banner, product availability, member-added plugins, member skill creation, and the tool and connector cards.
 
 > **Who this is for:** Tenant administrators and organization owners who set product behavior for the people they manage.
 
@@ -84,10 +84,6 @@ The content that Claude Desktop adds to the telemetry it sends to your collector
 
 **Tool results** content is delivered only while **Telemetry traces** is on. Captured content goes only to your collector and is never sent to Anthropic. [Content capture](/docs/third-party/claude-desktop/telemetry#content-capture) in the Claude Desktop telemetry reference shows what each category adds.
 
-<Note>
-  **Telemetry content capture** applies to Claude Desktop 1.15962.0 and later. Earlier versions ignore the setting.
-</Note>
-
 ### Application event level (Claude Desktop)
 
 How much of Claude Desktop's own event log goes to your collector, in addition to the usage telemetry from Chat, Cowork, and Code. These records arrive under the `claude-desktop` service name. The default, **Errors only**, sends failures such as a crash or a request that could not complete. **Off** sends no application events while usage telemetry is still sent, the two levels between **Errors only** and **Debug** add warnings and then routine events such as sign-in, updates, and settings changes, and **Debug** adds verbose diagnostic events for use while troubleshooting with support. At **Informational** and **Debug**, the application events also include each conversation's title. The title text is sent only when **Prompts** is selected in **Telemetry content capture**.
@@ -132,7 +128,7 @@ The system-use notification shown at sign-in is separate from this banner. It is
 
 ### Product availability
 
-A group of separate switches that control which Claude products and features are available to members. Each switch appears as its own row: **Claude Desktop**, **Chat in Claude Desktop**, **Advanced file analysis in Chat**, **Cowork in Claude Desktop**, **Code in Claude Desktop**, **Claude Code**, and **Claude for Microsoft 365**. All are on by default.
+A group of separate switches that control which Claude products and features are available to members. Each switch appears as its own row: **Claude Desktop**, **Chat in Claude Desktop**, **Advanced file analysis in Chat**, **Cowork in Claude Desktop**, **Code in Claude Desktop**, **Claude Code**, and **Claude for Microsoft 365**. These switches are on by default, except for **Claude Code** and **Claude for Microsoft 365**.
 
 Turning off one of the three product switches (**Claude Desktop**, **Claude Code**, or **Claude for Microsoft 365**) makes Claude for Government stop serving that application your organization's configuration. From then on, Claude Desktop and the Claude for Microsoft 365 add-in are refused the organization's configuration when they request it, and Claude Code that is signed in to Claude for Government exits when it next starts (or right after sign-in) with a message that it couldn't load settings from the cloud gateway. Claude Code that is already running is not cut off and keeps working until it is next started. The product switches are not an access control on the Claude for Government service itself. What a member can reach is governed by their account, their [seat tier](/docs/government/org-admin/seat-tiers), and your agency's device and network management. To cut a member off at once, deactivate their account, after which they cannot sign in and requests from their existing sign-ins are refused (see [Deactivated users](/docs/government/org-admin/users#deactivated-users)). Turning off one of the other four switches removes that feature from Claude Desktop, as described below.
 
@@ -151,6 +147,12 @@ Turning a switch off also changes this layout. For example, with **Chat in Claud
 Two switches that control whether members can add plugins of their own in Claude Desktop. **Let members add plugin marketplaces** lets members add plugin marketplaces and install plugins from them. **Let members add their own plugins** lets members upload plugin files or have Claude create a plugin for them. Both switches are off by default.
 
 While a switch is off, Claude Desktop hides the corresponding controls from members. Marketplaces and plugins that members added earlier keep working, and members can still install plugins from those marketplaces.
+
+### Let members create skills
+
+Controls whether members can create or upload skills of their own in Claude Desktop. The **Let members create skills** switch is on by default.
+
+While the switch is off, members cannot create new skills or upload skill files, and Claude does not offer to create or update skills in conversations. Skills that members already made, skills your organization provides, and built-in skills keep working.
 
 ### Allowed network hosts
 

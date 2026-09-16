@@ -23,7 +23,7 @@ Get Deployment Run
 
 ## Returns
 
-- `BetaManagedAgentsDeploymentRun`
+- `class BetaManagedAgentsDeploymentRun`
 
   - `Type type`
 
