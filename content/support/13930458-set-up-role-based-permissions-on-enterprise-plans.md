@@ -110,7 +110,7 @@ Set admin permissions on each role to delegate access to admin settings, like bi
 
 3. Select the **Permissions** tab, between **Capabilities** and **Connectors**.
 
-### **Set admin permissions**
+### Set admin permissions
 
 The **Permissions** tab lists each admin area: Identity & Access, Billing, Analytics, Privacy, User Management, Libraries, and Directory. Set each admin area to one of the following options:
 
@@ -124,7 +124,7 @@ Within an area, you grant all of View or all of Manage. You can't grant or restr
 
 **Note:** A role with Identity & Access set to Manage can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
 
-### **Verify enforcement**
+### Verify enforcement
 
 Verify admin permissions after you’ve migrated members to "Custom" roles (Step 7). See **Step 11: Verify and monitor**.
 
@@ -326,6 +326,8 @@ For any feature you want to control per-group:
 
 Enabling a feature at the organization level doesn't mean everyone gets it—custom role permissions are already in place to control who can use it. Think of the organization-level toggle as making the feature "available for role-based assignment" rather than "on for everyone."
 
+**Note:** This includes the Design, Slides, and Docs settings in Organization settings > Artifacts. Members outside the roles that grant them can still open, comment on and use artifacts shared with them.
+
 ---
 
 ## Step 10: Apply a group spend limit (usage-based orgs only)
@@ -450,7 +452,7 @@ If you enabled group mappings during setup and lost admin access, follow the rec
 
 ### Do I need to enable a feature at the organization level if I only want some members to have it?
 
-Yes. The organization-level toggle must be on for custom roles to control per-member access. If a feature is off at the organization level, no one can access it regardless of their role. Think of it as a main switch—custom roles control who gets access underneath it.
+Yes. The organization-level toggle must be on for custom roles to control per-member access. If a feature is off at the organization level, no one can access it regardless of their role. Think of it as a main switch—custom roles control who gets access underneath it. This includes the Design, Slides, and Docs settings in **Organization settings > Artifacts**.
 
 ### What happens if a member whose role is set to "Custom" isn't in any groups?
 

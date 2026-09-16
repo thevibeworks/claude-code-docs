@@ -1,26 +1,68 @@
 # Publish and share artifacts
 
-Artifacts are a powerful way to create content within Claude. You can take your creations further by sharing them so others can view and interact with them. If you see a published artifact you like, you can copy the code into a chat of your own and build on it from there. This article covers how to publish artifacts publicly and share them within your organization.
+Artifacts let you make things with Claude, like dashboards, apps, designs, decks, and docs, and share them with others. How you share an artifact depends on where you made it:
 
-**Important:** We no longer support artifacts without **Code execution and file creation** enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** (Team, Enterprise).
+- **Artifacts you share from the "Share" dialog** include everything you make in the new Claude experience and everything you make with Claude Design, Claude Slides, Claude Docs, or Claude Code. If you're still on the previous experience, this also covers artifacts made in Claude Cowork on or after August 19, 2026. Everyone who opens these artifacts needs a Claude account.
 
----
+- **Artifacts you publish or share by link from chat** are artifacts made in chat on the previous experience. They're shared with "Publish" (Free, Pro, and Max plans) or "Share & copy link" (Team and Enterprise plans).
 
-## Publishing vs. sharing
+The new Claude experience is rolling out gradually to Pro and Max plans. If your message box still shows "Chat" and "Cowork" options, you're on the previous experience, and artifacts you make after selecting "Chat" are chat artifacts. Learn more in **Claude Cowork and chat are one Claude**.
 
-Claude uses different terms depending on your plan:
+Live artifacts made in Claude Cowork before August 19, 2026 have their own sharing rules. Learn more in **Use artifacts in Claude Cowork**.
 
-- **Publishing** (Free, Pro, Max): Makes your artifact publicly available. Anyone with the link can view and interact with it.
-
-- **Sharing** (Team, Enterprise): Makes your artifact available within your organization only. Viewers must be logged into your Team or Enterprise account to access it.
-
-**Note:** Artifacts created in Claude Cowork follow different rules. Learn more about **[using artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249-use-live-artifacts-in-claude-cowork)**.
+**Important:** To use artifacts, you need to enable **Code execution and file creation** in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** (Team, Enterprise).
 
 ---
 
-## Publish artifacts
+## Share an artifact
 
-Publishing is available on Free, Pro, and Max plans.
+Artifacts start private to you. To share one:
+
+1. Open the artifact.
+
+2. Click "Share."
+
+3. On Team and Enterprise plans, add specific people or groups and choose their access.
+
+4. Choose who else can open it:
+
+  - **Team and Enterprise plans:** "Only people with access," "Everyone in your organization," or "Anyone with the link"
+
+  - **Pro and Max plans:** "Only you" or "Anyone with the link"
+
+5. Choose whether the link shows the latest version or a specific one, then copy the link. If you share the latest version, people with the link see your changes when you make them.
+
+### Access levels
+
+- **Claude Docs:** View or edit.
+
+- **Claude Design and Claude Slides:** View, comment, or edit.
+
+- **Other artifacts:** View or edit.
+
+### Who can open a shared artifact
+
+- **A Claude account is required.** People without a Claude account can't open or interact with a shared artifact, even if they have the link.
+
+- **Everyone in your organization:** Only people signed in to your organization can open it.
+
+- **Anyone with the link:** On Enterprise plans, an Owner or Primary Owner must turn on **External sharing** first. This option isn't available for artifacts that use connected apps or ask Claude questions. On Team and Enterprise plans, it isn't available for Claude Docs yet.
+
+### What people see when they open your artifact
+
+- **Viewers use their own access.** An artifact that pulls from connected apps uses the viewer's connections, not yours. If a viewer can't access a data source, that part of the artifact shows an error instead of your data.
+
+- **Stored information can be shared.** Some artifacts save information that everyone who opens them can see, like items in a shared tracker. Before you enter sensitive information, check whether the artifact uses shared storage.
+
+**Important:** Only open shared artifacts from people you trust. Treat someone else's artifact the way you'd treat a file from an unknown sender.
+
+Publishing, embed codes, and copying an artifact's code are available only for artifacts made in chat. You can't change sharing settings in the Claude app for iOS and Android.
+
+---
+
+## Publish artifacts made in chat
+
+Publishing is available on Free, Pro, and Max plans, for artifacts made in chat in the previous experience.
 
 **To publish an artifact:**
 
@@ -32,9 +74,11 @@ Publishing is available on Free, Pro, and Max plans.
 
 4. Copy the public link to share with others.
 
-Publishing also adds the artifact to the **[Artifacts](https://claude.ai/artifacts)** section in your sidebar so you can find it again outside the original conversation.
+Publishing adds the artifact to the **[Artifacts](https://claude.ai/artifacts)** section in your sidebar so you can find it again outside the original conversation.
 
-### Who can access published artifacts
+### Who can open published chat artifacts
+
+This applies only to artifacts published from chat. Everyone who opens an artifact shared from the **Share** dialog needs a Claude account.
 
 **Non-users:**
 
@@ -56,11 +100,7 @@ Publishing also adds the artifact to the **[Artifacts](https://claude.ai/artifac
 
 After publishing, you'll see a “Get embed code” button.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1789573500&amp;signature=a9defc163d89b45f9090711819d13c049254dc1c8f8e819599808721aee912b9&amp;req=dSkiF892mYhZWfMW1HO4zdcpD19X4gCER8xgMH3ra8gazIkSXCCr950mv%2ByG%0ABnVK9UPPZWmaFtlvDYs%3D%0A)
-
 Click it to open a modal with automatically generated code you can copy and paste to embed your artifact on another website.
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1789573500&amp;signature=4468be23f62123fce8c94fd12047d82bc564a40a4b5278ef739a0e0930ad0eaf&amp;req=dSkiF892mIlZWfMW1HO4zcqH79CGzodof3CUbx4Ru6UkTLIYB4ea5BIFdgPJ%0A0jGNX2fQxCYCUz5NM1s%3D%0A)
 
 You must specify which websites can embed your artifact by entering URLs in the **Allowed domains** field, separated by commas.
 
@@ -70,15 +110,11 @@ After publishing an artifact, an “Unpublish” button appears, giving you the 
 
 **Important:** Once you unpublish an artifact, you cannot publish that same artifact again. You'll need to create a new artifact if you want to publish it later. Unpublishing also permanently deletes all associated storage data (both personal and shared) if the artifact used persistent storage.
 
----
+### Build on a published artifact
 
-## Build on a published artifact
-
-Building on a published artifact is available on Free, Pro, and Max plans.
+Building on a published artifact is available on Free, Pro, and Max plans, for artifacts published from chat
 
 If someone publishes an artifact you like, you can use it as a starting point for your own version. Copy the code into a new chat and ask Claude to make the changes you want. Your version is separate from the original, so nothing you do affects the artifact you started from.
-
-**Note:** The "Remix" button is no longer available. Copying the code into a new chat replaces it.
 
 **Important:** Only do this with artifacts from people you trust. You're bringing someone else's code and content into your own conversation, so treat it the way you'd treat a file from an unknown sender. If you aren't sure about the source, don't use it.
 
@@ -100,11 +136,11 @@ If someone publishes an artifact you like, you can use it as a starting point fo
 
 ---
 
-## Share artifacts within your organization
+## Share chat artifacts on Team and Enterprise plans
 
 Internal sharing is available on Team and Enterprise plans.
 
-Artifacts created on Team or Enterprise accounts can only be shared within your organization—they cannot be published publicly.
+On Team and Enterprise plans, you can share artifacts only within your organization by default. An owner can turn on **External sharing** so users can share artifacts with anyone who has the link.
 
 **To share an artifact:**
 
@@ -116,19 +152,17 @@ Artifacts created on Team or Enterprise accounts can only be shared within your 
 
 4. Click “Share & copy link” to make this version shareable.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1789573500&amp;signature=f539b63e9fac32adcc01456d86640756b787cf13bb050201c6abf0d3c89f52fb&amp;req=dSkiF892nYBZWfMW1HO4zbvYOljgKnqWK6hAzMpXfmNOM9P98Kpv0%2F4LIg1y%0A%2BsdhqjyBvuOALO%2BYOW0%3D%0A)
-
 ### Who can access shared artifacts
 
-- Only members of your Team or Enterprise organization.
+- Users in your Team or Enterprise organization, plus anyone with the link if the artifact is shared with "Anyone with the link." This option requires **External sharing** to be on.
 
-- Viewers must authenticate with their Team or Enterprise account.
+- Viewers must sign in with a Claude account. For artifacts shared only within your organization, that's their Team or Enterprise account.
 
 - If the artifact was created from a project, viewers must also have access to that project.
 
 ### Share artifacts with attachments
 
-When you share an artifact, viewers also gain access to any attachments and files in the conversation that created it. Consider this before sharing artifacts from conversations containing sensitive documents.
+When you share an artifact made in chat, viewers also get access to any attachments and files in the conversation that created it. Consider this before sharing artifacts from conversations that contain sensitive documents.
 
 ### Unshare artifacts
 
@@ -138,7 +172,17 @@ When you share an artifact, viewers also gain access to any attachments and file
 
 2. In the **Artifact shared** modal, click “Unshare.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1789573500&amp;signature=c1e6a86d2640475da550cc667a798299d044df86e495e4ef4223f50e837ba7dd&amp;req=dSkiF895m4hdXvMW1HO4zW9EwgC4%2Fne2gj8mTHivCKbxjOxcTKqJOgebSOXr%0A6lJIzwFrbnhkns7a1Wc%3D%0A)
+### Turn on external sharing
+
+On Enterprise plans, Owners and Primary Owners can let users share artifacts outside the organization:
+
+1. Go to **Organization settings > Artifacts**.
+
+2. Turn on **External sharing**.
+
+External sharing applies to artifacts made in chat, in the new Claude experience, in Cowork, and in Claude Code. Claude Docs can't be shared outside your organization yet, and neither can artifacts that use connected apps or ask Claude questions. Even with External sharing on, people need a Claude account to open any artifact except one published from chat.
+
+**Important:** If you turn External sharing off later, existing public links stop working until it's turned back on.
 
 ---
 

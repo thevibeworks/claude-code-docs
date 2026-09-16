@@ -6,7 +6,7 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 ## Key benefits
 
-- **More usage capacity**: Get 5x or 20x more usage than the Pro plan, depending on your selected tier.
+- **More usage capacity**: Get 5x or 20x the Pro plan's usage allowance, depending on your selected tier.
 
 - **Fewer interruptions**: Stay in flow when it matters most with higher usage limits that allow for deeper, more extensive work with Claude.
 
@@ -16,7 +16,7 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 - **Access to Claude Code: [Use Claude Code](https://support.claude.com/en/articles/11145838)** for your terminal-based coding workflows with one unified subscription.
 
-- **Access to Cowork:** Hand off complex, multi-step tasks to Claude in Claude Desktop. See this article for more information: **[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190)**.
+- **Longer, multi-step tasks:** Hand Claude work like reports, spreadsheets, and presentations, and it keeps going in the background. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -60,9 +60,9 @@ We occasionally run limited-time promotions, but we don't have any standing disc
 
 Yes. The Max plan offers substantially higher usage compared to our Pro plan and is available in two tiers:
 
-**Max 5x** provides five times more usage per session than the Pro plan. This tier is ideal for frequent users who work with Claude on a variety of tasks.
+**Max 5x** includes five times the Pro plan's per-session usage allowance. This tier is ideal for frequent users who work with Claude on a variety of tasks.
 
-**Max 20x** provides 20 times more usage per session than the Pro plan. This tier is ideal for daily users who collaborate often with Claude for most tasks.
+**Max 20x** includes 20 times the Pro plan's per-session usage allowance. This tier is ideal for daily users who collaborate often with Claude for most tasks.
 
 Your session-based usage limit will reset every five hours. Max plans also have a weekly usage limit that applies across all models. The weekly limit resets at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 

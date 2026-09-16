@@ -24,6 +24,8 @@ To set your instructions:
 
 Any instructions you add here will be applied to all of your conversations with Claude.
 
+If you used **Global instructions** in Claude Cowork, they're part of **Instructions for Claude** once you have the new Claude experience. Check this setting to make sure your instructions are what you want.
+
 ---
 
 ## Project instructions

@@ -1,5 +1,7 @@
 # Set up browser use in Claude Cowork for Team and Enterprise plans
 
+**Note:** Claude Cowork and chat are now one Claude, rolling out gradually to Pro and Max plans. Ask for what you need, and Claude decides whether that's a quick answer or a task. Team and Enterprise organizations keep chat and Claude Cowork as they are today, so everything in this article still applies. Learn more in our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 Claude can use the web in Claude Cowork in two ways: a browser built into the Claude Desktop app, or your users' own Chrome browser through the Claude in Chrome extension. This article explains the difference, how to enable each one for your organization, and what your users see when both are on.
 
 Browser controls for Cowork are available on Team and Enterprise plans. The built-in browser is rolling out gradually this week and works in the Claude Desktop app on macOS, Windows, and Linux (beta). The **Built-in browser** setting may not appear in Organization settings until the rollout reaches your organization. When the desktop app is online, the built-in browser is also available in Cowork on web or mobile.

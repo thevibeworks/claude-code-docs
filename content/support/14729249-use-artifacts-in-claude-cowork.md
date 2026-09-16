@@ -1,10 +1,10 @@
 # Use artifacts in Claude Cowork
 
-We've recently updated live artifacts to an updated artifacts system. New artifacts created on or after August 19, 2026 use Claude's updated artifacts system: they're saved to your account, can be shared with people in your organization, and open on the web.
-
-Live artifacts created before August 19, 2026 stay in the Artifacts view and keep working. You can still view them, but you can no longer edit them in place. Learn more in the section **[What happens to your existing live artifacts](#h_f13d109966)**.
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
 
 Claude can build interactive artifacts in Cowork such as dashboards, trackers, reference pages, and comparison tools shaped around your work. New artifacts created in Cowork use Claude's updated artifacts system: they're saved to your account, can be shared with people in your organization, and open on the web. Every artifact you create is saved to the Artifacts view in your Cowork sidebar, marked with a "Cowork" label.
+
+We've recently updated live artifacts to an updated artifacts system. New artifacts created on or after August 19, 2026 use Claude's updated artifacts system: they're saved to your account, can be shared with people in your organization, and open on the web. Live artifacts created before August 19, 2026 stay in the Artifacts view and keep working. You can still view them, but you can no longer edit them in place. Learn more in the section **[What happens to your existing live artifacts](#h_f13d109966)**.
 
 The updated artifacts system is generally available to Pro, Max, Team, and Enterprise plans on Cowork in Claude Desktop and Cowork in the cloud. Using Cowork on Claude Desktop requires the latest version of the app. Download or update at **[claude.com/download](http://claude.com/download)**.
 
@@ -50,11 +50,13 @@ When you describe the artifact, mention the connected apps or local files Claude
 
 A new session opens with a starting prompt, and Claude asks a few questions about your connectors and what you want to build.
 
+**Note:** You can also make designs, decks, and docs with Claude Design, Claude Slides, and Claude Docs. Learn more in **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/9487310)**
+
 ---
 
 ## Open and update an artifact
 
-To reopen an artifact, select "Artifacts" from the Cowork sidebar and click the one you want. Use the "Filter by" dropdown at the top right to narrow the view.
+To reopen an artifact, select "Artifacts" from the sidebar and click the one you want. Use the "Filter by" dropdown at the top right to narrow the view.
 
 To change an artifact you own, paste its link into any session or ask Claude to look up your artifacts, then ask Claude to make changes. Each change saves a new version. Open version history to compare an earlier version with the current one or restore it.
 
@@ -70,7 +72,7 @@ You can share an artifact with specific people, your organization, or, if enable
 
 3. Choose who can view:
 
-  1. Team and Enterprise plans can select: "Only people with access," "Everyone in your organization," or "Anyone with the link" (not available for artifacts that use connected apps or ask Claude questions). An Owner or Primary Owner needs to toggle on **External sharing** in **Organization settings > Artifacts** in order to select "Anyone with the link."
+  1. Team and Enterprise plans can select: "Only people with access," "Everyone in your organization," or "Anyone with the link” (not available for docs, or for artifacts that use connected apps or ask Claude questions). On Enterprise plans, an Owner or Primary Owner needs to toggle on **External sharing** in **Organization settings > Artifacts** in order to select "Anyone with the link."
 
   2. Pro and Max plans can select: "Only you" or "Anyone with the link."
 
@@ -78,7 +80,7 @@ You can share an artifact with specific people, your organization, or, if enable
 
 How sharing works:
 
-- **By default, sharing stays within your organization.** An Owner or Primary Owner can enable external sharing ("Anyone with the link") in **Organization settings › Artifacts**.
+- **On Enterprise plans, sharing stays within your organization by default.** An Owner or Primary Owner can enable external sharing ("Anyone with the link") in **[Organization settings › Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
 - **Shared artifacts use the viewer's access, not yours.** When someone opens your artifact, it connects to their connectors and data sources. If they don't have access to an underlying data source, that part of the artifact shows an error instead of your data.
 
@@ -112,7 +114,7 @@ Each person who opens the artifact approves and uses their own connected apps, n
 
 You can no longer create live artifacts starting August 19, 2026. Live artifacts created before August 19, 2026 stay in the Artifacts view and keep working. You can still view them, but you can no longer edit them in place**.** To make changes, click "Share" on the live artifact and you'll have the option to republish it as a new artifact, which you can then edit like any other artifact.
 
-If you already shared the live artifact, the republish dialog shows its existing link. Select select "Latest" under **Shared version** to publish the new version to that link. People who have the link see the new version without needing a new link.
+If you already shared the live artifact, the republish dialog shows its existing link. Select "Latest" under **Shared version** to publish the new version to that link. People who have the link see the new version without needing a new link.
 
 Sharing a live artifact still works the way it always has:
 

@@ -1,5 +1,7 @@
 # Let Claude use your computer in Cowork
 
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 Claude can now use your computer to complete tasks in Claude Cowork and Claude Code (refer to our **[Claude Code Docs](https://code.claude.com/docs/en/desktop#let-claude-use-your-computer)** for more information about this). When computer use is enabled and Claude doesn't have a connector or tool for what you need, it may navigate to your screen directly—clicking, typing, and opening apps just like you would. It can work in your browser, open files, and run your dev tools automatically, with no setup required other than enablement.
 
 Computer use is in beta for Pro and Max plans. It’s available in Cowork and Claude Code in the Claude Desktop application for both macOS and Windows. This capability comes with risks—review **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-cowork-safely)** before using it.

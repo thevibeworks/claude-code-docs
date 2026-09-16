@@ -8,7 +8,7 @@ The Pro plan is a paid plan for our Claude chat experience. It is currently avai
 
 The benefits of the Pro plan are:
 
-- At least five times the usage per session compared to our free service.
+- More usage per session than the Free plan.
 
 - Priority access to Claude during high-traffic periods.
 
@@ -16,7 +16,7 @@ The benefits of the Pro plan are:
 
 - **[Claude Code access](https://support.claude.com/en/articles/11145838-using-claude-code-with-your-pro-or-max-plan)**
 
-- **[Cowork access](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)**
+- **[Longer, multi-step tasks](https://support.claude.com/en/articles/16761823)**
 
 Learn how to **[sign up for the Pro plan](https://support.claude.com/en/articles/8325609-how-do-i-sign-up-for-the-pro-plan)**.
 
@@ -44,7 +44,7 @@ We occasionally run limited-time promotions, but we don't have any standing disc
 
 ## Does the Pro plan have any usage limits?
 
-Yes. During peak hours, the Pro plan offers at least five times the usage per session compared to our free service. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use. Your session-based usage limit will reset every five hours.
+Yes. The Pro plan offers more usage per session than the Free plan. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use. Your session-based usage limit will reset every five hours.
 
 Pro plans also have a weekly usage limit that applies across all models. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 

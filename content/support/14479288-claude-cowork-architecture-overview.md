@@ -1,5 +1,7 @@
 # Claude Cowork architecture overview
 
+**Note:** Claude Cowork and chat are now one Claude, rolling out gradually to Pro and Max plans. Ask for what you need, and Claude decides whether that's a quick answer or a task. Team and Enterprise organizations keep chat and Claude Cowork as they are today, so everything in this article still applies. Learn more in our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 This article explains where Claude Cowork runs, how each execution mode is isolated, and the admin controls available for restricting its scope.
 
 This article is for Enterprise admins. The architecture described here is the same across all plans. The device-level admin controls at the end apply to Team and Enterprise plans.

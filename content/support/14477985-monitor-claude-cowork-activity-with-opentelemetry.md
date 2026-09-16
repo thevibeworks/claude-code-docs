@@ -1,5 +1,7 @@
 # Monitor Claude Cowork activity with OpenTelemetry
 
+**Note:** Claude Cowork and chat are now one Claude, rolling out gradually to Pro and Max plans. Ask for what you need, and Claude decides whether that's a quick answer or a task. Team and Enterprise organizations keep chat and Claude Cowork as they are today, so everything in this article still applies. Learn more in our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 This article explains how to use OpenTelemetry (OTel) to monitor Claude Cowork activity across your organization. With OTel, your security and operations teams can stream Cowork events into the observability tools you already use to track usage, investigate incidents, and analyze performance.
 
 OpenTelemetry monitoring for Claude Cowork is available on Team and Enterprise plans. It covers Cowork sessions that run in the cloud (on desktop, web, and mobile) as well as local desktop sessions. Monitoring sessions in the cloud requires Claude Desktop version 1.22209.3 or later, and monitoring local desktop sessions requires Claude Desktop version 1.1.4173 or later.
@@ -24,7 +26,7 @@ When you connect Claude Cowork to an OpenTelemetry collector, Cowork streams eve
 
 A shared `prompt.id` attribute links every event triggered by a single user prompt, so you can reconstruct everything Claude did in response to one input.
 
-For the full list of event types and attributes, see the **[Cowork monitoring reference](https://claude.com/docs/cowork/monitoring#events)** in our Claude Docs.
+For the full list of event types and attributes, see the **[Cowork monitoring reference](https://claude.com/docs/cowork/monitoring#events)** on **claude.com/docs**.
 
 ---
 

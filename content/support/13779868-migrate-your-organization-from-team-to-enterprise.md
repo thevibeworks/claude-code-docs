@@ -60,9 +60,9 @@ The following capabilities are default-off for Enterprise plans:
 
 - Code execution and file creation
 
-- Interactive content in artifacts
+- Claude Design, Claude Slides, and Claude Docs (in Organization settings > Artifacts)
 
-- Claude Design
+- Standalone Claude Design at claude.ai/design
 
 - Claude in Chrome
 

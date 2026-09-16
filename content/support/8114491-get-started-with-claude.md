@@ -36,7 +36,7 @@ You use **prompts** to communicate with Claude. The best approach is to speak to
 
 Type your prompt into the chat interface and click the submit button to start a conversation with Claude. You can click the "+" button in the lower left or type "/" to view additional options and commands:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1789573500&amp;signature=54cf0e1358aad8becfd32847c1ee7afc73f806866276622ac2180d5298147ba2&amp;req=dSkmEMt%2BlYRYUfMW1HO4zV2J7SbPs4SE9crMELaMZPw6ZZc9D5T7zNdwV%2FDD%0AA90M%2Fx1hmqTG92BmOUI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1789711200&amp;signature=648aa0397c9af9a923be88c7ef08a63f9aef89a6c2f47106096c8c1d6e8b0273&amp;req=dSkmEMt%2BlYRYUfMW3nq%2Bgehpi5whDlpN37Vyx%2BM3b7elFOZtGOSY%2FFIgfEEm%0A1fTi%2F6qvWKke9CsdC3K2KZb4pOo%3D%0A)
 
 ---
 
@@ -62,7 +62,7 @@ For more information about usage and length limits, refer to **[How do usage and
 
 ### How do I increase my usage limits?
 
-We also have several paid subscriptions that offer additional usage. For more information, view our guide on **[Choosing a Claude plan](https://support.claude.com/en/articles/11049762-choosing-a-claude-plan)**.
+We also have several paid subscriptions that offer additional usage. For more information, refer to our **[Plans & Pricing page](https://claude.com/pricing)**.
 
 ### Can I import my conversation history from another AI provider?
 
@@ -92,4 +92,4 @@ Once you've started using Claude, you can:
 
 - Learn more about designing effective prompts in our **[prompt engineering documentation](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)**.
 
-- For additional features and more usage, consider **[upgrading to a paid plan](https://support.claude.com/en/articles/11049762-choosing-a-claude-plan)**.
+- For additional features and more usage, consider **[upgrading to a paid plan](https://claude.com/pricing)**.

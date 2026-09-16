@@ -1,5 +1,7 @@
 # Use Claude Cowork safely
 
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
 Cowork sessions run in the cloud on Anthropic's servers (in beta), and Claude reaches your files, browser, and apps through the Claude Desktop app. These capabilities come with risks worth understanding. This article covers what we've built to keep you safe, what you should watch for, and how to protect yourself when using Cowork.
 
 Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on desktop, and in beta on web and mobile for Pro, Max, and Team plans, and Enterprise plans when enabled by an owner. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.

@@ -28,6 +28,8 @@ Additional factors that affect your usage limits include:
 
 - Artifact creation and usage
 
+- Multi-step tasks, like running code, creating files, or browsing websites
+
 Our system also includes caching that helps you optimize your limits:
 
 - Content in projects is cached and doesn't count against your limits when reused.

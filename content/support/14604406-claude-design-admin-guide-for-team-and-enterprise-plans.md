@@ -1,24 +1,34 @@
 # Claude Design admin guide for Team and Enterprise plans
 
-Claude Design lets your team create on-brand designs, prototypes, presentations, and interactive microsites through conversation with Claude.
+Claude Design lets your team create on-brand designs, prototypes, and interactive microsites through conversation with Claude. Presentations now have their own tool, Claude Slides.
 
-Claude Design is available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans.
+Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on.
 
 Claude Design works best when a **design system** is set up for your organization first. This ensures every project your team creates stays true to your brand, typography, color palette, and component patterns. This guide walks you through enabling Claude Design, setting up the right foundation, and rolling it out to your team.
 
-## Enable Claude Design for your organization
+**[Create an artifact with Claude](https://claude.ai/artifacts)**
 
-Claude Design is available via a toggle in organization settings, and can be **[controlled using custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
+## Turn on Claude Design for your organization
 
-Before you enable broad access, read through the rollout approach below. Turning on Claude Design without a design system in place means your team will get functional but generic output.
+Your team can use Claude Design in two places, and each has its own setting. Turning one on doesn't turn on the other.
 
-Team and Enterprise plan admins can enable this organization-wide by following these steps:
+### Claude Design in conversations and the Artifacts tab
+
+1. Go to **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+2. Turn on **Design**.
+
+On Enterprise plans, you can turn it on for specific groups instead of your whole organization with the Claude Design Artifact capability in **[custom roles](https://support.claude.com/en/articles/13930452)**. People outside those groups can still open, comment on, and use designs shared with them. Claude Slides and Claude Docs have their own settings on the same page, **Slides** and **Docs**.
+
+### Standalone Claude Design at claude.ai/design
 
 1. Go to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 
-2. Find the **Claude Design** toggle under **Anthropic Labs** and switch it on.
+2. Find the **Claude Design** toggle and switch it on.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2289240025/8a528b6cccc3ea1001c25953cb14/image.png?expires=1789573500&amp;signature=c7ab6a5ad7aa07840f05d17846d2af745a7b42cba03548f7ea3bb51e2d234f68&amp;req=diIvH8t6nYFdXPMW1HO4zahp3esNHuUgDIPtKBLQ9H8dz8z7wAGobnkKlYmV%0Ahso7vS9SnlIfX4%2BUoBE%3D%0A)
+On Enterprise plans, you can control access to standalone Claude Design with **[custom roles](https://support.claude.com/en/articles/13930452)**.
+
+Before you turn on broad access, read through the rollout approach below. Turning on Claude Design without a design system in place means your team gets functional but generic output.
 
 ---
 
@@ -72,11 +82,11 @@ You'll need Owner access to configure roles.
 
 1. Go to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)** and create or edit a custom role.
 
-2. In the **Permissions** tab, find **Claude Design Admin** under **In-app admin** and set it to **Can manage**.
+2. In the **Admin permissions** tab, find **Claude Design Admin** under **Product admin** and set it to **Can manage**.
 
 3. Assign the role to a group. Members of that group inherit the permission.
 
-4. Set each member's role to **Custom roles**.
+4. Set each member's role to **Custom**.
 
 Permissions are additive. A member in multiple groups gets the union of what those groups' roles grant. Learn more about **[managing custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
@@ -92,13 +102,13 @@ Permission changes can take up to 15 minutes to apply, and members may need to r
 
 ## Recommended rollout phases
 
-A phased rollout lets you validate your design system and build internal expertise before broad adoption. You can control access to Claude Design in accordance with each rollout phase using **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
+A phased rollout lets you validate your design system and build internal expertise before broad adoption. On Enterprise plans, you can phase access to standalone Claude Design using **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**. You can phase access to Claude Design in conversations and the Artifacts tab the same way, with the Design capability (under **Artifacts**).
 
 ### Phase 1: Design system setup
 
 - **Who:** 2–4 trusted designers and design leads across brand and product design.
 
-- **Goal:** Create and validate your organization’s design system, including product and slide deck templates everyone can use as a starting point.
+- **Goal:** Create and validate your organization’s design system, including product templates everyone can use as a starting point.
 
 - **Checkpoint:** Review generated output for brand consistency before proceeding.
 
@@ -144,7 +154,7 @@ Once set up, your team can use Claude Design to:
 
 - **Create prototypes and mockups:** Describe a UI and get a working interactive prototype.
 
-- **Build presentations and slide decks:** Generate on-brand decks through conversation, presentable as HTML, PDF, and PPTX.
+- **Build presentations with Claude Slides:** Make on-brand decks from notes, reports, or an existing conversation, and export them to PowerPoint or PDF. Claude Slides has its own setting in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
 - **Design microsites and landing pages:** Create polished single-page sites.
 
@@ -152,19 +162,15 @@ Once set up, your team can use Claude Design to:
 
 - **Hand off to engineering:** Export design intent for use with Claude Code or your existing development workflow.
 
-We have more tutorials available here:
-
-- **[Using Claude Design for prototypes and UX](http://claude.com/resources/tutorials/using-claude-design-for-prototypes-and-ux)**
-
-- **[Using Claude Design for presentations and slide decks](http://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks)**
-
 ---
 
 ## Monitor usage
 
-Track Claude Design adoption from the analytics dashboard. Navigate to **[Analytics > Claude Design](https://claude.ai/analytics/claude-design)** to view daily, weekly, and monthly active users for your organization. Claude Design is also available as a product filter on the Overview tab. Learn more about **[viewing usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans)**.
+Track adoption of standalone Claude Design from the analytics dashboard. Navigate to **[Analytics > Claude Design](https://claude.ai/analytics/claude-design)** to view daily, weekly, and monthly active users for your organization. Claude Design is also available as a product filter on the Overview tab. These analytics cover claude.ai/design only, and they don't include designs made in conversations or the **Artifacts** tab.
 
-Claude Design doesn't support audit logs yet.
+Learn more about **[viewing usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans)**.
+
+Standalone Claude Design doesn't support audit logs yet. Designs made in conversations and the **Artifacts** tab are recorded in the Compliance API at the artifact level, like other artifacts.
 
 We also recommend supplementing analytics with qualitative check-ins during your rollout: gather feedback from each group as they onboard, and sample a few projects periodically to assess design system compliance.
 
@@ -172,9 +178,11 @@ We also recommend supplementing analytics with qualitative check-ins during your
 
 When your team uses Claude Design, they may upload design assets, brand guidelines, screenshots, and other materials. Understanding how these are handled is important for organizations with data governance requirements.
 
-- Uploaded assets are stored persistently, and fall under the same **[data retention and deletion policies](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** as other Anthropic enterprise products.
+- Uploaded assets are stored persistently, and fall under the same[**data retention and deletion policies**](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data) as other Anthropic enterprise products.
 
 - Claude Design doesn’t currently support data residency requirements.
+
+- Claude Design in conversations and the Artifacts tab isn't available yet for organizations that use CMEK, ZDR, or a HIPAA-ready configuration.
 
 ### Preview sandbox isolation
 
@@ -186,7 +194,7 @@ Access to a preview is controlled by signed tokens—short-lived passes that pro
 
 ## Third-party platform availability
 
-Claude Design is currently available only through the web interface at claude.ai/design.
+Claude Design is available in Claude on web and desktop, in Claude Code, and at claude.ai/design. In the Claude app for iOS and Android, you can ask for a design and view it. Claude Design isn't available through third-party cloud platforms.
 
 If your organization requires Claude Design through your existing cloud provider agreements, reach out to your Anthropic contact or our **[Sales team](https://claude.com/contact-sales)**.
 
@@ -194,7 +202,7 @@ If your organization requires Claude Design through your existing cloud provider
 
 ## Usage and billing
 
-Claude Design usage counts toward each member's existing usage limits, shared with chat, Claude Code, and Cowork. There's no separate Claude Design allowance to provision or manage.
+Claude Design usage counts toward each member's existing usage limits, shared with the rest of Claude, including Claude Code. There's no separate Claude Design allowance to provision or manage.
 
 - **Team and seat-based Enterprise plans:** Claude Design draws from each member's seat usage limits, including both session and weekly limits. Admins can purchase **[usage credits](https://support.claude.com/en/articles/12005970-manage-extra-usage-for-team-and-seat-based-enterprise-plans)** for members who need more capacity.
 
@@ -222,7 +230,7 @@ If you haven't assigned the **Claude Design Admin** permission to anyone, any me
 
 ### Can I restrict Claude Design to specific departments?
 
-Yes. Enterprise plans can use custom roles to grant access to specific groups or departments rather than enabling it for the whole organization.
+Yes. On Enterprise plans, you can use custom roles to limit standalone Claude Design and Claude Design in conversations and the Artifacts tab to specific groups or departments. Each has its own capability: **Claude Design [standalone]** and **Design** (under **Artifacts**).
 
 ### How many users can we onboard at once?
 
@@ -230,4 +238,4 @@ There are no strict limits, but we recommend the phased approach outlined above 
 
 ### Can we export or archive generated designs?
 
-Claude Design currently supports export to HTML bundles, PPTX, PDF, and hand-off to Claude Code or the following partners: Adobe, Base44, Canva, Gamma, Lovable, Miro, Replit, Vercel, or Wix. Reach out to your Anthropic Contact or our **[Sales team](https://claude.com/contact-sales)** if there’s a specific format or destination you need.
+Claude Design currently supports export to HTML bundles, PPTX, and PDF, hand-off to Claude Code, and sending designs to the partner tools listed in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**. Reach out to your Anthropic Contact or our **[Sales team](https://claude.com/contact-sales)** if there’s a specific format or destination you need.

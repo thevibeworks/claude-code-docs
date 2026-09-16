@@ -1215,6 +1215,10 @@
       "since": "2026-08-25",
       "reason": "HTTP 404"
     },
+    "https://support.claude.com/en/articles/11049762-choose-a-claude-plan": {
+      "since": "2026-09-16",
+      "reason": "HTTP 404"
+    },
     "https://support.claude.com/en/articles/11503834-build-custom-connectors-via-remote-mcp-servers": {
       "since": "2026-08-25",
       "reason": "HTTP 404"
