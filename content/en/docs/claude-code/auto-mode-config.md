@@ -91,7 +91,9 @@ As of Claude Code v2.1.198, `claude auto-mode defaults` prints three kinds of en
   * **Organization**
   * **Primary use of Claude Code**: defaults to software development
   * **Cloud provider(s)**
-  * **Repository visibility**: a repository is assumed private unless its remote host and name indicate otherwise, or a visibility check earlier in the conversation the classifier reads shows it is public. The classifier reads your messages and the commands Claude runs, not their output, so the evidence has to be something it can read, such as your own message naming the repository as public; the output of a `gh repo view` on its own doesn't reach it. The transcript-evidence check requires Claude Code v2.1.200 or later
+  * **Repository visibility**: a repository is assumed private unless its remote host and name indicate otherwise, or the classifier reads a visibility check earlier in the conversation showing it is public.
+
+    In the classifier requests sent by Claude Code itself, the classifier reads your messages and the commands Claude runs, not their output. The evidence has to be something the classifier can read, such as your own message naming the repository as public; the output of a `gh repo view` on its own doesn't reach it. The transcript-evidence check requires Claude Code v2.1.200 or later
   * **Internal sharing / snippet hosting**: public paste and gist services are treated as outside the trust boundary until you name one
   * **Org-specific CLIs**
   * **Secrets management**
@@ -170,7 +172,7 @@ You don't need to fill everything in at once. A reasonable rollout: start with t
 Run `/auto-mode-setup` to have Claude Code draft `autoMode.environment` entries, and sometimes [rule entries](#override-the-block-and-allow-rules) too, from your project and your recent sessions in it. If you accept the draft, Claude Code writes it to `~/.claude/settings.json`.
 
 <Note>
-  `/auto-mode-setup` requires a Pro, Max, or Team plan and Claude Code v2.1.228 or later. On native Windows it requires v2.1.233 or later. You can't run it in [Claude Code on the web](/docs/en/claude-code-on-the-web). It also needs [feature-flag fetching](/docs/en/env-vars#features-that-need-feature-flag-fetching), so you can't run it in a session where you've turned flag fetching off.
+  `/auto-mode-setup` requires a Pro, Max, or Team plan and Claude Code v2.1.228 or later. On native Windows it requires v2.1.233 or later. You can't run it in a [cloud session](/docs/en/claude-code-on-the-web). It also needs [feature-flag fetching](/docs/en/env-vars#features-that-need-feature-flag-fetching), so you can't run it in a session where you've turned flag fetching off.
 </Note>
 
 <h3 id="what-auto-mode-setup-reads">
@@ -291,7 +293,7 @@ The tab lists the `allow`, `soft_deny`, `hard_deny`, and `environment` entries f
 
 ## Route all shell commands through the classifier
 
-By default, narrow Bash and PowerShell allow rules such as `Bash(npm test)` stay in effect in auto mode, and Claude Code resolves them before the classifier runs. Claude Code suspends only the broad rules that grant arbitrary code execution, such as `Bash(*)` or wildcarded interpreters, together with every rule that names [`Monitor`](/docs/en/tools-reference#monitor-tool), because Monitor commands run through the shell. This means a narrow rule can still let a destructive argument through without the classifier seeing it, for example a script path or flag the rule's prefix didn't anticipate.
+By default, narrow Bash and PowerShell allow rules such as `Bash(npm test)` stay in effect in auto mode. Claude Code resolves them before the classifier runs, unless the command carries [per-command allowed domains](/docs/en/sandboxing#per-command-allowed-domains-in-auto-mode). Claude Code suspends only the broad rules that grant arbitrary code execution, such as `Bash(*)` or wildcarded interpreters, together with every rule that names [`Monitor`](/docs/en/tools-reference#monitor-tool), because Monitor commands run through the shell. This means a narrow rule can still let a destructive argument through without the classifier seeing it, for example a script path or flag the rule's prefix didn't anticipate.
 
 Set `autoMode.classifyAllShell` to `true` to suspend every Bash and PowerShell allow rule while auto mode is active, so the classifier evaluates every shell command regardless of your allow list.
 

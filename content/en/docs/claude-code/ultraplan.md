@@ -4,7 +4,7 @@
 
 # Ultraplan is no longer available
 
-> Replace the removed Ultraplan research preview with plan mode for local planning or Claude Code on the web for cloud sessions.
+> Replace the removed Ultraplan research preview with plan mode for local planning, or a cloud session to plan and review in your browser.
 
 Anthropic has removed the Ultraplan research preview. Research previews are experimental and may change or be removed based on feedback. The removal covers:
 
@@ -15,4 +15,4 @@ Anthropic has removed the Ultraplan research preview. Research previews are expe
 For planning workflows, use:
 
 * [Plan mode](/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode): in your local session, have Claude research your codebase and present a plan for your approval before it makes any changes
-* [Claude Code on the web](/docs/en/claude-code-on-the-web): run Claude Code sessions in the cloud and review changes in your browser
+* [Use Claude Code in the cloud](/docs/en/claude-code-on-the-web): run Claude Code sessions in the cloud and review changes in your browser

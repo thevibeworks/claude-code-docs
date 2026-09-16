@@ -622,6 +622,7 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`awsAuthRefresh`](#awsauthrefresh)                                                                   | Refresh expired [Bedrock credentials](/docs/en/amazon-bedrock#advanced-credential-configuration) in `.aws` with your own command                                                                                                 | Authentication and providers       | Any file                |
 | [`awsCredentialExport`](#awscredentialexport)                                                         | Supply [Bedrock credentials](/docs/en/amazon-bedrock#advanced-credential-configuration) as JSON from your own command                                                                                                            | Authentication and providers       | Any file                |
 | [`axScreenReader`](#axscreenreader)                                                                   | Render [screen-reader friendly output](/docs/en/accessibility)                                                                                                                                                                   | Interface and terminal             | Any file                |
+| [`bashEditDiffEnabled`](#basheditdiffenabled)                                                         | Record the [files a Bash command changed](/docs/en/hooks#bash) in every permission mode                                                                                                                                          | Interface and terminal             | User or managed         |
 | [`bashOutputMaxChars`](#bashoutputmaxchars)                                                           | Set how much of a successful command's [output](/docs/en/tools-reference#output-limits) Claude receives inline                                                                                                                   | Memory and context                 | Any file                |
 | [`blockedMarketplaces`](#blockedmarketplaces)                                                         | Block [plugin marketplace](/docs/en/plugin-marketplaces) sources for your organization                                                                                                                                           | Plugins and skills                 | Managed                 |
 | [`browserExternalPageTools`](#browserexternalpagetools)                                               | Keep Claude's tools off external pages in the [desktop](/docs/en/desktop) Browser pane                                                                                                                                           | Tools                              | Managed                 |
@@ -677,6 +678,7 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`forceLoginMethod`](#forceloginmethod)                                                               | [Restrict login](/docs/en/authentication#restrict-login-to-your-organization) to claude.ai, Claude Console, or a [cloud gateway](/docs/en/claude-apps-gateway)                                                                        | Authentication and providers       | Any file                |
 | [`forceLoginOrgUUID`](#forceloginorguuid)                                                             | [Pin claude.ai logins to your organization](/docs/en/authentication#restrict-login-to-your-organization); only a managed source enforces it                                                                                      | Authentication and providers       | Any file                |
 | [`forceRemoteSettingsRefresh`](#forceremotesettingsrefresh)                                           | Block startup until [server-managed settings](/docs/en/server-managed-settings) are freshly fetched                                                                                                                              | Enterprise and managed settings    | Managed                 |
+| [`gatewayInternalNetworks`](#gatewayinternalnetworks)                                                 | Let `/login` reach a [cloud gateway](/docs/en/claude-apps-gateway#allow-a-gateway-on-public-address-space-you-own) on public IPv4 space your organization uses internally                                                        | Authentication and providers       | Managed                 |
 | [`gcpAuthRefresh`](#gcpauthrefresh)                                                                   | Refresh [Google Cloud credentials](/docs/en/google-vertex-ai#advanced-credential-configuration) with your own command                                                                                                            | Authentication and providers       | Any file                |
 | [`hooks`](#hooks)                                                                                     | Run your own commands as [hooks](/docs/en/hooks) at points in Claude Code's lifecycle                                                                                                                                            | Hooks and automation               | Any file                |
 | [`httpHookAllowedEnvVars`](#httphookallowedenvvars)                                                   | Limit which env vars [HTTP hooks](/docs/en/hooks) can put in headers                                                                                                                                                             | Hooks and automation               | Any file                |
@@ -1359,12 +1361,12 @@ When more than one of those files sets the same array, Claude Code concatenates 
 
 ### `autoMode.classifyAllShell`
 
-Send every Bash and PowerShell command through the auto mode classifier while auto mode is active. By default, auto mode suspends only allow rules that could run arbitrary code: tool-wide and wildcard rules such as `Bash(*)`, and interpreter or shell-wrapper prefixes such as `Bash(python *)`. A command that any other allow rule matches, such as `Bash(npm test)`, skips the classifier, and a destructive argument the rule's prefix didn't anticipate can get through unseen. Setting this key suspends every shell allow rule for the session so the classifier sees every command. Requires Claude Code v2.1.193 or later.
+Send every Bash and PowerShell command through the auto mode classifier while auto mode is active. By default, auto mode suspends only allow rules that could run arbitrary code: tool-wide and wildcard rules such as `Bash(*)`, and interpreter or shell-wrapper prefixes such as `Bash(python *)`. A command that any other allow rule matches, such as `Bash(npm test)`, skips the classifier unless it carries [per-command allowed domains](/docs/en/sandboxing#per-command-allowed-domains-in-auto-mode). When it skips, a destructive argument the rule's prefix didn't anticipate can get through unseen. Setting this key suspends every shell allow rule for the session so the classifier sees every command. Requires Claude Code v2.1.193 or later.
 
 * **Scope**: [`User or managed`](#scopes). Read wherever [`autoMode`](#automode) is read.
 * **Type**: Boolean
   * `true`: while auto mode is active, Claude Code sends every Bash and PowerShell command through the classifier and suspends your shell allow rules; outside auto mode the rules still apply
-  * `false`: auto mode suspends only allow rules that could run arbitrary code, such as `Bash(*)` and `Bash(python *)`; a command that any other allow rule matches skips the classifier, and every other shell command goes through it
+  * `false`: auto mode suspends only allow rules that could run arbitrary code, such as `Bash(*)` and `Bash(python *)`; a command that any other allow rule matches skips the classifier unless it carries [per-command allowed domains](/docs/en/sandboxing#per-command-allowed-domains-in-auto-mode), and every other shell command goes through it
 * **Default**: `false`
 
 ```json settings.json theme={null}
@@ -1536,6 +1538,8 @@ Like `allow` rules, entries in a project's `.claude/settings.json` take effect o
 
 Stop Claude from reading paths outside the session's [working directories](/docs/en/permissions#working-directories) with the Read, Grep, Glob, and LSP tools, in every permission mode including `bypassPermissions`. A Bash command that reads a matching path through a file command Claude Code recognizes, such as `cat`, prompts you even in auto mode and `bypassPermissions` mode. Requires Claude Code v2.1.257 or later.
 
+A Bash command the shell parser can't trace, such as one that changes directory more than once or runs a subshell, prompts you even in auto mode and `bypassPermissions` mode. The prompt appears even when the command names no path outside the working directories. This prompt doesn't apply when the command runs in the [sandbox](/docs/en/sandboxing) and the sandbox enforces the block.
+
 Claude Code also writes `true` here when you choose to block such reads on [auto mode's prompt before the first read outside the working directories](/docs/en/permission-modes#first-read-outside-the-working-directories).
 
 * **Scope**: [`Any file`](#scopes). If any settings source sets `true`, the block applies, so a repository's checked-in file can turn the block on for a project but can't lift a block you set.
@@ -1582,7 +1586,7 @@ Set the [permission mode](/docs/en/permission-modes) new sessions start in. When
 }
 ```
 
-Permission rules layer on top of every mode: `deny` rules block in every mode, including `bypassPermissions`. See [Permission modes](/docs/en/permission-modes). `manual` names the permission mode labeled Manual in the CLI and the VS Code extension; the alias requires Claude Code v2.1.200 or later. In Claude Code on the web, Claude Code honors only `acceptEdits`, `plan`, `default`, and `auto` from this key. For conversations the VS Code extension starts, see [which setting the extension reads for the starting permission mode](/docs/en/permission-modes#switch-permission-modes).
+Permission rules layer on top of every mode: `deny` rules block in every mode, including `bypassPermissions`. See [Permission modes](/docs/en/permission-modes). `manual` names the permission mode labeled Manual in the CLI and the VS Code extension; the alias requires Claude Code v2.1.200 or later. In cloud sessions, Claude Code honors only `acceptEdits`, `plan`, `default`, and `auto` from this key. For conversations the VS Code extension starts, see [which setting the extension reads for the starting permission mode](/docs/en/permission-modes#switch-permission-modes).
 
 ### `permissions.disableBypassPermissionsMode`
 
@@ -2514,7 +2518,7 @@ Deny sandboxed commands access to hosts outside the allowlist instead of prompti
 * **Scope**: [`User or managed`](#scopes). A repository can't turn it on or off.
 * **Type**: Boolean
   * `true`: Claude Code denies sandboxed commands access to hosts outside the allowlist
-  * `false`: unless another trusted settings file sets `true`, Claude Code decides a host outside the allowlist by permission mode instead of denying it outright: it runs the classifier in auto mode, denies in `dontAsk` mode, allows in `bypassPermissions` mode and in interactive terminal plan-mode sessions where bypass is available, and otherwise asks you
+  * `false`: unless another trusted settings file sets `true`, Claude Code decides a host outside the allowlist by permission mode instead of denying it outright: in auto mode it checks the host against the command's [per-command allowed domains](/docs/en/sandboxing#per-command-allowed-domains-in-auto-mode), in `dontAsk` mode it denies, in `bypassPermissions` mode and in interactive terminal plan-mode sessions where bypass is available it allows, and otherwise it asks you
 * **Default**: `false`
 
 ```json settings.json theme={null}
@@ -2944,6 +2948,23 @@ Render screen-reader friendly output: flat text without decorative borders or an
 ```
 
 Requires Claude Code v2.1.181 or later.
+
+### `bashEditDiffEnabled`
+
+Choose whether Claude Code records the files a Bash command changes in a Git repository. When it records them, you see their diff in the terminal after the command, and your [PostToolUse Bash hooks](/docs/en/hooks#bash) receive the changed-file list.
+
+Set the key to `true` to record them in every permission mode. Requires Claude Code v2.1.269 or later.
+
+* **Scope**: [`User or managed`](#scopes). A `true` counts only from your user settings, JSON passed with `--settings`, or [managed settings](/docs/en/managed-settings), so a `true` in a repository's `.claude/settings.json` or `.claude/settings.local.json` can't turn the recording on. A `false` in either repository file still turns it off unless a [higher-precedence](/docs/en/settings#settings-precedence) file sets `true`.
+* **Type**: Boolean
+* **Default**: unset, so Claude Code records changes in auto mode and `bypassPermissions` mode when it directs Claude to edit files through Bash
+* **Per-session overrides**: [`CLAUDE_CODE_BASH_EDIT_DIFF`](/docs/en/env-vars) takes precedence over this key for one session
+
+```json settings.json theme={null}
+{
+  "bashEditDiffEnabled": true
+}
+```
 
 ### `companyAnnouncements`
 
@@ -5333,6 +5354,26 @@ If a managed source sets an empty array, or a value Claude Code can't parse, Cla
 
 See [Restrict login to your organization](/docs/en/authentication#restrict-login-to-your-organization) for how Claude Code treats Claude Console logins, the other login paths, and environment credentials.
 
+### `gatewayInternalNetworks`
+
+Declare the public IPv4 blocks that your organization numbers its internal network from, so `/login` accepts a [cloud gateway](/docs/en/claude-apps-gateway) there. Requires Claude Code v2.1.268 or later.
+
+Without this key, `/login` connects to any gateway on a private address and nothing else. With it, `/login` also accepts a gateway inside a listed block, over a direct connection only. The machine's own address on that connection must also be inside the same block.
+
+* **Scope**: [`Managed`](#scopes). Read only from a source on the machine: `managed-settings.json`, the macOS plist or Windows HKLM registry, or a policy helper. Claude Code ignores it in HKCU and server-managed settings.
+* **Type**: array of strings, at most four IPv4 CIDR blocks, each `/8` to `/32`, not overlapping one another, and none overlapping private space.
+* **Default**: unset, so `/login` accepts only gateways on private addresses
+
+```json managed-settings.json theme={null}
+{
+  "gatewayInternalNetworks": ["203.0.113.0/24"]
+}
+```
+
+Replace the documentation range in the example with your own block. Claude Code refuses the documentation ranges, the ranges that VPN and NAT64 clients use locally, and reserved space that no network is numbered from, such as multicast.
+
+If an entry is invalid, or the value isn't a list of strings, `/login` names the problem and refuses every new gateway sign-in on the machine until you fix the value. Existing sign-ins keep working. See [Allow a gateway on public address space you own](/docs/en/claude-apps-gateway#allow-a-gateway-on-public-address-space-you-own) for the full rules and what developers see.
+
 ### `gcpAuthRefresh`
 
 Run your own command to refresh Google Cloud Application Default Credentials when Claude Code finds they've expired or can't be loaded, so [Google Cloud's Agent Platform](/docs/en/google-vertex-ai) requests keep working without you re-authenticating by hand.
@@ -5609,7 +5650,7 @@ Reject the `--plugin-dir`, `--plugin-url`, `--agents`, and `--mcp-config` CLI fl
 
 Claude Code still accepts a `--mcp-config` whose servers are all in-process `type: "sdk"` entries, so the Agent SDK and VS Code extension keep working. Users can still add servers with `claude mcp add` or a `.mcp.json` file; for per-server control, set [`allowedMcpServers`](/docs/en/managed-mcp) as well. Requires Claude Code v2.1.193 or later.
 
-In cloud sessions, Claude Code also ignores server-delivered mid-session MCP updates, the path behind cloud session configuration and SDK `setMcpServers()` on remote workers. In-process `type: "sdk"` entries stay exempt there too. Before v2.1.239, a server-delivered `--mcp-config` blocked a cloud session from starting.
+In cloud sessions, Claude Code also ignores server-delivered mid-session MCP updates, the path behind cloud session configuration and SDK `setMcpServers()` calls that reach those sessions. In-process `type: "sdk"` entries stay exempt there too. Before v2.1.239, a server-delivered `--mcp-config` blocked a cloud session from starting.
 
 ### `forceRemoteSettingsRefresh`
 
@@ -5670,7 +5711,7 @@ A few keys add a condition that the table doesn't show:
 
 * **[`policyHelper`](#policyhelper)**: Claude Code honors it only when the highest source that carries a policy key is an MDM policy or a managed settings file, so under server-managed settings it doesn't apply.
 * **[`modelOverrides`](#modeloverrides)**: pairs with `availableModels`. Claude Code takes `modelOverrides` from the highest source that sets it, unless a higher source sets `availableModels` without `modelOverrides`. In that case it ignores `modelOverrides` from every source.
-* **[`forceLoginGatewayUrl`](#forcelogingatewayurl) and the `"gateway"` value of [`forceLoginMethod`](#forceloginmethod)**: Claude Code never reads either from server-managed settings, so a value there neither applies nor hides one set in an MDM policy or managed settings file. Among the admin sources on the machine, only the highest-ranked one that carries a policy key supplies them, whether or not server-managed settings are also present.
+* **[`forceLoginGatewayUrl`](#forcelogingatewayurl), [`gatewayInternalNetworks`](#gatewayinternalnetworks), and the `"gateway"` value of [`forceLoginMethod`](#forceloginmethod)**: Claude Code never reads any of them from server-managed settings, so a value there neither applies nor hides one set in an MDM policy or managed settings file. Among the admin sources on the machine, only the highest-ranked one that carries a policy key supplies them, whether or not server-managed settings are also present.
 
 To confirm which sources combined on a machine, run `/status` and [read the `Setting sources` line](/docs/en/managed-settings#read-the-source-in-/status).
 
