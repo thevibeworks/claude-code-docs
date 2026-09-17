@@ -18,14 +18,14 @@ Given a DOI or title, Claude tries in order: an open-access copy (Unpaywall, Sem
 
 Each credential in the **Literature access (journals, etc.)** form is optional and independent.
 
-| Credential                                     | Effect                                                        |
-| ---------------------------------------------- | ------------------------------------------------------------- |
-| **Elsevier API key** + institutional token     | Enables the Elsevier route (subscription still required)      |
-| **Springer Nature API key**                    | Enables the Springer Nature route                             |
-| **Semantic Scholar API key**                   | Speeds the Semantic Scholar step                              |
-| **NCBI API key**                               | Raises the PubMed rate limit from 3 to 10 requests per second |
-| **CORE API key**                               | Gives skills access to the CORE open-access aggregator        |
-| Institutional **EZproxy URL** + session cookie | Retries publisher links through your library                  |
+| Credential                                     | Effect                                                                              |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Elsevier API key** + institutional token     | Enables the Elsevier route (subscription still required)                            |
+| **Springer Nature API key**                    | Enables the Springer Nature route                                                   |
+| **Semantic Scholar API key**                   | Speeds the Semantic Scholar step                                                    |
+| **NCBI API key**                               | Raises the PubMed rate limit from 3 to 10 requests per second                       |
+| **CORE API key**                               | Saved with your other literature keys. Claude's full-text retrieval doesn't use it. |
+| Institutional **EZproxy URL** + session cookie | Retries publisher links through your library                                        |
 
 OpenAlex has its own entry in the same **Services** list: add a free **OpenAlex API key** there (create one on the [OpenAlex API settings page](https://openalex.org/settings/api)). OpenAlex requires a key on every request, so OpenAlex-backed literature search needs one configured.
 
