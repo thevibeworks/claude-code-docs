@@ -156,6 +156,7 @@
       "anthropics/tokio",
       "anthropics/torchtyping",
       "anthropics/triton",
+      "anthropics/uplifting-biomolecular-modeling",
       "anthropics/xls"
     ]
   },

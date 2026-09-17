@@ -33,6 +33,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 | Projects                                                                                                                            |         ✓         |           ✓          |
 | Code execution for analysis                                                                                                         |         ✓         |           ✓          |
 | Web search                                                                                                                          |         ✓         |          ✓ §         |
+| [Built-in browser](/docs/third-party/claude-desktop/browser)                                                                             |         ✓         |           ✓          |
 | File access, upload, and export                                                                                                     |         ✓         |           ✓          |
 | Local MCP                                                                                                                           |         ✓         |           ✓          |
 | Remote MCP                                                                                                                          |         ✓         |           ✓          |
@@ -47,7 +48,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 | Mobile                                                                                                                              |         ✓         |           —          |
 | claude.ai web-based access                                                                                                          |         ✓         |           —          |
 | Voice mode                                                                                                                          |         ✓         |           —          |
-| Claude in Chrome                                                                                                                    |         ✓         |           —          |
+| [Claude in Chrome](/docs/third-party/claude-desktop/browser#claude-in-chrome)                                                            |         ✓         |          ✓ ‖         |
 | Claude Design                                                                                                                       |         ✓         |           —          |
 | Claude Security                                                                                                                     |         ✓         |           —          |
 | Claude Tag                                                                                                                          |         ✓         |           —          |
@@ -58,6 +59,8 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 † Memory in Claude Desktop on 3P is stored on the device, not on Anthropic infrastructure. Users can review, delete, or pause it under **Settings → Cowork → Memory**; see [Memory](/docs/third-party/claude-desktop/data-storage#memory). Chat-history search and nightly summary generation are not available in Chat on 3P.
 
 ¶ Cowork's Automatically approve and Skip all approvals modes are not available for Claude Enterprise organizations.
+
+‖ Claude in Chrome works with Claude Desktop on 3P only in organizations managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console).
 
 ## Admin features
 

@@ -50,6 +50,8 @@ One-sentence definitions for the terms you meet in Claude Science, from artifact
 
 **SSH host**: a remote machine (server, cluster node, or a job submission host) added by its SSH name, that Claude can run jobs on, or dispatch jobs from.
 
+**[Use case](/docs/claude-science/safeguards#choose-a-use-case)**: a research purpose that Anthropic has approved for your organization under the Life Sciences Verification Program (beta); if you have more than one, you choose which one a session uses.
+
 **Version**: one immutable save of an artifact; saving again adds a new version on top instead of overwriting.
 
 **Workspace**: the per-session folder on disk where Claude's code reads and writes files before they are saved as artifacts.

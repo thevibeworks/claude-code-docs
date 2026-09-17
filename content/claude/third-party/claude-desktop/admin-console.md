@@ -105,6 +105,8 @@ The console refuses API keys, tokens, and secrets anywhere in the configuration,
 
 Most of these settings can also differ per group of users, on the **Permission policies** page under **People**, as described under [Per-group permission policies](#per-group-permission-policies).
 
+To turn on the built-in browser, open the **Capabilities** page in **Organization settings**, outside the **Desktop 3P** section, and turn on the **Built-in browser** switch under **Data sources**, as described under [Manage the built-in browser from the Enterprise Admin Console](/docs/third-party/claude-desktop/browser#manage-the-built-in-browser-from-the-enterprise-admin-console).
+
 ### Choose how users authenticate to your provider
 
 <Tip>

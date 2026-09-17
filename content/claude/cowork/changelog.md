@@ -6,6 +6,55 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.2553.0" description="2026-09-17">
+  Bundled Claude Code version: 2.1.274.
+
+  **General**
+
+  * Changed the sidebar's Pinned list to show its first 20 items, with a Show more link for the rest.
+  * Fixed connector and extension tools in Cowork and Code sessions failing with "expected nonoptional" when Claude left out an optional parameter that has a default.
+  * Fixed plugins past the first 100 in a marketplace not opening from Customize.
+  * Fixed Read Aloud continuing to play the old response after you regenerate, edit, or retry a reply, and cutting off early when a server error ended the read.
+  * Fixed some extensions that use the built-in Node.js runtime stopping with a "Server disconnected" error right after they start.
+  * Fixed the app closing and then failing to reopen on some Windows-on-ARM (Snapdragon) PCs installed from the Microsoft Store package.
+  * Fixed update restarts ending Code tab sessions and MCP servers abruptly instead of shutting them down the way quitting does.
+  * Fixed re-enabled plugins sometimes turning themselves back off, and new sessions sometimes starting without a plugin that was shown as enabled.
+
+  **Code**
+
+  * Added file viewing to cloud sessions, so file links in the transcript open in the app, the Files pane can search the session's files, and the Background tasks panel shows background command output.
+  * Fixed `!` commands and a code block's Run being dropped when the terminal was not ready; they now run within seconds, use the selected terminal tab when it is idle, show as terminal rows when sent while Claude is still working, and no longer leave the session marked as running after their output is sent.
+  * Fixed a case where a session could stop accepting messages after the app relaunched or the computer slept, until the app was restarted.
+  * Fixed a routine created with every connector removed still using all of your connectors.
+  * Fixed new sessions sometimes taking minutes to start while another session's worktree was being cleaned up or recycled.
+  * Fixed Plan mode skipping permission prompts when the Bypass permissions option is on and the session fell back to an older bundled Claude Code CLI while an update downloaded.
+  * Fixed turns failing with "OAuth token has expired" hours into a session; the token is now renewed in the background, and when a fresh sign-in is genuinely required the app asks before sending and keeps your message.
+  * Fixed sessions in large repositories starting slowly, including repositories that use a `.worktreeinclude` file, and worktrees occasionally starting without their local settings files.
+
+  **Cowork**
+
+  * Fixed plugin skills that reference `${CLAUDE_PLUGIN_ROOT}` or `${CLAUDE_SKILL_DIR}` sometimes running their commands with those paths blank.
+  * Fixed preinstalled Node.js packages such as `pptxgenjs`, `docx`, `pdf-lib` and `sharp` not being found by `require()`.
+  * Fixed search and session loading crashing on very long conversations.
+  * Fixed stacked permission prompts sliding up under the mouse pointer right after one is answered, which could send the next click to the wrong prompt.
+  * Fixed workspace updates failing with "Not enough disk space" on computers that had enough room once the update replaced the previous version.
+
+  **3P**
+
+  * Added `allowedPluginMcpServers`: when set, Cowork, Chat and Code sessions connect only the plugin MCP servers whose URL matches an entry (an empty list allows none), in addition to `managedMcpServers` and organization plugins, even when `managedMcpServers` is empty; the app also stops starting plugin MCP servers on the device, except for organization plugins. The Setup window can now author an empty list for this key and for `allowedWorkspaceFolders`.
+  * Added `builtinBrowserEnabled` to offer a built-in browser in Cowork and Code sessions, with `builtinBrowserDefaultDomainPolicy`, `builtinBrowserAllowedDomains`, and `builtinBrowserBlockedDomains` to control which sites Claude may open in it.
+  * Added `inferenceCredentialHelperWindows`: the absolute path of the credential helper executable on Windows devices, used there instead of `inferenceCredentialHelper`, so one configuration can serve Windows and macOS or Linux devices.
+  * Added a Salesforce preset to the plugin marketplace picker in the Setup window.
+  * Changed `inferenceFoundryResource`: a value delivered by a bootstrap URL the user configured themselves (in Settings or a local configuration file) now asks that user to approve it before it takes effect, as the Foundry base URL and the other providers' endpoints already do, and declining quits the app. Because the resource name is required, each such Foundry install prompts once after updating. Values delivered through device management, or by a bootstrap URL that device management set or that `trustBootstrapDelivery: true` covers, are unchanged and never prompt.
+  * Updated Customize to a full page with redesigned Skills, Plugins and Connectors lists (search, an Add menu, a page per item) in place of the old tables in Settings; Memory moved under Settings.
+  * Fixed a `Bash` entry in `disabledBuiltinTools` or `builtinToolPolicy` not applying to PowerShell commands on Windows PCs without Git for Windows; a `Bash(**)` entry is now treated as `Bash`.
+  * Fixed Settings > Desktop app > General on macOS offering a Voice shortcut that could not work; a Caps Lock or custom shortcut chosen earlier no longer opens the dictation bar.
+  * Fixed the app continuously re-fetching its configuration from the configuration server and re-testing the inference connection while the inference provider rejects the configured API key.
+  * Fixed the Code tab's `/status` card showing a placeholder account; it now shows your signed-in identity and the deployment name.
+  * Fixed the model list, organization configuration, or an MCP server occasionally failing to load right after launch when `egressProxyUrl` is set and the network is reachable only through that proxy.
+  * Fixed the model picker listing a model twice when a gateway's `/v1/models` endpoint returns both `<id>` and `<id>[1m]`; the pair now shows as the model and its 1M-context row.
+</Update>
+
 <Update label="v2.110.0" description="2026-09-15">
   **General**
 

@@ -142,6 +142,12 @@ Turning a switch off also changes this layout. For example, with **Chat in Claud
   This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat**, **Cowork**, and **Code** as three separate tabs, controlled by the same switches.
 </Note>
 
+The **Claude Desktop home** setting chooses what members see in Claude Desktop. **Standard** gives them Chat with file analysis, plus Cowork. **Simple** gives them Chat with file analysis, without Cowork. **Off** gives them neither, which leaves only Code. If you choose **Off**, keep Code turned on, or Claude Desktop has nothing to open. While the setting has a value, it overrides the separate Chat, file analysis, and Cowork switches at every level, including a directory group's. By default it is not set, and those switches apply.
+
+<Note>
+  **Claude Desktop home** needs Claude Desktop 1.52386.0 or later. Earlier versions ignore it and follow the switches.
+</Note>
+
 ### Member-added plugins and marketplaces
 
 Two switches that control whether members can add plugins of their own in Claude Desktop. **Let members add plugin marketplaces** lets members add plugin marketplaces and install plugins from them. **Let members add their own plugins** lets members upload plugin files or have Claude create a plugin for them. Both switches are off by default.
