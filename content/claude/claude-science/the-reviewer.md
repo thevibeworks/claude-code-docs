@@ -29,4 +29,4 @@ In **Settings** > **Specialists**, open **Reviewer** and add checks in the **Ins
 
 ## Controls
 
-Auto-review is a per-session toggle in the session settings menu. It starts on for Max, Team, and Enterprise plans and off for the Pro plan. Reviews run against your plan's usage.
+Auto-review is a per-session toggle in the session settings menu. It starts on for Max, Team, and Enterprise plans and off for the Pro plan. If you turn Auto-review off while Claude is working, no new automatic reviews start, including for delegated work that is already running. Reviews that have already started or are waiting to start still finish. Turning Auto-review back on resumes automatic reviews, starting with the work done while it was off. Reviews run against your plan's usage.

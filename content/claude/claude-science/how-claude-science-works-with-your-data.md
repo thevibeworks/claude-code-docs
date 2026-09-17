@@ -48,7 +48,7 @@ Human review of model-call logs, published skills, or Compliance API transcripts
 
 ## Controls available to your organization
 
-* **Organization settings** for connectors, skills, the sandbox network allowlist, SSH hosts, Modal, model endpoints, and memory (see [Admin controls](/docs/claude-science/admin-controls)). There is no organization setting for web search, dictation, or telemetry.
+* **Organization settings** for connectors, skills, the sandbox network allowlist, SSH hosts, Modal, model endpoints, memory, and access to previously saved Claude Science work (see [Admin controls](/docs/claude-science/admin-controls)). There is no organization setting for web search, dictation, or telemetry.
 * **US-only inference** (usage-based Enterprise plans) runs model inference for Claude Science requests in the United States, as for your other Claude apps (see [Enable US-only inference](https://support.claude.com/en/articles/15422948-enable-us-only-inference-for-your-organization)).
 * **Device configuration** turns off telemetry, error reports, and feedback and relocates the local data folder (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices)).
 * **Running Claude Science next to your data**, on a Linux server or virtual machine you control, keeps datasets on your infrastructure, apart from what Claude reads into the conversation, while Claude's inference runs on Anthropic's service (see [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server)).

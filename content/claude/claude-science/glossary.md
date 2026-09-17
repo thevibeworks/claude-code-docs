@@ -32,7 +32,7 @@ One-sentence definitions for the terms you meet in Claude Science, from artifact
 
 **Network allowlist**: the list of every outside host that sandboxed code may reach, kept under Settings or, on Team and Enterprise plans, managed by your organization.
 
-**Permission card**: the card that replaces the message box when Claude needs your permission for running code, running a job, accessing a network host, a folder, a connector tool, or re-configuring Claude Science; you allow or deny it.
+**Permission card**: the card that replaces the message box when Claude needs your permission for running code, running a job, accessing a network host, a folder, a connector tool, a saved credential, or re-configuring Claude Science; you allow or deny it.
 
 **Provenance (the artifact record)**: the panel behind every artifact version showing the code, cells, conversation, environment, and findings that produced it.
 

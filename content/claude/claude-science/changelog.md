@@ -6,6 +6,20 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.49" description="September 16, 2026">
+  * Saved credentials now reach Claude's code only when it asks for them and you approve. They're no longer present in every cell
+  * Access Claude Science work saved on your computer from other sign-ins, from Home or Settings. Admins control it on Team and Enterprise plans
+  * Claude can send you a short message, such as a link to a file, while it keeps working on a task
+  * Mac: Apple silicon Macs with the Intel version installed can now update, and then run natively
+  * Mac: if Claude's tools can't start after an Xcode update, the error now says how to accept the Xcode license
+  * You can comment on and bookmark the short summaries of Claude's progress notes
+  * Sessions moved to a model with a smaller context window keep going instead of failing
+  * Turning Auto-review off now applies to agents that are already running; turning it back on resumes their reviews
+  * Settings > Connectors shows "Not set" for tools without a permission, and saves "Ask each time"
+  * Windows: `claude-science install` now reports the step that failed instead of reporting success
+  * Faster search of a long session's history; clearer wording in model settings
+</Update>
+
 <Update label="0.1.48" description="September 14, 2026">
   * On Windows, environment setup now handles user folders with accented or non-Latin names, tries again if Windows briefly refuses to start the environment installer, and no longer needs the Microsoft Visual C++ Redistributable
   * The app now warns you a few days before your sign-in expires and offers a "Sign in again" button

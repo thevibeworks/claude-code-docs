@@ -6,7 +6,7 @@
 
 > Claude Science is a desktop app for scientific research.
 
-Claude Science is a desktop app for scientific research. It's off by default for Team and Enterprise organizations. Turning it on in **Organization settings** > **Claude Science** opens a short dialog that covers who gets access and which connectors to turn on. You can change any of it later on the same page, which also holds the other [organization settings](/docs/claude-science/admin-controls#organization-settings) for Claude Science: which connectors, skills, compute, network access, and memory members can use.
+Claude Science is a desktop app for scientific research. It's off by default for Team and Enterprise organizations. Turning it on in **Organization settings** > **Claude Science** opens a short dialog that covers who gets access and which connectors to turn on. You can change any of it later on the same page, which also holds the other [organization settings](/docs/claude-science/admin-controls#organization-settings) for Claude Science: which connectors, skills, compute, network access, and memory members can use, and whether members can access previously saved Claude Science work.
 
 ## Availability
 
@@ -69,7 +69,7 @@ Members who belong to more than one organization on claude.ai, such as a persona
 
 Organizations with HIPAA compliance enabled can turn on Claude Science during the beta, but usage isn't covered under your BAA, so keep protected health information out of it. The **Turn on Claude Science** dialog opens with a step that says so. In its connectors step the local connectors start off, and you can turn on the ones you have reviewed. The Anthropic-hosted and directory connectors in that step are read-only because the dialog's quick-enable path doesn't include the per-connector HIPAA attestation, so add those from **Organization settings** > **Connectors** instead, where the attestation is required.
 
-These organizations also start with stricter organization settings. Featured connectors and skills, SSH hosts, Modal, model endpoints, and memory are off until you turn them on (including for members who were already using them), custom connectors can't be turned on, and the organization always manages the network allowlist. See [Defaults by plan](/docs/claude-science/admin-controls#defaults-by-plan).
+These organizations also start with stricter organization settings. Featured connectors and skills, SSH hosts, Modal, model endpoints, and memory are off until you turn them on (including for members who were already using them), custom connectors and access to previously saved Claude Science work can't be turned on, and the organization always manages the network allowlist. See [Defaults by plan](/docs/claude-science/admin-controls#defaults-by-plan).
 
 ## Turn off Claude Science
 

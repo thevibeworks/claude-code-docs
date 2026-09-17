@@ -4,9 +4,9 @@
 
 # Use Claude Science on more than one computer
 
-> What to expect when you sign in on another computer.
+> What to expect when you sign in on another computer, or under another sign-in on the same computer.
 
-Claude Science runs on your own computer by design, and your projects, artifacts, and conversation history live there with it, under your control rather than in your Claude account. Each computer you install it on keeps its own projects, so a new or different computer starts fresh when you sign in, and your earlier work stays on the first computer.
+Claude Science runs on your own computer by design, and your projects, artifacts, and conversation history live there with it, under your control rather than in your Claude account. Each computer you install it on keeps its own projects, so a new or different computer starts fresh when you sign in, and your earlier work stays on the first computer. On one computer, Claude Science also keeps the work from each sign-in in its own folder. Signing in to a different organization or personal account starts fresh too, and you can access the earlier work (see [Access work from another sign-in on your computer](#access-work-from-another-sign-in-on-your-computer)).
 
 ## Your work stays on your computer
 
@@ -17,3 +17,9 @@ You can install Claude Science on more than one computer and sign in to each wit
 Because the only copy is on your computer, include the app's data folder in your regular backups. In the app, **Settings > Storage > Data location** shows where the folder is.
 
 To take a single result to another computer, choose **Download** from the artifact's menu. A file saved with **Export session** is for technical support and troubleshooting, and can't be loaded into Claude Science on another computer. To reach the same projects from several computers instead, you can install Claude Science once on a Linux server you control and connect to it through an SSH tunnel from the browser on each computer. See [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server).
+
+## Access work from another sign-in on your computer
+
+Claude Science keeps the work from each sign-in in its own folder on your computer. When you sign in to a different organization or personal account on that computer (for example, a Team plan after a personal plan), a banner at the top of the home screen offers to import the earlier work. Select the **Review** button on the banner, select the folders to access, choose **Copy** (the original folder keeps the work too) or **Move** (what's accessed is then removed from the original folder), and select **Import**. To access later instead, select **Review** next to **Import work on this computer** under **Settings** > **General** > **Account**.
+
+The access happens entirely on your computer and uploads nothing. Credentials such as API keys and connector sign-ins aren't copied or moved and stay in their original folder. On Team and Enterprise plans, your admin controls whether the app offers importing (it's off by default on Enterprise plans). Content your organization doesn't allow, such as memory, isn't copied or moved and stays in its original folder (see [Previously saved Claude Science work](/docs/claude-science/admin-controls#previously-saved-claude-science-work)).
