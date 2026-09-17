@@ -8,6 +8,48 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.2553.0" description="2026-09-17">
+  <div className="cfg-keys">
+    | MDM key                                                                                                            | Type       | Description                                 |
+    | ------------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------- |
+    | [`inferenceCredentialHelperWindows`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows)   | `string`   | Helper script (Windows)                     |
+    | [`allowedPluginMcpServers`](/docs/third-party/claude-desktop/configuration#allowedpluginmcpservers)                     | `object[]` | Allowed plugin MCP servers                  |
+    | [`builtinBrowserEnabled`](/docs/third-party/claude-desktop/configuration#builtinbrowserenabled)                         | `boolean`  | Allow the built-in browser                  |
+    | [`builtinBrowserDefaultDomainPolicy`](/docs/third-party/claude-desktop/configuration#builtinbrowserdefaultdomainpolicy) | `enum`     | Default site policy in the built-in browser |
+    | [`builtinBrowserAllowedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains)           | `string[]` | Allowed sites in the built-in browser       |
+    | [`builtinBrowserBlockedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains)           | `string[]` | Blocked sites in the built-in browser       |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "inference": {
+      "credential": {
+        "commandWindows": "<string>"
+      }
+    },
+    "mcp": {
+      "allowedPluginServers": [
+        {
+          "serverUrl": "<string>"
+        }
+      ]
+    },
+    "builtinBrowser": {
+      "enabled": "<boolean>",
+      "defaultDomainPolicy": "<allow|block>",
+      "allowedDomains": ["<string>"],
+      "blockedDomains": ["<string>"]
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `inferenceFoundryResource` now requires the user's consent when delivered by a bootstrap URL the user configured themselves (`consentRequired`), as `inferenceFoundryBaseUrl` and the other providers' endpoint settings already do; declining quits the app, and because the resource name is required each such Foundry install prompts once after updating. A bootstrap URL set by device management, or covered by `trustBootstrapDelivery: true`, never prompts, and values delivered by MDM are unchanged. Earlier releases apply a served value without asking.
+</Update>
+
 <Update label="v2.110.0" description="2026-09-15">
   <div className="cfg-keys">
     | MDM key                                                                                                    | Type       | Description                         |

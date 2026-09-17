@@ -7,6 +7,7 @@
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
 <Update label="0.1.49" description="September 16, 2026">
+  * If your organization is in Anthropic's Life Sciences Verification Program (beta), you can now [choose a use case](/docs/claude-science/safeguards#choose-a-use-case) for your sessions
   * Saved credentials now reach Claude's code only when it asks for them and you approve. They're no longer present in every cell
   * Access Claude Science work saved on your computer from other sign-ins, from Home or Settings. Admins control it on Team and Enterprise plans
   * Claude can send you a short message, such as a link to a file, while it keeps working on a task
