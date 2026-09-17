@@ -2,7 +2,7 @@
 
 Claude Enterprise gives your organization access to powerful AI across chat, Claude Code, Claude Cowork, Claude Design, and Claude in the tools your teams already use, including Microsoft 365, Chrome, and Slack. With that access comes the responsibility of managing consumption effectively—ensuring your team gets maximum value while keeping usage predictable and within budget.
 
-This guide walks Enterprise admins through the key levers available to control and optimize token consumption: setting spend caps, configuring role-based access controls, educating users, and choosing the right model and effort level for the right task.
+This guide walks Enterprise admins through the key levers available to control and optimize token consumption: setting spend caps, configuring role-based access controls, educating users, choosing the right model and effort level for the right task, and measuring what your spend produces.
 
 ---
 
@@ -38,7 +38,7 @@ Role-based access controls (RBAC) let you group users and manage their access to
 
 Think about groups in terms of job function and use case, not organizational hierarchy. A few principles:
 
-- Create groups that map to distinct usage patterns, not org chart boxes. "Engineering" and "Sales" are more useful than "North America" and "EMEA" for consumption management.
+- Create groups that map to distinct usage patterns, not org chart boxes. "Engineering" and "Sales" are more useful than "North America" and "EMEA" for consumption management. Functional groups also make smart reports more useful, since reports scoped to a team produce findings specific enough to act on.
 
 - Limit group proliferation. More than 8–10 groups becomes hard to manage. Start with 4–6 and split only if usage patterns clearly diverge.
 
@@ -52,9 +52,11 @@ Once groups are configured:
 
 - Review group consumption weekly during initial rollout, monthly thereafter.
 
-- When a group consistently approaches its cap, investigate before automatically raising it—the right response might be model guidance (use Sonnet instead of Opus) rather than more budget.
+- When a group consistently approaches its limit (see Time at limit on the Usage page), investigate before automatically raising it. A smart report scoped to that group shows what the spend is producing. The right response might be model guidance, such as using Sonnet instead of Opus, rather than more budget.
 
 - Consider assigning a "group owner" in each department who is responsible for reviewing usage and fielding questions from their team. This distributes the admin burden and puts someone with business context in the loop. You don't need to make these people Owners or Admins: create a custom role that grants the Analytics (Can view) admin permission—and optionally Billing (Can view) so they can see the Usage page—and assign it to a small 'usage reviewers' group. Admin permissions only apply to members whose role is set to Custom, and Analytics view access is organization-wide rather than limited to their group.
+
+- To give a group owner a view of just their team, you can let them run smart reports scoped to their groups. See **[Let team members run smart reports for specific groups](https://support.claude.com/en/articles/16948886-let-team-members-run-smart-reports-for-specific-groups)**.
 
 **Governance tip: Surface access as a first gate**
 
@@ -68,7 +70,7 @@ Spend limits are your primary tool for controlling consumption. Claude Enterpris
 
 ### Org-level spend limits
 
-The org-level limit is available as a hard ceiling across all users and surfaces, but use it carefully: hitting it affects everyone simultaneously, which can be disruptive. Most admins find that managing consumption at the group and user level gives them better outcomes with less operational risk.a
+The org-level limit is available as a hard ceiling across all users and surfaces, but use it carefully: hitting it affects everyone simultaneously, which can be disruptive. Most admins find that managing consumption at the group and user level gives them better outcomes with less operational risk.
 
 ### Group spend limit
 
@@ -98,7 +100,7 @@ User-level caps let you set consumption limits for individual accounts. These ar
 
 - Give power users (engineers, data scientists, researchers) higher or uncapped individual limits, but offset this by ensuring they use the right Claude model for the right task.
 
-- Monitor individual usage reports monthly to identify outliers—both users consistently hitting their cap (may need more) and users consuming very little (may not be activated yet).
+- Check Time at limit on the Usage page monthly to see how often members are reaching their limits. Also watch for users consuming very little, who may not be activated yet.
 
 ---
 
@@ -129,7 +131,7 @@ You have two options:
 
 This setting applies to new conversations in chat, Claude Cowork, Claude Code (CLI 2.1.199 or later), and Claude for Microsoft 365. If the selected model isn't available in a product, Anthropic's recommended default is used. If you also pin a model for Claude Code through managed settings, that setting takes precedence for the CLI and IDE. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-You can also set model defaults by role through Custom Roles, so different groups can start on different models—for example, defaulting your engineering group to one model and the rest of the org to another. This pairs naturally with the RBAC groups you've already configured (see Section 2).
+You can also set model defaults by role through Custom Roles, so different groups can start on different models—for example, defaulting your engineering group to one model and the rest of the org to another. This pairs naturally with the RBAC groups you've already configured (see **Role-based access controls** above).
 
 **How to configure:** Organization settings → Models.
 
@@ -149,6 +151,8 @@ If a member belongs to multiple groups with different custom roles, access is **
 
 Beyond restricting which models a role can use, you can cap the **maximum effort level** members on that role can select per model — a more granular version of the effort guidance already covered above. This only applies to Custom roles, not at the org level. If a member has multiple roles, the highest effort cap across those roles wins.
 
+You can also set a **default effort level** for a role's default model, so new conversations start at the level you choose, either Anthropic's recommended default or a specific level. The default can't be higher than the effort cap for that model. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization?utm_source=it&utm_medium=email&utm_campaign=2026_Q3_PMM_MKTG_EntAdmin_Newsletter_Sept16&utm_term=ent_admins&utm_content=inline_link&campaign=19893371#h_d5373c4106)** to learn more.
+
 **Admin tip: Pair model + effort restrictions**
 
 If model guidance (the "Sonnet is your default" messaging) isn't landing and you're still seeing heavy Opus consumption, restricting Opus access to specific roles—or capping effort to Medium/High instead of Max for non-power-user roles—is the next lever. Reserve full access for the roles where deep reasoning actually pays off.
@@ -157,7 +161,7 @@ If model guidance (the "Sonnet is your default" messaging) isn't landing and you
 
 Model access and effort restrictions are enforced across most Claude products, including chat (web, desktop, mobile), Claude Cowork, and Claude Code (CLI 2.1.199 or later—earlier versions still show restricted options but requests using them are rejected). Claude in Chrome and Claude Security don't support this yet. For the current list of supported products, see **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
-**How to configure:** Organization settings → Roles → select a role → Models tab. Set model access, an optional effort cap per model, and an optional role-level default model. To manage configuration across the org, go to **Organization settings → Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
+**How to configure:** Organization settings → Roles → select a role → Models tab. Set model access, an optional effort cap per model, an optional role-level default model, and default effort level. To manage configuration across the org, go to **Organization settings → Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
 ### Admin configuration recommendations
 
@@ -242,6 +246,28 @@ Spend-threshold alerts notify admins at 75% and 90% of an org-level spend limit,
 ### In-product surveys
 
 The analytics above tell you how much your team uses Claude; surveys tell you what they're doing with it and what's getting in their way. From **[Analytics > Surveys](https://claude.ai/analytics/surveys)**, admins can send users a short survey that appears in Cowork or chat at a natural break in their work. Pick the audience by group, set a window, and review aggregated results in the console, including response rate, a breakdown by surface and group, and a feed of written answers, with a CSV export per survey. Learn more about **[creating surveys for your organization](https://support.claude.com/en/articles/16764057)**.
+
+### Time at limit (Usage page)
+
+The Usage page in **Organization settings > Usage** opens with a view of how often members are reaching their spend limits. It shows time at limit per active seat this month, for all members and for your power users (the top 10% by spend), plotted against prior months with a forecast. It also calls out which group or limit type accounts for the most time at limit, so you know where to look first.
+
+Use this view as your check on whether limits fit how people work. Rising time at limit means members are getting blocked mid-task. You can adjust limits from the same page: raise a default, or increase the limits of the members who reached them.
+
+### Smart reports (beta)
+
+Analytics shows how much each team spends. Smart reports show what that spend is producing. Scope a report to a team, a date range, and the products you want to include. Claude reviews a sample of transcripts and breaks spend down by workstream and output type.
+
+For consumption management, focus on these sections:
+
+- **Cost per session by type of output.** See which kinds of work are expensive to produce, and whether that cost matches their value.
+
+- **Most common frictions and inefficiencies.** Rework loops and sessions with no usable output are spend with no return. Repeated friction often points to a connector or setting you can turn on in minutes.
+
+- **Reusable skills and workflows to build.** Packaging repeated work as a shared skill gets the whole team a consistent result faster. Once it's rolled out, track its cost and ROI in the Skills view.
+
+- **Most expensive sessions.** See where spend concentrates.
+
+Smart reports are designed to help you understand adoption and plan investment, not to evaluate individual performance. For availability, setup, and how to create and share reports, see **[Get started with smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports)**.
 
 ---
 

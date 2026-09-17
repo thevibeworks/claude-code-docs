@@ -46,4 +46,4 @@ On Fable 5.1, this update applies to new API accounts created after August 31, 2
 
 We're taking a phased approach to enforcement, starting with new accounts, where we see the highest concentration of distillation-related abuse. Existing accounts won't be affected for Fable 5.1, which gives developers time to make their harnesses and integrations compatible with this update. Preserved thinking will apply to all users for future models.
 
-Users of Claude Code, Claude Cowork, Claude.ai, or Claude through a third-party product are **not** affected, nor is use of models other than Fable 5.1.
+If you use Claude Code, Claude Cowork, or Claude.ai, there's nothing you need to change; those products handle thinking blocks for you. Models other than Fable 5.1 are not affected.

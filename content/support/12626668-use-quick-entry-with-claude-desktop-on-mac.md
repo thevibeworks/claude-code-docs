@@ -40,7 +40,7 @@ When you first open the updated version of Claude Desktop, you'll see a prompt t
 
 Once enabled, double-tapping Option will open a text box where you can type your message and start a new chat. You can also click "New chat" to see your five most recent conversations.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893088365/2ca4b782dda90abea1fe5f4150af/CleanShot+2025-12-18+at+13_14_30%402x.png?expires=1789587900&amp;signature=e816f105add0dfe64093d3c70422587f64dcb169b4153e862e93068c7778bfe3&amp;req=dSguFcl2lYJZXPMW1HO4zWggD9dUrpuTRC8c%2FcM5c2LeqxjHRrAoPSxEjdoH%0ABZzTurbHf8WJHkTS140%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893088365/2ca4b782dda90abea1fe5f4150af/CleanShot+2025-12-18+at+13_14_30%402x.png?expires=1789624800&amp;signature=25e8ae29e485e95372339723236e4ba2aa8579c9b2b2c332e84d7f2d1001f9cc&amp;req=dSguFcl2lYJZXPMW1HO4zWggD9dXpJiSRC8c%2FcM5c2KNIL8fFRTt0ol05%2FrD%0ASnjw5TYWvvePYJe67Ns%3D%0A)
 
 ### Enable the voice shortcut (optional)
 

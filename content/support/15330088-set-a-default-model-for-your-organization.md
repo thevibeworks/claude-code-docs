@@ -96,6 +96,28 @@ For details on creating roles and assigning them to groups, see **[Manage custom
 
 ---
 
+## Set the default effort level for a custom role
+
+The default effort level applies to new conversations on the role's default model. To set it:
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Click the role you want to edit, or create a new role.
+
+3. Select the **Models** tab, then under **Default model**, select a model. Roles are set to "Organization default" unless you choose a specific model. Only models the role has access to can be selected.
+
+4. Under **Default model**, select an option under the effort level dropdown list:
+
+  1. **Use Anthropic's recommended default effort:** Anthropic's recommended effort level for the default model, which updates automatically when recommendations change.
+
+  2. **Choose a level from the list.** Available effort levels differ depending on the model, and some models don't support effort level settings at all.
+
+5. Click "Save changes."
+
+The default effort level can't be higher than the organization's effort cap for the default model. If you lower that cap below the current default effort, the default effort is lowered to match.
+
+---
+
 ## Default model and Claude Code managed settings
 
 If your organization also configures Claude Code through `managed-settings.json`, the model setting there takes precedence. When model is set in managed settings, Claude Code CLI and IDE start on that model and ignore the default you set in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
