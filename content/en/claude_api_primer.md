@@ -294,10 +294,11 @@ When thinking is on, Claude creates `thinking` content blocks where it outputs i
 
   # The response contains summarized thinking blocks and text blocks
   for block in response.content:
-      if block.type == "thinking":
-          print(f"\nThinking summary: {block.thinking}")
-      elif block.type == "text":
-          print(f"\nResponse: {block.text}")
+      match block.type:
+          case "thinking":
+              print(f"\nThinking summary: {block.thinking}")
+          case "text":
+              print(f"\nResponse: {block.text}")
   ```
 </CodeGroup>
 
@@ -530,12 +531,13 @@ On older models that use manual extended thinking (Claude 4, 4.5, and Sonnet 4.6
   )
 
   for block in response.content:
-      if block.type == "thinking":
-          print(f"Thinking: {block.thinking}")
-      elif block.type == "tool_use":
-          print(f"Tool call: {block.name}({block.input})")
-      elif block.type == "text":
-          print(f"Response: {block.text}")
+      match block.type:
+          case "thinking":
+              print(f"Thinking: {block.thinking}")
+          case "tool_use":
+              print(f"Tool call: {block.name}({block.input})")
+          case "text":
+              print(f"Response: {block.text}")
   ```
 </CodeGroup>
 

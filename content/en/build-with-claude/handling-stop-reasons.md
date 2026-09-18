@@ -2078,21 +2078,23 @@ Make it a habit to check the `stop_reason` in your response handling logic:
 <CodeGroup exclude="shell">
   ```python Python
   def handle_response(response):
-      if response.stop_reason == "tool_use":
-          return handle_tool_use(response)
-      elif response.stop_reason == "max_tokens":
-          return handle_truncation(response)
-      elif response.stop_reason == "model_context_window_exceeded":
-          return handle_context_limit(response)
-      elif response.stop_reason == "pause_turn":
-          return handle_pause(response)
-      elif response.stop_reason == "refusal":
-          return handle_refusal(response)
-      else:
-          # Handle end_turn and other cases
-          return next(
-              (block.text for block in response.content if block.type == "text"), ""
-          )
+      match response.stop_reason:
+          case "tool_use":
+              return handle_tool_use(response)
+          case "max_tokens":
+              return handle_truncation(response)
+          case "model_context_window_exceeded":
+              return handle_context_limit(response)
+          case "pause_turn":
+              return handle_pause(response)
+          case "refusal":
+              return handle_refusal(response)
+          case _:
+              # Handle end_turn and other cases
+              return next(
+                  (block.text for block in response.content if block.type == "text"),
+                  "",
+              )
   ```
 
   ```typescript TypeScript
@@ -2653,10 +2655,11 @@ It's important to distinguish between `stop_reason` values and actual errors:
 
   except anthropic.APIStatusError as e:
       # Handle actual errors
-      if e.status_code == 429:
-          print("Rate limit exceeded")
-      elif e.status_code == 500:
-          print("Server error")
+      match e.status_code:
+          case 429:
+              print("Rate limit exceeded")
+          case 500:
+              print("Server error")
   ```
 
   ```typescript TypeScript
@@ -2676,10 +2679,13 @@ It's important to distinguish between `stop_reason` values and actual errors:
   } catch (err) {
     // Handle actual errors
     if (err instanceof Anthropic.APIError) {
-      if (err.status === 429) {
-        console.log("Rate limit exceeded");
-      } else if (err.status === 500) {
-        console.log("Server error");
+      switch (err.status) {
+        case 429:
+          console.log("Rate limit exceeded");
+          break;
+        case 500:
+          console.log("Server error");
+          break;
       }
     } else {
       throw err;
@@ -2959,7 +2965,7 @@ When using streaming, `stop_reason` is:
   );
 
   foreach ($stream as $event) {
-      if ($event instanceof RawMessageDeltaEvent && $event->delta->stopReason !== null) {
+      if ($event instanceof \Anthropic\Messages\RawMessageDeltaEvent && $event->delta->stopReason !== null) {
           echo "Stream ended with: {$event->delta->stopReason}", PHP_EOL;
       }
   }
@@ -3458,17 +3464,22 @@ With the `model_context_window_exceeded` stop reason, you can request the maximu
           max_tokens=20000,  # Python SDK requires streaming for max_tokens above ~21k
       )
 
-      if response.stop_reason == "model_context_window_exceeded":
-          # Got the maximum possible tokens given input size
-          print(
-              f"Generated {response.usage.output_tokens} tokens (context limit reached)"
-          )
-      elif response.stop_reason == "max_tokens":
-          # Got exactly the requested tokens
-          print(f"Generated {response.usage.output_tokens} tokens (max_tokens reached)")
-      else:
-          # Natural completion
-          print(f"Generated {response.usage.output_tokens} tokens (natural completion)")
+      match response.stop_reason:
+          case "model_context_window_exceeded":
+              # Got the maximum possible tokens given input size
+              print(
+                  f"Generated {response.usage.output_tokens} tokens (context limit reached)"
+              )
+          case "max_tokens":
+              # Got exactly the requested tokens
+              print(
+                  f"Generated {response.usage.output_tokens} tokens (max_tokens reached)"
+              )
+          case _:
+              # Natural completion
+              print(
+                  f"Generated {response.usage.output_tokens} tokens (natural completion)"
+              )
 
       return next((block.text for block in response.content if block.type == "text"), "")
   ```
@@ -3482,15 +3493,18 @@ With the `model_context_window_exceeded` stop reason, you can request the maximu
     });
 
     const tokens = response.usage.output_tokens;
-    if (response.stop_reason === "model_context_window_exceeded") {
-      // Got the maximum possible tokens given input size
-      console.log(`Generated ${tokens} tokens (context limit reached)`);
-    } else if (response.stop_reason === "max_tokens") {
-      // Got exactly the requested tokens
-      console.log(`Generated ${tokens} tokens (max_tokens reached)`);
-    } else {
-      // Natural completion
-      console.log(`Generated ${tokens} tokens (natural completion)`);
+    switch (response.stop_reason) {
+      case "model_context_window_exceeded":
+        // Got the maximum possible tokens given input size
+        console.log(`Generated ${tokens} tokens (context limit reached)`);
+        break;
+      case "max_tokens":
+        // Got exactly the requested tokens
+        console.log(`Generated ${tokens} tokens (max_tokens reached)`);
+        break;
+      default:
+        // Natural completion
+        console.log(`Generated ${tokens} tokens (natural completion)`);
     }
 
     const textBlock = response.content.find(

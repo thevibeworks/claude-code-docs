@@ -1755,17 +1755,22 @@ The compaction block streams differently from text blocks. You receive a `conten
       context_management={"edits": [{"type": "compact_20260112"}]},
   ) as stream:
       for event in stream:
-          if event.type == "content_block_start":
-              if event.content_block.type == "compaction":
-                  print("Compaction started...")
-              elif event.content_block.type == "text":
-                  print("Text response started...")
+          match event.type:
+              case "content_block_start":
+                  block = event.content_block
+                  match block.type:
+                      case "compaction":
+                          print("Compaction started...")
+                      case "text":
+                          print("Text response started...")
 
-          elif event.type == "content_block_delta":
-              if event.delta.type == "compaction_delta":
-                  print(f"Compaction complete: {len(event.delta.content or '')} chars")
-              elif event.delta.type == "text_delta":
-                  print(event.delta.text, end="", flush=True)
+              case "content_block_delta":
+                  delta = event.delta
+                  match delta.type:
+                      case "compaction_delta":
+                          print(f"Compaction complete: {len(delta.content or '')} chars")
+                      case "text_delta":
+                          print(delta.text, end="", flush=True)
 
       # Get the final accumulated message
       message = stream.get_final_message()
@@ -1789,18 +1794,27 @@ The compaction block streams differently from text blocks. You receive a `conten
   });
 
   for await (const event of stream) {
-    if (event.type === "content_block_start") {
-      if (event.content_block.type === "compaction") {
-        console.log("Compaction started...");
-      } else if (event.content_block.type === "text") {
-        console.log("Text response started...");
-      }
-    } else if (event.type === "content_block_delta") {
-      if (event.delta.type === "compaction_delta") {
-        console.log(`Compaction complete: ${event.delta.content?.length ?? 0} chars`);
-      } else if (event.delta.type === "text_delta") {
-        process.stdout.write(event.delta.text);
-      }
+    switch (event.type) {
+      case "content_block_start":
+        switch (event.content_block.type) {
+          case "compaction":
+            console.log("Compaction started...");
+            break;
+          case "text":
+            console.log("Text response started...");
+            break;
+        }
+        break;
+      case "content_block_delta":
+        switch (event.delta.type) {
+          case "compaction_delta":
+            console.log(`Compaction complete: ${event.delta.content?.length ?? 0} chars`);
+            break;
+          case "text_delta":
+            process.stdout.write(event.delta.text);
+            break;
+        }
+        break;
     }
   }
 
@@ -1935,6 +1949,13 @@ The compaction block streams differently from text blocks. You receive a `conten
   ```
 
   ```php PHP
+  use Anthropic\Beta\Messages\BetaCompactionBlock;
+  use Anthropic\Beta\Messages\BetaCompactionContentBlockDelta;
+  use Anthropic\Beta\Messages\BetaRawContentBlockDeltaEvent;
+  use Anthropic\Beta\Messages\BetaRawContentBlockStartEvent;
+  use Anthropic\Beta\Messages\BetaTextBlock;
+  use Anthropic\Beta\Messages\BetaTextDelta;
+
   $client = new Client();
   $messages = [['role' => 'user', 'content' => 'Hello, Claude']];
 
@@ -1951,18 +1972,27 @@ The compaction block streams differently from text blocks. You receive a `conten
   );
 
   foreach ($stream as $event) {
-      if ($event->type === 'content_block_start') {
-          if ($event->contentBlock->type === 'compaction') {
-              echo "Compaction started...\n";
-          } elseif ($event->contentBlock->type === 'text') {
-              echo "Text response started...\n";
-          }
-      } elseif ($event->type === 'content_block_delta') {
-          if ($event->delta->type === 'compaction_delta') {
-              echo "Compaction complete: " . strlen($event->delta->content ?? '') . " chars\n";
-          } elseif ($event->delta->type === 'text_delta') {
-              echo $event->delta->text;
-          }
+      switch (true) {
+          case $event instanceof BetaRawContentBlockStartEvent:
+              switch (true) {
+                  case $event->contentBlock instanceof BetaCompactionBlock:
+                      echo "Compaction started...\n";
+                      break;
+                  case $event->contentBlock instanceof BetaTextBlock:
+                      echo "Text response started...\n";
+                      break;
+              }
+              break;
+          case $event instanceof BetaRawContentBlockDeltaEvent:
+              switch (true) {
+                  case $event->delta instanceof BetaCompactionContentBlockDelta:
+                      echo "Compaction complete: " . strlen($event->delta->content ?? '') . " chars\n";
+                      break;
+                  case $event->delta instanceof BetaTextDelta:
+                      echo $event->delta->text;
+                      break;
+              }
+              break;
       }
   }
   ```
@@ -1982,18 +2012,21 @@ The compaction block streams differently from text blocks. You receive a `conten
   )
 
   stream.each do |event|
-    case event.type
-    when :content_block_start
-      if event.content_block.type == :compaction
+    case event
+    when Anthropic::Models::BetaRawContentBlockStartEvent
+      case event.content_block
+      when Anthropic::Models::BetaCompactionBlock
         puts "Compaction started..."
-      elsif event.content_block.type == :text
+      when Anthropic::Models::BetaTextBlock
         puts "Text response started..."
       end
-    when :content_block_delta
-      if event.delta.type == :compaction_delta
-        puts "Compaction complete: #{(event.delta.content || "").length} chars"
-      elsif event.delta.type == :text_delta
-        print event.delta.text
+    when Anthropic::Models::BetaRawContentBlockDeltaEvent
+      delta = event.delta
+      case delta
+      when Anthropic::Models::BetaCompactionContentBlockDelta
+        puts "Compaction complete: #{(delta.content || "").length} chars"
+      when Anthropic::Models::BetaTextDelta
+        print delta.text
       end
     end
   end
@@ -3421,10 +3454,11 @@ Send the `compact-2026-09-04` beta header on the request that asks for the summa
 
 ### Request a summary
 
-Send the conversation as it stands with `"compaction": {"type": "summarize"}`. The API summarizes every message in the request once, generates no reply after it, and returns the block alone with `stop_reason` `"compaction"`. Send the same `system` prompt and `tools` that you use for the rest of the conversation. The summarizer reads them, and on models with preserved thinking, the turns you keep stay valid only if they match:
+Send the conversation as it stands with `"compaction": {"type": "summarize"}`. The API summarizes every message in the request once, generates no reply after it, and returns the block alone with `stop_reason` `"compaction"`. Send the same `system` prompt and `tools` that you use for the rest of the conversation. The summarizer reads them, and on models with preserved thinking, the turns you keep stay valid only if they match. The conversation in this example has no `system` prompt or tools, so the request sends neither:
 
-<CodeGroup exclude="python, typescript, csharp, go, java, php, ruby">
+<CodeGroup>
   ```bash cURL
+  # max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -3450,6 +3484,7 @@ Send the conversation as it stands with `"compaction": {"type": "summarize"}`. T
     <File filename="request.yaml">
       ```yaml
       model: claude-opus-5
+      # max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
       max_tokens: 4096
       messages:
         - role: user
@@ -3463,6 +3498,206 @@ Send the conversation as it stands with `"compaction": {"type": "summarize"}`. T
       ```
     </File>
   </MultiFileExample>
+
+  ```python Python
+  from anthropic.types.beta import BetaMessageParam
+
+  client = anthropic.Anthropic()
+
+  history: list[BetaMessageParam] = [
+      {
+          "role": "user",
+          "content": "I am building a recipe app. Help me name the main entities in the data model.",
+      },
+      {
+          "role": "assistant",
+          "content": "Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe.",
+      },
+      {"role": "user", "content": "Good. Now suggest field names for Recipe."},
+  ]
+
+  response = client.beta.messages.create(
+      model="claude-opus-5",
+      # max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+      max_tokens=4096,
+      betas=["compact-2026-09-04"],
+      messages=history,
+      compaction={"type": "summarize"},
+  )
+  print(f"Stop reason: {response.stop_reason}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const history: Anthropic.Beta.Messages.BetaMessageParam[] = [
+    {
+      role: "user",
+      content: "I am building a recipe app. Help me name the main entities in the data model."
+    },
+    {
+      role: "assistant",
+      content:
+        "Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe."
+    },
+    { role: "user", content: "Good. Now suggest field names for Recipe." }
+  ];
+
+  const response = await client.beta.messages.create({
+    model: "claude-opus-5",
+    // max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+    max_tokens: 4096,
+    betas: ["compact-2026-09-04"],
+    messages: history,
+    compaction: { type: "summarize" }
+  });
+  console.log(`Stop reason: ${response.stop_reason}`);
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta;
+  using Anthropic.Models.Beta.Messages;
+  using Model = Anthropic.Models.Messages.Model;
+
+  AnthropicClient client = new();
+
+  List<BetaMessageParam> history =
+  [
+      new()
+      {
+          Role = Role.User,
+          Content = "I am building a recipe app. Help me name the main entities in the data model.",
+      },
+      new()
+      {
+          Role = Role.Assistant,
+          Content = "Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe.",
+      },
+      new() { Role = Role.User, Content = "Good. Now suggest field names for Recipe." },
+  ];
+
+  var response = await client.Beta.Messages.Create(new MessageCreateParams
+  {
+      Model = Model.ClaudeOpus5,
+      // max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+      MaxTokens = 4096,
+      Betas = [AnthropicBeta.Compact2026_09_04],
+      Messages = history,
+      Compaction = new BetaCompactionConfig(), // type defaults to "summarize"
+  });
+
+  Console.WriteLine($"Stop reason: {response.StopReason?.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  history := []anthropic.BetaMessageParam{
+  	anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("I am building a recipe app. Help me name the main entities in the data model.")),
+  	{
+  		Role:    anthropic.BetaMessageParamRoleAssistant,
+  		Content: []anthropic.BetaContentBlockParamUnion{anthropic.NewBetaTextBlock("Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe.")},
+  	},
+  	anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Good. Now suggest field names for Recipe.")),
+  }
+
+  response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model: anthropic.ModelClaudeOpus5,
+  	// max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+  	MaxTokens: 4096,
+  	Betas:     []anthropic.AnthropicBeta{anthropic.AnthropicBetaCompact2026_09_04},
+  	Messages:  history,
+  	Compaction: anthropic.BetaCompactionConfigUnionParam{
+  		OfSummarize: &anthropic.BetaSummarizeCompactionParam{},
+  	},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+  fmt.Println("Stop reason:", response.StopReason)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.AnthropicBeta;
+  import com.anthropic.models.beta.messages.BetaCompactionConfig;
+  import com.anthropic.models.beta.messages.MessageCreateParams;
+
+  void main() {
+      var client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5)
+          // max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+          .maxTokens(4096)
+          .addBeta(AnthropicBeta.COMPACT_2026_09_04)
+          .addUserMessage("I am building a recipe app. Help me name the main entities in the data model.")
+          .addAssistantMessage("Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe.")
+          .addUserMessage("Good. Now suggest field names for Recipe.")
+          .compaction(BetaCompactionConfig.builder().build()) // type defaults to "summarize"
+          .build();
+
+      var response = client.beta().messages().create(params);
+      response.stopReason().ifPresent(reason -> IO.println("Stop reason: " + reason));
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaCompactionConfig;
+  use Anthropic\Beta\Messages\BetaMessageParam;
+  use Anthropic\Beta\Messages\BetaMessageParam\Role;
+
+  $client = new Client();
+
+  $history = [
+      BetaMessageParam::with(
+          role: Role::USER,
+          content: 'I am building a recipe app. Help me name the main entities in the data model.',
+      ),
+      BetaMessageParam::with(
+          role: Role::ASSISTANT,
+          content: 'Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe.',
+      ),
+      BetaMessageParam::with(role: Role::USER, content: 'Good. Now suggest field names for Recipe.'),
+  ];
+
+  $response = $client->beta->messages->create(
+      model: Model::CLAUDE_OPUS_5,
+      // max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+      maxTokens: 4096,
+      betas: [AnthropicBeta::COMPACT_2026_09_04],
+      messages: $history,
+      compaction: BetaCompactionConfig::with(), // type defaults to 'summarize'
+  );
+
+  echo "Stop reason: {$response->stopReason}", PHP_EOL;
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  history = [
+    {
+      role: "user",
+      content: "I am building a recipe app. Help me name the main entities in the data model."
+    },
+    {
+      role: "assistant",
+      content: "Start with Recipe, Ingredient, and Step. Add a RecipeIngredient entry that holds the quantity and unit for each ingredient in a recipe."
+    },
+    { role: "user", content: "Good. Now suggest field names for Recipe." }
+  ]
+
+  response = client.beta.messages.create(
+    model: Anthropic::Model::CLAUDE_OPUS_5,
+    # max_tokens caps the whole call, including any thinking, so allow several thousand tokens.
+    max_tokens: 4096,
+    betas: [Anthropic::AnthropicBeta::COMPACT_2026_09_04],
+    messages: history,
+    compaction: { type: "summarize" }
+  )
+  puts "Stop reason: #{response.stop_reason}"
+  ```
 </CodeGroup>
 
 ```json Response

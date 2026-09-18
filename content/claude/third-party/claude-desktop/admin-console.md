@@ -152,7 +152,7 @@ For example, if the Traders policy (ranked first) turns Code off and selects the
 
 ### Plugin marketplaces
 
-On the **Plugins** page under Desktop 3P, list the [plugin marketplaces](/docs/third-party/claude-desktop/extensions#plugin-marketplaces-admin) that users' apps should fetch. The marketplaces you add are git repositories, or a `marketplace.json` file and plugin archives on an HTTPS origin you control. The **Add marketplace** menu also offers Anthropic's public plugin marketplaces under **Curated by Anthropic**. The app does not add the Anthropic marketplaces on its own in third-party mode.
+On the **Plugins** page under Desktop 3P, list the [plugin marketplaces](/docs/third-party/claude-desktop/extensions#plugin-marketplaces-admin) that users' apps should fetch. The marketplaces you add are git repositories, or a `marketplace.json` file and plugin archives on an HTTPS origin you control. The **Add** menu also offers Anthropic's public plugin marketplaces under **Curated by Anthropic**, and Salesforce's under **From partners**, which [Connect to Salesforce](/docs/third-party/claude-desktop/connectors-salesforce) walks through. The app does not add these marketplaces on its own in third-party mode.
 
 ### Telemetry defaults
 

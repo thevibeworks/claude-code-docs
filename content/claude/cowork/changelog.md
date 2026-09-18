@@ -6,6 +6,26 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.2553.1" description="2026-09-18">
+  Bundled Claude Code version: 2.1.275.
+
+  **General**
+
+  * Fixed sessions failing to start or resume when their saved transcript contained a malformed entry.
+
+  **Code**
+
+  * Fixed rewinding in forked and background sessions sometimes restoring a corrupted or truncated file.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v2.2553.0" description="2026-09-17">
   Bundled Claude Code version: 2.1.274.
 

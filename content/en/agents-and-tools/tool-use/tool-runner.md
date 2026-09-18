@@ -438,6 +438,8 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
     <?php
 
     use Anthropic\Client;
+    use Anthropic\Beta\Messages\BetaTextBlock;
+    use Anthropic\Beta\Messages\BetaToolUseBlock;
     use Anthropic\Lib\Tools\BetaRunnableTool;
     use Anthropic\Messages\Model;
 
@@ -495,10 +497,13 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
 
     foreach ($runner as $message) {
         foreach ($message->content as $block) {
-            if ($block->type === 'text') {
-                echo $block->text, "\n";
-            } elseif ($block->type === 'tool_use') {
-                echo "[Tool call: {$block->name}]\n";
+            switch (true) {
+                case $block instanceof BetaTextBlock:
+                    echo $block->text, "\n";
+                    break;
+                case $block instanceof BetaToolUseBlock:
+                    echo "[Tool call: {$block->name}]\n";
+                    break;
             }
         }
     }
@@ -1451,7 +1456,7 @@ In the Python and TypeScript SDKs, use the tool response method to get the tool 
     foreach ($runner as $message) {
         $toolResults = [];
         foreach ($message->content as $block) {
-            if ($block instanceof BetaToolUseBlock) {
+            if ($block instanceof \Anthropic\Beta\Messages\BetaToolUseBlock) {
                 $toolResults[] = [
                     'type' => 'tool_result',
                     'tool_use_id' => $block->id,

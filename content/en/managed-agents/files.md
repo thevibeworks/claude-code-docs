@@ -532,12 +532,15 @@ List all resources on a session with `resources.list`. To remove a file, call `r
   ```java Java
   var listed = client.beta().sessions().resources().list(session.id());
   for (var entry : listed.data()) {
-      if (entry.isFile()) {
-          var fileResource = entry.asFile();
-          IO.println(fileResource.id() + " " + fileResource.type());
-      } else if (entry.isGitHubRepository()) {
-          var repoResource = entry.asGitHubRepository();
-          IO.println(repoResource.id() + " " + repoResource.type());
+      switch (entry.type().value()) {
+          case FILE -> {
+              var fileResource = entry.asFile();
+              IO.println(fileResource.id() + " " + fileResource.type());
+          }
+          case GITHUB_REPOSITORY -> {
+              var repoResource = entry.asGitHubRepository();
+              IO.println(repoResource.id() + " " + repoResource.type());
+          }
       }
   }
 

@@ -418,7 +418,7 @@ Most use cases need multidimensional evaluation along several success criteria.
       {
           $text = '';
           foreach ($message->content as $block) {
-              if ($block instanceof TextBlock) {
+              if ($block instanceof \Anthropic\Messages\TextBlock) {
                   $text .= $block->text;
               }
           }
@@ -1074,7 +1074,7 @@ Most use cases need multidimensional evaluation along several success criteria.
       {
           $text = '';
           foreach ($message->content as $block) {
-              if ($block instanceof TextBlock) {
+              if ($block instanceof \Anthropic\Messages\TextBlock) {
                   $text .= $block->text;
               }
           }
@@ -1556,7 +1556,7 @@ Most use cases need multidimensional evaluation along several success criteria.
       {
           $text = '';
           foreach ($message->content as $block) {
-              if ($block instanceof TextBlock) {
+              if ($block instanceof \Anthropic\Messages\TextBlock) {
                   $text .= $block->text;
               }
           }
@@ -2093,7 +2093,7 @@ Most use cases need multidimensional evaluation along several success criteria.
       {
           $text = '';
           foreach ($message->content as $block) {
-              if ($block instanceof TextBlock) {
+              if ($block instanceof \Anthropic\Messages\TextBlock) {
                   $text .= $block->text;
               }
           }
@@ -2726,7 +2726,7 @@ Most use cases need multidimensional evaluation along several success criteria.
       {
           $text = '';
           foreach ($message->content as $block) {
-              if ($block instanceof TextBlock) {
+              if ($block instanceof \Anthropic\Messages\TextBlock) {
                   $text .= $block->text;
               }
           }
@@ -3229,7 +3229,7 @@ When deciding which method to use to grade evals, choose the fastest, most relia
     {
         $text = '';
         foreach ($message->content as $block) {
-            if ($block instanceof TextBlock) {
+            if ($block instanceof \Anthropic\Messages\TextBlock) {
                 $text .= $block->text;
             }
         }
