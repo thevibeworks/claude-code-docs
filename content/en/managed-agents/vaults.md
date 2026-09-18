@@ -673,7 +673,7 @@ The actual credential values you supply (`token`, `access_token`, `refresh_token
               injectionLocation: ManagedAgentsInjectionLocationParams::with(header: true),
           ),
       );
-      if ($envVarCredential->auth instanceof ManagedAgentsEnvironmentVariableAuthResponse) {
+      if ($envVarCredential->auth instanceof \Anthropic\Beta\Vaults\Credentials\ManagedAgentsEnvironmentVariableAuthResponse) {
           $injectionLocation = $envVarCredential->auth->injectionLocation;
           echo 'header: ' . json_encode($injectionLocation->header) . "\n"; // header: true
           echo 'body: ' . json_encode($injectionLocation->body) . "\n"; // body: false

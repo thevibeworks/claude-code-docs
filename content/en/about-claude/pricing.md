@@ -186,7 +186,7 @@ For more information, see [Fast mode](https://platform.claude.com/docs/en/build-
 The Batch API allows asynchronous processing of large volumes of requests with a 50% discount on both input and output tokens.
 
 | Model                                                                                                                                 | Batch input  | Batch output  |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
+| :------------------------------------------------------------------------------------------------------------------------------------ | :----------- | :------------ |
 | Claude Fable 5.1                                                                                                                      | $5 / MTok    | $25 / MTok    |
 | Claude Mythos 5.1 ([limited availability](https://anthropic.com/glasswing))                                                           | $5 / MTok    | $25 / MTok    |
 | Claude Fable 5                                                                                                                        | $5 / MTok    | $25 / MTok    |

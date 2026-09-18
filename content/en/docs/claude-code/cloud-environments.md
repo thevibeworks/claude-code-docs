@@ -175,7 +175,7 @@ Each environment sets one network access level, which controls the outbound conn
 To change an environment's network access, [open it for editing](#configure-your-environment) and use the **Network access** selector in the dialog. The cloud icon that opens the selector appears on the app surfaces listed under [The Default environment](#the-default-environment) and in the [routine editor](/docs/en/routines#environments-and-network-access); personal environments don't have a separate page in your claude.ai account settings.
 
 <Note>
-  MCP connectors you enable on a session or routine work without adding their hosts to **Allowed domains**, because connector traffic travels through Anthropic's servers rather than the session's network. You configure connectors per session or per routine; remove any you don't need to limit which tools Claude can reach. This relies on the same Anthropic-bound channel noted under [Security and isolation](/docs/en/claude-code-on-the-web#security-and-isolation).
+  MCP connectors you enable on a session or routine work without adding their hosts to **Allowed domains**, because connector traffic travels through Anthropic's servers rather than the session's network. This relies on the same Anthropic-bound channel noted under [Security and isolation](/docs/en/claude-code-on-the-web#security-and-isolation). Turn off any connector you don't need to limit which tools Claude can reach.
 </Note>
 
 ### Access levels
@@ -213,7 +213,7 @@ If your organization uses [artifacts](/docs/en/artifacts#availability), you don'
 * **Sessions in this environment open another organization's public artifacts**: Claude Code fetches those from the host directly, so add it to this list.
 * **You're configuring the local CLI or a self-hosted runner**: keep the host in that allowlist. See [network access requirements](/docs/en/network-config#network-access-requirements) and the self-hosted [network requirements](/docs/en/self-hosted-environments-deploy#network-requirements).
 
-Each environment has its own allowed-domains list; there's no organization-level allowlist that admins can push to every member's environments. [Server-managed settings](/docs/en/server-managed-settings) still apply inside cloud sessions, but none of them adds domains to the environment's network allowlist.
+Each environment has its own allowed-domains list; there's no organization-level allowlist that admins can push to every member's environments. [Server-managed settings](/docs/en/server-managed-settings) still apply inside cloud sessions, but none of them adds domains to the environment's network allowlist. To give a team one standard list, an Owner can create an [organization-shared environment](#organization-shared-environments) with **Custom** network access and that list.
 
 ### GitHub proxy
 

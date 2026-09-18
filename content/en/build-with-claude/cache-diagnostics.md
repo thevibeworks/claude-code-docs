@@ -680,11 +680,16 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
 
   $diagnostics = null;
   foreach ($stream as $event) {
-      if ($event instanceof BetaRawMessageStartEvent) {
-          // diagnostics arrives on the message_start event's embedded BetaMessage
-          $diagnostics = $event->message->diagnostics;
-      } elseif ($event instanceof BetaRawContentBlockDeltaEvent && $event->delta instanceof BetaTextDelta) {
-          echo $event->delta->text;
+      switch (true) {
+          case $event instanceof \Anthropic\Beta\Messages\BetaRawMessageStartEvent:
+              // diagnostics arrives on the message_start event's embedded BetaMessage
+              $diagnostics = $event->message->diagnostics;
+              break;
+          case $event instanceof \Anthropic\Beta\Messages\BetaRawContentBlockDeltaEvent:
+              if ($event->delta instanceof \Anthropic\Beta\Messages\BetaTextDelta) {
+                  echo $event->delta->text;
+              }
+              break;
       }
   }
   echo PHP_EOL;

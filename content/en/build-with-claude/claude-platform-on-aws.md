@@ -14,7 +14,7 @@ Claude Platform on AWS gives you the full Anthropic platform experience, includi
 
 Claude models run on Anthropic-managed infrastructure. This is a commercial integration for billing and access through AWS. Anthropic is the data processor for inference inputs and outputs. AWS processes billing and identity metadata under the marketplace model. Customers using Claude through Claude Platform on AWS are subject to Anthropic's [data use terms](https://www.anthropic.com/legal).
 
-Claude Platform on AWS has the following operational characteristics: data might not reside in AWS, inference might route to Anthropic's primary cloud, and subservices might change without notice. Set the [`inference_geo`](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#data-residency) parameter per request to pin inference to a specific geography.
+Anthropic uses AWS infrastructure to process your API requests, run model inference, and store your workspace content (such as prompts, outputs, files, Skills, and batches). For workspaces created before September 18, 2026, 00:00 UTC, Anthropic might process requests, store data, and run inference outside AWS. In either case, subservices might change without notice. Set the [`inference_geo`](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#data-residency) parameter per request to pin inference to a specific geography.
 
 Claude Platform on AWS follows the same data retention policy as the first-party Claude API. Zero Data Retention (ZDR) is available on request. Contact your Anthropic account representative to enable it for your organization.
 
@@ -72,7 +72,7 @@ Setting up Claude Platform on AWS happens in four phases: sign up on the AWS Con
     If your organization has a private offer from Anthropic, the Console looks it up and prompts you to accept it in AWS Marketplace. See [Private offers](https://platform.claude.com/docs/en/about-claude/pricing#private-offers) for details.
 
     <Note>
-      If you use Claude Platform on AWS, your content (such as prompts and completions) is processed by Anthropic outside of AWS. See Anthropic's [data use policies](https://www.anthropic.com/legal) for details on how content and metadata are processed and stored.
+      When you use Claude Platform on AWS, Anthropic processes and stores your content (such as prompts and outputs) on AWS infrastructure. For workspaces created before September 18, 2026, 00:00 UTC, Anthropic might process and store that content outside AWS. Anthropic's [data use policies](https://www.anthropic.com/legal) describe how content and metadata are processed and stored.
     </Note>
   </Step>
 
@@ -111,7 +111,7 @@ Plan a move from an existing organization as a cutover to a new one:
 
 * **Create the new organization first.** Sign up through the AWS Console (see [Set up your account](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#set-up-your-account)). If your move involves a private offer, complete sign-up before the offer is accepted: discounts apply from acceptance, not retroactively. See [Private offers](https://platform.claude.com/docs/en/about-claude/pricing#private-offers).
 * **Recreate access and configuration.** API keys, workspaces, and Claude Console settings don't carry over from an existing organization. Create workspaces in the new organization and switch your applications to [Claude Platform on AWS authentication](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#authentication).
-* **Update your integration.** Claude Platform on AWS serves the Claude API (`/v1/{endpoint}`), so request and response shapes are unchanged from the first-party Claude API. What changes is the base URL, the authentication method, and the required `anthropic-workspace-id` header; see [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests). Some platform features differ; see [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#features-not-supported).
+* **Update your integration.** Claude Platform on AWS serves the Claude API (`/v1/{endpoint}`), so request and response shapes are unchanged from the first-party Claude API. What changes is the base URL, the authentication method, and the `anthropic-workspace-id` header on inference and resource requests; see [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests). Some platform features differ; see [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#features-not-supported).
 * **Cut over on your own schedule.** The new organization is independent of your existing one, and both can serve traffic in parallel. There's no need for a hard cutover: shift workloads gradually until all of your traffic is on the new organization.
 
 Once the new organization is running, the differences are concentrated in billing and authentication, which are handled through AWS:
@@ -305,14 +305,20 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
 
   <Tab title="Java">
     ```kotlin Gradle
-    implementation("com.anthropic:anthropic-java-aws:2.60.0")
+    implementation("com.anthropic:anthropic-java:2.63.0")
+    implementation("com.anthropic:anthropic-java-aws:2.63.0")
     ```
 
     ```xml Maven
     <dependency>
       <groupId>com.anthropic</groupId>
+      <artifactId>anthropic-java</artifactId>
+      <version>2.63.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.anthropic</groupId>
       <artifactId>anthropic-java-aws</artifactId>
-      <version>2.60.0</version>
+      <version>2.63.0</version>
     </dependency>
     ```
   </Tab>
@@ -339,16 +345,16 @@ Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries
 The following models are available on Claude Platform on AWS:
 
 | Model             | Model ID          |
-| ----------------- | ----------------- |
+| :---------------- | :---------------- |
 | Claude Fable 5.1  | claude-fable-5-1  |
 | Claude Fable 5    | claude-fable-5    |
 | Claude Opus 5     | claude-opus-5     |
 | Claude Opus 4.8   | claude-opus-4-8   |
 | Claude Opus 4.7   | claude-opus-4-7   |
 | Claude Opus 4.6   | claude-opus-4-6   |
+| Claude Opus 4.5   | claude-opus-4-5   |
 | Claude Sonnet 5   | claude-sonnet-5   |
 | Claude Sonnet 4.6 | claude-sonnet-4-6 |
-| Claude Opus 4.5   | claude-opus-4-5   |
 | Claude Sonnet 4.5 | claude-sonnet-4-5 |
 | Claude Haiku 4.5  | claude-haiku-4-5  |
 
@@ -362,7 +368,7 @@ New models typically launch on Claude Platform on AWS the same day as the first-
 
 ## Making requests
 
-Claude Platform on AWS uses the same API endpoints as the first-party Claude API. The differences are the base URL, the authentication method, and a required `anthropic-workspace-id` header that identifies which [workspace](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#workspaces) the request targets.
+Claude Platform on AWS uses the same API endpoints as the first-party Claude API. The differences are the base URL, the authentication method, and the `anthropic-workspace-id` header, which identifies the [workspace](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#workspaces) a request targets. The header is required on inference and resource requests, such as calls to the Messages API, Models API, Files API, and Claude Managed Agents endpoints. Requests to the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) workspace and external key endpoints don't require it.
 
 Before running these examples, complete the steps in [Before making API calls](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#before-making-api-calls).
 
@@ -774,7 +780,7 @@ See [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-
 
 ### Managing workspaces
 
-Create additional workspaces, rename a workspace, or archive a workspace from the AWS Console **Workspaces** page or with the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) workspace endpoints. A new workspace is bound to the AWS region of the endpoint you call to create it (see [Workspace scoping](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#workspace-scoping)). With the Admin role, you can also create, rename, and archive workspaces from the Claude Console **Workspaces** page.
+Create additional workspaces, rename a workspace, or archive a workspace from the AWS Console **Workspaces** page or with the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) workspace endpoints. These endpoints don't require the `anthropic-workspace-id` header. Create and list act on the organization; get, update, and archive take the workspace ID in the URL path. A new workspace is bound to the AWS region of the endpoint you call to create it (see [Workspace scoping](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#workspace-scoping)). With the Admin role, you can also create, rename, and archive workspaces from the Claude Console **Workspaces** page.
 
 ## Using the Claude Console
 
@@ -824,7 +830,7 @@ The Claude Console does not support organization switching for Claude Platform o
 
 Organizations on Claude Platform on AWS are placed on the Start tier. Anthropic manages rate limits directly, not through AWS quota systems.
 
-Organizations on Claude Platform on AWS do not move between usage tiers automatically. Usage-based tier advancement applies to first-party Claude API organizations, not to organizations billed through AWS Marketplace. The self-service **Request rate limit increase** flow in the Claude Console is also not available: the Rate limits page directs you to your Anthropic account representative instead.
+Organizations on Claude Platform on AWS can move to a higher usage tier automatically as they build a history of paid AWS Marketplace invoices. The self-service **Request rate limit increase** flow in the Claude Console is not available: the Rate limits page directs you to your Anthropic account representative instead.
 
 To request higher limits, contact your Anthropic account representative or [Anthropic support](https://support.claude.com). Include the following in your request:
 
@@ -1044,7 +1050,7 @@ The migration delta depends on which Bedrock integration you're coming from. The
 | **SDK package**            | `anthropic[bedrock]`, `@anthropic-ai/bedrock-sdk`, and others                                                   | `anthropic[bedrock]`, `@anthropic-ai/bedrock-sdk`, or AWS SDK                                                                       | `anthropic[aws]`, `@anthropic-ai/aws-sdk`, and others (see [Install an SDK](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#install-an-sdk))                                                                                          |
 | **SigV4 service name**     | `bedrock-mantle`                                                                                                | `bedrock`                                                                                                                           | `aws-external-anthropic`                                                                                                                                                                                                                                           |
 | **Streaming format**       | SSE                                                                                                             | AWS EventStream                                                                                                                     | SSE (same as Claude API)                                                                                                                                                                                                                                           |
-| **Workspace header**       | Not applicable                                                                                                  | Not applicable                                                                                                                      | `anthropic-workspace-id` required                                                                                                                                                                                                                                  |
+| **Workspace header**       | Not applicable                                                                                                  | Not applicable                                                                                                                      | `anthropic-workspace-id`, required on inference and resource requests                                                                                                                                                                                              |
 | **Region availability**    | See [Amazon Bedrock regions](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-regions.html)         | See [Amazon Bedrock regions](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-regions.html)                             | All AWS commercial regions                                                                                                                                                                                                                                         |
 | **Anthropic organization** | None required                                                                                                   | None required                                                                                                                       | New organization created at sign-up. Existing organizations can't be converted (see [Moving from an existing Anthropic organization](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#moving-from-an-existing-anthropic-organization)) |
 

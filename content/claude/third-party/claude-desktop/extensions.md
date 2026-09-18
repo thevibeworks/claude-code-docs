@@ -137,7 +137,7 @@ Google Workspace and Microsoft 365 each have a dedicated setup path:
 
 ## Plugin marketplaces (admin)
 
-A **plugin marketplace** is a catalog file (`marketplace.json`) that lists one or more Claude plugins. You host it either as a git repository or as a plain file over HTTPS. Claude Desktop fetches it on each device, shows the plugins under **Settings → Plugins → Organization** in both **Cowork** and [**Code**](/docs/third-party/claude-desktop/code), and keeps them in sync with the revision you pin. You control which plugins are available, which install automatically, and which are required.
+A **plugin marketplace** is a catalog file (`marketplace.json`) that lists one or more Claude plugins. You host it either as a git repository or as a plain file over HTTPS. Claude Desktop fetches it on each device, lists its plugins under **Customize → Plugins → Discover → Organization** in both **Cowork** and [**Code**](/docs/third-party/claude-desktop/code), and keeps them in sync with the revision you pin. You control which plugins are available, which install automatically, and which are required.
 
 This is the recommended way to distribute organization plugins. For a git-hosted marketplace, Claude Desktop clones with the git already installed on each device, so include git in your device baseline (Git for Windows on Windows; the Xcode Command Line Tools provide it on macOS); devices without git can use a [marketplace hosted over HTTPS](#host-the-marketplace-over-https-instead-of-git) instead. Use the [system-wide directory](#organization-plugins-admin) path when end-user devices cannot reach a git server or an HTTPS file host.
 
@@ -231,7 +231,7 @@ On Windows, write the same string to the `allowedPluginMarketplaces` value in th
 | `credentialHelper`       | Path to an executable that prints an access token on stdout. Required, and only valid, when `credentialKind` is `"credentialHelper"`.                                                                                            |
 | `installationPreference` | `"available"` (default), `"auto_install"`, or `"required"`. See [Marketplace installation preferences](#marketplace-installation-preferences).                                                                                   |
 
-You can configure multiple marketplaces; each appears as its own sub-tab under **Settings → Plugins → Organization**. If an admin-configured marketplace has the same `repo`, `url`, or manifest `name` as one the user added themselves, the admin entry replaces the user's.
+You can configure multiple marketplaces, and each appears as its own sub-tab under **Organization** in the **Directory**. If an admin-configured marketplace has the same `repo`, `url`, or manifest `name` as one the user added themselves, the admin entry replaces the user's.
 
 ### Marketplace installation preferences
 

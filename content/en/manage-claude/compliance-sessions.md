@@ -32,7 +32,7 @@ The following table maps each product, and where it runs, to the endpoint family
 Capture of local sessions is tied to the Compliance API being enabled for your organization and applies while users are signed in with their Claude Enterprise account. The session endpoints do not return the following:
 
 * Claude Code sessions authenticated with a Claude Console API key, or run through a third-party cloud platform such as Amazon Bedrock, Google Cloud, or Microsoft Foundry.
-* Claude Code on the web. It also runs in the cloud in Anthropic-managed environments, but it is not a remote session; the remote session endpoints return Cowork sessions only.
+* [Claude Code cloud sessions](https://code.claude.com/docs/en/claude-code-on-the-web), which run on cloud infrastructure instead of the user's machine. These cloud sessions are not remote sessions, even though both run in the cloud; the remote session endpoints return Cowork sessions only.
 * Local sessions in organizations with [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled. No local session data is captured, so the local session endpoints return no sessions for those organizations.
 * Local sessions for which [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect. These sessions are excluded from list results, and the retrieve and messages endpoints return 404 for them.
 

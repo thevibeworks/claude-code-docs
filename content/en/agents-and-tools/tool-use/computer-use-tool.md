@@ -929,13 +929,14 @@ The computer use tool is implemented as a schema-less tool. When using this tool
 
 
       def handle_computer_action(name, tool_input):
-          if name == "screenshot":
-              return capture_screenshot()
-          elif name == "left_click":
-              # coordinate is optional; without it, click where the cursor already is
-              return click(tool_input.get("coordinate"))
-          elif name == "type":
-              return type_text(tool_input["text"])
+          match name:
+              case "screenshot":
+                  return capture_screenshot()
+              case "left_click":
+                  # coordinate is optional; without it, click where the cursor already is
+                  return click(tool_input.get("coordinate"))
+              case "type":
+                  return type_text(tool_input["text"])
           # Handle other actions as needed
           raise ValueError(f"Unknown or unimplemented member: {name}")
       ```
@@ -976,17 +977,21 @@ The computer use tool is implemented as a schema-less tool. When using this tool
       ): string | Anthropic.ImageBlockParam[] {
         const params: object =
           typeof input === "object" && input !== null ? input : {};
-        if (action === "screenshot") {
-          return captureScreenshot();
-        } else if (action === "left_click") {
-          // coordinate is optional on the toolset; without one, click at the cursor
-          if ("coordinate" in params && Array.isArray(params.coordinate)) {
-            const [x, y] = params.coordinate;
-            return clickAt(x, y);
-          }
-          return clickAtCursor();
-        } else if (action === "type" && "text" in params) {
-          return typeText(String(params.text));
+        switch (action) {
+          case "screenshot":
+            return captureScreenshot();
+          case "left_click":
+            // coordinate is optional on the toolset; without one, click at the cursor
+            if ("coordinate" in params && Array.isArray(params.coordinate)) {
+              const [x, y] = params.coordinate;
+              return clickAt(x, y);
+            }
+            return clickAtCursor();
+          case "type":
+            if ("text" in params) {
+              return typeText(String(params.text));
+            }
+            break;
         }
         // Handle other actions as needed
         throw new Error(`Unknown or unimplemented member: ${action}`);
@@ -1495,7 +1500,7 @@ The computer use tool is implemented as a schema-less tool. When using this tool
           $failed = false;
           foreach ($response->content as $block) {
               // This example declares only the computer toolset; route other tools here if you add them.
-              if (!($block instanceof ToolUseBlock) || $block->toolsetName !== 'computer') {
+              if (!($block instanceof \Anthropic\Messages\ToolUseBlock) || $block->toolsetName !== 'computer') {
                   continue;
               }
               $result = ['type' => 'tool_result', 'tool_use_id' => $block->id, 'toolset_name' => 'computer'];

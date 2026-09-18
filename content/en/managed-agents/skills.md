@@ -31,9 +31,24 @@ These examples omit the optional `display_name` field, so the skill's display na
     -F "files[]=@example_skill.zip"
   ```
 
-  ```bash CLI
-  ant skills create --file example_skill.zip
-  ```
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    ant apply skills/pr-summary
+    ```
+
+    <File filename="skills/pr-summary/SKILL.md">
+      ```markdown
+      ---
+      name: pr-summary
+      description: Summarize a pull request's changes and risks in the team's review format.
+      ---
+
+      # PR summary
+
+      List what changed, why, and anything a reviewer should look at closely, in three short sections.
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   import anthropic
@@ -177,6 +192,10 @@ These examples omit the optional `display_name` field, so the skill's display na
   puts "Created skill: #{skill.id}"
   puts "Latest version: #{skill.latest_version_id}"
   ```
+
+  <ForLanguage tab="CLI">
+    [`ant apply`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply) uploads the `skills/pr-summary` directory, prints the new skill's ID, and records it in `claude-lock.json`. Commit `claude-lock.json` so the next `ant apply` uploads your edits as a new version instead of creating a second skill.
+  </ForLanguage>
 </CodeGroup>
 
 To list, retrieve, delete, and version custom skills, see [Managing custom skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide#managing-custom-skills). For the full request and response schemas, see the [Create Skill API reference](https://platform.claude.com/docs/en/api/skills/create). Skill bundles upload directly to the Skills API rather than through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files).
