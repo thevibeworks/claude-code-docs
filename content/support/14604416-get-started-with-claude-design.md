@@ -1,6 +1,6 @@
 # Get started with Claude Design
 
-**[Claude Design](https://claude.ai/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by having a conversation with Claude. You can use it in any conversation with Claude, including in Claude Code and the Artifacts tab, and all of its features come with it, including on-canvas editing and importing your design system. To make presentations, use Claude Slides. This guide walks you through creating your first design, iterating on it, and getting the most out of the tool.
+**[Claude Design](https://claude.com/product/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by having a conversation with Claude. You can use it in any conversation with Claude, including in Claude Code and the Artifacts tab, and all of its features come with it, including on-canvas editing and importing your design system. To make presentations, use Claude Slides. This guide walks you through creating your first design, iterating on it, and getting the most out of the tool.
 
 Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It isn't available on the Free plan. It's on by default on Pro and Max plans, and you can turn it off in Settings > Capabilities. It's also on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
 
@@ -166,7 +166,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2675065762/1a4b6d1921e063e14420f56a72d6/72422fce-b339-49b6-bc59-bebf752e0644?expires=1789728300&amp;signature=394f113656f01d6742a011aaf290917f550469e415496172eacf33901846152d&amp;req=diYgE8l4mIZZW%2FMW1HO4zYaJOofwHJT6T73yd%2FWN6blxYDv1EUDR2LvwRa69%0Ake2k1KZJuBcXIxcdY%2FQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2675065762/1a4b6d1921e063e14420f56a72d6/72422fce-b339-49b6-bc59-bebf752e0644?expires=1789905600&amp;signature=d65ee746f9fdbdfc3a2f321bfbadb6b180c57c5bb3bdf9ba172c416bb9b0925d&amp;req=diYgE8l4mIZZW%2FMW3nq%2BgSZsMZfe9b%2F%2BDiWXzwAXv0dTu51%2BpQ4r%2FkfHofM7%0A2LNuLH2Lfo%2Bddt0Yg0jmqMN7jC8%3D%0A)
 
 Designs are private until you share them:
 

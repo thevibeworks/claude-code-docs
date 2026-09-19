@@ -6,6 +6,19 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.16.1">
+  * Fixed members not being reactivated after they are re-enabled in your identity provider.
+  * Changed SCIM provisioning to reject requests to deactivate an organization's primary owner or a tenant's last admin until ownership is transferred or another admin is added.
+  * Changed SCIM provisioning to return an error that says what to do first when an identity provider deactivates or changes the email address of a member who is not yet linked to their directory entry.
+  * Changed sign-in for accounts outside any organization that still held a Primary Owner role without being a tenant admin: they now sign in like any other member.
+  * Changed sign-in: a network that starts sign-ins unusually fast is briefly told to try again.
+  * Added a check of the Issuer against what your identity provider publishes when you save OIDC single sign-on.
+  * Added a Test sign-in button to the Single sign-on settings on the tenant portal's Identity and access page, so a tenant admin can check their own sign-in through their identity provider.
+  * Added **Sign out everywhere** to each member's row menu on the Users page, which ends all of that member's sessions; the Compliance API records it as `user.sessions_revoked`.
+  * Added the option to enforce settings whose values are hidden after saving, such as Telemetry headers, from the Admin Console.
+  * Added the **Claude Desktop home** setting on the Config page, which sets Chat, Advanced file analysis, and Cowork in Claude Desktop together. It needs Claude Desktop 1.52386.0 or later.
+</Update>
+
 <Update label="2026.09.15.1">
   * Fixed directory provisioning (SCIM) rejecting some of the user updates that Microsoft Entra ID sends by default.
   * Changed what removing a tenant admin does for someone who is not yet in an organization: they can no longer request an emailed sign-in link and are placed by the sign-in routing rules at their next single sign-on, like any other member.

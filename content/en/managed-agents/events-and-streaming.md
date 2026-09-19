@@ -920,13 +920,11 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
         -H "anthropic-beta: managed-agents-2026-04-01" \
-        -H "content-type: application/json" \
-        | jq -r '.data[] | "[\(.type)] \(.processed_at)"'
+        -H "content-type: application/json"
       ```
 
       ```bash CLI
-      ant beta:sessions:events list --session-id "$SESSION_ID" \
-        --format jsonl --transform '{type,processed_at}'
+      ant beta:sessions:events list --session-id "$SESSION_ID" --format jsonl
       ```
 
       ```python Python
@@ -991,14 +989,13 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
       curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true&types[]=agent.tool_use&types[]=agent.tool_result" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
-        -H "anthropic-beta: managed-agents-2026-04-01" \
-        | jq -r '.data[] | "[\(.type)] \(.processed_at)"'
+        -H "anthropic-beta: managed-agents-2026-04-01"
       ```
 
       ```bash CLI
       ant beta:sessions:events list --session-id "$SESSION_ID" \
         --type agent.tool_use --type agent.tool_result \
-        --format jsonl --transform '{type,processed_at}'
+        --format jsonl
       ```
 
       ```python Python
@@ -1585,7 +1582,7 @@ The thread stream's path is easy to get wrong: it is `/threads/{thread_id}/strea
 
 The preview events themselves don't change. `event_start` and `event_delta` have the same shape on a thread stream as on the session-level stream, and the [accumulate and reconcile](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#accumulate-and-reconcile) pattern applies as written. The one adjustment is bookkeeping: run one accumulator instance per stream connection.
 
-<CodeGroup defaultLanguage="cURL">
+<CodeGroup>
   ```bash cURL
   # List the session's threads and pick a child: child threads carry a non-null
   # parent_thread_id, and the primary thread's parent_thread_id is null.
@@ -2459,7 +2456,7 @@ Sessions persist between interactions. Conversation history is preserved unless 
 
 To resume a session, send a `user.message` event to it as usual:
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   # In production, pass the stored ID of the session you want to resume.
   curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
@@ -2643,7 +2640,7 @@ No event resumes a session paused at its cap. Instead, update the session's budg
 
 Send a `system.message` event to give the agent privileged system-level context that applies to the accompanying turn and all subsequent turns. Unlike the `system` field on the agent definition (which sets the top-level system prompt), `system.message` content is appended to the session's system context as a `role: "system"` turn rather than replacing that prompt. Use it when the agent needs updated system-level guidance mid-session: a different persona, revised constraints, or context fetched at runtime that should shape the model's behavior going forward.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \

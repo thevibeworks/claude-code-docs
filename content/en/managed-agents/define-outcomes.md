@@ -56,19 +56,15 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
 
 <CodeGroup>
   ```bash cURL
-  rubric=$(curl -fsSL https://api.anthropic.com/v1/files \
+  curl -fsSL https://api.anthropic.com/v1/files \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    -F file=@/tmp/rubric.md)
-  rubric_id=$(jq -r '.id' <<<"$rubric")
-  printf 'Uploaded rubric: %s\n' "$rubric_id"
+    -F file=@/tmp/rubric.md
   ```
 
   ```bash CLI
-  RUBRIC_ID=$(ant files upload \
-    --file /tmp/rubric.md \
-    --transform id --raw-output)
+  ant files upload --file /tmp/rubric.md
   ```
 
   ```python Python
@@ -297,16 +293,16 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     -H "anthropic-beta: managed-agents-2026-04-01" \
     --json @- <<EOF
   {
-    "agent": "$agent_id",
-    "environment_id": "$environment_id",
+    "agent": "$AGENT_ID",
+    "environment_id": "$ENVIRONMENT_ID",
     "title": "Financial analysis on Costco"
   }
   EOF
   )
-  session_id=$(jq -r '.id' <<<"$session")
+  SESSION_ID=$(jq -r '.id' <<<"$session")
 
   # Define the outcome — agent starts working on receipt
-  curl -fsSL "https://api.anthropic.com/v1/sessions/$session_id/events" \
+  curl -fsSL "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -322,7 +318,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     ]
   }
   EOF
-  # or: "rubric": {"type": "file", "file_id": "$rubric_id"}
+  # or: "rubric": {"type": "file", "file_id": "$RUBRIC_ID"}
   # "max_iterations" is optional; default 3, max 20
   ```
 
@@ -627,18 +623,14 @@ You can either listen on the [event stream](https://platform.claude.com/docs/en/
 
 <CodeGroup>
   ```bash cURL
-  session=$(curl -fsSL "https://api.anthropic.com/v1/sessions/$session_id" \
+  curl -fsSL "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01")
-
-  jq -r '.outcome_evaluations[] | "\(.outcome_id): \(.result)"' <<<"$session"
-  # outc_01a...: satisfied
+    -H "anthropic-beta: managed-agents-2026-04-01"
   ```
 
   ```bash CLI
-  ant beta:sessions retrieve --session-id "$SESSION_ID" \
-    --transform 'outcome_evaluations' --format yaml
+  ant beta:sessions retrieve --session-id "$SESSION_ID"
   ```
 
   ```python Python
@@ -716,16 +708,18 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. To 
   ```bash cURL
   # List files produced by this session
   # scope_id filtering requires the managed-agents beta
-  files=$(curl -fsSL "https://api.anthropic.com/v1/files?scope_id=$session_id" \
+  curl -fsSL "https://api.anthropic.com/v1/files?scope_id=$SESSION_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01")
-  jq -r '.data[] | "\(.id) \(.filename)"' <<<"$files"
+    -H "anthropic-beta: managed-agents-2026-04-01"
 
   # Download a file
-  file_id=$(jq -r '.data[0].id // empty' <<<"$files")
-  if [[ -n $file_id ]]; then
-    curl -fsSL "https://api.anthropic.com/v1/files/$file_id/content" \
+  FILE_ID=$(curl -fsSL "https://api.anthropic.com/v1/files?scope_id=$SESSION_ID" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: managed-agents-2026-04-01" | jq -r '.data[0].id // empty')
+  if [[ -n $FILE_ID ]]; then
+    curl -fsSL "https://api.anthropic.com/v1/files/$FILE_ID/content" \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
       -H "anthropic-version: 2023-06-01" \
       -H "anthropic-beta: managed-agents-2026-04-01" \

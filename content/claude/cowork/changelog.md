@@ -982,7 +982,7 @@
   **Code**
 
   * Added iOS Simulator support: Claude Code can build your iOS app, launch the simulator, and verify the result without leaving the session.
-  * Added iOS Simulator and Android Emulator buttons to the session titlebar when the agent launches an app on a device, so the pane is one click to reopen.
+  * Added an iOS Simulator button to the session titlebar when the agent launches an app in the simulator, so the pane is one click to reopen.
   * Added Pause Project, which pauses a project's coordinator and new session spawning from settings and shows a Resume banner above the composer.
   * Added screenshot annotation in the composer: click a staged image, open the pencil, and draw with pen, shapes, text, and colors before sending.
   * Improved how large sessions open: the newest messages paint first while older history loads in the background.

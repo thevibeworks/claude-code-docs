@@ -19,8 +19,7 @@ First, upload a file using the [Files API](https://platform.claude.com/docs/en/b
   file=$(curl --fail-with-body -sS "${auth[@]}" \
     "${base_url}/files" \
     -F file=@data.csv)
-  file_id=$(jq -er '.id' <<<"${file}")
-  printf 'File ID: %s\n' "${file_id}"
+  FILE_ID=$(jq -er '.id' <<<"${file}")
   ```
 
   ```bash CLI
@@ -91,37 +90,32 @@ Mount uploaded files into the sandbox by adding them to the `resources` array wh
 
 <CodeGroup>
   ```bash cURL
-  session=$(
-    jq -n \
-      --arg agent_id "${agent_id}" \
-      --arg environment_id "${environment_id}" \
-      --arg file_id "${file_id}" \
-      '{
-        agent: $agent_id,
-        environment_id: $environment_id,
-        resources: [
-          {
-            type: "file",
-            file_id: $file_id,
-            mount_path: "/data.csv"
-          }
-        ]
-      }' | curl --fail-with-body -sS "${auth[@]}" "${base_url}/sessions" --json @-
-  )
-  session_id=$(jq -er '.id' <<<"${session}")
+  jq -n \
+    --arg agent_id "${AGENT_ID}" \
+    --arg environment_id "${ENVIRONMENT_ID}" \
+    --arg file_id "${FILE_ID}" \
+    '{
+      agent: $agent_id,
+      environment_id: $environment_id,
+      resources: [
+        {
+          type: "file",
+          file_id: $file_id,
+          mount_path: "/data.csv"
+        }
+      ]
+    }' | curl --fail-with-body -sS "${auth[@]}" "${base_url}/sessions" --json @-
   ```
 
   ```bash CLI
-  SESSION_ID=$(ant beta:sessions create \
+  ant beta:sessions create \
     --agent "$AGENT_ID" \
-    --environment-id "$ENVIRONMENT_ID" \
-    --transform id --raw-output <<EOF
+    --environment-id "$ENVIRONMENT_ID" <<EOF
   resources:
     - type: file
       file_id: $FILE_ID
       mount_path: /data.csv
   EOF
-  )
   ```
 
   ```python Python
@@ -368,21 +362,16 @@ You can add or remove files from a session after creation using the session reso
 
 <CodeGroup>
   ```bash cURL
-  resource=$(
-    jq -n --arg file_id "${file_id}" '{type: "file", file_id: $file_id}' \
-      | curl --fail-with-body -sS "${auth[@]}" \
-          "${base_url}/sessions/${session_id}/resources" --json @-
-  )
-  resource_id=$(jq -er '.id' <<<"${resource}")
-  printf '%s\n' "${resource_id}"  # "sesrsc_01ABC..."
+  jq -n --arg file_id "${FILE_ID}" '{type: "file", file_id: $file_id}' \
+    | curl --fail-with-body -sS "${auth[@]}" \
+        "${base_url}/sessions/${SESSION_ID}/resources" --json @-
   ```
 
   ```bash CLI
-  RESOURCE_ID=$(ant beta:sessions:resources add \
+  ant beta:sessions:resources add \
     --session-id "$SESSION_ID" \
     --type file \
-    --file-id "$FILE_ID" \
-    --transform id --raw-output)
+    --file-id "$FILE_ID"
   ```
 
   ```python Python
@@ -466,11 +455,10 @@ List all resources on a session with `resources.list`. To remove a file, call `r
 <CodeGroup>
   ```bash cURL
   curl --fail-with-body -sS "${auth[@]}" \
-    "${base_url}/sessions/${session_id}/resources" \
-    | jq -r '.data[] | "\(.id) \(.type)"'
+    "${base_url}/sessions/${SESSION_ID}/resources"
 
   curl --fail-with-body -sS "${auth[@]}" -X DELETE \
-    "${base_url}/sessions/${session_id}/resources/${resource_id}" >/dev/null
+    "${base_url}/sessions/${SESSION_ID}/resources/${RESOURCE_ID}" >/dev/null
   ```
 
   ```bash CLI

@@ -42,10 +42,6 @@ With Cowork, you can describe an outcome, step away, and come back to finished w
 
 - You control your Cowork tasks and can delete a task at any time using the "Delete" option (click "⋮" next to the task, or select tasks from your Tasks list and click the trash icon). Your Cowork task will be removed from your task history immediately, and deleted from our backend storage systems within 30 days, in accordance with our **[data retention periods](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
 
-- Cowork via mobile and web is captured in the Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
-
-- If you're a Team or Enterprise plan admin, you can **[use OpenTelemetry (OTel) to monitor Claude Cowork activity](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry)** across your organization.
-
 - For more information, review **[Use Cowork safely](https://support.claude.com/en/articles/13364135-using-cowork-safely)**.
 
 For important limitations and considerations for Team and Enterprise organizations using Cowork, see **[Cowork for Team and Enterprise plans](https://support.claude.com/en/articles/13455879-cowork-for-team-and-enterprise-plans)**.
@@ -188,7 +184,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1789728300&amp;signature=b4225d5cc4011ba5c6eeab4d2c6fe2aee6e28cf2324179c63b847c91a4bc4422&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6tHrNFmz8iWjaktE9422UF9%2FRn4%2BeUUesf63%0AnPuhgs4EF0lUItZsv6g%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1789905600&amp;signature=d91f87d764acfda3254258870fe5dd00a50a16c78ca0b69283b00c7d44469d6b&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD1b%2FcbleMqW%2FkK1cQqaESOuGW96n%2BNIKq%0A7orMRHP%2BGQRWksRJ9uwPvmEoPqo%3D%0A)
 
 ### Folder instructions
 
