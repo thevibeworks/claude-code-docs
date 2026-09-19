@@ -74,7 +74,7 @@ You need:
 
     Or through the API:
 
-    <CodeGroup>
+    <CodeGroup defaultLanguage="CLI">
       ```bash cURL
       curl -sS --fail-with-body https://api.anthropic.com/v1/environments \
         -H "x-api-key: $ANTHROPIC_API_KEY" \

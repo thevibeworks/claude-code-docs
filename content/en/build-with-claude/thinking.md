@@ -1163,23 +1163,22 @@ You can't prefill the assistant response while thinking is on. Forced tool use (
 
 Each model accepts `max_tokens` up to the ceiling listed here. On the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing#extended-output-beta), the `output-300k-2026-03-24` [beta header](https://platform.claude.com/docs/en/api/beta-headers) raises that ceiling for the models with a batches ceiling listed.
 
-| Model             | Max output tokens | Batches beta ceiling |
-| :---------------- | :---------------- | :------------------- |
-| Claude Fable 5.1  | 128K              | —                    |
-| Claude Mythos 5.1 | 128K              | —                    |
-| Claude Fable 5    | 128K              | —                    |
-| Claude Mythos 5   | 128K              | —                    |
-| Claude Opus 5     | 128K              | 300K                 |
-| Claude Opus 4.8   | 128K              | 300K                 |
-| Claude Opus 4.7   | 128K              | 300K                 |
-| Claude Opus 4.6   | 128K              | 300K                 |
-| Claude Opus 4.5   | 64K               | Not available        |
-| Claude Sonnet 5   | 128K              | 300K                 |
-| Claude Sonnet 4.6 | 128K              | 300K                 |
-| Claude Sonnet 4.5 | 64K               | Not available        |
-| Claude Haiku 4.5  | 64K               | Not available        |
-
-[Claude Mythos Preview](https://anthropic.com/glasswing) accepts `max_tokens` up to 128K; the Batches beta ceiling is not available for it.
+| Model                 | Max output tokens | Batches beta ceiling |
+| :-------------------- | :---------------- | :------------------- |
+| Claude Fable 5.1      | 128K              | —                    |
+| Claude Mythos 5.1     | 128K              | —                    |
+| Claude Fable 5        | 128K              | —                    |
+| Claude Mythos 5       | 128K              | —                    |
+| Claude Mythos Preview | 128K              | Not available        |
+| Claude Opus 5         | 128K              | 300K                 |
+| Claude Opus 4.8       | 128K              | 300K                 |
+| Claude Opus 4.7       | 128K              | 300K                 |
+| Claude Opus 4.6       | 128K              | 300K                 |
+| Claude Opus 4.5       | 64K               | Not available        |
+| Claude Sonnet 5       | 128K              | 300K                 |
+| Claude Sonnet 4.6     | 128K              | 300K                 |
+| Claude Sonnet 4.5     | 64K               | Not available        |
+| Claude Haiku 4.5      | 64K               | Not available        |
 
 See the [models overview](https://platform.claude.com/docs/en/models/overview) for limits on legacy models.
 

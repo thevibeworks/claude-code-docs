@@ -465,7 +465,7 @@ With the CLI, edit the agent's file and run `ant apply` again; apply supplies `v
 
 The preceding example supplies `version` from the create response, so the update only applies if nothing else has changed the agent since you read it. To apply an update unconditionally, omit `version` from the request:
 
-<CodeGroup defaultLanguage="cURL">
+<CodeGroup>
   ```bash cURL
   updated_agent=$(curl -fsSL "https://api.anthropic.com/v1/agents/$AGENT_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -510,7 +510,7 @@ The preceding example supplies `version` from the create response, so the update
 
 Fetch the full version history to track how an agent has changed over time. Results are paginated, and the SDK examples fetch every page automatically.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -fsSL "https://api.anthropic.com/v1/agents/$AGENT_ID/versions" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -576,7 +576,7 @@ Fetch the full version history to track how an agent has changed over time. Resu
 
 Archiving makes the agent read-only and cannot be undone. Existing sessions continue to run, but new sessions cannot reference the agent. The response sets `archived_at` to the archive timestamp.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   archived=$(curl -fsSL -X POST "https://api.anthropic.com/v1/agents/$AGENT_ID/archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \

@@ -53,6 +53,10 @@ The agent cannot attach a network-drive path on its own; only the user can, thro
 
 On macOS, network mounts under `/Volumes/` are currently treated as local folders.
 
+## Removable drives on Windows
+
+Users can attach a folder on a removable drive, such as a USB stick or an SD card, and file tools work there. The sandbox does not mount removable drives, so shell commands cannot reach them. Copy the relevant files to a local folder before running a script or build against them.
+
 ## WSL
 
 You do not need Windows Subsystem for Linux (WSL) to run Claude Desktop or Cowork. On Windows, Cowork's sandbox runs on the operating system's built-in virtualization, which the [readiness check](/docs/third-party/claude-desktop/installation#check-device-readiness) verifies. Install the macOS or Windows package (see [System requirements](/docs/third-party/claude-desktop/installation#system-requirements)); there is no installation path inside WSL. Run the Windows app and work with WSL files from there.

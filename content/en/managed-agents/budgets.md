@@ -14,9 +14,9 @@ A session budget is an optional hard spend ceiling you set when you [create a se
 
 Pass the optional `budget` field when you create the session:
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
-  session=$(curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
+  curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -31,17 +31,14 @@ Pass the optional `budget` field when you create the session:
     }
   }
   EOF
-  )
-  SESSION_ID=$(jq -r '.id' <<< "$session")
   ```
 
   ```bash CLI
   # Keep the amount quoted so it is sent as a string, not a number.
-  SESSION_ID=$(ant beta:sessions create \
+  ant beta:sessions create \
     --agent "$AGENT_ID" \
     --environment-id "$ENVIRONMENT_ID" \
-    --budget '{type: limit, max_list_cost: {amount: "125", currency: USD}}' \
-    --transform id --raw-output)
+    --budget '{type: limit, max_list_cost: {amount: "125", currency: USD}}'
   ```
 
   ```python Python
@@ -194,7 +191,7 @@ Change or remove the budget with a session update. An accepted update resumes th
 
 Update the session with a new `max_list_cost`. The new value can be higher or lower than the current cap, but it must be strictly greater than the session's consumed list cost; otherwise the update is rejected with a 400 error: `budget.max_list_cost must be greater than the session's consumed list cost`. Because the consumed cost usually sits [a fraction past the old cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget) when the session pauses, base the new value on the session's reported `usage.list_cost`, not on the old `max_list_cost`. Set it a cent or more above that figure: the reported value is rounded and can sit a fraction below the exact consumed cost the check uses.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -sS --fail-with-body "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -304,7 +301,7 @@ Update the session with a new `max_list_cost`. The new value can be higher or lo
 
 Set `budget` to `null` to remove the cap entirely. The session's paused work resumes, and the resulting `session.updated` event carries `budget` set to `null`.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -sS --fail-with-body "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \

@@ -137,385 +137,407 @@ How you register the key depends on which product you use.
       To attach the key to an additional workspace, add that workspace's compartment ID to the condition with `kms:PutKeyPolicy` before attaching.
     </Note>
 
-    <Steps>
-      <Step title="Register the key with Anthropic">
-        Create an external key configuration through the Admin API.
+    You can set up the key in the Claude Console or through the Admin API, with the same result.
 
-        <CodeGroup>
-          ```bash cURL
-          curl -sS "https://api.anthropic.com/v1/organizations/external_keys" \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "content-type: application/json" \
-            -d '{
-              "display_name": "<friendly-name>",
-              "geo": "us",
-              "provider_config": {
-                "type": "aws",
-                "kms_arn": "<key-arn-from-create-key-step>"
-              }
-            }'
-          ```
+    <Tabs>
+      <Tab title="Claude Console">
+        <Steps>
+          <Step title="Register the key with Anthropic">
+            In the Claude Console, open **Settings > Encryption keys** and click **Add key**. Enter a display name, choose **AWS KMS**, and click **Continue**. Paste the key ARN into **KMS key ARN**, and click **Add**.
+          </Step>
 
-          ```bash CLI
-          ant beta:organization:external-keys create <<'YAML'
-          display_name: "<friendly-name>"
-          geo: us
-          provider_config:
-            type: aws
-            kms_arn: "<key-arn-from-create-key-step>"
-          YAML
-          ```
+          <Step title="Validate the key">
+            On the **Encryption keys** page, click **Verify** next to the key. **Connected** appears when the check passes. If it fails, a message gives the reason.
+          </Step>
 
-          ```python Python
-          client = anthropic.Anthropic()
+          <Step title="Attach the key to a workspace">
+            Open **Settings > Workspaces**, choose the workspace, and open its **Security** tab. Under **Encryption key**, select the key, click **Save**, and confirm. Attaching a key can't be undone. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works).
+          </Step>
+        </Steps>
+      </Tab>
 
-          external_key = client.beta.organization.external_keys.create(
-              display_name="<friendly-name>",
-              geo="us",
-              provider_config={"type": "aws", "kms_arn": "<key-arn-from-create-key-step>"},
-          )
+      <Tab title="API">
+        <Steps>
+          <Step title="Register the key with Anthropic">
+            Create an external key configuration through the Admin API.
 
-          print(f"id: {external_key.id}")
-          print(f"display_name: {external_key.display_name}")
-          ```
+            <CodeGroup>
+              ```bash cURL
+              curl -sS "https://api.anthropic.com/v1/organizations/external_keys" \
+                -H "x-api-key: $ANTHROPIC_API_KEY" \
+                -H "anthropic-version: 2023-06-01" \
+                -H "content-type: application/json" \
+                -d '{
+                  "display_name": "<friendly-name>",
+                  "geo": "us",
+                  "provider_config": {
+                    "type": "aws",
+                    "kms_arn": "<key-arn-from-create-key-step>"
+                  }
+                }'
+              ```
 
-          ```typescript TypeScript
-          const client = new Anthropic();
+              ```bash CLI
+              ant beta:organization:external-keys create <<'YAML'
+              display_name: "<friendly-name>"
+              geo: us
+              provider_config:
+                type: aws
+                kms_arn: "<key-arn-from-create-key-step>"
+              YAML
+              ```
 
-          const externalKey = await client.beta.organization.externalKeys.create({
-            display_name: "<friendly-name>",
-            geo: "us",
-            provider_config: {
-              type: "aws",
-              kms_arn: "<key-arn-from-create-key-step>"
-            }
-          });
+              ```python Python
+              client = anthropic.Anthropic()
 
-          console.log(`id: ${externalKey.id}`);
-          console.log(`display_name: ${externalKey.display_name}`);
-          ```
+              external_key = client.beta.organization.external_keys.create(
+                  display_name="<friendly-name>",
+                  geo="us",
+                  provider_config={"type": "aws", "kms_arn": "<key-arn-from-create-key-step>"},
+              )
 
-          ```csharp C#
-          using Anthropic.Models.Beta.Organization.ExternalKeys;
+              print(f"id: {external_key.id}")
+              print(f"display_name: {external_key.display_name}")
+              ```
 
-          AnthropicClient client = new();
+              ```typescript TypeScript
+              const client = new Anthropic();
 
-          var externalKey = await client.Beta.Organization.ExternalKeys.Create(new()
-          {
-              DisplayName = "<friendly-name>",
-              Geo = Geo.Us,
-              ProviderConfig = new BetaAwsExternalKeyConfig
+              const externalKey = await client.beta.organization.externalKeys.create({
+                display_name: "<friendly-name>",
+                geo: "us",
+                provider_config: {
+                  type: "aws",
+                  kms_arn: "<key-arn-from-create-key-step>"
+                }
+              });
+
+              console.log(`id: ${externalKey.id}`);
+              console.log(`display_name: ${externalKey.display_name}`);
+              ```
+
+              ```csharp C#
+              using Anthropic.Models.Beta.Organization.ExternalKeys;
+
+              AnthropicClient client = new();
+
+              var externalKey = await client.Beta.Organization.ExternalKeys.Create(new()
               {
-                  KmsArn = "<key-arn-from-create-key-step>"
+                  DisplayName = "<friendly-name>",
+                  Geo = Geo.Us,
+                  ProviderConfig = new BetaAwsExternalKeyConfig
+                  {
+                      KmsArn = "<key-arn-from-create-key-step>"
+                  }
+              });
+
+              Console.WriteLine($"id: {externalKey.ID}");
+              Console.WriteLine($"display_name: {externalKey.DisplayName}");
+              ```
+
+              ```go Go
+              client := anthropic.NewClient()
+
+              externalKey, err := client.Beta.Organization.ExternalKeys.New(context.Background(), anthropic.BetaOrganizationExternalKeyNewParams{
+              	DisplayName: anthropic.String("<friendly-name>"),
+              	Geo:         anthropic.BetaOrganizationExternalKeyNewParamsGeoUs,
+              	ProviderConfig: anthropic.BetaOrganizationExternalKeyNewParamsProviderConfigUnion{
+              		OfAWS: &anthropic.BetaAWSExternalKeyConfigParam{
+              			KMSARN: "<key-arn-from-create-key-step>",
+              		},
+              	},
+              })
+              if err != nil {
+              	log.Fatal(err)
               }
-          });
 
-          Console.WriteLine($"id: {externalKey.ID}");
-          Console.WriteLine($"display_name: {externalKey.DisplayName}");
-          ```
+              fmt.Printf("id: %s\n", externalKey.ID)
+              fmt.Printf("display_name: %s\n", externalKey.DisplayName)
+              ```
 
-          ```go Go
-          client := anthropic.NewClient()
+              ```java Java
+              import com.anthropic.models.beta.organization.externalkeys.BetaAwsExternalKeyConfig;
+              import com.anthropic.models.beta.organization.externalkeys.ExternalKeyCreateParams;
 
-          externalKey, err := client.Beta.Organization.ExternalKeys.New(context.Background(), anthropic.BetaOrganizationExternalKeyNewParams{
-          	DisplayName: anthropic.String("<friendly-name>"),
-          	Geo:         anthropic.BetaOrganizationExternalKeyNewParamsGeoUs,
-          	ProviderConfig: anthropic.BetaOrganizationExternalKeyNewParamsProviderConfigUnion{
-          		OfAWS: &anthropic.BetaAWSExternalKeyConfigParam{
-          			KMSARN: "<key-arn-from-create-key-step>",
-          		},
-          	},
-          })
-          if err != nil {
-          	log.Fatal(err)
-          }
+              void main() {
+                  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-          fmt.Printf("id: %s\n", externalKey.ID)
-          fmt.Printf("display_name: %s\n", externalKey.DisplayName)
-          ```
+                  var params = ExternalKeyCreateParams.builder()
+                      .displayName("<friendly-name>")
+                      .geo(ExternalKeyCreateParams.Geo.US)
+                      .providerConfig(BetaAwsExternalKeyConfig.builder()
+                          .kmsArn("<key-arn-from-create-key-step>")
+                          .build())
+                      .build();
+                  var externalKey = client.beta().organization().externalKeys().create(params);
 
-          ```java Java
-          import com.anthropic.models.beta.organization.externalkeys.BetaAwsExternalKeyConfig;
-          import com.anthropic.models.beta.organization.externalkeys.ExternalKeyCreateParams;
+                  IO.println("id: " + externalKey.id());
+                  IO.println("display_name: " + externalKey.displayName().orElseThrow());
+              }
+              ```
 
-          void main() {
-              AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+              ```php PHP
+              use Anthropic\Beta\Organization\ExternalKeys\ExternalKeyCreateParams\Geo;
+              // ...
 
-              var params = ExternalKeyCreateParams.builder()
-                  .displayName("<friendly-name>")
-                  .geo(ExternalKeyCreateParams.Geo.US)
-                  .providerConfig(BetaAwsExternalKeyConfig.builder()
-                      .kmsArn("<key-arn-from-create-key-step>")
-                      .build())
-                  .build();
-              var externalKey = client.beta().organization().externalKeys().create(params);
+              $client = new Client();
 
-              IO.println("id: " + externalKey.id());
-              IO.println("display_name: " + externalKey.displayName().orElseThrow());
-          }
-          ```
+              $externalKey = $client->beta->organization->externalKeys->create(
+                  displayName: '<friendly-name>',
+                  geo: Geo::US,
+                  providerConfig: [
+                      'type' => 'aws',
+                      'kmsARN' => '<key-arn-from-create-key-step>',
+                  ],
+              );
 
-          ```php PHP
-          use Anthropic\Beta\Organization\ExternalKeys\ExternalKeyCreateParams\Geo;
-          // ...
+              echo "id: {$externalKey->id}\n";
+              echo "display_name: {$externalKey->displayName}\n";
+              ```
 
-          $client = new Client();
+              ```ruby Ruby
+              client = Anthropic::Client.new
 
-          $externalKey = $client->beta->organization->externalKeys->create(
-              displayName: '<friendly-name>',
-              geo: Geo::US,
-              providerConfig: [
-                  'type' => 'aws',
-                  'kmsARN' => '<key-arn-from-create-key-step>',
-              ],
-          );
+              external_key = client.beta.organization.external_keys.create(
+                display_name: "<friendly-name>",
+                geo: :us,
+                provider_config: {
+                  type: :aws,
+                  kms_arn: "<key-arn-from-create-key-step>"
+                }
+              )
 
-          echo "id: {$externalKey->id}\n";
-          echo "display_name: {$externalKey->displayName}\n";
-          ```
+              puts "id: #{external_key.id}"
+              puts "display_name: #{external_key.display_name}"
+              ```
+            </CodeGroup>
 
-          ```ruby Ruby
-          client = Anthropic::Client.new
+            The response contains the external key ID:
 
-          external_key = client.beta.organization.external_keys.create(
-            display_name: "<friendly-name>",
-            geo: :us,
-            provider_config: {
-              type: :aws,
-              kms_arn: "<key-arn-from-create-key-step>"
+            ```json
+            {
+              "type": "external_key",
+              "id": "ekey_<id>",
+              "display_name": "<friendly-name>"
             }
-          )
+            ```
+          </Step>
 
-          puts "id: #{external_key.id}"
-          puts "display_name: #{external_key.display_name}"
-          ```
-        </CodeGroup>
+          <Step title="Validate the key">
+            Trigger an encrypt and decrypt round-trip against your key.
 
-        The response contains the external key ID:
+            <CodeGroup>
+              ```bash cURL
+              curl -sS -X POST "https://api.anthropic.com/v1/organizations/external_keys/ekey_<id>/validate" \
+                -H "x-api-key: $ANTHROPIC_API_KEY" \
+                -H "anthropic-version: 2023-06-01"
+              ```
 
-        ```json
-        {
-          "type": "external_key",
-          "id": "ekey_<id>",
-          "display_name": "<friendly-name>"
-        }
-        ```
-      </Step>
+              ```bash CLI
+              ant beta:organization:external-keys validate --external-key-id "ekey_<id>"
+              ```
 
-      <Step title="Validate the key">
-        Trigger an encrypt and decrypt round-trip against your key.
+              ```python Python
+              client = anthropic.Anthropic()
 
-        <CodeGroup>
-          ```bash cURL
-          curl -sS -X POST "https://api.anthropic.com/v1/organizations/external_keys/ekey_<id>/validate" \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01"
-          ```
+              validation = client.beta.organization.external_keys.validate("ekey_<id>")
 
-          ```bash CLI
-          ant beta:organization:external-keys validate --external-key-id "ekey_<id>"
-          ```
+              print(f"status: {validation.status}")
+              print(f"error: {validation.error}")
+              ```
 
-          ```python Python
-          client = anthropic.Anthropic()
+              ```typescript TypeScript
+              const client = new Anthropic();
 
-          validation = client.beta.organization.external_keys.validate("ekey_<id>")
+              const validation = await client.beta.organization.externalKeys.validate("ekey_<id>");
 
-          print(f"status: {validation.status}")
-          print(f"error: {validation.error}")
-          ```
+              console.log(`status: ${validation.status}`);
+              console.log(`error: ${validation.error}`);
+              ```
 
-          ```typescript TypeScript
-          const client = new Anthropic();
+              ```csharp C#
+              AnthropicClient client = new();
 
-          const validation = await client.beta.organization.externalKeys.validate("ekey_<id>");
+              var validation = await client.Beta.Organization.ExternalKeys.Validate("ekey_<id>");
 
-          console.log(`status: ${validation.status}`);
-          console.log(`error: ${validation.error}`);
-          ```
+              Console.WriteLine($"status: {validation.Status.Raw()}");
+              Console.WriteLine($"error: {validation.Error}");
+              ```
 
-          ```csharp C#
-          AnthropicClient client = new();
+              ```go Go
+              client := anthropic.NewClient()
 
-          var validation = await client.Beta.Organization.ExternalKeys.Validate("ekey_<id>");
+              validation, err := client.Beta.Organization.ExternalKeys.Validate(context.Background(), "ekey_<id>")
+              if err != nil {
+              	log.Fatal(err)
+              }
 
-          Console.WriteLine($"status: {validation.Status.Raw()}");
-          Console.WriteLine($"error: {validation.Error}");
-          ```
+              fmt.Printf("status: %s\n", validation.Status)
+              fmt.Printf("error: %s\n", validation.Error)
+              ```
 
-          ```go Go
-          client := anthropic.NewClient()
-
-          validation, err := client.Beta.Organization.ExternalKeys.Validate(context.Background(), "ekey_<id>")
-          if err != nil {
-          	log.Fatal(err)
-          }
-
-          fmt.Printf("status: %s\n", validation.Status)
-          fmt.Printf("error: %s\n", validation.Error)
-          ```
-
-          ```java Java
-          AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-          var validation = client.beta().organization().externalKeys().validate("ekey_<id>");
-
-          IO.println("status: " + validation.status().asString());
-          IO.println("error: " + validation.error().orElse(""));
-          ```
-
-          ```php PHP
-          $client = new Client();
-
-          $validation = $client->beta->organization->externalKeys->validate(
-              externalKeyID: 'ekey_<id>',
-          );
-
-          echo "status: {$validation->status}\n";
-          echo "error: {$validation->error}\n";
-          ```
-
-          ```ruby Ruby
-          client = Anthropic::Client.new
-
-          external_key_id = "ekey_<id>"
-          validation = client.beta.organization.external_keys.validate(external_key_id)
-
-          puts "status: #{validation.status}"
-          puts "error: #{validation.error}"
-          ```
-        </CodeGroup>
-
-        A successful response looks like this:
-
-        ```json
-        { "type": "external_key_validation", "status": "success", "error": null }
-        ```
-
-        If validation fails, common causes are:
-
-        * **Encryption context mismatch:** Validation fails while data traffic works (or the reverse) with an opaque `AccessDeniedException` when a `kms:EncryptionContext:anthropic:compartment_uuid` condition allows only one of the two values Anthropic sends. Validation sends the all-zeros UUID (`00000000-0000-0000-0000-000000000000`); live traffic sends the attached workspace's compartment ID. Confirm the condition lists both. To rule the condition out entirely, temporarily remove the `Condition` block from the `AllowAnthropicCMEKCrypto` statement and re-validate.
-        * **Resource control policies (RCPs):** If your AWS organization has an RCP that denies KMS operations when `aws:PrincipalOrgID` does not match your org, it blocks Anthropic's cross-account role. The RCP needs a carve-out for this key or for Anthropic's role ARN. Service control policies do not apply here, because they do not evaluate for external principals calling through resource-based policies.
-        * **Access granted through IAM instead of the key policy:** Cross-account KMS access must be granted in the key policy itself, not through an IAM policy in your account. Check with `aws kms get-key-policy --key-id <id> --policy-name default`.
-        * **Region mismatch:** Confirm the key's region is one Anthropic operates in for the geo tier you configured.
-      </Step>
-
-      <Step title="Attach the key to a workspace">
-        Once the key is validated, attach it to a new workspace before you send any requests to that workspace. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works).
-
-        <CodeGroup>
-          ```bash cURL
-          curl -sS -X POST "https://api.anthropic.com/v1/organizations/workspaces/<workspace-id>" \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "content-type: application/json" \
-            -d '{
-              "external_key_id": "ekey_<id>"
-            }'
-          ```
-
-          ```bash CLI
-          ant beta:organization:workspaces update \
-            --workspace-id "<workspace-id>" \
-            --external-key-id "ekey_<id>"
-          ```
-
-          ```python Python
-          client = anthropic.Anthropic()
-
-          workspace = client.beta.organization.workspaces.update(
-              "<workspace-id>", external_key_id="ekey_<id>"
-          )
-
-          print(f"id: {workspace.id}")
-          print(f"external_key_id: {workspace.external_key_id}")
-          ```
-
-          ```typescript TypeScript
-          const client = new Anthropic();
-
-          const workspace = await client.beta.organization.workspaces.update("<workspace-id>", {
-            external_key_id: "ekey_<id>"
-          });
-
-          console.log(`id: ${workspace.id}`);
-          console.log(`external_key_id: ${workspace.external_key_id}`);
-          ```
-
-          ```csharp C#
-          AnthropicClient client = new();
-
-          var workspace = await client.Beta.Organization.Workspaces.Update("<workspace-id>", new()
-          {
-              ExternalKeyID = "ekey_<id>"
-          });
-
-          Console.WriteLine($"id: {workspace.ID}");
-          Console.WriteLine($"external_key_id: {workspace.ExternalKeyID}");
-          ```
-
-          ```go Go
-          client := anthropic.NewClient()
-
-          workspace, err := client.Beta.Organization.Workspaces.Update(
-          	context.Background(),
-          	"<workspace-id>",
-          	anthropic.BetaOrganizationWorkspaceUpdateParams{
-          		ExternalKeyID: anthropic.String("ekey_<id>"),
-          	},
-          )
-          if err != nil {
-          	log.Fatal(err)
-          }
-
-          fmt.Printf("id: %s\n", workspace.ID)
-          fmt.Printf("external_key_id: %s\n", workspace.ExternalKeyID)
-          ```
-
-          ```java Java
-          import com.anthropic.models.beta.organization.workspaces.WorkspaceUpdateParams;
-
-          void main() {
+              ```java Java
               AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-              var params = WorkspaceUpdateParams.builder()
-                  .externalKeyId("ekey_<id>")
-                  .build();
-              var workspace = client.beta().organization().workspaces().update("<workspace-id>", params);
+              var validation = client.beta().organization().externalKeys().validate("ekey_<id>");
 
-              IO.println("id: " + workspace.id());
-              IO.println("external_key_id: " + workspace.externalKeyId().orElseThrow());
-          }
-          ```
+              IO.println("status: " + validation.status().asString());
+              IO.println("error: " + validation.error().orElse(""));
+              ```
 
-          ```php PHP
-          $client = new Client();
+              ```php PHP
+              $client = new Client();
 
-          $workspace = $client->beta->organization->workspaces->update(
-              workspaceID: '<workspace-id>',
-              externalKeyID: 'ekey_<id>',
-          );
+              $validation = $client->beta->organization->externalKeys->validate(
+                  externalKeyID: 'ekey_<id>',
+              );
 
-          echo "id: {$workspace->id}\n";
-          echo "external_key_id: {$workspace->externalKeyID}\n";
-          ```
+              echo "status: {$validation->status}\n";
+              echo "error: {$validation->error}\n";
+              ```
 
-          ```ruby Ruby
-          client = Anthropic::Client.new
+              ```ruby Ruby
+              client = Anthropic::Client.new
 
-          workspace_id = "<workspace-id>"
-          workspace = client.beta.organization.workspaces.update(
-            workspace_id,
-            external_key_id: "ekey_<id>"
-          )
+              external_key_id = "ekey_<id>"
+              validation = client.beta.organization.external_keys.validate(external_key_id)
 
-          puts "id: #{workspace.id}"
-          puts "external_key_id: #{workspace.external_key_id}"
-          ```
-        </CodeGroup>
-      </Step>
-    </Steps>
+              puts "status: #{validation.status}"
+              puts "error: #{validation.error}"
+              ```
+            </CodeGroup>
+
+            A successful response looks like this:
+
+            ```json
+            { "type": "external_key_validation", "status": "success", "error": null }
+            ```
+
+            If validation fails, common causes are:
+
+            * **Encryption context mismatch:** Validation fails while data traffic works (or the reverse) with an opaque `AccessDeniedException` when a `kms:EncryptionContext:anthropic:compartment_uuid` condition allows only one of the two values Anthropic sends. Validation sends the all-zeros UUID (`00000000-0000-0000-0000-000000000000`); live traffic sends the attached workspace's compartment ID. Confirm the condition lists both. To rule the condition out entirely, temporarily remove the `Condition` block from the `AllowAnthropicCMEKCrypto` statement and re-validate.
+            * **Resource control policies (RCPs):** If your AWS organization has an RCP that denies KMS operations when `aws:PrincipalOrgID` does not match your org, it blocks Anthropic's cross-account role. The RCP needs a carve-out for this key or for Anthropic's role ARN. Service control policies do not apply here, because they do not evaluate for external principals calling through resource-based policies.
+            * **Access granted through IAM instead of the key policy:** Cross-account KMS access must be granted in the key policy itself, not through an IAM policy in your account. Check with `aws kms get-key-policy --key-id <id> --policy-name default`.
+            * **Region mismatch:** Confirm the key's region is one Anthropic operates in for the geo tier you configured.
+          </Step>
+
+          <Step title="Attach the key to a workspace">
+            Once the key is validated, attach it to a new workspace before you send any requests to that workspace. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works).
+
+            <CodeGroup>
+              ```bash cURL
+              curl -sS -X POST "https://api.anthropic.com/v1/organizations/workspaces/<workspace-id>" \
+                -H "x-api-key: $ANTHROPIC_API_KEY" \
+                -H "anthropic-version: 2023-06-01" \
+                -H "content-type: application/json" \
+                -d '{
+                  "external_key_id": "ekey_<id>"
+                }'
+              ```
+
+              ```bash CLI
+              ant beta:organization:workspaces update \
+                --workspace-id "<workspace-id>" \
+                --external-key-id "ekey_<id>"
+              ```
+
+              ```python Python
+              client = anthropic.Anthropic()
+
+              workspace = client.beta.organization.workspaces.update(
+                  "<workspace-id>", external_key_id="ekey_<id>"
+              )
+
+              print(f"id: {workspace.id}")
+              print(f"external_key_id: {workspace.external_key_id}")
+              ```
+
+              ```typescript TypeScript
+              const client = new Anthropic();
+
+              const workspace = await client.beta.organization.workspaces.update("<workspace-id>", {
+                external_key_id: "ekey_<id>"
+              });
+
+              console.log(`id: ${workspace.id}`);
+              console.log(`external_key_id: ${workspace.external_key_id}`);
+              ```
+
+              ```csharp C#
+              AnthropicClient client = new();
+
+              var workspace = await client.Beta.Organization.Workspaces.Update("<workspace-id>", new()
+              {
+                  ExternalKeyID = "ekey_<id>"
+              });
+
+              Console.WriteLine($"id: {workspace.ID}");
+              Console.WriteLine($"external_key_id: {workspace.ExternalKeyID}");
+              ```
+
+              ```go Go
+              client := anthropic.NewClient()
+
+              workspace, err := client.Beta.Organization.Workspaces.Update(
+              	context.Background(),
+              	"<workspace-id>",
+              	anthropic.BetaOrganizationWorkspaceUpdateParams{
+              		ExternalKeyID: anthropic.String("ekey_<id>"),
+              	},
+              )
+              if err != nil {
+              	log.Fatal(err)
+              }
+
+              fmt.Printf("id: %s\n", workspace.ID)
+              fmt.Printf("external_key_id: %s\n", workspace.ExternalKeyID)
+              ```
+
+              ```java Java
+              import com.anthropic.models.beta.organization.workspaces.WorkspaceUpdateParams;
+
+              void main() {
+                  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+                  var params = WorkspaceUpdateParams.builder()
+                      .externalKeyId("ekey_<id>")
+                      .build();
+                  var workspace = client.beta().organization().workspaces().update("<workspace-id>", params);
+
+                  IO.println("id: " + workspace.id());
+                  IO.println("external_key_id: " + workspace.externalKeyId().orElseThrow());
+              }
+              ```
+
+              ```php PHP
+              $client = new Client();
+
+              $workspace = $client->beta->organization->workspaces->update(
+                  workspaceID: '<workspace-id>',
+                  externalKeyID: 'ekey_<id>',
+              );
+
+              echo "id: {$workspace->id}\n";
+              echo "external_key_id: {$workspace->externalKeyID}\n";
+              ```
+
+              ```ruby Ruby
+              client = Anthropic::Client.new
+
+              workspace_id = "<workspace-id>"
+              workspace = client.beta.organization.workspaces.update(
+                workspace_id,
+                external_key_id: "ekey_<id>"
+              )
+
+              puts "id: #{workspace.id}"
+              puts "external_key_id: #{workspace.external_key_id}"
+              ```
+            </CodeGroup>
+          </Step>
+        </Steps>
+      </Tab>
+    </Tabs>
   </Tab>
 
   <Tab title="Claude Enterprise">

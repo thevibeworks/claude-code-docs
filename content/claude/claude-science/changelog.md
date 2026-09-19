@@ -6,6 +6,17 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.50" description="September 17, 2026">
+  * Tables in Markdown files now show as a compact grid; a long table keeps its header row in view, and row labels stay in view when you scroll sideways
+  * Tabs in the right pane can be reordered by dragging, or with Ctrl/Cmd+Shift+Left/Right
+  * Pasted images are now saved to your uploads, so Claude can keep working with them later in the conversation
+  * When Claude redraws a figure several times in one turn, the chat keeps only the newest one open; open an earlier step to see its draft
+  * Closing Settings or Customize by clicking outside it no longer drops an edit you were still typing
+  * "View in context" on a file version that a different session saved now opens the file's own session instead of an empty screen
+  * Project settings are now clearer with helper text
+  * Home screen: project rows now show running sessions in gray like the session cards
+</Update>
+
 <Update label="0.1.49" description="September 16, 2026">
   * If your organization is in Anthropic's Life Sciences Verification Program (beta), you can now [choose a use case](/docs/claude-science/safeguards#choose-a-use-case) for your sessions
   * Saved credentials now reach Claude's code only when it asks for them and you approve. They're no longer present in every cell

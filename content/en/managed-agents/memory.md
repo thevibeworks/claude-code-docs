@@ -28,23 +28,20 @@ Every change to a memory creates an immutable **memory version**, giving you an 
 
 Give the store a `name` and a `description`. The description is passed to the agent, telling it what the store contains.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
-  store=$(curl -s https://api.anthropic.com/v1/memory_stores \
+  curl -s https://api.anthropic.com/v1/memory_stores \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"name": "User Preferences", "description": "Per-user preferences and project context."}')
-  store_id=$(jq -r '.id' <<< "$store")
-  echo "$store_id"  # memstore_01Hx...
+    -d '{"name": "User Preferences", "description": "Per-user preferences and project context."}'
   ```
 
   ```bash CLI
-  store_id=$(ant beta:memory-stores create \
+  ant beta:memory-stores create \
     --name "User Preferences" \
-    --description "Per-user preferences and project context." \
-    --transform id --raw-output)
+    --description "Per-user preferences and project context."
   ```
 
   ```python Python
@@ -124,7 +121,7 @@ The memory store `id` (`memstore_...`) is what you pass when attaching the store
 
 Pre-load a store with reference material before any agent runs:
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memories" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -214,7 +211,7 @@ Optionally include `instructions` to provide session-specific guidance for how t
 
 You can configure `access` as well. It defaults to `read_write` (shown explicitly in the following example), but `read_only` is also supported.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -400,12 +397,12 @@ List the memories in a store. Results are returned in a stable, server-defined o
 * `path_prefix` scopes the list to one directory. It must end with `/` and matches whole path segments, so `path_prefix=/notes/` returns `/notes/todo.md` but not `/notes-archive/todo.md`.
 * `depth` controls how deep the listing goes below `path_prefix`: omit it (or pass `0`) to list the whole subtree, or pass `1` to list only the immediate children. Other values return a `400` error.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memories?path_prefix=/" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: agent-memory-2026-07-22" | jq -r '.data[] | "\(.type)  \(.path)"'
+    -H "anthropic-beta: agent-memory-2026-07-22"
   ```
 
   ```bash CLI
@@ -496,12 +493,12 @@ See the [List memories reference](https://platform.claude.com/docs/en/api/beta/m
 
 Fetching an individual memory returns the full content.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memories/$mem_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: agent-memory-2026-07-22" | jq -r '.content'
+    -H "anthropic-beta: agent-memory-2026-07-22"
   ```
 
   ```bash CLI
@@ -571,26 +568,21 @@ See the [Retrieve a memory reference](https://platform.claude.com/docs/en/api/be
 
 `memories.create` creates a memory at a given `path`. Create does not overwrite; to change an existing memory, use [`memories.update`](https://platform.claude.com/docs/en/managed-agents/memory#update-a-memory).
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
-  mem=$(curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memories" \
+  curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memories" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"path": "/preferences/formatting.md", "content": "Always use tabs, not spaces."}')
-  mem_id=$(jq -r '.id' <<< "$mem")
-  mem_sha=$(jq -r '.content_sha256' <<< "$mem")
+    -d '{"path": "/preferences/formatting.md", "content": "Always use tabs, not spaces."}'
   ```
 
   ```bash CLI
-  mem=$(ant beta:memory-stores:memories create \
+  ant beta:memory-stores:memories create \
     --memory-store-id "$store_id" \
     --path "/preferences/formatting.md" \
-    --content "Always use tabs, not spaces." \
-    --format json)
-  mem_id=$(jq -r '.id' <<< "$mem")
-  mem_sha=$(jq -r '.content_sha256' <<< "$mem")
+    --content "Always use tabs, not spaces."
   ```
 
   ```python Python
@@ -659,7 +651,7 @@ See the [Create a memory reference](https://platform.claude.com/docs/en/api/beta
 
 `memories.update` modifies an existing memory by ID. You can change `content`, `path` (a rename), or both. The example renames a memory to an archive path:
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s -X POST "https://api.anthropic.com/v1/memory_stores/$store_id/memories/$mem_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -743,7 +735,7 @@ See the [Update a memory reference](https://platform.claude.com/docs/en/api/beta
 
 To avoid clobbering a concurrent write, pass a `content_sha256` precondition. The update only applies if the stored content hash still matches the one you read; on mismatch, re-read the memory and retry against the fresh state.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s -X POST "https://api.anthropic.com/v1/memory_stores/$store_id/memories/$mem_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -848,7 +840,7 @@ To avoid clobbering a concurrent write, pass a `content_sha256` precondition. Th
 
 ### Delete a memory
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s -X DELETE "https://api.anthropic.com/v1/memory_stores/$store_id/memories/$mem_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -927,24 +919,19 @@ Past memory versions might be deleted after 30 days. To preserve memory history 
 
 List version history for a store, newest first. The example filters to a single memory's history:
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
-  versions=$(curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memory_versions?memory_id=$mem_id" \
+  curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memory_versions?memory_id=$mem_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: agent-memory-2026-07-22")
-  jq -r '.data[] | "\(.id): \(.operation)"' <<< "$versions"
-  version_id=$(jq -r '.data[1].id' <<< "$versions")
+    -H "anthropic-beta: agent-memory-2026-07-22"
   ```
 
   ```bash CLI
-  versions=$(ant beta:memory-stores:memory-versions list \
+  ant beta:memory-stores:memory-versions list \
     --memory-store-id "$store_id" \
     --memory-id "$mem_id" \
-    --format json)
-  # `list --format json` emits one JSON object per item.
-  jq -r '"\(.id): \(.operation)"' <<< "$versions"
-  version_id=$(jq -rs '.[1].id' <<< "$versions")
+    --format json
   ```
 
   ```python Python
@@ -1048,7 +1035,7 @@ See the [List memory versions reference](https://platform.claude.com/docs/en/api
 
 Fetching an individual version returns the same fields as the list response plus the full `content` body.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/memory_stores/$store_id/memory_versions/$version_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -1128,7 +1115,7 @@ Redact scrubs content out of a historical version while preserving the audit tra
 
 A version that is the current head of a live memory cannot be redacted. Write a new version first (or delete the memory), then redact the old one.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s -X POST "https://api.anthropic.com/v1/memory_stores/$store_id/memory_versions/$version_id/redact" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -1205,12 +1192,12 @@ In addition to [`create`](https://platform.claude.com/docs/en/api/beta/memory_st
 
 List stores in the workspace. Archived stores are excluded by default; pass `include_archived: true` to include them.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s "https://api.anthropic.com/v1/memory_stores?include_archived=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: agent-memory-2026-07-22" | jq '.data[] | {id, name, archived_at}'
+    -H "anthropic-beta: agent-memory-2026-07-22"
   ```
 
   ```bash CLI
@@ -1278,7 +1265,7 @@ See the [List memory stores reference](https://platform.claude.com/docs/en/api/b
 
 Archiving makes a store read-only and prevents it from being attached to new sessions. Archiving is one-way; there is no unarchive.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   curl -s -X POST "https://api.anthropic.com/v1/memory_stores/$store_id/archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \

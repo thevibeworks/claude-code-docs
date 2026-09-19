@@ -10338,7 +10338,7 @@ ant beta:messages count-tokens \
 
       - `beta_tool_change_mcp_tool_reference: object`
 
-        Reference to a single MCP tool by its server and remote name — the
+        Reference to a single MCP tool by its server and remote name; the
         same `server_name`/`name` pair `mcp_tool_use` carries.
 
         - `type: "mcp_tool_reference"`
@@ -10393,7 +10393,7 @@ ant beta:messages count-tokens \
 
       - `beta_tool_change_mcp_tool_reference: object`
 
-        Reference to a single MCP tool by its server and remote name — the
+        Reference to a single MCP tool by its server and remote name; the
         same `server_name`/`name` pair `mcp_tool_use` carries.
 
       - `beta_tool_change_mcp_toolset_reference: object`
@@ -17739,7 +17739,7 @@ ant beta:messages count-tokens \
 
         - `beta_tool_change_mcp_tool_reference: object`
 
-          Reference to a single MCP tool by its server and remote name — the
+          Reference to a single MCP tool by its server and remote name; the
           same `server_name`/`name` pair `mcp_tool_use` carries.
 
           - `type: "mcp_tool_reference"`
@@ -17794,7 +17794,7 @@ ant beta:messages count-tokens \
 
         - `beta_tool_change_mcp_tool_reference: object`
 
-          Reference to a single MCP tool by its server and remote name — the
+          Reference to a single MCP tool by its server and remote name; the
           same `server_name`/`name` pair `mcp_tool_use` carries.
 
         - `beta_tool_change_mcp_toolset_reference: object`
@@ -25401,7 +25401,7 @@ ant beta:messages count-tokens \
 
     - `beta_tool_change_mcp_tool_reference: object`
 
-      Reference to a single MCP tool by its server and remote name — the
+      Reference to a single MCP tool by its server and remote name; the
       same `server_name`/`name` pair `mcp_tool_use` carries.
 
       - `type: "mcp_tool_reference"`
@@ -25468,7 +25468,7 @@ ant beta:messages count-tokens \
 
     - `beta_tool_change_mcp_tool_reference: object`
 
-      Reference to a single MCP tool by its server and remote name — the
+      Reference to a single MCP tool by its server and remote name; the
       same `server_name`/`name` pair `mcp_tool_use` carries.
 
       - `type: "mcp_tool_reference"`
@@ -27335,7 +27335,7 @@ ant beta:messages count-tokens \
 
 - `beta_tool_change_mcp_tool_reference: object`
 
-  Reference to a single MCP tool by its server and remote name — the
+  Reference to a single MCP tool by its server and remote name; the
   same `server_name`/`name` pair `mcp_tool_use` carries.
 
   - `type: "mcp_tool_reference"`

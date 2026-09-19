@@ -1,6 +1,6 @@
 # What are artifacts and how do I use them?
 
-An artifact is anything Claude makes for you that you'd put in front of someone: a design, a deck, a document, a dashboard, or a small interactive tool. It opens beside your conversation, and you can edit it, come back to it, and share it with a link. Ask for one in any conversation with Claude, including in Claude Code, or pick a template in the **Artifacts** tab.
+An **[artifact](https://claude.com/features/artifacts)** is anything Claude makes for you that you'd put in front of someone: a design, a deck, a document, a dashboard, or a small interactive tool. It opens beside your conversation, and you can edit it, come back to it, and share it with a link. Ask for one in any conversation with Claude, including in Claude Code, or pick a template in the **Artifacts** tab.
 
 Artifacts are available on Free, Pro, Max, Team, and Enterprise plans, and in Claude Code on every plan that includes Claude Code. Claude Design, Claude Slides, and Claude Docs are in beta on paid plans only. They're on by default on Pro, Max, and Team plans, and off by default on Enterprise plans until an owner turns each one on. On the Free plan, you can still create artifacts in any conversation.
 

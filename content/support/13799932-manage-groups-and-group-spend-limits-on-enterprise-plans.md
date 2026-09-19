@@ -150,7 +150,7 @@ Group spend limits let you control spending across your organization by assignin
 
 Group spend limits work alongside individual spend limits. If a member has an individual spend limit set, their individual limit takes precedence over any group limit.
 
-## Set a group spend limit
+### Set a group spend limit
 
 1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
@@ -164,7 +164,7 @@ Group spend limits work alongside individual spend limits. If a member has an in
 
 The spend limit applies to all members of the group. Members who also have an individual spend limit set are governed by their individual limit instead.
 
-## Choose how multi-group spend limits resolve
+### Choose how multi-group spend limits resolve
 
 If a member belongs to more than one group with a spend limit, the **Multi-group spend limit** setting controls which limit applies.
 
@@ -176,7 +176,7 @@ If a member belongs to more than one group with a spend limit, the **Multi-group
 
 Select "Lower group limit" to set a broad limit on a large group and create subgroups with tighter budgets. Select "Higher group limit" to set a conservative baseline on a large group and grant more headroom to specific teams.
 
-## How spend limits are resolved
+### How spend limits are resolved
 
 When determining a member's effective spend limit, the system evaluates in this order:
 

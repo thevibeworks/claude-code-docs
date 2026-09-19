@@ -115,24 +115,23 @@ Note that Anthropic model availability varies by region. Search for "Claude" in 
 
 Lifecycle terms (Deprecated, Retired) are defined in [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations). Lifecycle dates on partner-operated platforms are set by the partner and can differ from the Claude API schedule. For the current retirement date of any model on Agent Platform, see [Google Cloud's documentation for Claude models on Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude).
 
-| Model                        | Agent Platform API model ID |
-| ---------------------------- | --------------------------- |
-| Claude Fable 5.1             | claude-fable-5-1            |
-| Claude Fable 5               | claude-fable-5              |
-| Claude Opus 5                | claude-opus-5               |
-| Claude Opus 4.8              | claude-opus-4-8             |
-| Claude Opus 4.7              | claude-opus-4-7             |
-| Claude Opus 4.6              | claude-opus-4-6             |
-| Claude Sonnet 5              | `claude-sonnet-5`           |
-| Claude Sonnet 4.6            | claude-sonnet-4-6           |
-| Claude Sonnet 4.5            | claude-sonnet-4-5\@20250929 |
-| Claude Sonnet 4 Deprecated.  | claude-sonnet-4\@20250514   |
-| Claude Sonnet 3.7 Retired.   | claude-3-7-sonnet\@20250219 |
-| Claude Opus 4.5              | claude-opus-4-5\@20251101   |
-| Claude Opus 4.1 Deprecated.  | claude-opus-4-1\@20250805   |
-| Claude Opus 4 Deprecated.    | claude-opus-4\@20250514     |
-| Claude Haiku 4.5             | claude-haiku-4-5\@20251001  |
-| Claude Haiku 3.5 Deprecated. | claude-3-5-haiku\@20241022  |
+| Model                                                                                                | Agent Platform API model ID  |
+| :--------------------------------------------------------------------------------------------------- | :--------------------------- |
+| Claude Fable 5.1                                                                                     | `claude-fable-5-1`           |
+| Claude Fable 5                                                                                       | `claude-fable-5`             |
+| Claude Opus 5                                                                                        | `claude-opus-5`              |
+| Claude Opus 4.8                                                                                      | `claude-opus-4-8`            |
+| Claude Opus 4.7                                                                                      | `claude-opus-4-7`            |
+| Claude Opus 4.6                                                                                      | `claude-opus-4-6`            |
+| Claude Opus 4.5                                                                                      | `claude-opus-4-5@20251101`   |
+| Claude Opus 4.1 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations))  | `claude-opus-4-1@20250805`   |
+| Claude Opus 4 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations))    | `claude-opus-4@20250514`     |
+| Claude Sonnet 5                                                                                      | `claude-sonnet-5`            |
+| Claude Sonnet 4.6                                                                                    | `claude-sonnet-4-6`          |
+| Claude Sonnet 4.5                                                                                    | `claude-sonnet-4-5@20250929` |
+| Claude Sonnet 4 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations))  | `claude-sonnet-4@20250514`   |
+| Claude Haiku 4.5                                                                                     | `claude-haiku-4-5@20251001`  |
+| Claude Haiku 3.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | `claude-3-5-haiku@20241022`  |
 
 <Tip>
   Upgrading to a newer Claude model? In Claude Code, run `/claude-api migrate` to apply model ID swaps and breaking parameter changes across your codebase. The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform. See [Migrating to a newer Claude model](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model).

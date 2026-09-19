@@ -34,11 +34,11 @@ Pages load directly from the user's device, so your network's proxy, firewall, a
 
 ### Turn on the built-in browser
 
-The built-in browser is off by default. Set [`builtinBrowserEnabled`](/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) to `true` in your managed configuration, under **General restrictions** in the **Workspace** section of the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration). The change takes effect after Claude Desktop restarts.
+The built-in browser is off by default. Set [`builtinBrowserEnabled`](/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) to `true` in your managed configuration, under **Built-in browser** in the **Capabilities** section of the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration). The change takes effect after Claude Desktop restarts.
 
 Also allow `releases.claude.com` through your firewall, because Claude Desktop contacts it for the [site safety check](#site-safety-check). If the app can't complete a check, users can keep browsing the site, but Claude can't read or act on it.
 
-If your devices use a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), set the key in the configuration the server returns, because a value set only on the device leaves the browser off. If you manage the app from the Enterprise Admin Console, use [the console's **Built-in browser** switch](#manage-the-built-in-browser-from-the-enterprise-admin-console) instead.
+If your devices use a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), set the key in the configuration the server returns, because a value set only on the device leaves the browser off. If you manage the app from the Enterprise Admin Console, [turn it on from the console](#manage-the-built-in-browser-from-the-enterprise-admin-console) instead.
 
 ### Restrict which sites Claude can open
 
@@ -69,7 +69,7 @@ The example is plain JSON, which is the form a [bootstrap server](/docs/third-pa
 
 ### Manage the built-in browser from the Enterprise Admin Console
 
-If you manage the app from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), you control the built-in browser from the console instead of with these keys. In **Organization settings** on claude.ai, open the **Capabilities** page and turn on the **Built-in browser** switch under **Data sources**. The change takes effect when users restart Claude Desktop. Also allow `releases.claude.com` through your firewall, because Claude Desktop contacts it for the [site safety check](#site-safety-check).
+If you manage the app from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), you control the built-in browser from the console instead of with these keys. In **Organization settings** on claude.ai, open the **Capabilities** page in the **Desktop 3P** section. Under **Built-in browser**, turn on the **Allow the built-in browser** switch. The change takes effect when users restart Claude Desktop. Also allow `releases.claude.com` through your firewall, because Claude Desktop contacts it for the [site safety check](#site-safety-check).
 
 Once the switch is on, **Browser site permissions** appears below it. Click the **Manage site permissions** button to choose whether Claude can act on every site except the ones you block, or only on the sites you allow, and add those sites in the same dialog. These are the same site permissions [Claude in Chrome](#claude-in-chrome) uses, and changes to them apply without a restart.
 

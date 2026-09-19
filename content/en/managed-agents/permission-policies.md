@@ -475,7 +475,7 @@ This example connects a GitHub MCP server and allows its tools to run without co
 
 Use the `configs` array to override the default for individual tools. The `name` values for the agent toolset are listed in [Available tools](https://platform.claude.com/docs/en/managed-agents/tools#available-tools). This example allows the full agent toolset by default but requires confirmation before any bash command runs:
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   tools='[
     {
@@ -1075,7 +1075,7 @@ To answer interactively instead, use `ant beta:sessions connect`, which shows th
 
 In the following examples, the tool-use event IDs come from the `stop_reason.event_ids` array of the `session.status_idle` event. Learn more about receiving events in the [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) guide, or [subscribe to webhooks](https://platform.claude.com/docs/en/managed-agents/webhooks) to be notified when a session pauses for input.
 
-<CodeGroup defaultLanguage="CLI">
+<CodeGroup>
   ```bash cURL
   # Allow the tool to execute
   curl -fsSL "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \

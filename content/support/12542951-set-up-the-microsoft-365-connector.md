@@ -260,6 +260,8 @@ The following permissions support write tools and are included in the updated co
 
 - `Chat.Create`: Start a new chat on the user’s behalf
 
+- `People.Read`: Find people in the organization to start a chat with
+
 **User directory**
 
 - `User.ReadBasic.All`: Read basic profile information for all users in the organization (used for finding meeting availability)

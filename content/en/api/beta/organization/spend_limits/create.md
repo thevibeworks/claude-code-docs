@@ -7,11 +7,15 @@ url: https://platform.claude.com/docs/en/api/beta/organization/spend_limits/crea
 
 **POST** `/v1/organizations/spend_limits`
 
-Set a per-user spend limit override.
+Set a spend limit.
 
 Upsert keyed on (scope, period): setting a limit that already exists
-overwrites it in place. Only `scope.type: "user"` is accepted; seat-tier,
-group, and organization-level defaults are configured in claude.ai.
+overwrites it in place. A Claude Enterprise organization sets `user`
+limits. Its seat-tier, group, and organization-level defaults are configured
+in claude.ai. A Claude Console organization sets `organization` and
+`workspace` limits, which are monthly and always carry an amount. Setting those
+limits is in an early access preview. To request access, contact your
+Anthropic account team.
 
 ## Body parameters
 
@@ -19,19 +23,43 @@ group, and organization-level defaults are configured in claude.ai.
 
   Limit amount as a non-negative integer decimal string in the minor unit of the organization's billing currency (cents for USD): "50000" is $500.00. `null` sets an explicit no-limit override for this scope and `period` only — each period resolves independently, so caps for other periods still apply.
 
-- `scope: object`
+- `scope: User or Organization or Workspace`
 
-  Scope selecting a single member of the organization.
+  What the limit applies to. Claude Enterprise organizations set `user` limits. Claude Console organizations set `organization` and `workspace` limits. Any other combination returns 400. Setting `organization` and `workspace` limits through the API is in an early access preview. To request access, contact your Anthropic account team.
 
-  - `type: "user"`
+  - `User object`
 
-    Scope type. Always `user` for this scope.
+    Scope selecting a single member of the organization.
 
-    default: user
+    - `type: "user"`
 
-  - `user_id: string`
+      Scope type. Always `user` for this scope.
 
-    Tagged ID of the member the spend limit applies to.
+      default: user
+
+    - `user_id: string`
+
+      Tagged ID of the member the spend limit applies to.
+
+  - `Organization object`
+
+    - `type: "organization"`
+
+      default: organization
+
+  - `Workspace object`
+
+    Scope selecting one workspace of a Claude Console organization.
+
+    - `type: "workspace"`
+
+      Scope type. Always `workspace` for this scope.
+
+      default: workspace
+
+    - `workspace_id: string`
+
+      Tagged ID of the workspace the spend limit applies to.
 
 - `period: optional "daily" or "monthly" or "weekly"`
 
@@ -81,7 +109,7 @@ group, and organization-level defaults are configured in claude.ai.
 
     - `"weekly"`
 
-  - `scope: User or SeatTier or RBACGroup or 2 more`
+  - `scope: User or SeatTier or RBACGroup or 3 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -128,6 +156,20 @@ group, and organization-level defaults are configured in claude.ai.
       - `type: "organization"`
 
         default: organization
+
+    - `Workspace object`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+      - `type: "workspace"`
+
+        Scope type. Always `workspace` for this scope.
+
+        default: workspace
+
+      - `workspace_id: string`
+
+        Tagged ID of the workspace the spend limit applies to.
 
   - `updated_at: string`
 

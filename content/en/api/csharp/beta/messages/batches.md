@@ -1234,7 +1234,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `class BetaToolChangeMcpToolReference`
 
-                  Reference to a single MCP tool by its server and remote name — the
+                  Reference to a single MCP tool by its server and remote name; the
                   same `server_name`/`name` pair `mcp_tool_use` carries.
 
                   - `JsonElement Type = "mcp_tool_reference"`
@@ -1276,7 +1276,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `class BetaToolChangeMcpToolReference`
 
-                  Reference to a single MCP tool by its server and remote name — the
+                  Reference to a single MCP tool by its server and remote name; the
                   same `server_name`/`name` pair `mcp_tool_use` carries.
 
                 - `class BetaToolChangeMcpToolsetReference`

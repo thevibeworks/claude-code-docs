@@ -285,6 +285,8 @@ Requested as part of the updated consent set; used only when write tools are ena
 
 - **[Chat.Create](https://learn.microsoft.com/en-us/graph/permissions-reference#chatcreate)** - Start a new Teams chat on the user's behalf
 
+- **[People.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#peopleread)**: Find people in the organization to start a chat with
+
 ## Current limitations
 
 - **Teams write access is limited to messaging**: Claude can send a chat message, post or reply in a channel, or start a new chat, but can't modify Teams settings, memberships, or permissions. All write tools require an admin to enable them, and Teams write tools are enabled individually.
