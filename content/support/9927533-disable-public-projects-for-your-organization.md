@@ -10,7 +10,7 @@ Follow these steps:
 
 2. Find **Public projects** and toggle it off
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2053902291/8c39d1a79dedc97411eed54dec5c/CleanShot+2026-02-11+at+11_25_34%402x.png?expires=1789901100&amp;signature=e61553978cd09bcb63b5d2843e9cbe6272f028f46c530b10380d49429e2179aa&amp;req=diAiFcB%2Bn4NWWPMW1HO4zfGib26tawFeYabJlVJ9VPw%2FQr%2B59Ls9MLdRi75T%0AFfNqJHydiABrb%2BFFfJA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2053902291/8c39d1a79dedc97411eed54dec5c/CleanShot+2026-02-11+at+11_25_34%402x.png?expires=1789915500&amp;signature=22091dd6df3991b988398ddda0a36816df0f806e3f63f446f91f7bdd6ad75feb&amp;req=diAiFcB%2Bn4NWWPMW1HO4zfGib26tagVaYabJlVJ9VPzUg3I0oEu94pq%2Fj0rh%0AZ4q2qmRulAcdGjzneFc%3D%0A)
 
 ## How does disabling public projects work?
 
