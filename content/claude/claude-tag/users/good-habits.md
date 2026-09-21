@@ -142,7 +142,7 @@ Reading a public channel's full history, rather than what search finds, needs Cl
 
 A private channel is readable only from inside it. Inviting Claude lets it work in that channel, but Claude can't read the private channel's messages from any other channel or DM. To ask about a private channel, ask in that channel.
 
-Channels in a different workspace stay out of reach. In a Slack Connect channel, one shared with another company, Claude answers only if your admin has [turned Claude on there](/docs/claude-tag/admins/restrict-access#slack-connect-channels). When Claude does answer, it works without your organization's memory or workspace instructions, and with only the tools your admin turned on for Slack Connect channels.
+Channels in a different workspace stay out of reach. Claude also doesn't answer in a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company.
 
 When more than one surface would work, prefer a channel. Work that happens there compounds, because Claude can draw on it in later threads and teammates can find it, redirect it, or build on it.
 

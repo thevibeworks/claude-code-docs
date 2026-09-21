@@ -22,7 +22,7 @@ Claude reads Slack with the same visibility a member of your workspace has. In a
 * Search every public channel by keyword, including public channels it hasn't been added to. [No admin setting turns this search off](/docs/claude-tag/admins/restrict-access#controls-that-aren%E2%80%99t-available)
 * Read a private channel only after someone in that channel invites it
 
-Claude never searches private channels, and it doesn't operate in Slack Connect channels shared with another company.
+Claude never searches private channels, and it doesn't reply in [Slack Connect channels](/docs/claude-tag/admins/restrict-access#slack-connect-channels), the channels your workspace shares with another company.
 
 For a healthcare organization, the rule that follows is to keep PHI out of every public channel in the connected workspace, not only the channels where Claude responds, because Claude's keyword search reaches all of them. Keep PHI out of any private channel Claude has been invited to as well.
 
