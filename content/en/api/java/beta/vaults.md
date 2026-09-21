@@ -115,6 +115,10 @@ Create Vault
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `String displayName`
 
     Human-readable name for the vault. 1-255 characters.
@@ -327,6 +331,10 @@ List Vaults
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsVault`
@@ -421,6 +429,8 @@ Get Vault
 
   - `Optional<String> vaultId`
 
+    Unique identifier of the vault to retrieve.
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -518,6 +528,10 @@ Get Vault
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -608,6 +622,8 @@ Update Vault
 
   - `Optional<String> vaultId`
 
+    Unique identifier of the vault to update.
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -705,6 +721,10 @@ Update Vault
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
   - `Optional<String> displayName`
 
@@ -805,6 +825,8 @@ Delete Vault
 
   - `Optional<String> vaultId`
 
+    Unique identifier of the vault to delete.
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -902,6 +924,10 @@ Delete Vault
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -959,6 +985,8 @@ Archive Vault
 
   - `Optional<String> vaultId`
 
+    Unique identifier of the vault to archive.
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -1056,6 +1084,10 @@ Archive Vault
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1200,6 +1232,8 @@ Create Credential
 
   - `Optional<String> vaultId`
 
+    Identifier of the vault to create the credential in.
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -1297,6 +1331,10 @@ Create Credential
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
   - `Auth auth`
 
@@ -1689,6 +1727,8 @@ List Credentials
 
   - `Optional<String> vaultId`
 
+    Identifier of the vault to list credentials for.
+
   - `Optional<Boolean> includeArchived`
 
     Whether to include archived credentials in the results.
@@ -1800,6 +1840,10 @@ List Credentials
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 
@@ -2016,7 +2060,11 @@ Get Credential
 
   - `String vaultId`
 
+    Identifier of the vault containing the credential.
+
   - `Optional<String> credentialId`
+
+    Unique identifier of the credential to retrieve.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -2115,6 +2163,10 @@ Get Credential
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 
@@ -2330,7 +2382,11 @@ Update Credential
 
   - `String vaultId`
 
+    Identifier of the vault containing the credential.
+
   - `Optional<String> credentialId`
+
+    Unique identifier of the credential to update.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -2429,6 +2485,10 @@ Update Credential
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
   - `Optional<Auth> auth`
 
@@ -2774,7 +2834,11 @@ Delete Credential
 
   - `String vaultId`
 
+    Identifier of the vault containing the credential.
+
   - `Optional<String> credentialId`
+
+    Unique identifier of the credential to delete.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -2873,6 +2937,10 @@ Delete Credential
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 
@@ -2934,7 +3002,11 @@ Archive Credential
 
   - `String vaultId`
 
+    Identifier of the vault containing the credential.
+
   - `Optional<String> credentialId`
+
+    Unique identifier of the credential to archive.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -3033,6 +3105,10 @@ Archive Credential
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 
@@ -3248,7 +3324,11 @@ Validate Credential
 
   - `String vaultId`
 
+    Identifier of the vault containing the credential.
+
   - `Optional<String> credentialId`
+
+    Unique identifier of the credential to validate.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -3348,6 +3428,10 @@ Validate Credential
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class BetaManagedAgentsCredentialValidation`
@@ -3408,11 +3492,19 @@ Validate Credential
 
       - `SUCCEEDED("succeeded")`
 
+        The token endpoint returned a new access token.
+
       - `FAILED("failed")`
+
+        The token endpoint returned an error response. See `http_response` for detail.
 
       - `CONNECT_ERROR("connect_error")`
 
+        The token endpoint could not be reached (DNS, TLS, or connection error).
+
       - `NO_REFRESH_TOKEN("no_refresh_token")`
+
+        No refresh token is stored for the credential, so no exchange was attempted.
 
   - `BetaManagedAgentsCredentialValidationStatus status`
 
@@ -3420,9 +3512,15 @@ Validate Credential
 
     - `VALID("valid")`
 
+      The credential successfully authenticated against its MCP server.
+
     - `INVALID("invalid")`
 
+      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
     - `UNKNOWN("unknown")`
+
+      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
   - `LocalDateTime validatedAt`
 

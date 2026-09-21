@@ -65,7 +65,11 @@ List Deployment Runs
 
     - `"schedule"`
 
+      The run was fired by the deployment's cron schedule.
+
     - `"manual"`
+
+      The run was started manually by creating a session directly against the deployment.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -453,6 +457,8 @@ Get Deployment Run
 ### Parameters
 
 - `deploymentRunID: string`
+
+  Unique identifier of the deployment run.
 
 - `params: DeploymentRunRetrieveParams`
 
@@ -1249,9 +1255,16 @@ console.log(betaManagedAgentsDeploymentRun.id);
 
   What triggered a deployment run.
 
+  - `schedule` - The run was fired by the deployment's cron schedule.
+  - `manual` - The run was started manually by creating a session directly against the deployment.
+
   - `"schedule"`
 
+    The run was fired by the deployment's cron schedule.
+
   - `"manual"`
+
+    The run was started manually by creating a session directly against the deployment.
 
 ### Beta Managed Agents Unknown Run Error
 

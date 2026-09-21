@@ -17,7 +17,7 @@ Stream Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 

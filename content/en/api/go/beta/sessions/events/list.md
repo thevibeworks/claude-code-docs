@@ -43,7 +43,7 @@ List Events
 
   - `Limit param.Field[int64] Optional`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 

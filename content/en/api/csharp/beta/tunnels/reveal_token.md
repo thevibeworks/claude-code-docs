@@ -19,7 +19,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `required string tunnelID`
 
-    Path parameter tunnel_id
+    ID of the tunnel (`tnl_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

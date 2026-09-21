@@ -23,7 +23,7 @@ Add Session Resource
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string fileID`
 

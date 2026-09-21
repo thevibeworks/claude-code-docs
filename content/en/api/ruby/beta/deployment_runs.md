@@ -63,7 +63,11 @@ List Deployment Runs
 
   - `:schedule`
 
+    The run was fired by the deployment's cron schedule.
+
   - `:manual`
+
+    The run was started manually by creating a session directly against the deployment.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -166,6 +170,10 @@ List Deployment Runs
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -445,6 +453,8 @@ Get Deployment Run
 
 - `deployment_run_id: String`
 
+  Unique identifier of the deployment run.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -546,6 +556,10 @@ Get Deployment Run
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1232,7 +1246,11 @@ puts(beta_managed_agents_deployment_run)
 
   - `:schedule`
 
+    The run was fired by the deployment's cron schedule.
+
   - `:manual`
+
+    The run was started manually by creating a session directly against the deployment.
 
 ### Beta Managed Agents Unknown Run Error
 

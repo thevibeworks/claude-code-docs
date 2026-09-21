@@ -15,6 +15,8 @@ Delete a memory store
 
 - `memoryStoreID string`
 
+  ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
+
 - `body BetaMemoryStoreDeleteParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

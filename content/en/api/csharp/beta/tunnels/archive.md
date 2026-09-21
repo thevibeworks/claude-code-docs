@@ -19,7 +19,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `required string tunnelID`
 
-    Path parameter tunnel_id
+    ID of the tunnel (`tnl_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

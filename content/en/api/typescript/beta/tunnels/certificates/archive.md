@@ -17,11 +17,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `certificateID: string`
 
+  ID of the certificate to archive (`tcrt_...`).
+
 - `params: CertificateArchiveParams`
 
   - `tunnel_id: string`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `betas?: Array<AnthropicBeta>`
 

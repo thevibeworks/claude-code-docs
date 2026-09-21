@@ -213,13 +213,23 @@ Create Session
 
               - `Low("low")`
 
+                Low effort. Favors latency over reasoning depth.
+
               - `Medium("medium")`
+
+                Medium effort. Balances latency and reasoning depth.
 
               - `High("high")`
 
+                High effort. Favors reasoning depth.
+
               - `Xhigh("xhigh")`
 
+                Extra-high effort. Not all models accept this level.
+
               - `Max("max")`
+
+                Maximum effort. Favors reasoning depth over latency.
 
             - `class BetaManagedAgentsEffortLow`
 
@@ -1957,11 +1967,19 @@ Create Session
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 
@@ -2333,11 +2351,19 @@ List Sessions
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -3231,11 +3257,19 @@ List Sessions
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 
@@ -3542,8 +3576,6 @@ Get Session
 - `SessionRetrieveParams parameters`
 
   - `required string sessionID`
-
-    Path parameter session_id
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -4437,11 +4469,19 @@ Get Session
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 
@@ -4744,7 +4784,7 @@ Update Session
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `BetaManagedAgentsSessionAgentUpdate agent`
 
@@ -5660,11 +5700,19 @@ Update Session
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 
@@ -5967,8 +6015,6 @@ Delete Session
 
   - `required string sessionID`
 
-    Path parameter session_id
-
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -6116,8 +6162,6 @@ Archive Session
 - `SessionArchiveParams parameters`
 
   - `required string sessionID`
-
-    Path parameter session_id
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -7011,11 +7055,19 @@ Archive Session
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 
@@ -7534,13 +7586,23 @@ Console.WriteLine(betaManagedAgentsSession);
 
           - `Low("low")`
 
+            Low effort. Favors latency over reasoning depth.
+
           - `Medium("medium")`
+
+            Medium effort. Balances latency and reasoning depth.
 
           - `High("high")`
 
+            High effort. Favors reasoning depth.
+
           - `Xhigh("xhigh")`
 
+            Extra-high effort. Not all models accept this level.
+
           - `Max("max")`
+
+            Maximum effort. Favors reasoning depth over latency.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -9276,11 +9338,19 @@ Console.WriteLine(betaManagedAgentsSession);
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 
@@ -12084,7 +12154,7 @@ List Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `DateTimeOffset createdAtGt`
 
@@ -12112,7 +12182,7 @@ List Events
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
@@ -14519,7 +14589,7 @@ Send Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required IReadOnlyList<BetaManagedAgentsEventParams> events`
 
@@ -15493,7 +15563,7 @@ Stream Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 
@@ -17933,7 +18003,7 @@ Add Session Resource
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string fileID`
 
@@ -18115,7 +18185,7 @@ List Session Resources
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `int limit`
 
@@ -18394,11 +18464,11 @@ Get Session Resource
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string resourceID`
 
-    Path param: Path parameter resource_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -18655,11 +18725,11 @@ Update Session Resource
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string resourceID`
 
-    Path param: Path parameter resource_id
+    Path param
 
   - `required string authorizationToken`
 
@@ -18923,11 +18993,11 @@ Delete Session Resource
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string resourceID`
 
-    Path param: Path parameter resource_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -19080,7 +19150,7 @@ List Session Threads
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `int limit`
 
@@ -19208,7 +19278,7 @@ List Session Threads
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -19991,11 +20061,11 @@ Get Session Thread
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -20113,7 +20183,7 @@ Get Session Thread
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -20890,11 +20960,11 @@ Archive Session Thread
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -21012,7 +21082,7 @@ Archive Session Thread
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -21791,21 +21861,21 @@ List Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `string page`
 
-    Query param: Query parameter for page
+    Query param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -24184,11 +24254,11 @@ Stream Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 

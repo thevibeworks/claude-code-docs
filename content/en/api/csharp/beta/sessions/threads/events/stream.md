@@ -17,11 +17,11 @@ Stream Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 

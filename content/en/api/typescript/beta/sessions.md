@@ -159,13 +159,23 @@ Create Session
 
               - `"low"`
 
+                Low effort. Favors latency over reasoning depth.
+
               - `"medium"`
+
+                Medium effort. Balances latency and reasoning depth.
 
               - `"high"`
 
+                High effort. Favors reasoning depth.
+
               - `"xhigh"`
 
+                Extra-high effort. Not all models accept this level.
+
               - `"max"`
+
+                Maximum effort. Favors reasoning depth over latency.
 
             - `interface BetaManagedAgentsEffortLow`
 
@@ -1923,13 +1933,26 @@ Create Session
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 
@@ -2304,11 +2327,19 @@ List Sessions
 
     - `"rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `"running"`
+
+      Agent is actively executing.
 
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -3208,13 +3239,26 @@ List Sessions
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 
@@ -4423,13 +4467,26 @@ Get Session
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 
@@ -6117,13 +6174,26 @@ Update Session
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 
@@ -7482,13 +7552,26 @@ Archive Session
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 
@@ -7956,13 +8039,23 @@ console.log(betaManagedAgentsSession.id);
 
           - `"low"`
 
+            Low effort. Favors latency over reasoning depth.
+
           - `"medium"`
+
+            Medium effort. Balances latency and reasoning depth.
 
           - `"high"`
 
+            High effort. Favors reasoning depth.
+
           - `"xhigh"`
 
+            Extra-high effort. Not all models accept this level.
+
           - `"max"`
+
+            Maximum effort. Favors reasoning depth over latency.
 
         - `interface BetaManagedAgentsEffortLow`
 
@@ -9700,13 +9793,26 @@ console.log(betaManagedAgentsSession.id);
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 
@@ -12548,7 +12654,7 @@ List Events
 
   - `limit?: number`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
@@ -18851,7 +18957,7 @@ Get Session Resource
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -19117,7 +19223,7 @@ Update Session Resource
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `authorization_token: string`
 
@@ -19389,7 +19495,7 @@ Delete Session Resource
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -19679,7 +19785,7 @@ List Session Threads
 
   - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `interface BetaManagedAgentsSessionThreadAgent`
 
@@ -20470,7 +20576,7 @@ Get Session Thread
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -20592,7 +20698,7 @@ Get Session Thread
 
   - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `interface BetaManagedAgentsSessionThreadAgent`
 
@@ -21378,7 +21484,7 @@ Archive Session Thread
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -21500,7 +21606,7 @@ Archive Session Thread
 
   - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `interface BetaManagedAgentsSessionThreadAgent`
 
@@ -22288,17 +22394,17 @@ List Session Thread Events
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `limit?: number`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `page?: string`
 
-    Query param: Query parameter for page
+    Query param
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -24689,7 +24795,7 @@ Stream Session Thread Events
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `event_deltas?: Array<BetaManagedAgentsDeltaType>`
 

@@ -15,7 +15,7 @@ Get Deployment Run
 
 - `--deployment-run-id: string`
 
-  Path parameter deployment_run_id
+  Unique identifier of the deployment run.
 
 - `--beta: optional array of AnthropicBeta`
 

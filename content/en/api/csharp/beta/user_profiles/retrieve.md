@@ -17,7 +17,7 @@ Get User Profile
 
   - `required string userProfileID`
 
-    Path parameter user_profile_id
+    The ID of the user profile to get (`uprof_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -125,6 +125,10 @@ Get User Profile
 
 - `class BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `required Type Type`
 
     Object type. Always `user_profile`.
@@ -169,7 +173,11 @@ Get User Profile
 
     - `Application("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `Passthrough("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `string? ExternalID`
 
@@ -185,9 +193,15 @@ Get User Profile
 
       - `Active("active")`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `Suspended("suspended")`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `Blocked("blocked")`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `required string? Country`
 

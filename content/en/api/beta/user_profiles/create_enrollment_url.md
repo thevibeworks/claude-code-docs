@@ -13,6 +13,8 @@ Create Enrollment URL
 
 - `user_profile_id: string`
 
+  The ID of the user profile to create an enrollment URL for (`uprof_...`).
+
 ## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
@@ -117,9 +119,15 @@ Create Enrollment URL
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaUserProfileEnrollmentURL object`
+
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
 
   - `type: "enrollment_url"`
 

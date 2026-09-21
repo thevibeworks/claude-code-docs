@@ -17,11 +17,11 @@ Archive Session Thread
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -139,7 +139,7 @@ Archive Session Thread
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 

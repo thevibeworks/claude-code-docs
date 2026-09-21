@@ -113,6 +113,10 @@ Create Session
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `Agent agent`
 
     Agent identifier. Accepts the `agent` ID string, which pins the latest version for the session, or an `agent` object with both id and version specified.
@@ -253,13 +257,23 @@ Create Session
 
               - `LOW("low")`
 
+                Low effort. Favors latency over reasoning depth.
+
               - `MEDIUM("medium")`
+
+                Medium effort. Balances latency and reasoning depth.
 
               - `HIGH("high")`
 
+                High effort. Favors reasoning depth.
+
               - `XHIGH("xhigh")`
 
+                Extra-high effort. Not all models accept this level.
+
               - `MAX("max")`
+
+                Maximum effort. Favors reasoning depth over latency.
 
             - `class BetaManagedAgentsEffortLow`
 
@@ -1895,11 +1909,19 @@ Create Session
 
     - `RESCHEDULING("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `RUNNING("running")`
+
+      Agent is actively executing.
 
     - `IDLE("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `TERMINATED("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `Optional<String> title`
 

@@ -17,11 +17,11 @@ Update Credential
 
   - `required string vaultID`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault containing the credential.
 
   - `required string credentialID`
 
-    Path param: Path parameter credential_id
+    Path param: Unique identifier of the credential to update.
 
   - `Auth auth`
 

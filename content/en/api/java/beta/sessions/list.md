@@ -85,11 +85,19 @@ List Sessions
 
     - `RESCHEDULING("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `RUNNING("running")`
+
+      Agent is actively executing.
 
     - `IDLE("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `TERMINATED("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -188,6 +196,10 @@ List Sessions
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 
@@ -979,11 +991,19 @@ List Sessions
 
     - `RESCHEDULING("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `RUNNING("running")`
+
+      Agent is actively executing.
 
     - `IDLE("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `TERMINATED("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `Optional<String> title`
 

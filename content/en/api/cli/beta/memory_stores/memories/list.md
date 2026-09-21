@@ -15,7 +15,7 @@ List memories
 
 - `--memory-store-id: string`
 
-  Path param: Path parameter memory_store_id
+  Path param: The ID of the memory store to list memories from (`memstore_...`).
 
 - `--depth: optional number`
 

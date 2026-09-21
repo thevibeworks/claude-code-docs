@@ -15,21 +15,21 @@ List Session Thread Events
 
 - `--session-id: string`
 
-  Path param: Path parameter session_id
+  Path param
 
 - `--thread-id: string`
 
-  Path param: Path parameter thread_id
+  Path param
 
 - `--limit: optional number`
 
-  Query param: Query parameter for limit
+  Query param
 
   format: int32
 
 - `--page: optional string`
 
-  Query param: Query parameter for page
+  Query param
 
 - `--beta: optional array of AnthropicBeta`
 

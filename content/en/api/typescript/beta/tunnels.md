@@ -204,6 +204,8 @@ Fetches a tunnel by ID.
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: TunnelRetrieveParams`
 
   - `betas?: Array<AnthropicBeta>`
@@ -584,6 +586,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: TunnelArchiveParams`
 
   - `betas?: Array<AnthropicBeta>`
@@ -765,6 +769,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: TunnelRevealTokenParams`
 
   - `betas?: Array<AnthropicBeta>`
@@ -926,6 +932,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 ### Parameters
 
 - `tunnelID: string`
+
+  ID of the tunnel (`tnl_...`).
 
 - `params: TunnelRotateTokenParams`
 
@@ -1147,6 +1155,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: CertificateCreateParams`
 
   - `ca_certificate_pem: string`
@@ -1343,11 +1353,13 @@ Fetches a tunnel certificate by ID.
 
 - `certificateID: string`
 
+  ID of the certificate (`tcrt_...`).
+
 - `params: CertificateRetrieveParams`
 
   - `tunnel_id: string`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -1537,6 +1549,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 #### Parameters
 
 - `tunnelID: string`
+
+  ID of the tunnel (`tnl_...`).
 
 - `params: CertificateListParams`
 
@@ -1746,11 +1760,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `certificateID: string`
 
+  ID of the certificate to archive (`tcrt_...`).
+
 - `params: CertificateArchiveParams`
 
   - `tunnel_id: string`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `betas?: Array<AnthropicBeta>`
 

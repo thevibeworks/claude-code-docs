@@ -17,7 +17,7 @@ Archive Agent
 
   - `required string agentID`
 
-    Path parameter agent_id
+    Unique identifier of the agent to archive.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

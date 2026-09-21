@@ -17,7 +17,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `--tunnel-id: string`
 
-  Path parameter tunnel_id
+  ID of the tunnel (`tnl_...`).
 
 - `--beta: optional array of AnthropicBeta`
 

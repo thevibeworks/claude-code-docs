@@ -17,6 +17,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `tunnelID string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `body BetaTunnelRevealTokenParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

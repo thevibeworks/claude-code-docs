@@ -1,6 +1,6 @@
 # Set a default model for your organization
 
-This guide explains how to choose the Claude model that new conversations start on across your organization. You can set one default for your whole organization, or set different defaults for specific custom roles.
+This guide explains how to choose the Claude model that new conversations start on across your organization. You can set one default for your whole organization, or set different defaults for specific custom roles. You can also make every new conversation start on your default model and effort level, even after users pick a different model.
 
 Default model settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
@@ -10,13 +10,13 @@ You can also set the default effort level that new conversations start on, or le
 
 ## How default models work
 
-When you set or change a default model, it replaces the model currently selected in each member’s model picker. New conversations in chat, Claude Cowork, Claude Code, and Office Agents then start on the model you’ve chosen.
+When you set or change a default model, it replaces the model currently selected in each member’s model picker. New conversations in chat, Cowork, Claude Code, Claude for Office, Claude Design, and Claude Science then start on the model you’ve chosen.
 
 **Note:** Not all models are available in every product. If the selected model is not available in the product, Anthropic’s recommendation is used as default.
 
-Members can still select a different model for any conversation. Claude remembers each member’s last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection.
+Users can still select a different model for any conversation. By default, Claude remembers each user's last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection. To have every new conversation start on the default instead, see **Always start new conversations on the default model** below.
 
-For example: you set the organization default to Claude Sonnet 4.6, and every member’s new conversations start on Sonnet 4.6. A member switches a conversation to Claude Opus 4.7, so their next conversations start on Opus 4.7. When you later change the organization default, the new default replaces their selection again.
+For example: you set the organization default to Claude Sonnet 4.6, and every member’s new conversations start on Sonnet 4.6. A member switches a conversation to Claude Opus 4.7, so their next conversations start on Opus 4.7. When you later change the organization default, the new default replaces their selection again. If you turn on **Always start with the default model and effort level**, their next chat starts on Sonnet 4.6 no matter which model they used last.
 
 You can set a default at two levels:
 
@@ -50,7 +50,7 @@ The organization default applies to every member. To set it:
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1789991100&amp;signature=2ee252c3981926e14cf15414cd318308ab74d9356325b9cbf4ca1596bde9fdca&amp;req=diUmEs58n4BcUPMW1HO4zelOdztJJElGfdGVZ664dGFKow3KpTVFFcYda7QI%0APGmVQ9FgtMXISXFLrTA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1790164800&amp;signature=dac2d3c3e859919ca083231d23e8a82e0d23abf658ffebe9da81d3d553d4e4f5&amp;req=diUmEs58n4BcUPMW3nq%2Bga5jDn%2BZEMlFfwqMkc502AXiiD5X1miosSvZ4aqn%0Adk3ql590L3J6MwjzVWUOijxC2iI%3D%0A)
 
 ---
 
@@ -69,6 +69,42 @@ The default effort level applies to new conversations on the organization defaul
 3. Click "Save changes."
 
 The default effort level can't be higher than the organization's effort cap for the default model. If you lower that cap below the current default effort, the default effort is lowered to match.
+
+---
+
+## Always start new chats on the default model (beta)
+
+By default, each user's next conversation starts on the model they last used. Turn on this setting to have every new conversation start on your organization's default model and default effort level instead.
+
+1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
+
+2. Turn on **Always start with the default model and effort level**.
+
+3. Click "Save."
+
+With this setting on:
+
+- Every new conversation starts on the default model at the default effort level.
+
+- Users can still change the model and effort level within a conversation. Their next conversation starts on the default again.
+
+- When the default model changes, new conversations move to the new default. For example, if you use Anthropic's recommended default and the recommendation moves to a newer model, every user's next conversation starts on the newer model.
+
+This setting applies in chat, Cowork, Claude Code, Claude for Office, Claude Design, and Claude Science.
+
+### For a custom role
+
+Custom roles that set their own default model have the same switch in the role editor.
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Click the role you want to edit.
+
+3. Select the “Models” tab and choose a default model for the role.
+
+4. Turn on **Always start with the default model and effort level**.
+
+5. Click "Save role."
 
 ---
 

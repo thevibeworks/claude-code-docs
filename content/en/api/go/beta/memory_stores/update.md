@@ -15,6 +15,8 @@ Update a memory store
 
 - `memoryStoreID string`
 
+  ID of the memory store to update (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`. Updating an archived store returns 400.
+
 - `params BetaMemoryStoreUpdateParams`
 
   - `Description param.Field[string] Optional`

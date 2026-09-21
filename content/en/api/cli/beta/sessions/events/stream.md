@@ -15,7 +15,7 @@ Stream Events
 
 - `--session-id: string`
 
-  Path param: Path parameter session_id
+  Path param
 
 - `--event-delta: optional array of BetaManagedAgentsDeltaType`
 

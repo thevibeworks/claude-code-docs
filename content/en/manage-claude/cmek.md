@@ -62,7 +62,7 @@ What CMEK covers depends on which product you use.
 
 **Claude Enterprise**
 
-* Chat content, including skills, plugins, and artifacts.
+* Chat content, including skills and plugins.
 * Chat attachments and project attachments.
 * Claude Code on the CLI, including message content.
 * Cowork in Claude Desktop.
@@ -88,6 +88,7 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 * Chat search is disabled because chat titles and content are encrypted under your key. Members cannot search past chats, and the **Search and reference chats** toggle stays off, so Claude cannot search them either.
 * [Project knowledge search](https://support.claude.com/en/articles/11473015-retrieval-augmented-generation-rag-for-projects) (retrieval-augmented generation, or RAG) is disabled. Project knowledge loads directly into each conversation's context instead of being indexed and searched. As a result, a project can use substantially less knowledge than it could without CMEK. Knowledge beyond what can be loaded is left out of the conversation.
 * Claude Code on the web (including routines) and Claude in Slack are unavailable: new sessions cannot be started and Claude in Slack declines requests, even if an admin turns these products on. Claude Code Desktop remains available for local sessions but is off unless an admin turns it on under [claude.ai > Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code).
+* In conversations and the **Artifacts** tab, Claude Design, Claude Slides, and Claude Docs are unavailable, and admins cannot turn them on. Claude Code cannot [publish artifacts](https://code.claude.com/docs/en/artifacts#availability).
 * Certain analytics are degraded: admin analytics for claude.ai skills and connectors (under claude.ai/analytics/usage and through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)), Claude smart reports (under claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
 * Organization data exports and audit log exports, both under [claude.ai > Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls), are disabled.
 * Response ratings (thumbs up and thumbs down on Claude's responses) are disabled.
@@ -105,7 +106,7 @@ These features remain available, but their data is not encrypted under your key.
 
 **Claude Enterprise**
 
-* Beta and research preview features might not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and Claude Design.
+* Beta and research preview features might not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and the Claude Design app at claude.ai/design.
 * [Personal preferences - Instructions for Claude section](https://claude.ai/new#settings/account) and Cowork Global instructions. These are set at the account level and shared across all of a user's organizations.
 
 On both products, account data for users in your organization (such as names, email addresses, and profile pictures) is not encrypted under your key.

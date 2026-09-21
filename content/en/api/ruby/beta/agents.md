@@ -109,13 +109,23 @@ Create Agent
 
         - `:low`
 
+          Low effort. Favors latency over reasoning depth.
+
         - `:medium`
+
+          Medium effort. Balances latency and reasoning depth.
 
         - `:high`
 
+          High effort. Favors reasoning depth.
+
         - `:xhigh`
 
+          Extra-high effort. Not all models accept this level.
+
         - `:max`
+
+          Maximum effort. Favors reasoning depth over latency.
 
       - `class BetaManagedAgentsEffortLow`
 
@@ -818,6 +828,10 @@ Create Agent
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1629,6 +1643,10 @@ List Agents
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsAgent`
@@ -2315,6 +2333,8 @@ Get Agent
 
 - `agent_id: String`
 
+  Unique identifier of the agent to retrieve.
+
 - `version: Integer`
 
   Agent version. Omit for the most recent version. Must be at least 1 if specified.
@@ -2422,6 +2442,10 @@ Get Agent
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -3104,6 +3128,8 @@ Update Agent
 
 - `agent_id: String`
 
+  Unique identifier of the agent to update.
+
 - `description: String`
 
   Description. Omit to preserve; send empty string or null to clear.
@@ -3226,13 +3252,23 @@ Update Agent
 
         - `:low`
 
+          Low effort. Favors latency over reasoning depth.
+
         - `:medium`
+
+          Medium effort. Balances latency and reasoning depth.
 
         - `:high`
 
+          High effort. Favors reasoning depth.
+
         - `:xhigh`
 
+          Extra-high effort. Not all models accept this level.
+
         - `:max`
+
+          Maximum effort. Favors reasoning depth over latency.
 
       - `class BetaManagedAgentsEffortLow`
 
@@ -3913,6 +3949,10 @@ Update Agent
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -4595,6 +4635,8 @@ Archive Agent
 
 - `agent_id: String`
 
+  Unique identifier of the agent to archive.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -4696,6 +4738,10 @@ Archive Agent
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -8378,13 +8424,23 @@ puts(beta_managed_agents_agent)
 
       - `:low`
 
+        Low effort. Favors latency over reasoning depth.
+
       - `:medium`
+
+        Medium effort. Balances latency and reasoning depth.
 
       - `:high`
 
+        High effort. Favors reasoning depth.
+
       - `:xhigh`
 
+        Extra-high effort. Not all models accept this level.
+
       - `:max`
+
+        Maximum effort. Favors reasoning depth over latency.
 
     - `class BetaManagedAgentsEffortLow`
 
@@ -9536,6 +9592,8 @@ List Agent Versions
 
 - `agent_id: String`
 
+  Agent ID to list versions for.
+
 - `limit: Integer`
 
   Maximum results per page. Default 20, maximum 100.
@@ -9647,6 +9705,10 @@ List Agent Versions
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 

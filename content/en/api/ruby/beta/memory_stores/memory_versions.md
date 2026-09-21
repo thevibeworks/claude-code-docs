@@ -17,9 +17,11 @@ List memory versions
 
 - `memory_store_id: String`
 
+  The ID of the memory store whose version history to list (`memstore_...`).
+
 - `api_key_id: String`
 
-  Query parameter for api_key_id
+  Return only versions written with the API key that has this ID.
 
 - `created_at_gte: Time`
 
@@ -35,43 +37,55 @@ List memory versions
 
 - `limit: Integer`
 
-  Query parameter for limit
+  The maximum number of versions to return per page. Defaults to 20.
 
   format: int32
 
 - `memory_id: String`
 
-  Query parameter for memory_id
+  Return only versions of the memory with this ID (`mem_...`).
+
+  The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
 - `operation: BetaManagedAgentsMemoryVersionOperation`
 
-  Query parameter for operation
+  Return only versions that record this kind of change.
 
   - `:created`
 
+    The memory was created. The first version in any memory's lineage.
+
   - `:modified`
+
+    The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
 
   - `:deleted`
 
+    The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
+
 - `page: String`
 
-  Query parameter for page
+  The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
 - `service_account_id: String`
 
-  Query parameter for service_account_id
+  Return only versions written by the service account with this ID (`svac_...`).
 
 - `session_id: String`
 
-  Query parameter for session_id
+  Return only versions written by the session with this ID.
 
 - `view: BetaManagedAgentsMemoryView`
 
-  Query parameter for view
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
   - `:basic`
 
+    Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
   - `:full`
+
+    Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -175,6 +189,10 @@ List memory versions
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryVersion`
@@ -207,9 +225,15 @@ List memory versions
 
     - `:created`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `:modified`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `:deleted`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content: String`
 
@@ -346,15 +370,23 @@ Retrieve a memory version
 
 - `memory_store_id: String`
 
+  The ID of the memory store that holds the version (`memstore_...`).
+
 - `memory_version_id: String`
+
+  The ID of the memory version to retrieve (`memver_...`).
 
 - `view: BetaManagedAgentsMemoryView`
 
-  Query parameter for view
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
   - `:basic`
 
+    Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
   - `:full`
+
+    Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -458,6 +490,10 @@ Retrieve a memory version
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryVersion`
@@ -490,9 +526,15 @@ Retrieve a memory version
 
     - `:created`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `:modified`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `:deleted`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content: String`
 
@@ -627,7 +669,11 @@ Redact a memory version
 
 - `memory_store_id: String`
 
+  The ID of the memory store that holds the version (`memstore_...`).
+
 - `memory_version_id: String`
+
+  The ID of the memory version to redact (`memver_...`).
 
 - `betas: Array[AnthropicBeta]`
 
@@ -731,6 +777,10 @@ Redact a memory version
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsMemoryVersion`
@@ -763,9 +813,15 @@ Redact a memory version
 
     - `:created`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `:modified`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `:deleted`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content: String`
 
@@ -990,9 +1046,15 @@ puts(beta_managed_agents_memory_version)
 
     - `:created`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `:modified`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `:deleted`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content: String`
 
@@ -1082,9 +1144,15 @@ puts(beta_managed_agents_memory_version)
 
   - `:created`
 
+    The memory was created. The first version in any memory's lineage.
+
   - `:modified`
 
+    The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
   - `:deleted`
+
+    The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
 ### Beta Managed Agents Service Account Actor
 

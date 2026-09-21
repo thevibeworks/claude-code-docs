@@ -21,7 +21,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `required string caCertificatePem`
 
@@ -213,11 +213,11 @@ Fetches a tunnel certificate by ID.
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `required string certificateID`
 
-    Path param: Path parameter certificate_id
+    Path param: ID of the certificate (`tcrt_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -403,7 +403,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `bool includeArchived`
 
@@ -606,11 +606,11 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `required string certificateID`
 
-    Path param: Path parameter certificate_id
+    Path param: ID of the certificate to archive (`tcrt_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

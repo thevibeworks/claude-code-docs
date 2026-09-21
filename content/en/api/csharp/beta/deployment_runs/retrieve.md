@@ -17,7 +17,7 @@ Get Deployment Run
 
   - `required string deploymentRunID`
 
-    Path parameter deployment_run_id
+    Unique identifier of the deployment run.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

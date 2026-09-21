@@ -17,7 +17,11 @@ Validate Credential
 
   - `String vaultId`
 
+    Identifier of the vault containing the credential.
+
   - `Optional<String> credentialId`
+
+    Unique identifier of the credential to validate.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -117,6 +121,10 @@ Validate Credential
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsCredentialValidation`
@@ -177,11 +185,19 @@ Validate Credential
 
       - `SUCCEEDED("succeeded")`
 
+        The token endpoint returned a new access token.
+
       - `FAILED("failed")`
+
+        The token endpoint returned an error response. See `http_response` for detail.
 
       - `CONNECT_ERROR("connect_error")`
 
+        The token endpoint could not be reached (DNS, TLS, or connection error).
+
       - `NO_REFRESH_TOKEN("no_refresh_token")`
+
+        No refresh token is stored for the credential, so no exchange was attempted.
 
   - `BetaManagedAgentsCredentialValidationStatus status`
 
@@ -189,9 +205,15 @@ Validate Credential
 
     - `VALID("valid")`
 
+      The credential successfully authenticated against its MCP server.
+
     - `INVALID("invalid")`
 
+      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
     - `UNKNOWN("unknown")`
+
+      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
   - `LocalDateTime validatedAt`
 

@@ -15,15 +15,19 @@ Delete a memory
 
 - `memoryID: string`
 
+  The ID of the memory to delete (`mem_...`).
+
 - `params: MemoryDeleteParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the memory (`memstore_...`).
 
   - `expected_content_sha256?: string`
 
-    Query param: Query parameter for expected_content_sha256
+    Query param: Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
+
+    If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
   - `betas?: Array<AnthropicBeta>`
 

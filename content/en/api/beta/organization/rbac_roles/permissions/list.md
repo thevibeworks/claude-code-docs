@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/permis
 
 # List RBAC Role Permissions
 
-**GET** `/v1/organizations/rbac_roles/{role_id}/permissions`
+**GET** `/v1/organizations/rbac_roles/{rbac_role_id}/permissions`
 
 List the permissions an RBAC Role grants.
 
@@ -13,7 +13,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
 ## Path parameters
 
-- `role_id: string`
+- `rbac_role_id: string`
 
   ID of the RBAC Role.
 
@@ -156,7 +156,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 ## Example
 
 ```bash
-curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID/permissions \
+curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permissions \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```

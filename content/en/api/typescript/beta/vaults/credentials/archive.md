@@ -15,11 +15,13 @@ Archive Credential
 
 - `credentialID: string`
 
+  Unique identifier of the credential to archive.
+
 - `params: CredentialArchiveParams`
 
   - `vault_id: string`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault containing the credential.
 
   - `betas?: Array<AnthropicBeta>`
 

@@ -511,7 +511,7 @@ Get Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -791,7 +791,7 @@ Update Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `AuthorizationToken param.Field[string]`
 
@@ -1078,7 +1078,7 @@ Delete Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 

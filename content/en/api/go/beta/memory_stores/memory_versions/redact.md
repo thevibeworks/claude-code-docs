@@ -15,11 +15,13 @@ Redact a memory version
 
 - `memoryVersionID string`
 
+  The ID of the memory version to redact (`memver_...`).
+
 - `params BetaMemoryStoreMemoryVersionRedactParams`
 
   - `MemoryStoreID param.Field[string]`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the version (`memstore_...`).
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -159,9 +161,15 @@ Redact a memory version
 
     - `const BetaManagedAgentsMemoryVersionOperationCreated BetaManagedAgentsMemoryVersionOperation = "created"`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `const BetaManagedAgentsMemoryVersionOperationModified BetaManagedAgentsMemoryVersionOperation = "modified"`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `const BetaManagedAgentsMemoryVersionOperationDeleted BetaManagedAgentsMemoryVersionOperation = "deleted"`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `Content string Optional`
 

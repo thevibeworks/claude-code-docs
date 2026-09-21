@@ -132,6 +132,10 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
 
   puts "Environment ID: #{environment.id}"
   ```
+
+  <ForLanguage tab="CLI">
+    [`ant apply`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply) creates the environment from `environment.yaml`, prints its ID, and records it in `claude-lock.json`. Commit `claude-lock.json` so the next `ant apply` updates this environment instead of trying to create it again.
+  </ForLanguage>
 </CodeGroup>
 
 Use a unique, descriptive `name` so you can tell environments apart.

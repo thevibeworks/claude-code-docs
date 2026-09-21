@@ -115,6 +115,10 @@ Create Agent
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Body parameters
 
 - `model: BetaManagedAgentsModel or BetaManagedAgentsModelConfigParams`
@@ -211,13 +215,23 @@ Create Agent
 
         - `"low"`
 
+          Low effort. Favors latency over reasoning depth.
+
         - `"medium"`
+
+          Medium effort. Balances latency and reasoning depth.
 
         - `"high"`
 
+          High effort. Favors reasoning depth.
+
         - `"xhigh"`
 
+          Extra-high effort. Not all models accept this level.
+
         - `"max"`
+
+          Maximum effort. Favors reasoning depth over latency.
 
       - `BetaManagedAgentsEffortLow object`
 
@@ -1638,6 +1652,10 @@ List Agents
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `data: array of BetaManagedAgentsAgent`
@@ -2323,6 +2341,8 @@ Get Agent
 
 - `agent_id: string`
 
+  Unique identifier of the agent to retrieve.
+
 ### Query parameters
 
 - `version: optional number`
@@ -2434,6 +2454,10 @@ Get Agent
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -3111,6 +3135,8 @@ Update Agent
 
 - `agent_id: string`
 
+  Unique identifier of the agent to update.
+
 ### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
@@ -3214,6 +3240,10 @@ Update Agent
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Body parameters
 
@@ -3339,13 +3369,23 @@ Update Agent
 
         - `"low"`
 
+          Low effort. Favors latency over reasoning depth.
+
         - `"medium"`
+
+          Medium effort. Balances latency and reasoning depth.
 
         - `"high"`
 
+          High effort. Favors reasoning depth.
+
         - `"xhigh"`
 
+          Extra-high effort. Not all models accept this level.
+
         - `"max"`
+
+          Maximum effort. Favors reasoning depth over latency.
 
       - `BetaManagedAgentsEffortLow object`
 
@@ -4607,6 +4647,8 @@ Archive Agent
 
 - `agent_id: string`
 
+  Unique identifier of the agent to archive.
+
 ### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
@@ -4710,6 +4752,10 @@ Archive Agent
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -8390,13 +8436,23 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"low"`
 
+        Low effort. Favors latency over reasoning depth.
+
       - `"medium"`
+
+        Medium effort. Balances latency and reasoning depth.
 
       - `"high"`
 
+        High effort. Favors reasoning depth.
+
       - `"xhigh"`
 
+        Extra-high effort. Not all models accept this level.
+
       - `"max"`
+
+        Maximum effort. Favors reasoning depth over latency.
 
     - `BetaManagedAgentsEffortLow object`
 
@@ -9546,6 +9602,8 @@ List Agent Versions
 
 - `agent_id: string`
 
+  Agent ID to list versions for.
+
 #### Query parameters
 
 - `limit: optional number`
@@ -9661,6 +9719,10 @@ List Agent Versions
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 

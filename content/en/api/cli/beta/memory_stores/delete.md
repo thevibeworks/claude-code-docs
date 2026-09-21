@@ -15,7 +15,7 @@ Delete a memory store
 
 - `--memory-store-id: string`
 
-  Path parameter memory_store_id
+  ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
 
 - `--beta: optional array of AnthropicBeta`
 

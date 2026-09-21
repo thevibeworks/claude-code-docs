@@ -21,17 +21,17 @@ List Session Thread Events
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Limit param.Field[int64] Optional`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `Page param.Field[string] Optional`
 
-    Query param: Query parameter for page
+    Query param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -2439,7 +2439,7 @@ Stream Session Thread Events
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `EventDeltas param.Field[[]BetaManagedAgentsDeltaType] Optional`
 

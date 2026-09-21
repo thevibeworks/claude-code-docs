@@ -17,11 +17,15 @@ Retrieve a memory version
 
   - `String memoryStoreId`
 
+    The ID of the memory store that holds the version (`memstore_...`).
+
   - `Optional<String> memoryVersionId`
+
+    The ID of the memory version to retrieve (`memver_...`).
 
   - `Optional<BetaManagedAgentsMemoryView> view`
 
-    Query parameter for view
+    Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -121,6 +125,10 @@ Retrieve a memory version
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsMemoryVersion`
@@ -153,9 +161,15 @@ Retrieve a memory version
 
     - `CREATED("created")`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `MODIFIED("modified")`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `DELETED("deleted")`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `Optional<String> content`
 

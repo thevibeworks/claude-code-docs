@@ -15,6 +15,8 @@ List Agent Versions
 
 - `agentID: string`
 
+  Agent ID to list versions for.
+
 - `params: VersionListParams`
 
   - `limit?: number`

@@ -15,6 +15,8 @@ List Credentials
 
 - `vault_id: str`
 
+  Identifier of the vault to list credentials for.
+
 - `include_archived: Optional[bool]`
 
   Whether to include archived credentials in the results.
@@ -130,6 +132,10 @@ List Credentials
     - `"compact-2026-09-04"`
 
 - `workspace_id: Optional[str]`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

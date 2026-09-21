@@ -367,7 +367,7 @@ Give an incident responder room to work while an incident is open: raise their s
 
    See [User management](https://platform.claude.com/docs/en/manage-claude/user-management#groups) for the group endpoints.
 
-4. When your incident system marks the incident closed, roll both changes back: restore the spend limit you recorded in step 1 (or delete the override with `DELETE /v1/organizations/spend_limits/{spend_limit_id}` if the member had none), and remove the member from the group with `DELETE /v1/organizations/rbac_groups/{group_id}/members/{user_id}`.
+4. When your incident system marks the incident closed, roll both changes back: restore the spend limit you recorded in step 1 (or delete the override with `DELETE /v1/organizations/spend_limits/{spend_limit_id}` if the member had none), and remove the member from the group with `DELETE /v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`.
 
 ## Frequently asked questions
 

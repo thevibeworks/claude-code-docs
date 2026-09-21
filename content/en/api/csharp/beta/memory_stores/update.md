@@ -17,7 +17,7 @@ Update a memory store
 
   - `required string memoryStoreID`
 
-    Path param: Path parameter memory_store_id
+    Path param: ID of the memory store to update (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`. Updating an archived store returns 400.
 
   - `string? description`
 

@@ -19,21 +19,21 @@ List Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `string page`
 
-    Query param: Query parameter for page
+    Query param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -2412,11 +2412,11 @@ Stream Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 

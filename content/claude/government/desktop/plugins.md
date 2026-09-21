@@ -22,13 +22,13 @@ Claude for Government does not include a public plugin marketplace; your adminis
 
 ## Find and install plugins
 
-Open **Customize** in the sidebar, then **Plugins**, to see the plugins you have installed. To find the rest, select **Browse** and open the **Organization** tab, which lists every plugin your administrators have made available to you.
+Open **Customize** in the sidebar, then **Plugins**, to see the plugins you have installed. To find the rest, select **Discover** (**Browse** on Claude Desktop versions earlier than 2.2553.0) and open the **Organization** tab, which lists every plugin your administrators have made available to you.
 
 A plugin your administrators set to install automatically is already installed. A plugin they offer for you to choose stays available on the **Organization** tab until you install it.
 
 If your administrators let you add your own plugins, you can install a plugin from a file or have Claude build one. To install from a file, select **Add**, then **Upload plugin**, and choose the plugin's `.zip` file. Claude Desktop shows a notice reminding you to install only plugins you trust, since uploaded plugins are not controlled by Anthropic. To have Claude build one, select **Add**, then **Create with Claude**, and describe the plugin you want. Claude builds it for you, and you install the result.
 
-If your administrators let you add plugin marketplaces, you can add a marketplace of your own. To add one, select **Browse**, then select the **+** button (**Add marketplace**) at the top right of the **Directory** that opens.
+If your administrators let you add plugin marketplaces, you can add a marketplace of your own. To add one, select **Discover**, then select the **+** button (**Add marketplace**) at the top right of the **Directory** that opens.
 
 ## Manage installed plugins
 

@@ -19,7 +19,7 @@ List Session Threads
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `int limit`
 
@@ -147,7 +147,7 @@ List Session Threads
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -930,11 +930,11 @@ Get Session Thread
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -1052,7 +1052,7 @@ Get Session Thread
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -1829,11 +1829,11 @@ Archive Session Thread
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -1951,7 +1951,7 @@ Archive Session Thread
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -2730,7 +2730,7 @@ Console.WriteLine(betaManagedAgentsSessionThread);
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -5794,21 +5794,21 @@ List Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `string page`
 
-    Query param: Query parameter for page
+    Query param
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -8187,11 +8187,11 @@ Stream Session Thread Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required string threadID`
 
-    Path param: Path parameter thread_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 

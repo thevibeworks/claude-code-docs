@@ -15,7 +15,11 @@ Update Credential
 
 - `vault_id: String`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: String`
+
+  Unique identifier of the credential to update.
 
 - `auth: BetaManagedAgentsMCPOAuthUpdateParams | BetaManagedAgentsStaticBearerUpdateParams | BetaManagedAgentsEnvironmentVariableUpdateParams`
 
@@ -248,6 +252,10 @@ Update Credential
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

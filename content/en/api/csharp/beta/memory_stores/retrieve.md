@@ -17,7 +17,7 @@ Retrieve a memory store
 
   - `required string memoryStoreID`
 
-    Path parameter memory_store_id
+    ID of the memory store to retrieve (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

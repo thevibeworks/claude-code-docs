@@ -15,11 +15,13 @@ Delete Credential
 
 - `credentialID: string`
 
+  Unique identifier of the credential to delete.
+
 - `params: CredentialDeleteParams`
 
   - `vault_id: string`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault containing the credential.
 
   - `betas?: Array<AnthropicBeta>`
 

@@ -15,6 +15,8 @@ List Credentials
 
 - `vaultID: string`
 
+  Identifier of the vault to list credentials for.
+
 - `params: CredentialListParams`
 
   - `include_archived?: boolean`

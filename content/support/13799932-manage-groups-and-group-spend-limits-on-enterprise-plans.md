@@ -6,11 +6,11 @@ Groups and group spend limits are available for Enterprise plan organizations. O
 
 Groups let you organize members into logical collections—by team, department, or any other grouping that fits your organization. Once groups are set up, you can:
 
-- **Set spend limits for groups**, so all members of a group share a per-user spend limit.
+- **Set spend limits for groups**, so all members of a group share a per-user spend limit, and optionally give the group one shared monthly budget (beta).
 
 - **Control member access through group memberships and custom roles**, so their capabilities and permissions are determined entirely by the groups they belong to. For additional details, see **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
-- **Let members share resources with a group**, so a project, skill, or plugin shared with the group is available to everyone in it, and access follows membership as it changes. For details, see[**Manage project visibility and sharing**](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)  and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
+- **Let members share resources with a group**, so a project, skill, or plugin shared with the group is available to everyone in it, and access follows membership as it changes. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)** and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
 
 Groups can be created manually or synced automatically from your identity provider via SCIM. Each organization can have up to 100 groups. There's no limit on how many groups a member can belong to, though belonging to more than 250 can slow performance.
 
@@ -150,17 +150,19 @@ Group spend limits let you control spending across your organization by assignin
 
 Group spend limits work alongside individual spend limits. If a member has an individual spend limit set, their individual limit takes precedence over any group limit.
 
+A pooled budget only starts counting spend after it is created and resets each month.
+
 ### Set a group spend limit
 
 1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
-2. Select the “By group” tab.
+2. Select the "By group/tier" tab.
 
-3. Find the group and click the menu button to the right, then “Edit limit”
+3. Find the group and click the menu button to the right, then "Edit limits."
 
-4. Select “Unlimited,” or “Set dollar amount” and enter a dollar amount for the spend limit.
+4. Select "No member limit" or "Member limit" and enter an amount.
 
-5. Click "Set limit."
+5. Click "Save."
 
 The spend limit applies to all members of the group. Members who also have an individual spend limit set are governed by their individual limit instead.
 
@@ -170,7 +172,7 @@ If a member belongs to more than one group with a spend limit, the **Multi-group
 
 1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
-2. Find **Multi-group spend limit** in the **Spending defaults** section.
+2. Find **Member limit** from groups in the **Spending defaults** section.
 
 3. Select "Higher group limit" or "Lower group limit" from the dropdown.
 

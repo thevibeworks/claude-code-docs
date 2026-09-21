@@ -17,7 +17,7 @@ List Session Resources
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `int limit`
 

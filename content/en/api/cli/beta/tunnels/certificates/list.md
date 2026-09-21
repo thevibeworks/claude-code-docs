@@ -17,7 +17,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `--tunnel-id: string`
 
-  Path param: Path parameter tunnel_id
+  Path param: ID of the tunnel (`tnl_...`).
 
 - `--include-archived: optional boolean`
 

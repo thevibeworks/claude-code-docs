@@ -17,7 +17,7 @@ List Agent Versions
 
   - `required string agentID`
 
-    Path param: Path parameter agent_id
+    Path param: Agent ID to list versions for.
 
   - `int limit`
 
