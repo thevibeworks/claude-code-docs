@@ -215,6 +215,8 @@ Fetches a tunnel by ID.
 
 - `tunnelID string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `query BetaTunnelGetParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -620,6 +622,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `tunnelID string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `body BetaTunnelArchiveParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -816,6 +820,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `tunnelID string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `body BetaTunnelRevealTokenParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -992,6 +998,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 ### Parameters
 
 - `tunnelID string`
+
+  ID of the tunnel (`tnl_...`).
 
 - `params BetaTunnelRotateTokenParams`
 
@@ -1228,6 +1236,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `tunnelID string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params BetaTunnelCertificateNewParams`
 
   - `CACertificatePEM param.Field[string]`
@@ -1439,11 +1449,13 @@ Fetches a tunnel certificate by ID.
 
 - `certificateID string`
 
+  ID of the certificate (`tcrt_...`).
+
 - `params BetaTunnelCertificateGetParams`
 
   - `TunnelID param.Field[string]`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -1647,6 +1659,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 #### Parameters
 
 - `tunnelID string`
+
+  ID of the tunnel (`tnl_...`).
 
 - `params BetaTunnelCertificateListParams`
 
@@ -1870,11 +1884,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `certificateID string`
 
+  ID of the certificate to archive (`tcrt_...`).
+
 - `params BetaTunnelCertificateArchiveParams`
 
   - `TunnelID param.Field[string]`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 

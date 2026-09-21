@@ -17,11 +17,11 @@ Fetches a tunnel certificate by ID.
 
 - `--tunnel-id: string`
 
-  Path param: Path parameter tunnel_id
+  Path param: ID of the tunnel (`tnl_...`).
 
 - `--certificate-id: string`
 
-  Path param: Path parameter certificate_id
+  Path param: ID of the certificate (`tcrt_...`).
 
 - `--beta: optional array of AnthropicBeta`
 

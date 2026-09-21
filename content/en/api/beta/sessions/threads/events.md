@@ -21,13 +21,9 @@ List Session Thread Events
 
 - `limit: optional number`
 
-  Query parameter for limit
-
   format: int32
 
 - `page: optional string`
-
-  Query parameter for page
 
 ### Headers
 
@@ -132,6 +128,10 @@ List Session Thread Events
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -2524,6 +2524,10 @@ Stream Session Thread Events
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 

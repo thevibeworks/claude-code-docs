@@ -17,11 +17,11 @@ Redact a memory version
 
   - `required string memoryStoreID`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the version (`memstore_...`).
 
   - `required string memoryVersionID`
 
-    Path param: Path parameter memory_version_id
+    Path param: The ID of the memory version to redact (`memver_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -157,9 +157,15 @@ Redact a memory version
 
     - `Created("created")`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `Modified("modified")`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `Deleted("deleted")`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `string? Content`
 

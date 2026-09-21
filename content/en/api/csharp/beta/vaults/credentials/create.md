@@ -17,7 +17,7 @@ Create Credential
 
   - `required string vaultID`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault to create the credential in.
 
   - `required Auth auth`
 

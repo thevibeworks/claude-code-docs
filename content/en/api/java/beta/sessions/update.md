@@ -115,6 +115,10 @@ Update Session
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `Optional<BetaManagedAgentsSessionAgentUpdate> agent`
 
     Mid-session agent configuration update. Only `tools` and `mcp_servers` are updatable. Full replacement: the provided array becomes the new value. To preserve existing entries, GET the session, modify the array, and POST it back.
@@ -927,11 +931,19 @@ Update Session
 
     - `RESCHEDULING("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `RUNNING("running")`
+
+      Agent is actively executing.
 
     - `IDLE("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `TERMINATED("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `Optional<String> title`
 

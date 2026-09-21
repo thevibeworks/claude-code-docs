@@ -15,6 +15,8 @@ Get Agent
 
 - `agentID: string`
 
+  Unique identifier of the agent to retrieve.
+
 - `params: AgentRetrieveParams`
 
   - `version?: number`

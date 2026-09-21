@@ -15,6 +15,8 @@ Get Deployment
 
 - `deploymentID string`
 
+  Unique identifier of the deployment.
+
 - `query BetaDeploymentGetParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -609,7 +611,11 @@ Get Deployment
 
     - `const BetaManagedAgentsDeploymentStatusActive BetaManagedAgentsDeploymentStatus = "active"`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `const BetaManagedAgentsDeploymentStatusPaused BetaManagedAgentsDeploymentStatus = "paused"`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `UpdatedAt Time`
 

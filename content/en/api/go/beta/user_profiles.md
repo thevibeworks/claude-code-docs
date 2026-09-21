@@ -23,7 +23,11 @@ Create User Profile
 
     - `const BetaUserProfileNewParamsAccessTypeApplication BetaUserProfileNewParamsAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileNewParamsAccessTypePassthrough BetaUserProfileNewParamsAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID param.Field[string] Optional`
 
@@ -161,6 +165,10 @@ Create User Profile
 
 - `type BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `Type BetaUserProfileType`
 
     Object type. Always `user_profile`.
@@ -205,7 +213,11 @@ Create User Profile
 
     - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID string Optional`
 
@@ -221,9 +233,15 @@ Create User Profile
 
       - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Country string`
 
@@ -338,29 +356,39 @@ List User Profiles
 
   - `Limit param.Field[int64] Optional`
 
-    Query param: Query parameter for limit
+    Query param: The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
     format: int32
 
   - `Order param.Field[BetaUserProfileListParamsOrder] Optional`
 
-    Query param: Query parameter for order
+    Query param: The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
     - `const BetaUserProfileListParamsOrderAsc BetaUserProfileListParamsOrder = "asc"`
 
+      Oldest first when `order_by` is `created_at`, or names in ascending order when `order_by` is `name`.
+
     - `const BetaUserProfileListParamsOrderDesc BetaUserProfileListParamsOrder = "desc"`
+
+      Newest first when `order_by` is `created_at`, or names in descending order when `order_by` is `name`. This is the default.
 
   - `OrderBy param.Field[BetaUserProfileListParamsOrderBy] Optional`
 
-    Query param: Query parameter for order_by
+    Query param: The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
     - `const BetaUserProfileListParamsOrderByCreatedAt BetaUserProfileListParamsOrderBy = "created_at"`
 
+      Sort by when each user profile was created. This is the default.
+
     - `const BetaUserProfileListParamsOrderByName BetaUserProfileListParamsOrderBy = "name"`
+
+      Sort by `name`, ignoring the case of ASCII letters. Profiles without a name come last in either direction.
 
   - `Page param.Field[string] Optional`
 
-    Query param: Query parameter for page
+    Query param: The cursor for the page to return, taken from `next_page` in a previous response.
+
+    Leave it out to get the first page.
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -472,6 +500,10 @@ List User Profiles
 
 - `type BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `Type BetaUserProfileType`
 
     Object type. Always `user_profile`.
@@ -516,7 +548,11 @@ List User Profiles
 
     - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID string Optional`
 
@@ -532,9 +568,15 @@ List User Profiles
 
       - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Country string`
 
@@ -652,6 +694,8 @@ Get User Profile
 
 - `userProfileID string`
 
+  The ID of the user profile to get (`uprof_...`).
+
 - `query BetaUserProfileGetParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -764,6 +808,10 @@ Get User Profile
 
 - `type BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `Type BetaUserProfileType`
 
     Object type. Always `user_profile`.
@@ -808,7 +856,11 @@ Get User Profile
 
     - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID string Optional`
 
@@ -824,9 +876,15 @@ Get User Profile
 
       - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Country string`
 
@@ -943,6 +1001,8 @@ Update User Profile
 
 - `userProfileID string`
 
+  The ID of the user profile to update (`uprof_...`).
+
 - `params BetaUserProfileUpdateParams`
 
   - `AccessType param.Field[BetaUserProfileUpdateParamsAccessType] Optional`
@@ -951,7 +1011,11 @@ Update User Profile
 
     - `const BetaUserProfileUpdateParamsAccessTypeApplication BetaUserProfileUpdateParamsAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileUpdateParamsAccessTypePassthrough BetaUserProfileUpdateParamsAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID param.Field[string] Optional`
 
@@ -1089,6 +1153,10 @@ Update User Profile
 
 - `type BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `Type BetaUserProfileType`
 
     Object type. Always `user_profile`.
@@ -1133,7 +1201,11 @@ Update User Profile
 
     - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID string Optional`
 
@@ -1149,9 +1221,15 @@ Update User Profile
 
       - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Country string`
 
@@ -1268,6 +1346,8 @@ Create Enrollment URL
 
 - `userProfileID string`
 
+  The ID of the user profile to create an enrollment URL for (`uprof_...`).
+
 - `body BetaUserProfileNewEnrollmentURLParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -1380,6 +1460,8 @@ Create Enrollment URL
 
 - `type BetaUserProfileEnrollmentURL`
 
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+
   - `Type BetaUserProfileEnrollmentURLType`
 
     Object type. Always `enrollment_url`.
@@ -1439,6 +1521,10 @@ func main() {
 
 - `type BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `Type BetaUserProfileType`
 
     Object type. Always `user_profile`.
@@ -1483,7 +1569,11 @@ func main() {
 
     - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `ExternalID string Optional`
 
@@ -1499,9 +1589,15 @@ func main() {
 
       - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Country string`
 
@@ -1551,6 +1647,8 @@ func main() {
 
 - `type BetaUserProfileEnrollmentURL`
 
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+
   - `Type BetaUserProfileEnrollmentURLType`
 
     Object type. Always `enrollment_url`.
@@ -1577,9 +1675,15 @@ func main() {
 
     - `const BetaUserProfileExternalUserDetailsAccountStatusActive BetaUserProfileExternalUserDetailsAccountStatus = "active"`
 
+      The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
     - `const BetaUserProfileExternalUserDetailsAccountStatusSuspended BetaUserProfileExternalUserDetailsAccountStatus = "suspended"`
 
+      The platform has restricted the account of the entity that the user profile represents and may restore it.
+
     - `const BetaUserProfileExternalUserDetailsAccountStatusBlocked BetaUserProfileExternalUserDetailsAccountStatus = "blocked"`
+
+      The platform has barred the account of the entity that the user profile represents.
 
   - `Country string`
 
@@ -1625,9 +1729,15 @@ func main() {
 
     - `const BetaUserProfileExternalUserDetailsParamsAccountStatusActive BetaUserProfileExternalUserDetailsParamsAccountStatus = "active"`
 
+      The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
     - `const BetaUserProfileExternalUserDetailsParamsAccountStatusSuspended BetaUserProfileExternalUserDetailsParamsAccountStatus = "suspended"`
 
+      The platform has restricted the account of the entity that the user profile represents and may restore it.
+
     - `const BetaUserProfileExternalUserDetailsParamsAccountStatusBlocked BetaUserProfileExternalUserDetailsParamsAccountStatus = "blocked"`
+
+      The platform has barred the account of the entity that the user profile represents.
 
   - `Country string Optional`
 
@@ -1672,6 +1782,8 @@ func main() {
 ### Beta User Profile Trust Grant
 
 - `type BetaUserProfileTrustGrant`
+
+  The status of one trust grant on a user profile, listed in the profile's `trust_grants` map under the grant's name.
 
   - `Status BetaUserProfileTrustGrantStatus`
 

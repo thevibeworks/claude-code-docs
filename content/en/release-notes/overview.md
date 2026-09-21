@@ -18,7 +18,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 ### September 14, 2026
 
-* The Messages API can now [compact a conversation on demand](https://platform.claude.com/docs/en/build-with-claude/compaction#compact-on-demand-with-the-compaction-parameter) on the Claude API, in beta with the `compact-2026-09-04` beta header. Send the top-level `compaction` parameter, and the API returns a signed `compaction` block that summarizes the messages you sent. On later requests, send that block first, in place of those messages. You choose when to compact, the request can run in the background, and you can keep recent turns word for word after the summary. On models with preserved thinking, the thinking in those kept turns can stay valid.
+* The Messages API can now [compact a conversation on demand](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) on the Claude API, in beta with the `compact-2026-09-04` beta header. Send the top-level `compaction` parameter, and the API returns a signed `compaction` block that summarizes the messages you sent. On later requests, send that block first, in place of those messages. You choose when to compact, the request can run in the background, and you can keep recent turns word for word after the summary. On models with preserved thinking, the thinking in those kept turns can stay valid.
 
 ### September 10, 2026
 
@@ -369,7 +369,7 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 * We've launched [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6), our most intelligent model for complex agentic tasks and long-horizon work. Opus 4.6 recommends [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) (`thinking: {type: "adaptive"}`); manual thinking (`type: "enabled"` with `budget_tokens`) is deprecated. Opus 4.6 does not support prefilling assistant messages. Learn more in [What's new in Claude 4.6](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-6).
 * The [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) no longer requires a beta header and now supports Claude Opus 4.6. Effort replaces `budget_tokens` for controlling thinking depth on new models.
-* We've launched the [compaction API](https://platform.claude.com/docs/en/build-with-claude/compaction) in beta, providing server-side context summarization for effectively infinite conversations. Available on Opus 4.6.
+* We've launched the [compaction API](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) in beta, providing server-side context summarization for effectively infinite conversations. Available on Opus 4.6.
 * We've introduced [data residency controls](https://platform.claude.com/docs/en/manage-claude/data-residency), allowing you to specify where model inference runs with the `inference_geo` parameter. US-only inference is available at 1.1x pricing for models released after February 1, 2026.
 * The [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) is now available in beta for Claude Opus 4.6, in addition to Sonnet 4.5 and Sonnet 4. [Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing) applies to requests exceeding 200k input tokens.
 * [Fine-grained tool streaming](https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming) no longer requires a beta header on any model or platform.

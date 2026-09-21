@@ -63,7 +63,11 @@ List Deployment Runs
 
     - `"schedule"`
 
+      The run was fired by the deployment's cron schedule.
+
     - `"manual"`
+
+      The run was started manually by creating a session directly against the deployment.
 
   - `betas?: Array<AnthropicBeta>`
 

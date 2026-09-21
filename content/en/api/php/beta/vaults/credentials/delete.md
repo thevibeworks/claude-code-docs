@@ -15,13 +15,21 @@ Delete Credential
 
 - `vaultID: string`
 
+  Identifier of the vault containing the credential.
+
 - `credentialID: string`
+
+  Unique identifier of the credential to delete.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

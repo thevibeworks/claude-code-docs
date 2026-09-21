@@ -15,7 +15,11 @@ Validate Credential
 
 - `vault_id: str`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: str`
+
+  Unique identifier of the credential to validate.
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -119,6 +123,10 @@ Validate Credential
 
 - `workspace_id: Optional[str]`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `class BetaManagedAgentsCredentialValidation`
@@ -177,13 +185,26 @@ Validate Credential
 
       Outcome of a refresh-token exchange attempted during credential validation.
 
+      - `succeeded` - The token endpoint returned a new access token.
+      - `failed` - The token endpoint returned an error response. See `http_response` for detail.
+      - `connect_error` - The token endpoint could not be reached (DNS, TLS, or connection error).
+      - `no_refresh_token` - No refresh token is stored for the credential, so no exchange was attempted.
+
       - `"succeeded"`
+
+        The token endpoint returned a new access token.
 
       - `"failed"`
 
+        The token endpoint returned an error response. See `http_response` for detail.
+
       - `"connect_error"`
 
+        The token endpoint could not be reached (DNS, TLS, or connection error).
+
       - `"no_refresh_token"`
+
+        No refresh token is stored for the credential, so no exchange was attempted.
 
   - `status: BetaManagedAgentsCredentialValidationStatus`
 
@@ -191,9 +212,15 @@ Validate Credential
 
     - `"valid"`
 
+      The credential successfully authenticated against its MCP server.
+
     - `"invalid"`
 
+      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
     - `"unknown"`
+
+      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
   - `validated_at: datetime`
 

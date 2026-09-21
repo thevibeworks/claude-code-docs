@@ -15,19 +15,25 @@ Retrieve a memory
 
 - `memoryID: string`
 
+  The ID of the memory to retrieve (`mem_...`).
+
 - `params: MemoryRetrieveParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the memory (`memstore_...`).
 
   - `view?: BetaManagedAgentsMemoryView`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `betas?: Array<AnthropicBeta>`
 

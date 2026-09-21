@@ -17,6 +17,8 @@ Get Agent
 
   - `Optional<String> agentId`
 
+    Unique identifier of the agent to retrieve.
+
   - `Optional<Long> version`
 
     Agent version. Omit for the most recent version. Must be at least 1 if specified.
@@ -120,6 +122,10 @@ Get Agent
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

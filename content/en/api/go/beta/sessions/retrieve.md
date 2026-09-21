@@ -921,11 +921,19 @@ Get Session
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 

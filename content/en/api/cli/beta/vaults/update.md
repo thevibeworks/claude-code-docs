@@ -15,7 +15,7 @@ Update Vault
 
 - `--vault-id: string`
 
-  Path param: Path parameter vault_id
+  Path param: Unique identifier of the vault to update.
 
 - `--display-name: optional string`
 

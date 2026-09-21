@@ -517,6 +517,10 @@ Create Deployment
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsDeployment`
@@ -1003,7 +1007,11 @@ Create Deployment
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -1163,7 +1171,11 @@ List Deployments
 
   - `:active`
 
+    The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
   - `:paused`
+
+    The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -1266,6 +1278,10 @@ List Deployments
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1753,7 +1769,11 @@ List Deployments
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -1879,6 +1899,8 @@ Get Deployment
 
 - `deployment_id: String`
 
+  Unique identifier of the deployment.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -1980,6 +2002,10 @@ Get Deployment
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -2467,7 +2493,11 @@ Get Deployment
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -2587,6 +2617,8 @@ Update Deployment
 ### Parameters
 
 - `deployment_id: String`
+
+  Unique identifier of the deployment to update.
 
 - `agent: String | BetaManagedAgentsAgentParams`
 
@@ -3090,6 +3122,10 @@ Update Deployment
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsDeployment`
@@ -3576,7 +3612,11 @@ Update Deployment
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -3697,6 +3737,8 @@ Archive Deployment
 
 - `deployment_id: String`
 
+  Unique identifier of the deployment to archive.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -3798,6 +3840,10 @@ Archive Deployment
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -4285,7 +4331,11 @@ Archive Deployment
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -4406,6 +4456,8 @@ Run Deployment Now
 
 - `deployment_id: String`
 
+  Unique identifier of the deployment to run.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -4507,6 +4559,10 @@ Run Deployment Now
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -4781,6 +4837,8 @@ Pause Deployment
 
 - `deployment_id: String`
 
+  Unique identifier of the deployment to pause.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -4882,6 +4940,10 @@ Pause Deployment
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -5369,7 +5431,11 @@ Pause Deployment
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -5490,6 +5556,8 @@ Unpause Deployment
 
 - `deployment_id: String`
 
+  Unique identifier of the deployment to unpause.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -5591,6 +5659,10 @@ Unpause Deployment
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -6078,7 +6150,11 @@ Unpause Deployment
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -6733,7 +6809,11 @@ puts(beta_managed_agents_deployment)
 
     - `:active`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `:paused`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `updated_at: Time`
 
@@ -7409,7 +7489,11 @@ puts(beta_managed_agents_deployment)
 
   - `:active`
 
+    The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
   - `:paused`
+
+    The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
 ### Beta Managed Agents Deployment System Message Event
 

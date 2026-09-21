@@ -17,6 +17,8 @@ Update Deployment
 
   - `Optional<String> deploymentId`
 
+    Unique identifier of the deployment to update.
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -114,6 +116,10 @@ Update Deployment
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
   - `Optional<Agent> agent`
 
@@ -973,7 +979,11 @@ Update Deployment
 
     - `ACTIVE("active")`
 
+      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
+
     - `PAUSED("paused")`
+
+      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
 
   - `LocalDateTime updatedAt`
 

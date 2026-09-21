@@ -15,7 +15,7 @@ Create Enrollment URL
 
 - `--user-profile-id: string`
 
-  Path parameter user_profile_id
+  The ID of the user profile to create an enrollment URL for (`uprof_...`).
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -30,6 +30,8 @@ Create Enrollment URL
 ## Returns
 
 - `beta_user_profile_enrollment_url: object`
+
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
 
   - `type: "enrollment_url"`
 

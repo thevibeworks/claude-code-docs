@@ -15,11 +15,11 @@ Update Session Resource
 
 - `--session-id: string`
 
-  Path param: Path parameter session_id
+  Path param
 
 - `--resource-id: string`
 
-  Path param: Path parameter resource_id
+  Path param
 
 - `--authorization-token: string`
 

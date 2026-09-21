@@ -19,7 +19,7 @@ Stream Session Thread Events
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `EventDeltas param.Field[[]BetaManagedAgentsDeltaType] Optional`
 

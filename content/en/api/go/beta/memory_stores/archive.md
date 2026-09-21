@@ -15,6 +15,8 @@ Archive a memory store
 
 - `memoryStoreID string`
 
+  ID of the memory store to archive (a `memstore_...` identifier). Required. Archiving is one-way and idempotent; archived stores cannot be unarchived. Enumerate IDs via `GET /v1/memory_stores`.
+
 - `body BetaMemoryStoreArchiveParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

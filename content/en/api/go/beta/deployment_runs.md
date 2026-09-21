@@ -460,6 +460,8 @@ Get Deployment Run
 
 - `deploymentRunID string`
 
+  Unique identifier of the deployment run.
+
 - `query BetaDeploymentRunGetParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -1270,7 +1272,11 @@ func main() {
 
   - `const BetaManagedAgentsTriggerTypeSchedule BetaManagedAgentsTriggerType = "schedule"`
 
+    The run was fired by the deployment's cron schedule.
+
   - `const BetaManagedAgentsTriggerTypeManual BetaManagedAgentsTriggerType = "manual"`
+
+    The run was started manually by creating a session directly against the deployment.
 
 ### Beta Managed Agents Unknown Run Error
 

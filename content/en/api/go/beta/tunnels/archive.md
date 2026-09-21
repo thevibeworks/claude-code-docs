@@ -17,6 +17,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `tunnelID string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `body BetaTunnelArchiveParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

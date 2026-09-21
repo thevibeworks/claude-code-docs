@@ -15,11 +15,13 @@ Update Credential
 
 - `credentialID string`
 
+  Unique identifier of the credential to update.
+
 - `params BetaVaultCredentialUpdateParams`
 
   - `VaultID param.Field[string]`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault containing the credential.
 
   - `Auth param.Field[BetaVaultCredentialUpdateParamsAuthUnion] Optional`
 

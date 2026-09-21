@@ -17,11 +17,11 @@ List memory versions
 
   - `required string memoryStoreID`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store whose version history to list (`memstore_...`).
 
   - `string apiKeyID`
 
-    Query param: Query parameter for api_key_id
+    Query param: Return only versions written with the API key that has this ID.
 
   - `DateTimeOffset createdAtGte`
 
@@ -37,33 +37,35 @@ List memory versions
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param: The maximum number of versions to return per page. Defaults to 20.
 
     format: int32
 
   - `string memoryID`
 
-    Query param: Query parameter for memory_id
+    Query param: Return only versions of the memory with this ID (`mem_...`).
+
+    The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
   - `BetaManagedAgentsMemoryVersionOperation operation`
 
-    Query param: Query parameter for operation
+    Query param: Return only versions that record this kind of change.
 
   - `string page`
 
-    Query param: Query parameter for page
+    Query param: The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
   - `string serviceAccountID`
 
-    Query param: Query parameter for service_account_id
+    Query param: Return only versions written by the service account with this ID (`svac_...`).
 
   - `string sessionID`
 
-    Query param: Query parameter for session_id
+    Query param: Return only versions written by the session with this ID.
 
   - `BetaManagedAgentsMemoryView view`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -199,9 +201,15 @@ List memory versions
 
     - `Created("created")`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `Modified("modified")`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `Deleted("deleted")`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `string? Content`
 

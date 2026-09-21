@@ -15,7 +15,7 @@ Delete Vault
 
 - `--vault-id: string`
 
-  Path parameter vault_id
+  Unique identifier of the vault to delete.
 
 - `--beta: optional array of AnthropicBeta`
 

@@ -15,7 +15,7 @@ Run Deployment Now
 
 - `--deployment-id: string`
 
-  Path parameter deployment_id
+  Unique identifier of the deployment to run.
 
 - `--beta: optional array of AnthropicBeta`
 

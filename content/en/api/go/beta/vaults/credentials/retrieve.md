@@ -15,11 +15,13 @@ Get Credential
 
 - `credentialID string`
 
+  Unique identifier of the credential to retrieve.
+
 - `params BetaVaultCredentialGetParams`
 
   - `VaultID param.Field[string]`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault containing the credential.
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 

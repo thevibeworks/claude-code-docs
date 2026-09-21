@@ -15,6 +15,8 @@ Run Deployment Now
 
 - `deploymentID string`
 
+  Unique identifier of the deployment to run.
+
 - `body BetaDeploymentRunParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

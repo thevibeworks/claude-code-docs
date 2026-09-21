@@ -19,6 +19,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: CertificateCreateParams`
 
   - `ca_certificate_pem: string`
@@ -215,11 +217,13 @@ Fetches a tunnel certificate by ID.
 
 - `certificateID: string`
 
+  ID of the certificate (`tcrt_...`).
+
 - `params: CertificateRetrieveParams`
 
   - `tunnel_id: string`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -409,6 +413,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 ### Parameters
 
 - `tunnelID: string`
+
+  ID of the tunnel (`tnl_...`).
 
 - `params: CertificateListParams`
 
@@ -618,11 +624,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `certificateID: string`
 
+  ID of the certificate to archive (`tcrt_...`).
+
 - `params: CertificateArchiveParams`
 
   - `tunnel_id: string`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `betas?: Array<AnthropicBeta>`
 

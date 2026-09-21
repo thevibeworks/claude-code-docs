@@ -155,13 +155,23 @@ Create Session
 
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelLow BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "low"`
 
+                Low effort. Favors latency over reasoning depth.
+
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMedium BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "medium"`
+
+                Medium effort. Balances latency and reasoning depth.
 
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelHigh BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "high"`
 
+                High effort. Favors reasoning depth.
+
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelXhigh BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "xhigh"`
 
+                Extra-high effort. Not all models accept this level.
+
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMax BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "max"`
+
+                Maximum effort. Favors reasoning depth over latency.
 
             - `type BetaManagedAgentsEffortLow`
 
@@ -1911,11 +1921,19 @@ Create Session
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 

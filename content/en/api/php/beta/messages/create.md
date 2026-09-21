@@ -273,6 +273,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `workspaceID?:optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 - `outputFormat?:optional BetaJSONOutputFormat`
 
   **Deprecated**
@@ -368,8 +372,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaDiagnostics diagnostics`
 
-    Response envelope for request-level diagnostics. Present (possibly
-    null) whenever the caller supplied `diagnostics` on the request.
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
 
   - `Model model`
 

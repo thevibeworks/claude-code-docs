@@ -157,13 +157,23 @@ Create Session
 
               - `"low"`
 
+                Low effort. Favors latency over reasoning depth.
+
               - `"medium"`
+
+                Medium effort. Balances latency and reasoning depth.
 
               - `"high"`
 
+                High effort. Favors reasoning depth.
+
               - `"xhigh"`
 
+                Extra-high effort. Not all models accept this level.
+
               - `"max"`
+
+                Maximum effort. Favors reasoning depth over latency.
 
             - `interface BetaManagedAgentsEffortLow`
 
@@ -1921,13 +1931,26 @@ Create Session
 
     SessionStatus enum
 
+    - `rescheduling` - Transient error occurred, retrying automatically.
+    - `running` - Agent is actively executing.
+    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+    - `terminated` - Session has ended, either due to an error or completion.
+
     - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
 
     - `"running"`
 
+      Agent is actively executing.
+
     - `"idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `"terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `title: string | null`
 

@@ -17,7 +17,7 @@ List Credentials
 
   - `required string vaultID`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault to list credentials for.
 
   - `bool includeArchived`
 

@@ -157,13 +157,23 @@ Create Session
 
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelLow BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "low"`
 
+                Low effort. Favors latency over reasoning depth.
+
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMedium BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "medium"`
+
+                Medium effort. Balances latency and reasoning depth.
 
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelHigh BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "high"`
 
+                High effort. Favors reasoning depth.
+
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelXhigh BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "xhigh"`
 
+                Extra-high effort. Not all models accept this level.
+
               - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMax BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "max"`
+
+                Maximum effort. Favors reasoning depth over latency.
 
             - `type BetaManagedAgentsEffortLow`
 
@@ -1913,11 +1923,19 @@ Create Session
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 
@@ -2305,11 +2323,19 @@ List Sessions
 
     - `const BetaSessionListParamsStatusRescheduling BetaSessionListParamsStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaSessionListParamsStatusRunning BetaSessionListParamsStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaSessionListParamsStatusIdle BetaSessionListParamsStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaSessionListParamsStatusTerminated BetaSessionListParamsStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -3215,11 +3241,19 @@ List Sessions
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 
@@ -4444,11 +4478,19 @@ Get Session
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 
@@ -5693,11 +5735,19 @@ Update Session
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 
@@ -7088,11 +7138,19 @@ Archive Session
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 
@@ -7571,13 +7629,23 @@ func main() {
 
           - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelLow BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "low"`
 
+            Low effort. Favors latency over reasoning depth.
+
           - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMedium BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "medium"`
+
+            Medium effort. Balances latency and reasoning depth.
 
           - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelHigh BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "high"`
 
+            High effort. Favors reasoning depth.
+
           - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelXhigh BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "xhigh"`
 
+            Extra-high effort. Not all models accept this level.
+
           - `const BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevelMax BetaManagedAgentsModelConfigParamsEffortBetaManagedAgentsEffortLevel = "max"`
+
+            Maximum effort. Favors reasoning depth over latency.
 
         - `type BetaManagedAgentsEffortLow`
 
@@ -9321,11 +9389,19 @@ func main() {
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 
@@ -12179,7 +12255,7 @@ List Events
 
   - `Limit param.Field[int64] Optional`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
@@ -18555,7 +18631,7 @@ Get Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -18835,7 +18911,7 @@ Update Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `AuthorizationToken param.Field[string]`
 
@@ -19122,7 +19198,7 @@ Delete Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -19426,7 +19502,7 @@ List Session Threads
 
   - `Agent BetaManagedAgentsSessionThreadAgentUnion`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `type BetaManagedAgentsSessionThreadAgent`
 
@@ -20233,7 +20309,7 @@ Get Session Thread
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -20355,7 +20431,7 @@ Get Session Thread
 
   - `Agent BetaManagedAgentsSessionThreadAgentUnion`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `type BetaManagedAgentsSessionThreadAgent`
 
@@ -21159,7 +21235,7 @@ Archive Session Thread
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -21281,7 +21357,7 @@ Archive Session Thread
 
   - `Agent BetaManagedAgentsSessionThreadAgentUnion`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `type BetaManagedAgentsSessionThreadAgent`
 
@@ -22087,17 +22163,17 @@ List Session Thread Events
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `Limit param.Field[int64] Optional`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `Page param.Field[string] Optional`
 
-    Query param: Query parameter for page
+    Query param
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -24505,7 +24581,7 @@ Stream Session Thread Events
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `EventDeltas param.Field[[]BetaManagedAgentsDeltaType] Optional`
 

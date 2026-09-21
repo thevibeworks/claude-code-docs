@@ -19,7 +19,7 @@ Fetches a tunnel by ID.
 
   - `required string tunnelID`
 
-    Path parameter tunnel_id
+    ID of the tunnel (`tnl_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

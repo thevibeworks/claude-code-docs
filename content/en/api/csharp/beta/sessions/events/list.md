@@ -17,7 +17,7 @@ List Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `DateTimeOffset createdAtGt`
 
@@ -45,7 +45,7 @@ List Events
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 

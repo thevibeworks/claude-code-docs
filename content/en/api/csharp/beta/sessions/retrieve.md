@@ -17,8 +17,6 @@ Get Session
 
   - `required string sessionID`
 
-    Path parameter session_id
-
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -911,11 +909,19 @@ Get Session
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 

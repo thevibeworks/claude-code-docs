@@ -15,7 +15,7 @@ List Session Resources
 
 - `--session-id: string`
 
-  Path param: Path parameter session_id
+  Path param
 
 - `--limit: optional number`
 

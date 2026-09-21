@@ -15,6 +15,8 @@ Create Enrollment URL
 
 - `userProfileID string`
 
+  The ID of the user profile to create an enrollment URL for (`uprof_...`).
+
 - `body BetaUserProfileNewEnrollmentURLParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
@@ -126,6 +128,8 @@ Create Enrollment URL
 ## Returns
 
 - `type BetaUserProfileEnrollmentURL`
+
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
 
   - `Type BetaUserProfileEnrollmentURLType`
 

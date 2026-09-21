@@ -17,6 +17,8 @@ List Credentials
 
   - `Optional<String> vaultId`
 
+    Identifier of the vault to list credentials for.
+
   - `Optional<Boolean> includeArchived`
 
     Whether to include archived credentials in the results.
@@ -128,6 +130,10 @@ List Credentials
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

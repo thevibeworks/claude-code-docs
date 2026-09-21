@@ -15,11 +15,13 @@ Validate Credential
 
 - `credentialID: string`
 
+  Unique identifier of the credential to validate.
+
 - `params: CredentialMCPOAuthValidateParams`
 
   - `vault_id: string`
 
-    Path param: Path parameter vault_id
+    Path param: Identifier of the vault containing the credential.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -185,13 +187,26 @@ Validate Credential
 
       Outcome of a refresh-token exchange attempted during credential validation.
 
+      - `succeeded` - The token endpoint returned a new access token.
+      - `failed` - The token endpoint returned an error response. See `http_response` for detail.
+      - `connect_error` - The token endpoint could not be reached (DNS, TLS, or connection error).
+      - `no_refresh_token` - No refresh token is stored for the credential, so no exchange was attempted.
+
       - `"succeeded"`
+
+        The token endpoint returned a new access token.
 
       - `"failed"`
 
+        The token endpoint returned an error response. See `http_response` for detail.
+
       - `"connect_error"`
 
+        The token endpoint could not be reached (DNS, TLS, or connection error).
+
       - `"no_refresh_token"`
+
+        No refresh token is stored for the credential, so no exchange was attempted.
 
   - `status: BetaManagedAgentsCredentialValidationStatus`
 
@@ -199,9 +214,15 @@ Validate Credential
 
     - `"valid"`
 
+      The credential successfully authenticated against its MCP server.
+
     - `"invalid"`
 
+      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
     - `"unknown"`
+
+      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
   - `validated_at: string`
 

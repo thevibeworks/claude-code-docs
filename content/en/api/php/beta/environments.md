@@ -41,6 +41,10 @@ Create a new environment with the specified configuration.
 
 - `workspaceID?:optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment`
@@ -205,6 +209,10 @@ List environments with pagination support.
 
 - `workspaceID?:optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironment`
@@ -340,6 +348,10 @@ Retrieve a specific environment by ID.
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -489,6 +501,10 @@ Update an existing environment's configuration.
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -641,6 +657,10 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 - `workspaceID?:optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaEnvironmentDeleteResponse`
@@ -697,6 +717,10 @@ Archive an environment by ID. Archived environments cannot be used to create new
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1054,6 +1078,10 @@ Retrieve detailed information about a specific work item.
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 
@@ -1521,6 +1549,10 @@ Stop a work item, initiating graceful or forced shutdown.
 
 - `workspaceID?:optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class SelfHostedWork`
@@ -1781,6 +1813,10 @@ Update work item metadata with merge semantics.
 
 - `workspaceID?:optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Returns
 
 - `class SelfHostedWork`
@@ -1899,6 +1935,10 @@ Get statistics about the work queue for an environment.
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 

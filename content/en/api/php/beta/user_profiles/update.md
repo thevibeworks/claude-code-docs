@@ -15,6 +15,8 @@ Update User Profile
 
 - `userProfileID: string`
 
+  The ID of the user profile to update (`uprof_...`).
+
 - `accessType?:optional AccessType`
 
   How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
@@ -44,6 +46,10 @@ Update User Profile
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

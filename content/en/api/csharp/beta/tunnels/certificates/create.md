@@ -19,7 +19,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `required string caCertificatePem`
 

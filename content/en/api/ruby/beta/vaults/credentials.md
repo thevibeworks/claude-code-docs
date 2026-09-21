@@ -17,6 +17,8 @@ Create Credential
 
 - `vault_id: String`
 
+  Identifier of the vault to create the credential in.
+
 - `auth: BetaManagedAgentsMCPOAuthCreateParams | BetaManagedAgentsStaticBearerCreateParams | BetaManagedAgentsEnvironmentVariableCreateParams`
 
   Authentication details for creating a credential.
@@ -291,6 +293,10 @@ Create Credential
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsCredential`
@@ -497,6 +503,8 @@ List Credentials
 
 - `vault_id: String`
 
+  Identifier of the vault to list credentials for.
+
 - `include_archived: bool`
 
   Whether to include archived credentials in the results.
@@ -612,6 +620,10 @@ List Credentials
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -817,7 +829,11 @@ Get Credential
 
 - `vault_id: String`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: String`
+
+  Unique identifier of the credential to retrieve.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -920,6 +936,10 @@ Get Credential
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1123,7 +1143,11 @@ Update Credential
 
 - `vault_id: String`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: String`
+
+  Unique identifier of the credential to update.
 
 - `auth: BetaManagedAgentsMCPOAuthUpdateParams | BetaManagedAgentsStaticBearerUpdateParams | BetaManagedAgentsEnvironmentVariableUpdateParams`
 
@@ -1357,6 +1381,10 @@ Update Credential
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsCredential`
@@ -1559,7 +1587,11 @@ Delete Credential
 
 - `vault_id: String`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: String`
+
+  Unique identifier of the credential to delete.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -1662,6 +1694,10 @@ Delete Credential
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -1711,7 +1747,11 @@ Archive Credential
 
 - `vault_id: String`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: String`
+
+  Unique identifier of the credential to archive.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -1814,6 +1854,10 @@ Archive Credential
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -2017,7 +2061,11 @@ Validate Credential
 
 - `vault_id: String`
 
+  Identifier of the vault containing the credential.
+
 - `credential_id: String`
+
+  Unique identifier of the credential to validate.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -2121,6 +2169,10 @@ Validate Credential
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaManagedAgentsCredentialValidation`
@@ -2181,11 +2233,19 @@ Validate Credential
 
       - `:succeeded`
 
+        The token endpoint returned a new access token.
+
       - `:failed`
+
+        The token endpoint returned an error response. See `http_response` for detail.
 
       - `:connect_error`
 
+        The token endpoint could not be reached (DNS, TLS, or connection error).
+
       - `:no_refresh_token`
+
+        No refresh token is stored for the credential, so no exchange was attempted.
 
   - `status: BetaManagedAgentsCredentialValidationStatus`
 
@@ -2193,9 +2253,15 @@ Validate Credential
 
     - `:valid`
 
+      The credential successfully authenticated against its MCP server.
+
     - `:invalid`
 
+      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
     - `:unknown`
+
+      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
   - `validated_at: Time`
 
@@ -2489,11 +2555,19 @@ puts(beta_managed_agents_credential_validation)
 
       - `:succeeded`
 
+        The token endpoint returned a new access token.
+
       - `:failed`
+
+        The token endpoint returned an error response. See `http_response` for detail.
 
       - `:connect_error`
 
+        The token endpoint could not be reached (DNS, TLS, or connection error).
+
       - `:no_refresh_token`
+
+        No refresh token is stored for the credential, so no exchange was attempted.
 
   - `status: BetaManagedAgentsCredentialValidationStatus`
 
@@ -2501,9 +2575,15 @@ puts(beta_managed_agents_credential_validation)
 
     - `:valid`
 
+      The credential successfully authenticated against its MCP server.
+
     - `:invalid`
 
+      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
     - `:unknown`
+
+      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
   - `validated_at: Time`
 
@@ -2523,9 +2603,15 @@ puts(beta_managed_agents_credential_validation)
 
   - `:valid`
 
+    The credential successfully authenticated against its MCP server.
+
   - `:invalid`
 
+    The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
   - `:unknown`
+
+    The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
 ### Beta Managed Agents Deleted Credential
 
@@ -3203,11 +3289,19 @@ puts(beta_managed_agents_credential_validation)
 
     - `:succeeded`
 
+      The token endpoint returned a new access token.
+
     - `:failed`
+
+      The token endpoint returned an error response. See `http_response` for detail.
 
     - `:connect_error`
 
+      The token endpoint could not be reached (DNS, TLS, or connection error).
+
     - `:no_refresh_token`
+
+      No refresh token is stored for the credential, so no exchange was attempted.
 
 ### Beta Managed Agents Static Bearer Auth Response
 

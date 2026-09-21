@@ -17,7 +17,7 @@ List Agent Versions
 
 - `--agent-id: string`
 
-  Path param: Path parameter agent_id
+  Path param: Agent ID to list versions for.
 
 - `--limit: optional number`
 

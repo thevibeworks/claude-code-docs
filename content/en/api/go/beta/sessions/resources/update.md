@@ -19,7 +19,7 @@ Update Session Resource
 
   - `SessionID param.Field[string]`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `AuthorizationToken param.Field[string]`
 

@@ -17,7 +17,7 @@ Archive a memory store
 
   - `required string memoryStoreID`
 
-    Path parameter memory_store_id
+    ID of the memory store to archive (a `memstore_...` identifier). Required. Archiving is one-way and idempotent; archived stores cannot be unarchived. Enumerate IDs via `GET /v1/memory_stores`.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

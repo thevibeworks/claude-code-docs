@@ -15,6 +15,8 @@ Delete Vault
 
 - `vault_id: String`
 
+  Unique identifier of the vault to delete.
+
 - `betas: Array[AnthropicBeta]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -116,6 +118,10 @@ Delete Vault
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

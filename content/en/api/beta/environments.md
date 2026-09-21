@@ -115,6 +115,10 @@ Create a new environment with the specified configuration.
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Body parameters
 
 - `name: string`
@@ -578,6 +582,10 @@ List environments with pagination support.
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `data: array of BetaEnvironment`
@@ -893,6 +901,10 @@ Retrieve a specific environment by ID.
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `BetaEnvironment object`
@@ -1198,6 +1210,10 @@ Update an existing environment's configuration.
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Body parameters
 
@@ -1631,6 +1647,10 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `BetaEnvironmentDeleteResponse object`
@@ -1779,6 +1799,10 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -2559,6 +2583,10 @@ Retrieve detailed information about a specific work item.
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 
@@ -3461,6 +3489,10 @@ Stop a work item, initiating graceful or forced shutdown.
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Body parameters
 
 - `force: optional boolean`
@@ -3956,6 +3988,10 @@ Update work item metadata with merge semantics.
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 #### Body parameters
 
 - `metadata: map[string]`
@@ -4197,6 +4233,10 @@ Get statistics about the work queue for an environment.
     - `"compact-2026-09-04"`
 
 - `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 #### Returns
 

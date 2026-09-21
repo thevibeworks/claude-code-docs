@@ -17,6 +17,8 @@ Fetches a tunnel by ID.
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: TunnelRetrieveParams`
 
   - `betas?: Array<AnthropicBeta>`

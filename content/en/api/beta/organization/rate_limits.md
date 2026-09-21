@@ -67,23 +67,87 @@ the remaining entries.
 
   - `id: string`
 
-    Stable identifier for this rate-limit group within the organization.
+    Identifier of this rate-limit entry. It is stable within the organization and differs between organizations; the group's own identifier is `group.id`.
 
-  - `group_type: "batch" or "files" or "model_group" or 3 more`
+  - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
 
-    The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`.
+    The rate-limit group this entry's limits apply to. Its `type` equals `group_type`.
 
-    - `"batch"`
+    - `BetaOrganizationRateLimitModelGroup object`
 
-    - `"files"`
+      - `type: "model_group"`
 
-    - `"model_group"`
+        Always `model_group`: a family of models.
 
-    - `"skills"`
+        default: model_group
 
-    - `"token_count"`
+      - `id: string`
 
-    - `"web_search"`
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+      - `display_name: string`
+
+        Human-readable name of the model group (for example, `Claude Sonnet 4.x`). For display only; it may change.
+
+    - `BetaOrganizationRateLimitBatchGroup object`
+
+      - `type: "batch"`
+
+        Always `batch`: the Message Batches API.
+
+        default: batch
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitTokenCountGroup object`
+
+      - `type: "token_count"`
+
+        Always `token_count`: the Token Count API.
+
+        default: token_count
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitFilesGroup object`
+
+      - `type: "files"`
+
+        Always `files`: the Files API.
+
+        default: files
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitSkillsGroup object`
+
+      - `type: "skills"`
+
+        Always `skills`: the Skills API.
+
+        default: skills
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitWebSearchGroup object`
+
+      - `type: "web_search"`
+
+        Always `web_search`: the Messages API web search tool.
+
+        default: web_search
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
 
   - `limits: array of BetaOrganizationRateLimitValue`
 
@@ -100,6 +164,24 @@ the remaining entries.
   - `models: array of string or null`
 
     Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
+
+  - `group_type: "batch" or "files" or "model_group" or 3 more`
+
+    **Deprecated**: Use `group.type` instead. `group_type` is still returned and always equals `group.type`.
+
+    Deprecated: use `group.type` instead. The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`. Always equal to `group.type`.
+
+    - `"batch"`
+
+    - `"files"`
+
+    - `"model_group"`
+
+    - `"skills"`
+
+    - `"token_count"`
+
+    - `"web_search"`
 
 - `next_page: string or null`
 
@@ -120,6 +202,11 @@ curl https://api.anthropic.com/v1/organizations/rate_limits \
   "data": [
     {
       "id": "id",
+      "group": {
+        "id": "id",
+        "display_name": "display_name",
+        "type": "model_group"
+      },
       "group_type": "batch",
       "limits": [
         {
@@ -151,23 +238,87 @@ curl https://api.anthropic.com/v1/organizations/rate_limits \
 
   - `id: string`
 
-    Stable identifier for this rate-limit group within the organization.
+    Identifier of this rate-limit entry. It is stable within the organization and differs between organizations; the group's own identifier is `group.id`.
 
-  - `group_type: "batch" or "files" or "model_group" or 3 more`
+  - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
 
-    The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`.
+    The rate-limit group this entry's limits apply to. Its `type` equals `group_type`.
 
-    - `"batch"`
+    - `BetaOrganizationRateLimitModelGroup object`
 
-    - `"files"`
+      - `type: "model_group"`
 
-    - `"model_group"`
+        Always `model_group`: a family of models.
 
-    - `"skills"`
+        default: model_group
 
-    - `"token_count"`
+      - `id: string`
 
-    - `"web_search"`
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+      - `display_name: string`
+
+        Human-readable name of the model group (for example, `Claude Sonnet 4.x`). For display only; it may change.
+
+    - `BetaOrganizationRateLimitBatchGroup object`
+
+      - `type: "batch"`
+
+        Always `batch`: the Message Batches API.
+
+        default: batch
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitTokenCountGroup object`
+
+      - `type: "token_count"`
+
+        Always `token_count`: the Token Count API.
+
+        default: token_count
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitFilesGroup object`
+
+      - `type: "files"`
+
+        Always `files`: the Files API.
+
+        default: files
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitSkillsGroup object`
+
+      - `type: "skills"`
+
+        Always `skills`: the Skills API.
+
+        default: skills
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitWebSearchGroup object`
+
+      - `type: "web_search"`
+
+        Always `web_search`: the Messages API web search tool.
+
+        default: web_search
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
 
   - `limits: array of BetaOrganizationRateLimitValue`
 
@@ -185,6 +336,98 @@ curl https://api.anthropic.com/v1/organizations/rate_limits \
 
     Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
 
+  - `group_type: "batch" or "files" or "model_group" or 3 more`
+
+    **Deprecated**: Use `group.type` instead. `group_type` is still returned and always equals `group.type`.
+
+    Deprecated: use `group.type` instead. The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`. Always equal to `group.type`.
+
+    - `"batch"`
+
+    - `"files"`
+
+    - `"model_group"`
+
+    - `"skills"`
+
+    - `"token_count"`
+
+    - `"web_search"`
+
+### Beta Organization Rate Limit Batch Group
+
+- `BetaOrganizationRateLimitBatchGroup object`
+
+  - `type: "batch"`
+
+    Always `batch`: the Message Batches API.
+
+    default: batch
+
+  - `id: string`
+
+    Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+### Beta Organization Rate Limit Files Group
+
+- `BetaOrganizationRateLimitFilesGroup object`
+
+  - `type: "files"`
+
+    Always `files`: the Files API.
+
+    default: files
+
+  - `id: string`
+
+    Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+### Beta Organization Rate Limit Model Group
+
+- `BetaOrganizationRateLimitModelGroup object`
+
+  - `type: "model_group"`
+
+    Always `model_group`: a family of models.
+
+    default: model_group
+
+  - `id: string`
+
+    Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+  - `display_name: string`
+
+    Human-readable name of the model group (for example, `Claude Sonnet 4.x`). For display only; it may change.
+
+### Beta Organization Rate Limit Skills Group
+
+- `BetaOrganizationRateLimitSkillsGroup object`
+
+  - `type: "skills"`
+
+    Always `skills`: the Skills API.
+
+    default: skills
+
+  - `id: string`
+
+    Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+### Beta Organization Rate Limit Token Count Group
+
+- `BetaOrganizationRateLimitTokenCountGroup object`
+
+  - `type: "token_count"`
+
+    Always `token_count`: the Token Count API.
+
+    default: token_count
+
+  - `id: string`
+
+    Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
 ### Beta Organization Rate Limit Value
 
 - `BetaOrganizationRateLimitValue object`
@@ -196,3 +439,17 @@ curl https://api.anthropic.com/v1/organizations/rate_limits \
   - `value: number`
 
     The configured limit value for this limiter type.
+
+### Beta Organization Rate Limit Web Search Group
+
+- `BetaOrganizationRateLimitWebSearchGroup object`
+
+  - `type: "web_search"`
+
+    Always `web_search`: the Messages API web search tool.
+
+    default: web_search
+
+  - `id: string`
+
+    Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.

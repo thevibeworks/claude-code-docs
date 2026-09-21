@@ -7,11 +7,17 @@ url: https://platform.claude.com/docs/en/api/beta/dreams/archive
 
 **POST** `/v1/dreams/{dream_id}/archive`
 
-Archive a Dream
+Hide a `completed`, `failed`, or `canceled` dream from the default list of dreams.
+
+Archiving a `pending` or `running` dream returns a 400 error, so cancel it first. Archiving an archived dream returns it unchanged. An archived dream can still be fetched by ID. Archiving can't be undone.
+
+See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#archive-a-dream) to learn more about archiving dreams.
 
 ## Path parameters
 
 - `dream_id: string`
+
+  The ID of the dream to archive (`drm_...`).
 
 ## Headers
 
@@ -117,15 +123,25 @@ Archive a Dream
 
 - `"anthropic-workspace-id": optional string`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ## Returns
 
 - `BetaDream object`
 
-  An asynchronous memory-consolidation job that reads a memory store plus a set of session transcripts and writes consolidated memories into an output memory store — a new store by default, or an existing store chosen via output_behavior. The Dreams API is in research preview: the request and response shapes are volatile and may change without the deprecation period that applies to generally-available endpoints.
+  An asynchronous job that reads a memory store and past sessions, then writes a reorganized version of that memory store.
+
+  By default the dream writes its result to a new memory store and doesn't change the input memory store. With `output_behavior` set to `update_existing`, it writes its result into the input memory store instead. The Dreams API is in research preview, so this resource can still change.
+
+  See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#how-it-works) for what a dream reads and produces.
 
   - `type: "dream"`
 
   - `id: string`
+
+    The unique ID of the dream (`drm_...`).
 
   - `archived_at: string or null`
 
@@ -151,37 +167,61 @@ Archive a Dream
 
     - `type: string`
 
+      A code for why the dream failed, such as `timeout` or `internal_error`.
+
+      The [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#errors) lists common error codes and when they occur.
+
     - `message: string`
+
+      A human-readable explanation of why the dream failed.
 
   - `inputs: array of BetaDreamInput`
 
+    The sources that the dream reads, from the request that created it.
+
     - `BetaDreamMemoryStoreInput object`
 
-      An input memory store the dream reads from. The dream never mutates this store unless it is also the destination: with output_behavior {type: "update_existing"} the job consolidates this store in place.
+      The memory store that a dream reads, given as an entry in `inputs`.
+
+      With `output_behavior` set to `update_existing`, the dream writes its result into this memory store. Otherwise the dream doesn't change it.
 
       - `type: "memory_store"`
 
       - `memory_store_id: string`
 
+        The ID of the memory store for the dream to read (`memstore_...`).
+
+        The memory store must be in the same workspace as the dream and must not be archived.
+
         minLength: 1
 
     - `BetaDreamSessionsInput object`
 
-      Input session transcripts the dream reads.
+      The sessions that a dream reads, given as an entry in `inputs`.
 
       - `type: "sessions"`
 
       - `session_ids: array of string`
 
+        The IDs of the sessions whose transcripts the dream reads (`sesn_...`).
+
+        Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order.
+
+        The [limits table in the Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#limits) lists all the limits on a dream.
+
   - `instructions: string or null`
+
+    The guidance given when the dream was created, or `null` if none was given.
 
   - `model: BetaDreamModelConfig`
 
-    Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
+    The model that runs a dream, from the request that created it.
+
+    The dream uses this model for all of its work. The response always gives the model as an object, even if the request gave only a model ID.
 
     - `id: string`
 
-      Model identifier, e.g. "claude-opus-5". 1-256 characters.
+      The ID of the model that runs the dream, as given in the request that created it.
 
       minLength: 1, maxLength: 256
 
@@ -195,69 +235,119 @@ Archive a Dream
 
   - `output_behavior: BetaOutputBehavior`
 
+    Which memory store a dream writes its result to. Defaults to `create_new` when left out of a create request.
+
     - `BetaOutputBehaviorCreateNew object`
 
-      The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
+      Write the result to a new memory store that starts as a copy of the input memory store. This is the default.
+
+      The new memory store is in the same workspace as the dream. The dream doesn't change the input memory store.
 
       - `type: "create_new"`
 
     - `BetaOutputBehaviorUpdateExisting object`
 
-      The job writes the consolidated memories into this existing memory store instead of creating one. In EAP the store must be the job's own memory_store input, so the job consolidates the store in place.
+      Write the result into the input memory store instead of a new memory store.
+
+      The credential must be allowed to write memory stores, or the request returns a 403 error. While another `update_existing` dream on the same memory store hasn't fully stopped, the request returns a 409 error.
 
       - `type: "update_existing"`
 
       - `memory_store_id: string`
 
+        The ID of the memory store for the dream to write its result to (`memstore_...`). It must be the memory store in the `memory_store` entry of `inputs`.
+
         minLength: 1
 
   - `outputs: array of BetaDreamOutput`
+
+    The memory store that holds the dream's result, as a one-item array, or an empty array until the dream records that memory store.
+
+    The array is empty while the dream is `pending` and for a short time after it starts `running`. It can stay empty if the dream fails or is canceled before then. The memory store holds the complete result only once `status` is `completed`.
+
+    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#use-the-output) for how to review and use the result.
 
     - `type: "memory_store"`
 
     - `memory_store_id: string`
 
+      The ID of the memory store that the dream writes its result to (`memstore_...`).
+
+      With `output_behavior` set to `create_new`, this is a new memory store. With `update_existing`, it is the input memory store.
+
   - `session_id: string or null`
+
+    The ID of the session that runs the dream (`sesn_...`), or `null` if that session hasn't started.
+
+    Stream that session's events to follow what the dream reads and writes.
+
+    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#watch-the-pipeline-run) for how to watch a running dream.
 
   - `status: BetaDreamStatus`
 
-    Lifecycle status of a Dream.
+    Where a dream is in its lifecycle.
+
+    `completed`, `failed`, and `canceled` are final: once a dream has one of these statuses, its status doesn't change again.
+
+    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#lifecycle) for what each status means.
 
     - `"pending"`
 
+      The dream is waiting to start and hasn't read its inputs yet.
+
+      `outputs` is empty and every `usage` count is zero.
+
     - `"running"`
+
+      The dream is reading its inputs and writing its result.
+
+      `usage` updates while the dream has this status.
 
     - `"completed"`
 
+      The dream finished and its output memory store holds the complete result.
+
     - `"failed"`
+
+      The dream stopped with an error, which `error` describes.
+
+      If `outputs` references a memory store, that memory store keeps what the dream wrote before it stopped.
 
     - `"canceled"`
 
+      A cancel request stopped the dream before it reached `completed` or `failed`.
+
+      If `outputs` references a memory store, that memory store keeps what the dream wrote. `usage` can keep changing after the cancel.
+
   - `usage: BetaDreamUsage`
 
-    Cumulative token usage for the dream across every pipeline stage.
+    The tokens that a dream has used so far.
+
+    The counts are zero while the dream is `pending` and update while it is `running`. They can keep changing after a cancel.
+
+    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#billing) for how dreams are billed. See the [prompt caching guide](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) for how the input token counts add up.
 
     - `cache_creation_input_tokens: number`
 
-      Total tokens used to create prompt-cache entries (sum of all TTL tiers).
+      The dream's input tokens that were written to the prompt cache, for both the 5-minute and 1-hour cache durations.
 
       format: int32
 
     - `cache_read_input_tokens: number`
 
-      Total tokens read from prompt cache.
+      The dream's input tokens that were read from the prompt cache.
 
       format: int32
 
     - `input_tokens: number`
 
-      Total uncached input tokens consumed across every pipeline stage.
+      The dream's input tokens that weren't read from or written to the prompt cache.
 
       format: int32
 
     - `output_tokens: number`
 
-      Total output tokens generated across every pipeline stage.
+      The tokens that the model generated for the dream.
 
       format: int32
 

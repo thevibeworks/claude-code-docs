@@ -17,9 +17,11 @@ List memory versions
 
 - `memoryStoreID: string`
 
+  The ID of the memory store whose version history to list (`memstore_...`).
+
 - `apiKeyID?:optional string`
 
-  Query parameter for api_key_id
+  Return only versions written with the API key that has this ID.
 
 - `createdAtGte?:optional \Datetime`
 
@@ -31,37 +33,43 @@ List memory versions
 
 - `limit?:optional int`
 
-  Query parameter for limit
+  The maximum number of versions to return per page. Defaults to 20.
 
 - `memoryID?:optional string`
 
-  Query parameter for memory_id
+  Return only versions of the memory with this ID (`mem_...`).
+
+  The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
 - `operation?:optional ManagedAgentsMemoryVersionOperation`
 
-  Query parameter for operation
+  Return only versions that record this kind of change.
 
 - `page?:optional string`
 
-  Query parameter for page
+  The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
 - `serviceAccountID?:optional string`
 
-  Query parameter for service_account_id
+  Return only versions written by the service account with this ID (`svac_...`).
 
 - `sessionID?:optional string`
 
-  Query parameter for session_id
+  Return only versions written by the session with this ID.
 
 - `view?:optional ManagedAgentsMemoryView`
 
-  Query parameter for view
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -188,17 +196,25 @@ Retrieve a memory version
 
 - `memoryStoreID: string`
 
+  The ID of the memory store that holds the version (`memstore_...`).
+
 - `memoryVersionID: string`
+
+  The ID of the memory version to retrieve (`memver_...`).
 
 - `view?:optional ManagedAgentsMemoryView`
 
-  Query parameter for view
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -316,13 +332,21 @@ Redact a memory version
 
 - `memoryStoreID: string`
 
+  The ID of the memory store that holds the version (`memstore_...`).
+
 - `memoryVersionID: string`
+
+  The ID of the memory version to redact (`memver_...`).
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -535,9 +559,15 @@ var_dump($betaManagedAgentsMemoryVersion);
 
   - `"created"`
 
+    The memory was created. The first version in any memory's lineage.
+
   - `"modified"`
 
+    The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
   - `"deleted"`
+
+    The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
 ### Beta Managed Agents Service Account Actor
 

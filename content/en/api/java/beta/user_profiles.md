@@ -115,13 +115,21 @@ Create User Profile
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `Optional<AccessType> accessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -152,6 +160,10 @@ Create User Profile
 ### Returns
 
 - `class BetaUserProfile`
+
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
 
   - `Type type`
 
@@ -197,7 +209,11 @@ Create User Profile
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -213,9 +229,15 @@ Create User Profile
 
       - `ACTIVE("active")`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `SUSPENDED("suspended")`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `BLOCKED("blocked")`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Optional<String> country`
 
@@ -326,29 +348,39 @@ List User Profiles
 
   - `Optional<Long> limit`
 
-    Query parameter for limit
+    The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
     format: int32
 
   - `Optional<Order> order`
 
-    Query parameter for order
+    The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
     - `ASC("asc")`
 
+      Oldest first when `order_by` is `created_at`, or names in ascending order when `order_by` is `name`.
+
     - `DESC("desc")`
+
+      Newest first when `order_by` is `created_at`, or names in descending order when `order_by` is `name`. This is the default.
 
   - `Optional<OrderBy> orderBy`
 
-    Query parameter for order_by
+    The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
     - `CREATED_AT("created_at")`
 
+      Sort by when each user profile was created. This is the default.
+
     - `NAME("name")`
+
+      Sort by `name`, ignoring the case of ASCII letters. Profiles without a name come last in either direction.
 
   - `Optional<String> page`
 
-    Query parameter for page
+    The cursor for the page to return, taken from `next_page` in a previous response.
+
+    Leave it out to get the first page.
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -448,9 +480,17 @@ List User Profiles
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaUserProfile`
+
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
 
   - `Type type`
 
@@ -496,7 +536,11 @@ List User Profiles
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -512,9 +556,15 @@ List User Profiles
 
       - `ACTIVE("active")`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `SUSPENDED("suspended")`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `BLOCKED("blocked")`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Optional<String> country`
 
@@ -630,6 +680,8 @@ Get User Profile
 
   - `Optional<String> userProfileId`
 
+    The ID of the user profile to get (`uprof_...`).
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -728,9 +780,17 @@ Get User Profile
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaUserProfile`
+
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
 
   - `Type type`
 
@@ -776,7 +836,11 @@ Get User Profile
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -792,9 +856,15 @@ Get User Profile
 
       - `ACTIVE("active")`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `SUSPENDED("suspended")`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `BLOCKED("blocked")`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Optional<String> country`
 
@@ -905,6 +975,8 @@ Update User Profile
 
   - `Optional<String> userProfileId`
 
+    The ID of the user profile to update (`uprof_...`).
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -1003,13 +1075,21 @@ Update User Profile
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `Optional<AccessType> accessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -1040,6 +1120,10 @@ Update User Profile
 ### Returns
 
 - `class BetaUserProfile`
+
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
 
   - `Type type`
 
@@ -1085,7 +1169,11 @@ Update User Profile
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -1101,9 +1189,15 @@ Update User Profile
 
       - `ACTIVE("active")`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `SUSPENDED("suspended")`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `BLOCKED("blocked")`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Optional<String> country`
 
@@ -1214,6 +1308,8 @@ Create Enrollment URL
 
   - `Optional<String> userProfileId`
 
+    The ID of the user profile to create an enrollment URL for (`uprof_...`).
+
   - `Optional<List<AnthropicBeta>> betas`
 
     Optional header to specify the beta version(s) you want to use.
@@ -1312,9 +1408,15 @@ Create Enrollment URL
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaUserProfileEnrollmentUrl`
+
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
 
   - `Type type`
 
@@ -1367,6 +1469,10 @@ public final class Main {
 
 - `class BetaUserProfile`
 
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
+
   - `Type type`
 
     Object type. Always `user_profile`.
@@ -1411,7 +1517,11 @@ public final class Main {
 
     - `APPLICATION("application")`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `PASSTHROUGH("passthrough")`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `Optional<String> externalId`
 
@@ -1427,9 +1537,15 @@ public final class Main {
 
       - `ACTIVE("active")`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `SUSPENDED("suspended")`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `BLOCKED("blocked")`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `Optional<String> country`
 
@@ -1479,6 +1595,8 @@ public final class Main {
 
 - `class BetaUserProfileEnrollmentUrl`
 
+  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+
   - `Type type`
 
     Object type. Always `enrollment_url`.
@@ -1505,9 +1623,15 @@ public final class Main {
 
     - `ACTIVE("active")`
 
+      The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
     - `SUSPENDED("suspended")`
 
+      The platform has restricted the account of the entity that the user profile represents and may restore it.
+
     - `BLOCKED("blocked")`
+
+      The platform has barred the account of the entity that the user profile represents.
 
   - `Optional<String> country`
 
@@ -1553,9 +1677,15 @@ public final class Main {
 
     - `ACTIVE("active")`
 
+      The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
     - `SUSPENDED("suspended")`
 
+      The platform has restricted the account of the entity that the user profile represents and may restore it.
+
     - `BLOCKED("blocked")`
+
+      The platform has barred the account of the entity that the user profile represents.
 
   - `Optional<String> country`
 
@@ -1600,6 +1730,8 @@ public final class Main {
 ### Beta User Profile Trust Grant
 
 - `class BetaUserProfileTrustGrant`
+
+  The status of one trust grant on a user profile, listed in the profile's `trust_grants` map under the grant's name.
 
   - `Status status`
 

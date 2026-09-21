@@ -17,6 +17,8 @@ Create Credential
 
 - `vaultID: string`
 
+  Identifier of the vault to create the credential in.
+
 - `auth: Auth`
 
   Authentication details for creating a credential.
@@ -34,6 +36,10 @@ Create Credential
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -131,6 +137,8 @@ List Credentials
 
 - `vaultID: string`
 
+  Identifier of the vault to list credentials for.
+
 - `includeArchived?:optional bool`
 
   Whether to include archived credentials in the results.
@@ -148,6 +156,10 @@ List Credentials
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -246,13 +258,21 @@ Get Credential
 
 - `vaultID: string`
 
+  Identifier of the vault containing the credential.
+
 - `credentialID: string`
+
+  Unique identifier of the credential to retrieve.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -344,7 +364,11 @@ Update Credential
 
 - `vaultID: string`
 
+  Identifier of the vault containing the credential.
+
 - `credentialID: string`
+
+  Unique identifier of the credential to update.
 
 - `auth?:optional Auth`
 
@@ -363,6 +387,10 @@ Update Credential
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -468,13 +496,21 @@ Delete Credential
 
 - `vaultID: string`
 
+  Identifier of the vault containing the credential.
+
 - `credentialID: string`
+
+  Unique identifier of the credential to delete.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -530,13 +566,21 @@ Archive Credential
 
 - `vaultID: string`
 
+  Identifier of the vault containing the credential.
+
 - `credentialID: string`
+
+  Unique identifier of the credential to archive.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -628,13 +672,21 @@ Validate Credential
 
 - `vaultID: string`
 
+  Identifier of the vault containing the credential.
+
 - `credentialID: string`
+
+  Unique identifier of the credential to validate.
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -820,9 +872,15 @@ var_dump($betaManagedAgentsCredentialValidation);
 
   - `"valid"`
 
+    The credential successfully authenticated against its MCP server.
+
   - `"invalid"`
 
+    The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+
   - `"unknown"`
+
+    The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
 
 ### Beta Managed Agents Deleted Credential
 

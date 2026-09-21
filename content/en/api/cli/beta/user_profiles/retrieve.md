@@ -15,7 +15,7 @@ Get User Profile
 
 - `--user-profile-id: string`
 
-  Path parameter user_profile_id
+  The ID of the user profile to get (`uprof_...`).
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -30,6 +30,10 @@ Get User Profile
 ## Returns
 
 - `beta_user_profile: object`
+
+  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
+
+  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
 
   - `type: "user_profile"`
 
@@ -75,7 +79,11 @@ Get User Profile
 
     - `"application"`
 
+      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+
     - `"passthrough"`
+
+      The user profile represents a company that the platform resells Claude access to.
 
   - `external_id: optional string`
 
@@ -91,9 +99,15 @@ Get User Profile
 
       - `"active"`
 
+        The platform has neither restricted nor barred the account of the entity that the user profile represents.
+
       - `"suspended"`
 
+        The platform has restricted the account of the entity that the user profile represents and may restore it.
+
       - `"blocked"`
+
+        The platform has barred the account of the entity that the user profile represents.
 
     - `country: string`
 

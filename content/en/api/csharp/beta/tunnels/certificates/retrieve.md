@@ -19,11 +19,11 @@ Fetches a tunnel certificate by ID.
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `required string certificateID`
 
-    Path param: Path parameter certificate_id
+    Path param: ID of the certificate (`tcrt_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas`
 

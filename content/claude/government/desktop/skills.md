@@ -20,7 +20,7 @@ In Claude for Government, your skills come from three places:
 
 ## Create and manage skills
 
-Open **Customize** in the sidebar, then **Skills**, to see your skills and turn any of them on or off. Select **Add skill**, then choose **Create with Claude** to build one with Claude's help, **Write skill instructions** to write it yourself, or **Upload a skill** to add a skill file you have. You can also ask Claude to save a workflow as a skill while you work on a task. The [skill authoring guide](/docs/skills/how-to) describes the file format for skills you write by hand.
+Open **Customize** in the sidebar, then **Skills**, to see your skills and turn any of them on or off. Select **Add**, then choose **Create a skill** to write one yourself, or **Upload skill** to add a skill file you have. You can also ask Claude to save a workflow as a skill while you work on a task. The [skill authoring guide](/docs/skills/how-to) describes the file format for skills you write by hand.
 
 Open a skill you created to rename or delete it. Skills you create are stored on your device, so they are available only there.
 
@@ -34,7 +34,7 @@ A plugin set to **Auto-install** delivers its skills to every member without the
 
 This section walks the full path from writing a skill to delivering it to the members you manage: write the skill, package it as a plugin, upload the plugin, and check the result on a device. The packaging rules live under [Plugin archive formats](/docs/government/config/plugins-and-connectors#plugin-archive-formats).
 
-**Write the skill.** A skill is a folder named after the skill, holding a `SKILL.md` file. The file starts with YAML frontmatter carrying `name` and `description`, followed by the instructions as markdown. The folder name must match the `name` in the frontmatter. The [skill authoring guide](/docs/skills/how-to) covers the format and what makes instructions work well. You can also have Claude help, with **Create with Claude** as described under [Create and manage skills](#create-and-manage-skills), or by asking Claude to draft the skill in a Cowork task, where those are available in your deployment. If Claude hands back a `.skill` file, keep the folder it came from instead. A `.skill` file is a zip of the bare skill folder, and the **Plugins** card accepts only plugin packages, so the folder needs the plugin wrapper described next.
+**Write the skill.** A skill is a folder named after the skill, holding a `SKILL.md` file. The file starts with YAML frontmatter carrying `name` and `description`, followed by the instructions as markdown. The folder name must match the `name` in the frontmatter. The [skill authoring guide](/docs/skills/how-to) covers the format and what makes instructions work well. You can also have Claude help by asking Claude to draft the skill in a Cowork task, where that is available in your deployment. If Claude hands back a `.skill` file, keep the folder it came from instead. A `.skill` file is a zip of the bare skill folder, and the **Plugins** card accepts only plugin packages, so the folder needs the plugin wrapper described next.
 
 **Mind the text-only rule.** A skill delivered through the admin portal can contain only text files, in these formats: `.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.csv`. Skills you create on your own device can include scripts and binary assets such as images, and the skill authoring guide describes those, but a plugin upload that contains them is rejected, so keep a skill you plan to distribute textual.
 

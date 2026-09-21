@@ -85,11 +85,19 @@ List Sessions
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -983,11 +991,19 @@ List Sessions
 
     - `Rescheduling("rescheduling")`
 
+      Transient error occurred, retrying automatically.
+
     - `Running("running")`
+
+      Agent is actively executing.
 
     - `Idle("idle")`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `Terminated("terminated")`
+
+      Session has ended, either due to an error or completion.
 
   - `required string? Title`
 

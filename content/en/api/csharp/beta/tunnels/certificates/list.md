@@ -19,7 +19,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `required string tunnelID`
 
-    Path param: Path parameter tunnel_id
+    Path param: ID of the tunnel (`tnl_...`).
 
   - `bool includeArchived`
 

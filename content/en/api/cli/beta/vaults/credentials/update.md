@@ -15,11 +15,11 @@ Update Credential
 
 - `--vault-id: string`
 
-  Path param: Path parameter vault_id
+  Path param: Identifier of the vault containing the credential.
 
 - `--credential-id: string`
 
-  Path param: Path parameter credential_id
+  Path param: Unique identifier of the credential to update.
 
 - `--auth: optional BetaManagedAgentsMCPOAuthUpdateParams or BetaManagedAgentsStaticBearerUpdateParams or BetaManagedAgentsEnvironmentVariableUpdateParams`
 

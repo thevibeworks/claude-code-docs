@@ -17,7 +17,7 @@ Get Agent
 
   - `required string agentID`
 
-    Path param: Path parameter agent_id
+    Path param: Unique identifier of the agent to retrieve.
 
   - `int version`
 

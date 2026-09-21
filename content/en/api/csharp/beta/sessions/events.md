@@ -19,7 +19,7 @@ List Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `DateTimeOffset createdAtGt`
 
@@ -47,7 +47,7 @@ List Events
 
   - `int limit`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
@@ -2454,7 +2454,7 @@ Send Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `required IReadOnlyList<BetaManagedAgentsEventParams> events`
 
@@ -3428,7 +3428,7 @@ Stream Events
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
 

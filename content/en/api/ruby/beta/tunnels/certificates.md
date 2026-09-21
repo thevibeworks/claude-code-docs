@@ -19,6 +19,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `tunnel_id: String`
 
+  ID of the tunnel (`tnl_...`).
+
 - `ca_certificate_pem: String`
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
@@ -127,6 +129,10 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate`
@@ -205,7 +211,11 @@ Fetches a tunnel certificate by ID.
 
 - `tunnel_id: String`
 
+  ID of the tunnel (`tnl_...`).
+
 - `certificate_id: String`
+
+  ID of the certificate (`tcrt_...`).
 
 - `betas: Array[AnthropicBeta]`
 
@@ -309,6 +319,10 @@ Fetches a tunnel certificate by ID.
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate`
@@ -386,6 +400,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 ### Parameters
 
 - `tunnel_id: String`
+
+  ID of the tunnel (`tnl_...`).
 
 - `include_archived: bool`
 
@@ -503,6 +519,10 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `workspace_id: String`
 
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 ### Returns
 
 - `class BetaTunnelCertificate`
@@ -586,7 +606,11 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `tunnel_id: String`
 
+  ID of the tunnel (`tnl_...`).
+
 - `certificate_id: String`
+
+  ID of the certificate to archive (`tcrt_...`).
 
 - `betas: Array[AnthropicBeta]`
 
@@ -689,6 +713,10 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `:"compact-2026-09-04"`
 
 - `workspace_id: String`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 

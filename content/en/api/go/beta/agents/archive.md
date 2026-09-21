@@ -15,6 +15,8 @@ Archive Agent
 
 - `agentID string`
 
+  Unique identifier of the agent to archive.
+
 - `body BetaAgentArchiveParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

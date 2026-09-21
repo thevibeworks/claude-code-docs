@@ -15,11 +15,15 @@ Update a memory
 
 - `memoryStoreID: string`
 
+  The ID of the memory store that holds the memory (`memstore_...`).
+
 - `memoryID: string`
+
+  The ID of the memory to update (`mem_...`).
 
 - `view?:optional ManagedAgentsMemoryView`
 
-  Query parameter for view
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
 - `content?:optional string`
 
@@ -38,6 +42,10 @@ Update a memory
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

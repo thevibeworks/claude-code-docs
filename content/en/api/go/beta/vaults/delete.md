@@ -15,6 +15,8 @@ Delete Vault
 
 - `vaultID string`
 
+  Unique identifier of the vault to delete.
+
 - `body BetaVaultDeleteParams`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`

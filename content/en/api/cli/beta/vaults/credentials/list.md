@@ -15,7 +15,7 @@ List Credentials
 
 - `--vault-id: string`
 
-  Path param: Path parameter vault_id
+  Path param: Identifier of the vault to list credentials for.
 
 - `--include-archived: optional boolean`
 

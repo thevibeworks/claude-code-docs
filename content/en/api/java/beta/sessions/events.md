@@ -45,8 +45,6 @@ List Events
 
   - `Optional<Long> limit`
 
-    Query parameter for limit
-
     format: int32
 
   - `Optional<Order> order`
@@ -162,6 +160,10 @@ List Events
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 
@@ -2552,6 +2554,10 @@ Send Events
 
   - `Optional<String> workspaceId`
 
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `List<BetaManagedAgentsEventParams> events`
 
     Events to send to the `session`.
@@ -3530,6 +3536,10 @@ Stream Events
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
   - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ### Returns
 

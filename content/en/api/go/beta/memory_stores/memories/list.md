@@ -15,6 +15,8 @@ List memories
 
 - `memoryStoreID string`
 
+  The ID of the memory store to list memories from (`memstore_...`).
+
 - `params BetaMemoryStoreMemoryListParams`
 
   - `Depth param.Field[int64] Optional`

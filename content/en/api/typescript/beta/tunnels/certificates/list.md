@@ -17,6 +17,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: CertificateListParams`
 
   - `include_archived?: boolean`

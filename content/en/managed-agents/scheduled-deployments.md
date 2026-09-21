@@ -17,10 +17,10 @@ For the launch context and examples of what teams run on schedules, see [schedul
 When creating a deployment, you pass the [session configurations](https://platform.claude.com/docs/en/managed-agents/sessions) required for execution, in addition to a `schedule`.
 
 * Deployments require [agent configuration](https://platform.claude.com/docs/en/managed-agents/agent-setup) and [environment configuration](https://platform.claude.com/docs/en/managed-agents/environments), and optionally accept [files](https://platform.claude.com/docs/en/managed-agents/files), [GitHub](https://platform.claude.com/docs/en/managed-agents/github), [memory stores](https://platform.claude.com/docs/en/managed-agents/memory), and [vaults](https://platform.claude.com/docs/en/managed-agents/vaults). A deployment that targets a [self-hosted environment](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores) can attach memory stores; `file` and `github_repository` resources require a cloud environment. The Claude Console deployment form does not currently offer memory stores for self-hosted environments; attach them through the API or an SDK instead.
-* Deployments also require at least one initial event, a `user.message` or `user.define_outcome`, that starts each session's work.
+* Deployments also require at least one initial event, a `user.message` or `user.define_outcome`, that starts each session's work. In a deployment file for `ant apply`, the text below the frontmatter becomes that `user.message`.
 * In the `schedule`, you define a cron `expression` and a `timezone`. Maximum granularity supported is at the minute level.
 
-<CodeGroup>
+<CodeGroup defaultLanguage="CLI">
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/deployments?beta=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -44,22 +44,27 @@ When creating a deployment, you pass the [session configurations](https://platfo
   EOF
   ```
 
-  ```bash CLI
-  ant beta:deployments create <<YAML
-  name: Weekly compliance scan
-  agent: $AGENT_ID
-  environment_id: $ENVIRONMENT_ID
-  initial_events:
-    - type: user.message
-      content:
-        - type: text
-          text: Run the weekly compliance scan.
-  schedule:
-    type: cron
-    expression: "0 20 * * 5"
-    timezone: America/New_York
-  YAML
-  ```
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    ant apply deployment.md
+    ```
+
+    <File filename="deployment.md">
+      ```markdown
+      ---
+      name: Weekly compliance scan
+      agent: agent_011CYm1BLqPXpQRk5khsSXrs
+      environment_id: env_01595EKxaaTTGwwY3kyXdtbs
+      schedule:
+        type: cron
+        expression: "0 20 * * 5"
+        timezone: America/New_York
+      ---
+
+      Run the weekly compliance scan.
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   deployment = client.beta.deployments.create(
@@ -216,6 +221,10 @@ When creating a deployment, you pass the [session configurations](https://platfo
     }
   )
   ```
+
+  <ForLanguage tab="CLI">
+    [`ant apply`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/apply) prints the new deployment's ID and records it in `claude-lock.json`. To see the deployment object, run `ant beta:deployments retrieve`.
+  </ForLanguage>
 </CodeGroup>
 
 The response includes a deployment object with a populated `schedule.upcoming_runs_at` with the next upcoming fire times, to confirm your schedule was set correctly.

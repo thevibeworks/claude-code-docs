@@ -17,13 +17,21 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `certificateID: string`
+
+  ID of the certificate to archive (`tcrt_...`).
 
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
 - `workspaceID?:optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

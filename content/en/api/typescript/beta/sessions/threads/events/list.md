@@ -19,17 +19,17 @@ List Session Thread Events
 
   - `session_id: string`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `limit?: number`
 
-    Query param: Query parameter for limit
+    Query param
 
     format: int32
 
   - `page?: string`
 
-    Query param: Query parameter for page
+    Query param
 
   - `betas?: Array<AnthropicBeta>`
 

@@ -85,11 +85,19 @@ List Sessions
 
     - `const BetaSessionListParamsStatusRescheduling BetaSessionListParamsStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaSessionListParamsStatusRunning BetaSessionListParamsStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaSessionListParamsStatusIdle BetaSessionListParamsStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaSessionListParamsStatusTerminated BetaSessionListParamsStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -995,11 +1003,19 @@ List Sessions
 
     - `const BetaManagedAgentsSessionStatusRescheduling BetaManagedAgentsSessionStatus = "rescheduling"`
 
+      Transient error occurred, retrying automatically.
+
     - `const BetaManagedAgentsSessionStatusRunning BetaManagedAgentsSessionStatus = "running"`
+
+      Agent is actively executing.
 
     - `const BetaManagedAgentsSessionStatusIdle BetaManagedAgentsSessionStatus = "idle"`
 
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
     - `const BetaManagedAgentsSessionStatusTerminated BetaManagedAgentsSessionStatus = "terminated"`
+
+      Session has ended, either due to an error or completion.
 
   - `Title string`
 

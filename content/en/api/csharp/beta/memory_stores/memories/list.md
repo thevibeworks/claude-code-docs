@@ -17,7 +17,7 @@ List memories
 
   - `required string memoryStoreID`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store to list memories from (`memstore_...`).
 
   - `int depth`
 

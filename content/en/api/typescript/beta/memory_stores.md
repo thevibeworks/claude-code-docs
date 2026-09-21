@@ -447,6 +447,8 @@ Retrieve a memory store
 
 - `memoryStoreID: string`
 
+  ID of the memory store to retrieve (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`.
+
 - `params: MemoryStoreRetrieveParams`
 
   - `betas?: Array<AnthropicBeta>`
@@ -641,6 +643,8 @@ Update a memory store
 ### Parameters
 
 - `memoryStoreID: string`
+
+  ID of the memory store to update (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`. Updating an archived store returns 400.
 
 - `params: MemoryStoreUpdateParams`
 
@@ -851,6 +855,8 @@ Delete a memory store
 
 - `memoryStoreID: string`
 
+  ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
+
 - `params: MemoryStoreDeleteParams`
 
   - `betas?: Array<AnthropicBeta>`
@@ -1007,6 +1013,8 @@ Archive a memory store
 ### Parameters
 
 - `memoryStoreID: string`
+
+  ID of the memory store to archive (a `memstore_...` identifier). Required. Archiving is one-way and idempotent; archived stores cannot be unarchived. Enumerate IDs via `GET /v1/memory_stores`.
 
 - `params: MemoryStoreArchiveParams`
 
@@ -1259,6 +1267,8 @@ Create a memory
 
 - `memoryStoreID: string`
 
+  The ID of the memory store to create the memory in (`memstore_...`).
+
 - `params: MemoryCreateParams`
 
   - `content: string | null`
@@ -1273,11 +1283,15 @@ Create a memory
 
   - `view?: BetaManagedAgentsMemoryView`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -1481,6 +1495,8 @@ List memories
 
 - `memoryStoreID: string`
 
+  The ID of the memory store to list memories from (`memstore_...`).
+
 - `params: MemoryListParams`
 
   - `depth?: number`
@@ -1509,7 +1525,11 @@ List memories
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -1732,19 +1752,25 @@ Retrieve a memory
 
 - `memoryID: string`
 
+  The ID of the memory to retrieve (`mem_...`).
+
 - `params: MemoryRetrieveParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the memory (`memstore_...`).
 
   - `view?: BetaManagedAgentsMemoryView`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -1947,19 +1973,25 @@ Update a memory
 
 - `memoryID: string`
 
+  The ID of the memory to update (`mem_...`).
+
 - `params: MemoryUpdateParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the memory (`memstore_...`).
 
   - `view?: BetaManagedAgentsMemoryView`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `content?: string | null`
 
@@ -2182,15 +2214,19 @@ Delete a memory
 
 - `memoryID: string`
 
+  The ID of the memory to delete (`mem_...`).
+
 - `params: MemoryDeleteParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the memory (`memstore_...`).
 
   - `expected_content_sha256?: string`
 
-    Query param: Query parameter for expected_content_sha256
+    Query param: Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
+
+    If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -2350,11 +2386,13 @@ List memory versions
 
 - `memoryStoreID: string`
 
+  The ID of the memory store whose version history to list (`memstore_...`).
+
 - `params: MemoryVersionListParams`
 
   - `api_key_id?: string`
 
-    Query param: Query parameter for api_key_id
+    Query param: Return only versions written with the API key that has this ID.
 
   - `"created_at[gte]"?: string`
 
@@ -2370,43 +2408,55 @@ List memory versions
 
   - `limit?: number`
 
-    Query param: Query parameter for limit
+    Query param: The maximum number of versions to return per page. Defaults to 20.
 
     format: int32
 
   - `memory_id?: string`
 
-    Query param: Query parameter for memory_id
+    Query param: Return only versions of the memory with this ID (`mem_...`).
+
+    The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
   - `operation?: BetaManagedAgentsMemoryVersionOperation`
 
-    Query param: Query parameter for operation
+    Query param: Return only versions that record this kind of change.
 
     - `"created"`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `"modified"`
+
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
 
     - `"deleted"`
 
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
+
   - `page?: string`
 
-    Query param: Query parameter for page
+    Query param: The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
   - `service_account_id?: string`
 
-    Query param: Query parameter for service_account_id
+    Query param: Return only versions written by the service account with this ID (`svac_...`).
 
   - `session_id?: string`
 
-    Query param: Query parameter for session_id
+    Query param: Return only versions written by the session with this ID.
 
   - `view?: BetaManagedAgentsMemoryView`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -2546,9 +2596,15 @@ List memory versions
 
     - `"created"`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `"modified"`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `"deleted"`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content?: string | null`
 
@@ -2690,19 +2746,25 @@ Retrieve a memory version
 
 - `memoryVersionID: string`
 
+  The ID of the memory version to retrieve (`memver_...`).
+
 - `params: MemoryVersionRetrieveParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the version (`memstore_...`).
 
   - `view?: BetaManagedAgentsMemoryView`
 
-    Query param: Query parameter for view
+    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
+      Return the object with `content` set to `null`. The `content_size_bytes` and `content_sha256` fields remain populated, so sync clients can diff without fetching content.
+
     - `"full"`
+
+      Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -2842,9 +2904,15 @@ Retrieve a memory version
 
     - `"created"`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `"modified"`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `"deleted"`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content?: string | null`
 
@@ -2981,11 +3049,13 @@ Redact a memory version
 
 - `memoryVersionID: string`
 
+  The ID of the memory version to redact (`memver_...`).
+
 - `params: MemoryVersionRedactParams`
 
   - `memory_store_id: string`
 
-    Path param: Path parameter memory_store_id
+    Path param: The ID of the memory store that holds the version (`memstore_...`).
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -3125,9 +3195,15 @@ Redact a memory version
 
     - `"created"`
 
+      The memory was created. The first version in any memory's lineage.
+
     - `"modified"`
 
+      The memory's `content`, `path`, or both were changed via update. Writes the agent makes through the filesystem mount also appear as `modified`.
+
     - `"deleted"`
+
+      The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
   - `content?: string | null`
 

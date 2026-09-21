@@ -15,7 +15,7 @@ Archive Vault
 
 - `--vault-id: string`
 
-  Path parameter vault_id
+  Unique identifier of the vault to archive.
 
 - `--beta: optional array of AnthropicBeta`
 

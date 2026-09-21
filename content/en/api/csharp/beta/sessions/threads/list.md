@@ -17,7 +17,7 @@ List Session Threads
 
   - `required string sessionID`
 
-    Path param: Path parameter session_id
+    Path param
 
   - `int limit`
 
@@ -145,7 +145,7 @@ List Session Threads
 
   - `required Agent Agent`
 
-    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
+    The resolved agent a `session_thread` runs.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 

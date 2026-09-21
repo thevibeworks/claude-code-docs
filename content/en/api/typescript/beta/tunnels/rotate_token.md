@@ -17,6 +17,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 - `tunnelID: string`
 
+  ID of the tunnel (`tnl_...`).
+
 - `params: TunnelRotateTokenParams`
 
   - `reason?: string | null`
