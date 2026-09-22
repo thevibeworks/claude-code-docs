@@ -79,7 +79,7 @@ To reconnect, click **Connect a gateway** in the **Gateways** section and enter 
 
 ## Errors Claude reports in the thread
 
-When a request from a channel can't be sent with a federated credential, it fails with an HTTP status and a one-line reason, which Claude usually quotes. Reasons with HTTP 403 and 502 end with the connection's name in parentheses, for example `("gateway.example.com")`. The two 503 reasons don't name the connection.
+When a request can't be sent with a federated credential, it fails with an HTTP status and a one-line reason, which Claude usually quotes. Reasons with HTTP 403 and 502 end with the connection's name in parentheses, for example `("gateway.example.com")`. The two 503 reasons don't name the connection.
 
 Messages that begin "request blocked" come with HTTP 403. The request was refused on purpose, and retrying won't help. A 503 is temporary. A 502 usually means AWS, Google Cloud, or your authorization server refused the token exchange. A response from your gateway or from the cloud API itself reaches Claude as is, so those show as whatever status the other side returned.
 
@@ -91,11 +91,11 @@ Claude's request got HTTP 403 with this reason.
 
 **What it means**
 
-Federated connections work only in Slack channels, where Claude acts under your organization's [agent identity](/docs/claude-tag/concepts/agent-identity). The request came from a direct message, or from another session running under a person's own account, which has no agent identity for the token to name.
+Federated connections work only in agent sessions, such as a Slack channel, where Claude acts under your organization's [agent identity](/docs/claude-tag/concepts/agent-identity). The request came from a personal session, such as a [direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels) with `@Claude`. A personal session runs under a person's own account and has no agent identity for the token to name.
 
 **How to resolve**
 
-Use the connection from a channel whose scope has the bundle attached. No setting enables it in direct messages.
+Use the connection from a channel whose scope has the bundle attached. No setting enables federated connections in personal sessions.
 
 ### request blocked: this credential's audience isn't registered as a gateway for this organization
 

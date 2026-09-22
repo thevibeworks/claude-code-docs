@@ -26,7 +26,7 @@ Check your integration if, between two requests in one conversation, it does any
 * [Drops some `thinking` blocks and keeps later ones](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned), or removes them and [later puts them back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check)
 * [Rebuilds a saved session from templates](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#faq) instead of replaying what it sent
 
-On an older account, none of these produces an error unless the request sets `prefix_mismatch_behavior`, so a run with no errors on your own key doesn't show whether your code is affected. If people run your tool with their own API keys, those on newer accounts get the 400 error before you do. [Set `prefix_mismatch_behavior` in your tests](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted) to see what they see.
+On an older account, none of these produces an error unless the request sets `prefix_mismatch_behavior`, so a run with no errors on your own key doesn't show whether your code is affected. If people run your tool with their own API keys, those on newer accounts get the 400 error before you do. To see what they see without changing how your requests behave, send the `thinking-binding-controls-2026-08-01` beta header. On an older account, each response then flags blocks that fail the check, and the model still reads them (see [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls)).
 
 ## Switching models mid-conversation
 
@@ -78,7 +78,7 @@ You choose with `thinking.block_binding.prefix_mismatch_behavior`:
 * **`"error"` (the default):** the API rejects the request with a 400 `invalid_request_error` that names the first failing block.
 * **`"drop_block"`:** the API drops each failing block and every thinking block after it, and the request succeeds. Dropped blocks aren't billed. The model answers that turn without using reasoning from dropped blocks, and the prompt cache restarts at the edit. The response lists each dropped block in `input_transformations` (on the `message_start` event when streaming) with `reason: "prefix_binding_mismatch"`.
 
-`"drop_block"` keeps requests succeeding but doesn't fix the edit. Count the responses in each session whose `input_transformations` has a `prefix_binding_mismatch` entry, and alert on them. In the Message Batches API, an item that leaves the field unset drops failing blocks instead of erroring, so set `"error"` explicitly there if you want batch items to fail.
+`"drop_block"` keeps requests succeeding but doesn't fix the edit. Count the responses in each session whose `input_transformations` has a `prefix_binding_mismatch` entry, and alert on them. In the Message Batches API, an item that leaves the field unset doesn't fail. Where the API enforces the check by default, it drops the failing blocks instead. Set `"error"` explicitly there if you want batch items to fail.
 
 Both the field and the `input_transformations` array require the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers). [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls) shows the request in each SDK.
 
@@ -365,19 +365,24 @@ The greatest common divisor of 1071 and 462 is 21.
 Input transformations: 0
 ```
 
-Under the beta header, every response from a thinking-capable model carries `input_transformations`. It's empty when nothing was dropped. Each entry has `type: "thinking_dropped"`, the `path` of the dropped block (for example `messages.1.content.0`), and a `reason` of `prefix_binding_mismatch` or `model_binding_mismatch` (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). Ignore entries whose `type` or `reason` you don't recognize, because later checks add values.
+Under the beta header, every response from a thinking-capable model carries `input_transformations`. Each entry names one thinking block by its `path` (for example `messages.1.content.0`) and gives a `reason`. There are two entry types:
 
-When [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming), the array arrives on the `message` object in the `message_start` event. After a mid-stream server-side fallback, the final `message_delta` event carries it again with the serving model's entries. In a [message batch](https://platform.claude.com/docs/en/build-with-claude/batch-processing), an item whose block fails the prefix check under an explicit `"error"` resolves as `errored`, and an item that leaves the field unset drops the failing blocks instead. The [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint runs the same prefix check and returns the same 400.
+* **`thinking_dropped`:** the API drops the block before the model reads it, and the block isn't billed. The `reason` is `prefix_binding_mismatch` or `model_binding_mismatch` (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)).
+* **`thinking_mismatch_allowed`:** the block fails the prefix check, but the API doesn't enforce that check for this request, so the block reaches the model unchanged and is billed. The `reason` is always `prefix_binding_mismatch`. This entry appears only on requests where the API doesn't enforce the check by default, such as those from an older account (see [When the API enforces the check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement)). Setting `prefix_mismatch_behavior` to either value opts the request into enforcement, so a request that sets it never gets this entry.
+
+The array is empty when no block was dropped and none failed the prefix check. Ignore entries whose `type` or `reason` you don't recognize, because later checks add values.
+
+When [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming), the array arrives on the `message` object in the `message_start` event. After a mid-stream server-side fallback, the final `message_delta` event carries it again with the serving model's entries. In a [message batch](https://platform.claude.com/docs/en/build-with-claude/batch-processing), an item whose block fails the prefix check under an explicit `"error"` resolves as `errored`. An item that leaves the field unset doesn't fail. Where the API enforces the check by default, it drops the failing blocks instead. The [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint runs the same prefix check and returns the same 400.
 
 ### When the API enforces the check
 
-The prefix check runs on Claude Fable 5.1 for new accounts.
+The API enforces the prefix check on Claude Fable 5.1 for new accounts.
 
 * **Accounts created on or after August 31, 2026, 00:00 UTC:** the API checks Claude Fable 5.1 requests and applies `"error"` unless you set `"drop_block"`. The same definition of a new account applies to the Claude API and to cloud platforms.
-* **Older accounts:** the API checks requests that set `prefix_mismatch_behavior`. This parameter opts a request in, so you can see what a new account sees without creating one.
+* **Older accounts:** the API enforces the check only on requests that set `prefix_mismatch_behavior`. Setting the field opts a request in, so you can see what a new account sees without creating one. On requests that leave it unset, the API still runs the check but lets failing blocks through to the model. With the beta header, the response lists each one in `input_transformations` as `thinking_mismatch_allowed`, so you can find prefix edits without changing what the model receives.
 * **Later models:** every account, on every request.
 
-To find out which group your account is in, take a Claude Fable 5.1 conversation that contains a thinking block, change something before that block, and send it to Claude Fable 5.1 without the beta header or the `block_binding` field. A 400 response that names the header means your account is enforced by default.
+To find out which group your account is in, take a Claude Fable 5.1 conversation that contains a thinking block, change something before that block, and send it to Claude Fable 5.1 without the beta header or the `block_binding` field. A 400 response that names the header means your account is enforced by default. A 200 response means it isn't. To confirm, send the same request again with the beta header, still without `block_binding`: the response lists every thinking block after your edit in `input_transformations` as `thinking_mismatch_allowed`.
 
 ### What counts as an edit
 
@@ -780,6 +785,420 @@ Two plain turns rarely show the problem. Run a session through each of the follo
 * A long tool loop, if you add reminders or shorten old tool results
 * A switch to another model and back
 * A save, a restart, and a resume on a later date
+
+On an older account, you can also watch production traffic without opting into enforcement: send the beta header, leave `block_binding` out, and log `input_transformations`. Sending the header alone doesn't change what the model receives. Every thinking block that comes after the content you edited fails the check and gets its own `thinking_mismatch_allowed` entry, with the same `path` and `reason` fields as a `thinking_dropped` entry. Blocks before the edit still pass. An edit to `system` or `tools` comes before every block, so it fails every thinking block in the request. One entry looks like this:
+
+```json
+{
+  "input_transformations": [
+    {
+      "type": "thinking_mismatch_allowed",
+      "path": "messages.1.content.0",
+      "reason": "prefix_binding_mismatch"
+    }
+  ]
+}
+```
+
+Run the following example from an [older account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement), because a newer account rejects its third request with the 400. It sends the header without `block_binding` and extends the earlier session with a third request that adds a system prompt, which changes the prefix on purpose. After each turn it prints the number of `thinking` blocks and flagged blocks:
+
+<CodeGroup>
+  ```bash cURL
+  # Counts the thinking blocks in a response and the blocks that failed the prefix check
+  COUNTS='"thinking blocks: \([.content[] | select(.type == "thinking")] | length), " +
+    "flagged: \([.input_transformations[] |
+      select(.type == "thinking_mismatch_allowed")] | length)"'
+
+  FIRST=$(curl -s https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
+    -d '{
+      "model": "claude-fable-5-1",
+      "max_tokens": 16000,
+      "thinking": { "type": "adaptive" },
+      "messages": [
+        {
+          "role": "user",
+          "content": "How many positive integers below 500 have exactly 6 positive divisors?"
+        }
+      ]
+    }')
+  echo "$FIRST" | jq -r "$COUNTS"
+
+  # Turn 2: the assistant turn goes back exactly as returned, then the next user message
+  MESSAGES=$(jq -n --argjson first "$FIRST" '[
+    {
+      role: "user",
+      content: "How many positive integers below 500 have exactly 6 positive divisors?"
+    },
+    { role: "assistant", content: $first.content },
+    { role: "user", content: "How many of those are odd?" }
+  ]')
+
+  SECOND=$(jq -n --argjson messages "$MESSAGES" '{
+    model: "claude-fable-5-1",
+    max_tokens: 16000,
+    thinking: { type: "adaptive" },
+    messages: $messages
+  }' | curl -s https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
+    -d @-)
+  echo "$SECOND" | jq -r "$COUNTS"
+
+  # Turn 3: only this request adds a system prompt, which changes the prefix on purpose
+  jq -n --argjson messages "$MESSAGES" --argjson second "$SECOND" '{
+    model: "claude-fable-5-1",
+    max_tokens: 16000,
+    thinking: { type: "adaptive" },
+    system: "Answer briefly.",
+    messages: ($messages + [
+      { role: "assistant", content: $second.content },
+      { role: "user", content: "And how many of the odd ones are below 100?" }
+    ])
+  }' | curl -s https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
+    -d @- | jq -r "$COUNTS"
+  ```
+
+  ```bash CLI
+  # Counts the thinking blocks in a response and the blocks that failed the prefix check
+  COUNTS='"thinking blocks: \([.content[] | select(.type == "thinking")] | length), " +
+    "flagged: \([.input_transformations[] |
+      select(.type == "thinking_mismatch_allowed")] | length)"'
+
+  FIRST=$(ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
+    --format json <<'YAML'
+  model: claude-fable-5-1
+  max_tokens: 16000
+  thinking:
+    type: adaptive
+  messages:
+    - role: user
+      content: How many positive integers below 500 have exactly 6 positive divisors?
+  YAML
+  )
+  echo "$FIRST" | jq -r "$COUNTS"
+
+  # Turn 2: the assistant turn goes back exactly as returned, then the next user message
+  SECOND=$(ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
+    --format json <<YAML
+  model: claude-fable-5-1
+  max_tokens: 16000
+  thinking:
+    type: adaptive
+  messages:
+    - role: user
+      content: How many positive integers below 500 have exactly 6 positive divisors?
+    - role: assistant
+      content: $(echo "$FIRST" | jq -c .content)
+    - role: user
+      content: How many of those are odd?
+  YAML
+  )
+  echo "$SECOND" | jq -r "$COUNTS"
+
+  # Turn 3: only this request adds a system prompt, which changes the prefix on purpose
+  ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
+    --format json <<YAML | jq -r "$COUNTS"
+  model: claude-fable-5-1
+  max_tokens: 16000
+  thinking:
+    type: adaptive
+  system: Answer briefly.
+  messages:
+    - role: user
+      content: How many positive integers below 500 have exactly 6 positive divisors?
+    - role: assistant
+      content: $(echo "$FIRST" | jq -c .content)
+    - role: user
+      content: How many of those are odd?
+    - role: assistant
+      content: $(echo "$SECOND" | jq -c .content)
+    - role: user
+      content: And how many of the odd ones are below 100?
+  YAML
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  user_turns = [
+      "How many positive integers below 500 have exactly 6 positive divisors?",
+      "How many of those are odd?",
+      "And how many of the odd ones are below 100?",
+  ]
+
+  # messages grows across turns: each assistant turn goes back exactly as returned
+  messages = []
+  for turn, user_turn in enumerate(user_turns, start=1):
+      messages.append({"role": "user", "content": user_turn})
+      response = client.beta.messages.create(
+          model="claude-fable-5-1",
+          max_tokens=16000,
+          thinking={"type": "adaptive"},
+          # Only the last request adds a system prompt, which changes the prefix on purpose
+          system="Answer briefly." if turn == len(user_turns) else anthropic.omit,
+          messages=messages,
+          betas=["thinking-binding-controls-2026-08-01"],
+      )
+      messages.append({"role": "assistant", "content": response.content})
+      thinking_blocks = sum(block.type == "thinking" for block in response.content)
+      flagged = sum(
+          transformation.type == "thinking_mismatch_allowed"
+          for transformation in response.input_transformations or []
+      )
+      print(f"thinking blocks: {thinking_blocks}, flagged: {flagged}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const userTurns = [
+    "How many positive integers below 500 have exactly 6 positive divisors?",
+    "How many of those are odd?",
+    "And how many of the odd ones are below 100?"
+  ];
+
+  // messages grows across turns: each assistant turn goes back exactly as returned
+  const messages: Anthropic.Beta.BetaMessageParam[] = [];
+  for (const [turnIndex, userTurn] of userTurns.entries()) {
+    messages.push({ role: "user", content: userTurn });
+    const response = await client.beta.messages.create({
+      model: "claude-fable-5-1",
+      max_tokens: 16000,
+      thinking: { type: "adaptive" },
+      // Only the last request adds a system prompt, which changes the prefix on purpose
+      system: turnIndex === userTurns.length - 1 ? "Answer briefly." : undefined,
+      messages,
+      betas: ["thinking-binding-controls-2026-08-01"]
+    });
+    messages.push({ role: "assistant", content: response.content });
+    const thinkingBlocks = response.content.filter((block) => block.type === "thinking");
+    const flagged = (response.input_transformations ?? []).filter(
+      (transformation) => transformation.type === "thinking_mismatch_allowed"
+    );
+    console.log(`thinking blocks: ${thinkingBlocks.length}, flagged: ${flagged.length}`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  string[] userTurns =
+  [
+      "How many positive integers below 500 have exactly 6 positive divisors?",
+      "How many of those are odd?",
+      "And how many of the odd ones are below 100?",
+  ];
+
+  // messages grows across turns: each assistant turn goes back exactly as returned
+  List<BetaMessageParam> messages = [];
+  for (var turnIndex = 0; turnIndex < userTurns.Length; turnIndex++)
+  {
+      messages.Add(new() { Role = Role.User, Content = userTurns[turnIndex] });
+      var response = await client.Beta.Messages.Create(
+          new()
+          {
+              Model = "claude-fable-5-1",
+              MaxTokens = 16000,
+              Thinking = new BetaThinkingConfigAdaptive(),
+              // Only the last request adds a system prompt, which changes the prefix on purpose
+              System = turnIndex == userTurns.Length - 1 ? new("Answer briefly.") : null,
+              Messages = messages,
+              Betas = [AnthropicBeta.ThinkingBindingControls2026_08_01],
+          }
+      );
+      messages.Add(new()
+      {
+          Role = Role.Assistant,
+          Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList(),
+      });
+      var thinkingBlocks = response.Content.Count(block => block.TryPickThinking(out _));
+      var flagged = response.InputTransformations?.Count(transformation =>
+          transformation.TryPickThinkingMismatchAllowed(out _)
+      ) ?? 0;
+      Console.WriteLine($"thinking blocks: {thinkingBlocks}, flagged: {flagged}");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  userTurns := []string{
+  	"How many positive integers below 500 have exactly 6 positive divisors?",
+  	"How many of those are odd?",
+  	"And how many of the odd ones are below 100?",
+  }
+
+  // messages grows across turns: each assistant turn goes back exactly as returned
+  messages := []anthropic.BetaMessageParam{}
+  for i, userTurn := range userTurns {
+  	messages = append(messages, anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(userTurn)))
+  	// Only the last request adds a system prompt, which changes the prefix on purpose
+  	var system []anthropic.BetaTextBlockParam
+  	if i == len(userTurns)-1 {
+  		system = []anthropic.BetaTextBlockParam{{Text: "Answer briefly."}}
+  	}
+  	response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  		Model:     "claude-fable-5-1",
+  		MaxTokens: 16000,
+  		Thinking: anthropic.BetaThinkingConfigParamUnion{
+  			OfAdaptive: &anthropic.BetaThinkingConfigAdaptiveParam{},
+  		},
+  		System:   system,
+  		Messages: messages,
+  		Betas:    []anthropic.AnthropicBeta{anthropic.AnthropicBetaThinkingBindingControls2026_08_01},
+  	})
+  	if err != nil {
+  		log.Fatal(err)
+  	}
+  	messages = append(messages, response.ToParam())
+  	thinkingBlocks := 0
+  	for _, block := range response.Content {
+  		if block.Type == "thinking" {
+  			thinkingBlocks++
+  		}
+  	}
+  	flagged := 0
+  	for _, transformation := range response.InputTransformations {
+  		if transformation.Type == "thinking_mismatch_allowed" {
+  			flagged++
+  		}
+  	}
+  	fmt.Printf("thinking blocks: %d, flagged: %d\n", thinkingBlocks, flagged)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.AnthropicBeta;
+  import com.anthropic.models.beta.messages.BetaContentBlock;
+  import com.anthropic.models.beta.messages.BetaInputTransformation;
+  import com.anthropic.models.beta.messages.BetaMessage;
+  import com.anthropic.models.beta.messages.BetaThinkingConfigAdaptive;
+  import com.anthropic.models.beta.messages.MessageCreateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      List<String> userTurns = List.of(
+          "How many positive integers below 500 have exactly 6 positive divisors?",
+          "How many of those are odd?",
+          "And how many of the odd ones are below 100?");
+
+      // The builder's message list grows across turns: each assistant turn goes back exactly as returned
+      MessageCreateParams.Builder conversation = MessageCreateParams.builder()
+          .model("claude-fable-5-1")
+          .maxTokens(16000L)
+          .thinking(BetaThinkingConfigAdaptive.builder().build())
+          .addBeta(AnthropicBeta.THINKING_BINDING_CONTROLS_2026_08_01);
+
+      for (int turnIndex = 0; turnIndex < userTurns.size(); turnIndex++) {
+          if (turnIndex == userTurns.size() - 1) {
+              // Only the last request adds a system prompt, which changes the prefix on purpose
+              conversation.system("Answer briefly.");
+          }
+          conversation.addUserMessage(userTurns.get(turnIndex));
+          BetaMessage response = client.beta().messages().create(conversation.build());
+          conversation.addMessage(response);
+          long thinkingBlocks = response.content().stream()
+              .filter(BetaContentBlock::isThinking)
+              .count();
+          long flagged = response.inputTransformations().stream()
+              .flatMap(List::stream)
+              .filter(BetaInputTransformation::isThinkingMismatchAllowed)
+              .count();
+          IO.println("thinking blocks: " + thinkingBlocks + ", flagged: " + flagged);
+      }
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaThinkingConfigAdaptive;
+  use Anthropic\Beta\Messages\BetaThinkingMismatchAllowedInputTransformation;
+  use Anthropic\Client;
+
+  $client = new Client();
+
+  $userTurns = [
+      'How many positive integers below 500 have exactly 6 positive divisors?',
+      'How many of those are odd?',
+      'And how many of the odd ones are below 100?',
+  ];
+
+  // $messages grows across turns: each assistant turn goes back exactly as returned
+  $messages = [];
+  foreach ($userTurns as $turnIndex => $userTurn) {
+      $messages[] = ['role' => 'user', 'content' => $userTurn];
+      $response = $client->beta->messages->create(
+          model: 'claude-fable-5-1',
+          maxTokens: 16000,
+          thinking: BetaThinkingConfigAdaptive::with(),
+          // Only the last request adds a system prompt, which changes the prefix on purpose
+          system: $turnIndex === array_key_last($userTurns) ? 'Answer briefly.' : null,
+          messages: $messages,
+          betas: [AnthropicBeta::THINKING_BINDING_CONTROLS_2026_08_01],
+      );
+      $messages[] = ['role' => 'assistant', 'content' => $response->content];
+      $thinkingBlocks = array_filter($response->content, fn ($block) => $block->type === 'thinking');
+      $flagged = array_filter(
+          $response->inputTransformations ?? [],
+          fn ($transformation) => $transformation instanceof BetaThinkingMismatchAllowedInputTransformation,
+      );
+      echo 'thinking blocks: ', count($thinkingBlocks), ', flagged: ', count($flagged), PHP_EOL;
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  user_turns = [
+    "How many positive integers below 500 have exactly 6 positive divisors?",
+    "How many of those are odd?",
+    "And how many of the odd ones are below 100?"
+  ]
+
+  # messages grows across turns: each assistant turn goes back exactly as returned
+  messages = []
+  user_turns.each_with_index do |user_turn, turn_index|
+    messages << {role: "user", content: user_turn}
+    # Only the last request adds a system prompt, which changes the prefix on purpose
+    system_param = (turn_index == user_turns.length - 1) ? {system_: "Answer briefly."} : {}
+    response = client.beta.messages.create(
+      model: "claude-fable-5-1",
+      max_tokens: 16_000,
+      thinking: {type: "adaptive"},
+      messages: messages,
+      betas: [Anthropic::AnthropicBeta::THINKING_BINDING_CONTROLS_2026_08_01],
+      **system_param
+    )
+    messages << {role: "assistant", content: response.content}
+    thinking_blocks = response.content.count { |block| block.type == :thinking }
+    flagged = (response.input_transformations || []).count do |transformation|
+      transformation.type == :thinking_mismatch_allowed
+    end
+    puts "thinking blocks: #{thinking_blocks}, flagged: #{flagged}"
+  end
+  ```
+</CodeGroup>
+
+```text Output wrap
+thinking blocks: 1, flagged: 0
+thinking blocks: 1, flagged: 0
+thinking blocks: 1, flagged: 2
+```
+
+The third response flags every thinking block from the earlier turns, one per turn in this run, because the new system prompt comes before all of them. The model still read them.
+
+Handle these entries as you would `prefix_binding_mismatch` drops. The edit is before the first block listed: diff `system`, `tools`, and `messages` up to that block's `path` against the previous request to find it, then replace it with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). On a new account, or on any request that sets `prefix_mismatch_behavior`, the API instead rejects the request or drops the failing blocks. The entries are a lower bound on what enforcement would remove: with `"drop_block"`, a failing block also takes the rest of that turn's thinking blocks with it, and removing one block can make the next one fail too. When the API only records the check, it judges each block on its own and lists a block only if that block fails.
 
 ## Make changes without editing the prefix
 
@@ -1216,7 +1635,7 @@ A library, proxy, or gateway sits between someone else's history and the API, so
 
 <AccordionGroup>
   <Accordion title="Do I need a new account to test preserved thinking?">
-    No. Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior`. Setting the field opts that request into enforcement regardless of account age. `"error"` rejects an edited history with the same 400 a new account gets, and `"drop_block"` lets the request through and lists what was dropped in `input_transformations`. See [Check whether your code edits the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted).
+    No. Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior`. Setting the field opts that request into enforcement regardless of account age. `"error"` rejects an edited history with the same 400 a new account gets, and `"drop_block"` lets the request through and lists what was dropped in `input_transformations`. To find prefix edits from an older account without enforcing the check, send the header and leave the field unset: failing blocks still reach the model, and `input_transformations` lists them as `thinking_mismatch_allowed`. See [Check whether your code edits the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted).
   </Accordion>
 
   <Accordion title="If anything before a thinking block changes, even one tool description, is the conversation unusable?">

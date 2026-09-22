@@ -127,6 +127,8 @@ New threads pick up the connection on their own. In a thread already running, as
 
 ## Verify the connection
 
+[Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
+
 In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to run a connectivity check. The check reads a bucket's metadata, so the identity needs the `storage.buckets.get` permission on the bucket, and `storage.googleapis.com` must be under the connection's **Allowed hosts**. Send Claude this prompt, replacing `example-reports` with a bucket the identity can read:
 
 ```text wrap theme={null}
@@ -156,6 +158,8 @@ Two messages come up while connecting:
 * **A rejected Workload identity provider or Service account to act as value**: the value doesn't match the form the field describes, usually because the resource name carries the project ID instead of the project number, or the service account is a default one.
 
 For other dialog messages, see [Troubleshoot federated cloud access](/docs/claude-tag/admins/federated-access/troubleshooting).
+
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: this credential only works in channel sessions, not personal ones`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-this-credential-only-works-in-channel-sessions-not-personal-ones), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
 
 ## Related resources
 

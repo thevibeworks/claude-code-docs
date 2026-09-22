@@ -108,6 +108,8 @@ New threads pick up the connection on their own. In a thread already running, as
 
 ## Verify the connection
 
+[Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
+
 In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to make a small read:
 
 ```text wrap theme={null}
@@ -131,6 +133,8 @@ Five messages come up while connecting:
 * **"That address is already connected as a gateway. Enter your authorization server's own addresses, or remove the gateway first."**: the token endpoint, or the **Issuer URL** value, is the address of a gateway connected in one of your Access bundles. Enter the server's own addresses, or delete that gateway's connection from its bundle first.
 
 For other dialog messages, see [Troubleshoot federated cloud access](/docs/claude-tag/admins/federated-access/troubleshooting).
+
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: this credential only works in channel sessions, not personal ones`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-this-credential-only-works-in-channel-sessions-not-personal-ones), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
 
 ## Related resources
 

@@ -2,11 +2,13 @@
 title: Accessing GitHub
 url: https://platform.claude.com/docs/en/managed-agents/github
 description: Connect your agent to GitHub repositories for cloning, reading, and creating pull requests.
+featureMetadata:
+  topic:
+    title: Managed Agents
+    url: https://platform.claude.com/docs/en/managed-agents/overview
+  status: beta
+  betaHeader: managed-agents-2026-04-01
 ---
-
-## Compatibility
-- Status: Beta
-- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `managed-agents-2026-04-01`
 
 You can mount a GitHub repository to your session sandbox and connect to the GitHub MCP for making pull requests.
 

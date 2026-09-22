@@ -2,13 +2,13 @@
 
 A pooled group budget gives a group one shared monthly amount that all its members draw from, on top of each user's own monthly spend limit. This article explains how pooled budgets work and how to set, prioritize, and monitor them.
 
-Pooled group budgets are in beta for Enterprise plan organizations. Owners, Primary Owners, and custom roles with the **Billing** permission set to "Can manage" can set pooled budgets in **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. To share feedback on the beta, contact your Anthropic account team.
+Pooled group budgets are in beta for Enterprise plan organizations. Primary Owners, Owners, Admins, and custom roles with the **Billing** permission set to "Can manage" can set pooled budgets in **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. To share feedback on the beta, contact your Anthropic account team.
 
 ## How pooled budgets work
 
 A group spend limit applies to each group member separately, so every member gets the same monthly limit. A pooled budget adds one shared amount for the whole group.
 
-Every request counts against both the user's own monthly spend limit and the group's pooled budget, and the user stops at whichever runs out first. When the pooled budget is used up, usage pauses for every member of the group until you raise the budget or it resets for the new month. After you raise it, group members can send messages again right away.
+Every request counts against both the user's own monthly spend limit and the group's pooled budget, and the user stops at whichever runs out first. Usage can go slightly over a limit before it pauses. When the pooled budget is used up, usage pauses for every member of the group until you raise the budget or it resets for the new month. After you raise it, group members can send messages again right away.
 
 **Note:** A pooled budget isn't an equal share for each person. If you set the member monthly limit to the pooled budget divided by the number of group members, you're back to one-person limits and lose the benefit of a shared budget. Set the member monthly limit as a guard rail against unusually high use by one person.
 

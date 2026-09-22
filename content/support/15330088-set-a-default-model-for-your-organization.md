@@ -116,7 +116,7 @@ Custom role defaults let you set different starting models for different teams. 
 
 2. Click the role you want to edit, or create a new role.
 
-3. Select the **Models** tab, then under **Default model**, select a model. Roles are set to “None selected” unless you choose a specific model. Only models the role has access to can be selected.
+3. Select the **Models** tab, then under **Default model**, select a model. Roles are set to "Organization default" unless you choose a specific model. Only models the role has access to can be selected.
 
 4. Click “Save role” to save your changes.
 

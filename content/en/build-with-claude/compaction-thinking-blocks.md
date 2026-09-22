@@ -2,13 +2,28 @@
 title: Compaction and preserved thinking
 url: https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks
 description: When thinking blocks in turns kept after on-demand compaction stay valid on models with preserved thinking, and how to check.
+featureMetadata:
+  status: beta
+  betaHeader: compact-2026-09-04
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-5
+    - claude-sonnet-4-6
+  supportedPlatforms:
+    Claude API: beta
+    Claude Platform on AWS: beta
+    Amazon Bedrock: not available
+    Google Cloud: beta
+    Microsoft Foundry: beta
 ---
-
-## Compatibility
-- Status: Beta
-- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `compact-2026-09-04`
-- Supported models: `claude-fable-5-1`, `claude-mythos-5-1`, `claude-fable-5`, `claude-mythos-5`, `claude-mythos-preview`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-sonnet-5`, `claude-sonnet-4-6`
-- Platforms: Claude API (beta), Claude Platform on AWS (beta), Microsoft Foundry (beta); not available on Amazon Bedrock, Google Cloud
 
 Skip this page unless you send thinking blocks back to a model with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) and keep turns after the compaction block. Kept turns are the turns that follow the block: recent turns you left out of the compaction request, as in [Compaction that keeps recent turns](https://platform.claude.com/docs/en/build-with-claude/compaction-keep-recent-turns), or turns that arrived while the summary was being written, as in [Compaction in the background](https://platform.claude.com/docs/en/build-with-claude/compaction-background).
 
@@ -22,7 +37,7 @@ The thinking blocks in kept turns stay valid while all of these hold:
 * **The kept turns directly follow the summarized messages, and you send them unchanged.** Send each kept message exactly as it is in your history. Don't skip or add a message between the last summarized message and the first kept one. The first kept message must also have a different role from the last summarized message, and it can't be a mid-conversation `role: "system"` message. Otherwise, the API merges it into the last summarized message. One way to get the first kept message right is to compact exactly the `messages` of a request you already sent. The kept turns then start with Claude's reply to it.
 * **`system` and the `tools` not marked `defer_loading: true` don't change.** They are the same on the compaction request as on the requests that produced the kept thinking, and they stay the same on the requests that follow. [Change the system prompt or tools](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#change-the-system-prompt-or-tools) covers how to change them safely.
 
-If a condition doesn't hold, nothing fails when you compact, and the API accepts the block on later requests either way. The failure comes on the first later request that sends the kept thinking where the API enforces the check: a 400 error by default, or dropped thinking blocks if the request sets `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. In the Message Batches API, an item that leaves the field unset drops the blocks instead. [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) describes both outcomes, and [When the API enforces the check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) says which requests are checked.
+If a condition doesn't hold, nothing fails when you compact, and the API accepts the block on later requests either way. The failure comes on the first later request that sends the kept thinking where the API enforces the check: a 400 error by default, or dropped thinking blocks if the request sets `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. In the Message Batches API, an item that leaves the field unset doesn't fail. Where the check applies by default, the API drops the blocks instead. [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) describes both outcomes, and [When the API enforces the check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) says which requests are checked.
 
 ## Compact again without breaking older thinking
 
