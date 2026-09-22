@@ -738,7 +738,7 @@ Research $ARGUMENTS thoroughly:
 When this skill runs:
 
 1. A new isolated context is created
-2. The subagent receives the skill content as its prompt ("Research \$ARGUMENTS thoroughly...")
+2. The subagent receives the skill content as its prompt (the "Research \$ARGUMENTS thoroughly" instructions)
 3. The `agent` field determines the execution environment (model, tools, and permissions)
 4. The subagent summarizes its results and returns them to your main conversation when it finishes
 
@@ -1086,7 +1086,7 @@ Run `/doctor` for an estimate of the listing's context cost and its biggest cont
 
 The Skills row in `/context` reports the size of the listing after the budget is applied, so it matches what the model receives. Before v2.1.196, the row counted the full text of every description and could show a value several times larger than the configured budget.
 
-To raise the budget, set the [`skillListingBudgetFraction`](/docs/en/settings-reference#skilllistingbudgetfraction) setting (e.g. `0.02` = 2%) or the `SLASH_COMMAND_TOOL_CHAR_BUDGET` environment variable to a fixed character count. To free budget for other skills, set low-priority entries to `"name-only"` in [`skillOverrides`](#override-skill-visibility-from-settings) so they list without a description. You can also trim the `description` and `when_to_use` text at the source: put the key use case first, since each entry's combined text is capped at 1,536 characters regardless of budget. The cap is configurable with [`skillListingMaxDescChars`](/docs/en/settings-reference#skilllistingmaxdescchars).
+To raise the budget, set the [`skillListingBudgetFraction`](/docs/en/settings-reference#skilllistingbudgetfraction) setting (for example, `0.02` = 2%) or the `SLASH_COMMAND_TOOL_CHAR_BUDGET` environment variable to a fixed character count. To free budget for other skills, set low-priority entries to `"name-only"` in [`skillOverrides`](#override-skill-visibility-from-settings) so they list without a description. You can also trim the `description` and `when_to_use` text at the source: put the key use case first, since each entry's combined text is capped at 1,536 characters regardless of budget. The cap is configurable with [`skillListingMaxDescChars`](/docs/en/settings-reference#skilllistingmaxdescchars).
 
 ## Related resources
 

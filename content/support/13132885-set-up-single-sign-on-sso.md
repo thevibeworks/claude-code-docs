@@ -42,7 +42,7 @@ You can verify multiple domains for a single organization, but all domains must 
 
 3. Enter the domain(s) you want to verify in the **Update organization email domains** modal and click the “+” button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2498843282/561d5ceb1c3a5df75bdfee8bfc3f/d2491145-362d-490b-bdcf-66a0a7656ddc?expires=1790074800&amp;signature=618097ce6a4910be275c180f8b84b80e1c0627a7d402ce0bca4c1b59372c9a01&amp;req=diQuHsF6noNXW%2FMW1HO4zSdmH3w5%2FcCEe3H0OpmIzWF%2Fn9Fyk3h%2BvBEQU8VR%0Aq3EA%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2498843282/561d5ceb1c3a5df75bdfee8bfc3f/d2491145-362d-490b-bdcf-66a0a7656ddc?expires=1790091900&amp;signature=84704ec0d942ee1ac29e0e22df1094821efcec30d6172378abd72fd3ae78a354&amp;req=diQuHsF6noNXW%2FMW1HO4zSdmH3w588WFe3H0OpmIzWETf9xUFIns6fcuoQYF%0AO6vP%0A)
 
 4. Click “Save” when you’re finished adding domains.
 
@@ -50,7 +50,7 @@ You can verify multiple domains for a single organization, but all domains must 
 
 6. Enter your domain in the text box and click “Continue”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2047042630/0617a562cd28a7ff0e607d66a30b/6bd08e1d-2b65-40ab-bc79-a257153854c1?expires=1790074800&amp;signature=a4e1a4f2468442e4fe961a6b17e6a7d029d6e59b7480c29c5e6c8ce765106057&amp;req=diAjEcl6n4dcWfMW1HO4zWHctB2XkNWiyoyXAW0OlXo8tY55lnDwkm%2FJBCKC%0AOrTv%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2047042630/0617a562cd28a7ff0e607d66a30b/6bd08e1d-2b65-40ab-bc79-a257153854c1?expires=1790091900&amp;signature=55cb462646aa03dd59c328e90e495298bff06780538e5e6f17152a8a0a921146&amp;req=diAjEcl6n4dcWfMW1HO4zWHctB2XntCjyoyXAW0OlXqmdrJbHNb%2BTkNzuvTr%0A2Jsc%0A)
 
 7. The setup screen displays a TXT record. **Copy the full Value using the copy button**—it begins with `anthropic-domain-verification-` and is longer than what's visible in the box. In your DNS provider, add a TXT record to your domain and **Value** set to the copied string. The domain must match exactly what you entered in the previous step, including any subdomains. Add it alongside any existing TXT records; don't replace them. The value is case-sensitive, so paste it exactly. Please refer to your DNS provider's documentation on this topic.
 
@@ -76,7 +76,7 @@ Clicking "Refresh" re-checks your DNS; it won't show Verified until the publishe
 
 If the record is correct and propagated but the status still shows Pending, contact Support.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2047044496/b8df54a0331784cc9ae8f00112aa/bf9609c1-dc93-4665-a066-4cae2fe4b002?expires=1790074800&amp;signature=c83e5305f5ff7cef547ecf762cdf91fa064936a72fce67c635211836df4c5e09&amp;req=diAjEcl6mYVWX%2FMW1HO4zVjmWCkAaHCxPM2D8ZcdgrgS16oF5slPvpBb3A5B%0AdpeSBsuadub1wxTVPko%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2047044496/b8df54a0331784cc9ae8f00112aa/bf9609c1-dc93-4665-a066-4cae2fe4b002?expires=1790091900&amp;signature=f60b2b764bfd6595a29b5ebb822c56e67fe531a38ce37d6eb7128fbab43a86d2&amp;req=diAjEcl6mYVWX%2FMW1HO4zVjmWCkAZnWwPM2D8Zcdgrj4mg%2FaSNl25egknkS%2B%0AgvQgPVaC4v8pgHQ0Cek%3D%0A)
 
 **Note:** Once your domain is verified, you'll see a **Restrict organization creation** toggle under **Security** on the Organization and access organization settings page. Enable this if you want to prevent users from creating new Claude or Console organizations—including personal accounts—using your verified domains.
 
@@ -116,7 +116,7 @@ For IdP-specific setup instructions, see:
 
 You can now choose to toggle on **Require SSO for Console** and/or **Require SSO for Claude,** on the **Organization and access** page, under the **Authentication** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312690200/bd2403586d4f6651ccd79e2a45af/b9f8d7ce-0def-49d9-bfb2-3a14352d7214?expires=1790074800&amp;signature=8da70eb2e2075a192145c26c855c448ca08a400181473607026c872acc590383&amp;req=diMmFM93nYNfWfMW1HO4zdAICg%2BhBXgCItXtKivx6ZEHOqaXOZK%2BZPoH739F%0AbxJ68C3rZjNizL0vehg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312690200/bd2403586d4f6651ccd79e2a45af/b9f8d7ce-0def-49d9-bfb2-3a14352d7214?expires=1790091900&amp;signature=da0b6c7b602d599bdc700eb1b5bb3a4e67cec59d08bcda8e57e3d2bc08e73f7f&amp;req=diMmFM93nYNfWfMW1HO4zdAICg%2BhC30DItXtKivx6ZEMNTM1ZSFcWoJbf9d2%0AsRhHtP2bPyLDpuf6mMI%3D%0A)
 
 When SSO is required, users must use the “Continue with SSO” option to log in to their Claude/Console accounts. When SSO is not required, they will have the option to choose “Continue with SSO” or “Continue with email.”
 

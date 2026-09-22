@@ -83,11 +83,11 @@ When a request can't be sent with a federated credential, it fails with an HTTP 
 
 Messages that begin "request blocked" come with HTTP 403. The request was refused on purpose, and retrying won't help. A 503 is temporary. A 502 usually means AWS, Google Cloud, or your authorization server refused the token exchange. A response from your gateway or from the cloud API itself reaches Claude as is, so those show as whatever status the other side returned.
 
-### request blocked: this credential only works in channel sessions, not personal ones
+### request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)
 
 **What you see**
 
-Claude's request got HTTP 403 with this reason.
+Claude's request got HTTP 403 with this reason, or with `request blocked: this credential only works in channel sessions, not personal ones`, which means the same thing.
 
 **What it means**
 

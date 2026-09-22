@@ -222,12 +222,11 @@ Tool results may contain [**structured**](#structured-content) or **unstructured
 {
   "type": "image",
   "data": "base64-encoded-data",
-  "mimeType": "image/png"
+  "mimeType": "image/png",
   "annotations": {
     "audience": ["user"],
     "priority": 0.9
   }
-
 }
 ```
 
