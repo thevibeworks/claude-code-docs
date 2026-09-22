@@ -43,13 +43,15 @@ For broader prompting guidance with thinking, see [leverage thinking and interle
 
 Effort is the primary steering lever for thinking. Each level sets a different default for how often Claude thinks and how deeply:
 
-| Effort level     | Thinking behavior                                                                    |
-| ---------------- | ------------------------------------------------------------------------------------ |
-| `max`            | Claude always thinks with no constraints on thinking depth.                          |
-| `xhigh`          | Claude always thinks deeply with extended exploration.                               |
-| `high` (default) | Claude almost always thinks. Provides deep reasoning on complex tasks.               |
-| `medium`         | Claude uses moderate thinking. May skip thinking for simple queries.                 |
-| `low`            | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most. |
+| Effort level     | Thinking behavior                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| `max`            | Claude thinks the most readily and at the greatest depth, with no constraint on thinking length. |
+| `xhigh`          | Claude thinks more readily and at greater depth than at `high`, suited to extended exploration.  |
+| `high` (default) | Claude thinks on most requests that benefit from it. Provides deep reasoning on complex tasks.   |
+| `medium`         | Claude uses moderate thinking. May skip thinking for simple queries.                             |
+| `low`            | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most.             |
+
+At every level, Claude decides per request whether to think. In a tool-use loop, the first request after new user input typically carries most of the reasoning, and follow-up requests that only process tool results can skip thinking, including at `xhigh` and `max`. Thinking per request also tends to decrease as a conversation grows longer. No level guarantees a thinking block on every request.
 
 This table describes how each level changes thinking behavior. For guidance on which level to choose for a given workload, including per-model recommendations, see [When to adjust the effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort#when-to-adjust-the-effort-parameter) on the effort page.
 

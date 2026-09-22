@@ -38,7 +38,11 @@ To install a plugin from the official marketplace, use `/plugin install <name>@c
 /plugin install github@claude-plugins-official
 ```
 
-`/plugin` opens an interactive panel in the terminal CLI. If Claude replies that `/plugin` isn't available in this environment, use the [plugin browser](/docs/en/desktop#install-plugins) in the Claude desktop app, or declare the plugin under [`enabledPlugins`](/docs/en/settings-reference#enabledplugins) in `.claude/settings.json` for cloud sessions.
+`/plugin` opens an interactive panel in the terminal CLI. If Claude replies that `/plugin` isn't available in this environment, install the plugin another way:
+
+* **Claude desktop app**: use the [plugin browser](/docs/en/desktop#install-plugins).
+* **VS Code extension**: install from the [**Manage plugins** dialog](/docs/en/vs-code#manage-plugins).
+* **Cloud sessions**: enable the plugin for your claude.ai account so Claude Code loads it as a [synced plugin](/docs/en/plugins-reference#synced-plugins).
 
 If the install fails, match the message Claude Code reports:
 
@@ -291,7 +295,7 @@ Add a remote `marketplace.json` file via URL:
 
 In terminal sessions where [plugins sync from your claude.ai account](/docs/en/plugins-reference#synced-plugins), claude.ai can also list marketplaces for you, such as your organization's plugin library and your own claude.ai uploads. `claude plugin marketplace list` prints them in a `From claude.ai:` section, and the `/plugin` **Marketplaces** tab lists them. Select one there to add it. Adding a marketplace from claude.ai requires Claude Code v2.1.273 or later.
 
-To add one from your shell, run `claude plugin marketplace add` with the `--claudeai` flag and the name shown in the list:
+To add a marketplace from that list in your shell instead, run `claude plugin marketplace add` with the `--claudeai` flag and the name the list shows:
 
 ```bash theme={null}
 claude plugin marketplace add --claudeai claudeai-organization-library
@@ -359,7 +363,7 @@ To install a plugin from a marketplace you haven't added yet, name the marketpla
 
 The source takes [the same forms as `/plugin marketplace add`](#add-marketplaces), such as GitHub `owner/repo`, a git URL, or a local path, except that it can't contain spaces. Give the plugin name bare, without an `@marketplace` suffix.
 
-If you haven't added that marketplace yet, Claude Code shows the source it resolved and asks you to confirm before adding it. Declining cancels the install and adds nothing. Once the marketplace is added, the plugin's details open and you choose an [installation scope](/docs/en/settings#where-settings-live).
+Claude Code shows the source it resolved and asks you to confirm before adding the marketplace. Declining cancels the install and adds nothing. Once the marketplace is added, the plugin's details open and you choose an [installation scope](/docs/en/settings#where-settings-live). If the source matches a marketplace you've already added, Claude Code skips the confirmation and opens the plugin's details in that marketplace.
 
 ## Manage installed plugins
 

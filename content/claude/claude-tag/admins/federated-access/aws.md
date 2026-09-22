@@ -117,6 +117,8 @@ New threads pick up the connection on their own. In a thread already running, as
 
 ## Verify the connection
 
+[Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
+
 In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to run a connectivity check. The check is Claude's own request to `sts.amazonaws.com`, so keep `*.amazonaws.com` under the connection's **Allowed hosts** for this check, or add `sts.amazonaws.com` if you already narrowed the list. The sign-in itself needs no entry there. After the check passes, remove `sts.amazonaws.com` again if you added it, or narrow the wildcard. While it is listed, Claude can send any STS request signed with the role's credentials. If the role is allowed to assume another role, the credentials AWS returns are readable in Claude's sandbox. The call needs no permissions policy on the role. Send Claude this prompt:
 
 ```text wrap theme={null}
@@ -148,6 +150,8 @@ Two messages come up while connecting:
 * **"Enter a role ARN like `arn:aws:iam::123456789012:role/ClaudeTag`"**: the **Role ARN** field rejected the value, most often because the ARN is in the AWS GovCloud (US) or AWS China partition, which can't be connected.
 
 For other dialog messages, see [Troubleshoot federated cloud access](/docs/claude-tag/admins/federated-access/troubleshooting).
+
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: this credential only works in channel sessions, not personal ones`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-this-credential-only-works-in-channel-sessions-not-personal-ones), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
 
 ## Related resources
 

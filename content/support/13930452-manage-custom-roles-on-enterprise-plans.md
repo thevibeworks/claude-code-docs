@@ -99,7 +99,7 @@ Roles set to either option pick up new capabilities automatically as they launch
 
 7. Configure connectors. You can choose Always allow, Needs approval, or Blocked for all connectors, or customize per connector or connector tool.
 
-8. Configure models. Select which models this role can use, optionally set a maximum effort level per model, and optionally choose a default model for the role.
+8. Configure models. Select which models this role can use, optionally set a maximum effort level per model, and optionally choose a default model and default effort level for the role.
 
 9. Click “Save role.”
 
@@ -320,7 +320,7 @@ Members can’t tell which layer restricted a tool. The message is the same whet
 
 ## Model access
 
-Custom roles also control which Claude models a role can use and the maximum effort level members can select on each one. You set these on the **Models** tab of the role editor, alongside the role's default model.
+Custom roles also control which Claude models a role can use and the maximum effort level members can select on each one. You set these on the **Models** tab of the role editor, alongside the role's default model and default effort level.
 
 The organization-level model setting is the ceiling. A role can't grant a model that's disabled at the organization level. Across a member's roles, model access is additive and effort limits take the highest cap any role allows. Haiku models are always available and can't be disabled.
 

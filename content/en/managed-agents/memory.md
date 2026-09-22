@@ -2,11 +2,10 @@
 title: Using agent memory
 url: https://platform.claude.com/docs/en/managed-agents/memory
 description: Give your agents persistent memory that survives across sessions using memory stores.
+featureMetadata:
+  status: beta
+  betaHeader: agent-memory-2026-07-22
 ---
-
-## Compatibility
-- Status: Beta
-- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `agent-memory-2026-07-22`
 
 Each Managed Agents session starts with a fresh context by default. When a session ends, any state the agent built up is gone. Memory stores let the agent carry information across sessions: user preferences, project conventions, prior mistakes, and domain context.
 

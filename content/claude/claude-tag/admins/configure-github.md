@@ -151,6 +151,17 @@ On GHES, you create the GitHub App on your own instance instead of installing An
 
 Registering a GHE host with your Claude organization isn't fully self-serve. Raise it with your account team if the guide doesn't get you all the way through.
 
+#### GitHub Enterprise Server in direct messages
+
+In a [direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels), Claude reaches repositories on a registered host through the sender's own GitHub Enterprise account instead of the bundle's grants. Claude adds a repository to a DM session only when both of these are true:
+
+* The sender's GitHub Enterprise account has push access to the repository
+* Your GitHub App's installation on the instance includes the repository
+
+If the sender hasn't connected their GitHub Enterprise account on claude.ai yet, Claude replies with a link to connect it. After connecting, the sender asks Claude to add the repository again.
+
+In channels, Claude uses the repositories granted on the bundle's **Repositories** tab, as it does for github.com. A person's own GitHub Enterprise connection doesn't apply in channels.
+
 ## Related resources
 
 * [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope): bind the bundle to the workspaces and channels that need it

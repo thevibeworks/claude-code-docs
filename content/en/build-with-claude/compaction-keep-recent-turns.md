@@ -2,13 +2,28 @@
 title: Compaction that keeps recent turns
 url: https://platform.claude.com/docs/en/build-with-claude/compaction-keep-recent-turns
 description: Summarize the older turns of a conversation with on-demand compaction and send the most recent turns after the summary, word for word.
+featureMetadata:
+  status: beta
+  betaHeader: compact-2026-09-04
+  supportedModels:
+    - claude-fable-5-1
+    - claude-mythos-5-1
+    - claude-fable-5
+    - claude-mythos-5
+    - claude-mythos-preview
+    - claude-opus-5
+    - claude-opus-4-8
+    - claude-opus-4-7
+    - claude-opus-4-6
+    - claude-sonnet-5
+    - claude-sonnet-4-6
+  supportedPlatforms:
+    Claude API: beta
+    Claude Platform on AWS: beta
+    Amazon Bedrock: not available
+    Google Cloud: beta
+    Microsoft Foundry: beta
 ---
-
-## Compatibility
-- Status: Beta
-- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `compact-2026-09-04`
-- Supported models: `claude-fable-5-1`, `claude-mythos-5-1`, `claude-fable-5`, `claude-mythos-5`, `claude-mythos-preview`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-sonnet-5`, `claude-sonnet-4-6`
-- Platforms: Claude API (beta), Claude Platform on AWS (beta), Microsoft Foundry (beta); not available on Amazon Bedrock, Google Cloud
 
 Keep-tail compaction keeps the last few turns of a conversation word for word after the summary. It changes two things in the [compaction loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop): which messages go into the compaction request, and what you send after the block. Everything in [Continue from the summary](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#continue-from-the-summary) applies unchanged.
 
