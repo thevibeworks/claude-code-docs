@@ -20,7 +20,7 @@ Resources in beta (including agents, sessions, deployments, and environments) li
 
 ```bash
 ant models list
-ant messages create --model claude-opus-5 --max-tokens 1024 ...
+ant messages create --model claude-opus-5-5 --max-tokens 1024 ...
 ant beta:agents retrieve --agent-id agent_01...
 ant beta:sessions:events list --session-id session_01...
 ```
@@ -43,14 +43,14 @@ ant beta:sessions:events list --session-id session_01...
 `auto` pretty-prints JSON and is the default for commands that create or modify resources. List and retrieve commands default to the [interactive explorer](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using#interactive-explorer) when writing to a terminal, and to pretty-printed JSON when piped. Override either default with `--format`:
 
 ```bash
-ant models retrieve --model-id claude-opus-5 --format yaml
+ant models retrieve --model-id claude-opus-5-5 --format yaml
 ```
 
 ```yaml Output
 type: model
-id: claude-opus-5
-display_name: Claude Opus 5
-created_at: "2026-07-24T00:00:00Z"
+id: claude-opus-5-5
+display_name: Claude Opus 5.5
+created_at: "2026-09-22T00:00:00Z"
 ...
 ```
 
@@ -75,9 +75,9 @@ ant beta:agents list \
 ```
 
 ```jsonl Output
-{"id": "agent_011CYm1BLqPX...", "name": "Docs CLI Test Agent", "model": "claude-opus-5"}
-{"id": "agent_011CYkVwfaEt...", "name": "Coffee Making Assistant", "model": "claude-opus-5"}
-{"id": "agent_011CYixHhtUP...", "name": "Coding Assistant", "model": "claude-opus-5"}
+{"id": "agent_011CYm1BLqPX...", "name": "Docs CLI Test Agent", "model": "claude-opus-5-5"}
+{"id": "agent_011CYkVwfaEt...", "name": "Coffee Making Assistant", "model": "claude-opus-5-5"}
+{"id": "agent_011CYixHhtUP...", "name": "Coding Assistant", "model": "claude-opus-5-5"}
 ```
 
 ### Extract a scalar
@@ -87,7 +87,7 @@ To capture a single field as an unquoted string (for example, the ID of a newly 
 ```bash
 AGENT_ID=$(ant beta:agents create \
   --name "My Agent" \
-  --model '{id: claude-opus-5}' \
+  --model '{id: claude-opus-5-5}' \
   --transform id --raw-output)
 
 printf '%s\n' "$AGENT_ID"
@@ -121,7 +121,7 @@ Repeatable flags build arrays. Each `--tool` or `--event` appends one element:
 ```bash
 ant beta:agents create \
   --name "Research Agent" \
-  --model '{id: claude-opus-5}' \
+  --model '{id: claude-opus-5-5}' \
   --tool '{type: agent_toolset_20260401}' \
   --tool '{type: custom, name: search_docs, input_schema: {type: object, properties: {query: {type: string}}}}'
 ```
@@ -140,7 +140,7 @@ Heredocs work the same way and are convenient for multiline YAML. Quote the deli
 ```bash
 ant beta:agents create <<'YAML'
 name: Research Agent
-model: claude-opus-5
+model: claude-opus-5-5
 system: |
   You are a research assistant. Cite sources for every claim.
 tools:
@@ -160,7 +160,7 @@ To inline a file's contents into a string-valued field, prefix the path with `@`
 
 ```bash
 ant beta:agents create \
-  --name "Researcher" --model '{id: claude-opus-5}' \
+  --name "Researcher" --model '{id: claude-opus-5-5}' \
   --system @./prompts/researcher.txt
 ```
 
@@ -168,7 +168,7 @@ Inside structured flag values, wrap the path in quotes. To send a PDF to the Mes
 
 ```bash
 ant messages create \
-  --model claude-opus-5 \
+  --model claude-opus-5-5 \
   --max-tokens 1024 \
   --message '{role: user, content: [
     {type: document, source: {type: base64, media_type: application/pdf, data: "@./scan.pdf"}},

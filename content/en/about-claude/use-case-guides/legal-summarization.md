@@ -188,7 +188,7 @@ client = anthropic.Anthropic()
 
 
 def summarize_document(
-    text, details_to_extract, model="claude-opus-5", max_tokens=1000
+    text, details_to_extract, model="claude-opus-5-5", max_tokens=1000
 ):
     # Format the details to extract to be placed within the prompt's context
     details_to_extract_str = "\n".join(details_to_extract)
@@ -295,7 +295,7 @@ def chunk_text(text, chunk_size=20000):
 
 
 def summarize_long_document(
-    text, details_to_extract, model="claude-opus-5", max_tokens=1000
+    text, details_to_extract, model="claude-opus-5-5", max_tokens=1000
 ):
     # Format the details to extract to be placed within the prompt's context
     details_to_extract_str = "\n".join(details_to_extract)

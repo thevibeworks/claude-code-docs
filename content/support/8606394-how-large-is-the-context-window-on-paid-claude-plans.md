@@ -1,14 +1,55 @@
 # How large is the context window on paid Claude plans?
 
-Claude Fable 5.1, Opus 5, and Sonnet 5 support a 1M token context window on all paid plans when chatting with Claude. Claude Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6 support a 500K token context window on all paid plans when chatting with Claude. Outside of these models, Claude’s context window size is 200K, meaning it can ingest 200K+ tokens (about 500 pages of text or more) when using a paid Claude plan.
+This article explains how large the context window is on paid Claude plans (Pro, Max, Team, Enterprise) when you chat with Claude, or use Claude Code or Claude Cowork.
 
-When using Claude Code with a Pro, Max, Team, or Enterprise plan, Claude Fable 5.1, Sonnet 5, Fable 5, Opus 5, Opus 4.8, Opus 4.7, and Opus 4.6 support a 1M token context window. Pro users need to enable usage credits to access the 1M token context window for Opus models. Sonnet 4.6 also supports a 1M context window for all paid Claude plans on Claude Code, but usage credits must be enabled to access it (except for usage-based Enterprise plans).
+## Chatting with Claude
 
-When using Claude Cowork with a Pro, Max, Team, or Enterprise plan, Claude Fable 5.1, Fable 5, Opus 5, Sonnet 5, Opus 4.8, and Opus 4.7 support a 1M token context window. Claude Sonnet 5 automatically compacts the conversation at 500K tokens. Claude Sonnet 4.6, Opus 4.6, and Haiku 4.5 support a 200K token context window in Cowork.
+| **Model**         | **Context window** |
+| ----------------- | ------------------ |
+| Claude Fable 5.1  | 1M tokens          |
+| Claude Fable 5    | 500K tokens        |
+| Claude Opus 5.5   | 1M tokens          |
+| Claude Opus 5     | 1M tokens          |
+| Claude Opus 4.8   | 500K tokens        |
+| Claude Opus 4.7   | 500K tokens        |
+| Claude Opus 4.6   | 500K tokens        |
+| Claude Sonnet 5   | 1M tokens          |
+| Claude Sonnet 4.6 | 500K tokens        |
+
+Outside of these models, Claude’s context window size is 200K, meaning it can ingest 200K+ tokens (about 500 pages of text or more) when using a paid Claude plan to chat with Claude.
+
+## Claude Code
+
+| **Model**         | **Context window**                                                                                                                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Fable 5.1  | 1M tokens                                                                                                                                                                                |
+| Claude Fable 5    | 1M tokens                                                                                                                                                                                |
+| Claude Opus 5.5   | 1M tokens                                                                                                                                                                                |
+| Claude Opus 5     | 1M tokens                                                                                                                                                                                |
+| Claude Opus 4.8   | 1M tokens                                                                                                                                                                                |
+| Claude Opus 4.7   | 1M tokens                                                                                                                                                                                |
+| Claude Opus 4.6   | 1M tokens<br>**Note:** 1M context window available by selecting `claude-opus-4-6[1m]` with `/model`; on Pro, usage credits must be enabled to access                                     |
+| Claude Sonnet 5   | 1M tokens                                                                                                                                                                                |
+| Claude Sonnet 4.6 | 1M tokens<br>**Note:** 1M context window available by selecting `claude-sonnet-4-6[1m]` with `/model`; usage credits must be enabled to access (except for usage-based Enterprise plans) |
+
+## Claude Cowork
+
+| **Model**         | **Context window**                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| Claude Fable 5.1  | 1M tokens                                                                              |
+| Claude Fable 5    | 1M tokens                                                                              |
+| Claude Opus 5.5   | 1M tokens                                                                              |
+| Claude Opus 5     | 1M tokens                                                                              |
+| Claude Opus 4.8   | 1M tokens                                                                              |
+| Claude Opus 4.7   | 1M tokens                                                                              |
+| Claude Opus 4.6   | 200K tokens                                                                            |
+| Claude Sonnet 5   | 1M tokens<br>**Note:** Sonnet 5 automatically compacts the conversation at 500K tokens |
+| Claude Sonnet 4.6 | 200K tokens                                                                            |
+| Haiku 4.5         | 200K tokens                                                                            |
 
 ## Automatic context management
 
-For users on paid plans with code execution enabled, Claude automatically manages your conversation context. When your conversation approaches the context window limit, Claude summarizes earlier messages to make room for new content. This does not count towards your usage limit, and allows conversations to continue indefinitely in most cases.
+For users on paid plans with code execution enabled, Claude automatically manages your conversation context. When your conversation approaches the context window limit, Claude summarizes earlier messages to make room for new content. This allows conversations to continue indefinitely in most cases. Longer conversations that trigger automatic context management use more of your usage limit.
 
 Your full chat history is preserved so Claude can reference it, even after earlier portions have been summarized. You may occasionally notice Claude "organizing its thoughts" during long conversations—this is the automatic context management at work.
 

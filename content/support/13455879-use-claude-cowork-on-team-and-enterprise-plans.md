@@ -108,7 +108,7 @@ Projects are available wherever members use Cowork. Projects tied to a local fol
 
 ## Manage plugins for your organization
 
-Owners can create plugin marketplaces to distribute curated plugins across their organization. This gives you control over which plugins your team members see and use in Cowork.
+Owners can create plugin marketplaces to distribute curated plugins across their organization. This gives you control over which plugins users see and use in chat, Cowork, and Claude Code (for users who sign in to Claude Code with their Claude account).
 
 - **Installed by default** — Automatically added for everyone in your organization. Members can uninstall if they choose.
 

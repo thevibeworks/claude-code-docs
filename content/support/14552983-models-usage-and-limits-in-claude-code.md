@@ -19,11 +19,11 @@ If you signed in with an Enterprise seat, you generally do not need to think abo
 
 ## Choosing a model
 
-Run **`/model`** at any time to see which models are available to your account and to switch between them. As a rough guide:
+Run **`/model`** at any time to see which model you're using, check which models are available to your account, and switch between them. Your default model depends on how you signed in and on your organization's settings. As a rough guide:
 
-- **Sonnet** is the default and is the right choice for the large majority of coding work. It is fast, capable, and cost-efficient.
+- **Sonnet** is the right choice for the large majority of coding work. It is fast, capable, and cost-efficient.
 
-- **Opus** offers deeper reasoning for harder problems such as large cross-cutting refactors, difficult debugging, or architectural decisions. It uses meaningfully more of your quota, so switch to it when you need it rather than leaving it on by default.
+- **Opus** offers deeper reasoning for harder problems such as large cross-cutting refactors, difficult debugging, or architectural decisions. It uses meaningfully more of your quota, so consider switching to Sonnet for routine work.
 
 - **Haiku** is the fastest and cheapest option, well suited to quick lookups, simple edits, or high-volume scripted runs.
 

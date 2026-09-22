@@ -188,7 +188,7 @@ The API returns data in the following format:
       },
       "model_breakdown": [
         {
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "tokens": {
             "input": 100000,
             "output": 35000,
@@ -197,7 +197,7 @@ The API returns data in the following format:
           },
           "estimated_cost": {
             "currency": "USD",
-            "amount": 141
+            "amount": 113
           }
         }
       ]

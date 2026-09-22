@@ -12,24 +12,24 @@ Connectors give Claude access to external data sources during an analysis. Skill
 
 Claude Science includes Featured connectors to public life-sciences databases. They're on by default and can be turned off individually in **Settings > Connectors**. On Team and Enterprise plans, your organization can also turn individual Featured connectors off for everyone, and in organizations with HIPAA compliance enabled they start off until an admin turns them on. A connector your organization has off stays listed, grayed, and Claude can't use it (see [Featured connectors and skills](/docs/claude-science/admin-controls#featured-connectors-and-skills)). Featured connectors are read-only and don't require an account or key. Some underlying databases have non-commercial or attribution terms; review each source's license for your use case.
 
-| Connector                 | Sources                                              |
-| ------------------------- | ---------------------------------------------------- |
-| Genomes                   | Ensembl (incl. VEP), UCSC                            |
-| Genes & Ontologies        | MyGene, UniProt, GO, Reactome, OLS                   |
-| Variants                  | gnomAD, ClinVar, dbSNP                               |
-| Human Genetics            | GWAS Catalog, eQTL Catalogue, FinnGen, BioBank Japan |
-| Clinical Genomics         | ClinGen, CIViC, Open Targets                         |
-| Expression                | GTEx                                                 |
-| Regulation                | ENCODE, JASPAR, UniBind                              |
-| Protein Annotation        | InterPro, Pfam, Human Protein Atlas, STRING          |
-| Structures & Interactions | PDB, AlphaFold, EMDB, Complex Portal, IntAct         |
-| RNA                       | Rfam                                                 |
-| Omics Archives            | GEO, ArrayExpress, PRIDE, MGnify, MetaboLights       |
-| Cancer Models             | cBioPortal                                           |
-| Chemistry                 | PubChem, ChEBI, Rhea, BindingDB                      |
-| Drug Regulatory           | FDA drug data, openFDA                               |
-| Literature Graph          | OpenAlex, arXiv                                      |
-| Research Resources        | Grants.gov, Antibody Registry                        |
+| Connector                 | Sources                                        |
+| ------------------------- | ---------------------------------------------- |
+| Genomes                   | Ensembl (incl. VEP), UCSC                      |
+| Genes & Ontologies        | MyGene, UniProt, GO, Reactome, OLS             |
+| Variants                  | gnomAD, ClinVar, dbSNP                         |
+| Human Genetics            | GWAS Catalog, FinnGen, BioBank Japan           |
+| Clinical Genomics         | ClinGen, CIViC, Open Targets                   |
+| Expression                | GTEx                                           |
+| Regulation                | JASPAR, UniBind                                |
+| Protein Annotation        | InterPro, Pfam, Human Protein Atlas, STRING    |
+| Structures & Interactions | PDB, AlphaFold, EMDB, Complex Portal, IntAct   |
+| RNA                       | Rfam                                           |
+| Omics Archives            | GEO, ArrayExpress, PRIDE, MGnify, MetaboLights |
+| Cancer Models             | cBioPortal                                     |
+| Chemistry                 | PubChem, ChEBI, Rhea, BindingDB                |
+| Drug Regulatory           | FDA drug data, openFDA                         |
+| Literature Graph          | OpenAlex, arXiv                                |
+| Research Resources        | Grants.gov, Antibody Registry                  |
 
 Additional Featured connectors: **BioMart**, **CellGuide** (CELLxGENE cell types), **ZINC** (purchasable chemical space), and **Ketcher Chemistry** (2D molecule sketcher).
 

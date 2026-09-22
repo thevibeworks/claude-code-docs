@@ -96,6 +96,7 @@ You need:
 
         <File filename="environment.yaml">
           ```yaml
+          # yaml-language-server: $schema=https://platform.claude.com/schemas/ant/beta/environment.json
           name: self-hosted
           config:
             type: self_hosted
@@ -220,7 +221,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
             For Linux environments, download the release binary directly.
 
             ```bash
-            VERSION=1.33.0
+            VERSION=1.35.0
             OS=$(uname -s | tr '[:upper:]' '[:lower:]')
             case $(uname -m) in
               x86_64) ARCH=amd64 ;;
@@ -258,7 +259,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
 
         ```text
         FROM your-base-image
-        ARG ANT_VERSION=1.33.0
+        ARG ANT_VERSION=1.35.0
         ARG TARGETARCH
         RUN ARCH=$([ "$TARGETARCH" = "arm64" ] && echo arm64 || echo amd64) && \
             curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${ANT_VERSION}/ant_${ANT_VERSION}_linux_${ARCH}.tar.gz" \
@@ -1603,7 +1604,7 @@ The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-a
               listed = await mcp_session.list_tools()
               agent = await client.beta.agents.create(
                   name="Internal tools agent",
-                  model="claude-opus-5",
+                  model="claude-opus-5-5",
                   tools=[
                       {"type": "agent_toolset_20260401"},
                       *[to_custom_tool(tool) for tool in listed.tools],
@@ -1632,7 +1633,7 @@ The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-a
 
       const agent = await client.beta.agents.create({
         name: "Internal tools agent",
-        model: "claude-opus-5",
+        model: "claude-opus-5-5",
         tools: [
           { type: "agent_toolset_20260401" },
           // The MCP fields map one to one onto a custom tool declaration.
@@ -1751,7 +1752,7 @@ The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-a
 
       	agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
       		Name:  "Internal tools agent",
-      		Model: anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeOpus5},
+      		Model: anthropic.BetaManagedAgentsModelConfigParams{ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5},
       		Tools: tools,
       	})
       	if err != nil {

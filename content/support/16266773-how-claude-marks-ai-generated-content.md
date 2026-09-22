@@ -40,6 +40,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Fable 5    |                                                             |                                                                                    | ✅                                       |
 | Claude Mythos 5.1 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5   |                                                             |                                                                                    | ✅                                       |
+| Claude Opus 5.5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 5     | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Opus 4.8   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |

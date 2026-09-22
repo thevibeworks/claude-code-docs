@@ -392,7 +392,7 @@ Add the model name, the tool definition, and a stub implementation to `config.py
 ```python
 import time
 
-MODEL = "claude-opus-5"
+MODEL = "claude-opus-5-5"
 
 TOOLS = [
     {

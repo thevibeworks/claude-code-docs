@@ -15,9 +15,9 @@ Mid-conversation system messages close that gap. You append a `{"role": "system"
 <Note>
   Mid-conversation system messages are available on the Claude API, [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai).
 
-  This feature is available on Claude Fable 5.1, [Claude Mythos 5.1](https://anthropic.com/glasswing), Claude Fable 5, [Claude Mythos 5](https://anthropic.com/glasswing), Claude Opus 4.8, and Claude Opus 5. No beta header is required for mid-conversation system messages. This feature is not available on Claude Sonnet 5. Use the top-level `system` field there instead.
+  This feature is available on Claude Fable 5.1, [Claude Mythos 5.1](https://anthropic.com/glasswing), Claude Fable 5, [Claude Mythos 5](https://anthropic.com/glasswing), Claude Opus 5.5, Claude Opus 4.8, and Claude Opus 5. No beta header is required for mid-conversation system messages. This feature is not available on Claude Sonnet 5. Use the top-level `system` field there instead.
 
-  [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) are in beta and require the `mid-conversation-tool-changes-2026-07-01` beta header. They are available on the same models, on the Claude API, Amazon Bedrock, and Google Cloud.
+  [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) are in beta and require the `mid-conversation-tool-changes-2026-07-01` beta header. They are available on the same models, on the Claude API, Amazon Bedrock, and Google Cloud. [Defining a tool inside a `tool_addition` block](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta) uses the `inline-tools-2026-09-15` beta header in place of that one, and is available on the Claude API. [Adding an MCP server that way](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#add-an-mcp-server-mid-conversation-beta) also needs the `mcp-client-2026-09-15` beta header.
 
   [Turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (`clear_at`) are in beta and require the `mid-conversation-system-clear-at-2026-08-21` beta header, on the same models and platforms as mid-conversation system messages.
 </Note>
@@ -26,7 +26,7 @@ Mid-conversation system messages close that gap. You append a `{"role": "system"
 
 The `tools` array sits even earlier in the hashed request prefix than the top-level `system` field, so editing it invalidates the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for the entire conversation. Mid-conversation tool changes are the tools counterpart to mid-conversation system messages. Instead of fixing the tool list for the lifetime of the conversation, you change which tools are offered to the model between turns: declare the full tool set in `tools` up front, then use `tool_addition` and `tool_removal` blocks to offer a tool to the model, or withdraw it, from a specific point in the conversation onward. The `tools` array itself never changes, so the cached prefix stays intact.
 
-`tool_addition` and `tool_removal` are content blocks in the `content` array of a `role: "system"` message, and they can be mixed with `text` blocks in the same message. The message follows the placement rules for any mid-conversation system message, with one extra restriction after a paused turn (see [Limitations](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations)), and the change applies from that point in the conversation onward. Each block's `tool` field references a tool rather than defining one: `{"type": "tool_reference", "name": "..."}` names a tool declared in the request's `tools` array, and [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) tools can be referenced individually with `mcp_tool_reference` (`server_name` and `name`) or as a whole toolset with `mcp_toolset_reference` (`server_name`). Referencing a name that is not declared in `tools` returns a 400 error (on the Claude API, with `error.details.error_code` set to `tool_reference_unresolved`).
+`tool_addition` and `tool_removal` are content blocks in the `content` array of a `role: "system"` message, and they can be mixed with `text` blocks in the same message. The message follows the placement rules for any mid-conversation system message, with one extra restriction after a paused turn (see [Limitations](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations)), and the change applies from that point in the conversation onward. Each block's `tool` field references a tool rather than defining one: `{"type": "tool_reference", "name": "..."}` names a tool declared in the request's `tools` array, and [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) tools can be referenced individually with `mcp_tool_reference` (`server_name` and `name`) or as a whole toolset with `mcp_toolset_reference` (`server_name`). Referencing a name that is not declared in `tools` returns a 400 error (on the Claude API, with `error.details.error_code` set to `tool_reference_unresolved`). With the `inline-tools-2026-09-15` beta header, a `tool_addition` block can instead [carry the tool's full definition](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta).
 
 Every tool declared in `tools` is offered to the model from the start of the conversation unless it is declared with `defer_loading: true`, which keeps it withheld until a `tool_addition` block surfaces it. `tool_addition` also re-offers a tool that an earlier `tool_removal` withdrew.
 
@@ -40,7 +40,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: mid-conversation-tool-changes-2026-07-01" \
     -d '{
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "tools": [
         {
@@ -76,7 +76,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   ```bash CLI
   ant beta:messages create --beta mid-conversation-tool-changes-2026-07-01 \
     --transform 'content.#(type=="text").text' --raw-output <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 1024
   tools:
     - name: get_weather
@@ -105,7 +105,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   client = anthropic.Anthropic()
 
   response = client.beta.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       betas=["mid-conversation-tool-changes-2026-07-01"],
       # The full tool set is declared up front and never changes, so the
@@ -152,7 +152,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   const client = new Anthropic();
 
   const response = await client.beta.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     betas: ["mid-conversation-tool-changes-2026-07-01"],
     // The full tool set is declared up front and never changes, so the
@@ -205,7 +205,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
 
   var response = await client.Beta.Messages.Create(new MessageCreateParams
   {
-      Model = Messages::Model.ClaudeOpus5,
+      Model = Messages::Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       Betas = ["mid-conversation-tool-changes-2026-07-01"],
       // The full tool set is declared up front and never changes, so the
@@ -259,7 +259,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   client := anthropic.NewClient()
 
   response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 1024,
   	Betas:     []anthropic.AnthropicBeta{"mid-conversation-tool-changes-2026-07-01"},
   	// The full tool set is declared up front and never changes, so the
@@ -331,7 +331,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
           .build();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
           .addBeta("mid-conversation-tool-changes-2026-07-01")
           .addTool(weatherTool)
@@ -358,7 +358,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   $client = new Client();
 
   $response = $client->beta->messages->create(
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       maxTokens: 1024,
       betas: ['mid-conversation-tool-changes-2026-07-01'],
       // The full tool set is declared up front and never changes, so the
@@ -407,7 +407,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   client = Anthropic::Client.new
 
   response = client.beta.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     betas: ["mid-conversation-tool-changes-2026-07-01"],
     # The full tool set is declared up front and never changes, so the
@@ -448,6 +448,1176 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   ```
 </CodeGroup>
 
+### Define tools in a message (beta)
+
+With the `inline-tools-2026-09-15` beta header, a `tool_addition` block can define a tool by value, carrying its full definition, instead of naming it by reference. This lets you introduce a tool that is unknown at the start of the conversation, or whose schema changes later, by appending a `role: "system"` message. The `tools` array and every earlier message stay exactly as sent, so the prompt cache still hits and only the appended message is processed as new input. The one exception, a `tools` array with no non-deferred tool, is covered in the rules below. The header also covers adding and removing tools by reference, so you don't need to send `mid-conversation-tool-changes-2026-07-01` as well.
+
+Wrap the definition in a `tool` object of type `tool_definition`. The `definition` is a `tools` entry, such as a custom tool or an Anthropic-defined client or server tool, with its usual configuration, including `cache_control` and `defer_loading`. During the beta, some tool types (the computer use tool among them) can't be defined in a message yet and return a 400 error that says so; declare those in `tools` and add them by reference. For example, to define a custom tool mid-conversation:
+
+```json
+{
+  "role": "system",
+  "content": [
+    {
+      "type": "tool_addition",
+      "tool": {
+        "type": "tool_definition",
+        "definition": {
+          "name": "db_query",
+          "description": "Run a read-only SQL query against the analytics database.",
+          "input_schema": {
+            "type": "object",
+            "properties": { "sql": { "type": "string" } },
+            "required": ["sql"]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+From that position onward, the model can call the tool the same way it calls a tool declared in `tools`. Sending an identical definition again changes nothing, so a client can safely resend it, for example on a retry.
+
+The following request keeps `get_weather` in `tools` and defines `db_query` after the first user turn:
+
+<CodeGroup>
+  ```bash cURL
+  curl https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: inline-tools-2026-09-15" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 1024,
+      "tools": [
+        {
+          "name": "get_weather",
+          "description": "Get the current weather for a location.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "location": {"type": "string", "description": "City name"}
+            },
+            "required": ["location"]
+          }
+        }
+      ],
+      "messages": [
+        {
+          "role": "user",
+          "content": "How many orders shipped yesterday?"
+        },
+        {
+          "role": "system",
+          "content": [
+            {
+              "type": "tool_addition",
+              "tool": {
+                "type": "tool_definition",
+                "definition": {
+                  "name": "db_query",
+                  "description": "Run a read-only SQL query against the analytics database.",
+                  "input_schema": {
+                    "type": "object",
+                    "properties": {"sql": {"type": "string"}},
+                    "required": ["sql"]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }'
+  ```
+
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    ant beta:messages create --beta inline-tools-2026-09-15 < request.yaml
+    ```
+
+    <File filename="request.yaml">
+      ```yaml
+      model: claude-opus-5-5
+      max_tokens: 1024
+      # Keep at least one non-deferred tool in `tools`, so a tool defined
+      # later doesn't change the start of the rendered prompt.
+      tools:
+        - name: get_weather
+          description: Get the current weather for a location.
+          input_schema:
+            type: object
+            properties:
+              location:
+                type: string
+                description: City name
+            required:
+              - location
+      messages:
+        - role: user
+          content: How many orders shipped yesterday?
+        # Define db_query by value from this point onward. `tools` and the
+        # earlier messages stay exactly as sent, so the cache still hits.
+        - role: system
+          content:
+            - type: tool_addition
+              tool:
+                type: tool_definition
+                definition:
+                  name: db_query
+                  description: Run a read-only SQL query against the analytics database.
+                  input_schema:
+                    type: object
+                    properties:
+                      sql:
+                        type: string
+                    required:
+                      - sql
+      ```
+    </File>
+  </MultiFileExample>
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  response = client.beta.messages.create(
+      model="claude-opus-5-5",
+      max_tokens=1024,
+      betas=["inline-tools-2026-09-15"],
+      # Keep at least one non-deferred tool in `tools`, so a tool defined
+      # later doesn't change the start of the rendered prompt.
+      tools=[
+          {
+              "name": "get_weather",
+              "description": "Get the current weather for a location.",
+              "input_schema": {
+                  "type": "object",
+                  "properties": {
+                      "location": {"type": "string", "description": "City name"},
+                  },
+                  "required": ["location"],
+              },
+          },
+      ],
+      messages=[
+          {"role": "user", "content": "How many orders shipped yesterday?"},
+          # Define db_query by value from this point onward. `tools` and the
+          # earlier messages stay exactly as sent, so the cache still hits.
+          {
+              "role": "system",
+              "content": [
+                  {
+                      "type": "tool_addition",
+                      "tool": {
+                          "type": "tool_definition",
+                          "definition": {
+                              "name": "db_query",
+                              "description": "Run a read-only SQL query against the analytics database.",
+                              "input_schema": {
+                                  "type": "object",
+                                  "properties": {"sql": {"type": "string"}},
+                                  "required": ["sql"],
+                              },
+                          },
+                      },
+                  },
+              ],
+          },
+      ],
+  )
+
+  for block in response.content:
+      if block.type == "tool_use":
+          print(block.name, block.input)
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const response = await client.beta.messages.create({
+    model: "claude-opus-5-5",
+    max_tokens: 1024,
+    betas: ["inline-tools-2026-09-15"],
+    // Keep at least one non-deferred tool in `tools`, so a tool defined
+    // later doesn't change the start of the rendered prompt.
+    tools: [
+      {
+        name: "get_weather",
+        description: "Get the current weather for a location.",
+        input_schema: {
+          type: "object",
+          properties: {
+            location: { type: "string", description: "City name" }
+          },
+          required: ["location"]
+        }
+      }
+    ],
+    messages: [
+      { role: "user", content: "How many orders shipped yesterday?" },
+      // Define db_query by value from this point onward. `tools` and the
+      // earlier messages stay exactly as sent, so the cache still hits.
+      {
+        role: "system",
+        content: [
+          {
+            type: "tool_addition",
+            tool: {
+              type: "tool_definition",
+              definition: {
+                name: "db_query",
+                description: "Run a read-only SQL query against the analytics database.",
+                input_schema: {
+                  type: "object",
+                  properties: { sql: { type: "string" } },
+                  required: ["sql"]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  });
+
+  for (const block of response.content) {
+    if (block.type === "tool_use") {
+      console.log(block.name, JSON.stringify(block.input));
+    }
+  }
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta;
+  using Anthropic.Models.Beta.Messages;
+  using Messages = Anthropic.Models.Messages;
+
+  AnthropicClient client = new();
+
+  var response = await client.Beta.Messages.Create(new MessageCreateParams
+  {
+      Model = Messages::Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Betas = [AnthropicBeta.InlineTools2026_09_15],
+      // Keep at least one non-deferred tool in `Tools`, so a tool defined
+      // later doesn't change the start of the rendered prompt.
+      Tools =
+      [
+          new BetaTool
+          {
+              Name = "get_weather",
+              Description = "Get the current weather for a location.",
+              InputSchema = new InputSchema
+              {
+                  Properties = new Dictionary<string, JsonElement>
+                  {
+                      ["location"] = JsonSerializer.SerializeToElement(new { type = "string", description = "City name" }),
+                  },
+                  Required = ["location"],
+              },
+          },
+      ],
+      Messages =
+      [
+          new() { Role = Role.User, Content = "How many orders shipped yesterday?" },
+          // Define db_query by value from this point onward. `Tools` and the
+          // earlier messages stay exactly as sent, so the cache still hits.
+          new()
+          {
+              Role = Role.System,
+              Content = new(
+              [
+                  new BetaRequestToolAdditionBlock
+                  {
+                      Tool = new BetaToolChangeToolDefinitionParam
+                      {
+                          Definition = new BetaTool
+                          {
+                              Name = "db_query",
+                              Description = "Run a read-only SQL query against the analytics database.",
+                              InputSchema = new InputSchema
+                              {
+                                  Properties = new Dictionary<string, JsonElement>
+                                  {
+                                      ["sql"] = JsonSerializer.SerializeToElement(new { type = "string" }),
+                                  },
+                                  Required = ["sql"],
+                              },
+                          },
+                      },
+                  },
+              ]),
+          },
+      ],
+  });
+
+  foreach (var block in response.Content)
+  {
+      if (block.TryPickToolUse(out var toolUse))
+      {
+          Console.WriteLine($"{toolUse.Name} {JsonSerializer.Serialize(toolUse.Input)}");
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model:     anthropic.ModelClaudeOpus5_5,
+  	MaxTokens: 1024,
+  	Betas:     []anthropic.AnthropicBeta{anthropic.AnthropicBetaInlineTools2026_09_15},
+  	// Keep at least one non-deferred tool in Tools, so a tool defined
+  	// later doesn't change the start of the rendered prompt.
+  	Tools: []anthropic.BetaToolUnionParam{
+  		{OfTool: &anthropic.BetaToolParam{
+  			Name:        "get_weather",
+  			Description: anthropic.String("Get the current weather for a location."),
+  			InputSchema: anthropic.BetaToolInputSchemaParam{
+  				Properties: map[string]any{
+  					"location": map[string]any{
+  						"type":        "string",
+  						"description": "City name",
+  					},
+  				},
+  				Required: []string{"location"},
+  			},
+  		}},
+  	},
+  	Messages: []anthropic.BetaMessageParam{
+  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("How many orders shipped yesterday?")),
+  		// Define db_query by value from this point onward. Tools and the
+  		// earlier messages stay exactly as sent, so the cache still hits.
+  		{
+  			Role: anthropic.BetaMessageParamRoleSystem,
+  			Content: []anthropic.BetaContentBlockParamUnion{
+  				anthropic.NewBetaToolAdditionBlock(anthropic.BetaToolChangeToolDefinitionParam{
+  					Definition: anthropic.BetaToolUnionParam{OfTool: &anthropic.BetaToolParam{
+  						Name:        "db_query",
+  						Description: anthropic.String("Run a read-only SQL query against the analytics database."),
+  						InputSchema: anthropic.BetaToolInputSchemaParam{
+  							Properties: map[string]any{
+  								"sql": map[string]any{"type": "string"},
+  							},
+  							Required: []string{"sql"},
+  						},
+  					}},
+  				}),
+  			},
+  		},
+  	},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  for _, block := range response.Content {
+  	if toolUse, ok := block.AsAny().(anthropic.BetaToolUseBlock); ok {
+  		fmt.Println(toolUse.Name, toolUse.Input)
+  	}
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.AnthropicBeta;
+  import com.anthropic.models.beta.messages.BetaContentBlockParam;
+  import com.anthropic.models.beta.messages.BetaMessage;
+  import com.anthropic.models.beta.messages.BetaRequestToolAdditionBlock;
+  import com.anthropic.models.beta.messages.BetaTool;
+  import com.anthropic.models.beta.messages.MessageCreateParams;
+  // ...
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      BetaTool weatherTool = BetaTool.builder()
+          .name("get_weather")
+          .description("Get the current weather for a location.")
+          .inputSchema(BetaTool.InputSchema.builder()
+              .properties(BetaTool.InputSchema.Properties.builder()
+                  .putAdditionalProperty("location", JsonValue.from(Map.of(
+                      "type", "string",
+                      "description", "City name")))
+                  .build())
+              .addRequired("location")
+              .build())
+          .build();
+
+      BetaTool dbQueryTool = BetaTool.builder()
+          .name("db_query")
+          .description("Run a read-only SQL query against the analytics database.")
+          .inputSchema(BetaTool.InputSchema.builder()
+              .properties(BetaTool.InputSchema.Properties.builder()
+                  .putAdditionalProperty("sql", JsonValue.from(Map.of("type", "string")))
+                  .build())
+              .addRequired("sql")
+              .build())
+          .build();
+
+      MessageCreateParams params = MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024)
+          .addBeta(AnthropicBeta.INLINE_TOOLS_2026_09_15)
+          // Keep at least one non-deferred tool in `tools`, so a tool defined
+          // later doesn't change the start of the rendered prompt.
+          .addTool(weatherTool)
+          .addUserMessage("How many orders shipped yesterday?")
+          // Define db_query by value from this point onward. `tools` and the
+          // earlier messages stay exactly as sent, so the cache still hits.
+          .addSystemMessageOfBetaContentBlockParams(List.of(
+              BetaContentBlockParam.ofToolAddition(BetaRequestToolAdditionBlock.builder()
+                  .definitionTool(dbQueryTool)
+                  .build())))
+          .build();
+
+      BetaMessage response = client.beta().messages().create(params);
+      response.content().stream()
+          .flatMap(block -> block.toolUse().stream())
+          .forEach(toolUse -> IO.println(toolUse.name() + " " + toolUse._input()));
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaToolUseBlock;
+  // ...
+
+  $client = new Client();
+
+  $response = $client->beta->messages->create(
+      model: Model::CLAUDE_OPUS_5_5,
+      maxTokens: 1024,
+      betas: [AnthropicBeta::INLINE_TOOLS_2026_09_15],
+      // Keep at least one non-deferred tool in `tools`, so a tool defined
+      // later doesn't change the start of the rendered prompt.
+      tools: [
+          [
+              'name' => 'get_weather',
+              'description' => 'Get the current weather for a location.',
+              'input_schema' => [
+                  'type' => 'object',
+                  'properties' => [
+                      'location' => [
+                          'type' => 'string',
+                          'description' => 'City name',
+                      ],
+                  ],
+                  'required' => ['location'],
+              ],
+          ],
+      ],
+      messages: [
+          ['role' => 'user', 'content' => 'How many orders shipped yesterday?'],
+          // Define db_query by value from this point onward. `tools` and the
+          // earlier messages stay exactly as sent, so the cache still hits.
+          [
+              'role' => 'system',
+              'content' => [
+                  [
+                      'type' => 'tool_addition',
+                      'tool' => [
+                          'type' => 'tool_definition',
+                          'definition' => [
+                              'name' => 'db_query',
+                              'description' => 'Run a read-only SQL query against the analytics database.',
+                              'input_schema' => [
+                                  'type' => 'object',
+                                  'properties' => ['sql' => ['type' => 'string']],
+                                  'required' => ['sql'],
+                              ],
+                          ],
+                      ],
+                  ],
+              ],
+          ],
+      ],
+  );
+
+  foreach ($response->content as $block) {
+      if ($block instanceof BetaToolUseBlock) {
+          echo $block->name, ' ', json_encode($block->input), PHP_EOL;
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  response = client.beta.messages.create(
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
+    max_tokens: 1024,
+    betas: [Anthropic::AnthropicBeta::INLINE_TOOLS_2026_09_15],
+    # Keep at least one non-deferred tool in `tools`, so a tool defined
+    # later doesn't change the start of the rendered prompt.
+    tools: [
+      {
+        name: "get_weather",
+        description: "Get the current weather for a location.",
+        input_schema: {
+          type: "object",
+          properties: {
+            location: { type: "string", description: "City name" }
+          },
+          required: ["location"]
+        }
+      }
+    ],
+    messages: [
+      { role: "user", content: "How many orders shipped yesterday?" },
+      # Define db_query by value from this point onward. `tools` and the
+      # earlier messages stay exactly as sent, so the cache still hits.
+      {
+        role: "system",
+        content: [
+          {
+            type: "tool_addition",
+            tool: {
+              type: "tool_definition",
+              definition: {
+                name: "db_query",
+                description: "Run a read-only SQL query against the analytics database.",
+                input_schema: {
+                  type: "object",
+                  properties: { sql: { type: "string" } },
+                  required: ["sql"]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  )
+
+  response.content.each do |block|
+    puts "#{block.name} #{block.input}" if block.is_a?(Anthropic::Beta::BetaToolUseBlock)
+  end
+  ```
+</CodeGroup>
+
+The response's `content` includes a `tool_use` block for the new tool, for example:
+
+```json
+{
+  "type": "tool_use",
+  "id": "toolu_01A09q90qw90lq917835lq9",
+  "name": "db_query",
+  "input": {
+    "sql": "SELECT COUNT(*) FROM orders WHERE shipped_at::date = CURRENT_DATE - 1"
+  }
+}
+```
+
+To change a tool's schema, or to move a server tool to a newer version, send a different definition under the same name. The new definition replaces the earlier one from that position onward. A definition that reuses the name of a different type of tool returns a 400 error with `error.details.error_code` set to `tool_name_conflict`. A newer version of the same tool doesn't count as a different type. `tool_removal` still takes a reference, and a removed tool can be defined or re-offered again later.
+
+A few rules follow from where the definition renders:
+
+* **Declare what you know up front.** A tool you know about at the first request belongs in `tools`, with `defer_loading: true` and a later `tool_addition` reference if the model shouldn't see it yet. Define by value only what is unknown at the first request or changes later.
+* **Keep at least one non-deferred tool in `tools`.** A conversation whose `tools` array has no non-deferred tool is accepted, but the first tool it defines by value changes the start of the rendered prompt, which costs one full cache miss on that request. A [tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) counts as non-deferred.
+* **Dated tool types keep their own beta headers.** If a server tool you define by value requires its own beta header, send that header on every later request in the conversation.
+* **`cache_control` goes on the block or in the definition, not both,** and counts toward the request's breakpoint limit. A deferred definition can't carry `cache_control`.
+
+A request returns a 400 error with `error.details.error_code` set to `available_tools_limit_exceeded` when any of these limits is exceeded:
+
+* More than 10,000 deferred tools are available after any message.
+* More than 10,000 tools defined after the first user message are available after any message.
+* The tool definitions sent after the first user message that are still available after any message total more than 4 MB (4,194,304 bytes).
+* The rendered tool text is larger than 4 MB (4,194,304 bytes).
+
+### Add an MCP server mid-conversation (beta)
+
+To add an [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) server partway through a conversation, send the `mcp-client-2026-09-15` beta header along with `inline-tools-2026-09-15`. The `definition` in a `tool_addition` block can then be an `mcp_toolset`, so the server's tools become available without editing `tools`. List the server's connection details in `mcp_servers` as usual, then append the toolset where the server became available:
+
+```json
+{
+  "role": "system",
+  "content": [
+    {
+      "type": "tool_addition",
+      "tool": {
+        "type": "tool_definition",
+        "definition": { "type": "mcp_toolset", "mcp_server_name": "calendar" }
+      }
+    }
+  ]
+}
+```
+
+The `mcp_toolset` object is the same one you would put in `tools`, including `default_config` and `configs`. A `tool_addition` block never holds a server URL or token. Those stay in `mcp_servers`.
+
+The following request keeps `get_weather` in `tools`, lists the calendar server in `mcp_servers`, and adds the server's toolset after the first user turn:
+
+<CodeGroup>
+  ```bash cURL
+  curl https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: inline-tools-2026-09-15,mcp-client-2026-09-15" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 1024,
+      "mcp_servers": [
+        {
+          "type": "url",
+          "url": "https://mcp.example.com/calendar",
+          "name": "calendar",
+          "authorization_token": "YOUR_TOKEN"
+        }
+      ],
+      "tools": [
+        {
+          "name": "get_weather",
+          "description": "Get the current weather for a location.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "location": {"type": "string", "description": "City name"}
+            },
+            "required": ["location"]
+          }
+        }
+      ],
+      "messages": [
+        {
+          "role": "user",
+          "content": "What'\''s on my calendar tomorrow?"
+        },
+        {
+          "role": "system",
+          "content": [
+            {
+              "type": "tool_addition",
+              "tool": {
+                "type": "tool_definition",
+                "definition": {
+                  "type": "mcp_toolset",
+                  "mcp_server_name": "calendar"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }'
+  ```
+
+  ```bash CLI
+  ant beta:messages create \
+    --beta inline-tools-2026-09-15,mcp-client-2026-09-15 <<'YAML'
+  model: claude-opus-5-5
+  max_tokens: 1024
+  mcp_servers:
+    - type: url
+      url: https://mcp.example.com/calendar
+      name: calendar
+      authorization_token: YOUR_TOKEN
+  tools:
+    - name: get_weather
+      description: Get the current weather for a location.
+      input_schema:
+        type: object
+        properties:
+          location:
+            type: string
+            description: City name
+        required:
+          - location
+  messages:
+    - role: user
+      content: What's on my calendar tomorrow?
+    # Make the calendar server's tools available from this point onward.
+    # The block names the server; it never holds a URL or token.
+    - role: system
+      content:
+        - type: tool_addition
+          tool:
+            type: tool_definition
+            definition:
+              type: mcp_toolset
+              mcp_server_name: calendar
+  YAML
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  response = client.beta.messages.create(
+      model="claude-opus-5-5",
+      max_tokens=1024,
+      betas=["inline-tools-2026-09-15", "mcp-client-2026-09-15"],
+      mcp_servers=[
+          {
+              "type": "url",
+              "url": "https://mcp.example.com/calendar",
+              "name": "calendar",
+              "authorization_token": "YOUR_TOKEN",
+          },
+      ],
+      tools=[
+          {
+              "name": "get_weather",
+              "description": "Get the current weather for a location.",
+              "input_schema": {
+                  "type": "object",
+                  "properties": {
+                      "location": {"type": "string", "description": "City name"},
+                  },
+                  "required": ["location"],
+              },
+          },
+      ],
+      messages=[
+          {"role": "user", "content": "What's on my calendar tomorrow?"},
+          # Make the calendar server's tools available from this point onward.
+          # The block names the server; it never holds a URL or token.
+          {
+              "role": "system",
+              "content": [
+                  {
+                      "type": "tool_addition",
+                      "tool": {
+                          "type": "tool_definition",
+                          "definition": {
+                              "type": "mcp_toolset",
+                              "mcp_server_name": "calendar",
+                          },
+                      },
+                  },
+              ],
+          },
+      ],
+  )
+
+  # The response starts with an mcp_tool_listing block for the calendar server,
+  # so check each block's type instead of reading content[0].
+  for block in response.content:
+      match block.type:
+          case "mcp_tool_listing":
+              print(block.mcp_server_name, [tool.name for tool in block.tools])
+          case "text":
+              print(block.text)
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const response = await client.beta.messages.create({
+    model: "claude-opus-5-5",
+    max_tokens: 1024,
+    betas: ["inline-tools-2026-09-15", "mcp-client-2026-09-15"],
+    mcp_servers: [
+      {
+        type: "url",
+        url: "https://mcp.example.com/calendar",
+        name: "calendar",
+        authorization_token: "YOUR_TOKEN"
+      }
+    ],
+    tools: [
+      {
+        name: "get_weather",
+        description: "Get the current weather for a location.",
+        input_schema: {
+          type: "object",
+          properties: {
+            location: { type: "string", description: "City name" }
+          },
+          required: ["location"]
+        }
+      }
+    ],
+    messages: [
+      { role: "user", content: "What's on my calendar tomorrow?" },
+      // Make the calendar server's tools available from this point onward.
+      // The block names the server; it never holds a URL or token.
+      {
+        role: "system",
+        content: [
+          {
+            type: "tool_addition",
+            tool: {
+              type: "tool_definition",
+              definition: { type: "mcp_toolset", mcp_server_name: "calendar" }
+            }
+          }
+        ]
+      }
+    ]
+  });
+
+  // The response starts with an mcp_tool_listing block for the calendar server,
+  // so check each block's type instead of reading content[0].
+  for (const block of response.content) {
+    switch (block.type) {
+      case "mcp_tool_listing":
+        console.log(
+          block.mcp_server_name,
+          block.tools.map((tool) => tool.name)
+        );
+        break;
+      case "text":
+        console.log(block.text);
+        break;
+    }
+  }
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta;
+  using Anthropic.Models.Beta.Messages;
+  using Messages = Anthropic.Models.Messages;
+
+  AnthropicClient client = new();
+
+  var response = await client.Beta.Messages.Create(new MessageCreateParams
+  {
+      Model = Messages::Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Betas = [AnthropicBeta.InlineTools2026_09_15, AnthropicBeta.McpClient2026_09_15],
+      McpServers =
+      [
+          new BetaRequestMcpServerUrlDefinition
+          {
+              Url = "https://mcp.example.com/calendar",
+              Name = "calendar",
+              AuthorizationToken = "YOUR_TOKEN",
+          },
+      ],
+      Tools =
+      [
+          new BetaTool
+          {
+              Name = "get_weather",
+              Description = "Get the current weather for a location.",
+              InputSchema = new InputSchema
+              {
+                  Properties = new Dictionary<string, JsonElement>
+                  {
+                      ["location"] = JsonSerializer.SerializeToElement(new { type = "string", description = "City name" }),
+                  },
+                  Required = ["location"],
+              },
+          },
+      ],
+      Messages =
+      [
+          new() { Role = Role.User, Content = "What's on my calendar tomorrow?" },
+          // Make the calendar server's tools available from this point onward.
+          // The block names the server; it never holds a URL or token.
+          new()
+          {
+              Role = Role.System,
+              Content = new(
+              [
+                  new BetaRequestToolAdditionBlock
+                  {
+                      Tool = new BetaToolChangeToolDefinitionParam
+                      {
+                          Definition = new BetaMcpToolset("calendar"),
+                      },
+                  },
+              ]),
+          },
+      ],
+  });
+
+  // The response starts with an mcp_tool_listing block for the calendar server,
+  // so check each block's type instead of reading Content[0].
+  foreach (var block in response.Content)
+  {
+      if (block.TryPickMcpToolListing(out var listing))
+      {
+          Console.WriteLine($"{listing.McpServerName} {JsonSerializer.Serialize(listing.Tools.Select(tool => tool.Name))}");
+      }
+      else if (block.TryPickText(out var text))
+      {
+          Console.WriteLine(text.Text);
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model:     anthropic.ModelClaudeOpus5_5,
+  	MaxTokens: 1024,
+  	Betas: []anthropic.AnthropicBeta{
+  		anthropic.AnthropicBetaInlineTools2026_09_15,
+  		anthropic.AnthropicBetaMCPClient2026_09_15,
+  	},
+  	MCPServers: []anthropic.BetaRequestMCPServerURLDefinitionParam{
+  		{
+  			URL:                "https://mcp.example.com/calendar",
+  			Name:               "calendar",
+  			AuthorizationToken: anthropic.String("YOUR_TOKEN"),
+  		},
+  	},
+  	Tools: []anthropic.BetaToolUnionParam{
+  		{OfTool: &anthropic.BetaToolParam{
+  			Name:        "get_weather",
+  			Description: anthropic.String("Get the current weather for a location."),
+  			InputSchema: anthropic.BetaToolInputSchemaParam{
+  				Properties: map[string]any{
+  					"location": map[string]any{
+  						"type":        "string",
+  						"description": "City name",
+  					},
+  				},
+  				Required: []string{"location"},
+  			},
+  		}},
+  	},
+  	Messages: []anthropic.BetaMessageParam{
+  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("What's on my calendar tomorrow?")),
+  		// Make the calendar server's tools available from this point onward.
+  		// The block names the server; it never holds a URL or token.
+  		{
+  			Role: anthropic.BetaMessageParamRoleSystem,
+  			Content: []anthropic.BetaContentBlockParamUnion{
+  				anthropic.NewBetaToolAdditionBlock(anthropic.BetaToolChangeToolDefinitionParam{
+  					Definition: anthropic.BetaToolUnionParam{OfMCPToolset: &anthropic.BetaMCPToolsetParam{
+  						MCPServerName: "calendar",
+  					}},
+  				}),
+  			},
+  		},
+  	},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  // The response starts with an mcp_tool_listing block for the calendar server,
+  // so check each block's type instead of reading Content[0].
+  for _, block := range response.Content {
+  	switch variant := block.AsAny().(type) {
+  	case anthropic.BetaMCPToolListingBlock:
+  		var toolNames []string
+  		for _, tool := range variant.Tools {
+  			toolNames = append(toolNames, tool.Name)
+  		}
+  		fmt.Println(variant.MCPServerName, toolNames)
+  	case anthropic.BetaTextBlock:
+  		fmt.Println(variant.Text)
+  	}
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.AnthropicBeta;
+  import com.anthropic.models.beta.messages.BetaContentBlockParam;
+  import com.anthropic.models.beta.messages.BetaMcpTool;
+  import com.anthropic.models.beta.messages.BetaMcpToolset;
+  import com.anthropic.models.beta.messages.BetaMessage;
+  import com.anthropic.models.beta.messages.BetaRequestMcpServerUrlDefinition;
+  import com.anthropic.models.beta.messages.BetaRequestToolAdditionBlock;
+  import com.anthropic.models.beta.messages.BetaTool;
+  import com.anthropic.models.beta.messages.MessageCreateParams;
+  // ...
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      BetaTool weatherTool = BetaTool.builder()
+          .name("get_weather")
+          .description("Get the current weather for a location.")
+          .inputSchema(BetaTool.InputSchema.builder()
+              .properties(BetaTool.InputSchema.Properties.builder()
+                  .putAdditionalProperty("location", JsonValue.from(Map.of(
+                      "type", "string",
+                      "description", "City name")))
+                  .build())
+              .addRequired("location")
+              .build())
+          .build();
+
+      MessageCreateParams params = MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024)
+          .addBeta(AnthropicBeta.INLINE_TOOLS_2026_09_15)
+          .addBeta(AnthropicBeta.MCP_CLIENT_2026_09_15)
+          .addMcpServer(BetaRequestMcpServerUrlDefinition.builder()
+              .url("https://mcp.example.com/calendar")
+              .name("calendar")
+              .authorizationToken("YOUR_TOKEN")
+              .build())
+          .addTool(weatherTool)
+          .addUserMessage("What's on my calendar tomorrow?")
+          // Make the calendar server's tools available from this point onward.
+          // The block names the server; it never holds a URL or token.
+          .addSystemMessageOfBetaContentBlockParams(List.of(
+              BetaContentBlockParam.ofToolAddition(BetaRequestToolAdditionBlock.builder()
+                  .definitionTool(BetaMcpToolset.builder()
+                      .mcpServerName("calendar")
+                      .build())
+                  .build())))
+          .build();
+
+      BetaMessage response = client.beta().messages().create(params);
+
+      // The response starts with an mcp_tool_listing block for the calendar server,
+      // so check each block's type instead of reading the first block.
+      for (var block : response.content()) {
+          switch (block.type().value()) {
+              case MCP_TOOL_LISTING -> {
+                  var listing = block.asMcpToolListing();
+                  var toolNames = listing.tools().stream().map(BetaMcpTool::name).toList();
+                  IO.println(listing.mcpServerName() + " " + toolNames);
+              }
+              case TEXT -> IO.println(block.asText().text());
+          }
+      }
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaMCPTool;
+  use Anthropic\Beta\Messages\BetaMCPToolListingBlock;
+  use Anthropic\Beta\Messages\BetaTextBlock;
+  // ...
+
+  $client = new Client();
+
+  $response = $client->beta->messages->create(
+      model: Model::CLAUDE_OPUS_5_5,
+      maxTokens: 1024,
+      betas: [
+          AnthropicBeta::INLINE_TOOLS_2026_09_15,
+          AnthropicBeta::MCP_CLIENT_2026_09_15,
+      ],
+      mcpServers: [
+          [
+              'type' => 'url',
+              'url' => 'https://mcp.example.com/calendar',
+              'name' => 'calendar',
+              'authorization_token' => 'YOUR_TOKEN',
+          ],
+      ],
+      tools: [
+          [
+              'name' => 'get_weather',
+              'description' => 'Get the current weather for a location.',
+              'input_schema' => [
+                  'type' => 'object',
+                  'properties' => [
+                      'location' => [
+                          'type' => 'string',
+                          'description' => 'City name',
+                      ],
+                  ],
+                  'required' => ['location'],
+              ],
+          ],
+      ],
+      messages: [
+          ['role' => 'user', 'content' => "What's on my calendar tomorrow?"],
+          // Make the calendar server's tools available from this point onward.
+          // The block names the server; it never holds a URL or token.
+          [
+              'role' => 'system',
+              'content' => [
+                  [
+                      'type' => 'tool_addition',
+                      'tool' => [
+                          'type' => 'tool_definition',
+                          'definition' => [
+                              'type' => 'mcp_toolset',
+                              'mcp_server_name' => 'calendar',
+                          ],
+                      ],
+                  ],
+              ],
+          ],
+      ],
+  );
+
+  // The response starts with an mcp_tool_listing block for the calendar server,
+  // so check each block's type instead of reading content[0].
+  foreach ($response->content as $block) {
+      switch (true) {
+          case $block instanceof BetaMCPToolListingBlock:
+              $toolNames = array_map(fn (BetaMCPTool $tool) => $tool->name, $block->tools);
+              echo $block->mcpServerName, ' ', json_encode($toolNames), PHP_EOL;
+              break;
+          case $block instanceof BetaTextBlock:
+              echo $block->text, PHP_EOL;
+              break;
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  response = client.beta.messages.create(
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
+    max_tokens: 1024,
+    betas: [
+      Anthropic::AnthropicBeta::INLINE_TOOLS_2026_09_15,
+      Anthropic::AnthropicBeta::MCP_CLIENT_2026_09_15
+    ],
+    mcp_servers: [
+      {
+        type: "url",
+        url: "https://mcp.example.com/calendar",
+        name: "calendar",
+        authorization_token: "YOUR_TOKEN"
+      }
+    ],
+    tools: [
+      {
+        name: "get_weather",
+        description: "Get the current weather for a location.",
+        input_schema: {
+          type: "object",
+          properties: {
+            location: { type: "string", description: "City name" }
+          },
+          required: ["location"]
+        }
+      }
+    ],
+    messages: [
+      { role: "user", content: "What's on my calendar tomorrow?" },
+      # Make the calendar server's tools available from this point onward.
+      # The block names the server; it never holds a URL or token.
+      {
+        role: "system",
+        content: [
+          {
+            type: "tool_addition",
+            tool: {
+              type: "tool_definition",
+              definition: { type: "mcp_toolset", mcp_server_name: "calendar" }
+            }
+          }
+        ]
+      }
+    ]
+  )
+
+  # The response starts with an mcp_tool_listing block for the calendar server,
+  # so check each block's type instead of reading content[0].
+  response.content.each do |block|
+    case block
+    when Anthropic::Beta::BetaMCPToolListingBlock
+      puts "#{block.mcp_server_name} #{block.tools.map(&:name)}"
+    when Anthropic::Beta::BetaTextBlock
+      puts block.text
+    end
+  end
+  ```
+</CodeGroup>
+
+With `mcp-client-2026-09-15`, a response for which the API fetched a server's tool list starts with an `mcp_tool_listing` block, one for each server it fetched. If your code reads `content[0]`, skip these blocks. Send the assistant message back unchanged, this block included, and keep sending `mcp-client-2026-09-15` on every request that carries it. Later requests then use the recorded list instead of asking the server again. To pin a toolset yourself, copy that list into the `mcp_toolset`'s `tools` field, as described in [Pin an MCP server's tool list](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#pin-mcp-tool-list).
+
+`mcp-client-2026-09-15` includes everything `mcp-client-2025-11-20` does, so you don't need to send both. These features are available on the Claude API. Requests that use the MCP connector keep its [data retention](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#data-retention) terms.
+
 ## When to use a mid-conversation system message
 
 [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) hashes the request prefix in order: `tools`, then `system`, then `messages`. A cache hit requires the prefix to match a recent request exactly, byte for byte, up to the cache breakpoint.
@@ -473,7 +1643,7 @@ Add a message with `"role": "system"` to the `messages` array. Use a plain strin
 
 You can still set the top-level `system` field for instructions that should apply to the entire conversation. Reserve mid-conversation system messages for instructions that only become relevant later, or that you want to add without invalidating the cached prefix.
 
-A `role: "system"` message can also carry `output_config.effort` to change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level from the next `user` turn on. This is in beta on Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5 on the Claude API and Google Cloud, and requires the `mid-conversation-output-config-2026-07-01` beta header. See [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta).
+A `role: "system"` message can also carry `output_config.effort` to change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level from the next `user` turn on. This is in beta on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, and Claude Opus 5 on the Claude API and Google Cloud, and requires the `mid-conversation-output-config-2026-07-01` beta header. See [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta).
 
 <CodeGroup>
   ```bash cURL
@@ -482,7 +1652,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -d '{
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "cache_control": {"type": "ephemeral"},
       "system": "You are a code review assistant. Be concise.",
@@ -509,7 +1679,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
 
   ```bash CLI
   ant messages create --transform 'content.#(type=="text").text' --raw-output <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 1024
   cache_control:
     type: ephemeral
@@ -532,7 +1702,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
   client = anthropic.Anthropic()
 
   response = client.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       # Automatic prompt caching: each request caches the conversation so far,
       # and the next request reads the unchanged prefix from cache.
@@ -571,7 +1741,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
   const client = new Anthropic();
 
   const response = await client.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     // Automatic prompt caching: each request caches the conversation so far,
     // and the next request reads the unchanged prefix from cache.
@@ -613,7 +1783,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
 
   var parameters = new MessageCreateParams
   {
-      Model = Model.ClaudeOpus5,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       // Automatic prompt caching: each request caches the conversation so far,
       // and the next request reads the unchanged prefix from cache.
@@ -656,7 +1826,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
   client := anthropic.NewClient()
 
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 1024,
   	// Automatic prompt caching: each request caches the conversation so far,
   	// and the next request reads the unchanged prefix from cache.
@@ -698,7 +1868,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
           // Automatic prompt caching: each request caches the conversation so far,
           // and the next request reads the unchanged prefix from cache.
@@ -740,7 +1910,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
           // request is still read from cache.
           ['role' => 'system', 'content' => 'From now on, every suggestion must include explicit type annotations.']
       ],
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       // Automatic prompt caching: each request caches the conversation so far,
       // and the next request reads the unchanged prefix from cache.
       cacheControl: CacheControlEphemeral::with(),
@@ -758,7 +1928,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
   client = Anthropic::Client.new
 
   response = client.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     # Automatic prompt caching: each request caches the conversation so far,
     # and the next request reads the unchanged prefix from cache.
@@ -831,7 +2001,7 @@ Turn-scoped system messages are in beta. Include the [beta header](https://platf
 }
 ```
 
-The main use is a per-turn reminder in a tool loop. Append the reminder after the `tool_result` message each time you want the model to see it, and leave every earlier copy where it is. The model sees only the copies that come after the last user message, so the reminder never piles up. Nothing earlier in `messages` changes, so the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) keeps matching. On Claude Fable 5.1 this also keeps later [thinking blocks valid](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation): deleting an earlier reminder would change the conversation before those blocks and fail the conversation check, while a cleared message stays in the array and leaves that conversation unchanged.
+The main use is a per-turn reminder in a tool loop. Append the reminder after the `tool_result` message each time you want the model to see it, and leave every earlier copy where it is. The model sees only the copies that come after the last user message, so the reminder never piles up. Nothing earlier in `messages` changes, so the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) keeps matching. On Claude Fable 5.1 and Claude Opus 5.5 this also keeps later [thinking blocks valid](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation): deleting an earlier reminder would change the conversation before those blocks and fail the conversation check, while a cleared message stays in the array and leaves that conversation unchanged.
 
 The following request is a later step of an agent loop. `messages[3]` rendered on the earlier request, when it was the last message in the array. Once `messages[5]` (a later user message) exists, `messages[3]` is cleared: the cleared message stays in the array, so the conversation before the thinking block in `messages[4]` is unchanged, but the model no longer sees its text. `messages[6]` and `messages[7]` both render, in order.
 
@@ -908,7 +2078,7 @@ The following request is a later step of an agent loop. `messages[3]` rendered o
 
 Rules for turn-scoped messages:
 
-* **Re-send cleared messages verbatim.** A cleared message is still part of the conversation history. Rebuilding it from current state (a fresh token count, a timestamp), dropping it as redundant, or changing its `clear_at` value is an edit to an earlier message. The prompt cache misses from that point, and on Claude Fable 5.1 every thinking block produced after it fails the [conversation check](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation).
+* **Re-send cleared messages verbatim.** A cleared message is still part of the conversation history. Rebuilding it from current state (a fresh token count, a timestamp), dropping it as redundant, or changing its `clear_at` value is an edit to an earlier message. The prompt cache misses from that point, and on Claude Fable 5.1 and Claude Opus 5.5 every thinking block produced after it fails the [conversation check](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation).
 * **Text only.** `content` is one or more `text` blocks (or a string). `tool_addition` and `tool_removal` blocks return a 400 error on a turn-scoped message, and so does `output_config`. Use a separate `role: "system"` message without `clear_at` for those.
 * **No `cache_control` on its blocks.** A cleared message is never part of a cache key, so a breakpoint on it could never match. Put the breakpoint on the last block of the preceding user turn instead, as the example does. The top-level [automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) field skips turn-scoped messages when it picks a breakpoint. On the request that clears a message, the reusable cached prefix ends at the user turn before it, so only the one assistant turn between that message and the new user message is reprocessed.
 * **Placement rules still apply**, cleared or not. A turn-scoped message must follow a `user` turn (or an `assistant` turn ending in a server tool result) and precede an `assistant` turn or end the array, like any mid-conversation system message. One that ends the array always renders. One followed directly by another `user` message is a 400 error, not a cleared message: put all of a tool round's results in one user message and the reminders after it.
@@ -1165,7 +2335,7 @@ Mid-conversation system messages and [prompt caching](https://platform.claude.co
 * **Append the system message after the breakpoint.** Because it comes after the cached prefix, it does not change the prefix hash and the cache still hits.
 * **A mid-conversation system message is itself cacheable.** Once it is in the conversation, it becomes part of the stable history. On the next turn you can move your cache breakpoint past it (or rely on [automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) to do so) and the system message is read from cache like any other turn.
 
-Avoid editing or removing a mid-conversation system message that has already been sent. Like any other change to earlier messages, that invalidates the cache from that point forward. On Claude Fable 5.1 it also invalidates the [thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation) in every later assistant turn. For guidance that should apply to one turn only, use a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) and leave it in place. If the instruction needs to evolve, append a new system message rather than rewriting the old one. Consecutive system messages are accepted and treated as a single system section, which follows the same placement rule as a whole.
+Avoid editing or removing a mid-conversation system message that has already been sent. Like any other change to earlier messages, that invalidates the cache from that point forward. On Claude Fable 5.1 and Claude Opus 5.5 it also invalidates the [thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation) in every later assistant turn. For guidance that should apply to one turn only, use a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) and leave it in place. If the instruction needs to evolve, append a new system message rather than rewriting the old one. Consecutive system messages are accepted and treated as a single system section, which follows the same placement rule as a whole.
 
 ## Limitations
 

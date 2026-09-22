@@ -41,7 +41,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
     -H "anthropic-beta: cache-diagnosis-2026-04-07" \
     -H "content-type: application/json" \
     -d '{
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "cache_control": {"type": "ephemeral"},
       "system": "You are an AI assistant analyzing a large document. <document>...</document>",
@@ -59,7 +59,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
     -H "content-type: application/json" \
     -d @- <<EOF | jq '{id, diagnostics}'  # diagnostics: null means no divergence was found
   {
-    "model": "claude-opus-5",
+    "model": "claude-opus-5-5",
     "max_tokens": 1024,
     "cache_control": {"type": "ephemeral"},
     "system": "You are an AI assistant analyzing a large document. <document>...</document>",
@@ -78,7 +78,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   turn1=$(ant beta:messages create \
     --beta cache-diagnosis-2026-04-07 \
     --transform '{id,usage,diagnostics}' <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 1024
   cache_control:
     type: ephemeral
@@ -97,7 +97,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   ant beta:messages create \
     --beta cache-diagnosis-2026-04-07 \
     --transform '{id,usage,diagnostics}' <<YAML
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 1024
   cache_control:
     type: ephemeral
@@ -121,7 +121,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   # Turn 1: opt in with previous_message_id=None
   r1 = client.beta.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       cache_control={"type": "ephemeral"},
       system=SYSTEM,
@@ -132,7 +132,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   # Turn 2: reference the previous response id
   r2 = client.beta.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       cache_control={"type": "ephemeral"},
       system=SYSTEM,
@@ -161,7 +161,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   // Turn 1: opt in with previous_message_id: null
   const r1 = await client.beta.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     cache_control: { type: "ephemeral" },
     system: SYSTEM,
@@ -172,7 +172,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   // Turn 2: reference the previous response id
   const r2 = await client.beta.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     cache_control: { type: "ephemeral" },
     system: SYSTEM,
@@ -202,7 +202,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   var r1 = await client.Beta.Messages.Create(
       new()
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           CacheControl = new(),
           System = system,
@@ -218,7 +218,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   var r2 = await client.Beta.Messages.Create(
       new()
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           CacheControl = new(),
           System = system,
@@ -254,7 +254,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   }
 
   r1, err := client.Beta.Messages.New(ctx, anthropic.BetaMessageNewParams{
-  	Model:        anthropic.ModelClaudeOpus5,
+  	Model:        anthropic.ModelClaudeOpus5_5,
   	MaxTokens:    1024,
   	CacheControl: anthropic.BetaCacheControlEphemeralParam{},
   	System:       system,
@@ -271,7 +271,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   }
 
   r2, err := client.Beta.Messages.New(ctx, anthropic.BetaMessageNewParams{
-  	Model:        anthropic.ModelClaudeOpus5,
+  	Model:        anthropic.ModelClaudeOpus5_5,
   	MaxTokens:    1024,
   	CacheControl: anthropic.BetaCacheControlEphemeralParam{},
   	System:       system,
@@ -306,7 +306,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   var r1 = client.beta().messages().create(
       MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
           .cacheControl(BetaCacheControlEphemeral.builder().build())
           .system(system)
@@ -319,7 +319,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   var r2 = client.beta().messages().create(
       MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024)
           .cacheControl(BetaCacheControlEphemeral.builder().build())
           .system(system)
@@ -350,7 +350,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   $system = 'You are an AI assistant analyzing a large document. <document>...</document>';
 
   $r1 = $client->beta->messages->create(
-      model: Model::CLAUDE_OPUS_5,
+      model: Model::CLAUDE_OPUS_5_5,
       maxTokens: 1024,
       cacheControl: new BetaCacheControlEphemeral,
       system: $system,
@@ -362,7 +362,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   );
 
   $r2 = $client->beta->messages->create(
-      model: Model::CLAUDE_OPUS_5,
+      model: Model::CLAUDE_OPUS_5_5,
       maxTokens: 1024,
       cacheControl: new BetaCacheControlEphemeral,
       system: $system,
@@ -388,7 +388,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   SYSTEM = "You are an AI assistant analyzing a large document. <document>...</document>"
 
   r1 = client.beta.messages.create(
-    model: :"claude-opus-5",
+    model: :"claude-opus-5-5",
     max_tokens: 1024,
     cache_control: {type: "ephemeral"},
     system_: SYSTEM,
@@ -400,7 +400,7 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   )
 
   r2 = client.beta.messages.create(
-    model: :"claude-opus-5",
+    model: :"claude-opus-5-5",
     max_tokens: 1024,
     cache_control: {type: "ephemeral"},
     system_: SYSTEM,
@@ -439,7 +439,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
     -H "content-type: application/json" \
     -d @- <<EOF | jq -R 'select(startswith("data: ")) | ltrimstr("data: ") | fromjson | select(.type == "message_start") | .message.diagnostics'
   {
-    "model": "claude-opus-5",
+    "model": "claude-opus-5-5",
     "max_tokens": 1024,
     "stream": true,
     "cache_control": {"type": "ephemeral"},
@@ -460,7 +460,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   ant beta:messages create \
     --beta cache-diagnosis-2026-04-07 \
     --stream --format jsonl <<YAML |
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 1024
   cache_control:
     type: ephemeral
@@ -481,7 +481,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   ```python Python
   # Turn 2: stream, referencing the previous response id
   with client.beta.messages.stream(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       cache_control={"type": "ephemeral"},
       system=SYSTEM,
@@ -509,7 +509,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
 
   ```typescript TypeScript
   const stream = client.beta.messages.stream({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     cache_control: { type: "ephemeral" },
     system: SYSTEM,
@@ -548,7 +548,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   var stream = client.Beta.Messages.CreateStreaming(
       new()
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           CacheControl = new(),
           System = system,
@@ -592,7 +592,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   ```go Go
   // Turn 2: stream, referencing the previous response id
   stream := client.Beta.Messages.NewStreaming(ctx, anthropic.BetaMessageNewParams{
-  	Model:        anthropic.ModelClaudeOpus5,
+  	Model:        anthropic.ModelClaudeOpus5_5,
   	MaxTokens:    1024,
   	CacheControl: anthropic.BetaCacheControlEphemeralParam{},
   	System:       system,
@@ -632,7 +632,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   ```java Java
   // Turn 2: stream, referencing the previous response id
   var params = MessageCreateParams.builder()
-      .model(Model.CLAUDE_OPUS_5)
+      .model(Model.CLAUDE_OPUS_5_5)
       .maxTokens(1024)
       .cacheControl(BetaCacheControlEphemeral.builder().build())
       .system(system)
@@ -671,7 +671,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   ```php PHP
   // Turn 2: stream, referencing the previous response id
   $stream = $client->beta->messages->createStream(
-      model: Model::CLAUDE_OPUS_5,
+      model: Model::CLAUDE_OPUS_5_5,
       maxTokens: 1024,
       cacheControl: new BetaCacheControlEphemeral,
       system: $system,
@@ -710,7 +710,7 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   ```ruby Ruby
   # Turn 2: stream, referencing the previous response id
   stream = client.beta.messages.stream(
-    model: :"claude-opus-5",
+    model: :"claude-opus-5-5",
     max_tokens: 1024,
     cache_control: {type: "ephemeral"},
     system_: SYSTEM,
@@ -776,7 +776,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
         messages.append({"role": "user", "content": user_message})
 
         r = client.beta.messages.create(
-            model="claude-opus-5",
+            model="claude-opus-5-5",
             max_tokens=1024,
             cache_control={"type": "ephemeral"},
             system=SYSTEM,
@@ -808,7 +808,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
       messages.push({ role: "user", content: prompt });
 
       const r: BetaMessage = await client.beta.messages.create({
-        model: "claude-opus-5",
+        model: "claude-opus-5-5",
         max_tokens: 1024,
         cache_control: { type: "ephemeral" },
         system: SYSTEM,
@@ -844,7 +844,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
         var r = await client.Beta.Messages.Create(
             new()
             {
-                Model = Messages::Model.ClaudeOpus5,
+                Model = Messages::Model.ClaudeOpus5_5,
                 MaxTokens = 1024,
                 CacheControl = new(),
                 System = system,
@@ -889,7 +889,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
     	messages = append(messages, anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(prompt)))
 
     	r, err := client.Beta.Messages.New(ctx, anthropic.BetaMessageNewParams{
-    		Model:        anthropic.ModelClaudeOpus5,
+    		Model:        anthropic.ModelClaudeOpus5_5,
     		MaxTokens:    1024,
     		CacheControl: anthropic.BetaCacheControlEphemeralParam{},
     		System:       system,
@@ -933,7 +933,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
 
         var r = client.beta().messages().create(
             MessageCreateParams.builder()
-                .model(Model.CLAUDE_OPUS_5)
+                .model(Model.CLAUDE_OPUS_5_5)
                 .maxTokens(1024)
                 .cacheControl(BetaCacheControlEphemeral.builder().build())
                 .system(system)
@@ -971,7 +971,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
         $messages[] = ['role' => 'user', 'content' => $userMsg];
 
         $r = $client->beta->messages->create(
-            model: Model::CLAUDE_OPUS_5,
+            model: Model::CLAUDE_OPUS_5_5,
             maxTokens: 1024,
             cacheControl: new BetaCacheControlEphemeral,
             system: $system,
@@ -1003,7 +1003,7 @@ In a multi-turn conversation, carry the latest response `id` forward as `previou
       messages << {role: "user", content: user_msg}
 
       r = client.beta.messages.create(
-        model: :"claude-opus-5",
+        model: :"claude-opus-5-5",
         max_tokens: 1024,
         cache_control: {type: "ephemeral"},
         system_: SYSTEM,

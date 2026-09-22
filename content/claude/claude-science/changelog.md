@@ -6,6 +6,20 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.51" description="September 22, 2026">
+  * Pinned sessions (formerly starred) from across all your projects now appear at the top of the session list; a new switch in **Settings > General > Appearance** lets you limit them to the open project
+  * In Markdown files, click a plain-text cell in a table to edit it in place
+  * Tables in Markdown files keep their scroll position when Claude saves another file
+  * Fixed the BioMart connector's data queries and identifier translation; a data query that filters on more than a few hundred IDs can still fail
+  * The BioMart connector now reads from Ensembl's June 2026 archive. If your network allowlist lists `www.ensembl.org` by name, add `jun2026.archive.ensembl.org`
+  * Removed connector tools that failed on every call: the ENCODE and eQTL Catalogue lookups and ZINC's random-sample tool
+  * "Download script" on an artifact made by a shell command now includes the script itself
+  * The app stays more responsive while Claude saves files in projects with tens of thousands of files, and zip downloads with thousands of same-named files are prepared much faster
+  * Mac: security hardening of the analysis sandbox
+  * Life Sciences Verification Program (beta): fixed a case where your approved use cases could disappear from the app
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.50" description="September 17, 2026">
   * Tables in Markdown files now show as a compact grid; a long table keeps its header row in view, and row labels stay in view when you scroll sideways
   * Tabs in the right pane can be reordered by dragging, or with Ctrl/Cmd+Shift+Left/Right

@@ -78,7 +78,7 @@ If you are using an API key scoped to multiple workspaces, such as a [personal o
 ```bash CLI
 ant messages create \
   --workspace-id wrkspc_01... \
-  --model claude-opus-5 \
+  --model claude-opus-5-5 \
   --max-tokens 1024 \
   --message '{role: user, content: "Hello, Claude"}'
 ```

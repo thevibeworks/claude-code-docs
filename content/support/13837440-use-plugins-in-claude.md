@@ -6,11 +6,27 @@ Plugins customize how Claude works for your role, team, and company. Each plugin
 
 ## Where you can use plugins
 
-You can install and use plugins in chat on the web, the Chat tab in Claude Desktop, and Claude Cowork. The skills bundled in a plugin work across all three. Hooks and sub-agents run only in Cowork, so they appear grayed out in chat.
+You can install and use plugins in chat on the web, the Chat tab in Claude Desktop, and Claude Cowork. Plugins enabled for your Claude account also load in Claude Code in your terminal when you sign in with the same account. The skills bundled in a plugin work in all of these places. Hooks and sub-agents run in Cowork and Claude Code, so they appear grayed out in chat.
 
 Plugins can also bundle connectors, so the right services are set up for a workflow without you connecting each one. Claude connects to services like Google Drive, Gmail, Slack, DocuSign, and many more.
 
 **Note:** In Cowork, connectors reach external services through Anthropic's cloud, not through your local network. A custom connector must point to a server that's reachable over the public internet from Anthropic's IP ranges. If your organization's servers are behind a firewall or on a private network, see **[Network requirements for custom connectors](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp#h_b66e88c454)**.
+
+### Use plugins in Claude Code
+
+Plugins you've installed, and plugins your organization has distributed to you, sync to Claude Code when you sign in with your Claude account. This needs Claude Code v2.1.273 or later.
+
+- Plugins sync once each time Claude Code starts.
+
+- If you signed in on an older version, sync starts within a few hours, or right away if you run `/login` again.
+
+- In Claude Code, a plugin runs in full on your computer, including its skills, sub-agents, hooks, and MCP servers.
+
+- The sync is one-way. It reads from your Claude account and never changes anything in it.
+
+- Plugins don't sync when Claude Code is signed in with an API key or runs on a cloud provider such as Amazon Bedrock.
+
+To stop plugins from syncing, set `syncClaudeAiPlugins` to `false` in your Claude Code settings. Learn more about **[synced plugins](https://code.claude.com/docs/en/plugins-reference#synced-plugins)** in the Claude Code docs.
 
 ---
 
@@ -40,7 +56,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself. On Team and Enterprise plans, a colleague can share a plugin with you directly instead of sending you the file. See **[Use a plugin shared with you](#h_ef985546b4)** below. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1790091900&amp;signature=3b7d5403bf97d9c7fccb5202dfb6baa83befd356a985fd817c2b4fe63ec65d07&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IxXdOvRcxakFVfq5WwxGoYS62hxc3jAgJ1QO%0A7jXxDUjLbhAuybAKTcc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1790229600&amp;signature=59fc13c3bb7017fbb3fa5b4fc0d2e3e565350d27dc016163535c27e8a2a20d60&amp;req=diEnFs1%2BlINeWPMW3nq%2BgVBR61lOup4R0ytCn8XYmtDkvzxSAvJLQOHe2eF4%0AjJu4%2FschKqXN0YSCcooO%2FW8njD8%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +66,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1790091900&amp;signature=77aefb7e93bc292931562cfe989679531de29cb99e63aef2c1969b3de309376d&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBfb8ikGdmKUxugP2BQs9zDCPreScCQh36qof%0A4N4qLOo2RW5DGEzM1ZM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1790229600&amp;signature=e02ce5b43561a924e49b2fe8f18e96cc79b06b4c0b171b3ebec5e84d399b01f9&amp;req=diEiEcp3m4lbXfMW3nq%2BgasPOp6KHQLoLOIpIe1p%2BLau6HaImM5%2Bt6jJCwUO%0ATNCwplTrctwIfQHlWA%2FbEz5L5cU%3D%0A)
 
 ---
 
@@ -78,13 +94,13 @@ Owners and Primary Owners of Team and Enterprise organizations can turn on skill
 
 To enable plugin sharing:
 
-1. Navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills).**
+1. Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Policy” tab**.**
 
-2. Click the "Policy" tab.
+2. To enable sharing between specific people, toggle on **Skill sharing**.
 
-3. To enable sharing between specific people, toggle on **Skill sharing**.
+3. To enable sharing with groups, toggle on **Share with groups**. If you have custom roles, you also need to enable the **Share skills with groups** capability in the custom role.
 
-4. To enable sharing with groups, toggle on **Share with groups**. If you have custom roles, you also need to enable the **Share skills with groups** capability in the custom role.
+To let users publish plugins to the organization library, use the **Publishing** setting on the same "Policy" tab. Learn more about **[letting users publish skills and plugins to your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_1abc45a27c)**.
 
 ---
 
@@ -122,6 +138,26 @@ To copy a link to a shared plugin, click "Copy link" in the Share dialog. The li
 
 The plugin is removed from their list right away. Deleting a plugin removes it for everyone you shared it with, and anything shared with a member is removed automatically when they leave your organization.
 
+## Publish a plugin to your organization
+
+On Team and Enterprise plans, you can submit a plugin you uploaded or created in Customize to your organization's library, so anyone in your organization can install it. Sharing gives a plugin to specific people or groups, and you keep control of it. Publishing hands it to your organization.
+
+To publish a plugin:
+
+1. Navigate to **[Customize > Plugins](https://claude.ai/customize/plugins)**.
+
+2. Open the plugin you want to publish.
+
+3. Click "Publish to org."
+
+4. If your organization requires review, choose how you'd like the plugin offered: Available to install, Installed by default, or Required. Add release notes for the reviewer if you'd like, then submit.
+
+If your organization requires review, an owner (or someone with permission to review requests) checks the plugin before it's published. Your choice of how it's offered is a proposal. The reviewer sees it preselected and can change it, and they also choose who gets the plugin: everyone or specific groups. You can keep using and editing your copy while you wait, and you can withdraw the submission. The plugin shows its status: pending, changes requested (with the reviewer's note), or published. You'll get an email when it's approved. If your organization doesn't require review, the plugin is published to the library and available to everyone in your organization to install. If your organization has security scanning turned on, the plugin isn't listed for others until it passes the scan, which usually takes a few minutes.
+
+Once published, the plugin is managed by your organization. To update it, publish again. The new version goes through the same review, and everyone who uses the plugin stays on the approved version until the update is approved.
+
+**Note:** If you don't see "Publish to org," your organization may have publishing turned off, or the plugin may not be one you created. You can't publish plugins that were shared with you or that you installed from a marketplace or your organization's library. Check with your organization owner if it's your own plugin.
+
 ## Use a plugin shared with you
 
 When a colleague shares a plugin with you, it appears in the **Shared with you** section of the **Plugins** tab in **Customize**. It's off until you turn it on. Once it's on, its skills work the same way as any other installed plugin.
@@ -158,14 +194,14 @@ To remove a marketplace, including the default Knowledge Work marketplace:
 
 ## Organization-managed plugins
 
-If you're on a Team or Enterprise plan, an owner can distribute plugins across your organization through plugin marketplaces. These are different from plugins a colleague shares with you, which show up under **Shared with you**. Organization-managed plugins work the same as any other plugin, with a couple of differences:
+If you're on a Team or Enterprise plan, an owner can distribute plugins across your organization through plugin marketplaces, or approve plugins that users publish to the organization library These are different from plugins a colleague shares with you, which show up under **Shared with you**. Organization-managed plugins work the same as any other plugin, with a couple of differences:
 
 - You can't edit organization-managed plugins. This keeps shared tooling consistent across your team.
 
-- Some plugins may be auto-installed or required for you. You can uninstall auto-installed plugins if you don't need them, but required plugins can't be removed.
+- Some plugins may be auto-installed or required for you. You can uninstall auto-installed plugins if you don't need them, but required plugins can't be removed. Required plugins can't be disabled in Claude Code either.
 
 - Available organization plugins show up when you browse the plugin catalog, and you can install them yourself.
 
-On Enterprise plans, your admin may customize which plugins are available to your group. This means the plugins you see in the catalog may differ from what colleagues in other groups see. Plugins assigned to your group appear in chat as well as Cowork.
+On Enterprise plans, your admin may customize which plugins are available to your group. This means the plugins you see in the catalog may differ from what colleagues in other groups see. Plugins assigned to your group appear in chat, Cowork, and Claude Code.
 
 For guidance on setting up and managing plugins organization-wide, see **[Manage plugins for your organization](https://support.claude.com/en/articles/13837433-)**.

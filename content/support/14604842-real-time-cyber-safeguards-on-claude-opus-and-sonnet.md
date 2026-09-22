@@ -1,6 +1,6 @@
 # Real-time cyber safeguards on Claude Opus and Sonnet
 
-**Note**: This article applies only to Opus and Sonnet class models.
+**Note**: This article applies only to Opus and Sonnet class models, but doesn’t apply to Claude Opus 5.5. We'll soon be expanding the Cyber Verification Program to include Opus 5.5 and Mythos class models.
 
 As part of our ongoing safety commitments, we have real-time cyber safeguards on Claude Opus and Sonnet models. These safeguards are designed to automatically detect and block requests that may indicate prohibited or high-risk cybersecurity usage based on our Usage Policy.
 

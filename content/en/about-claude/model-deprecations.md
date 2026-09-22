@@ -77,6 +77,7 @@ Current and recently retired models are listed in the following table with their
 | claude-fable-5             | Active        | N/A               | Not sooner than June 9, 2027       |
 | claude-mythos-5            | Active        | N/A               | Not sooner than June 9, 2027       |
 | claude-mythos-preview      | Deprecated    | June 9, 2026      | To be announced                    |
+| claude-opus-5-5            | Active        | N/A               | Not sooner than September 22, 2027 |
 | claude-opus-5              | Active        | N/A               | Not sooner than July 24, 2027      |
 | claude-opus-4-8            | Active        | N/A               | Not sooner than May 28, 2027       |
 | claude-opus-4-7            | Active        | N/A               | Not sooner than April 16, 2027     |

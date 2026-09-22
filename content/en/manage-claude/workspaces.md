@@ -865,7 +865,7 @@ The following examples send a Messages API request and print the workspace ID fr
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \
     -d '{
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "messages": [{"role": "user", "content": "Hello, Claude"}]
     }' | grep -i '^anthropic-workspace-id'
@@ -875,7 +875,7 @@ The following examples send a Messages API request and print the workspace ID fr
   # --debug prints the HTTP response, including the Anthropic-Workspace-Id
   # header, to stderr; > /dev/null hides the JSON body on stdout
   ant --debug messages create \
-    --model claude-opus-5 \
+    --model claude-opus-5-5 \
     --max-tokens 1024 \
     --message '{role: user, content: "Hello, Claude"}' > /dev/null
   ```
@@ -884,7 +884,7 @@ The following examples send a Messages API request and print the workspace ID fr
   client = anthropic.Anthropic()
 
   response = client.messages.with_raw_response.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       messages=[{"role": "user", "content": "Hello, Claude"}],
   )
@@ -897,7 +897,7 @@ The following examples send a Messages API request and print the workspace ID fr
 
   const { response } = await client.messages
     .create({
-      model: "claude-opus-5",
+      model: "claude-opus-5-5",
       max_tokens: 1024,
       messages: [{ role: "user", content: "Hello, Claude" }]
     })
@@ -910,7 +910,7 @@ The following examples send a Messages API request and print the workspace ID fr
 
   using var response = await client.WithRawResponse.Messages.Create(new()
   {
-      Model = Model.ClaudeOpus5,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       Messages = [new() { Role = Role.User, Content = "Hello, Claude" }]
   });
@@ -925,7 +925,7 @@ The following examples send a Messages API request and print the workspace ID fr
   _, err := client.Messages.New(
   	context.Background(),
   	anthropic.MessageNewParams{
-  		Model:     anthropic.ModelClaudeOpus5,
+  		Model:     anthropic.ModelClaudeOpus5_5,
   		MaxTokens: 1024,
   		Messages: []anthropic.MessageParam{
   			anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
@@ -953,7 +953,7 @@ The following examples send a Messages API request and print the workspace ID fr
 
       HttpResponseFor<Message> response = client.messages().withRawResponse().create(
           MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5)
+              .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(1024)
               .addUserMessage("Hello, Claude")
               .build()
@@ -968,7 +968,7 @@ The following examples send a Messages API request and print the workspace ID fr
   $client = new Client();
 
   $response = $client->messages->raw->create([
-      'model' => Model::CLAUDE_OPUS_5,
+      'model' => Model::CLAUDE_OPUS_5_5,
       'maxTokens' => 1024,
       'messages' => [['role' => 'user', 'content' => 'Hello, Claude']],
   ]);
@@ -989,7 +989,7 @@ The following examples send a Messages API request and print the workspace ID fr
   end
 
   client.messages.create(
-    model: Anthropic::Model::CLAUDE_OPUS_5,
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
     request_options: { middleware: [read_workspace_id] }

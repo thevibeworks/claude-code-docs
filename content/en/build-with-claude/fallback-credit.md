@@ -622,7 +622,7 @@ The following sections cover edge cases and the complete redemption rules. Most 
   * **`fallback-credit-*`:** keep this header on both requests. The retry needs it to redeem the token.
 
   <Note>
-    On models that include the 1M token context window by default, such as Claude Fable 5.1, Claude Fable 5, Claude Opus 5, and Claude Opus 4.8, the `context-1m-2025-08-07` beta header has no effect. To keep the two requests identical, omit that header on both rather than sending it on one and not the other.
+    On models that include the 1M token context window by default, such as Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, and Claude Opus 4.8, the `context-1m-2025-08-07` beta header has no effect. To keep the two requests identical, omit that header on both rather than sending it on one and not the other.
   </Note>
 </Accordion>
 

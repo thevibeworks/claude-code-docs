@@ -61,7 +61,7 @@ This example enables all tools from an MCP server with default configuration:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: mcp-client-2025-11-20" \
     -d '{
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "max_tokens": 1000,
       "messages": [{"role": "user", "content": "What tools do you have available?"}],
       "mcp_servers": [
@@ -83,7 +83,7 @@ This example enables all tools from an MCP server with default configuration:
 
   ```bash CLI
   ant beta:messages create --beta mcp-client-2025-11-20 <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 1000
   messages:
     - role: user
@@ -103,7 +103,7 @@ This example enables all tools from an MCP server with default configuration:
   client = anthropic.Anthropic()
 
   response = client.beta.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1000,
       messages=[{"role": "user", "content": "What tools do you have available?"}],
       mcp_servers=[
@@ -125,7 +125,7 @@ This example enables all tools from an MCP server with default configuration:
   const anthropic = new Anthropic();
 
   const response = await anthropic.beta.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1000,
     messages: [
       {
@@ -158,7 +158,7 @@ This example enables all tools from an MCP server with default configuration:
 
   var parameters = new MessageCreateParams
   {
-      Model = Model.ClaudeOpus5,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 1000,
       Messages = new List<BetaMessageParam>
       {
@@ -188,7 +188,7 @@ This example enables all tools from an MCP server with default configuration:
   client := anthropic.NewClient()
 
   response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 1000,
   	Messages: []anthropic.BetaMessageParam{
   		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("What tools do you have available?")),
@@ -225,7 +225,7 @@ This example enables all tools from an MCP server with default configuration:
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1000L)
           .addUserMessage("What tools do you have available?")
           .addMcpServer(BetaRequestMcpServerUrlDefinition.builder()
@@ -252,7 +252,7 @@ This example enables all tools from an MCP server with default configuration:
       messages: [
           ['role' => 'user', 'content' => 'What tools do you have available?']
       ],
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       mcpServers: [
           [
               'type' => 'url',
@@ -277,7 +277,7 @@ This example enables all tools from an MCP server with default configuration:
   client = Anthropic::Client.new
 
   response = client.beta.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1000,
     messages: [
       { role: "user", content: "What tools do you have available?" }
@@ -357,6 +357,8 @@ The MCPToolset lives in the `tools` array and configures which tools from the MC
 | `default_config`  | object | No       | Default configuration applied to all tools in this set. Individual tool configs in `configs` override these defaults.                   |
 | `configs`         | object | No       | Per-tool configuration overrides. Keys are tool names, values are configuration objects.                                                |
 | `cache_control`   | object | No       | [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) cache breakpoint configuration for this toolset. |
+
+With the `mcp-client-2026-09-15` beta header, an MCPToolset also accepts `tools`, a pinned copy of the server's tool list. See [Pin an MCP server's tool list](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#pin-mcp-tool-list).
 
 ### Tool configuration options
 
@@ -524,13 +526,580 @@ When Claude uses MCP tools, the response includes two new content block types:
 }
 ```
 
+## Pin an MCP server's tool list (beta)
+
+An MCP server can change its tools at any time. The `mcp-client-2026-09-15` beta header records the tool list each server returns and lets you pin it, so a server that changes its tools doesn't change what Claude sees partway through a conversation. It includes everything `mcp-client-2025-11-20` does, so send it in place of that header. It's available on the Claude API.
+
+When the API asks an MCP server for its tools while producing a response, the response starts with an `mcp_tool_listing` block for that server, one block for each server it asked:
+
+```json
+{
+  "type": "mcp_tool_listing",
+  "mcp_server_name": "example-mcp",
+  "tools": [
+    {
+      "name": "echo",
+      "description": "Returns the text it receives.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "text": { "type": "string" } },
+        "required": ["text"]
+      }
+    }
+  ]
+}
+```
+
+If your code reads `content[0]`, skip these blocks. Send the assistant message back unchanged, `mcp_tool_listing` blocks included, and keep sending `mcp-client-2026-09-15` on every request that carries one. Later requests then use the recorded list for that server instead of asking it again.
+
+To pin a list yourself, copy a block's `tools` into the `tools` field of that server's MCPToolset. The API then doesn't ask the server for its tools, and the toolset's tools are exactly those entries, with `default_config` and `configs` applied:
+
+```json
+{
+  "type": "mcp_toolset",
+  "mcp_server_name": "example-mcp",
+  "tools": [
+    {
+      "name": "echo",
+      "description": "Returns the text it receives.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "text": { "type": "string" } },
+        "required": ["text"]
+      }
+    }
+  ]
+}
+```
+
+Each entry in `tools` holds the tool's `name` as the server lists it (without the server name), its `description`, and its `input_schema`.
+
+The following example sends one request with an unpinned toolset, copies the returned list into the toolset's `tools` field, and sends the request again. The second response has no `mcp_tool_listing` block, because the API doesn't ask the server:
+
+<CodeGroup>
+  ```bash cURL
+  BODY='{
+    "model": "claude-opus-5-5",
+    "max_tokens": 1024,
+    "mcp_servers": [
+      {
+        "type": "url",
+        "url": "https://example-server.modelcontextprotocol.io/sse",
+        "name": "example-mcp",
+        "authorization_token": "YOUR_TOKEN"
+      }
+    ],
+    "tools": [
+      {
+        "type": "mcp_toolset",
+        "mcp_server_name": "example-mcp"
+      }
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "content": "What tools do you have available?"
+      }
+    ]
+  }'
+
+  # First request: the toolset isn't pinned, so the API asks the server for
+  # its tools and the response starts with an mcp_tool_listing block.
+  # tee shows the response on stderr while the variable captures it.
+  FIRST=$(curl -sS https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: mcp-client-2026-09-15" \
+    -d "$BODY" | tee /dev/stderr)
+
+  # Pin the list: copy the block's tools into the toolset. The API uses
+  # exactly these entries and doesn't ask the server again.
+  TOOLS=$(jq '.content[] | select(.type == "mcp_tool_listing") | .tools' \
+    <<<"$FIRST")
+  PINNED=$(jq --argjson tools "$TOOLS" '.tools[0].tools = $tools' <<<"$BODY")
+
+  # With a pinned toolset, the response has no mcp_tool_listing block.
+  curl https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: mcp-client-2026-09-15" \
+    -d "$PINNED"
+  ```
+
+  ```bash CLI
+  request=$(cat <<'YAML'
+  model: claude-opus-5-5
+  max_tokens: 1024
+  mcp_servers:
+    - type: url
+      url: https://example-server.modelcontextprotocol.io/sse
+      name: example-mcp
+      authorization_token: YOUR_TOKEN
+  tools:
+    - type: mcp_toolset
+      mcp_server_name: example-mcp
+  messages:
+    - role: user
+      content: What tools do you have available?
+  YAML
+  )
+
+  # First request: the toolset isn't pinned, so the API asks the server for
+  # its tools and the response starts with an mcp_tool_listing block.
+  # tee shows the response on stderr while the variable captures it.
+  first=$(ant beta:messages create --beta mcp-client-2026-09-15 --format json \
+    <<<"$request" | tee /dev/stderr)
+  tools=$(jq -c '.content[] | select(.type == "mcp_tool_listing") | .tools' \
+    <<<"$first")
+
+  # Pin the list: copy the block's tools into the toolset. The --tool flag
+  # replaces the body's tools array. The API uses exactly these entries and
+  # doesn't ask the server again, so the response has no mcp_tool_listing block.
+  ant beta:messages create --beta mcp-client-2026-09-15 \
+    --tool "{type: mcp_toolset, mcp_server_name: example-mcp, tools: $tools}" \
+    <<<"$request"
+  ```
+
+  ```python Python
+  from anthropic.types.beta import (
+      BetaMessageParam,
+      BetaRequestMCPServerURLDefinitionParam,
+  )
+
+  client = anthropic.Anthropic()
+
+  mcp_servers: list[BetaRequestMCPServerURLDefinitionParam] = [
+      {
+          "type": "url",
+          "url": "https://example-server.modelcontextprotocol.io/sse",
+          "name": "example-mcp",
+          "authorization_token": "YOUR_TOKEN",
+      },
+  ]
+  messages: list[BetaMessageParam] = [
+      {"role": "user", "content": "What tools do you have available?"},
+  ]
+
+  # First request: the toolset isn't pinned, so the API asks the server for
+  # its tools and the response starts with an mcp_tool_listing block.
+  first = client.beta.messages.create(
+      model="claude-opus-5-5",
+      max_tokens=1024,
+      betas=["mcp-client-2026-09-15"],
+      mcp_servers=mcp_servers,
+      tools=[{"type": "mcp_toolset", "mcp_server_name": "example-mcp"}],
+      messages=messages,
+  )
+
+  listing = next(block for block in first.content if block.type == "mcp_tool_listing")
+  print([tool.name for tool in listing.tools])
+
+  # Pin the list: copy the block's tools into the toolset. The API uses
+  # exactly these entries and doesn't ask the server again.
+  second = client.beta.messages.create(
+      model="claude-opus-5-5",
+      max_tokens=1024,
+      betas=["mcp-client-2026-09-15"],
+      mcp_servers=mcp_servers,
+      tools=[
+          {
+              "type": "mcp_toolset",
+              "mcp_server_name": "example-mcp",
+              "tools": [
+                  {
+                      "name": tool.name,
+                      "description": tool.description,
+                      "input_schema": tool.input_schema,
+                  }
+                  for tool in listing.tools
+              ],
+          },
+      ],
+      messages=messages,
+  )
+
+  # With a pinned toolset, the response has no mcp_tool_listing block.
+  print([block.type for block in second.content])
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const mcpServers: Anthropic.Beta.BetaRequestMCPServerURLDefinition[] = [
+    {
+      type: "url",
+      url: "https://example-server.modelcontextprotocol.io/sse",
+      name: "example-mcp",
+      authorization_token: "YOUR_TOKEN"
+    }
+  ];
+  const messages: Anthropic.Beta.BetaMessageParam[] = [
+    { role: "user", content: "What tools do you have available?" }
+  ];
+
+  // First request: the toolset isn't pinned, so the API asks the server for
+  // its tools and the response starts with an mcp_tool_listing block.
+  const first = await client.beta.messages.create({
+    model: "claude-opus-5-5",
+    max_tokens: 1024,
+    betas: ["mcp-client-2026-09-15"],
+    mcp_servers: mcpServers,
+    tools: [{ type: "mcp_toolset", mcp_server_name: "example-mcp" }],
+    messages
+  });
+
+  const listing = first.content.find((block) => block.type === "mcp_tool_listing");
+  if (!listing) {
+    throw new Error("The response has no mcp_tool_listing block.");
+  }
+  console.log(listing.tools.map((tool) => tool.name));
+
+  // Pin the list: copy the block's tools into the toolset. The API uses
+  // exactly these entries and doesn't ask the server again.
+  const second = await client.beta.messages.create({
+    model: "claude-opus-5-5",
+    max_tokens: 1024,
+    betas: ["mcp-client-2026-09-15"],
+    mcp_servers: mcpServers,
+    tools: [
+      {
+        type: "mcp_toolset",
+        mcp_server_name: "example-mcp",
+        tools: listing.tools
+      }
+    ],
+    messages
+  });
+
+  // With a pinned toolset, the response has no mcp_tool_listing block.
+  console.log(second.content.map((block) => block.type));
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta;
+  using Anthropic.Models.Beta.Messages;
+  using Messages = Anthropic.Models.Messages;
+
+  AnthropicClient client = new();
+
+  List<BetaRequestMcpServerUrlDefinition> mcpServers =
+  [
+      new()
+      {
+          Url = "https://example-server.modelcontextprotocol.io/sse",
+          Name = "example-mcp",
+          AuthorizationToken = "YOUR_TOKEN",
+      },
+  ];
+  List<BetaMessageParam> messages =
+  [
+      new() { Role = Role.User, Content = "What tools do you have available?" },
+  ];
+
+  // First request: the toolset isn't pinned, so the API asks the server for
+  // its tools and the response starts with an mcp_tool_listing block.
+  var first = await client.Beta.Messages.Create(new MessageCreateParams
+  {
+      Model = Messages::Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Betas = [AnthropicBeta.McpClient2026_09_15],
+      McpServers = mcpServers,
+      Tools = [new BetaMcpToolset("example-mcp")],
+      Messages = messages,
+  });
+
+  var listing = first.Content
+      .Select(block => block.Value)
+      .OfType<BetaMcpToolListingBlock>()
+      .First();
+  Console.WriteLine(string.Join(", ", listing.Tools.Select(tool => tool.Name)));
+
+  // Pin the list: copy the block's tools into the toolset. The API uses
+  // exactly these entries and doesn't ask the server again.
+  var second = await client.Beta.Messages.Create(new MessageCreateParams
+  {
+      Model = Messages::Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Betas = [AnthropicBeta.McpClient2026_09_15],
+      McpServers = mcpServers,
+      Tools =
+      [
+          new BetaMcpToolset("example-mcp")
+          {
+              Tools =
+              [
+                  .. listing.Tools.Select(tool => new BetaMcpToolParam
+                  {
+                      Name = tool.Name,
+                      Description = tool.Description,
+                      InputSchema = tool.InputSchema,
+                  }),
+              ],
+          },
+      ],
+      Messages = messages,
+  });
+
+  // With a pinned toolset, the response has no mcp_tool_listing block.
+  Console.WriteLine(string.Join(", ", second.Content.Select(block => block.Type)));
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  mcpServers := []anthropic.BetaRequestMCPServerURLDefinitionParam{
+  	{
+  		URL:                "https://example-server.modelcontextprotocol.io/sse",
+  		Name:               "example-mcp",
+  		AuthorizationToken: anthropic.String("YOUR_TOKEN"),
+  	},
+  }
+  messages := []anthropic.BetaMessageParam{
+  	anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("What tools do you have available?")),
+  }
+
+  // First request: the toolset isn't pinned, so the API asks the server for
+  // its tools and the response starts with an mcp_tool_listing block.
+  first, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model:      anthropic.ModelClaudeOpus5_5,
+  	MaxTokens:  1024,
+  	Betas:      []anthropic.AnthropicBeta{anthropic.AnthropicBetaMCPClient2026_09_15},
+  	MCPServers: mcpServers,
+  	Tools: []anthropic.BetaToolUnionParam{
+  		{OfMCPToolset: &anthropic.BetaMCPToolsetParam{MCPServerName: "example-mcp"}},
+  	},
+  	Messages: messages,
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  var listing anthropic.BetaMCPToolListingBlock
+  for _, block := range first.Content {
+  	if listingBlock, ok := block.AsAny().(anthropic.BetaMCPToolListingBlock); ok {
+  		listing = listingBlock
+  		break
+  	}
+  }
+
+  // Pin the list: copy the block's tools into the toolset. The API uses
+  // exactly these entries and doesn't ask the server again.
+  var toolNames []string
+  var pinnedTools []anthropic.BetaMCPToolParam
+  for _, tool := range listing.Tools {
+  	toolNames = append(toolNames, tool.Name)
+  	pinnedTools = append(pinnedTools, anthropic.BetaMCPToolParam{
+  		Name:        tool.Name,
+  		Description: anthropic.String(tool.Description),
+  		InputSchema: tool.InputSchema,
+  	})
+  }
+  fmt.Println(toolNames)
+
+  second, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model:      anthropic.ModelClaudeOpus5_5,
+  	MaxTokens:  1024,
+  	Betas:      []anthropic.AnthropicBeta{anthropic.AnthropicBetaMCPClient2026_09_15},
+  	MCPServers: mcpServers,
+  	Tools: []anthropic.BetaToolUnionParam{
+  		{OfMCPToolset: &anthropic.BetaMCPToolsetParam{
+  			MCPServerName: "example-mcp",
+  			Tools:         pinnedTools,
+  		}},
+  	},
+  	Messages: messages,
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  // With a pinned toolset, the response has no mcp_tool_listing block.
+  var blockTypes []string
+  for _, block := range second.Content {
+  	blockTypes = append(blockTypes, block.Type)
+  }
+  fmt.Println(blockTypes)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.AnthropicBeta;
+  import com.anthropic.models.beta.messages.BetaMcpTool;
+  import com.anthropic.models.beta.messages.BetaMcpToolListingBlock;
+  import com.anthropic.models.beta.messages.BetaMcpToolset;
+  import com.anthropic.models.beta.messages.BetaMessage;
+  import com.anthropic.models.beta.messages.BetaRequestMcpServerUrlDefinition;
+  import com.anthropic.models.beta.messages.MessageCreateParams;
+  // ...
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      BetaRequestMcpServerUrlDefinition mcpServer = BetaRequestMcpServerUrlDefinition.builder()
+          .url("https://example-server.modelcontextprotocol.io/sse")
+          .name("example-mcp")
+          .authorizationToken("YOUR_TOKEN")
+          .build();
+
+      // First request: the toolset isn't pinned, so the API asks the server for
+      // its tools and the response starts with an mcp_tool_listing block.
+      BetaMessage first = client.beta().messages().create(MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024)
+          .addBeta(AnthropicBeta.MCP_CLIENT_2026_09_15)
+          .addMcpServer(mcpServer)
+          .addTool(BetaMcpToolset.builder()
+              .mcpServerName("example-mcp")
+              .build())
+          .addUserMessage("What tools do you have available?")
+          .build());
+
+      BetaMcpToolListingBlock listing = first.content().stream()
+          .flatMap(block -> block.mcpToolListing().stream())
+          .findFirst()
+          .orElseThrow();
+      IO.println(listing.tools().stream().map(BetaMcpTool::name).toList());
+
+      // Pin the list: copy the block's tools into the toolset. The API uses
+      // exactly these entries and doesn't ask the server again.
+      BetaMessage second = client.beta().messages().create(MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024)
+          .addBeta(AnthropicBeta.MCP_CLIENT_2026_09_15)
+          .addMcpServer(mcpServer)
+          .addTool(BetaMcpToolset.builder()
+              .mcpServerName("example-mcp")
+              .tools(listing.tools().stream().map(BetaMcpTool::toParam).toList())
+              .build())
+          .addUserMessage("What tools do you have available?")
+          .build());
+
+      // With a pinned toolset, the response has no mcp_tool_listing block.
+      IO.println(second.content().stream()
+          .map(block -> block.type().asString())
+          .toList());
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaMCPTool;
+  use Anthropic\Beta\Messages\BetaMCPToolListingBlock;
+  // ...
+
+  $client = new Client();
+
+  $mcpServers = [
+      [
+          'type' => 'url',
+          'url' => 'https://example-server.modelcontextprotocol.io/sse',
+          'name' => 'example-mcp',
+          'authorization_token' => 'YOUR_TOKEN',
+      ],
+  ];
+  $messages = [['role' => 'user', 'content' => 'What tools do you have available?']];
+
+  // First request: the toolset isn't pinned, so the API asks the server for
+  // its tools and the response starts with an mcp_tool_listing block.
+  $first = $client->beta->messages->create(
+      model: Model::CLAUDE_OPUS_5_5,
+      maxTokens: 1024,
+      betas: [AnthropicBeta::MCP_CLIENT_2026_09_15],
+      mcpServers: $mcpServers,
+      tools: [['type' => 'mcp_toolset', 'mcp_server_name' => 'example-mcp']],
+      messages: $messages,
+  );
+
+  $listing = array_find($first->content, fn ($block) => $block instanceof BetaMCPToolListingBlock);
+  echo json_encode(array_map(fn (BetaMCPTool $tool) => $tool->name, $listing->tools)), PHP_EOL;
+
+  // Pin the list: copy the block's tools into the toolset. The API uses
+  // exactly these entries and doesn't ask the server again.
+  $second = $client->beta->messages->create(
+      model: Model::CLAUDE_OPUS_5_5,
+      maxTokens: 1024,
+      betas: [AnthropicBeta::MCP_CLIENT_2026_09_15],
+      mcpServers: $mcpServers,
+      tools: [
+          [
+              'type' => 'mcp_toolset',
+              'mcp_server_name' => 'example-mcp',
+              'tools' => array_map(
+                  fn (BetaMCPTool $tool) => [
+                      'name' => $tool->name,
+                      'description' => $tool->description,
+                      'input_schema' => $tool->inputSchema,
+                  ],
+                  $listing->tools,
+              ),
+          ],
+      ],
+      messages: $messages,
+  );
+
+  // With a pinned toolset, the response has no mcp_tool_listing block.
+  echo json_encode(array_map(fn ($block) => $block->type, $second->content)), PHP_EOL;
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  mcp_servers = [
+    {
+      type: "url",
+      url: "https://example-server.modelcontextprotocol.io/sse",
+      name: "example-mcp",
+      authorization_token: "YOUR_TOKEN"
+    }
+  ]
+  messages = [{ role: "user", content: "What tools do you have available?" }]
+
+  # First request: the toolset isn't pinned, so the API asks the server for
+  # its tools and the response starts with an mcp_tool_listing block.
+  first = client.beta.messages.create(
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
+    max_tokens: 1024,
+    betas: [Anthropic::AnthropicBeta::MCP_CLIENT_2026_09_15],
+    mcp_servers:,
+    tools: [{ type: "mcp_toolset", mcp_server_name: "example-mcp" }],
+    messages:
+  )
+
+  listing = first.content.find { it.is_a?(Anthropic::Beta::BetaMCPToolListingBlock) }
+  puts listing.tools.map(&:name).inspect
+
+  # Pin the list: copy the block's tools into the toolset. The API uses
+  # exactly these entries and doesn't ask the server again.
+  second = client.beta.messages.create(
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
+    max_tokens: 1024,
+    betas: [Anthropic::AnthropicBeta::MCP_CLIENT_2026_09_15],
+    mcp_servers:,
+    tools: [
+      {
+        type: "mcp_toolset",
+        mcp_server_name: "example-mcp",
+        tools: listing.tools.map(&:to_h)
+      }
+    ],
+    messages:
+  )
+
+  # With a pinned toolset, the response has no mcp_tool_listing block.
+  puts second.content.map(&:type).inspect
+  ```
+</CodeGroup>
+
+With the `inline-tools-2026-09-15` beta header as well, you can add an MCP server partway through a conversation. See [Add an MCP server mid-conversation](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#add-an-mcp-server-mid-conversation-beta).
+
 ## Multiple MCP servers
 
 You can connect to multiple MCP servers by including multiple server definitions in `mcp_servers` and a corresponding MCPToolset for each in the `tools` array:
 
 ```json
 {
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "max_tokens": 1000,
   "messages": [
     {
@@ -667,8 +1236,8 @@ Install both the Anthropic SDK and the MCP SDK:
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:2.63.0")
-        implementation("com.anthropic:anthropic-java-mcp:2.63.0")
+        implementation("com.anthropic:anthropic-java:2.65.0")
+        implementation("com.anthropic:anthropic-java-mcp:2.65.0")
         ```
       </Tab>
 
@@ -677,12 +1246,12 @@ Install both the Anthropic SDK and the MCP SDK:
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>2.63.0</version>
+            <version>2.65.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-mcp</artifactId>
-            <version>2.63.0</version>
+            <version>2.65.0</version>
         </dependency>
         ```
       </Tab>
@@ -789,7 +1358,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
               # List tools and convert them for the Claude API
               tools_result = await mcp_client.list_tools()
               runner = client.beta.messages.tool_runner(
-                  model="claude-opus-5",
+                  model="claude-opus-5-5",
                   max_tokens=1024,
                   messages=[
                       {"role": "user", "content": "What tools do you have available?"},
@@ -830,7 +1399,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
   };
 
   const finalMessage = await anthropic.beta.messages.toolRunner({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     messages: [{ role: "user", content: "What tools do you have available?" }],
     tools: mcpTools(tools, mcpClientForTools)
@@ -858,7 +1427,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
   var runner = anthropic.Beta.Messages.ToolRunner(
       new MessageCreateParams
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           Messages =
           [
@@ -909,7 +1478,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
 
   	runner := client.Beta.Messages.NewToolRunner(betaTools, anthropic.BetaToolRunnerParams{
   		BetaMessageNewParams: anthropic.BetaMessageNewParams{
-  			Model:     anthropic.ModelClaudeOpus5,
+  			Model:     anthropic.ModelClaudeOpus5_5,
   			MaxTokens: 1024,
   			Messages: []anthropic.BetaMessageParam{
   				anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("What tools do you have available?")),
@@ -958,7 +1527,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
           List<McpBetaTool> betaTools = BetaMcp.mcpTools(mcpClient.listTools().tools(), mcpClient);
 
           MessageCreateParams params = MessageCreateParams.builder()
-                  .model(Model.CLAUDE_OPUS_5)
+                  .model(Model.CLAUDE_OPUS_5_5)
                   .maxTokens(1024L)
                   .addUserMessage("What tools do you have available?")
                   .addTools(betaTools)
@@ -991,7 +1560,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
   $runner = $anthropic->beta->messages->toolRunner(
       maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'What tools do you have available?']],
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       tools: BetaMcp::tools($mcp->listTools()->tools, $mcp),
   );
 
@@ -1010,7 +1579,7 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
 
   # List tools and convert them for the Claude API
   runner = anthropic.beta.messages.tool_runner(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     messages: [{ role: "user", content: "What tools do you have available?" }],
     tools: Anthropic::Mcp.tools(mcp_client.tools, mcp_client)
@@ -1031,7 +1600,7 @@ Convert MCP prompt messages into Claude API message format:
 
   prompt = await mcp_client.get_prompt(name="my-prompt")
   response = await client.beta.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       messages=[mcp_message(message) for message in prompt.messages],
   )
@@ -1044,7 +1613,7 @@ Convert MCP prompt messages into Claude API message format:
 
   const { messages } = await mcpClient.getPrompt({ name: "my-prompt" });
   const response = await anthropic.beta.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     messages: mcpMessages(messages)
   });
@@ -1057,7 +1626,7 @@ Convert MCP prompt messages into Claude API message format:
   var response = await anthropic.Beta.Messages.Create(
       new MessageCreateParams
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           Messages = BetaMcp.Messages(prompt.Messages),
       }
@@ -1082,7 +1651,7 @@ Convert MCP prompt messages into Claude API message format:
   }
 
   response, err := client.Beta.Messages.New(ctx, anthropic.BetaMessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 1024,
   	Messages:  messages,
   })
@@ -1097,7 +1666,7 @@ Convert MCP prompt messages into Claude API message format:
           new McpSchema.GetPromptRequest("my-prompt", Map.of()));
 
   BetaMessage response = anthropic.beta().messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024L)
           .messages(BetaMcp.mcpMessages(prompt.messages()))
           .build());
@@ -1111,7 +1680,7 @@ Convert MCP prompt messages into Claude API message format:
   $response = $anthropic->beta->messages->create(
       maxTokens: 1024,
       messages: array_map(BetaMcp::message(...), $prompt->messages),
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
   );
 
   echo $response, "\n";
@@ -1121,7 +1690,7 @@ Convert MCP prompt messages into Claude API message format:
   prompt = mcp_client.get_prompt(name: "my-prompt")
 
   response = anthropic.beta.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     messages: prompt["messages"].map { |message| Anthropic::Mcp.message(message) }
   )
@@ -1144,7 +1713,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
   # As a content block in a message
   resource = await mcp_client.read_resource(uri="file:///path/to/doc.txt")
   response = await client.beta.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=1024,
       messages=[
           {
@@ -1174,7 +1743,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
   // As a content block in a message
   const resource = await mcpClient.readResource({ uri: "file:///path/to/doc.txt" });
   const response = await anthropic.beta.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     messages: [
       {
@@ -1200,7 +1769,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
   var response = await anthropic.Beta.Messages.Create(
       new MessageCreateParams
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           Messages =
           [
@@ -1248,7 +1817,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
   }
 
   response, err := client.Beta.Messages.New(ctx, anthropic.BetaMessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 1024,
   	Messages: []anthropic.BetaMessageParam{
   		anthropic.NewBetaUserMessage(
@@ -1296,7 +1865,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
           BetaTextBlockParam.builder().text("Summarize this document").build()));
 
   BetaMessage response = anthropic.beta().messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024L)
           .addUserMessageOfBetaContentBlockParams(content)
           .build());
@@ -1340,7 +1909,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
               ],
           ],
       ],
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
   );
 
   echo $response, "\n";
@@ -1356,7 +1925,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
   resource = mcp_client.read_resource(uri: "file:///path/to/doc.txt")
 
   response = anthropic.beta.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 1024,
     messages: [
       {
@@ -1409,7 +1978,7 @@ If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this 
 
 ```json
 {
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "max_tokens": 1000,
   "messages": [
     // ...
@@ -1433,7 +2002,7 @@ If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this 
 
 ```json
 {
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "max_tokens": 1000,
   "messages": [
     // ...

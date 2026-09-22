@@ -37,7 +37,7 @@ The example is a single file. The constants control the effort level, the fan-ou
 
   client = anthropic.Anthropic()
 
-  MODEL = "claude-opus-5"
+  MODEL = "claude-opus-5-5"
   EFFORT = "xhigh"
 
   SYSTEM_PROMPT = "You are a helpful general-purpose agent. Answer the user's request directly."
@@ -67,7 +67,7 @@ The example is a single file. The constants control the effort level, the fan-ou
 
   const client = new Anthropic();
 
-  const MODEL = "claude-opus-5";
+  const MODEL = "claude-opus-5-5";
   const EFFORT = "xhigh";
 
   const SYSTEM_PROMPT =
@@ -95,7 +95,7 @@ The example is a single file. The constants control the effort level, the fan-ou
 
   AnthropicClient client = new();
 
-  const Model model = Model.ClaudeOpus5;
+  const Model model = Model.ClaudeOpus5_5;
   var effort = Effort.Xhigh;
 
   const string systemPrompt = "You are a helpful general-purpose agent. Answer the user's request directly.";
@@ -141,7 +141,7 @@ The example is a single file. The constants control the effort level, the fan-ou
   var client = anthropic.NewClient()
 
   const (
-  	modelID = anthropic.ModelClaudeOpus5
+  	modelID = anthropic.ModelClaudeOpus5_5
   	effort  = anthropic.OutputConfigEffortXhigh
 
   	systemPrompt = "You are a helpful general-purpose agent. Answer the user's request directly."
@@ -223,7 +223,7 @@ The example is a single file. The constants control the effort level, the fan-ou
 
   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-  static final Model MODEL = Model.CLAUDE_OPUS_5;
+  static final Model MODEL = Model.CLAUDE_OPUS_5_5;
   static final boolean DOC_TEST_MODE =
           !Objects.requireNonNullElse(System.getenv("DOC_TEST_MODE"), "").isEmpty();
   static final OutputConfig.Effort EFFORT = OutputConfig.Effort.XHIGH;
@@ -251,7 +251,7 @@ The example is a single file. The constants control the effort level, the fan-ou
 
   $client = new Client();
 
-  const MODEL = 'claude-opus-5';
+  const MODEL = 'claude-opus-5-5';
   define('DOC_TEST_MODE', (string) getenv('DOC_TEST_MODE') !== '');
   const EFFORT = 'xhigh';
 
@@ -278,7 +278,7 @@ The example is a single file. The constants control the effort level, the fan-ou
 
   CLIENT = Anthropic::Client.new
 
-  MODEL = "claude-opus-5"
+  MODEL = "claude-opus-5-5"
   EFFORT = :xhigh
 
   SYSTEM_PROMPT = "You are a helpful general-purpose agent. Answer the user's request directly."
@@ -2867,7 +2867,7 @@ The agent appends the user's message first, then any system messages that are du
     -H "content-type: application/json" \
     -d @- <<'EOF'
   {
-    "model": "claude-opus-5",
+    "model": "claude-opus-5-5",
     "max_tokens": 64000,
     "system": "You are a helpful general-purpose agent. Answer the user's request directly.",
     "output_config": {"effort": "xhigh"},
@@ -2910,7 +2910,7 @@ The agent appends the user's message first, then any system messages that are du
   # subagents is shown in the SDK tabs; the Workflow description is condensed here,
   # the SDK examples carry the full standing-consent text.
   ant messages create <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 64000
   system: You are a helpful general-purpose agent. Answer the user's request directly.
   output_config: {effort: xhigh}
