@@ -160,9 +160,9 @@ In any channel that includes a guest, even under **Allow**, Claude won't search 
 
 Use **Channel only** to keep Claude available in a channel shared with contractors, clients, or agency partners without exposing the rest of the organization's setup to that conversation. While a guest is in the channel, Claude has:
 
-* No [access bundles](/docs/claude-tag/admins/attach-to-scope), including bundles attached directly to this channel.
-* No connections set directly on the channel.
-* No repositories.
+* No [access bundles](/docs/claude-tag/admins/attach-to-scope) inherited from the workspace or the organization. A bundle attached directly to the channel still applies.
+* No connections inherited from the workspace or the organization. A connection set directly on the channel still applies.
+* No repositories from the workspace or the organization.
 * No instructions set on the workspace or the organization. Instructions set on the channel itself still apply.
 * No memory, including this channel's own, and no skills.
 * No [environment set on the scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). The session runs on the standard environment, so the setup script, environment variables, and network access level of the environment you chose don't apply while a guest is present.
@@ -175,7 +175,7 @@ While a guest is present, Claude replies only to mentions and to threads it's al
 
 A guest can talk to Claude by mentioning `@Claude` or by replying in a thread Claude is part of, and Claude answers them. A guest can't approve a tool or permission request, and can't restart, mute, fork, or stop the session. If a guest clicks approve, nothing is granted.
 
-Treat a channel's instructions as visible to everyone in that channel, including guests. Under **Channel only**, Claude follows them in replies that guests can read and respond to.
+Treat a channel's instructions, and the instructions in any bundle attached directly to the channel, as visible to everyone in that channel, including guests. Under **Channel only**, Claude follows them in replies that guests can read and respond to.
 
 **Channel only** takes effect where the **New** [Claude Tag version](/docs/claude-tag/admins/workspaces#set-the-version-for-a-scope) answers. On a scope where **Legacy** answers, a channel that includes a guest is treated as **Restrict**.
 
