@@ -28,9 +28,9 @@ Scanning doesn't apply to:
 
 ## Turn on skill and plugin scanning
 
-Skill and plugin scanning is off by default. Owners and Primary Owners can turn it on for their organization in their settings:
+Skill and plugin scanning is off by default until October 2, 2026, when it turns on for Enterprise organizations that haven't set it. Owners and Primary Owners can turn it on for their organization in their settings:
 
-1. Go to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and select the “Policy” tab.
 
 2. Turn on **Skill and plugin security scanning**.
 
@@ -41,6 +41,8 @@ Once it's on, every new skill and plugin upload or edit in your organization is 
 Turning on skill and plugin scanning in organization settings applies it across your whole organization. If you use custom roles, you can further define who scanning applies to. When you create or edit a custom role, turn on the **Skill and plugin security scanning** capability for roles that should have access to skill scanning. Learn more about **[managing custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
 ## What you'll see after an upload
+
+Admins can also see each item's scan result in the “Inventory” and “Requests” tabs in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**.
 
 ### Pass
 

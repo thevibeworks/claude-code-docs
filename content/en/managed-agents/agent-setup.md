@@ -45,7 +45,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
     -H "content-type: application/json" \
     -d '{
       "name": "Coding Assistant",
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "system": "You are a helpful coding agent.",
       "tools": [{"type": "agent_toolset_20260401"}]
     }')
@@ -63,7 +63,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
       ```markdown
       ---
       name: Coding Assistant
-      model: claude-opus-5
+      model: claude-opus-5-5
       tools:
         - type: agent_toolset_20260401
       ---
@@ -76,7 +76,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   ```python Python
   agent = client.beta.agents.create(
       name="Coding Assistant",
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       system="You are a helpful coding agent.",
       tools=[
           {"type": "agent_toolset_20260401"},
@@ -87,7 +87,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   ```typescript TypeScript
   const agent = await client.beta.agents.create({
     name: "Coding Assistant",
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     system: "You are a helpful coding agent.",
     tools: [{ type: "agent_toolset_20260401" }],
   });
@@ -97,7 +97,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Coding Assistant",
-      Model = BetaManagedAgentsModel.ClaudeOpus5,
+      Model = BetaManagedAgentsModel.ClaudeOpus5_5,
       System = "You are a helpful coding agent.",
       Tools =
       [
@@ -113,7 +113,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   	Name: "Coding Assistant",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{
-  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5,
+  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5,
   	},
   	System: anthropic.String("You are a helpful coding agent."),
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
@@ -131,7 +131,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   var agent = client.beta().agents().create(
       AgentCreateParams.builder()
           .name("Coding Assistant")
-          .model(BetaManagedAgentsModel.CLAUDE_OPUS_5)
+          .model(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
           .system("You are a helpful coding agent.")
           .addTool(
               BetaManagedAgentsAgentToolset20260401Params.builder()
@@ -145,7 +145,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   ```php PHP
   $agent = $client->beta->agents->create(
       name: 'Coding Assistant',
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       system: 'You are a helpful coding agent.',
       tools: [
           BetaManagedAgentsAgentToolset20260401Params::with(
@@ -158,7 +158,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   ```ruby Ruby
   agent = client.beta.agents.create(
     name: "Coding Assistant",
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     system_: "You are a helpful coding agent.",
     tools: [{type: "agent_toolset_20260401"}]
   )
@@ -177,7 +177,7 @@ The response echoes your configuration and adds `id`, `type`, `version`, `create
   "type": "agent",
   "name": "Coding Assistant",
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": { "type": "high" },
     "speed": "standard"
   },
@@ -205,7 +205,7 @@ The response echoes your configuration and adds `id`, `type`, `version`, `create
 The `default_config` on the toolset shows its default [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies), `always_allow`, which applies unless you configure one.
 
 <Tip>
-  To use Claude Opus 5 or Claude Opus 4.8 with [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode), pass `model` as an object, for example: `{"id": "claude-opus-5", "speed": "fast"}`. See the fast mode page's [supported models](https://platform.claude.com/docs/en/build-with-claude/fast-mode#supported-models).
+  To use Claude Opus 5.5, Claude Opus 5, or Claude Opus 4.8 with [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode), pass `model` as an object, for example: `{"id": "claude-opus-5", "speed": "fast"}`. See the fast mode page's [supported models](https://platform.claude.com/docs/en/build-with-claude/fast-mode#supported-models).
 </Tip>
 
 <Tip>
@@ -227,7 +227,7 @@ The following example pins an agent to US inference and prints the `inference_ge
     -H "content-type: application/json" \
     -d '{
       "name": "Geo-pinned assistant",
-      "model": {"id": "claude-opus-5", "inference_geo": "us"},
+      "model": {"id": "claude-opus-5-5", "inference_geo": "us"},
       "system": "You are a helpful assistant."
     }')
 
@@ -244,7 +244,7 @@ The following example pins an agent to US inference and prints the `inference_ge
       ---
       name: Geo-pinned assistant
       model:
-        id: claude-opus-5
+        id: claude-opus-5-5
         inference_geo: us
       ---
 
@@ -257,7 +257,7 @@ The following example pins an agent to US inference and prints the `inference_ge
   agent = client.beta.agents.create(
       name="Geo-pinned assistant",
       model={
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "inference_geo": "us",
       },
       system="You are a helpful assistant.",
@@ -269,7 +269,7 @@ The following example pins an agent to US inference and prints the `inference_ge
   ```typescript TypeScript
   const agent = await client.beta.agents.create({
     name: "Geo-pinned assistant",
-    model: { id: "claude-opus-5", inference_geo: "us" },
+    model: { id: "claude-opus-5-5", inference_geo: "us" },
     system: "You are a helpful assistant.",
   });
 
@@ -282,7 +282,7 @@ The following example pins an agent to US inference and prints the `inference_ge
       Name = "Geo-pinned assistant",
       Model = new BetaManagedAgentsModelConfigParams
       {
-          ID = BetaManagedAgentsModel.ClaudeOpus5,
+          ID = BetaManagedAgentsModel.ClaudeOpus5_5,
           InferenceGeo = "us",
       },
       System = "You are a helpful assistant.",
@@ -295,7 +295,7 @@ The following example pins an agent to US inference and prints the `inference_ge
   agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   	Name: "Geo-pinned assistant",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{
-  		ID:           anthropic.BetaManagedAgentsModelClaudeOpus5,
+  		ID:           anthropic.BetaManagedAgentsModelClaudeOpus5_5,
   		InferenceGeo: anthropic.String("us"),
   	},
   	System: anthropic.String("You are a helpful assistant."),
@@ -313,7 +313,7 @@ The following example pins an agent to US inference and prints the `inference_ge
           .name("Geo-pinned assistant")
           .model(
               BetaManagedAgentsModelConfigParams.builder()
-                  .id(BetaManagedAgentsModel.CLAUDE_OPUS_5)
+                  .id(BetaManagedAgentsModel.CLAUDE_OPUS_5_5)
                   .inferenceGeo("us")
                   .build()
           )
@@ -328,7 +328,7 @@ The following example pins an agent to US inference and prints the `inference_ge
   $agent = $client->beta->agents->create(
       name: 'Geo-pinned assistant',
       model: BetaManagedAgentsModelConfigParams::with(
-          id: 'claude-opus-5',
+          id: 'claude-opus-5-5',
           inferenceGeo: 'us',
       ),
       system: 'You are a helpful assistant.',
@@ -340,7 +340,7 @@ The following example pins an agent to US inference and prints the `inference_ge
   ```ruby Ruby
   agent = client.beta.agents.create(
     name: "Geo-pinned assistant",
-    model: {id: "claude-opus-5", inference_geo: "us"},
+    model: {id: "claude-opus-5-5", inference_geo: "us"},
     system_: "You are a helpful assistant."
   )
 
@@ -385,7 +385,7 @@ With the CLI, edit the agent's file and run `ant apply` again; apply supplies `v
       ```markdown
       ---
       name: Coding Assistant
-      model: claude-opus-5
+      model: claude-opus-5-5
       tools:
         - type: agent_toolset_20260401
       ---

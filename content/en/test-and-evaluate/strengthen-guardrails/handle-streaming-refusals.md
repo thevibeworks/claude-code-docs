@@ -66,7 +66,7 @@ Here's how to detect and handle streaming refusals in your application:
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -d '{
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "messages": [{"role": "user", "content": "Hello"}],
       "max_tokens": 1024,
       "stream": true
@@ -95,7 +95,7 @@ Here's how to detect and handle streaming refusals in your application:
       with client.messages.stream(
           max_tokens=1024,
           messages=messages + [{"role": "user", "content": "Hello"}],
-          model="claude-opus-5",
+          model="claude-opus-5-5",
       ) as stream:
           for event in stream:
               # Check for refusal in message delta
@@ -120,7 +120,7 @@ Here's how to detect and handle streaming refusals in your application:
   try {
     const stream = await client.messages.stream({
       messages: [...messages, { role: "user", content: "Hello" }],
-      model: "claude-opus-5",
+      model: "claude-opus-5-5",
       max_tokens: 1024
     });
 
@@ -142,7 +142,7 @@ Here's how to detect and handle streaming refusals in your application:
 
   var parameters = new MessageCreateParams
   {
-      Model = Model.ClaudeOpus5,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       Messages = [new() { Role = Role.User, Content = "Hello" }]
   };
@@ -184,7 +184,7 @@ Here's how to detect and handle streaming refusals in your application:
   	client := anthropic.NewClient()
 
   	stream := client.Messages.NewStreaming(context.TODO(), anthropic.MessageNewParams{
-  		Model:     anthropic.ModelClaudeOpus5,
+  		Model:     anthropic.ModelClaudeOpus5_5,
   		MaxTokens: 1024,
   		Messages: []anthropic.MessageParam{
   			anthropic.NewUserMessage(anthropic.NewTextBlock("Hello")),
@@ -220,7 +220,7 @@ Here's how to detect and handle streaming refusals in your application:
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(1024L)
           .addUserMessage("Hello")
           .build();
@@ -261,7 +261,7 @@ Here's how to detect and handle streaming refusals in your application:
           messages: [
               ['role' => 'user', 'content' => 'Hello']
           ],
-          model: 'claude-opus-5',
+          model: 'claude-opus-5-5',
       );
 
       foreach ($stream as $event) {
@@ -286,7 +286,7 @@ Here's how to detect and handle streaming refusals in your application:
 
   begin
     stream = client.messages.stream(
-      model: :"claude-opus-5",
+      model: :"claude-opus-5-5",
       max_tokens: 1024,
       messages: [{ role: "user", content: "Hello" }]
     )

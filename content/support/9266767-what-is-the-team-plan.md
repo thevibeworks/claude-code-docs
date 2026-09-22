@@ -98,6 +98,8 @@ Usage limits differ between Standard and Premium seats in the following ways:
 
 **Premium seats:** Team plan Premium seats include 6.25x the Pro plan's per-session usage allowance and have a weekly usage limit that applies across all models.
 
+**Note:** If you have a limit reset, you can use it to reset your five-hour session limit or weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
+
 ### Do usage limits apply across the team or to individual members?
 
 Usage limits on Team plans are per-member, rather than applied to the team as a whole.

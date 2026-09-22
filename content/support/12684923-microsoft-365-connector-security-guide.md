@@ -183,8 +183,6 @@ The connector provides **read-only** access to:
 
 - `teams_reply_channel_message`
 
-- `teams_create_chat`
-
 When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, creating and updating files in OneDrive and SharePoint, and sending Teams messages. Teams write tools are off by default and are enabled individually in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** within “Microsoft 365”; the connector-wide "all tools" permission doesn't turn them on. Claude can send messages in Teams but can't change Teams settings, memberships, or permissions.
 
 Write tools include the following built-in safeguards:

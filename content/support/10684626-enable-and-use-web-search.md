@@ -2,6 +2,8 @@
 
 You can have Claude search the internet to provide you with up-to-date information and insights when using the following models:
 
+- Opus 5.5
+
 - Fable 5.1
 
 - Opus 5

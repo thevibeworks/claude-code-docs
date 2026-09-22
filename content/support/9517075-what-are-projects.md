@@ -67,6 +67,8 @@ For users on Team and Enterprise plans, projects can be shared with other member
 
   - **Note:** If an Owner or Primary Owner disables public projects, organization-wide sharing will be disabled both when creating the project and afterward.
 
+- **Admin controls:** Owners can turn off project sharing for your organization, or on Enterprise plans for specific roles. Turning off **Share projects** also turns off **Public projects**. When sharing is off, users can't share projects with new users or groups, and existing shares stay in place.
+
 **Collaboration features:**
 
 - **Shared with me tab:** Easily find projects that others have shared with you.

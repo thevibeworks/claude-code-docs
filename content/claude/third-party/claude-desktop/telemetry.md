@@ -272,7 +272,7 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 
 ## Disabling all Anthropic-bound connections
 
-Claude Desktop can make the following Anthropic-bound connections. Each row names the key that turns that connection off.
+Each connection in the following table has a managed-configuration key that turns it off.
 
 | Connection                                                                  | What it carries                                                                                                                                                                                                                                | Key that turns it off                                                                                                                                                                                                        |
 | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -285,7 +285,7 @@ Claude Desktop can make the following Anthropic-bound connections. Each row name
 
 With all six connections turned off, the only remaining Anthropic-operated egress is `downloads.claude.ai`, for the VM workspace bundle and Claude CLI binary at session start. The only other required egress is your inference provider. With the [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation), `downloads.claude.ai` is not needed either, and your inference provider is the only required egress.
 
-These optional features add Anthropic-operated hosts back when you turn them on:
+These optional features add hosts back when you turn them on:
 
 * [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) download the remote-session components from `downloads.claude.ai`. The offline installer bundles those components for Linux x64 and arm64 hosts, so devices installed with it download them only when connecting to hosts on other platforms.
 * [Import from claude.ai](/docs/third-party/claude-desktop/import) reaches `claude.ai`, `api.anthropic.com`, and `storage.googleapis.com` (for the export download) only while a user signs in to claude.ai and fetches an export in the import wizard.

@@ -73,25 +73,40 @@ To have Anthropic use your encryption key, you must configure an Anthropic multi
   <Step title="Create an RSA key in your vault">
     Azure Key Vault does not support symmetric key wrapping, so the key must be RSA (3072-bit or larger) with `wrapKey` and `unwrapKey` in its allowed operations.
 
+    The `--tags` option adds the organization tag, `anthropic-org-<ORGANIZATION_UUID>` with the value `true`, where `<ORGANIZATION_UUID>` is your Anthropic organization ID in lowercase. The tag is required for Anthropic to validate the key.
+
+    <Note>
+      **Finding your organization ID:** Copy the **Organization ID** field under **Settings > Organization** in the Claude Console, or under **Organization settings > Organization** in claude.ai, or read the `id` field from the [Organization Info](https://platform.claude.com/docs/en/api/admin-api/organization/get-me) endpoint. Use the bare UUID, not the `org_`-prefixed ID.
+    </Note>
+
     ```bash
     az keyvault key create \
-      --vault-name <your-vault-name> \
-      --name <your-key-name> \
+      --vault-name <VAULT_NAME> \
+      --name <KEY_NAME> \
       --kty RSA --size 3072 \
-      --ops wrapKey unwrapKey
+      --ops wrapKey unwrapKey \
+      --tags anthropic-org-<ORGANIZATION_UUID>=true
     ```
 
     For HSM-backed keys, use `--kty RSA-HSM` (requires a Premium-SKU vault). Software-protected RSA keys are acceptable for this integration.
 
     From the Portal, open your Key Vault, select **Keys**, then **Generate/Import**. Set the key type to RSA and the size to 3072 or larger. To restrict the key to wrap and unwrap only, open the key version, scroll to **Permitted operations**, and uncheck everything except **Wrap Key** and **Unwrap Key**.
 
-    <Frame caption="Create an RSA key sized 3072 or larger.">
-      ![Azure Key Vault Create a key page with the Generate option, RSA key type, and 3072 RSA key size selected.](https://platform.claude.com/docs/images/cmek/azure-create-key.png)
+    On the **Create a key** page, also add the organization tag under **Tags**.
+
+    <Frame caption="Create an RSA key sized 3072 or larger, with the tag anthropic-org-<ORGANIZATION_UUID> set to true.">
+      ![Azure Key Vault Create a key page with RSA, 3072 key size, and the anthropic-org tag set to true.](https://platform.claude.com/docs/images/cmek/azure-create-key-tag.png)
     </Frame>
 
-    <Frame caption="Restrict permitted operations to Wrap Key and Unwrap Key.">
-      ![Azure Key Vault key version with Permitted operations limited to Wrap Key and Unwrap Key.](https://platform.claude.com/docs/images/cmek/azure-permitted-operations.png)
+    <Frame caption="Restrict permitted operations to Wrap Key and Unwrap Key. The key version shows the organization tag.">
+      ![Azure Key Vault key version with 1 tag and Permitted operations limited to Wrap Key and Unwrap Key.](https://platform.claude.com/docs/images/cmek/azure-permitted-operations-tag.png)
     </Frame>
+
+    To share one key among several Anthropic organizations, add one such tag for each organization. A key version can carry at most 15 tags, including your own.
+
+    <Note>
+      To add the tag to a key you already have, open the key's current version in the Portal, select the link next to **Tags**, add the tag, and click **Save**. With the Azure CLI, run `az keyvault key set-attributes --vault-name <VAULT_NAME> --name <KEY_NAME> --tags anthropic-org-<ORGANIZATION_UUID>=true`. Its `--tags` option replaces the version's tags, so also put each tag the version already has in `--tags`, as `name=value`. For a key in a Managed HSM, use `--hsm-name <HSM_NAME>` instead of `--vault-name`.
+    </Note>
   </Step>
 
   <Step title="Grant the Anthropic service principal access to your key">
@@ -150,6 +165,8 @@ How you register the key depends on which product you use.
         <Steps>
           <Step title="Register the key with Anthropic">
             In the Claude Console, open **Settings > Encryption keys** and click **Add key**. Enter a display name, choose **Azure Key Vault**, and click **Continue**. Fill in **Vault URI**, **Key name**, and **Tenant ID**, and click **Add**.
+
+            The key details step shows the organization tag. Add it to the key, as [the create step](https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault#organization-tag) describes, before you click **Add**.
           </Step>
 
           <Step title="Validate the key">
@@ -157,7 +174,7 @@ How you register the key depends on which product you use.
           </Step>
 
           <Step title="Attach the key to a workspace">
-            Open **Settings > Workspaces**, choose the workspace, and open its **Security** tab. Under **Encryption key**, select the key, click **Save**, and confirm. Attaching a key can't be undone. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works).
+            In the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. Under **Encryption key**, select the key, click **Save**, and confirm. Attaching a key can't be undone. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works).
           </Step>
         </Steps>
       </Tab>

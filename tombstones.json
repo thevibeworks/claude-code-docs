@@ -1295,6 +1295,10 @@
       "since": "2026-09-01",
       "reason": "moved -> https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan"
     },
+    "https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5": {
+      "since": "2026-09-22",
+      "reason": "moved -> https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5-or-opus-5-5"
+    },
     "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude": {
       "since": "2026-08-25",
       "reason": "moved -> https://support.claude.com/en/articles/7996906-report-block-and-remove-content-from-claude"
@@ -1334,6 +1338,10 @@
     "https://support.claude.com/en/articles/9612889-how-can-i-uninstall-claude-for-android": {
       "since": "2026-08-25",
       "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/9927533-disable-public-projects-for-your-organization": {
+      "since": "2026-09-22",
+      "reason": "moved -> https://support.claude.com/en/articles/9927533-control-project-sharing-for-your-organization"
     }
   }
 }

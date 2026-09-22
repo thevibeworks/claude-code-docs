@@ -2,13 +2,35 @@
 
 Plugin marketplaces let Team and Enterprise plan owners distribute curated plugins to everyone in their organization. You create a marketplace, add plugins to it, and control exactly which plugins your team members can see and use. Plugins you distribute appear in both chat (on the web and the Chat tab in Claude Desktop) and Claude Cowork.
 
-Owners and Primary Owners of Team and Enterprise plans can manage organization plugins in **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+Owners and Primary Owners of Team and Enterprise plans can manage organization plugins in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**.
 
 **Requirements:** Cowork and Skills must both be enabled for your organization before you can use plugin marketplaces.
 
-**Note:** Marketplaces are how owners distribute plugins to their organization. Members can also share a plugin they built with specific colleagues or groups themselves. Sharing is controlled by the settings in **Organization settings > Skills**. Learn more about **[using plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)**.
+**Note:** Turning off Skills for your organization also stops skills and plugins from syncing to Claude Code, and removes the ones that already synced there. Turning off Cowork doesn't affect the sync to Claude Code. To keep skills and plugins in Claude but stop only the sync, set `syncClaudeAiSkills` and `syncClaudeAiPlugins` to `false` in Claude Code managed settings. Learn more about **[Claude Code admin setup](https://code.claude.com/docs/en/setup#advanced-setup)**.
+
+**Note:** Marketplaces are how owners distribute plugins to their organization. Users can also share a plugin they built with specific colleagues or groups, or submit it to be published to your organization's library. Sharing and publishing are controlled by the settings in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab, and plugin submissions are reviewed there on the "Requests" tab. Learn more about **[using plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)** and **[letting users publish skills and plugins to your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_1abc45a27c)**[.](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_1abc45a27c)
 
 ---
+
+## See what's in your organization
+
+The “Inventory” tab lists every skill and plugin your organization governs, including the ones users created for themselves. Skills and plugins now live on the same page, so you don't need to switch between settings.
+
+For each item, the table shows its source, version, capabilities, audience, and how many people used it in the last 30 days.
+
+To find an item, search by name or use the filters:
+
+- **Source:** Your organization, Organization library, or a specific marketplace
+
+- **Audience:** Who can use the item
+
+- **Type:** Skills or plugins
+
+Skills your organization manages appear under **Organization library**. You manage plugin marketplaces in the **Marketplaces** tab.
+
+To act on an item, click the menu button at the end of its row. You can view details and files, see version history, and change default and group access.
+
+For skills and plugins that users created, the Inventory tab shows metadata and sharing status. It doesn't show the files themselves.
 
 ## Use Anthropic-built marketplaces
 
@@ -16,9 +38,9 @@ Anthropic provides built-in marketplaces of plugins for different functions, suc
 
 To add an Anthropic-built marketplace:
 
-1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab.
 
-2. Click "Add plugins."
+2. Click “Add,” then select “Add marketplace.”
 
 3. Select "Browse Anthropic sources."
 
@@ -26,7 +48,7 @@ To add an Anthropic-built marketplace:
 
 To remove the Knowledge Work marketplace if it isn't relevant to your teams:
 
-1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab.
 
 2. Find **Knowledge Work**.
 
@@ -50,9 +72,9 @@ You can use both approaches in parallel. For example, run a GitHub-synced market
 
 ### Set up a manual marketplace
 
-1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+1. Go to[https://claude.ai/admin-settings/plugins](https://claude.ai/admin-settings/plugins)**[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**.
 
-2. Click "Add plugins" and select "Upload a file" as the source.
+2. Click “Add,” then select “Upload a plugin.”
 
 3. If this is your first time setting up a marketplace, "Upload to a new marketplace" is auto-selected. You'll be able to choose "Add to an existing marketplace" when uploading plugins later.
 
@@ -98,9 +120,9 @@ Additional resources:
 
   2. **[Enable Skills](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_7673241237)**
 
-2. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+2. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab.
 
-3. Click "Add plugins" and select "GitHub" as the source.
+3. Click “Add,” then select “Sync from GitHub.”
 
 4. Enter the repository in `owner/repo` format (for example, `acme-corp/claude-plugins`).
 
@@ -110,9 +132,7 @@ Your personal GitHub token is verified to confirm you have access, then Cowork u
 
 **How syncing works**
 
-An initial sync runs automatically when you connect a repository. After that, organization owners can opt-in to continued automatic updates per marketplace by going to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, clicking the menu button in the upper right corner of the marketplace, then toggling "Sync automatically" on:
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193200015/a239033a9ab19fbd39f1a0d9edce/CleanShot+2026-03-23+at+11_41_31%402x.png?expires=1790164800&amp;signature=ce9e2f7526f50c7f9920cc7d75cf701e0603cc551e884016f6f4352d01e7dc27&amp;req=diEuFct%2BnYFeXPMW3nq%2BgXWVtEoBnULejbWKhAZwUoDC3mZaHR5LZqrcs8He%0AZBglwwwMwcVXhIOjODfHk0ZbMas%3D%0A)
+An initial sync runs automatically when you connect a repository. After that, organization owners can opt-in to continued automatic updates per marketplace by going to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and clicking the “Marketplaces” tab, clicking the menu button in the upper right corner of the marketplace, then toggling "Sync automatically" on.
 
 Enabling automatic sync creates a webhook on the connected repository. The person turning the toggle on must have admin-level access to that repository on GitHub. This is checked through their personal GitHub connection, which is separate from the Claude GitHub App installation. Without admin access, the page shows "Cannot access repository. Ensure the repository exists and the Claude GitHub App is installed," even when the App is installed correctly and manual updates work.
 
@@ -143,20 +163,24 @@ During a sync, Cowork compares the latest commit in your repo against the last-s
 
 Once your marketplace has plugins, you control how they're distributed using installation preferences. For each plugin, you can set one of four options:
 
-| **Preference**        | **What it does**                                                            | **What members see**                                                                                 |
-| --------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Installed by default  | Automatically installed for all org members                                 | The plugin appears in their installed list without any action. Members can uninstall if they choose. |
-| Available for install | Listed in the plugin catalog                                                | Members see it when browsing plugins and can install it themselves.                                  |
-| Not available         | Hidden from the catalog entirely                                            | Members can't see or install the plugin. Useful for staging or deprecating plugins.                  |
-| Required              | Automatically installed for all org members without the option to remove it | The plugin appears in their installed list without any action and cannot be disabled or uninstalled. |
+| **Preference**       | **What it does**                                      | **What members see**                                                                                |
+| -------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Installed by default | Pre-installs the plugin for all users                 | The plugin appears in their installed list without any action. Users can disable or uninstall it.   |
+| Available to install | Lists the plugin in the plugin marketplace            | Users see it when browsing plugins and can install or uninstall it at any time.                     |
+| Not available        | Hides the plugin from the plugin marketplace          | Users can't see or install it. Useful for staging or deprecating plugins.                           |
+| Required             | Pre-installs the plugin for all users and keeps it on | The plugin appears in their installed list without any action. Users can't disable or uninstall it. |
+
+**Important:** Plugins set to "Installed by default" or "Required" also install in Claude Code for users who sign in with their Claude account. In Claude Code, the plugin's hooks, sub-agents, and MCP servers run on the user's computer, and a "Required" plugin can't be disabled there. Review a plugin's hooks before you set it to "Required." Learn more about **[synced plugins](https://code.claude.com/docs/en/plugins-reference#synced-plugins)** in the Claude Code docs.
 
 ### Set preferences
 
-1. In **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, navigate to your marketplace.
+1. In **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**, click the “Inventory” tab.
 
-2. Select the installation preference for each plugin.
+2. Find the plugin and click the menu button at the end of its row.
 
-3. Changes take effect on each member's next session or plugin refresh.
+3. Click “Default access,” then select an option under **Install**.
+
+4. Changes take effect on each member's next session or plugin refresh.
 
 ### What members experience
 
@@ -174,25 +198,27 @@ Group-level plugin access is available on Enterprise plans and configurable by A
 
 ### How group overrides work
 
-Each plugin in your marketplace has an organization-wide installation preference (Installed by default, Available for install, Required, or Not available). By default, every group inherits that organization-wide setting.
+Each plugin in your marketplace has an organization-wide installation preference (Installed by default, Available to install, Required, or Not available). By default, every group inherits that organization-wide setting.
 
 When you set a group-level override for a plugin, it replaces the org-wide setting for members of that group. The resolution order is: group setting, then org-wide setting, then marketplace default.
 
 ### Set plugin access for a group
 
-1. In **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, navigate to your marketplace.
+1. In[https://claude.ai/admin-settings/plugins](https://claude.ai/admin-settings/plugins)**[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**[,](https://claude.ai/admin-settings/skills)click the “Inventory” tab.
 
-2. Find the plugin you want to customize.
+2. Find the plugin you want to customize and click the menu button at the end of its row.
 
-3. In the **Custom access** column, click “Add groups.”
+3. Click “Group access…”.
 
-4. Select the group and choose one of the installation preferences listed above.
+4. Click “Add groups” next to **Install targeting**.
+
+5. Select the group and choose one of the installation preferences listed above.
 
 Both manually created groups and SCIM-provisioned groups from your identity provider appear in the group picker and work the same way.
 
 ### What happens when a member is in multiple groups
 
-If a member belongs to two or more groups with different settings for the same plugin, the **most permissive** setting applies. The order from most to least permissive is: Required > Installed by default > Available for install > Not available.
+If a member belongs to two or more groups with different settings for the same plugin, the **most permissive** setting applies. The order from most to least permissive is: Required > Installed by default > Available to install > Not available.
 
 For example, if Group A sets a plugin to "Not available" and Group B sets it to "Installed by default," a member in both groups gets the plugin installed by default.
 
@@ -200,7 +226,7 @@ For example, if Group A sets a plugin to "Not available" and Group B sets it to 
 
 ### What happens when a group is deleted
 
-If a group is removed (for example, deleted from your identity provider), the override remains in the admin UI but is flagged as orphaned. It has no effect on members (since no one belongs to a deleted group) and doesn't count toward the custom access badge. You can clear orphaned overrides from the plugin's custom access settings.
+If a group is removed (for example, deleted from your identity provider), the override remains in the admin UI but is flagged as orphaned. It has no effect on members (since no one belongs to a deleted group) and doesn't count toward the custom access badge. You can clear orphaned overrides from the plugin's “Group access…” settings.
 
 ### Do group settings persist across marketplace re-syncs?
 
@@ -214,11 +240,11 @@ Yes. Group-level overrides persist when you re-sync a GitHub-connected marketpla
 
 To update a plugin, upload a new ZIP file with the same plugin name. The new version overwrites the existing one automatically. Plugin names are the unique identifier, so `legal` will always replace `legal`.
 
-To remove a plugin, delete it from your marketplace in **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+To remove a plugin, delete it from your marketplace in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** under the “Inventory” tab.
 
 ### GitHub-synced marketplaces
 
-Push your changes to the connected repository, then go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, find your marketplace, and click "Update" to trigger a sync. Each sync replaces all plugins with the current state of the repo. If an owner has enabled "Sync automatically" for the marketplace, a sync also runs whenever a pull request with a plugin version bump is merged to the repository's default branch.
+Push your changes to the connected repository, then go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab, find your marketplace, and click "Update" to trigger a sync. Each sync replaces all plugins with the current state of the repo. If an owner has enabled "Sync automatically" for the marketplace, a sync also runs whenever a pull request with a plugin version bump is merged to the repository's default branch.
 
 To remove a plugin, delete it from the repository and trigger a sync.
 
@@ -273,7 +299,7 @@ Check the plugin's installation preference in your marketplace settings. If it's
 
 ### Updated plugin not reflecting for members
 
-Changes take effect on each member's next session or plugin refresh. If the update still isn't showing, confirm the upload succeeded by checking the plugin version in your marketplace.
+Changes take effect on each member's next session or plugin refresh. In Claude Code, users get the change the next time they start Claude Code. If the update still isn't showing, confirm the upload succeeded by checking the plugin version in your marketplace.
 
 ### GitHub sync fails with a content error
 
@@ -283,7 +309,7 @@ One or more plugins in your repo is likely formatted incorrectly. Fix the format
 
 One or more plugin entries in your `marketplace.json` use a `source` that points outside the connected repository (a `github`, `url`, or `git-subdir` source), and organization sync can't fetch it. A private source only works in two cases: a github.com repository shares your marketplace repository's owner, or a repository on your organization's GitHub Enterprise host with your GitHub Enterprise App installed on it.
 
-For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **Organization settings > Plugins > Add plugins > Upload a file**, then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization, although members can share plugins with specific colleagues or groups if sharing is turned on.
+For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** Click “Add,” “Upload a plugin,” then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization, although members can share plugins with specific colleagues or groups if sharing is turned on.
 
 ### Plugins disappeared after a failed sync
 

@@ -6,6 +6,29 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.2553.13" description="2026-09-21">
+  Bundled Claude Code version: 2.1.280.
+
+  **General**
+
+  * Added support for Claude Opus 5.5.
+  * Fixed sessions that could hang with no response after an internal error; the error is now shown.
+  * Fixed some conversations failing on every message with a "text content blocks must be non-empty" error, including after resuming.
+
+  **Code**
+
+  * Added `AGENTS.md` support: in a folder with no `CLAUDE.md`, Claude reads `AGENTS.md` for project instructions (not yet in third-party deployments).
+  * Fixed Claude being unable to read the output of its own background commands in sessions restricted by an administrator's allowed workspace folders.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v2.2553.1" description="2026-09-18">
   Bundled Claude Code version: 2.1.275.
 

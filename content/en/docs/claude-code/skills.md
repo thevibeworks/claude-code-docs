@@ -313,7 +313,7 @@ Keep the body itself concise. Once a skill loads, its content [stays in context 
 
 ### Frontmatter reference
 
-Beyond the markdown content, you can configure skill behavior using YAML frontmatter fields between `---` markers at the top of your `SKILL.md` file:
+Configure a skill with YAML [frontmatter](/docs/en/glossary#frontmatter) between `---` markers at the top of `SKILL.md`, and write the skill's instructions as Markdown after the closing `---`. Field names use lowercase words separated by hyphens, except `when_to_use`. A [command file](#where-skills-live) in `.claude/commands/` accepts the same fields except `name` and `paths`. This example sets four fields:
 
 ```yaml theme={null}
 ---
@@ -326,9 +326,9 @@ allowed-tools: Read Grep
 Your skill instructions here...
 ```
 
-All fields are optional. Only `description` is recommended so Claude knows when to use the skill.
+All fields are optional. Only `description` is recommended so Claude knows when to use the skill. A field name must match the table exactly, hyphens included: Claude Code ignores a field it doesn't recognize without reporting an error.
 
-Claude Code reads the frontmatter only when the opening `---` is the file's first line. Otherwise it treats the whole file, `---` markers included, as skill content.
+Claude Code reads the frontmatter only when the opening `---` is the file's first line. Otherwise it treats the whole file, `---` markers included, as skill content. If the YAML between the markers doesn't parse, the skill still loads with no fields set; see [Skill not triggering](#skill-not-triggering) to find and fix the error.
 
 Boolean fields accept `yes`, `no`, `on`, `off`, `1`, and `0` in any letter case, in addition to `true` and `false`. Before v2.1.218, Claude Code recognized only `true` and `false`.
 

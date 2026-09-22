@@ -50,6 +50,8 @@ Once you confirm you have access, follow the installation instructions in our **
 
 5. Your premium seat subscription will be linked to Claude Code.
 
+Once you're signed in, skills and plugins from your Claude account, including those your organization provides, load in Claude Code automatically. This needs Claude Code v2.1.273 or later. Learn more about **[how synced skills behave](https://code.claude.com/docs/en/skills#how-synced-skills-behave)** in the Claude Code docs.
+
 ### Having trouble using your Team or Enterprise account to access Claude Code?
 
 If you're not seeing the option to authenticate with your preferred account, follow these steps to update Claude Code:

@@ -139,6 +139,7 @@ Rate limits are applied separately for each model; therefore you can use differe
     | Model                                                                                                                                 | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
     | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
     | Claude Fable 5.x1                                                                                                                     | 1,000                             | 500,000                                | 100,000                                 |
+    | Claude Opus 5.5                                                                                                                       | 1,000                             | 2,000,000                              | 400,000                                 |
     | Claude Opus 5                                                                                                                         | 1,000                             | 2,000,000                              | 400,000                                 |
     | Claude Opus 4.x2                                                                                                                      | 1,000                             | 2,000,000                              | 400,000                                 |
     | Claude Sonnet 5                                                                                                                       | 1,000                             | 2,000,000                              | 400,000                                 |
@@ -151,6 +152,7 @@ Rate limits are applied separately for each model; therefore you can use differe
     | Model                                                                                                                                 | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
     | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
     | Claude Fable 5.x1                                                                                                                     | 2,000                             | 1,500,000                              | 300,000                                 |
+    | Claude Opus 5.5                                                                                                                       | 5,000                             | 5,000,000                              | 1,000,000                               |
     | Claude Opus 5                                                                                                                         | 5,000                             | 5,000,000                              | 1,000,000                               |
     | Claude Opus 4.x2                                                                                                                      | 5,000                             | 5,000,000                              | 1,000,000                               |
     | Claude Sonnet 5                                                                                                                       | 5,000                             | 5,000,000                              | 1,000,000                               |
@@ -163,6 +165,7 @@ Rate limits are applied separately for each model; therefore you can use differe
     | Model                                                                                                                                 | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
     | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
     | Claude Fable 5.x1                                                                                                                     | 4,000                             | 4,000,000                              | 800,000                                 |
+    | Claude Opus 5.5                                                                                                                       | 10,000                            | 10,000,000                             | 2,000,000                               |
     | Claude Opus 5                                                                                                                         | 10,000                            | 10,000,000                             | 2,000,000                               |
     | Claude Opus 4.x2                                                                                                                      | 10,000                            | 10,000,000                             | 2,000,000                               |
     | Claude Sonnet 5                                                                                                                       | 10,000                            | 10,000,000                             | 2,000,000                               |
@@ -178,7 +181,7 @@ Rate limits are applied separately for each model; therefore you can use differe
 
 *1 Fable rate limit is a total limit that applies to combined traffic across Claude Fable 5.1 and Claude Fable 5. Claude Mythos 5.1 and Claude Mythos 5 share a separate combined limit on the same terms.*
 
-*2 Opus rate limit is a total limit that applies to combined traffic across Claude Opus 4.8, Opus 4.7, Opus 4.6, and Opus 4.5. Claude Opus 5 has a separate rate limit and is not part of this combined bucket.*
+*2 Opus rate limit is a total limit that applies to combined traffic across Claude Opus 4.8, Opus 4.7, Opus 4.6, and Opus 4.5. Claude Opus 5.5 and Claude Opus 5 each have a separate rate limit and are not part of this combined bucket.*
 
 *3 Sonnet 4.x rate limit is a total limit that applies to combined traffic across Sonnet 4.6 and Sonnet 4.5. Claude Sonnet 5 has a separate rate limit and is not part of this combined bucket.*
 
@@ -227,7 +230,7 @@ The Message Batches API has its own set of rate limits which are shared across a
 
 ### Fast mode rate limits
 
-When using [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) (research preview) with `speed: "fast"` on Claude Opus 5 or Opus 4.8, dedicated rate limits apply that are separate from standard Opus rate limits. When fast mode rate limits are exceeded, the API returns a `429` error with a `retry-after` header. Fast mode is not available on Claude Opus 4.7 (requests return an error) or Claude Opus 4.6 (requests to `claude-opus-4-6` with `speed: "fast"` run at standard speed). See [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#supported-models).
+When using [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) (research preview) with `speed: "fast"` on Claude Opus 5.5, Claude Opus 5, or Opus 4.8, dedicated rate limits apply that are separate from standard Opus rate limits. When fast mode rate limits are exceeded, the API returns a `429` error with a `retry-after` header. Fast mode is not available on Claude Opus 4.7 (requests return an error) or Claude Opus 4.6 (requests to `claude-opus-4-6` with `speed: "fast"` run at standard speed). See [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#supported-models).
 
 The response includes `anthropic-fast-*` headers that indicate your fast mode rate limit status. See [Fast mode rate limits](https://platform.claude.com/docs/en/build-with-claude/fast-mode#rate-limits) for details on these headers.
 

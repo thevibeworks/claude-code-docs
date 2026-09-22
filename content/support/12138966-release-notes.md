@@ -2,6 +2,12 @@
 
 ## September 2026
 
+### September 22, 2026
+
+**Claude Opus 5.5 launch**
+
+We just launched Claude Opus 5.5, the first model in our new Claude 5.5 family. It performs at the level of Claude Fable 5.1 on most work and costs 40% less to run than Opus 5. For more information, see our blog post: **[Introducing Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5)**.
+
 ### September 15, 2026
 
 **Launching Salesforce in Claude (beta)**

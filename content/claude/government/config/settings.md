@@ -136,13 +136,13 @@ The **Chat in Claude Desktop**, **Cowork in Claude Desktop**, and **Code in Clau
 
 When Chat and Cowork are both available, Claude Desktop presents them together as **Home** in its sidebar, next to **Code**. From Home, a member chooses **Chat** or **Cowork** in the message box, and the sidebar lists their chats and tasks together.
 
-Turning a switch off also changes this layout. For example, with **Chat in Claude Desktop** off, the sidebar shows **Cowork** in place of Home and the message box offers no choice, and with **Cowork in Claude Desktop** off, the message box offers Chat only. If Chat, Cowork, and Code are all turned off, Claude Desktop keeps Cowork on. There is no setting that chooses what Claude Desktop opens to, or whether the message box starts on Chat or Cowork.
+Turning a switch off also changes this layout. For example, with **Chat in Claude Desktop** off, the sidebar shows **Cowork** in place of Home and the message box offers no choice, and with **Cowork in Claude Desktop** off, the message box offers Chat only. If Chat, Cowork, and Code are all turned off, Claude Desktop keeps Cowork on.
 
 <Note>
   This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat**, **Cowork**, and **Code** as three separate tabs, controlled by the same switches.
 </Note>
 
-The **Claude Desktop home** setting chooses what members see in Claude Desktop. **Standard** gives them Chat with file analysis, plus Cowork. **Simple** gives them Chat with file analysis, without Cowork. **Off** gives them neither, which leaves only Code. If you choose **Off**, keep Code turned on, or Claude Desktop has nothing to open. While the setting has a value, it overrides the separate Chat, file analysis, and Cowork switches at every level, including a directory group's. By default it is not set, and those switches apply.
+The **Claude Desktop home** setting chooses what members see in Claude Desktop. **Standard** gives them Chat with file analysis, plus Cowork. **Simple** gives them Chat with file analysis, without Cowork. **Off** gives them neither, which leaves only Code. If you choose **Off**, keep Code turned on, or Claude Desktop has nothing to open. While the setting has a value, it overrides the separate Chat, file analysis, and Cowork switches, including a directory group's. By default it is not set, and those switches apply.
 
 <Note>
   **Claude Desktop home** needs Claude Desktop 1.52386.0 or later. Earlier versions ignore it and follow the switches.

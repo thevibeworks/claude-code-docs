@@ -10,6 +10,7 @@ featureMetadata:
     - claude-mythos-5-1
     - claude-fable-5
     - claude-mythos-5
+    - claude-opus-5-5
     - claude-opus-5
     - claude-opus-4-8
     - claude-opus-4-7
@@ -52,7 +53,7 @@ Here's an example where Claude programmatically queries a database multiple time
       --header "anthropic-version: 2023-06-01" \
       --header "content-type: application/json" \
       --data '{
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "max_tokens": 4096,
           "messages": [
               {
@@ -86,7 +87,7 @@ Here's an example where Claude programmatically queries a database multiple time
 
   ```bash CLI
   ant messages create <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 4096
   messages:
     - role: user
@@ -117,7 +118,7 @@ Here's an example where Claude programmatically queries a database multiple time
   client = anthropic.Anthropic()
 
   response = client.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=4096,
       messages=[
           {
@@ -149,7 +150,7 @@ Here's an example where Claude programmatically queries a database multiple time
   const client = new Anthropic();
 
   const response = await client.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 4096,
     messages: [
       {
@@ -190,7 +191,7 @@ Here's an example where Claude programmatically queries a database multiple time
 
   var parameters = new MessageCreateParams
   {
-      Model = Model.ClaudeOpus5,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       Messages = [
           new() {
@@ -225,7 +226,7 @@ Here's an example where Claude programmatically queries a database multiple time
   client := anthropic.NewClient()
 
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 4096,
   	Messages: []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock("Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue")),
@@ -262,7 +263,7 @@ Here's an example where Claude programmatically queries a database multiple time
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(4096L)
           .addUserMessage("Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue")
           .addTool(CodeExecutionTool20260120.builder().build())
@@ -295,7 +296,7 @@ Here's an example where Claude programmatically queries a database multiple time
       messages: [
           ['role' => 'user', 'content' => 'Query sales data for the West, East, and Central regions, then tell me which region had the highest revenue'],
       ],
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       tools: [
           [
               'type' => 'code_execution_20260120',
@@ -326,7 +327,7 @@ Here's an example where Claude programmatically queries a database multiple time
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 4096,
     messages: [
       {
@@ -530,7 +531,7 @@ Send the full conversation history plus your tool result. Three details matter o
       --header "anthropic-version: 2023-06-01" \
       --header "content-type: application/json" \
       --data '{
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "max_tokens": 4096,
           "container": "container_xyz789",
           "messages": [
@@ -600,7 +601,7 @@ Send the full conversation history plus your tool result. Three details matter o
 
   ```bash CLI
   ant messages create <<'YAML'
-  model: claude-opus-5
+  model: claude-opus-5-5
   max_tokens: 4096
   container: container_xyz789
   messages:
@@ -655,7 +656,7 @@ Send the full conversation history plus your tool result. Three details matter o
 
   ```python Python
   response = client.messages.create(
-      model="claude-opus-5",
+      model="claude-opus-5-5",
       max_tokens=4096,
       container="container_xyz789",  # Reuse the container
       messages=[
@@ -722,7 +723,7 @@ Send the full conversation history plus your tool result. Three details matter o
 
   ```typescript TypeScript
   const response = await client.messages.create({
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 4096,
     container: "container_xyz789", // Reuse the container
     messages: [
@@ -798,7 +799,7 @@ Send the full conversation history plus your tool result. Three details matter o
 
   var parameters = new MessageCreateParams
   {
-      Model = Model.ClaudeOpus5,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       Container = "container_xyz789",
       Messages =
@@ -874,7 +875,7 @@ Send the full conversation history plus your tool result. Three details matter o
   client := anthropic.NewClient()
 
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-  	Model:     anthropic.ModelClaudeOpus5,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 4096,
   	Container: anthropic.MessageCreateParamsContainerUnion{
   		OfString: anthropic.String("container_xyz789"),
@@ -949,7 +950,7 @@ Send the full conversation history plus your tool result. Three details matter o
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(4096L)
           .container("container_xyz789")
           .addUserMessage("Query customer purchase history from the last quarter and identify our top 5 customers by revenue")
@@ -1048,7 +1049,7 @@ Send the full conversation history plus your tool result. Three details matter o
               ],
           ],
       ],
-      model: 'claude-opus-5',
+      model: 'claude-opus-5-5',
       container: 'container_xyz789',
       // Same tools array as the original request
       tools: [
@@ -1083,7 +1084,7 @@ Send the full conversation history plus your tool result. Three details matter o
   client = Anthropic::Client.new
 
   message = client.messages.create(
-    model: "claude-opus-5",
+    model: "claude-opus-5-5",
     max_tokens: 4096,
     container: "container_xyz789",
     messages: [
