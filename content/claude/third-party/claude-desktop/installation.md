@@ -109,6 +109,18 @@ If installation or setup fails, generate a diagnostic report before requesting s
 
 The report contains the configuration state, application logs, and environment details needed to investigate. It does not include user data or conversation content.
 
+### Cowork workspace or Claude CLI fails to download
+
+Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude CLI binary (the agent helper described under [Endpoint security software](#endpoint-security-software)) from `downloads.claude.ai` whenever a device does not have the versions the app needs. When the workspace download fails or the downloaded file does not pass verification, the app shows **Failed to start Claude's workspace** with the download error under it, for example a message that begins "Checksum/decompress failed", "Download failed", or "Request error". When the Claude CLI download fails on a device that has no earlier copy, Chat conversations and Cowork tasks fail to start with "Host Claude Code binary not available. Check that the download completed."
+
+Restarting the app tries the download again, which is enough when an earlier attempt was only interrupted. When the same message returns on every attempt, the usual cause is a proxy, secure web gateway, or web filter between the device and `downloads.claude.ai`. Such equipment can block the app's requests, cut off the transfer partway (the workspace bundle is more than 1 GB), or return its own page in place of the file. Less often, security software on the device locks or quarantines the downloaded files.
+
+* Allow Claude Desktop itself, not only browsers, to reach `downloads.claude.ai`, as listed under [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths). The download follows the app's proxy settings, described under [Network proxy](/docs/third-party/claude-desktop/network-proxy).
+* If a proxy or secure web gateway inspects this traffic, make sure files from `downloads.claude.ai` reach the device complete and unchanged.
+* On a network that cannot allow these downloads, deploy the [offline installer](#offline-installation), which includes both components.
+
+Once the device can download from `downloads.claude.ai`, have the user restart Claude Desktop and start a new conversation or task, so that the app downloads what is missing. If the messages persist, generate the diagnostic report described under [Troubleshooting](#troubleshooting) and send it to your Anthropic representative. It includes the errors the app logged for these downloads.
+
 ## Endpoint security software
 
 Claude Desktop runs Chat conversations, Cowork tasks, and Code sessions through an agent helper, a signed binary that it keeps under its user-data directory (with the standard installer) and launches when a user works in Chat, Cowork, or Code. If your organization runs binary-authorization or EDR software (such as [Santa](https://santa.dev), CrowdStrike Falcon, or Microsoft Defender ASR) with path-based deny rules, the agent helper may be blocked from launching. The symptom is that Claude Desktop opens normally and reads the managed configuration, but Chat conversations, Cowork tasks, and Code sessions fail to start.

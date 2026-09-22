@@ -166,7 +166,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2675065762/1a4b6d1921e063e14420f56a72d6/72422fce-b339-49b6-bc59-bebf752e0644?expires=1790074800&amp;signature=07af0c1599909e5c7f54281659c15b10edeac0006fb0afb723e44e758114775a&amp;req=diYgE8l4mIZZW%2FMW1HO4zYaJO473GZjxT73yd%2FWN6bnp6UkP7ArTimFPibWo%0AjfShOw2TZr4MzJmfjI0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2675065762/1a4b6d1921e063e14420f56a72d6/72422fce-b339-49b6-bc59-bebf752e0644?expires=1790091900&amp;signature=f5d50a794c70880ce88f38e678f50ec68892ad2d35e704250bc093f3818db028&amp;req=diYgE8l4mIZZW%2FMW1HO4zYaJO473F53wT73yd%2FWN6bmtiLdLIBKrjRjKliPC%0Az0tLEAevoZ4fngHsPHg%3D%0A)
 
 Designs are private until you share them:
 

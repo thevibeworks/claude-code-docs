@@ -36,7 +36,7 @@ This section walks the full path from writing a skill to delivering it to the me
 
 **Write the skill.** A skill is a folder named after the skill, holding a `SKILL.md` file. The file starts with YAML frontmatter carrying `name` and `description`, followed by the instructions as markdown. The folder name must match the `name` in the frontmatter. The [skill authoring guide](/docs/skills/how-to) covers the format and what makes instructions work well. You can also have Claude help by asking Claude to draft the skill in a Cowork task, where that is available in your deployment. If Claude hands back a `.skill` file, keep the folder it came from instead. A `.skill` file is a zip of the bare skill folder, and the **Plugins** card accepts only plugin packages, so the folder needs the plugin wrapper described next.
 
-**Mind the text-only rule.** A skill delivered through the admin portal can contain only text files, in these formats: `.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.csv`. Skills you create on your own device can include scripts and binary assets such as images, and the skill authoring guide describes those, but a plugin upload that contains them is rejected, so keep a skill you plan to distribute textual.
+**Mind the text-only rule.** A skill delivered through the admin portal can contain only text files, in these formats: `.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.csv`. The skill authoring guide describes scripts and binary assets such as images, but a plugin upload that contains them is rejected, so keep a skill you plan to distribute textual.
 
 **Package it as a plugin.** Arrange the skill inside a plugin and zip it. The smallest valid package is the manifest plus your skill folder under `skills/`:
 
