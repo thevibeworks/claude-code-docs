@@ -94,10 +94,10 @@ earlier ones: manifest parameters are read first, then Entra claims,
 then the bootstrap response.
 
 **Manifest URL parameter.** Append the keys to the taskpane URL in your
-custom manifest.
+custom manifest, with `otlp_headers` after `#` so the credential stays out of [server request logs](/docs/office-agents/third-party-platforms#keep-credentials-out-of-the-manifest-url-query-string).
 
 ```text theme={null}
-https://pivot.claude.ai/taskpane.html?otlp_endpoint=https://otel-collector.example.com&otlp_headers=Authorization=Bearer%20<token>
+https://pivot.claude.ai/taskpane.html?otlp_endpoint=https://otel-collector.example.com#otlp_headers=Authorization=Bearer%20<token>
 ```
 
 **Entra ID directory extension.** Register the keys as directory

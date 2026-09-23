@@ -6,6 +6,52 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.7032.0" description="2026-09-22">
+  Bundled Claude Code version: 2.1.280.
+
+  **General**
+
+  * Fixed a chat message sent with no network connection appearing to send for about a minute before failing; it now fails within a few seconds and says you went offline, and a connection that has gone quiet after your computer wakes or your network changes reconnects right away.
+  * Fixed a message sent while Claude is still working sometimes being ignored, and sometimes landing out of order in the transcript with the step before it looking unfinished.
+  * Fixed Claude becoming the default app for files such as .md and .docx, and Windows asking which app to use for files that already have a default app. Claude also no longer appears in the macOS "Open with" menu for Excel and PowerPoint files; "Other…" in that menu still opens them in Claude.
+  * Fixed editing a message while another reply is still running losing your edited text when the server refuses the edit; the editor now reopens with your words.
+  * Fixed the app freezing for a few seconds after launch or reload on some machines, most often on Windows.
+  * Fixed the whole window being replaced by a "Couldn't finish loading" screen when a chat's side panel failed to download; the chat now stays open and the panel's button shows the problem with a Retry button.
+
+  **Code**
+
+  * Changed SSH sessions on the new connection engine (the computer's own OpenSSH, the default on macOS and Linux) to run the MCP servers from your desktop settings under Claude Code on the remote machine, so their tools keep working while the app is closed; the session's MCP list says when one isn't installed there or the host already has its own.
+  * Fixed Claude asking for approval before every terminal command while Remote Control was on, even when you were typing at your computer; it now asks only when the work was started or steered from another device, and that card can turn Remote Control off for the session.
+  * Fixed long delays in large repositories when starting a new worktree session and when archiving or deleting a session, including the app freezing for up to half a minute on macOS when the repository has a very large `node_modules` folder.
+  * Fixed resuming a session failing with "this session's branch is checked out somewhere else" when only the session's own worktree, in the app's worktrees folder, had the branch checked out.
+  * Fixed sessions starting slowly, and already-open sessions briefly stalling, when many sessions are open.
+  * Fixed sessions that were waiting on your reply being auto-archived shortly after the app restarted, and the sidebar losing their needs-input marker on restart.
+  * Fixed SSH connections on some Windows computers failing with "spawn EPERM" or never asking for a password, and connections failing over a private key file that other accounts could read; the app now falls back to its built-in SSH engine, or makes the key file private, and connects.
+  * Fixed two causes of repeated requests to sign in again: a brief network interruption no longer signs the Code tab out while Chat stays signed in, and a sign-in renewal is no longer thrown away when the server's answer arrives just after a 30-second limit.
+
+  **Cowork**
+
+  * Added the health-data consent dialog and the Microsoft 365 work-account notice before a connector is added from a chat suggestion or the suggested-connectors card.
+  * Fixed "Couldn't delete this task" on Windows when deleting a task that was running or had just finished.
+  * Fixed built-in and account skills loading without the Skill tool; they load through it again, as plugin skills do, so references to a skill's own folder resolve.
+  * Fixed connector suggestions in chat offering Connect for a connector your organization has not enabled, which then failed with a permissions message; the suggestion now offers Request where your organization accepts connector requests, and otherwise says to ask an organization owner.
+  * Fixed messages that start with a file path or file name, such as `/tmp/notes.txt`, being refused with an "Unknown skill" error instead of being sent.
+  * Fixed workspace setup failing on every launch after a corrupted download, including with the offline installer.
+
+  **3P**
+
+  * Added `inferenceCredentialKind: "external-idp"` on the gateway and Bedrock providers: users sign in through your organization's OpenID Connect identity provider, configured with the shared `inferenceIdpOidc` and `inferenceIdpAuthFlow` keys (system browser by default, or the OS Microsoft Entra broker), and the user's token is sent as the Bearer credential on every inference request; on Bedrock it goes to a proxy that validates the token, so `inferenceBedrockBaseUrl` is required and the models must be listed in `inferenceModels` (no model discovery). The gateway-only spellings (`inferenceCredentialKind: "interactive"` with `inferenceGatewayOidc` and `inferenceGatewayOidcAuthFlow`) are deprecated with no end date and keep working.
+  * Added `keepAwakeEnabled`: set it to `false` so Claude never keeps the computer awake; the keep-awake switches in Settings, the Scheduled page and the Code tab are hidden. Scheduled tasks themselves stay on.
+  * Added `mcpScheduledTaskApprovalLifetimeDays`: limits how many days a scheduled task in Cowork or the Code tab may reuse a lasting MCP-tool approval before it asks again. The lasting option is offered even while persistent tool approvals are turned off, and `0` removes it.
+  * Changed performance timing telemetry (part of essential telemetry) to go to `claude.ai` first instead of straight to Datadog, so essential telemetry now also needs `claude.ai`: most configurations already have that host on their network requirements list under auto-updates or nonessential telemetry, and one that sets `updateViaUpdatesHost` or `disableAutoUpdates` together with `disableNonessentialTelemetry` now lists it under essential telemetry. Datadog's intake hosts stay on the list as the fallback route.
+  * Removed a temporary vendor-specific exception from custom connector validation: OAuth authorization server metadata that declares an issuer not matching the metadata URL now fails validation again.
+  * Fixed a crash on Windows that could close the app while the Microsoft 365 connector or another Microsoft Entra sign-in was talking to the Windows account broker.
+  * Fixed managed connectors configured with their own OAuth client connecting without credentials, instead of prompting for sign-in, when the server accepts unauthenticated connections.
+  * Fixed Microsoft 365 connector sign-in through Company Portal or the Windows account broker requesting only `offline_access` instead of the permissions in the connector's `scope` setting. Affected members may be asked to reconnect, and in tenants whose Entra admin consent doesn't cover every permission in `scope` they may see Microsoft's consent or admin-approval page until the missing permissions are consented.
+  * Fixed organization sign-in with Microsoft Entra ID asking users to sign in again after a restart when `bootstrapOidc.scopes` uses `/.default`.
+  * Fixed pop-out windows doing nothing: "Open in new window" and ⌘-click (or Ctrl+click on Windows and Linux) for Code tab sessions, side panes, the side chat, and Pop out on Cowork live artifacts.
+</Update>
+
 <Update label="v2.2553.13" description="2026-09-21">
   Bundled Claude Code version: 2.1.280.
 

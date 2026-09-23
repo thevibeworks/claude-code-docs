@@ -222,6 +222,7 @@ With [`updateViaUpdatesHost`](/docs/third-party/claude-desktop/configuration#upd
 | `*.sentry.io`                      | Crash and error reporting |
 | `*.ingest.us.sentry.io`            | Crash and error reporting |
 | `sentry.io`                        | Crash and error reporting |
+| `claude.ai`                        | Performance timing        |
 | `browser-intake-datadoghq.com`     | Performance timing        |
 | `browser-intake-us3-datadoghq.com` | Performance timing        |
 | `browser-intake-us5-datadoghq.com` | Performance timing        |
