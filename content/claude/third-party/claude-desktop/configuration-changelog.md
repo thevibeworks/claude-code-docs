@@ -8,6 +8,62 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.7032.0" description="2026-09-22">
+  <div className="cfg-keys">
+    | MDM key                                                                                                                  | Type      | Description                           |
+    | ------------------------------------------------------------------------------------------------------------------------ | --------- | ------------------------------------- |
+    | [`inferenceIdpAuthFlow`](/docs/third-party/claude-desktop/configuration#inferenceidpauthflow)                                 | `enum`    | Identity provider sign-in flow        |
+    | [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc)                                         | `object`  | Identity provider (OIDC)              |
+    | [`mcpScheduledTaskApprovalLifetimeDays`](/docs/third-party/claude-desktop/configuration#mcpscheduledtaskapprovallifetimedays) | `integer` | Scheduled-task tool approval lifetime |
+    | [`keepAwakeEnabled`](/docs/third-party/claude-desktop/configuration#keepawakeenabled)                                         | `boolean` | Allow keep awake                      |
+  </div>
+
+  **Set in the Claude admin console only:**
+
+  * [`disableLocalConfigCache`](/docs/third-party/claude-desktop/configuration#disablelocalconfigcache) — Keep only your organization ID and restrictions on disk
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "inference": {
+      "credential": {
+        "authFlow": "<browser|broker>",
+        "oidc": {
+          "clientId": "<string>",
+          "issuer": "<string>",
+          "authorizationUrl": "<string>",
+          "tokenUrl": "<string>",
+          "bearerTokenType": "<id_token|access_token>",
+          "scopes": "<string>",
+          "appendOfflineAccess": "<boolean>",
+          "resource": "<string>",
+          "redirectPort": "<integer>",
+          "redirectHost": "<127.0.0.1|localhost>",
+          "additionalRedirectReferrerHosts": "<string>"
+        }
+      }
+    },
+    "mcp": {
+      "scheduledTaskApprovalLifetimeDays": "<integer>"
+    },
+    "workspace": {
+      "keepAwakeEnabled": "<boolean>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `inferenceCredentialKind` accepts `external-idp` for the gateway and Bedrock providers: users sign in through your organization's OpenID Connect identity provider (`inferenceIdpOidc`, `inferenceIdpAuthFlow`) and the token is sent as the Bearer credential, on Bedrock to a token-validating proxy at `inferenceBedrockBaseUrl`, which that kind requires.
+
+  **Deprecated** (no end date has been set; the original spellings keep working):
+
+  * `inferenceCredentialKind: "interactive"` together with `inferenceGatewayOidc` (gateway): use `"external-idp"` instead once every desktop in the fleet is on 2.7032.0 or later; 2.7032.0 and later read the original spelling as `"external-idp"`.
+  * `inferenceGatewayOidc`: use `inferenceIdpOidc` with `inferenceCredentialKind: "external-idp"` instead, once every desktop in the fleet is on 2.7032.0 or later.
+  * `inferenceGatewayOidcAuthFlow`: use `inferenceIdpAuthFlow` together with `inferenceIdpOidc` instead, once every desktop in the fleet is on 2.7032.0 or later.
+</Update>
+
 <Update label="v2.2553.13" description="2026-09-21">
   No configuration changes in this release.
 </Update>

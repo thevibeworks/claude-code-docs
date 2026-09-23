@@ -36,7 +36,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ## How can I get a free or discounted Pro plan?
 
-We do not offer standard discounted pricing any of our paid plans, including Pro plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
+We do not offer standard discounted pricing for any of our paid plans, including Pro plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
 
 We occasionally run limited-time promotions, but we don't have any standing discounts available upon request. These promotional offers are typically announced through our official channels when available. If you're interested in potential future promotions, we recommend following our official social media accounts or signing up for our newsletter to be notified of any special offers. Our Support team cannot issue one-off discounts or coupons.
 

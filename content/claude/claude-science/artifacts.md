@@ -10,7 +10,7 @@ An artifact is a file Claude saves into the project: a figure, processed dataset
 
 ## Working with artifacts
 
-Click a linked file in the conversation to open it in a tab beside the chat. HTML artifacts have zoom controls, including fit to width; images zoom up to their native resolution. Open **Files** in the sidebar for a searchable grid of every artifact in the project. From an artifact's menu you can: Open, Open beside session, **View in context**, **Provenance**, Versions, **Copy link**, **Star**, **Rename**, **Download**, or **Delete**. Renaming doesn't break links. **Delete** removes all versions permanently.
+Click a linked file or a figure in the conversation to open it in a tab beside the chat. Ctrl/Cmd-click opens it full screen. HTML artifacts have zoom controls, including fit to width; images zoom up to their native resolution. Open **Files** in the sidebar for a searchable grid of every artifact in the project. From an artifact's menu you can: Open, Open beside session, **View in context**, **Provenance**, Versions, **Copy link**, **Star**, **Rename**, **Download**, or **Delete**. Renaming doesn't break links. **Delete** removes all versions permanently.
 
 Files you attach or drop into the composer, and images you paste into it, are listed under **Your uploads**.
 

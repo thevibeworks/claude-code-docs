@@ -98,22 +98,23 @@ Use this table if your organization signs in with Microsoft Entra ID
 and inference goes to your LLM gateway, Bedrock, Vertex AI, or Azure
 AI Foundry.
 
-| Domain                                   | Required when             | Purpose                                                                               |
-| ---------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------- |
-| `pivot.claude.ai`                        | Always                    | Add-in host serving task pane UI, analytics, and telemetry.                           |
-| `claude.ai/api/`                         | Always                    | Feature-flag evaluation without sign-in.                                              |
-| `appsforoffice.microsoft.com`            | Always                    | Microsoft Office.js runtime script.                                                   |
-| `login.microsoftonline.com`              | Always                    | Microsoft Entra ID sign-in via Nested App Auth; reads admin config and issues tokens. |
-| `o1158394.ingest.us.sentry.io`           | Optional                  | Crash and error reporting; blocking degrades diagnostics only.                        |
-| Your LLM gateway URL                     | If using LLM gateway      | Organization's LLM gateway for inference.                                             |
-| `sts.amazonaws.com`                      | If using Bedrock direct   | AWS STS for exchanging Entra ID token for temporary Bedrock credentials.              |
-| `bedrock-runtime.<region>.amazonaws.com` | If using Bedrock direct   | Bedrock inference endpoint; replace `<region>` with your configured AWS region.       |
-| `accounts.google.com`                    | If using Vertex AI direct | Google OAuth consent screen.                                                          |
-| `oauth2.googleapis.com`                  | If using Vertex AI direct | Google OAuth token exchange and refresh.                                              |
-| `aiplatform.googleapis.com`              | If using Vertex AI direct | Vertex AI global inference endpoint.                                                  |
-| `<region>-aiplatform.googleapis.com`     | If using Vertex AI direct | Vertex AI regional inference endpoint; replace `<region>` with your GCP region.       |
-| `<resource>.services.ai.azure.com`       | If using Foundry direct   | Azure AI Foundry inference endpoint; replace `<resource>` with your resource name.    |
-| `graph.microsoft.com`                    | If using Outlook          | Microsoft Graph mailbox and calendar API.                                             |
+| Domain                                   | Required when                                    | Purpose                                                                                                                        |
+| ---------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `pivot.claude.ai`                        | Always                                           | Add-in host serving task pane UI, analytics, and telemetry.                                                                    |
+| `claude.ai/api/`                         | Always                                           | Feature-flag evaluation without sign-in.                                                                                       |
+| `appsforoffice.microsoft.com`            | Always                                           | Microsoft Office.js runtime script.                                                                                            |
+| `login.microsoftonline.com`              | Always                                           | Microsoft Entra ID sign-in via Nested App Auth; reads admin config and issues tokens.                                          |
+| `o1158394.ingest.us.sentry.io`           | Optional                                         | Crash and error reporting; blocking degrades diagnostics only.                                                                 |
+| Your LLM gateway URL                     | If using LLM gateway                             | Organization's LLM gateway for inference.                                                                                      |
+| `sts.amazonaws.com`                      | If using Bedrock direct                          | AWS STS for exchanging Entra ID token for temporary Bedrock credentials.                                                       |
+| `bedrock-runtime.<region>.amazonaws.com` | If using Bedrock direct                          | Bedrock inference endpoint; replace `<region>` with your configured AWS region.                                                |
+| `accounts.google.com`                    | If using Vertex AI direct                        | Google OAuth consent screen.                                                                                                   |
+| `oauth2.googleapis.com`                  | If using Vertex AI direct                        | Google OAuth token exchange and refresh.                                                                                       |
+| `aiplatform.googleapis.com`              | If using Vertex AI direct                        | Vertex AI global inference endpoint.                                                                                           |
+| `<region>-aiplatform.googleapis.com`     | If using Vertex AI direct                        | Vertex AI regional inference endpoint; replace `<region>` with your GCP region.                                                |
+| `<resource>.services.ai.azure.com`       | If using Foundry direct                          | Azure AI Foundry inference endpoint; replace `<resource>` with your resource name.                                             |
+| Your Foundry gateway URL                 | If using Foundry direct through your own gateway | The gateway or proxy set in `azure_base_url`. Connections made while it is set do not call `<resource>.services.ai.azure.com`. |
+| `graph.microsoft.com`                    | If using Outlook                                 | Microsoft Graph mailbox and calendar API.                                                                                      |
 
 If Anthropic serves your add-in settings from your Claude organization,
 as described in
@@ -233,6 +234,27 @@ different settings.
 <Frame caption="Configuration resolution at add-in load: bootstrap, Entra ID attributes, then manifest parameters.">
   <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=b6c750272cf3ad9765ec2563af436806" alt="The add-in resolves each configuration key from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters." width="2398" height="1670" data-path="images/office-agents/architecture/config-discovery.png" />
 </Frame>
+
+### Keep credentials out of the manifest URL query string
+
+Prefer a bootstrap endpoint (`bootstrap_url`) or Entra ID sign-in with
+`gateway_auth_source=entra`, so no credential appears in the manifest or
+in any URL. If you keep URL configuration, put `gateway_token`,
+`azure_api_key`, `google_client_secret`, `otlp_headers`,
+`inference_headers`, and `mcp_servers` after `#`, never after `?`:
+the browser sends the query string to the server on every load, where
+request logs record it, while the fragment stays in the browser. The
+add-in warns in the console when one of these keys arrives in the query
+string and ignores it there from October 19, 2026.
+
+The following example shows the change. Apply it to both `SourceLocation`
+and the `Taskpane.Url` resource, keep `&` written as `&amp;` in the XML,
+and redeploy the manifest from the Microsoft 365 admin center.
+
+```text theme={null}
+before: https://pivot.claude.ai/?gateway_url=https://ai-gateway.example.com/v1&amp;gateway_token=sk-gw-xxxxx&amp;m=excel3p-1.0.0.1
+after:  https://pivot.claude.ai/?gateway_url=https://ai-gateway.example.com/v1&amp;m=excel3p-1.0.0.1#gateway_token=sk-gw-xxxxx
+```
 
 ### Admin feature controls
 
@@ -589,13 +611,48 @@ When `gateway_auth_source=entra` is set, the add-in ignores any
 Each user sees a one-time Microsoft sign-in prompt if silent sign-in is
 not available; afterwards the add-in connects automatically.
 
+### Route Foundry direct through your own gateway
+
+If your organization reaches Azure AI Foundry through a gateway or proxy
+it operates, such as Azure API Management, set `azure_base_url` to that
+gateway's base URL, path included. The add-in then sends every Foundry
+request to `<azure_base_url>/v1/messages` instead of
+`https://<resource>.services.ai.azure.com/anthropic/v1/messages`, with
+the same credential and headers it would send to the resource: the API
+key as `x-api-key`, or each user's Microsoft Entra ID token as
+`Authorization: Bearer` with keyless sign-in. `azure_resource_name` is
+still required and names the resource behind the gateway.
+
+Use the same value you would set as Claude Code's
+`ANTHROPIC_FOUNDRY_BASE_URL`. The URL must use HTTPS. Because the add-in
+calls the gateway from the browser, the gateway must meet the
+[CORS requirements](#cors-requirements), and your network must allow its
+domain as listed in the [network allowlist](#network-allowlist). On this
+path the add-in also sends the `anthropic-beta` header, and with keyless
+sign-in the `authorization` header, so the gateway's CORS preflight must
+allow both and the gateway must forward `anthropic-beta` to Foundry.
+
+Users who connected before you set `azure_base_url` keep their direct
+connection until they log out and sign in again, as described in
+[Change or update your gateway connection](#change-or-update-your-gateway-connection).
+Until the setup wizard accepts this key, add `azure_base_url` to the
+generated manifest URL by hand, or deliver it per user through Microsoft
+Entra ID extension attributes or a bootstrap endpoint.
+
+The following manifest parameters configure this path.
+
+| Parameter             | Value                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| `azure_resource_name` | Your Foundry resource name.                                                           |
+| `azure_base_url`      | The gateway base URL, for example `https://ai-gateway.example.com/foundry/anthropic`. |
+| `azure_api_key`       | The key the gateway expects as `x-api-key`. Omit it with keyless sign-in.             |
+
 ### Change or update your gateway connection
 
 If your gateway API token expires or your IT team provides a new URL,
-go to Settings in the add-in sidebar, enter the new values, and select
-"Test Connection". This Settings section appears only for gateway
-connections. For Bedrock, Vertex AI, or Foundry direct, select Logout
-from the account menu and sign in again with your new credentials.
+select Logout from the account menu and sign in again with your new
+credentials. This applies to LLM gateway, Bedrock, Vertex AI, and
+Foundry direct connections alike.
 
 ## Gateway requirements for IT teams
 
@@ -687,12 +744,12 @@ model is reachable, rather than calling `GET /v1/models`.
 If your team already runs Claude Code through a gateway, the table
 below summarizes how the Office add-in setup differs.
 
-| Aspect             | Claude Code                                          | Office add-ins                                                                                                                                                                                |
-| ------------------ | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Credential storage | OS keychain or environment variables                 | Browser localStorage (sandboxed iframe)                                                                                                                                                       |
-| Auth configuration | Environment variables, settings file, helper scripts | Manual entry in add-in UI (gateway), Entra ID (Bedrock, keyless Foundry), Google OAuth (Vertex AI), or Azure API key (Foundry)                                                                |
-| Token refresh      | Supports helper scripts for rotation                 | Automatic via a bootstrap endpoint (gateway), Entra ID (Bedrock, keyless Foundry), or Google OAuth (Vertex AI); gateway tokens entered manually in the add-in UI require re-entry in settings |
-| Custom model names | Configurable via environment variables               | Not configurable in v1                                                                                                                                                                        |
+| Aspect             | Claude Code                                          | Office add-ins                                                                                                                                                                                                    |
+| ------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Credential storage | OS keychain or environment variables                 | Browser localStorage (sandboxed iframe)                                                                                                                                                                           |
+| Auth configuration | Environment variables, settings file, helper scripts | Manual entry in add-in UI (gateway), Entra ID (Bedrock, keyless Foundry), Google OAuth (Vertex AI), or Azure API key (Foundry)                                                                                    |
+| Token refresh      | Supports helper scripts for rotation                 | Automatic via a bootstrap endpoint (gateway), Entra ID (Bedrock, keyless Foundry), or Google OAuth (Vertex AI); gateway tokens entered manually in the add-in UI require signing out and back in when they rotate |
+| Custom model names | Configurable via environment variables               | Not configurable in v1                                                                                                                                                                                            |
 
 When gateway configuration comes from a bootstrap endpoint, the add-in
 keeps the token current without user action. It calls the bootstrap
@@ -703,7 +760,8 @@ add-in calls the bootstrap endpoint once and retries the request if the
 token changed.
 
 Gateway tokens entered manually in the add-in UI do not refresh
-automatically: update the token in settings when it rotates.
+automatically: sign out and sign in again with the new token when it
+rotates.
 
 ## Example gateway configuration with LiteLLM
 

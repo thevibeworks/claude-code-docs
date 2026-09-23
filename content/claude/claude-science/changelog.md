@@ -6,6 +6,16 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.52" description="September 22, 2026">
+  * Clicking a figure in Claude's answer now opens it beside the chat; Ctrl/Cmd-click or the new "Open fullscreen" button opens it full screen
+  * Opening or closing the right pane now keeps your place in a long answer
+  * Markdown files no longer rotate in Safari after they load
+  * The reviewer no longer flags working figure links in saved reports as broken
+  * When Claude sets a Python, R, or shell cell to run in a folder other than the session's workspace, its permission card now shows that folder
+  * "Download script" and "Download notebook" now give the input and output files in the zip plain names: spaces, brackets, and other special characters become underscores
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.51" description="September 22, 2026">
   * Pinned sessions (formerly starred) from across all your projects now appear at the top of the session list; a new switch in **Settings > General > Appearance** lets you limit them to the open project
   * In Markdown files, click a plain-text cell in a table to edit it in place

@@ -16,13 +16,19 @@ Connector use in channels is available to a limited number of organizations. If 
 
 ## Where your connectors apply
 
-In a channel, an admin decides the shared access. The channel uses the connections an admin attached to it, and everyone who asks there gets the same access. In organizations where connector use in channels is available, Claude can also use the connectors on your own claude.ai account in that channel. When you ask Claude there for something that needs one of your own tools, it can use your connector for your task.
+In organizations where connector use in channels is available, Claude can use your personal connectors for the requests you make in a channel.
 
-In a direct message (DM), your connectors apply on their own, because a DM runs on [your own claude.ai account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+* **Approval**: Claude asks you before it starts using your connectors in a channel.
+* **Access**: Claude works with your permissions and reaches only what your account can reach.
+* **Attribution**: Claude records what it does under your name.
+* **Review**: Before results post to the channel, you can [review every result, or only the ones a sensitive-content check flags](#review-results-before-posting).
 
-[Routines](/docs/claude-tag/users/proactivity) and other work Claude starts on its own in a channel use the channel's connections, never your connectors. Claude uses your connectors only while working on a request you made yourself.
+Claude uses your connectors only while working on a request you made yourself.
 
-Your connectors serve only you. When someone else in the channel asks Claude for something, their request doesn't control or use your connectors, even in a shared channel. Claude works with your permissions, reaches only what your account can reach, and records what it does under your name.
+* **You ask in a channel.** When your task needs one of your own tools, Claude can use your connector for it. The channel also uses the connections an admin attached to it, and everyone who asks there gets the same access.
+* **Someone else asks in a channel.** Your connectors serve only you. Their request doesn't control or use your connectors, even in a shared channel.
+* **Claude starts work on its own.** [Routines](/docs/claude-tag/users/proactivity) and other work Claude starts on its own in a channel use the channel's connections, never your connectors.
+* **You ask in a direct message (DM).** Your connectors apply on their own, because a DM runs on [your own claude.ai account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
 
 To add or remove connectors on your account, open the **Customize > Connectors** page on claude.ai; see [connectors on claude.ai](/docs/connectors/overview) for setup.
 

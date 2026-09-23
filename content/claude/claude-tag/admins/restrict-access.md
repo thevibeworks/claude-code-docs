@@ -131,12 +131,16 @@ To control who can use Claude in the allowed channels, turn on the [restriction 
 
 ### Block or auto-join channels by name
 
-**Channel name rules** steer where Claude works by channel name instead of channel by channel. The rules sit in the **Advanced** section of the **Default Slack access** panel and of each workspace scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), as two pattern lists:
+**Channel name rules** steer where Claude works by channel name instead of channel by channel. The rules sit in the **Advanced** section of the **Default Slack access** panel and of each workspace scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), as a **Blocked channel patterns** list and an **Auto-join channels** table:
 
 * **Blocked channel patterns**: Claude won't read or respond in a channel whose name matches, even if someone invites it there. When it's added to such a channel or @-mentioned in one, it posts a notice that an admin has blocked it there, and otherwise stays silent.
-* **Auto-join channel patterns**: Claude joins a public channel whose name matches when the channel is created or renamed. Private channels still need an invite. To add Claude to an existing channel, invite it as usual.
+* **Auto-join channels**: Claude joins a public channel whose name matches one of its patterns when the channel is created or renamed. Private channels still need an invite. To add Claude to an existing channel, invite it as usual.
 
-A pattern is written in lowercase, like Slack channel names, plus two wildcards: `*` matches any run of characters and `?` matches exactly one. `inc-*` matches every channel whose name starts with `inc-`, and `*-confidential-*` matches any name containing `-confidential-`. Each list holds up to 50 patterns of up to 80 characters.
+Each row of the **Auto-join channels** table is one pattern, added with **Add pattern**. A row can also carry [access bundles](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), which attach in every matching channel Claude is in; a row with no bundles is marked **Auto-join only**, and Claude joins matching channels whether or not a row carries bundles. Editing the patterns needs an Admin or Owner of your Claude organization, and editing the bundles on a row needs an Owner.
+
+Removing a pattern row also detaches the row's bundles. A row marked **Not auto-joined** shows a pattern that still has bundles attached but that the auto-join list no longer carries. Claude joins no new channels for it, but its bundles still attach in matching channels Claude is already in; remove the bundles from the row to end that.
+
+A pattern is written in lowercase, like Slack channel names, plus two wildcards: `*` matches any run of characters and `?` matches exactly one. `inc-*` matches every channel whose name starts with `inc-`, and `*-confidential-*` matches any name containing `-confidential-`. The blocked list and the auto-join table each hold up to 50 patterns of up to 80 characters.
 
 A channel that matches a blocked pattern stays off-limits even when it also matches an auto-join pattern. Patterns on **Default Slack access** apply in every connected workspace. A workspace scope can add its own patterns but can't remove the organization's.
 
@@ -231,6 +235,8 @@ When the period you pick falls within the current month, the **Spend by channel*
 A channel manager is a member of your Claude organization who can set up Claude in specific channels without the Owner role. Channel managers are available on the Enterprise plan, and you must be an Owner to add or remove them.
 
 You name channel managers one channel at a time. For that channel, a channel manager sets the default model, adds repositories, manages credentials and plugins in the channel's bundle, and edits channel instructions. Every other setting at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) stays with Owners.
+
+A channel manager is a person. To let the members of another Slack channel write a channel's instructions, see [Manage a channel's instructions from another channel](/docs/claude-tag/admins/managed-by).
 
 ### What a channel manager can do on the Configure page
 

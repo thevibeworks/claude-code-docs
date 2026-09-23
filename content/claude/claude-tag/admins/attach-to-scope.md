@@ -36,7 +36,7 @@ DMs run under the user's own claude.ai account, so bundles attached here apply o
 
 ## Attach the bundle
 
-Attaching binds the bundle to a workspace scope or to a single channel under it.
+Attaching binds the bundle to a workspace scope, to a single channel under it, or to every channel whose name matches a pattern.
 
 The binding takes full effect in new threads only. A thread already running keeps the skills, plugins, and custom instructions it started with. A connection added after a thread started still works there if you ask Claude to use the service by name, but Claude doesn't announce it, so test with a new top-level thread after attaching a bundle. See [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies).
 
@@ -63,6 +63,24 @@ A channel that doesn't appear in the list yet needs a scope created for it:
 In a channel shared across more than one workspace in your Enterprise Grid, bundles bound to the channel or its workspace don't apply. See [Channels shared across workspaces in your Enterprise Grid](/docs/claude-tag/admins/restrict-access#channels-shared-across-workspaces-in-your-enterprise-grid) for what Claude does there instead.
 
 <Warning>A bundle attached to a public channel grants its access to anyone who joins that channel. In most Slack workspaces, anyone can join a public channel, so the channel's join policy becomes the effective access control for whatever the bundle grants. Keep elevated credentials in private-channel scopes.</Warning>
+
+### Attach a bundle to channels by name
+
+A bundle attach rule binds a bundle to every channel whose name matches a pattern, instead of channel by channel. Rules live in the **Auto-join channels** table, the same table that holds the [auto-join patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), in the collapsed **Advanced** section of the **Default Slack access** panel and of each workspace scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). A rule on **Default Slack access** covers matching channels in every connected workspace; a rule on a workspace scope covers only that workspace's matching channels. Adding or removing a bundle on a pattern needs an Owner of your Claude organization. Editing the patterns themselves needs an Admin or Owner.
+
+Each table row is one channel-name pattern. To create a rule, select **Add bundle** on the pattern's row and pick the bundle; if the pattern isn't listed yet, add it with **Add pattern** first. A pattern added here is also an auto-join pattern, so Claude starts joining matching public channels when they're created or renamed.
+
+For example, if your incident channel names start with `inc-`, add `inc-*` with **Add pattern** and attach your incident-response bundle to its row. Claude then joins each new public incident channel and has the bundle's access there.
+
+The rule grants the bundle in every matching channel Claude is in under the scope, including channels it was invited to before the rule existed. The rule itself doesn't add Claude to any channel; only the auto-join patterns, or an invite, do that. A channel whose name matches a [blocked pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) stays off-limits even when a rule matches it. After adding or changing a rule, test with a new thread in a matching channel.
+
+A rule's pattern follows the same syntax as the other [channel name patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), lowercase with `*` matching any run of characters and `?` matching exactly one. Each scope holds up to 20 bundle attach rules. On a workspace scope, the table also lists the organization's patterns, marked **Org-wide**. You can attach a bundle to an **Org-wide** pattern from the workspace's table, and that rule covers only the workspace's matching channels; you edit the pattern itself on **Default Slack access**.
+
+<Warning>A bundle attach rule grants its bundle in every matching channel Claude is in, now or in the future, and anyone who can rename a channel can move it into or out of a pattern. Keep elevated credentials out of broad patterns, and add a [blocked channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for name shapes that should never carry access; a blocked channel stays off-limits whatever rules match it.</Warning>
+
+#### Where rule-attached bundles appear
+
+When bundle attach rules cover a channel, the channel scope's panel lists their bundles under **Attached here by rule**. The list is read-only, because a channel scope doesn't take rules of its own; to change it, edit the rule on **Default Slack access** or the workspace scope. Rules on **Default Slack access** and rules on the channel's workspace apply together.
 
 ### Attach a single repository or connector
 
@@ -107,13 +125,14 @@ Per-scope custom instructions are **concatenated**, Default Slack access first, 
 
 ### Instruction layers
 
-Three kinds of standing instruction can apply in a channel, written by different people:
+The table lists the kinds of standing instruction that can apply in a channel and who writes each.
 
-| Layer               | Who writes it                                                                                                                                                                                                                                 | Where                                                                                                    |
-| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
-| Custom instructions | Owner for any scope; channel members and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel scope, unless members are [restricted](#restrict-who-can-set-channel-instructions) | The scope's panel in admin settings, or the **Configure** link in any reply footer for the channel scope |
-| Channel memory      | Anyone in the channel                                                                                                                                                                                                                         | By telling Claude to remember                                                                            |
-| Task prompt         | The requester                                                                                                                                                                                                                                 | The message itself                                                                                       |
+| Layer                | Who writes it                                                                                                                                                                                                                                 | Where                                                                                                    |
+| :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| Custom instructions  | Owner for any scope; channel members and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel scope, unless members are [restricted](#restrict-who-can-set-channel-instructions) | The scope's panel in admin settings, or the **Configure** link in any reply footer for the channel scope |
+| Managed instructions | Full workspace members in one of the channel's [managing channels](/docs/claude-tag/admins/managed-by), which an Owner or Admin selects under **Managed by** on the channel's Configure page                                                       | By asking Claude in the managing channel and confirming the card it posts                                |
+| Channel memory       | Anyone in the channel                                                                                                                                                                                                                         | By telling Claude to remember                                                                            |
+| Task prompt          | The requester                                                                                                                                                                                                                                 | The message itself                                                                                       |
 
 Channel members can shape how Claude responds in their channel through memory, but they can't change which credentials or repositories it has; that's bundle configuration. See [who controls what](/docs/claude-tag/admins/customize) for the full split.
 
@@ -127,9 +146,11 @@ Channel members reach the same field for the channel scope through the **Configu
 
 The field is plain text, inserted as written; there is no include or template syntax, and `{{include:...}}` is passed through literally. To give Claude a repository's `CLAUDE.md`, [grant the repository](/docs/claude-tag/admins/configure-github#grant-repository-access) and name it in the request; its `CLAUDE.md` loads after the clone completes.
 
-What Claude reads in a channel is the concatenated custom instructions of its scope chain, plus the `CLAUDE.md` of any repository it clones. Projects in claude.ai don't apply here; Claude doesn't read a Project's instructions or knowledge in Slack, and a channel can't be pointed at a Project.
+What Claude reads in a channel is the concatenated custom instructions of its scope chain, the channel's [managed instructions](/docs/claude-tag/admins/managed-by#how-managed-instructions-load) if another channel manages it, and the `CLAUDE.md` of any repository it clones. Projects in claude.ai don't apply here; Claude doesn't read a Project's instructions or knowledge in Slack, and a channel can't be pointed at a Project.
 
 A new instruction applies to sessions started after you save it. Claude reads it in every new thread right away, keeps the old text in a thread that's already running, and picks it up at the channel's top level on the next channel message, when it replaces the channel's session (see [Attach the bundle](#attach-the-bundle)). Claude doesn't read a channel's instructions in another channel or in a DM. To confirm what a session is reading, start a new thread and ask Claude to repeat its admin instructions.
+
+To let a central team write a channel's instructions from its own Slack channel, see [Manage a channel's instructions from another channel](/docs/claude-tag/admins/managed-by).
 
 ### Restrict who can set channel instructions
 
