@@ -332,17 +332,19 @@ The SDK resolves credentials and region using the standard AWS precedence: const
 
 Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Model capabilities and behaviors are documented on the [Models overview](https://platform.claude.com/docs/en/models/overview) page.
 
-| Model                 | Model ID                        | Access                                                                                              |
-| --------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Claude Fable 5.1      | anthropic.claude-fable-5-1      | Open                                                                                                |
-| Claude Fable 5        | anthropic.claude-fable-5        | Open                                                                                                |
-| Claude Opus 5.5       | anthropic.claude-opus-5-5       | See [Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Opus 5         | anthropic.claude-opus-5         | See [Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Opus 4.8       | anthropic.claude-opus-4-8       | Open                                                                                                |
-| Claude Opus 4.7       | anthropic.claude-opus-4-7       | Open                                                                                                |
-| Claude Sonnet 5       | `anthropic.claude-sonnet-5`     | Open                                                                                                |
-| Claude Haiku 4.5      | anthropic.claude-haiku-4-5      | Open                                                                                                |
-| Claude Mythos Preview | anthropic.claude-mythos-preview | Invitation only ([Project Glasswing](https://anthropic.com/glasswing))                              |
+| Model                                                                           | Model ID                          | Access                                                                                              |
+| :------------------------------------------------------------------------------ | :-------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| Claude Fable 5.1                                                                | `anthropic.claude-fable-5-1`      | Open                                                                                                |
+| Claude Mythos 5.1 ([limited availability](https://anthropic.com/glasswing))     | `anthropic.claude-mythos-5-1`     | Invitation only                                                                                     |
+| Claude Fable 5                                                                  | `anthropic.claude-fable-5`        | Open                                                                                                |
+| Claude Mythos 5 ([limited availability](https://anthropic.com/glasswing))       | `anthropic.claude-mythos-5`       | Invitation only                                                                                     |
+| Claude Mythos Preview ([limited availability](https://anthropic.com/glasswing)) | `anthropic.claude-mythos-preview` | Invitation only                                                                                     |
+| Claude Opus 5.5                                                                 | `anthropic.claude-opus-5-5`       | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Opus 5                                                                   | `anthropic.claude-opus-5`         | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Opus 4.8                                                                 | `anthropic.claude-opus-4-8`       | Open                                                                                                |
+| Claude Opus 4.7                                                                 | `anthropic.claude-opus-4-7`       | Open                                                                                                |
+| Claude Sonnet 5                                                                 | `anthropic.claude-sonnet-5`       | Open                                                                                                |
+| Claude Haiku 4.5                                                                | `anthropic.claude-haiku-4-5`      | Open                                                                                                |
 
 Use Claude Code 2.1.255 or later with Claude Fable 5.1 on Amazon Bedrock, and 2.1.280 or later with Claude Opus 5.5; run `claude update` to upgrade.
 

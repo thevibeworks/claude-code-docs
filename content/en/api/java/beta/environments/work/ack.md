@@ -117,6 +117,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
 ## Returns
 
 - `class BetaSelfHostedWork`

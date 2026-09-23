@@ -105,11 +105,15 @@ Create Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+    - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -813,11 +817,15 @@ List Agents
 
       Model identifier and configuration.
 
-      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+      - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -1508,11 +1516,15 @@ Get Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+    - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -2237,11 +2249,15 @@ Update Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+    - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -2918,11 +2934,15 @@ Archive Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+    - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -3589,11 +3609,15 @@ ant beta:agents archive \
 
     Model identifier and configuration.
 
-    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+    - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -6267,11 +6291,15 @@ ant beta:agents archive \
 
   Model identifier and configuration.
 
-  - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+  - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-opus-5-5"`
+
+      Powerful intelligence for coding, knowledge work, and long-running agents
 
     - `"claude-fable-5-1"`
 
@@ -6381,11 +6409,15 @@ ant beta:agents archive \
 
   An object that defines additional configuration control over model use
 
-  - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+  - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-opus-5-5"`
+
+      Powerful intelligence for coding, knowledge work, and long-running agents
 
     - `"claude-fable-5-1"`
 
@@ -6701,11 +6733,15 @@ ant beta:agents archive \
 
     Model identifier and configuration.
 
-    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+    - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -7677,11 +7713,15 @@ List Agent Versions
 
       Model identifier and configuration.
 
-      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
+      - `id: "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 

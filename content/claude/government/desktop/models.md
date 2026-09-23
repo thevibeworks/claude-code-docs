@@ -8,7 +8,7 @@
 
 > **Who this is for:** Anyone who uses Claude Desktop in Claude for Government. The last section is for administrators.
 
-The model picker shows which Claude model answers you and lets you switch to another. It sits at the bottom of the message box in Chat, Cowork, and Code. Which models it lists depends on the [seat tier](/docs/government/account/profile) your organization has assigned to you, so a colleague may see a different list.
+The model picker shows which Claude model answers you and lets you switch to another. It sits at the bottom of the message box in Chat, Cowork, and Code. Which models it lists depends on the [seat tier](/docs/government/account/profile) your organization has assigned to you, so a colleague may see a different list. A model that needs a newer version of Claude Desktop does not appear in the picker until the app is updated. If you are missing a model that a colleague on the same seat tier has, update Claude Desktop, or ask your IT administrator to update it.
 
 ## Larger context window
 

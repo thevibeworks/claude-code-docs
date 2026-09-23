@@ -35,6 +35,10 @@ Create Agent
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `const BetaManagedAgentsModelClaudeFable5_1 BetaManagedAgentsModel = "claude-fable-5-1"`
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -775,6 +779,10 @@ Create Agent
 
       - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
 
+      - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+
+      - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -830,6 +838,10 @@ Create Agent
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `const BetaManagedAgentsModelClaudeFable5_1 BetaManagedAgentsModel = "claude-fable-5-1"`
 

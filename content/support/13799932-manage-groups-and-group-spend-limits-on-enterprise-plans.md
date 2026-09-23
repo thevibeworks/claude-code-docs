@@ -12,7 +12,7 @@ Groups let you organize members into logical collections—by team, department, 
 
 - **Let members share resources with a group**, so a project, skill, or plugin shared with the group is available to everyone in it, and access follows membership as it changes. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)** and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
 
-Groups can be created manually or synced automatically from your identity provider via SCIM. Each organization can have up to 100 groups. There's no limit on how many groups a member can belong to, though belonging to more than 250 can slow performance.
+Groups can be created manually or synced automatically from your identity provider via SCIM. Each organization can have up to 1000 groups. There's no limit on how many groups a member can belong to, though belonging to more than 250 can slow performance.
 
 In addition to spend limits, Enterprise admins can use groups to control plugin access in Cowork. Each plugin in your organization's marketplace can have group-level overrides that determine whether it's available, pre-installed, required, or hidden for members of a specific group. For details, see **[Manage Cowork plugins for your organization](https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization)**.
 

@@ -131,6 +131,10 @@ Long poll for work items in the queue.
 
       - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
 
+      - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+
+      - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+
   - `AnthropicWorkerID param.Field[string] Optional`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

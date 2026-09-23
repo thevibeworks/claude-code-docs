@@ -37,11 +37,15 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+      - `"claude-fable-5-1" | "claude-opus-5-5" | "claude-mythos-5-1" | 15 more`
 
         - `"claude-fable-5-1"`
 
           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-mythos-5-1"`
 
@@ -163,7 +167,7 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `(string & {})`
 
-      - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
+      - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 45 more`
 
         - `"message-batches-2024-09-24"`
 
@@ -257,6 +261,10 @@ Future models and features will not be compatible with Text Completions. See our
 
         - `"compact-2026-09-04"`
 
+        - `"inline-tools-2026-09-15"`
+
+        - `"mcp-client-2026-09-15"`
+
     - `workspace_id?: string`
 
       Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -343,11 +351,15 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+    - `"claude-fable-5-1" | "claude-opus-5-5" | "claude-mythos-5-1" | 15 more`
 
       - `"claude-fable-5-1"`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-mythos-5-1"`
 
@@ -484,11 +496,15 @@ console.log(completion.id);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+    - `"claude-fable-5-1" | "claude-opus-5-5" | "claude-mythos-5-1" | 15 more`
 
       - `"claude-fable-5-1"`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-mythos-5-1"`
 

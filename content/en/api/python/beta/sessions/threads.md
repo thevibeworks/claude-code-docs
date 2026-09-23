@@ -33,7 +33,7 @@ List Session Threads
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -127,6 +127,10 @@ List Session Threads
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -177,12 +181,13 @@ List Session Threads
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -197,6 +202,10 @@ List Session Threads
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 
@@ -962,7 +971,7 @@ Get Session Thread
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1056,6 +1065,10 @@ Get Session Thread
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1106,12 +1119,13 @@ Get Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -1126,6 +1140,10 @@ Get Session Thread
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 
@@ -1886,7 +1904,7 @@ Archive Session Thread
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1980,6 +1998,10 @@ Archive Session Thread
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2030,12 +2052,13 @@ Archive Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -2050,6 +2073,10 @@ Archive Session Thread
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 
@@ -2836,12 +2863,13 @@ print(beta_managed_agents_session_thread.id)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -2856,6 +2884,10 @@ print(beta_managed_agents_session_thread.id)
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 
@@ -4013,7 +4045,7 @@ print(beta_managed_agents_session_thread.id)
 
       format: date-time
 
-    - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
+    - `evaluated_permission: Optional[BetaManagedAgentsAgentEvaluatedPermission]`
 
       AgentEvaluatedPermission enum
 
@@ -4151,15 +4183,9 @@ print(beta_managed_agents_session_thread.id)
 
       format: date-time
 
-    - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
+    - `evaluated_permission: Optional[BetaManagedAgentsAgentEvaluatedPermission]`
 
       AgentEvaluatedPermission enum
-
-      - `"allow"`
-
-      - `"ask"`
-
-      - `"deny"`
 
     - `evaluation: Optional[BetaManagedAgentsAgentToolEvaluation]`
 
@@ -5129,12 +5155,13 @@ print(beta_managed_agents_session_thread.id)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -5149,6 +5176,10 @@ print(beta_managed_agents_session_thread.id)
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 
@@ -5928,7 +5959,7 @@ List Session Thread Events
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -6021,6 +6052,10 @@ List Session Thread Events
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
     - `"compact-2026-09-04"`
+
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
 
 - `workspace_id: Optional[str]`
 
@@ -6440,7 +6475,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
+    - `evaluated_permission: Optional[BetaManagedAgentsAgentEvaluatedPermission]`
 
       AgentEvaluatedPermission enum
 
@@ -6578,15 +6613,9 @@ List Session Thread Events
 
       format: date-time
 
-    - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
+    - `evaluated_permission: Optional[BetaManagedAgentsAgentEvaluatedPermission]`
 
       AgentEvaluatedPermission enum
-
-      - `"allow"`
-
-      - `"ask"`
-
-      - `"deny"`
 
     - `evaluation: Optional[BetaManagedAgentsAgentToolEvaluation]`
 
@@ -7556,12 +7585,13 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -7576,6 +7606,10 @@ List Session Thread Events
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 
@@ -8343,7 +8377,7 @@ Stream Session Thread Events
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -8436,6 +8470,10 @@ Stream Session Thread Events
     - `"mid-conversation-system-clear-at-2026-08-21"`
 
     - `"compact-2026-09-04"`
+
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
 
 - `workspace_id: Optional[str]`
 
@@ -8855,7 +8893,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
+    - `evaluated_permission: Optional[BetaManagedAgentsAgentEvaluatedPermission]`
 
       AgentEvaluatedPermission enum
 
@@ -8993,15 +9031,9 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
+    - `evaluated_permission: Optional[BetaManagedAgentsAgentEvaluatedPermission]`
 
       AgentEvaluatedPermission enum
-
-      - `"allow"`
-
-      - `"ask"`
-
-      - `"deny"`
 
     - `evaluation: Optional[BetaManagedAgentsAgentToolEvaluation]`
 
@@ -9971,12 +10003,13 @@ Stream Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
             - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -9991,6 +10024,10 @@ Stream Session Thread Events
             - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 

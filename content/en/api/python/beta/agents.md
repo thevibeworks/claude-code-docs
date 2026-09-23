@@ -19,14 +19,15 @@ Create Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
-  - `Union[Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more], str]`
+  - `Union[Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more], str]`
 
-    - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+    - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
       - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
       - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -41,6 +42,10 @@ Create Agent
       - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -110,12 +115,13 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -773,7 +779,7 @@ Create Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -867,6 +873,10 @@ Create Agent
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -917,12 +927,13 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -937,6 +948,10 @@ Create Agent
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -1605,7 +1620,7 @@ List Agents
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1699,6 +1714,10 @@ List Agents
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1749,12 +1768,13 @@ List Agents
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -1769,6 +1789,10 @@ List Agents
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -2424,7 +2448,7 @@ Get Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2518,6 +2542,10 @@ Get Agent
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2568,12 +2596,13 @@ Get Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -2588,6 +2617,10 @@ Get Agent
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -3259,14 +3292,15 @@ Update Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
-  - `Union[Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more], str]`
+  - `Union[Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more], str]`
 
-    - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+    - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
       - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
       - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -3281,6 +3315,10 @@ Update Agent
       - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -3350,12 +3388,13 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -3991,7 +4030,7 @@ Update Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -4085,6 +4124,10 @@ Update Agent
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4135,12 +4178,13 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -4155,6 +4199,10 @@ Update Agent
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -4801,7 +4849,7 @@ Archive Agent
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -4895,6 +4943,10 @@ Archive Agent
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4945,12 +4997,13 @@ Archive Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -4965,6 +5018,10 @@ Archive Agent
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -5648,12 +5705,13 @@ print(beta_managed_agents_agent.id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -5668,6 +5726,10 @@ print(beta_managed_agents_agent.id)
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -8339,18 +8401,19 @@ print(beta_managed_agents_agent.id)
 
 ### Beta Managed Agents Model
 
-- `type BetaManagedAgentsModel = Union[Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more], str]`
+- `type BetaManagedAgentsModel = Union[Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more], str]`
 
   The model that will power your agent.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+  - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
     - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
     - `claude-sonnet-5` - High-performance model for coding and agents
     - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -8365,6 +8428,10 @@ print(beta_managed_agents_agent.id)
     - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
     - `claude-sonnet-4-5` - High-performance model for agents and coding
     - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+    - `"claude-opus-5-5"`
+
+      Powerful intelligence for coding, knowledge work, and long-running agents
 
     - `"claude-fable-5-1"`
 
@@ -8436,12 +8503,13 @@ print(beta_managed_agents_agent.id)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+    - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
       - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
       - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -8456,6 +8524,10 @@ print(beta_managed_agents_agent.id)
       - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -8573,12 +8645,13 @@ print(beta_managed_agents_agent.id)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+    - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
       - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
       - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -8593,6 +8666,10 @@ print(beta_managed_agents_agent.id)
       - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `"claude-fable-5-1"`
 
@@ -8922,12 +8999,13 @@ print(beta_managed_agents_agent.id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -8942,6 +9020,10 @@ print(beta_managed_agents_agent.id)
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 
@@ -9869,7 +9951,7 @@ List Agent Versions
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 43 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 45 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -9963,6 +10045,10 @@ List Agent Versions
 
     - `"compact-2026-09-04"`
 
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -10013,12 +10099,13 @@ List Agent Versions
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5-1", "claude-sonnet-5", "claude-fable-5", 11 more]`
+      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
         - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
@@ -10033,6 +10120,10 @@ List Agent Versions
         - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `"claude-fable-5-1"`
 

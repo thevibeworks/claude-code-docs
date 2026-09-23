@@ -107,10 +107,6 @@ Multi-model strategies pair a lower-cost model with a frontier model so that mos
     The latest Opus model: breaking changes, new features, and behavior differences
   </Card>
 
-  <Card title="What's new in Claude Opus 5" icon="sparkle" href="https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5">
-    Explore the improvements in Claude Opus 5
-  </Card>
-
   <Card title="What's new in Claude Sonnet 5" icon="sparkle" href="https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5">
     For everyday workloads that balance speed and capability
   </Card>

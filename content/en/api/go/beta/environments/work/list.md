@@ -129,6 +129,10 @@ List work items in an environment.
 
       - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
 
+      - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+
+      - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+
 ## Returns
 
 - `type BetaSelfHostedWork`

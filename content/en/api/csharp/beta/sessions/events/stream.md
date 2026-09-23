@@ -123,6 +123,10 @@ Stream Events
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -541,7 +545,7 @@ Stream Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -679,15 +683,9 @@ Stream Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `Allow("allow")`
-
-      - `Ask("ask")`
-
-      - `Deny("deny")`
 
     - `BetaManagedAgentsAgentToolEvaluation Evaluation`
 
@@ -1656,6 +1654,10 @@ Stream Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 

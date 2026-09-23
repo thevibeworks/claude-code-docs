@@ -103,6 +103,10 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"compact-2026-09-04"`
 
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
 ### Beta API Error
 
 - `class BetaAPIError`
@@ -7336,7 +7340,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -7392,7 +7396,7 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -8228,7 +8232,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -8284,7 +8288,7 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -10162,7 +10166,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -10218,7 +10222,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -10962,7 +10966,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -11018,7 +11022,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 

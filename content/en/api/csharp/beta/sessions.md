@@ -81,6 +81,10 @@ Create Session
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `ClaudeFable5_1("claude-fable-5-1")`
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -146,6 +150,10 @@ Create Session
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `ClaudeOpus5_5("claude-opus-5-5")`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -1171,6 +1179,10 @@ Create Session
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1214,6 +1226,10 @@ Create Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -2461,6 +2477,10 @@ List Sessions
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2504,6 +2524,10 @@ List Sessions
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -3673,6 +3697,10 @@ Get Session
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3716,6 +3744,10 @@ Get Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -4904,6 +4936,10 @@ Update Session
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4947,6 +4983,10 @@ Update Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -6111,6 +6151,10 @@ Delete Session
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -6259,6 +6303,10 @@ Archive Session
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -6302,6 +6350,10 @@ Archive Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -7454,6 +7506,10 @@ Console.WriteLine(betaManagedAgentsSession);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeOpus5_5("claude-opus-5-5")`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
+
       - `ClaudeFable5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -7519,6 +7575,10 @@ Console.WriteLine(betaManagedAgentsSession);
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -8586,6 +8646,10 @@ Console.WriteLine(betaManagedAgentsSession);
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
+
         - `ClaudeFable5_1("claude-fable-5-1")`
 
           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -9461,6 +9525,10 @@ Console.WriteLine(betaManagedAgentsSession);
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeOpus5_5("claude-opus-5-5")`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -10514,6 +10582,10 @@ Console.WriteLine(betaManagedAgentsSession);
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `ClaudeFable5_1("claude-fable-5-1")`
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -11075,6 +11147,10 @@ Console.WriteLine(betaManagedAgentsSession);
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeOpus5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
         - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -12298,6 +12374,10 @@ List Events
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -12716,7 +12796,7 @@ List Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -12854,15 +12934,9 @@ List Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `Allow("allow")`
-
-      - `Ask("ask")`
-
-      - `Deny("deny")`
 
     - `BetaManagedAgentsAgentToolEvaluation Evaluation`
 
@@ -13831,6 +13905,10 @@ List Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -15049,6 +15127,10 @@ Send Events
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -15669,6 +15751,10 @@ Stream Events
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -16087,7 +16173,7 @@ Stream Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -16225,15 +16311,9 @@ Stream Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `Allow("allow")`
-
-      - `Ask("ask")`
-
-      - `Deny("deny")`
 
     - `BetaManagedAgentsAgentToolEvaluation Evaluation`
 
@@ -17202,6 +17282,10 @@ Stream Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -18113,6 +18197,10 @@ Add Session Resource
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -18292,6 +18380,10 @@ List Session Resources
     - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
     - `Compact2026_09_04("compact-2026-09-04")`
+
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
   - `string workspaceID`
 
@@ -18566,6 +18658,10 @@ Get Session Resource
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -18833,6 +18929,10 @@ Update Session Resource
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -19095,6 +19195,10 @@ Delete Session Resource
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -19258,6 +19362,10 @@ List Session Threads
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -19307,6 +19415,10 @@ List Session Threads
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -20163,6 +20275,10 @@ Get Session Thread
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -20212,6 +20328,10 @@ Get Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -21062,6 +21182,10 @@ Archive Session Thread
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -21111,6 +21235,10 @@ Archive Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -21973,6 +22101,10 @@ List Session Thread Events
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -22391,7 +22523,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -22529,15 +22661,9 @@ List Session Thread Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `Allow("allow")`
-
-      - `Ask("ask")`
-
-      - `Deny("deny")`
 
     - `BetaManagedAgentsAgentToolEvaluation Evaluation`
 
@@ -23506,6 +23632,10 @@ List Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 
@@ -24364,6 +24494,10 @@ Stream Session Thread Events
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -24782,7 +24916,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -24920,15 +25054,9 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `EvaluatedPermission EvaluatedPermission`
+    - `BetaManagedAgentsAgentEvaluatedPermission EvaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `Allow("allow")`
-
-      - `Ask("ask")`
-
-      - `Deny("deny")`
 
     - `BetaManagedAgentsAgentToolEvaluation Evaluation`
 
@@ -25897,6 +26025,10 @@ Stream Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeOpus5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `ClaudeFable5_1("claude-fable-5-1")`
 

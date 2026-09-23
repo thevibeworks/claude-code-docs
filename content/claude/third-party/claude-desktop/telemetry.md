@@ -22,6 +22,8 @@ Crash reports, error stack traces, and performance timings. Contains diagnostic 
 | --------------------------- | ------- | ----------------------------------------- |
 | `disableEssentialTelemetry` | `false` | No crash or error data leaves the device. |
 
+On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and restrictions on disk**](/docs/third-party/claude-desktop/admin-console#configuration-kept-on-devices) switch in the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) also stops the app's crash and performance reports, even while `disableEssentialTelemetry` is `false`.
+
 <Warning>
   Disabling essential telemetry opts you into a **manual support model**. Anthropic will have zero remote visibility into failures on your fleet, so to get help with an issue your team will need to collect application logs from affected machines and send them to Anthropic directly. Leave this enabled during initial rollout.
 </Warning>
@@ -110,6 +112,8 @@ To include content in the export, set `otlpContentCapture` to an array of catego
 On Claude Desktop version 1.17377 or later, enabling `userPrompts` also captures model responses, even if `assistantResponses` is not listed. On those versions, no `otlpContentCapture` configuration captures user prompts without model responses.
 
 Conversation titles arrive on the desktop application's own stream (`claude-desktop`) as a `desktop_session_title_set` event that carries each Cowork and Code session's title and the Claude Code `session.id` to join on. The event is exported only when [`otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `info` or `debug`, and the title text is included only when `otlpContentCapture` includes `userPrompts`. Requires Claude Desktop 1.44121.1 or later.
+
+With `rawApiBodies`, Claude Code truncates each request or response body at 60 KB by default and always redacts Claude's extended-thinking content. See [API request body event](https://code.claude.com/docs/en/monitoring-usage#api-request-body-event) in the Claude Code documentation.
 
 Content is exported only to your configured `otlpEndpoint`. Anthropic does not receive it.
 

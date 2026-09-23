@@ -129,6 +129,10 @@ Long poll for work items in the queue.
 
     - `Compact2026_09_04("compact-2026-09-04")`
 
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
   - `string anthropicWorkerID`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

@@ -1,28 +1,20 @@
 ---
 title: Claude Opus 5
 url: https://platform.claude.com/docs/en/models/opus-5/overview
-description: "Claude Opus 5 reference: lifecycle status, model IDs on every platform, context window, output limits, pricing, and migration resources. Claude Opus 5.5 is the current Opus model."
+description: "Claude Opus 5 reference: lifecycle status, model IDs on every platform, context window, output limits, pricing, and migration resources. Claude Opus 5 is a legacy model; Claude Opus 5.5 is the current Opus model."
 ---
 
 **Legacy.** Released July 24, 2026.
 
-For complex agentic coding and enterprise work
-
-Although Claude Opus 5 is still available, you should consider migrating to Claude Opus 5.5 for improved performance. [See Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview) · [Migrate to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide)
+Although Claude Opus 5 is still available, you should consider migrating to Claude Opus 5.5 for improved performance. [See Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview) · [Migrate to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-5)
 
 Model ID: `claude-opus-5`
 
 Context window: 1M tokens · Max output: 128K tokens · Input pricing: $5 / MTok · Output pricing: $25 / MTok
 
-[Announcement](https://www.anthropic.com/news/claude-opus-5) · [What’s new](https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5)
+[Announcement](https://www.anthropic.com/news/claude-opus-5)
 
-## Overview
-
-Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the largest gains in deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. This page summarizes everything new in Claude Opus 5, including mid-conversation tool changes and two breaking changes for code running on Claude Opus 4.8: thinking is on by default, and thinking can be disabled only at effort `high` or below.
-
-[What's new in Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5)
-
-## How it compares
+## How it compares to the current lineup
 
 | Model                                                                             | Context | Max output | Price / MTok | Thinking             | Default effort | Knowledge cutoff |
 | :-------------------------------------------------------------------------------- | :------ | :--------- | :----------- | :------------------- | :------------- | :--------------- |
@@ -53,15 +45,16 @@ Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the larges
 
 ### Pricing
 
-| Feature                                                                                | Value                                                               |
-| :------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
-| Input                                                                                  | $5 / MTok                                                           |
-| Output                                                                                 | $25 / MTok                                                          |
-| [5m cache write](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) | $6.25 / MTok                                                        |
-| [1h cache write](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) | $10 / MTok                                                          |
-| [Cache read](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)     | $0.50 / MTok                                                        |
-| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing)    | 50% discount on input and output                                    |
-| Full price list                                                                        | [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) |
+| Feature                                                                                | Value                            |
+| :------------------------------------------------------------------------------------- | :------------------------------- |
+| Input                                                                                  | $5 / MTok                        |
+| Output                                                                                 | $25 / MTok                       |
+| [5m cache write](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) | $6.25 / MTok                     |
+| [1h cache write](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) | $10 / MTok                       |
+| [Cache read](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)     | $0.50 / MTok                     |
+| [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing)    | 50% discount on input and output |
+
+[Full price list](https://platform.claude.com/docs/en/about-claude/pricing)
 
 ### Capabilities
 
@@ -104,18 +97,6 @@ Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the larges
 
   <Card title="Prompting Claude Opus 5" icon="lightbulb" href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5">
     Model-specific prompting guidance.
-  </Card>
-
-  <Card title="Effort" icon="sliders" href="https://platform.claude.com/docs/en/build-with-claude/effort">
-    Effort defaults to `high` on Claude Opus 5 and matters more than on earlier models. Choose a level per workload.
-  </Card>
-
-  <Card title="Adaptive thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">
-    On by default. Disabling thinking requires effort `high` or below.
-  </Card>
-
-  <Card title="Fast mode" icon="lightning" href="https://platform.claude.com/docs/en/build-with-claude/fast-mode">
-    Lower-latency Claude Opus 5 on the Claude API (research preview), priced separately.
   </Card>
 </CardGroup>
 

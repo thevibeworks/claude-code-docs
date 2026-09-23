@@ -165,6 +165,10 @@ List Events
 
       - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
 
+      - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+
+      - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -583,15 +587,15 @@ List Events
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "allow"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "ask"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "deny"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -721,15 +725,9 @@ List Events
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "allow"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "ask"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -1704,6 +1702,10 @@ List Events
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `const BetaManagedAgentsModelClaudeFable5_1 BetaManagedAgentsModel = "claude-fable-5-1"`
 
@@ -2940,6 +2942,10 @@ Send Events
 
       - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
 
+      - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+
+      - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3575,6 +3581,10 @@ Stream Events
 
       - `const AnthropicBetaCompact2026_09_04 AnthropicBeta = "compact-2026-09-04"`
 
+      - `const AnthropicBetaInlineTools2026_09_15 AnthropicBeta = "inline-tools-2026-09-15"`
+
+      - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
+
   - `WorkspaceID param.Field[string] Optional`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3993,15 +4003,15 @@ Stream Events
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "allow"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "ask"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "deny"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -4131,15 +4141,9 @@ Stream Events
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "allow"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "ask"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -5115,6 +5119,10 @@ Stream Events
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
+
             - `const BetaManagedAgentsModelClaudeFable5_1 BetaManagedAgentsModel = "claude-fable-5-1"`
 
               Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -6017,6 +6025,18 @@ func main() {
 
     When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
+### Beta Managed Agents Agent Evaluated Permission
+
+- `type BetaManagedAgentsAgentEvaluatedPermission string`
+
+  AgentEvaluatedPermission enum
+
+  - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
+
+  - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
+
+  - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
+
 ### Beta Managed Agents Agent MCP Tool Result Event
 
 - `type BetaManagedAgentsAgentMCPToolResultEvent`
@@ -6255,15 +6275,15 @@ func main() {
 
     format: date-time
 
-  - `EvaluatedPermission BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission Optional`
+  - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
     AgentEvaluatedPermission enum
 
-    - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "allow"`
+    - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
 
-    - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "ask"`
+    - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
 
-    - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "deny"`
+    - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
 
   - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -7103,15 +7123,15 @@ func main() {
 
     format: date-time
 
-  - `EvaluatedPermission BetaManagedAgentsAgentToolUseEventEvaluatedPermission Optional`
+  - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
     AgentEvaluatedPermission enum
 
-    - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "allow"`
+    - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
 
-    - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "ask"`
+    - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
 
-    - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "deny"`
+    - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
 
   - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -9271,15 +9291,15 @@ func main() {
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "allow"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "ask"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "deny"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -9409,15 +9429,9 @@ func main() {
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "allow"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "ask"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -10392,6 +10406,10 @@ func main() {
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `const BetaManagedAgentsModelClaudeFable5_1 BetaManagedAgentsModel = "claude-fable-5-1"`
 
@@ -12109,15 +12127,15 @@ func main() {
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "allow"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAllow BetaManagedAgentsAgentEvaluatedPermission = "allow"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "ask"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionAsk BetaManagedAgentsAgentEvaluatedPermission = "ask"`
 
-      - `const BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentMCPToolUseEventEvaluatedPermission = "deny"`
+      - `const BetaManagedAgentsAgentEvaluatedPermissionDeny BetaManagedAgentsAgentEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -12247,15 +12265,9 @@ func main() {
 
       format: date-time
 
-    - `EvaluatedPermission BetaManagedAgentsAgentToolUseEventEvaluatedPermission Optional`
+    - `EvaluatedPermission BetaManagedAgentsAgentEvaluatedPermission Optional`
 
       AgentEvaluatedPermission enum
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAllow BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "allow"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionAsk BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "ask"`
-
-      - `const BetaManagedAgentsAgentToolUseEventEvaluatedPermissionDeny BetaManagedAgentsAgentToolUseEventEvaluatedPermission = "deny"`
 
     - `Evaluation BetaManagedAgentsAgentToolEvaluationUnion Optional`
 
@@ -13230,6 +13242,10 @@ func main() {
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `const BetaManagedAgentsModelClaudeFable5_1 BetaManagedAgentsModel = "claude-fable-5-1"`
 

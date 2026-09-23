@@ -69,7 +69,7 @@ List Events
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 43 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 45 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -162,6 +162,10 @@ List Events
       - `"mid-conversation-system-clear-at-2026-08-21"`
 
       - `"compact-2026-09-04"`
+
+      - `"inline-tools-2026-09-15"`
+
+      - `"mcp-client-2026-09-15"`
 
   - `workspace_id?: string`
 
@@ -581,7 +585,7 @@ List Events
 
       format: date-time
 
-    - `evaluated_permission?: "allow" | "ask" | "deny"`
+    - `evaluated_permission?: BetaManagedAgentsAgentEvaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -719,15 +723,9 @@ List Events
 
       format: date-time
 
-    - `evaluated_permission?: "allow" | "ask" | "deny"`
+    - `evaluated_permission?: BetaManagedAgentsAgentEvaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `"allow"`
-
-      - `"ask"`
-
-      - `"deny"`
 
     - `evaluation?: BetaManagedAgentsAgentToolEvaluation`
 
@@ -1697,7 +1695,11 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `"claude-fable-5-1" | "claude-sonnet-5" | "claude-fable-5" | 11 more`
+          - `"claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
 
             - `"claude-fable-5-1"`
 

@@ -91,33 +91,27 @@ model = "claude-mythos-5-1"  # After
      EOF
      ```
 
-     <MultiFileExample language="cli" label="CLI">
-       ```bash CLI
-       ant messages create < request.yaml
-       ```
-
-       <File filename="request.yaml">
-         ```yaml
-         model: claude-fable-5
-         max_tokens: 16000
-         tools:
-           - name: record_summary
-             description: Record the structured summary of the document.
-             input_schema:
-               type: object
-               properties:
-                 summary:
-                   type: string
-               required: [summary]
-         tool_choice:
-           type: tool
-           name: record_summary
-         messages:
-           - role: user
-             content: "Summarize: The meeting moved to Thursday."
-         ```
-       </File>
-     </MultiFileExample>
+     ```bash CLI
+     ant messages create <<'YAML'
+     model: claude-fable-5
+     max_tokens: 16000
+     tools:
+       - name: record_summary
+         description: Record the structured summary of the document.
+         input_schema:
+           type: object
+           properties:
+             summary:
+               type: string
+           required: [summary]
+     tool_choice:
+       type: tool
+       name: record_summary
+     messages:
+       - role: user
+         content: "Summarize: The meeting moved to Thursday."
+     YAML
+     ```
 
      ```python Python
      client = anthropic.Anthropic()
@@ -341,34 +335,28 @@ model = "claude-mythos-5-1"  # After
      EOF
      ```
 
-     <MultiFileExample language="cli" label="CLI">
-       ```bash CLI
-       ant messages create < request.yaml
-       ```
-
-       <File filename="request.yaml">
-         ```yaml
-         model: claude-fable-5-1
-         max_tokens: 16000
-         tools:
-           - name: record_summary
-             description: Record the structured summary of the document.
-             strict: true
-             input_schema:
-               type: object
-               properties:
-                 summary:
-                   type: string
-               required: [summary]
-               additionalProperties: false
-         tool_choice:
-           type: auto
-         messages:
-           - role: user
-             content: "Summarize: The meeting moved to Thursday. Call the record_summary tool with your result."
-         ```
-       </File>
-     </MultiFileExample>
+     ```bash CLI
+     ant messages create <<'YAML'
+     model: claude-fable-5-1
+     max_tokens: 16000
+     tools:
+       - name: record_summary
+         description: Record the structured summary of the document.
+         strict: true
+         input_schema:
+           type: object
+           properties:
+             summary:
+               type: string
+           required: [summary]
+           additionalProperties: false
+     tool_choice:
+       type: auto
+     messages:
+       - role: user
+         content: "Summarize: The meeting moved to Thursday. Call the record_summary tool with your result."
+     YAML
+     ```
 
      ```python Python
      client = anthropic.Anthropic()
@@ -625,43 +613,37 @@ model = "claude-mythos-5-1"  # After
      EOF
      ```
 
-     <MultiFileExample language="cli" label="CLI">
-       ```bash CLI
-       ant messages create < request.yaml
-       ```
-
-       <File filename="request.yaml">
-         ```yaml
-         model: claude-fable-5-1
-         max_tokens: 16000
-         system: You are a customer support assistant for an online electronics store.
-         tools:
-           - name: search_help_center
-             description: Search the help center for policy and troubleshooting articles.
-             strict: true
-             input_schema:
-               type: object
-               properties:
-                 query:
-                   type: string
-               required: [query]
-               additionalProperties: false
-         messages:
-           - role: user
-             content: My headphones from order A1234 arrived yesterday.
-           - role: assistant
-             content: Thanks for confirming. How can I help with order A1234?
-           - role: user
-             content: I opened the box. Can I still return them?
-           - role: system
-             content: >-
-               Tool-use requirement for the current turn: the application requires a call
-               to the search_help_center tool in your response to the user's latest message.
-               Begin your response with the search_help_center tool call. Do not reply with
-               text only.
-         ```
-       </File>
-     </MultiFileExample>
+     ```bash CLI
+     ant messages create <<'YAML'
+     model: claude-fable-5-1
+     max_tokens: 16000
+     system: You are a customer support assistant for an online electronics store.
+     tools:
+       - name: search_help_center
+         description: Search the help center for policy and troubleshooting articles.
+         strict: true
+         input_schema:
+           type: object
+           properties:
+             query:
+               type: string
+           required: [query]
+           additionalProperties: false
+     messages:
+       - role: user
+         content: My headphones from order A1234 arrived yesterday.
+       - role: assistant
+         content: Thanks for confirming. How can I help with order A1234?
+       - role: user
+         content: I opened the box. Can I still return them?
+       - role: system
+         content: >-
+           Tool-use requirement for the current turn: the application requires a call
+           to the search_help_center tool in your response to the user's latest message.
+           Begin your response with the search_help_center tool call. Do not reply with
+           text only.
+     YAML
+     ```
 
      ```python Python
      client = anthropic.Anthropic()
@@ -983,28 +965,22 @@ model = "claude-mythos-5-1"  # After
        }'
      ```
 
-     <MultiFileExample language="cli" label="CLI">
-       ```bash CLI
-       ant beta:messages create \
-         --beta thinking-binding-controls-2026-08-01 \
-         --transform '{content.#(type=="text")#.text,input_transformations}' \
-         --format yaml < request.yaml
-       ```
-
-       <File filename="request.yaml">
-         ```yaml
-         model: claude-fable-5-1
-         max_tokens: 16000
-         thinking:
-           type: adaptive
-           block_binding:
-             prefix_mismatch_behavior: drop_block
-         messages:
-           - role: user
-             content: What is the greatest common divisor of 1071 and 462?
-         ```
-       </File>
-     </MultiFileExample>
+     ```bash CLI
+     ant beta:messages create \
+       --beta thinking-binding-controls-2026-08-01 \
+       --transform '{content.#(type=="text")#.text,input_transformations}' \
+       --format yaml <<'YAML'
+     model: claude-fable-5-1
+     max_tokens: 16000
+     thinking:
+       type: adaptive
+       block_binding:
+         prefix_mismatch_behavior: drop_block
+     messages:
+       - role: user
+         content: What is the greatest common divisor of 1071 and 462?
+     YAML
+     ```
 
      ```python Python
      client = anthropic.Anthropic()
@@ -1279,35 +1255,29 @@ These changes aren't required, but each one lowers cost or latency or removes a 
        }'
      ```
 
-     <MultiFileExample language="cli" label="CLI">
-       ```bash CLI
-       ant beta:messages create \
-         --beta mid-conversation-output-config-2026-07-01 \
-         --transform 'content.#(type=="text").text' \
-         --raw-output < request.yaml
-       ```
-
-       <File filename="request.yaml">
-         ```yaml
-         model: claude-fable-5-1
-         max_tokens: 4096
+     ```bash CLI
+     ant beta:messages create \
+       --beta mid-conversation-output-config-2026-07-01 \
+       --transform 'content.#(type=="text").text' \
+       --raw-output <<'YAML'
+     model: claude-fable-5-1
+     max_tokens: 4096
+     output_config:
+       effort: high
+     messages:
+       - role: user
+         content: Plan a migration from SQLite to PostgreSQL in three short steps.
+       - role: assistant
+         content: "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."
+       # Effort-only system message: the new level takes effect from the next user turn.
+       - role: system
+         content: []
          output_config:
-           effort: high
-         messages:
-           - role: user
-             content: Plan a migration from SQLite to PostgreSQL in three short steps.
-           - role: assistant
-             content: "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."
-           # Effort-only system message: the new level takes effect from the next user turn.
-           - role: system
-             content: []
-             output_config:
-               effort: low
-           - role: user
-             content: Summarize the plan in one sentence.
-         ```
-       </File>
-     </MultiFileExample>
+           effort: low
+       - role: user
+         content: Summarize the plan in one sentence.
+     YAML
+     ```
 
      ```python Python
      client = anthropic.Anthropic()
@@ -1605,7 +1575,7 @@ model = "claude-mythos-5-1"  # After
 
 ## Migrating to Claude Fable 5.1 from Claude Opus 4.8 or earlier
 
-First apply [Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/fable-5/migration-guide#migrating-from-claude-opus-48) for the API-level changes from Claude Opus 4.8. It covers adaptive thinking, thinking output, refusals, effort, the caching minimum, pricing, and data retention. Then apply the remaining delta in [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1). On Claude Opus 4.7 or earlier, start with the matching [Migrating to Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/migration-guide) section.
+First apply [Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/fable-5/migration-guide#migrating-from-claude-opus-48) for the API-level changes from Claude Opus 4.8. It covers adaptive thinking, thinking output, refusals, effort, the caching minimum, pricing, and data retention. Then apply the remaining delta in [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1). On Claude Opus 4.7 or earlier, start with the matching [Migrating to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) section.
 
 ### Update your model name
 

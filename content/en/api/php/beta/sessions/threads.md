@@ -827,7 +827,7 @@ var_dump($betaManagedAgentsSessionThread);
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -883,7 +883,7 @@ var_dump($betaManagedAgentsSessionThread);
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -1607,7 +1607,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -1663,7 +1663,7 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -2407,7 +2407,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -2463,7 +2463,7 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `?EvaluatedPermission evaluatedPermission`
+    - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
       AgentEvaluatedPermission enum
 

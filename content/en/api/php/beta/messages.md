@@ -2735,6 +2735,10 @@ var_dump($betaMessageTokensCount);
 
     Signature over the summary, to be sent back with the block verbatim
 
+  - `?list<ToolChange> toolChanges`
+
+    The tool changes of the compacted range: the `tool_addition` and `tool_removal` blocks that take the request's `tools` to the tool set in effect at the end of the range, or `[]` when the range changed no tool. Absent when the server did not compute them. Send the block back unchanged.
+
 ### Beta Compaction Block Param
 
 - `class BetaCompactionBlockParam`
@@ -2756,6 +2760,10 @@ var_dump($betaMessageTokensCount);
   - `?string signature`
 
     The block's signature as returned, to be sent back verbatim
+
+  - `?list<ToolChange> toolChanges`
+
+    The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block.
 
 ### Beta Compaction Config
 
@@ -3346,6 +3354,10 @@ var_dump($betaMessageTokensCount);
 
       Signature over the summary, to be sent back with the block verbatim
 
+    - `?list<ToolChange> toolChanges`
+
+      The tool changes of the compacted range: the `tool_addition` and `tool_removal` blocks that take the request's `tools` to the tool set in effect at the end of the range, or `[]` when the range changed no tool. Absent when the server did not compute them. Send the block back unchanged.
+
   - `class BetaFallbackBlock`
 
     - `"fallback" type`
@@ -3361,6 +3373,14 @@ var_dump($betaMessageTokensCount);
     - `BetaFallbackRefusalTrigger trigger`
 
       What caused the `from` model to hand over at this hop.
+
+  - `class BetaMCPToolListingBlock`
+
+    - `"mcp_tool_listing" type`
+
+    - `string mcpServerName`
+
+    - `list<BetaMCPTool> tools`
 
 ### Beta Content Block Param
 
@@ -3650,6 +3670,10 @@ var_dump($betaMessageTokensCount);
 
       The block's signature as returned, to be sent back verbatim
 
+    - `?list<ToolChange> toolChanges`
+
+      The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block.
+
   - `class BetaRequestToolAdditionBlock`
 
     - `"tool_addition" type`
@@ -3669,6 +3693,18 @@ var_dump($betaMessageTokensCount);
     - `?BetaCacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
+
+  - `class BetaMCPToolListingBlockParam`
+
+    - `"mcp_tool_listing" type`
+
+    - `string mcpServerName`
+
+      The name of the MCP server this listing came from, as `mcp_servers` declares it.
+
+    - `list<BetaMCPToolParam> tools`
+
+      The server's tools, exactly as the response listed them.
 
   - `class BetaFallbackBlockParam`
 
@@ -4269,6 +4305,16 @@ var_dump($betaMessageTokensCount);
 
     The JSON schema of the format
 
+### Beta MCP Tool
+
+- `class BetaMCPTool`
+
+  - `array<string,mixed> inputSchema`
+
+  - `string name`
+
+  - `?string description`
+
 ### Beta MCP Tool Config
 
 - `class BetaMCPToolConfig`
@@ -4284,6 +4330,46 @@ var_dump($betaMessageTokensCount);
   - `?bool deferLoading`
 
   - `?bool enabled`
+
+### Beta MCP Tool Listing Block
+
+- `class BetaMCPToolListingBlock`
+
+  - `"mcp_tool_listing" type`
+
+  - `string mcpServerName`
+
+  - `list<BetaMCPTool> tools`
+
+### Beta MCP Tool Listing Block Param
+
+- `class BetaMCPToolListingBlockParam`
+
+  - `"mcp_tool_listing" type`
+
+  - `string mcpServerName`
+
+    The name of the MCP server this listing came from, as `mcp_servers` declares it.
+
+  - `list<BetaMCPToolParam> tools`
+
+    The server's tools, exactly as the response listed them.
+
+### Beta MCP Tool Param
+
+- `class BetaMCPToolParam`
+
+  - `array<string,mixed> inputSchema`
+
+    The tool's input schema as the MCP server lists it, verbatim.
+
+  - `string name`
+
+    The tool's name as the MCP server lists it (not prefixed with the server name).
+
+  - `?string description`
+
+    The tool's description as the MCP server lists it.
 
 ### Beta MCP Tool Result Block
 
@@ -4356,6 +4442,10 @@ var_dump($betaMessageTokensCount);
   - `?BetaMCPToolDefaultConfig defaultConfig`
 
     Default configuration applied to all tools from this server
+
+  - `?list<BetaMCPToolParam> tools`
+
+    The server's tool listing, pinned: when present, the server is not asked for its tools before sampling and exactly these entries, with `default_config` and `configs` applied, are the toolset's tools. Copy it from the `mcp_tool_listing` block of an earlier response.
 
 ### Beta Memory Tool 20250818
 
@@ -5270,6 +5360,1040 @@ var_dump($betaMessageTokensCount);
 
     Create a cache control breakpoint at this content block.
 
+### Beta Response Tool
+
+- `class BetaResponseTool`
+
+  - `?Type type`
+
+  - `BetaResponseToolInputSchema inputSchema`
+
+    [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
+
+    This defines the shape of the `input` that your tool accepts and that the model will produce.
+
+  - `string name`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+  - `?list<AllowedCaller> allowedCallers`
+
+  - `?bool deferLoading`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `?string description`
+
+    Description of what this tool does.
+
+    Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
+
+  - `?bool eagerInputStreaming`
+
+    Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
+
+  - `?list<array<string,mixed>> inputExamples`
+
+  - `?bool strict`
+
+    When true, guarantees schema validation on tool names and inputs
+
+### Beta Response Tool Addition Block
+
+- `class BetaResponseToolAdditionBlock`
+
+  - `"tool_addition" type`
+
+  - `Tool tool`
+
+    The tool made available: a reference to a `tools` entry or MCP toolset, or a `tool_definition` carrying the definition by value.
+
+### Beta Response Tool Change MCP Tool Reference
+
+- `class BetaResponseToolChangeMCPToolReference`
+
+  - `"mcp_tool_reference" type`
+
+  - `string name`
+
+  - `string serverName`
+
+### Beta Response Tool Change MCP Toolset Reference
+
+- `class BetaResponseToolChangeMCPToolsetReference`
+
+  - `"mcp_toolset_reference" type`
+
+  - `string serverName`
+
+### Beta Response Tool Change Tool Reference
+
+- `class BetaResponseToolChangeToolReference`
+
+  - `"tool_reference" type`
+
+  - `string name`
+
+### Beta Response Tool Input Schema
+
+- `class BetaResponseToolInputSchema`
+
+  - `"object" type`
+
+  - `?array<string,mixed> properties`
+
+  - `?list<string> required`
+
+### Beta Response Tool Removal Block
+
+- `class BetaResponseToolRemovalBlock`
+
+  - `"tool_removal" type`
+
+  - `Tool tool`
+
+    A reference to the withdrawn `tools` entry, MCP tool or MCP toolset.
+
+### Beta Response Tool Union
+
+- `class BetaResponseToolUnion`
+
+  - `class BetaResponseTool`
+
+    - `?Type type`
+
+    - `BetaResponseToolInputSchema inputSchema`
+
+      [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
+
+      This defines the shape of the `input` that your tool accepts and that the model will produce.
+
+    - `string name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?string description`
+
+      Description of what this tool does.
+
+      Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
+
+    - `?bool eagerInputStreaming`
+
+      Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolBash20241022`
+
+    - `"bash_20241022" type`
+
+    - `"bash" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolBash20250124`
+
+    - `"bash_20250124" type`
+
+    - `"bash" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20250522`
+
+    - `"code_execution_20250522" type`
+
+    - `"code_execution" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20250825`
+
+    - `"code_execution_20250825" type`
+
+    - `"code_execution" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20260120`
+
+    - `"code_execution_20260120" type`
+
+    - `"code_execution" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20260521`
+
+    - `"code_execution_20260521" type`
+
+    - `"code_execution" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaBrowserToolset20260801`
+
+    - `"browser_toolset_20260801" type`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaBrowserToolsetConfigs configs`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+  - `class BetaToolComputerUse20241022`
+
+    - `"computer_20241022" type`
+
+    - `int displayHeightPx`
+
+      The height of the display in pixels.
+
+    - `int displayWidthPx`
+
+      The width of the display in pixels.
+
+    - `"computer" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int displayNumber`
+
+      The X11 display number (e.g. 0, 1) for the display.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaMemoryTool20250818`
+
+    - `"memory_20250818" type`
+
+    - `"memory" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolComputerUse20250124`
+
+    - `"computer_20250124" type`
+
+    - `int displayHeightPx`
+
+      The height of the display in pixels.
+
+    - `int displayWidthPx`
+
+      The width of the display in pixels.
+
+    - `"computer" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int displayNumber`
+
+      The X11 display number (e.g. 0, 1) for the display.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolTextEditor20241022`
+
+    - `"text_editor_20241022" type`
+
+    - `"str_replace_editor" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolComputerUse20251124`
+
+    - `"computer_20251124" type`
+
+    - `int displayHeightPx`
+
+      The height of the display in pixels.
+
+    - `int displayWidthPx`
+
+      The width of the display in pixels.
+
+    - `"computer" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int displayNumber`
+
+      The X11 display number (e.g. 0, 1) for the display.
+
+    - `?bool enableZoom`
+
+      Whether to enable an action to take a zoomed-in screenshot of the screen.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaComputerToolset20260801`
+
+    - `"computer_toolset_20260801" type`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaComputerToolsetConfigs configs`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+  - `class BetaToolTextEditor20250124`
+
+    - `"text_editor_20250124" type`
+
+    - `"str_replace_editor" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolTextEditor20250429`
+
+    - `"text_editor_20250429" type`
+
+    - `"str_replace_based_edit_tool" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolTextEditor20250728`
+
+    - `"text_editor_20250728" type`
+
+    - `"str_replace_based_edit_tool" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?list<array<string,mixed>> inputExamples`
+
+    - `?int maxCharacters`
+
+      Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaWebSearchTool20250305`
+
+    - `"web_search_20250305" type`
+
+    - `"web_search" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `?list<string> blockedDomains`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaUserLocation userLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class BetaWebFetchTool20250910`
+
+    - `"web_fetch_20250910" type`
+
+    - `"web_fetch" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      List of domains to allow fetching from
+
+    - `?list<string> blockedDomains`
+
+      List of domains to block fetching from
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaCitationsConfigParam citations`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxContentTokens`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaWebFetchURLSources urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+  - `class BetaWebSearchTool20260209`
+
+    - `"web_search_20260209" type`
+
+    - `"web_search" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `?list<string> blockedDomains`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaUserLocation userLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class BetaWebFetchTool20260209`
+
+    - `"web_fetch_20260209" type`
+
+    - `"web_fetch" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      List of domains to allow fetching from
+
+    - `?list<string> blockedDomains`
+
+      List of domains to block fetching from
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaCitationsConfigParam citations`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxContentTokens`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaWebFetchURLSources urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+  - `class BetaWebFetchTool20260309`
+
+    - `"web_fetch_20260309" type`
+
+    - `"web_fetch" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      List of domains to allow fetching from
+
+    - `?list<string> blockedDomains`
+
+      List of domains to block fetching from
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaCitationsConfigParam citations`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxContentTokens`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaWebFetchURLSources urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+    - `?bool useCache`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+  - `class BetaWebSearchTool20260318`
+
+    - `"web_search_20260318" type`
+
+    - `"web_search" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `?list<string> blockedDomains`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?ResponseInclusion responseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaUserLocation userLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class BetaWebFetchTool20260318`
+
+    - `"web_fetch_20260318" type`
+
+    - `"web_fetch" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?list<string> allowedDomains`
+
+      List of domains to allow fetching from
+
+    - `?list<string> blockedDomains`
+
+      List of domains to block fetching from
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaCitationsConfigParam citations`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxContentTokens`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?ResponseInclusion responseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `?BetaWebFetchURLSources urlSources`
+
+      Which sources contribute to the set of URLs web fetch may fetch.
+
+      Each key is a tagged variant: `user_input` is `all` or `none`; the
+      two tool filters are `all`, `none`, `only` (only the named tools'
+      results) or `except` (every result but the named tools'). A named tool
+      must be declared in this request's `tools[]`.
+
+    - `?bool useCache`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+  - `class BetaAdvisorTool20260301`
+
+    - `"advisor_20260301" type`
+
+    - `Model model`
+
+      The model that will complete your prompt.
+
+      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"advisor" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaCacheControlEphemeral caching`
+
+      Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?int maxTokens`
+
+      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
+
+    - `?int maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolSearchToolBm25_20251119`
+
+    - `Type type`
+
+    - `"tool_search_tool_bm25" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaToolSearchToolRegex20251119`
+
+    - `Type type`
+
+    - `"tool_search_tool_regex" name`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?bool deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `?bool strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaMCPToolset`
+
+    - `"mcp_toolset" type`
+
+    - `string mcpServerName`
+
+      Name of the MCP server to configure tools for
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?array<string,BetaMCPToolConfig> configs`
+
+      Configuration overrides for specific tools, keyed by tool name
+
+    - `?BetaMCPToolDefaultConfig defaultConfig`
+
+      Default configuration applied to all tools from this server
+
+    - `?list<BetaMCPToolParam> tools`
+
+      The server's tool listing, pinned: when present, the server is not asked for its tools before sampling and exactly these entries, with `default_config` and `configs` applied, are the toolset's tools. Copy it from the `mcp_tool_listing` block of an earlier response.
+
 ### Beta Search Result Block Param
 
 - `class BetaSearchResultBlockParam`
@@ -6129,6 +7253,22 @@ var_dump($betaMessageTokensCount);
   - `"mcp_toolset_reference" type`
 
   - `string serverName`
+
+### Beta Tool Change Tool Definition
+
+- `class BetaToolChangeToolDefinition`
+
+  - `"tool_definition" type`
+
+  - `BetaResponseToolUnion definition`
+
+### Beta Tool Change Tool Definition Param
+
+- `class BetaToolChangeToolDefinitionParam`
+
+  - `"tool_definition" type`
+
+  - `BetaToolUnion definition`
 
 ### Beta Tool Change Tool Reference
 
@@ -7555,6 +8695,10 @@ var_dump($betaMessageTokensCount);
     - `?BetaMCPToolDefaultConfig defaultConfig`
 
       Default configuration applied to all tools from this server
+
+    - `?list<BetaMCPToolParam> tools`
+
+      The server's tool listing, pinned: when present, the server is not asked for its tools before sampling and exactly these entries, with `default_config` and `configs` applied, are the toolset's tools. Copy it from the `mcp_tool_listing` block of an earlier response.
 
 ### Beta Tool Use Block
 

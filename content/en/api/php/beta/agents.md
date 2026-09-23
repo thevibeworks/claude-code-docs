@@ -1845,6 +1845,10 @@ var_dump($betaManagedAgentsAgent);
 
 - `enum BetaManagedAgentsModel`
 
+  - `"claude-opus-5-5"`
+
+    Powerful intelligence for coding, knowledge work, and long-running agents
+
   - `"claude-fable-5-1"`
 
     Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
