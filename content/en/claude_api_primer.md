@@ -243,6 +243,7 @@ Temperature must be set to 1 (or left unset) whenever thinking is enabled, on al
 
 Thinking is supported in the following models:
 
+* Claude Opus 5.5 (`claude-opus-5-5`, adaptive thinking only, always on)
 * Claude Opus 5 (claude-opus-5, adaptive thinking only, on by default)
 * Claude Sonnet 5 (`claude-sonnet-5`, adaptive thinking only, on by default)
 * Claude Opus 4.8 (claude-opus-4-8, adaptive thinking only)

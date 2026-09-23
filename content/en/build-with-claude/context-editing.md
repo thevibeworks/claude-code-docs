@@ -1829,7 +1829,10 @@ The [token counting](https://platform.claude.com/docs/en/build-with-claude/token
   ```
 
   ```bash CLI
-  cat > request.yaml <<'YAML'
+  ORIGINAL=$(ant beta:messages count-tokens \
+    --beta context-management-2025-06-27 \
+    --transform context_management.original_input_tokens \
+    --raw-output <<'YAML'
   model: claude-opus-5-5
   messages:
     - role: user
@@ -1844,15 +1847,26 @@ The [token counting](https://platform.claude.com/docs/en/build-with-claude/token
           type: tool_uses
           value: 5
   YAML
-
-  ORIGINAL=$(ant beta:messages count-tokens \
-    --beta context-management-2025-06-27 \
-    --transform context_management.original_input_tokens \
-    --raw-output < request.yaml)
+  )
 
   INPUT_TOKENS=$(ant beta:messages count-tokens \
     --beta context-management-2025-06-27 \
-    --transform input_tokens --raw-output < request.yaml)
+    --transform input_tokens --raw-output <<'YAML'
+  model: claude-opus-5-5
+  messages:
+    - role: user
+      content: Continue our conversation...
+  context_management:
+    edits:
+      - type: clear_tool_uses_20250919
+        trigger:
+          type: input_tokens
+          value: 30000
+        keep:
+          type: tool_uses
+          value: 5
+  YAML
+  )
 
   printf 'Original tokens: %s\n' "$ORIGINAL"
   printf 'After clearing: %s\n' "$INPUT_TOKENS"

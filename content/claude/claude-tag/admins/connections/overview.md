@@ -30,6 +30,7 @@ Each guide covers one service: how to create the credential as a dedicated ident
 | GitLab                          | Code               | [Connect GitLab](/docs/claude-tag/admins/connections/gitlab)                 |
 | BigQuery (custom)               | Data warehouse     | [Connect BigQuery](/docs/claude-tag/admins/connections/bigquery)             |
 | Snowflake                       | Data warehouse     | [Connect Snowflake](/docs/claude-tag/admins/connections/snowflake)           |
+| Amplitude                       | Product analytics  | [Connect Amplitude](/docs/claude-tag/admins/connections/amplitude)           |
 | Stripe                          | Billing            | [Connect Stripe](/docs/claude-tag/admins/connections/stripe)                 |
 | Vercel                          | Deployments        | [Connect Vercel](/docs/claude-tag/admins/connections/vercel)                 |
 

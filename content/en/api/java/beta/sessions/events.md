@@ -159,6 +159,10 @@ List Events
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -577,7 +581,7 @@ List Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -715,15 +719,9 @@ List Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -1693,6 +1691,10 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -2551,6 +2553,10 @@ Send Events
     - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
+
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
   - `Optional<String> workspaceId`
 
@@ -3535,6 +3541,10 @@ Stream Events
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3953,7 +3963,7 @@ Stream Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -4091,15 +4101,9 @@ Stream Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -5069,6 +5073,10 @@ Stream Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -5959,6 +5967,18 @@ public final class Main {
 
     When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Informational only: the server routes the matching `user.custom_tool_result` by `custom_tool_use_id`, so clients do not send it back.
 
+### Beta Managed Agents Agent Evaluated Permission
+
+- `enum BetaManagedAgentsAgentEvaluatedPermission`
+
+  AgentEvaluatedPermission enum
+
+  - `ALLOW("allow")`
+
+  - `ASK("ask")`
+
+  - `DENY("deny")`
+
 ### Beta Managed Agents Agent MCP Tool Result Event
 
 - `class BetaManagedAgentsAgentMcpToolResultEvent`
@@ -6197,7 +6217,7 @@ public final class Main {
 
     format: date-time
 
-  - `Optional<EvaluatedPermission> evaluatedPermission`
+  - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
     AgentEvaluatedPermission enum
 
@@ -7045,7 +7065,7 @@ public final class Main {
 
     format: date-time
 
-  - `Optional<EvaluatedPermission> evaluatedPermission`
+  - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
     AgentEvaluatedPermission enum
 
@@ -9213,7 +9233,7 @@ public final class Main {
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -9351,15 +9371,9 @@ public final class Main {
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -10328,6 +10342,10 @@ public final class Main {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -12043,7 +12061,7 @@ public final class Main {
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -12181,15 +12199,9 @@ public final class Main {
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -13158,6 +13170,10 @@ public final class Main {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 

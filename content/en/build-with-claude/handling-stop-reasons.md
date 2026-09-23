@@ -897,14 +897,45 @@ Claude stopped because it reached the `max_tokens` limit specified in your reque
 
   <CodeGroup exclude="shell:cURL">
     ```bash CLI
-    RESPONSE=$(ant messages create --max-tokens 1024 --format jsonl < request.yaml)
+    RESPONSE=$(ant messages create --max-tokens 1024 --format jsonl <<'YAML'
+    model: claude-opus-5-5
+    tools:
+      - name: get_weather
+        description: Get the current weather in a given location
+        input_schema:
+          type: object
+          properties:
+            location:
+              type: string
+          required:
+            - location
+    messages:
+      - role: user
+        content: What is the weather in San Francisco?
+    YAML
+    )
 
     # Check if the response was truncated mid tool use
     STOP_REASON=$(jq -r '.stop_reason' <<<"$RESPONSE")
     LAST_TYPE=$(jq -r '.content[-1].type' <<<"$RESPONSE")
     if [ "$STOP_REASON" = "max_tokens" ] && [ "$LAST_TYPE" = "tool_use" ]; then
       # Retry with a higher max_tokens
-      ant messages create --max-tokens 4096 < request.yaml
+      ant messages create --max-tokens 4096 <<'YAML'
+    model: claude-opus-5-5
+    tools:
+      - name: get_weather
+        description: Get the current weather in a given location
+        input_schema:
+          type: object
+          properties:
+            location:
+              type: string
+          required:
+            - location
+    messages:
+      - role: user
+        content: What is the weather in San Francisco?
+    YAML
     fi
     ```
 

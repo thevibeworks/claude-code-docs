@@ -1070,7 +1070,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
   }
 
   # Keep the full conversation history in a JSON array so each turn sees prior context.
-  MESSAGES='[{"role": "user", "content": "Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."}]'
+  MESSAGES='[{"role": "user", "content": "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."}]'
 
   call_api() {
     curl -s https://api.anthropic.com/v1/messages \
@@ -1127,7 +1127,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
 
   # Keep the full conversation history in a JSON array so each turn sees
   # prior context.
-  MESSAGES='[{"role": "user", "content": "Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."}]'
+  MESSAGES='[{"role": "user", "content": "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."}]'
 
   call_api() {
     # ant reads the request body as YAML on stdin: no auth headers, no
@@ -1238,7 +1238,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
   messages = [
       {
           "role": "user",
-          "content": "Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
+          "content": "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
       }
   ]
 
@@ -1329,7 +1329,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
     {
       role: "user",
       content:
-        "Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
+        "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
     },
   ];
 
@@ -1442,7 +1442,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
       new()
       {
           Role = Role.User,
-          Content = "Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
+          Content = "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
       },
   ];
 
@@ -1562,7 +1562,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
   	// Keep the full conversation history in a slice so each turn sees prior context.
   	messages := []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock(
-  			"Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
+  			"Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
   		)),
   	}
 
@@ -1689,7 +1689,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
       List<MessageParam> messages = new ArrayList<>();
       messages.add(MessageParam.builder()
           .role(MessageParam.Role.USER)
-          .content("Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.")
+          .content("Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.")
           .build());
 
       Message response = client.messages().create(MessageCreateParams.builder()
@@ -1791,7 +1791,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
   $messages = [
       [
           'role' => 'user',
-          'content' => 'Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.',
+          'content' => 'Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.',
       ],
   ];
 
@@ -1893,7 +1893,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
   messages = [
     {
       role: "user",
-      content: "Schedule a weekly team standup every Monday at 9am for the next 4 weeks. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."
+      content: "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."
     }
   ]
 
@@ -2001,7 +2001,7 @@ When Claude has multiple independent tool calls to make, it might return several
     esac
   }
 
-  MESSAGES='[{"role": "user", "content": "Check what I have next Monday, then schedule a planning session that avoids any conflicts."}]'
+  MESSAGES='[{"role": "user", "content": "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts."}]'
 
   call_api() {
     curl -s https://api.anthropic.com/v1/messages \
@@ -2057,7 +2057,7 @@ When Claude has multiple independent tool calls to make, it might return several
     esac
   }
 
-  MESSAGES='[{"role": "user", "content": "Check what I have next Monday, then schedule a planning session that avoids any conflicts."}]'
+  MESSAGES='[{"role": "user", "content": "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts."}]'
 
   call_api() {
     # ant reads the request body as YAML on stdin: no auth headers, no
@@ -2187,7 +2187,7 @@ When Claude has multiple independent tool calls to make, it might return several
   messages = [
       {
           "role": "user",
-          "content": "Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+          "content": "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
       }
   ]
 
@@ -2289,7 +2289,7 @@ When Claude has multiple independent tool calls to make, it might return several
     {
       role: "user",
       content:
-        "Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+        "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
     },
   ];
 
@@ -2411,7 +2411,7 @@ When Claude has multiple independent tool calls to make, it might return several
       new()
       {
           Role = Role.User,
-          Content = "Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+          Content = "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
       },
   ];
 
@@ -2532,7 +2532,7 @@ When Claude has multiple independent tool calls to make, it might return several
 
   	messages := []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock(
-  			"Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+  			"Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
   		)),
   	}
 
@@ -2662,7 +2662,7 @@ When Claude has multiple independent tool calls to make, it might return several
       List<MessageParam> messages = new ArrayList<>();
       messages.add(MessageParam.builder()
           .role(MessageParam.Role.USER)
-          .content("Check what I have next Monday, then schedule a planning session that avoids any conflicts.")
+          .content("Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.")
           .build());
 
       Message response = client.messages().create(MessageCreateParams.builder()
@@ -2778,7 +2778,7 @@ When Claude has multiple independent tool calls to make, it might return several
   $messages = [
       [
           'role' => 'user',
-          'content' => 'Check what I have next Monday, then schedule a planning session that avoids any conflicts.',
+          'content' => 'Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.',
       ],
   ];
 
@@ -2880,7 +2880,7 @@ When Claude has multiple independent tool calls to make, it might return several
   messages = [
     {
       role: "user",
-      content: "Check what I have next Monday, then schedule a planning session that avoids any conflicts."
+      content: "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts."
     }
   ]
 
@@ -2987,7 +2987,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   }
 
   EMAILS=$(seq 0 14 | sed 's/.*/user&@example.com/' | paste -sd, -)
-  MESSAGES="[{\"role\": \"user\", \"content\": \"Schedule an all-hands with everyone: $EMAILS\"}]"
+  MESSAGES="[{\"role\": \"user\", \"content\": \"Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: $EMAILS\"}]"
 
   call_api() {
     curl -s https://api.anthropic.com/v1/messages \
@@ -3054,7 +3054,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   }
 
   EMAILS=$(seq 0 14 | sed 's/.*/user&@example.com/' | paste -sd, -)
-  MESSAGES=$(jq -n --arg msg "Schedule an all-hands with everyone: $EMAILS" \
+  MESSAGES=$(jq -n --arg msg "Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: $EMAILS" \
     '[{role: "user", content: $msg}]')
 
   call_api() {
@@ -3191,7 +3191,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   messages = [
       {
           "role": "user",
-          "content": "Schedule an all-hands with everyone: " + ", ".join(f"user{i}@example.com" for i in range(15)),
+          "content": "Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: " + ", ".join(f"user{i}@example.com" for i in range(15)),
       }
   ]
 
@@ -3302,7 +3302,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   const messages: Anthropic.MessageParam[] = [
     {
       role: "user",
-      content: `Schedule an all-hands with everyone: ${emails.join(", ")}`,
+      content: `Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: ${emails.join(", ")}`,
     },
   ];
 
@@ -3436,7 +3436,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
 
   List<MessageParam> messages =
   [
-      new() { Role = Role.User, Content = $"Schedule an all-hands with everyone: {emails}" },
+      new() { Role = Role.User, Content = $"Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: {emails}" },
   ];
 
   var response = await client.Messages.Create(new MessageCreateParams
@@ -3574,7 +3574,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   	}
   	messages := []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock(
-  			"Schedule an all-hands with everyone: " + strings.Join(emails, ", "),
+  			"Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: " + strings.Join(emails, ", "),
   		)),
   	}
 
@@ -3720,7 +3720,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
       List<MessageParam> messages = new ArrayList<>();
       messages.add(MessageParam.builder()
           .role(MessageParam.Role.USER)
-          .content("Schedule an all-hands with everyone: " + emails)
+          .content("Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: " + emails)
           .build());
 
       Message response = client.messages().create(MessageCreateParams.builder()
@@ -3844,7 +3844,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   $messages = [
       [
           'role' => 'user',
-          'content' => 'Schedule an all-hands with everyone: ' . implode(', ', $emails),
+          'content' => 'Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: ' . implode(', ', $emails),
       ],
   ];
 
@@ -3958,7 +3958,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   messages = [
     {
       role: "user",
-      content: "Schedule an all-hands with everyone: #{emails.join(", ")}"
+      content: "Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: #{emails.join(", ")}"
     }
   ]
 
@@ -4095,7 +4095,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       messages=[
           {
               "role": "user",
-              "content": "Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+              "content": "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
           }
       ],
   ).until_done()
@@ -4163,7 +4163,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       {
         role: "user",
         content:
-          "Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+          "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
       },
     ],
   });
@@ -4274,7 +4274,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
               new()
               {
                   Role = Role.User,
-                  Content = "Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+                  Content = "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
               },
           ],
       },
@@ -4378,7 +4378,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
   				MaxTokens: 1024,
   				Messages: []anthropic.BetaMessageParam{
   					anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(
-  						"Check what I have next Monday, then schedule a planning session that avoids any conflicts.",
+  						"Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
   					)),
   				},
   			},
@@ -4463,7 +4463,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
                       .model(Model.CLAUDE_OPUS_5_5)
                       .maxTokens(1024)
                       .addBeta("structured-outputs-2025-11-13")
-                      .addUserMessage("Check what I have next Monday, then schedule a planning session that avoids any conflicts.")
+                      .addUserMessage("Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.")
                       .addTool(CreateCalendarEvent.class)
                       .addTool(ListCalendarEvents.class)
                       .build());
@@ -4556,7 +4556,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       messages: [
           [
               'role' => 'user',
-              'content' => 'Check what I have next Monday, then schedule a planning session that avoids any conflicts.',
+              'content' => 'Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.',
           ],
       ],
       model: Model::CLAUDE_OPUS_5_5,
@@ -4631,7 +4631,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
     messages: [
       {
         role: "user",
-        content: "Check what I have next Monday, then schedule a planning session that avoids any conflicts."
+        content: "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts."
       }
     ]
   )

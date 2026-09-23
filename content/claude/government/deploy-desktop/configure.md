@@ -259,5 +259,5 @@ For anything else, the app writes its log to `~/Library/Logs/Claude-3p/main.log`
 ## Things to know
 
 * Configuration changes made in this portal do not need to be pushed to devices. The app re-checks Claude for Government for changes about every 10 minutes (about every 30 minutes on Claude Desktop versions earlier than 1.46388.1) and at each launch, and prompts users to relaunch when a change needs a restart.
-* New and retired models appear in the model picker without any profile change or app update; model access is controlled through [seat tiers](/docs/government/org-admin/seat-tiers).
+* New and retired models appear in the model picker without any profile change; model access is controlled through [seat tiers](/docs/government/org-admin/seat-tiers). [Models in Claude Desktop](/docs/government/desktop/models) covers a model that needs a newer version of Claude Desktop.
 * The sign-in flow and what a user sees on the [Sessions](/docs/government/account/sessions) page after pairing a device are covered on that page.

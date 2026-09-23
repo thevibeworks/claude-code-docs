@@ -1101,6 +1101,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
+        - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
+
         - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
 
           Our most capable model for cybersecurity and biology research, available through trusted access programs
@@ -4586,6 +4590,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
 
             Our most capable model for cybersecurity and biology research, available through trusted access programs
@@ -5839,6 +5847,10 @@ public final class Main {
 
             Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
           - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
 
             Our most capable model for cybersecurity and biology research, available through trusted access programs
@@ -6898,6 +6910,10 @@ public final class Main {
 
           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
+        - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
+
         - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
 
           Our most capable model for cybersecurity and biology research, available through trusted access programs
@@ -7918,6 +7934,10 @@ public final class Main {
       - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
         Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
       - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
 

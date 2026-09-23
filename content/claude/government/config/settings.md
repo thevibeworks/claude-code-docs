@@ -154,6 +154,10 @@ Two switches that control whether members can add plugins of their own in Claude
 
 While a switch is off, Claude Desktop hides the corresponding controls from members. Marketplaces and plugins that members added earlier keep working, and members can still install plugins from those marketplaces.
 
+### Let members add their own connectors
+
+Controls whether members can add connectors of their own in Claude Desktop, as local MCP servers under **Settings**, then **Developer**. The **Let members add their own connectors** switch is off by default. It sets Claude Desktop's [`isLocalDevMcpEnabled`](/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) key.
+
 ### Let members create skills
 
 Controls whether members can create or upload skills of their own in Claude Desktop. The **Let members create skills** switch is on by default.

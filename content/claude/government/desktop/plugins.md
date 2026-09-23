@@ -38,4 +38,4 @@ A plugin you upload or create is added only on the device you are using.
 
 ## What plugins add in Claude for Government
 
-A plugin adds its skills, slash commands, sub-agents, and hooks, and its hooks run on your machine at defined points during a session. The connectors you can use are the ones your administrators provide, which appear under **Customize**, then **Connectors**. Connectors declared by a plugin you add yourself are not added to Claude Desktop's connectors.
+A plugin adds its skills, slash commands, sub-agents, and hooks, and its hooks run on your machine at defined points during a session. The connectors your administrators provide appear under **Customize**, then **Connectors**. Connectors declared by a plugin you add yourself are not added to Claude Desktop's connectors.

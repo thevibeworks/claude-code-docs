@@ -125,6 +125,10 @@ List Session Threads
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -174,6 +178,10 @@ List Session Threads
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -1032,6 +1040,10 @@ Get Session Thread
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1081,6 +1093,10 @@ Get Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -1938,6 +1954,10 @@ Archive Session Thread
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1987,6 +2007,10 @@ Archive Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -2777,6 +2801,10 @@ public final class Main {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -3932,7 +3960,7 @@ public final class Main {
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -4070,15 +4098,9 @@ public final class Main {
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -5047,6 +5069,10 @@ public final class Main {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -5916,6 +5942,10 @@ List Session Thread Events
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -6334,7 +6364,7 @@ List Session Thread Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -6472,15 +6502,9 @@ List Session Thread Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -7449,6 +7473,10 @@ List Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
@@ -8312,6 +8340,10 @@ Stream Session Thread Events
 
     - `COMPACT_2026_09_04("compact-2026-09-04")`
 
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -8730,7 +8762,7 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
 
@@ -8868,15 +8900,9 @@ Stream Session Thread Events
 
       format: date-time
 
-    - `Optional<EvaluatedPermission> evaluatedPermission`
+    - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
       AgentEvaluatedPermission enum
-
-      - `ALLOW("allow")`
-
-      - `ASK("ask")`
-
-      - `DENY("deny")`
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
@@ -9845,6 +9871,10 @@ Stream Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_OPUS_5_5("claude-opus-5-5")`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
           - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
