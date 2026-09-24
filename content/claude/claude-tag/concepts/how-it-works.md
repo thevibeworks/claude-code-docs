@@ -223,7 +223,7 @@ Every session runs the same lifecycle; what varies by place and thread is [what 
 
 A session reads its own thread and its channel. Mentioning `@Claude` partway into an existing thread gives it a window of the thread's messages, not the whole thread, with other bots' replies filtered out. In long threads, restate anything critical.
 
-Claude works in channels it has been added to, but workspace search can still find messages by keyword from public channels it's not a member of (the same search any Slack user has). Workspace search is unavailable in [channels that include guests](/docs/claude-tag/admins/restrict-access#restrict-guest-channels). Finding something is broader than being able to act somewhere; to have it participate in a channel directly, invite it with `/invite @Claude`.
+Claude works in channels it has been added to, but workspace search can still find messages by keyword from public channels it's not a member of (the same search any Slack user has). Workspace search is unavailable in [channels that include guests](/docs/claude-tag/admins/restrict-access#restrict-guest-channels), and an admin can [limit search to channels Claude is in](/docs/claude-tag/admins/restrict-access#limit-which-channels-claude-can-search). Finding something is broader than being able to act somewhere; to have it participate in a channel directly, invite it with `/invite @Claude`.
 
 ### What survives between replies
 

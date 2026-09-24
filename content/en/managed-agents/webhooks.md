@@ -115,7 +115,7 @@ Every delivery carries the `webhook-id`, `webhook-timestamp`, and `webhook-signa
 
 Set `ANTHROPIC_WEBHOOK_SIGNING_KEY` to the `whsec_`-prefixed secret shown at endpoint creation.
 
-<CodeGroup>
+<CodeGroup exclude="shell:cURL, shell:CLI">
   ```python Python
   from flask import Flask, request
   import anthropic
@@ -358,7 +358,7 @@ Every event payload has the same structure, including the event type, identifier
 }
 ```
 
-<CodeGroup>
+<CodeGroup exclude="shell:cURL, shell:CLI">
   ```python Python
   if event.data.type == "session.status_idled":
       session = client.beta.sessions.retrieve(event.data.id)

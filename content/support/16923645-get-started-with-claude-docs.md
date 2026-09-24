@@ -6,7 +6,9 @@ This guide covers creating your first doc, editing it with Claude and your team,
 
 **[Create an artifact with Claude](https://claude.ai/artifacts)**
 
-Claude Docs is available in beta on Pro, Max, Team, and Enterprise plans. It isn't available on the Free plan. It's on by default on Pro, Max, and Team plans, and you can turn it off in **[Settings > Capabilities](https://claude.ai/settings/capabilities)**. On Enterprise plans, Claude Docs is off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. It isn't available yet for organizations that use customer-managed encryption keys (CMEK), zero data retention (ZDR), or a HIPAA-ready configuration.
+Claude Docs is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, Claude Docs is off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. It isn't available yet for organizations that use customer-managed encryption keys (CMEK), zero data retention (ZDR), or a HIPAA-ready configuration.
+
+---
 
 ## How Claude Docs works
 
@@ -78,17 +80,19 @@ Instead of pasting in screenshots, ask Claude to add a chart, diagram, graph, or
 
 People with edit access can work on the same doc at the same time as you and Claude, and everyone's edits appear in real time. Claude always acts with the permissions of the person who asked, so it can't edit a doc for someone who only has view access.
 
+---
+
 ## Share a doc
 
-Docs start private to you. To share one:
+Docs start private to you. Share a doc the way you share any artifact: open it and click "Share." Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
 
-1. Open the doc.
+A few things are different for docs:
 
-2. Click "Share."
+- **Access levels:** People you share a doc with can view or edit it. Viewers can read the doc. Editors can read, edit, comment on, and export it. There's no comment-only access level yet.
 
-3. On Team and Enterprise plans, add the people or groups you want to share with, and choose whether each can view or edit.
+- **Outside your organization:** Docs can't be shared by email invitation on any plan. On Team and Enterprise plans, they can't be shared outside your organization by link either.
 
-4. Choose who else can open the doc: only the people you invite, everyone in your organization (Team and Enterprise plans), or anyone with the link (Pro and Max plans).
+- **Renaming and deleting:** Only the owner can rename or delete a doc.
 
 ### Who you can share with
 
@@ -122,29 +126,21 @@ To export a doc, click "Export" and choose a format:
 
 You can also ask Claude to turn a doc into a presentation with Claude Slides.
 
+---
+
 ## Usage
 
 Claude Docs counts toward your plan's usage limits, like the rest of your work with Claude. Larger requests, like drafting a long doc from several sources, use more of your limit than a typical message. Learn more about **[how usage and length limits work](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)**.
+
+---
 
 ## Turn on Claude Docs for your organization
 
 This section is for Owners and Primary Owners on Team and Enterprise plans.
 
-Claude Docs is in beta. It's on by default on Team plans and off by default on Enterprise plans. To turn it on:
+Owners turn Claude Docs on or off in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. On Enterprise plans, owners can also limit it to specific groups with custom roles. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**, which also covers offboarding and the Compliance API.
 
-1. Go to **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
-
-2. Turn on **Docs**.
-
-Claude Docs needs artifacts to be on for your organization. On Enterprise plans, you can turn on Claude Docs for specific groups instead of your whole organization, using the **Docs** capability (under **Artifacts**) in custom roles. People outside those groups can still open and work on docs shared with them, based on the access they're given.
-
-A few other things admins should know:
-
-- **Offboarding:** Removing someone from your organization, including through your identity provider, removes their access to docs at the same time.
-
-- **Compliance API:** Events for the doc itself are recorded in the Compliance API activity feed. Activity inside a doc, like edits and comments, isn't recorded yet.
-
-Learn more about **[sharing artifacts in your organization](https://support.claude.com/en/articles/9547008-publish-and-share-artifacts)**.
+---
 
 ## Known limitations
 
@@ -156,7 +152,7 @@ Claude Docs is in beta. A few things to be aware of:
 
 - **Charts and diagrams:** Charts and diagrams don't update automatically. Ask Claude to pull the latest data from your connected apps.
 
-- **External sharing:** On Team and Enterprise plans, docs can't be shared outside your organization.
+- **External sharing:** On Team and Enterprise plans, docs can't be shared outside your organization, by link or by email invitation.
 
 - **Organization configurations:** Claude Docs isn't available yet for organizations using CMEK, ZDR, or a HIPAA-ready configuration.
 

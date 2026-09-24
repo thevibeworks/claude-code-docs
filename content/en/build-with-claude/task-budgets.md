@@ -512,7 +512,7 @@ The right budget depends on how much work your agentic loop currently does. Rath
 
 Run a representative sample of tasks **without** `task_budget` set and record the total tokens Claude spends per task. For an agentic loop, sum `usage.output_tokens` across every request in the loop, plus the tokens of the tool results you append between requests:
 
-<CodeGroup>
+<CodeGroup exclude="shell:cURL">
   ```bash CLI
   ant messages create --transform 'usage.output_tokens' <<'YAML'
   model: claude-opus-5-5

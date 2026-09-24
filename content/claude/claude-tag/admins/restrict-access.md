@@ -175,13 +175,36 @@ Claude decides which access applies when a conversation starts. When no guest is
 
 A conversation that was underway before the first guest joined doesn't keep its full access. The next message from a workspace member in that thread starts the conversation over with channel-only access. A guest who writes there before a member does gets the same notice as under **Restrict**.
 
-While a guest is present, Claude replies only to mentions and to threads it's already part of. It doesn't act on other messages in the channel on its own, even where [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) is on.
+The channel's [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) setting works the same while a guest is present, and it's on by default. While it's on, messages from workspace members that don't mention Claude still reach it, and Claude may reply to some of them on its own. Outside the threads Claude is part of, a guest's messages that don't mention Claude reach it only as context, not as requests. To have Claude reply only to @-mentions and in threads it's already part of, turn **Respond automatically** off for that channel.
 
 A guest can talk to Claude by mentioning `@Claude` or by replying in a thread Claude is part of, and Claude answers them. A guest can't approve a tool or permission request, and can't restart, mute, fork, or stop the session. If a guest clicks approve, nothing is granted.
 
 Treat a channel's instructions, and the instructions in any bundle attached directly to the channel, as visible to everyone in that channel, including guests. Under **Channel only**, Claude follows them in replies that guests can read and respond to.
 
 **Channel only** takes effect where the **New** [Claude Tag version](/docs/claude-tag/admins/workspaces#set-the-version-for-a-scope) answers. On a scope where **Legacy** answers, a channel that includes a guest is treated as **Restrict**.
+
+### Limit which channels Claude can search
+
+By default, workspace search covers public channels across the workspace, including ones Claude hasn't been added to. The **Channels Claude can search** setting narrows workspace search to channels Claude is in. You set it per scope at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced**. Changing it needs an Admin or Owner of your Claude organization.
+
+The setting has two values:
+
+| Value                             | Where workspace search finds messages                                        |
+| --------------------------------- | ---------------------------------------------------------------------------- |
+| **All public channels** (default) | Public channels in the workspace, including ones Claude hasn't been added to |
+| **Only channels Claude is in**    | Public channels Claude has been added to                                     |
+
+Most organizations can leave this on **All public channels**. Under **Only channels Claude is in**, Claude can't find messages in your other public channels, so its answers can miss context your team expects it to have.
+
+On a workspace or channel scope the setting also offers **Inherit**, which takes the value from the workspace or from **Default Slack access**. The most specific scope that sets a value decides, in this order:
+
+1. The channel's own value
+2. The workspace's value
+3. The value on **Default Slack access**, which is **All public channels** until you change it
+
+A value on a channel or workspace replaces the value it would inherit, in either direction. In a channel set to **All public channels**, workspace search covers public channels across the workspace even when the channel's workspace is set to **Only channels Claude is in**.
+
+Neither value adds private channels to workspace search. In a [channel that includes a guest](#restrict-guest-channels), workspace search is unavailable whichever value applies.
 
 <a id="externally-shared-channels" />
 
@@ -296,7 +319,7 @@ Channel manager activity is recorded in your organization's audit log, which you
 * **Credential changes.** Each credential a channel manager creates, updates, rotates, or deletes, with the Slack workspace and channel it was for and the roles that granted the permission, so you can tell a channel manager's change from an Owner's. Secrets are never included.
 * **Configure page changes.** Which settings a channel manager saved from the Configure page, such as the default model, repositories, or channel instructions. The log records which fields changed, not the values entered.
 
-The [Audit page](/docs/claude-tag/admins/audit) at [`claude.ai/admin-settings/claude-tag/audit`](https://claude.ai/admin-settings/claude-tag/audit) doesn't list these events; it covers scheduled work, memory, and network events.
+The [Audit page](/docs/claude-tag/admins/audit), labeled **Activity** in the console, at [`claude.ai/admin-settings/claude-tag/audit`](https://claude.ai/admin-settings/claude-tag/audit) doesn't list these events; it covers scheduled work, memory, and network events.
 
 ## Permissions by role
 
@@ -328,7 +351,7 @@ These are controls an admin might look for that Claude Tag doesn't have.
 * **Per-channel responder allowlist.** The restriction toggle governs who can invoke Claude across the workspace; you can't narrow it to a list of people for one channel only.
 * **An open-internet switch in Claude Tag settings.** A channel sandbox reaches only allowed hosts. To let Claude reach a public site or API, an Owner adds that hostname on a [bundle's Domains tab](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential); for broad web access, they pin an [environment](/docs/claude-tag/concepts/glossary#environment) whose network access level is Full access on the scope. [Allow-all egress](/docs/claude-tag/admins/add-connections#allow-all-hosts), a `*` entry on the Domains tab, is off by default and enabled per organization by Anthropic.
 * **A web search toggle for channels.** No setting turns web search off for channel sessions; the web search capability setting in claude.ai admin settings governs claude.ai chat, not channels. Web search runs on Anthropic's servers rather than from the channel sandbox, so Domains entries and egress settings don't govern it, and a search opens no new path out of the sandbox; search requests travel to Anthropic the same way the session's model traffic already does. See [Web search vs. network requests](/docs/claude-tag/concepts/agent-identity#web-search-vs-network-requests).
-* **Read-scope confinement.** Claude can search public channels by keyword the same way any Slack user can; it can't read a channel's full history unless it's been added there. There's no setting to disable workspace search, and no setting to enable it in [channels that include guests](#restrict-guest-channels), where search is unavailable.
+* **A switch to turn workspace search off.** Claude can search public channels by keyword the same way any Slack user can; it can't read a channel's full history unless it's been added there. No setting turns workspace search off. The [**Channels Claude can search**](#limit-which-channels-claude-can-search) setting narrows it to channels Claude is in. No setting enables search in [channels that include guests](#restrict-guest-channels), where it's unavailable.
 * **Session length enforcement.** Your organization's Slack session-length policy is not enforced on this surface.
 
 ## Related resources

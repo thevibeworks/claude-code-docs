@@ -60,7 +60,6 @@ Here's how to detect and handle streaming refusals in your application:
 
 <CodeGroup>
   ```bash cURL
-  # Stream request and check for refusal
   response=$(curl -N https://api.anthropic.com/v1/messages \
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \
@@ -72,8 +71,21 @@ Here's how to detect and handle streaming refusals in your application:
       "stream": true
     }')
 
-  # Check for refusal in the stream
-  if echo "$response" | grep -q '"stop_reason":"refusal"'; then
+  if echo "$response" | jq -R -e 'select(startswith("data: "))
+      | sub("^data: "; "") | fromjson
+      | select(.delta.stop_reason == "refusal")' >/dev/null; then
+    echo "Response refused - resetting conversation context"
+    # Reset your conversation state here
+  fi
+  ```
+
+  ```bash CLI
+  response=$(ant messages create --stream --format jsonl \
+    --model claude-opus-5-5 \
+    --max-tokens 1024 \
+    --message '{role: user, content: Hello}')
+
+  if echo "$response" | jq -e 'select(.delta.stop_reason == "refusal")' >/dev/null; then
     echo "Response refused - resetting conversation context"
     # Reset your conversation state here
   fi

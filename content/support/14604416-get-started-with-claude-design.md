@@ -1,8 +1,8 @@
 # Get started with Claude Design
 
-**[Claude Design](https://claude.com/product/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by having a conversation with Claude. You can use it in any conversation with Claude, including in Claude Code and the Artifacts tab, and all of its features come with it, including on-canvas editing and importing your design system. To make presentations, use Claude Slides. This guide walks you through creating your first design, iterating on it, and getting the most out of the tool.
+**[Claude Design](https://claude.com/product/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by chatting with Claude. It's one of the templates you can start an artifact from, so you can use it in any chat, in Claude Code, and from the **Artifacts** tab, with on-canvas editing and your design system included. This guide walks you through creating your first design, iterating on it, and getting the most out of it. Learn more about **[what artifacts are and how to use them](https://support.claude.com/en/articles/9487310)**.
 
-Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It isn't available on the Free plan. It's on by default on Pro and Max plans, and you can turn it off in Settings > Capabilities. It's also on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
+Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
 
 This guide assumes your organization’s design system has already been set up, so everything you create will automatically use your brand’s colors, typography, and component patterns. If you’re a design lead who needs to set up or modify the design system itself, see **[Set up your design system in Claude Design](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)**.
 
@@ -58,13 +58,11 @@ When you create a project, it automatically inherits your organization’s desig
 
 Bring in one or several design systems from a GitHub repo, design files, raw uploads, or your local codebase using the /design-sync command in Claude Code. Claude builds with your real design system components, checks its own output against your design system, and makes corrections before you see them.
 
-For larger teams, the Claude Design Admin permission in custom roles lets an admin approve a standard system and lock down edits, so the work always matches your company guidelines.
+On Enterprise plans, admins can reserve publishing, setting the default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
 
-### Migrate your design system to Artifacts
+### Bring over a design system from claude.ai/design
 
-The new, integrated Claude Design has a revamped Design Systems feature, which you can manage in **[Settings > Design systems](https://claude.ai/settings/design-systems)**.
-
-To bring an existing design system over, open the “Design” tab at the bottom of the sidebar and click “Migrate team design systems” in the banner. Each design system becomes an artifact Claude can use in any conversation, including in Claude Code. Migrated systems aren't perfect, so each one shows a banner: click “Let Claude clean it up” and Claude tidies the guide, the tokens and the components.
+Design systems you made at claude.ai/design can move over, so Claude can use them in any chat, including in Claude Code. Learn more about **[setting up your design system](https://support.claude.com/en/articles/14604397)**.
 
 ### Add context to your project
 
@@ -166,13 +164,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2675065762/1a4b6d1921e063e14420f56a72d6/72422fce-b339-49b6-bc59-bebf752e0644?expires=1790192700&amp;signature=b25951f4cdb76f14b06e6185a8077a0010ea1fc715928c728e526187c7802f4b&amp;req=diYgE8l4mIZZW%2FMW1HO4zYaJO472F57%2BT73yd%2FWN6bl%2BHxzuXku5xlqWh0M5%0ANw5Ojc2qIy0xle0iios%3D%0A)
-
-Designs are private until you share them:
-
-- **Enterprise plans:** You can also share with anyone in your organization who has the link. Links stay inside your organization unless an owner turns on **External sharing** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
-
-- **Pro, Max, and Team plans:** You can also share with anyone who has the link. They need a Claude account to open it.
+Designs start private to you. To share one, click "Share" and choose who can open it and what they can do. People you share a design with can view, comment on, or edit it. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
 
 ---
 
