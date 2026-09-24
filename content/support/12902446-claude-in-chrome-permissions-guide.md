@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1790192700&amp;signature=8d34ee2725b9fa20008671295d9700bb26d65698d26a5e2e55e767def00d780d&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMJM9YCwgN0ADj5oqFAJqqVn6tFlNnWH8ByE%0AhIVFslTWpmDtmm4uGB0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1790229600&amp;signature=89a35dbdb95c9b3c92e9339ca54d207aaaefa834aa86edd3ff67229c54569067&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMJP%2FouxgN0ADj5oqFB9iFqvKs0g0hQQW1gt%0ApwnLCMS9Q2aJ4z7liG8%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1790192700&amp;signature=0ebcbdf1289ce0e4c5f7d881ef6f0f6c1908ee87fcc20bde89d248d38f3d917f&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2ZxgS7r7A4lHPBihAXgYwVxwfmI8X%2Fx%2BZS6%0Aj%2BkZ7Q2Y7e5Ni5w8Fo0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1790229600&amp;signature=4c892daa9005b7030131cbe515a04859b67fc1745a0f1b8957dd1a8f0757e3be&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2ZyiiXq7A4lHPBihAUUbOhErwrjOykaq37L%0Aw6Did10Zf3kJwdUwtDA%3D%0A)
 
 ### Permission options
 

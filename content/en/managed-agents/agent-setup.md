@@ -471,7 +471,7 @@ With the CLI, edit the agent's file and run `ant apply` again; apply supplies `v
 
 The preceding example supplies `version` from the create response, so the update only applies if nothing else has changed the agent since you read it. To apply an update unconditionally, omit `version` from the request:
 
-<CodeGroup>
+<CodeGroup exclude="shell:CLI, python, typescript, csharp, go, java, php, ruby">
   ```bash cURL
   updated_agent=$(curl -fsSL "https://api.anthropic.com/v1/agents/$AGENT_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \

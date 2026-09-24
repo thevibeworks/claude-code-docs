@@ -50,6 +50,8 @@ After saving, where the credential has an allow rule, you can narrow it by HTTP 
 | **OAuth 2.0 client credentials**                | Machine-to-machine OAuth with a client ID and secret                                                        |
 | **MCP Connector**                               | OAuth sign-in. Sign in once as an admin; the agent acts as that account.                                    |
 
+<Note>The **MCP Connector** type signs in to a connector from your organization's connector library. If you register a new connector from this form with **Add custom connector…**, that connector is added to the library on the **Connectors** page at [`claude.ai/admin-settings/connectors`](https://claude.ai/admin-settings/connectors), not only to the bundle. Removing the connection from the bundle later leaves the library entry in place.</Note>
+
 For GitHub repositories, use the GitHub connection at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
 
 If you're unsure which type, check the service's API authentication docs for which header or flow it expects.

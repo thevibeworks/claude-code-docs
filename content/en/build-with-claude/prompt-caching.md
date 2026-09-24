@@ -3318,7 +3318,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
   <Accordion title="Why am I seeing the error `AttributeError: 'Beta' object has no attribute 'prompt_caching'` in Python?">
     This error typically appears when you have upgraded your SDK or you are using outdated code examples. Prompt caching no longer requires the beta prefix. Instead of:
 
-    <CodeGroup>
+    <CodeGroup exclude="shell:cURL, shell:CLI, typescript, csharp, go, java, php, ruby">
       ```python Python
       client.beta.prompt_caching.messages.create(**params)
       ```
@@ -3326,7 +3326,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
 
     Use:
 
-    <CodeGroup>
+    <CodeGroup exclude="shell:cURL, shell:CLI, typescript, csharp, go, java, php, ruby">
       ```python Python
       client.messages.create(**params)
       ```

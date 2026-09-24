@@ -10,7 +10,7 @@ When creating a Message, you can set `"stream": true` to incrementally stream th
 
 The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript) offer multiple ways of streaming. The [PHP SDK](https://github.com/anthropics/anthropic-sdk-php) provides streaming through `createStream()`. The Python SDK allows both sync and async streams. See the documentation in each SDK for details.
 
-<CodeGroup>
+<CodeGroup exclude="shell:cURL">
   ```bash CLI
   ant messages create --stream --format jsonl \
     --model claude-opus-5-5 \
@@ -140,7 +140,7 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
 
 If you don't need to process text as it arrives, the SDKs provide a way to use streaming internally while returning the complete `Message` object, identical to what `.create()` returns. This is especially useful for requests with large `max_tokens` values, where the SDKs require streaming to avoid HTTP timeouts.
 
-<CodeGroup>
+<CodeGroup exclude="shell:cURL">
   ```bash CLI
   # The ant CLI's --stream flag emits one event per line and does not
   # accumulate into a final Message. For long generations, stream the

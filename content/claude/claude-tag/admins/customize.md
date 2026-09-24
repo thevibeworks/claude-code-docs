@@ -74,12 +74,14 @@ Channel members can also change the model from Slack. Asking Claude in a thread 
 
 ### Models your organization allows
 
-Claude Tag's model lists come from the models your organization makes available for Claude Code, set in the Claude admin console, leaving out any that Claude Tag doesn't support. A model you see in Claude Code can be absent in Slack for that reason. The allowed list applies in two places.
+On the Team plan, Claude Tag doesn't apply the [`availableModels` allowlist](https://code.claude.com/docs/en/model-config#restrict-model-selection) from your Claude Code [server-managed settings](https://code.claude.com/docs/en/server-managed-settings), and on the Enterprise plan it applies the allowlist in only some organizations.
 
-* **Model lists in Slack.** The models Claude offers when someone asks it to switch, and the model selector for direct messages, show only allowed models. Claude declines a request to switch to a model outside the list.
-* **Configured defaults.** If your organization also enforces the policy on defaults and a workspace or channel's **Default model** isn't allowed by your organization's Claude Code model policy, Claude declines to start the session and posts a notice in the thread asking the requester to contact an admin. A model excluded by your organization's plan entitlements works differently. Claude starts the session on a fallback model the plan includes, and declines only when the plan excludes every fallback. The footer of the first reply names the model that served it, so check there to see which model the session started on.
+* **Where the allowlist doesn't apply**: Claude offers your organization's full Claude Tag model list, both when someone asks it to switch and in the model selector for direct messages. It starts sessions on a scope's **Default model** without checking that model against the allowlist. The **Default model** picker in admin settings still lists only allowed models.
+* **Where the allowlist applies**: sessions in a channel run as the [agent identity](/docs/claude-tag/concepts/agent-identity) you provisioned and without your server-managed settings. When someone in a channel asks Claude to switch models, Claude may decline a model outside the allowlist, though that check doesn't always run. In direct messages from a member whose linked Claude account belongs to your organization, Claude runs on that member's own account, which receives your allowlist; see [Restrict model selection](https://code.claude.com/docs/en/model-config#restrict-model-selection) for what happens to a model the allowlist blocks.
 
-A change to the allowed list applies to new sessions, like a change to the **Default model**; a thread already underway keeps its model until someone in it asks Claude to switch.
+In either case, Claude Tag offers only the models it supports, so a model your allowlist includes can be absent in Slack.
+
+On the Enterprise plan, turning a model off for the whole organization on your **Models** page removes it from the lists in Slack, and Claude declines requests to switch to it. If you turn off the model a scope's **Default model** is set to, Claude still starts sessions there on a fallback model that's still on, and declines only when every fallback is off too. The footer of the first reply names the model that served it.
 
 ## Configure the environment for a scope
 

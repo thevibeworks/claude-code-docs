@@ -1,204 +1,145 @@
 # What are artifacts and how do I use them?
 
-An **[artifact](https://claude.com/features/artifacts)** is anything Claude makes for you that you'd put in front of someone: a design, a deck, a document, a dashboard, or a small interactive tool. It opens beside your conversation, and you can edit it, come back to it, and share it with a link. Ask for one in any conversation with Claude, including in Claude Code, or pick a template in the **Artifacts** tab.
+An **[artifact](https://claude.com/features/artifacts)** is anything Claude makes for you that you'd put in front of someone: a design, a deck, a document, a dashboard, or a small interactive tool. It opens beside your conversation, and you can edit it, come back to it, and share it with others. Ask for one in any conversation with Claude, including in Claude Code, or start from a template in the “Artifacts” tab.
 
-Artifacts are available on Free, Pro, Max, Team, and Enterprise plans, and in Claude Code on every plan that includes Claude Code. Claude Design, Claude Slides, and Claude Docs are in beta on paid plans only. They're on by default on Pro, Max, and Team plans, and off by default on Enterprise plans until an owner turns each one on. On the Free plan, you can still create artifacts in any conversation.
+Artifacts are available on Free, Pro, Max, Team, and Enterprise plans, and in Claude Code on every plan that includes Claude Code. Templates (Claude Design, Claude Slides, and Claude Docs) are in beta on paid plans only. They're on by default on Pro, Max, and Team plans. On Enterprise plans, they're off until an owner turns each one on.
 
-**Important:** We no longer support artifacts without **Code execution and file creation** enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** (Team, Enterprise).
+| **Feature**                                  | **Free** | **Pro** | **Max** | **Team** | **Enterprise** |
+| -------------------------------------------- | -------- | ------- | ------- | -------- | -------------- |
+| Create artifacts in a chat                   | ✅        | ✅       | ✅       | ✅        | ✅              |
+| Start from a template (Design, Slides, Docs) |          | ✅       | ✅       | ✅        | ✅              |
+| Connect your apps to an artifact             |          | ✅       | ✅       | ✅        | ✅              |
+| Store data in an artifact                    |          | ✅       | ✅       | ✅        | ✅              |
+
+**Important:** Artifacts require **Cloud code execution and file creation** to be turned on in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** (Team, Enterprise).
 
 ---
 
-## What are artifacts?
+## What is an artifact?
+
+**Note:** Legacy artifacts are artifacts made in a chat before September 16, 2026. They keep working, and you can still publish and share them, but you can't make new ones.
 
 Claude creates an artifact when the content it's sharing meets these criteria:
 
-- It is significant and self-contained, typically over 15 lines.
+- It's significant and self-contained, typically over 15 lines.
 
-- It is something you're likely to want to edit, iterate on, or reuse outside the conversation.
+- It's something you're likely to want to edit, iterate on, or reuse outside the conversation.
 
-- It represents a complex piece of content that stands on its own without requiring extra conversation context.
+- It stands on its own without needing extra context from the conversation.
 
-- It is content you're likely to want to refer back to or use later.
+- It's content you're likely to refer back to or use later.
 
-Common examples of artifact content include:
+Claude can make an artifact out of almost anything, including documents, code snippets, single-page websites, images, diagrams and flowcharts, dashboards, and small interactive tools.
 
-- Documents (Markdown or plain text)
+## Where you can use artifacts
 
-- Code snippets
+- **Claude on the web and Claude Desktop:** Create, edit, and share artifacts, and start from a template.
 
-- Single-page HTML websites
+- **Claude Code:** Publish session output as an artifact, or make designs and docs. See **[Artifacts in Claude Code](#h_dca5623bec)** below.
 
-- SVG images
+- **Claude for iOS and Claude for Android:** Ask for a design, deck, or doc in any chat, and view the result in the **Artifacts** tab. To start from a template, edit, or change sharing settings, use Claude on the web or Claude Desktop.
 
-- Diagrams and flowcharts
+## Start from a template
 
-- Interactive React components
+Templates are starting points for work you'll share with others. Ask for one in any chat, select "Output" in the message box and choose a template, or pick one in the **Artifacts** tab.
 
----
+- **Docs:** Living documents you write with Claude and your team in real time. Learn more in **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645)**.
 
-## Create designs, decks, and docs
+- **Slides:** Presentations built from your notes, reports, or the work already in your chat. Edit any slide directly, present without leaving Claude, and export to PowerPoint or PDF.
 
-Three tools help with work you'll share with others. Ask for a design, deck, or doc in any conversation, select “Output” in the message box and choose one, or pick a template in the **Artifacts** tab. Edit what Claude makes by talking to Claude or directly in the artifact, and it updates live as you work. When it's ready, share it with a link or export it. The final say is always yours.
+- **Design:** Visuals, mockups, prototypes, one-pagers, and landing pages, built with your design system. Learn more in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
 
-- **Claude Design:** Visuals, mockups, prototypes, one-pagers, and landing pages, built with your design system. Learn more in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
+Whichever template you start from, the artifact works the same way: edit it by talking to Claude or directly in the artifact, and it updates live as you work. When it's ready, share it or export it.
 
-- **Claude Slides:** Presentations built from your notes, reports, or the work already in your conversation. Edit any slide directly, present without leaving Claude, and export to PowerPoint or PDF.
+Designs and decks can use a design system, so new work picks up your colors, fonts, and components. Learn more about **[setting up your design system](https://support.claude.com/en/articles/14604397)**.
 
-- **Claude Docs:** Living documents you write with Claude and your team in real time. Learn more in **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645)**.
+## Find your artifacts
 
-Claude Design, Claude Slides, and Claude Docs are in beta and available on paid plans. On Enterprise plans, they're off by default until an owner turns on **Design**, **Slides**, or **Docs** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
-
-In the Claude app for iOS and Android, you can ask for a design, deck, or doc in any conversation and view the result in the **Artifacts** tab. To start from a template, edit, or change sharing settings, use Claude on web or desktop.
-
-**Note:** Artifacts count toward your plan's usage limits.
-
-**[Create an artifact with Claude](https://claude.ai/artifacts)**
-
----
-
-## Enable artifacts
-
-To enable artifacts individually on a Free, Pro, or Max plan:
-
-1. Click your initials or name in the lower left corner.
-
-2. Navigate to **[Settings > Capabilities](https://claude.ai/settings/capabilities)**.
-
-3. Toggle **Code execution and file creation** on.
-
-To enable artifacts organization-wide on a Team or Enterprise plan:
-
-1. Log in as an Owner.
-
-2. Click your initials or name in the lower left corner.
-
-3. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
-
-4. Toggle **Code execution and file creation** on.
-
----
-
-## Access your artifacts
-
-You can access all your artifacts through the dedicated **[Artifacts](https://claude.ai/artifacts)** section in your Claude sidebar. This space allows you to:
-
-- View all your creations in one organized location
-
-- Start a new artifact from a template
-
-- Manage and organize your artifact collection
-
-**Note:** In the new Claude experience, everything you make is saved to the **Artifacts** tab automatically. If you have the previous chat experience, artifacts you create in a conversation don't appear there until you open the artifact and click "Publish."
-
----
+Everything you make is saved to the **[Artifacts](https://claude.ai/artifacts)** tab in your Claude sidebar, so you can find it again from any conversation. From there you can view all your artifacts in one place, start a new one from a template, and organize what you've made.
 
 ## Work with artifacts
 
-When Claude creates an artifact, you'll see the content displayed in a dedicated window to the right of the main chat.
+An artifact opens in its own window beside your conversation. Artifacts made from a template open on a canvas or page you can work in directly.
 
 ### Edit and iterate
 
-- Ask Claude to modify or update the artifact content.
+- Ask Claude to change the artifact.
 
-- For Markdown documents, you can edit in place: highlight the text you want changed, click "Edit with Claude," and type your request. Claude makes the edit right where you marked it, so you don't have to describe which section you mean in the chat.
+- In an artifact made from a template, edit directly: type in a doc, edit a slide, or move elements on a design canvas.
 
-- Changes appear directly in the artifact window.
+- In a doc or Markdown document, highlight the text you want changed, click "Edit with Claude," and type your request. Claude makes the edit where you marked it, so you don't have to describe which section you mean.
 
-- Switch between different versions using the version selector.
+- Edit an earlier message to create a different version of the chat, with its own artifacts, so you can explore another direction without losing previous work.
 
-- Your edits won't change Claude's memory of the original content.
-
-- Edit prior chat messages to create a different version of the conversation, with its own set of artifacts—this lets you explore different directions without losing previous work.
-
-**Note:** When Claude drafts content across multiple Markdown files, such as a skill or plugin, you can leave edit requests in several files before submitting. Each request is added to your next message, and the file list shows how many requests are waiting in each file. Send the message and Claude applies the whole batch in one pass.
+**Note:** When Claude drafts content across multiple Markdown files, such as a skill or plugin, you can leave edit requests in several files before submitting. Each request is added to your next message, and the file list shows how many are waiting in each file. Send the message and Claude applies the whole batch in one pass.
 
 ### View and export
 
-In the lower right corner of the artifact window, you can:
+- **Artifacts made from a template:** Click "Export." Docs export to Word, PDF, Markdown, and Google Docs. Decks export to PowerPoint and PDF. Designs export as a .zip, PDF, PowerPoint, or standalone HTML, or go straight to another tool.
 
-- View the underlying code of any artifact
+- **Legacy artifacts:** Use the controls at the top of the artifact panel to view the code, copy the content, or download it.
 
-- Copy content to your clipboard, including the code behind an artifact
+### Build on a published artifact
 
-- Download files to use outside the conversation
+Available on Free, Pro, and Max plans, for legacy artifacts published from a chat.
 
-Copying the code is also how you build on an artifact someone else published. Learn more about **[building on a published artifact](https://support.claude.com/en/articles/9547008-publish-and-share-artifacts#h_eb779b5c95)**.
+If someone publishes an artifact you like, you can use it as a starting point for your own version. Your version is separate, so nothing you do affects the original.
 
-### Multiple artifacts
+**Important:** Only do this with artifacts from people you trust. You're bringing someone else's code and content into your own chat, so treat it the way you'd treat a file from an unknown sender.
 
-- Open and work with several artifacts in one conversation
+1. Open the published artifact and click "Copy" to copy its code.
 
-- Use the chat controls (slider icon in upper right) to switch between them
+2. Start a new chat, paste the code, and describe the changes you want. For example: "Here's the code for a quiz game. Change the questions to be about movies and add a timer."
 
-- Select which artifact you want Claude to reference for updates
+3. Refine the new artifact the same way you would any artifact you made yourself.
 
-### Fixing errors
+### Fix errors
 
-If an artifact generates an error, look for the “Try fixing with Claude” button near the error message. Click the button to automatically copy the error details into a new message, then send it to Claude to diagnose the issue and suggest a fix.
-
-**Note:** While Claude will attempt to fix the error, success isn't guaranteed. Some errors may require additional troubleshooting.
+If an artifact generates an error, look for the "Try fixing with Claude" button near the error message. Click it to copy the error details into a new message, then send it to Claude to diagnose the issue and suggest a fix. Claude will attempt to fix the error, but success isn't guaranteed. Some errors need more troubleshooting.
 
 ---
 
-## AI-powered artifacts
+## Artifacts that use Claude
 
-You can build artifacts that embed AI capabilities, turning them into AI-powered apps. Users of your artifacts can access Claude's intelligence through a text-based API—answering questions, generating creative content, providing personalized coaching, playing games, solving problems, and adapting responses based on input.
+You can build artifacts that call Claude directly, turning them into small apps. People using your artifact can ask questions, generate content, get coaching, play games, and solve problems, with Claude adapting to what they enter.
 
-### Create AI-powered artifacts
+Describe what you want, Claude writes the code, and the app runs on Anthropic's infrastructure. People using it sign in with their Claude account and interact with their own instance.
 
-1. Describe what you want to Claude.
+No API keys are required, and there's no cost to you. Whether your artifact helps 10 people or 10,000, sharing is free, and usage counts against each person's own plan limits rather than yours. On Team and Enterprise plans, people in your organization can use what you share without adding cost for you.
 
-2. Claude writes the code.
-
-3. The app runs on Anthropic's infrastructure.
-
-4. Users authenticate with their Claude account and interact with their own instance of the artifact.
-
-### How usage works
-
-When you share AI-powered artifacts, others can use them immediately—no API keys required, and no costs to you. Whether your artifact helps 10 people or 10,000, sharing is free. Usage counts against each user's own Claude subscription limits, not yours.
-
-For Team and Enterprise plans, when you share AI-powered artifacts within your organization, team members can use them without incurring additional costs to the creator.
+For legacy artifacts, you can turn this off with the **AI-powered artifacts** setting in **[Settings > Capabilities](https://claude.ai/settings/capabilities)**. New artifacts ask you for permission the first time they want to use Claude.
 
 ---
 
-## MCP integration
+## Connect your apps to an artifact
 
-MCP integration for artifacts is available on Pro, Max, Team, and Enterprise plans on Claude web and desktop.
+Available on Pro, Max, Team, and Enterprise plans, on Claude on web and desktop.
 
-Artifacts can connect to external services through the Model Context Protocol (MCP), enabling interactive applications that read from and write to tools like Asana, Google Calendar, and Slack. In addition to Anthropic's official MCP integrations, artifacts can connect to any **[custom MCP servers](https://support.claude.com/en/articles/11175166-getting-started-with-custom-connectors-using-remote-mcp)** you've configured.
+Artifacts can connect to the apps you've connected to Claude, so they can read from and write to tools like Asana, Google Calendar, and Slack. They can also connect to any **[custom connectors](https://support.claude.com/en/articles/11175166)** you've set up.
 
-When an artifact needs to access an MCP tool, you'll be prompted to approve access on first interaction. Your preferences persist for subsequent uses of that artifact.
+The first time an artifact needs a connected app, Claude shows which apps and tools it will use and asks you to approve them. You can turn individual tools off, and your choice carries over to later uses of that artifact. Connector tools that need approval for each action aren't available to artifacts.
 
-**Important:** Each user must authenticate MCP servers independently, even when using shared or published artifacts. Organization admins can enable or disable artifact MCP access at the organization level but cannot manage which specific MCP servers artifacts can use.
+**Important:** Everyone connects their own apps, even when using a shared or published artifact. On Team and Enterprise plans, an owner can turn this off for your whole organization. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
 
 ---
 
-## Persistent storage
+## Store data in an artifact
 
-Persistent storage for artifacts is available on Pro, Max, Team, and Enterprise plans on Claude web and desktop.
+Available on Pro, Max, Team, and Enterprise plans, on Claude on the web and Claude Desktop.
 
-Artifacts can store data across sessions, enabling stateful applications like journals, trackers, and collaborative tools. Storage can be configured as either personal or shared:
+Artifacts can store data between sessions, so you can build things like journals, trackers, and collaborative tools. Storage is either personal or shared:
 
-- **Personal storage:** Each user maintains their own private data. For example, in a journal artifact, your entries remain visible only to you.
+- **Personal storage:** Everyone keeps their own private data. In a journal artifact, your entries stay visible only to you.
 
-- **Shared storage:** All users see and interact with the same data. For example, in a game leaderboard, everyone sees the same scores and rankings.
+- **Shared storage:** Everyone sees and works with the same data. In a game leaderboard, everyone sees the same scores.
 
-When you interact with an artifact that uses shared storage for the first time, you'll see a confirmation dialog explaining that your data will be visible to other users of that artifact.
+The first time you use an artifact with shared storage, Claude shows a confirmation explaining that your data will be visible to others using it.
 
-**Note:** Persistent storage is only available for published artifacts. During development and testing, storage operations will not succeed until the artifact is published.
+**Note:** In legacy artifacts, storage works only after you publish. While you're building and testing, storage operations won't succeed until you publish. New artifacts don't need to be published to store data.
 
-**Storage specifications:**
+Storage has a 20 MB limit per artifact and accepts text only, no images, files, or binary data. Personal and shared storage are kept separate, and unpublishing a legacy artifact permanently deletes all its stored data.
 
-- 20 MB storage limit per artifact
-
-- Text-only input—no images, files, or binary data
-
-- Personal and shared storage are isolated
-
-- Unpublishing an artifact permanently deletes all associated storage data
-
-**Privacy consideration:** Artifact creators determine which data uses personal versus shared storage when building the artifact. Before entering sensitive information, consider whether the artifact uses shared storage.
+**Warning:** Whoever builds an artifact decides which data uses personal storage and which uses shared. Before entering anything sensitive, check whether the artifact uses shared storage.
 
 ---
 
@@ -206,13 +147,7 @@ When you interact with an artifact that uses shared storage for the first time, 
 
 Artifacts are available in Claude Code on every plan that includes Claude Code.
 
-Claude Code can publish its session output as an artifact—a live, interactive page at a private URL. The page updates in place as your session continues, and you can share it with others. An artifact might be a pull-request walkthrough with annotated diffs, a dashboard built from session data, or an investigation timeline that fills in as Claude works.
-
-By default, artifacts in Claude Code are visible only to the person who created them.
-
-- **Team and Enterprise plans:** Share them with people in your organization. Sharing with anyone who has the link requires an owner to turn on **External sharing** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
-
-- **Pro and Max plans:** Share them with anyone who has the link.
+Claude Code can publish its session output as an artifact, a live interactive page at a private URL. The page updates in place as your session continues, and you can share it. An artifact might be a pull-request walkthrough with annotated diffs, a dashboard built from session data, or an investigation timeline that fills in as Claude works.
 
 You can also make designs and docs from Claude Code. Use /design for Claude Design, or ask for a doc. On desktop, the doc opens in the side panel. In the terminal, Claude gives you a link to open it on the web.
 
@@ -220,6 +155,12 @@ To learn how to create, update, and share artifacts in Claude Code, see the **[a
 
 ---
 
-## Learn more
+## Live artifacts from Claude Cowork
 
-To share your artifacts publicly, embed them on websites, or discover artifacts created by others, see **[Publish and share artifacts](https://support.claude.com/en/articles/9547008)**.
+Artifacts made in Claude Cowork before August 19, 2026 are live artifacts. They keep working, but you can't edit them in place. Learn more in **[Use live artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249)**.
+
+---
+
+## Share an artifact
+
+Artifacts start private to you. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**, including who can open them and what they see.
