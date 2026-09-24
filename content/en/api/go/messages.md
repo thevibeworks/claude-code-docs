@@ -1071,6 +1071,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Body param: Container identifier for reuse across requests.
 
+  - `Diagnostics param.Field[DiagnosticsParamResp] Optional`
+
+    Body param: Request-level diagnostics. Currently carries the previous response
+    id for prompt-cache divergence reporting.
+
   - `InferenceGeo param.Field[string] Optional`
 
     Body param: Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
@@ -3622,6 +3627,67 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `FileID string`
 
+  - `Diagnostics Diagnostics`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
+    - `CacheMissReason CacheMissReasonUnion`
+
+      Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+      - `type CacheMissModelChanged`
+
+        - `Type ModelChanged`
+
+          default: model_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissSystemChanged`
+
+        - `Type SystemChanged`
+
+          default: system_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissToolsChanged`
+
+        - `Type ToolsChanged`
+
+          default: tools_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissMessagesChanged`
+
+        - `Type MessagesChanged`
+
+          default: messages_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissPreviousMessageNotFound`
+
+        - `Type PreviousMessageNotFound`
+
+          default: previous_message_not_found
+
+      - `type CacheMissUnavailable`
+
+        - `Type Unavailable`
+
+          default: unavailable
+
   - `Model Model`
 
     The model that will complete your prompt.
@@ -4154,6 +4220,12 @@ func main() {
       "type": "text"
     }
   ],
+  "diagnostics": {
+    "cache_miss_reason": {
+      "cache_missed_input_tokens": 0,
+      "type": "model_changed"
+    }
+  },
   "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
@@ -8928,6 +9000,126 @@ func main() {
 
     default: 0, minimum: 0
 
+### Cache Miss Messages Changed
+
+- `type CacheMissMessagesChanged`
+
+  - `Type MessagesChanged`
+
+    default: messages_changed
+
+  - `CacheMissedInputTokens int64`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Model Changed
+
+- `type CacheMissModelChanged`
+
+  - `Type ModelChanged`
+
+    default: model_changed
+
+  - `CacheMissedInputTokens int64`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Previous Message Not Found
+
+- `type CacheMissPreviousMessageNotFound`
+
+  - `Type PreviousMessageNotFound`
+
+    default: previous_message_not_found
+
+### Cache Miss Reason
+
+- `type CacheMissReasonUnion interface{…}`
+
+  - `type CacheMissModelChanged`
+
+    - `Type ModelChanged`
+
+      default: model_changed
+
+    - `CacheMissedInputTokens int64`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `type CacheMissSystemChanged`
+
+    - `Type SystemChanged`
+
+      default: system_changed
+
+    - `CacheMissedInputTokens int64`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `type CacheMissToolsChanged`
+
+    - `Type ToolsChanged`
+
+      default: tools_changed
+
+    - `CacheMissedInputTokens int64`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `type CacheMissMessagesChanged`
+
+    - `Type MessagesChanged`
+
+      default: messages_changed
+
+    - `CacheMissedInputTokens int64`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `type CacheMissPreviousMessageNotFound`
+
+    - `Type PreviousMessageNotFound`
+
+      default: previous_message_not_found
+
+  - `type CacheMissUnavailable`
+
+    - `Type Unavailable`
+
+      default: unavailable
+
+### Cache Miss System Changed
+
+- `type CacheMissSystemChanged`
+
+  - `Type SystemChanged`
+
+    default: system_changed
+
+  - `CacheMissedInputTokens int64`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Tools Changed
+
+- `type CacheMissToolsChanged`
+
+  - `Type ToolsChanged`
+
+    default: tools_changed
+
+  - `CacheMissedInputTokens int64`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Unavailable
+
+- `type CacheMissUnavailable`
+
+  - `Type Unavailable`
+
+    default: unavailable
+
 ### Citation Char Location
 
 - `type CitationCharLocation`
@@ -12854,6 +13046,82 @@ func main() {
 
         - `const ImageTransformationsParamOversizedImageError ImageTransformationsParamOversizedImage = "error"`
 
+### Diagnostics
+
+- `type Diagnostics`
+
+  Request-level diagnostics: why the prompt cache could not fully reuse
+  the prefix of the request named by `diagnostics.previous_message_id`.
+
+  - `CacheMissReason CacheMissReasonUnion`
+
+    Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+    - `type CacheMissModelChanged`
+
+      - `Type ModelChanged`
+
+        default: model_changed
+
+      - `CacheMissedInputTokens int64`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `type CacheMissSystemChanged`
+
+      - `Type SystemChanged`
+
+        default: system_changed
+
+      - `CacheMissedInputTokens int64`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `type CacheMissToolsChanged`
+
+      - `Type ToolsChanged`
+
+        default: tools_changed
+
+      - `CacheMissedInputTokens int64`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `type CacheMissMessagesChanged`
+
+      - `Type MessagesChanged`
+
+        default: messages_changed
+
+      - `CacheMissedInputTokens int64`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `type CacheMissPreviousMessageNotFound`
+
+      - `Type PreviousMessageNotFound`
+
+        default: previous_message_not_found
+
+    - `type CacheMissUnavailable`
+
+      - `Type Unavailable`
+
+        default: unavailable
+
+### Diagnostics Param
+
+- `type DiagnosticsParamResp`
+
+  Request-level diagnostics. Currently carries the previous response
+  id for prompt-cache divergence reporting.
+
+  - `PreviousMessageID string Optional`
+
+    The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
+    maxLength: 256
+
 ### Direct Caller
 
 - `type DirectCaller`
@@ -14159,6 +14427,67 @@ func main() {
         default: container_upload
 
       - `FileID string`
+
+  - `Diagnostics Diagnostics`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
+    - `CacheMissReason CacheMissReasonUnion`
+
+      Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+      - `type CacheMissModelChanged`
+
+        - `Type ModelChanged`
+
+          default: model_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissSystemChanged`
+
+        - `Type SystemChanged`
+
+          default: system_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissToolsChanged`
+
+        - `Type ToolsChanged`
+
+          default: tools_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissMessagesChanged`
+
+        - `Type MessagesChanged`
+
+          default: messages_changed
+
+        - `CacheMissedInputTokens int64`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `type CacheMissPreviousMessageNotFound`
+
+        - `Type PreviousMessageNotFound`
+
+          default: previous_message_not_found
+
+      - `type CacheMissUnavailable`
+
+        - `Type Unavailable`
+
+          default: unavailable
 
   - `Model Model`
 
@@ -19332,6 +19661,67 @@ func main() {
 
         - `FileID string`
 
+    - `Diagnostics Diagnostics`
+
+      Request-level diagnostics: why the prompt cache could not fully reuse
+      the prefix of the request named by `diagnostics.previous_message_id`.
+
+      - `CacheMissReason CacheMissReasonUnion`
+
+        Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+        - `type CacheMissModelChanged`
+
+          - `Type ModelChanged`
+
+            default: model_changed
+
+          - `CacheMissedInputTokens int64`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `type CacheMissSystemChanged`
+
+          - `Type SystemChanged`
+
+            default: system_changed
+
+          - `CacheMissedInputTokens int64`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `type CacheMissToolsChanged`
+
+          - `Type ToolsChanged`
+
+            default: tools_changed
+
+          - `CacheMissedInputTokens int64`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `type CacheMissMessagesChanged`
+
+          - `Type MessagesChanged`
+
+            default: messages_changed
+
+          - `CacheMissedInputTokens int64`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `type CacheMissPreviousMessageNotFound`
+
+          - `Type PreviousMessageNotFound`
+
+            default: previous_message_not_found
+
+        - `type CacheMissUnavailable`
+
+          - `Type Unavailable`
+
+            default: unavailable
+
     - `Model Model`
 
       The model that will complete your prompt.
@@ -20392,6 +20782,67 @@ func main() {
             default: container_upload
 
           - `FileID string`
+
+      - `Diagnostics Diagnostics`
+
+        Request-level diagnostics: why the prompt cache could not fully reuse
+        the prefix of the request named by `diagnostics.previous_message_id`.
+
+        - `CacheMissReason CacheMissReasonUnion`
+
+          Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+          - `type CacheMissModelChanged`
+
+            - `Type ModelChanged`
+
+              default: model_changed
+
+            - `CacheMissedInputTokens int64`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `type CacheMissSystemChanged`
+
+            - `Type SystemChanged`
+
+              default: system_changed
+
+            - `CacheMissedInputTokens int64`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `type CacheMissToolsChanged`
+
+            - `Type ToolsChanged`
+
+              default: tools_changed
+
+            - `CacheMissedInputTokens int64`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `type CacheMissMessagesChanged`
+
+            - `Type MessagesChanged`
+
+              default: messages_changed
+
+            - `CacheMissedInputTokens int64`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `type CacheMissPreviousMessageNotFound`
+
+            - `Type PreviousMessageNotFound`
+
+              default: previous_message_not_found
+
+          - `type CacheMissUnavailable`
+
+            - `Type Unavailable`
+
+              default: unavailable
 
       - `Model Model`
 
@@ -29028,6 +29479,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `string`
 
+      - `Diagnostics DiagnosticsParamResp Optional`
+
+        Request-level diagnostics. Currently carries the previous response
+        id for prompt-cache divergence reporting.
+
+        - `PreviousMessageID string Optional`
+
+          The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
+          maxLength: 256
+
       - `InferenceGeo string Optional`
 
         Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
@@ -32577,6 +33039,67 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               default: container_upload
 
             - `FileID string`
+
+        - `Diagnostics Diagnostics`
+
+          Request-level diagnostics: why the prompt cache could not fully reuse
+          the prefix of the request named by `diagnostics.previous_message_id`.
+
+          - `CacheMissReason CacheMissReasonUnion`
+
+            Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+            - `type CacheMissModelChanged`
+
+              - `Type ModelChanged`
+
+                default: model_changed
+
+              - `CacheMissedInputTokens int64`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `type CacheMissSystemChanged`
+
+              - `Type SystemChanged`
+
+                default: system_changed
+
+              - `CacheMissedInputTokens int64`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `type CacheMissToolsChanged`
+
+              - `Type ToolsChanged`
+
+                default: tools_changed
+
+              - `CacheMissedInputTokens int64`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `type CacheMissMessagesChanged`
+
+              - `Type MessagesChanged`
+
+                default: messages_changed
+
+              - `CacheMissedInputTokens int64`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `type CacheMissPreviousMessageNotFound`
+
+              - `Type PreviousMessageNotFound`
+
+                default: previous_message_not_found
+
+            - `type CacheMissUnavailable`
+
+              - `Type Unavailable`
+
+                default: unavailable
 
         - `Model Model`
 

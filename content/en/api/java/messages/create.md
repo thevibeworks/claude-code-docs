@@ -1083,6 +1083,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Container identifier for reuse across requests.
 
+  - `Optional<DiagnosticsParam> diagnostics`
+
+    Request-level diagnostics. Currently carries the previous response
+    id for prompt-cache divergence reporting.
+
   - `Optional<String> inferenceGeo`
 
     Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
@@ -3540,6 +3545,55 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `String fileId`
 
+  - `Optional<Diagnostics> diagnostics`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
+    - `Optional<CacheMissReason> cacheMissReason`
+
+      Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+      - `class CacheMissModelChanged`
+
+        - `JsonValue type = "model_changed"`
+
+        - `long cacheMissedInputTokens`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class CacheMissSystemChanged`
+
+        - `JsonValue type = "system_changed"`
+
+        - `long cacheMissedInputTokens`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class CacheMissToolsChanged`
+
+        - `JsonValue type = "tools_changed"`
+
+        - `long cacheMissedInputTokens`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class CacheMissMessagesChanged`
+
+        - `JsonValue type = "messages_changed"`
+
+        - `long cacheMissedInputTokens`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `class CacheMissPreviousMessageNotFound`
+
+        - `JsonValue type = "previous_message_not_found"`
+
+      - `class CacheMissUnavailable`
+
+        - `JsonValue type = "unavailable"`
+
   - `Model model`
 
     The model that will complete your prompt.
@@ -4029,6 +4083,12 @@ public final class Main {
       "type": "text"
     }
   ],
+  "diagnostics": {
+    "cache_miss_reason": {
+      "cache_missed_input_tokens": 0,
+      "type": "model_changed"
+    }
+  },
   "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {

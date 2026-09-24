@@ -1,14 +1,14 @@
 # Why Claude switched models in your conversation with Opus 5 or Opus 5.5
 
-This article explains why a request might fallback on Claude Opus 5 or Opus 5.5, what happens when your conversation switches to another model, and how to manage automatic switching.
+This article explains why a request might fall back on Claude Opus 5 or Opus 5.5, what happens when your conversation switches to another model, and how to manage automatic switching.
 
 ## Why some requests get blocked
 
 Claude Opus 5 and Opus 5.5 improve on Claude Opus 4.8 across the board. We've set its safeguards in line with those capability gains.
 
-Most requests sent to Opus 5 or Opus 5.5 won’t encounter fallback safety interventions. A narrow set of higher-risk requests either fallback to a less capable model or are blocked directly, so we can keep supporting everyday work while limiting the risk of misuse. We continue working to refine these safeguards so they block fewer legitimate requests. That includes fine-tuning our classifiers to reduce false positives and factoring in a range of account trust signals. Your feedback helps guide this work.
+Most requests sent to Opus 5 or Opus 5.5 won’t encounter fallback safety interventions. A narrow set of higher-risk requests either fall back to a less capable model or are blocked directly, so we can keep supporting everyday work while limiting the risk of misuse. We continue working to refine these safeguards so they block fewer legitimate requests. That includes fine-tuning our classifiers to reduce false positives and factoring in a range of account trust signals. Your feedback helps guide this work.
 
-## What requests may fallback or get blocked
+## What requests may fall back or get blocked
 
 Claude Opus 5 and Opus 5.5 run automated safety checks, or classifiers, on every user request. The checks also review everything the model reads, not just your latest message. This includes memory, content from connectors, web search results, and files, so a fallback can be triggered by content you didn't type.
 
@@ -16,7 +16,7 @@ Fallbacks and blocks work differently depending on the type of classifier trigge
 
 ### Cybersecurity
 
-Opus 5 or Opus 5.5 may fallback to Opus 4.8 when our cyber classifiers flag potentially higher-risk offensive cybersecurity requests, such as:
+Opus 5 or Opus 5.5 may fall back to Opus 4.8 when our cyber classifiers flag potentially higher-risk offensive cybersecurity requests, such as:
 
 - Exploit generation
 
@@ -28,7 +28,7 @@ You can still use Opus 5 and Opus 5.5 for secure coding, including scanning sour
 
 ### Biology
 
-While Claude Opus 5 improves on Opus 4.8 in biology, it’s not as capable as Fable 5 at real world long-horizon tasks for novel research discoveries that could lead to significant risk. As a result, Opus 5 doesn't fallback on biology, chemistry, or life-sciences questions. It uses similar safeguards for these topics as Opus 4.8.
+While Claude Opus 5 improves on Opus 4.8 in biology, it’s not as capable as Fable 5 at real world long-horizon tasks for novel research discoveries that could lead to significant risk. As a result, Opus 5 doesn't fall back on biology, chemistry, or life-sciences questions. It uses similar safeguards for these topics as Opus 4.8.
 
 Opus 5.5 has similar safety classifiers to Claude Fable 5 for biology due to increases in capabilities over Opus 5. These classifiers cause Claude to fall back from Opus 5.5 to Opus 5 when you submit dual-use requests in areas like virology, toxicology, and molecular design. You can still use Opus 5.5 for everyday health and educational questions, including interpreting lab results, understanding symptoms, and learning about biology.
 
@@ -76,9 +76,21 @@ With automatic model switching off, a request that falls back pauses the convers
 
 - Send the same message to a less capable model manually
 
+## Usage and billing
+
+How a request that falls back is billed depends on when the block happens and which classifier triggered it:
+
+- **Blocked before Claude responds:** To disrupt coordinated attacks on our safeguards, refusals that arrive before any output are billed when they stop or fall back due to biology, distillation, or frontier LLM development safety classifiers. These are the categories where our false positive rates are lowest, as of September 2026. Requests blocked before any output in other categories are not charged.
+
+- **Blocked after Claude starts responding:** If a request is blocked midstream, the input tokens and those streamed before the block are charged at the rates of the model that produced them.
+
+- **Fallback requests:** If you are opted into automatic model switching, and the conversation switches to another model after a block, the fallback response is charged separately, at the responding model’s rates. We provide a credit to compensate for the cache miss of the fallback request.
+
+Learn more about **[refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed)**.
+
 ## Give feedback
 
-If your request is blocked but seems unrelated to cybersecurity, biology, frontier LLM development, or distillation, or if your legitimate security work keeps falling back, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
+If your request is blocked but seems unrelated to one of the classifiers listed above, or if your legitimate security work keeps falling back, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
 
 ## Where automatic model switching applies
 

@@ -24,7 +24,7 @@ Turning off **Share projects** also turns off **Public projects**.
 
 - Projects that are already shared stay shared, and users who already have access keep it.
 
-- Existing public projects become private, and users can't create new public projects.
+- Existing public projects become private, so people who only had access because a project was public lose it. Users can't create new public projects.
 
 - Users can still open a project's “Share” menu, but they see "Project sharing is turned off by your administrator" and can't add new users or groups. They can still change or remove existing access.
 

@@ -824,6 +824,67 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `file_id: string`
 
+        - `diagnostics: Diagnostics | null`
+
+          Request-level diagnostics: why the prompt cache could not fully reuse
+          the prefix of the request named by `diagnostics.previous_message_id`.
+
+          - `cache_miss_reason: CacheMissReason | null`
+
+            Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+            - `interface CacheMissModelChanged`
+
+              - `type: "model_changed"`
+
+                default: model_changed
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `interface CacheMissSystemChanged`
+
+              - `type: "system_changed"`
+
+                default: system_changed
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `interface CacheMissToolsChanged`
+
+              - `type: "tools_changed"`
+
+                default: tools_changed
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `interface CacheMissMessagesChanged`
+
+              - `type: "messages_changed"`
+
+                default: messages_changed
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `interface CacheMissPreviousMessageNotFound`
+
+              - `type: "previous_message_not_found"`
+
+                default: previous_message_not_found
+
+            - `interface CacheMissUnavailable`
+
+              - `type: "unavailable"`
+
+                default: unavailable
+
         - `model: Model`
 
           The model that will complete your prompt.

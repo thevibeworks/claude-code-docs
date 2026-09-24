@@ -1343,6 +1343,10 @@
       "since": "2026-08-25",
       "reason": "moved -> https://support.claude.com/en/articles/9450526-export-your-claude-data"
     },
+    "https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them": {
+      "since": "2026-09-24",
+      "reason": "moved -> https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them"
+    },
     "https://support.claude.com/en/articles/9547008-publish-and-share-artifacts": {
       "since": "2026-09-24",
       "reason": "moved -> https://support.claude.com/en/articles/9547008-share-artifacts"

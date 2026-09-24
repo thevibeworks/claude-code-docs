@@ -7454,7 +7454,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Request-level diagnostics: why the prompt cache could not fully reuse
     the prefix of the request named by `diagnostics.previous_message_id`.
 
-    - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
+    - `cache_miss_reason: BetaCacheMissReason or null`
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 

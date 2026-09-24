@@ -1950,7 +1950,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
 
 ### Error handling
 
-The conversion functions throw `UnsupportedMCPValueError` if an MCP value isn't supported by the Claude API (in Go, the helpers return an `UnsupportedValueError`; in Java and C#, they throw `AnthropicInvalidDataException`). This can happen with unsupported content types, MIME types, or resource links (resolve resource links with your MCP client before converting).
+The conversion functions fail with `UnsupportedMCPValueError` (go: `UnsupportedValueError`; java, csharp: `AnthropicInvalidDataException`) if an MCP value isn't supported by the Claude API (thrown, or in Go returned as an error). This can happen with unsupported content types, MIME types, or resource links (resolve resource links with your MCP client before converting).
 
 ## Batch requests
 

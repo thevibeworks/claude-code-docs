@@ -7,11 +7,13 @@ url: https://platform.claude.com/docs/en/api/beta/organization/workspaces/rate_l
 
 **GET** `/v1/organizations/workspaces/{workspace_id}/rate_limits`
 
-List rate-limit overrides configured for a workspace.
+List a workspace's rate limits.
 
-Returns only the groups and limiter types that have a workspace-level
-override. Groups without overrides inherit the organization limits and
-are not listed; use `GET /v1/organizations/rate_limits` to see those.
+By default, returns only the groups and limiter types that have a
+workspace-level override. With `include_inherited=true`, returns every
+group with organization-level limits the workspace can see, listing for
+each the values it inherits from the organization as well as its own
+overrides. Each value's `source` says which it is.
 
 When `limit` is omitted, every matching entry is returned in a single
 page; when `limit` truncates the result, follow `next_page` to fetch
@@ -41,6 +43,12 @@ the remaining entries.
 
   - `"web_search"`
 
+- `include_inherited: optional boolean`
+
+  Also list the limiter values the workspace inherits from the organization, including groups with no workspace-level override.
+
+  default: false
+
 - `limit: optional number`
 
   Maximum number of items to return per page. Ranges from `1` to `1000`.
@@ -57,7 +65,7 @@ the remaining entries.
 
 - `data: array of BetaWorkspaceRateLimit`
 
-  Rate-limit entries for the workspace, one per group that has at least one override.
+  Rate-limit entries for the workspace: one per group with at least one override, or, with `include_inherited` set to `true`, one per group the workspace can see that has organization-level limits.
 
   - `type: "workspace_rate_limit"`
 
@@ -147,7 +155,7 @@ the remaining entries.
 
   - `limits: array of BetaWorkspaceRateLimitValue`
 
-    The limiter values overridden for this group in this workspace. Limiter types without a workspace override are omitted and inherit the organization value.
+    The workspace's limiter values for this group. By default only the limiter types with a workspace-level override are listed. With `include_inherited` set to `true`, the limiter types the workspace inherits from the organization are listed too, each marked by `source`.
 
     - `type: string`
 
@@ -157,9 +165,29 @@ the remaining entries.
 
       The organization-level value for the same limiter type, for reference. `null` when the organization has no limit configured for this limiter type.
 
+    - `source: BetaWorkspaceRateLimitWorkspaceSource or BetaWorkspaceRateLimitOrganizationSource`
+
+      Where `value` comes from. `organization` values are listed only when `include_inherited` is `true`, and then `value` equals `org_limit`.
+
+      - `BetaWorkspaceRateLimitWorkspaceSource object`
+
+        - `type: "workspace"`
+
+          Always `workspace`: a workspace-level override is stored.
+
+          default: workspace
+
+      - `BetaWorkspaceRateLimitOrganizationSource object`
+
+        - `type: "organization"`
+
+          Always `organization`: no workspace-level override is stored, so the organization's value applies.
+
+          default: organization
+
     - `value: number`
 
-      The workspace-level override value for this limiter type.
+      The workspace's value for this limiter type: the workspace-level override when `source.type` is `workspace`, otherwise the organization's value.
 
   - `models: array of string or null`
 
@@ -167,11 +195,11 @@ the remaining entries.
 
   - `rate_limit_id: string`
 
-    The `id` of the organization's RateLimit entry this override applies to.
+    The `id` of the organization's RateLimit entry this entry applies to.
 
   - `workspace_id: string`
 
-    ID of the Workspace this override applies to.
+    ID of the Workspace this entry applies to.
 
   - `group_type: "batch" or "files" or "model_group" or 3 more`
 
@@ -218,6 +246,9 @@ curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/rate_li
       "limits": [
         {
           "org_limit": 0,
+          "source": {
+            "type": "workspace"
+          },
           "type": "type",
           "value": 0
         }

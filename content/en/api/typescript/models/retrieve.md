@@ -21,7 +21,15 @@ The Models API response can be used to determine information about a specific mo
 
 - `params: ModelRetrieveParams`
 
+  - `workspace_id?: string`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
   - `betas?: Array<AnthropicBeta>`
+
+    **Deprecated**: Deprecated. This parameter will be removed from this method in a future release. To use beta features, call the beta models methods (`client.beta.models`) instead.
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -124,12 +132,6 @@ The Models API response can be used to determine information about a specific mo
       - `"inline-tools-2026-09-15"`
 
       - `"mcp-client-2026-09-15"`
-
-  - `workspace_id?: string`
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Returns
 

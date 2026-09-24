@@ -734,6 +734,55 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `file_id: String`
 
+        - `diagnostics: Diagnostics`
+
+          Request-level diagnostics: why the prompt cache could not fully reuse
+          the prefix of the request named by `diagnostics.previous_message_id`.
+
+          - `cache_miss_reason: CacheMissReason`
+
+            Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+            - `class CacheMissModelChanged`
+
+              - `type: :model_changed`
+
+              - `cache_missed_input_tokens: Integer`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `class CacheMissSystemChanged`
+
+              - `type: :system_changed`
+
+              - `cache_missed_input_tokens: Integer`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `class CacheMissToolsChanged`
+
+              - `type: :tools_changed`
+
+              - `cache_missed_input_tokens: Integer`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `class CacheMissMessagesChanged`
+
+              - `type: :messages_changed`
+
+              - `cache_missed_input_tokens: Integer`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `class CacheMissPreviousMessageNotFound`
+
+              - `type: :previous_message_not_found`
+
+            - `class CacheMissUnavailable`
+
+              - `type: :unavailable`
+
         - `model: Model`
 
           The model that will complete your prompt.

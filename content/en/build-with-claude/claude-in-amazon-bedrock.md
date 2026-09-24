@@ -325,7 +325,7 @@ The SDK resolves credentials and region using the standard AWS precedence: const
 </Tabs>
 
 <Tip>
-  You can also use the standard `Anthropic` client: set `base_url` to `https://bedrock-mantle.{region}.api.aws/anthropic` and pass your bearer token as `api_key`. This path supports bearer-token authentication only. SigV4 signing requires the dedicated client.
+  You can also use the standard `Anthropic` client: set `base_url` to `https://bedrock-mantle.{region}.api.aws/anthropic` and pass your bearer token as `api_key`. This path supports bearer-token authentication only. SigV4 signing requires `AnthropicBedrockMantle` (csharp: `AnthropicBedrockMantleClient`; go: `bedrock.NewMantleClient`; java: `BedrockMantleBackend`; php: `MantleClient`; ruby: `Anthropic::BedrockMantleClient`).
 </Tip>
 
 ## Supported models

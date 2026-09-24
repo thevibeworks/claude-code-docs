@@ -79,6 +79,8 @@ The following badges can appear on a person's row:
 
 - The attributed view, which shows user emails and session IDs, only appears when your organization's **Allow attribution to individual users** setting is on.
 
+- The same privacy guardrails apply to reports delegates run. Learn more about **[privacy guardrails in smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports#h_7b22bb48c1)**.
+
 - Reports run by delegates count toward your organization's monthly smart reports limit and share the same limit on reports running at once.
 
 Delegates cannot:

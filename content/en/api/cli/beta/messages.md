@@ -8515,6 +8515,50 @@ ant beta:messages count-tokens \
 
   - `type: "previous_message_not_found"`
 
+### Beta Cache Miss Reason
+
+- `beta_cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+
+  - `beta_cache_miss_model_changed: object`
+
+    - `type: "model_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `beta_cache_miss_system_changed: object`
+
+    - `type: "system_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `beta_cache_miss_tools_changed: object`
+
+    - `type: "tools_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `beta_cache_miss_messages_changed: object`
+
+    - `type: "messages_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `beta_cache_miss_previous_message_not_found: object`
+
+    - `type: "previous_message_not_found"`
+
+  - `beta_cache_miss_unavailable: object`
+
+    - `type: "unavailable"`
+
 ### Beta Cache Miss System Changed
 
 - `beta_cache_miss_system_changed: object`
@@ -26576,7 +26620,7 @@ ant beta:messages count-tokens \
 
       Optional line range for viewing specific lines
 
-      minItems: 2, maxItems: 2
+      maxItems: 2, minItems: 2
 
   - `beta_memory_tool_20250818_create_command: object`
 
@@ -26756,7 +26800,7 @@ ant beta:messages count-tokens \
 
     Optional line range for viewing specific lines
 
-    minItems: 2, maxItems: 2
+    maxItems: 2, minItems: 2
 
 ### Beta Message
 

@@ -7004,7 +7004,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Request-level diagnostics: why the prompt cache could not fully reuse
     the prefix of the request named by `diagnostics.previous_message_id`.
 
-    - `Optional<CacheMissReason> cacheMissReason`
+    - `Optional<BetaCacheMissReason> cacheMissReason`
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -14295,6 +14295,50 @@ public final class Main {
 - `class BetaCacheMissPreviousMessageNotFound`
 
   - `JsonValue type = "previous_message_not_found"`
+
+### Beta Cache Miss Reason
+
+- `class BetaCacheMissReason: union`
+
+  - `class BetaCacheMissModelChanged`
+
+    - `JsonValue type = "model_changed"`
+
+    - `long cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissSystemChanged`
+
+    - `JsonValue type = "system_changed"`
+
+    - `long cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissToolsChanged`
+
+    - `JsonValue type = "tools_changed"`
+
+    - `long cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissMessagesChanged`
+
+    - `JsonValue type = "messages_changed"`
+
+    - `long cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissPreviousMessageNotFound`
+
+    - `JsonValue type = "previous_message_not_found"`
+
+  - `class BetaCacheMissUnavailable`
+
+    - `JsonValue type = "unavailable"`
 
 ### Beta Cache Miss System Changed
 
@@ -27473,7 +27517,7 @@ public final class Main {
   Request-level diagnostics: why the prompt cache could not fully reuse
   the prefix of the request named by `diagnostics.previous_message_id`.
 
-  - `Optional<CacheMissReason> cacheMissReason`
+  - `Optional<BetaCacheMissReason> cacheMissReason`
 
     Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -29449,7 +29493,7 @@ public final class Main {
 
       Optional line range for viewing specific lines
 
-      minItems: 2, maxItems: 2
+      maxItems: 2, minItems: 2
 
   - `class BetaMemoryTool20250818CreateCommand`
 
@@ -29629,7 +29673,7 @@ public final class Main {
 
     Optional line range for viewing specific lines
 
-    minItems: 2, maxItems: 2
+    maxItems: 2, minItems: 2
 
 ### Beta Message
 
@@ -32692,7 +32736,7 @@ public final class Main {
     Request-level diagnostics: why the prompt cache could not fully reuse
     the prefix of the request named by `diagnostics.previous_message_id`.
 
-    - `Optional<CacheMissReason> cacheMissReason`
+    - `Optional<BetaCacheMissReason> cacheMissReason`
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -44347,7 +44391,7 @@ public final class Main {
       Request-level diagnostics: why the prompt cache could not fully reuse
       the prefix of the request named by `diagnostics.previous_message_id`.
 
-      - `Optional<CacheMissReason> cacheMissReason`
+      - `Optional<BetaCacheMissReason> cacheMissReason`
 
         Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -48052,7 +48096,7 @@ public final class Main {
         Request-level diagnostics: why the prompt cache could not fully reuse
         the prefix of the request named by `diagnostics.previous_message_id`.
 
-        - `Optional<CacheMissReason> cacheMissReason`
+        - `Optional<BetaCacheMissReason> cacheMissReason`
 
           Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -76857,7 +76901,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Request-level diagnostics: why the prompt cache could not fully reuse
           the prefix of the request named by `diagnostics.previous_message_id`.
 
-          - `Optional<CacheMissReason> cacheMissReason`
+          - `Optional<BetaCacheMissReason> cacheMissReason`
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 

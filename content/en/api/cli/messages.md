@@ -96,6 +96,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Body param: Container identifier for reuse across requests.
 
+- `--diagnostics: optional object`
+
+  Body param: Request-level diagnostics. Currently carries the previous response
+  id for prompt-cache divergence reporting.
+
 - `--inference-geo: optional string`
 
   Body param: Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
@@ -937,6 +942,55 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `file_id: string`
 
+  - `diagnostics: object`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
+    - `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+      Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+      - `cache_miss_model_changed: object`
+
+        - `type: "model_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_system_changed: object`
+
+        - `type: "system_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_tools_changed: object`
+
+        - `type: "tools_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_messages_changed: object`
+
+        - `type: "messages_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_previous_message_not_found: object`
+
+        - `type: "previous_message_not_found"`
+
+      - `cache_miss_unavailable: object`
+
+        - `type: "unavailable"`
+
   - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
 
     The model that will complete your prompt.
@@ -1249,6 +1303,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         ```json
         [{"type": "text", "text": "B)"}]
         ```
+
+      - `diagnostics: object`
+
+        Request-level diagnostics: why the prompt cache could not fully reuse
+        the prefix of the request named by `diagnostics.previous_message_id`.
 
       - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
 
@@ -1801,6 +1860,12 @@ ant messages create \
       "type": "text"
     }
   ],
+  "diagnostics": {
+    "cache_miss_reason": {
+      "cache_missed_input_tokens": 0,
+      "type": "model_changed"
+    }
+  },
   "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
@@ -3935,6 +4000,102 @@ ant messages count-tokens \
     The number of input tokens used to create the 5 minute cache entry.
 
     minimum: 0
+
+### Cache Miss Messages Changed
+
+- `cache_miss_messages_changed: object`
+
+  - `type: "messages_changed"`
+
+  - `cache_missed_input_tokens: number`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Model Changed
+
+- `cache_miss_model_changed: object`
+
+  - `type: "model_changed"`
+
+  - `cache_missed_input_tokens: number`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Previous Message Not Found
+
+- `cache_miss_previous_message_not_found: object`
+
+  - `type: "previous_message_not_found"`
+
+### Cache Miss Reason
+
+- `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+  - `cache_miss_model_changed: object`
+
+    - `type: "model_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `cache_miss_system_changed: object`
+
+    - `type: "system_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `cache_miss_tools_changed: object`
+
+    - `type: "tools_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `cache_miss_messages_changed: object`
+
+    - `type: "messages_changed"`
+
+    - `cache_missed_input_tokens: number`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `cache_miss_previous_message_not_found: object`
+
+    - `type: "previous_message_not_found"`
+
+  - `cache_miss_unavailable: object`
+
+    - `type: "unavailable"`
+
+### Cache Miss System Changed
+
+- `cache_miss_system_changed: object`
+
+  - `type: "system_changed"`
+
+  - `cache_missed_input_tokens: number`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Tools Changed
+
+- `cache_miss_tools_changed: object`
+
+  - `type: "tools_changed"`
+
+  - `cache_missed_input_tokens: number`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Unavailable
+
+- `cache_miss_unavailable: object`
+
+  - `type: "unavailable"`
 
 ### Citation Char Location
 
@@ -8041,6 +8202,70 @@ ant messages count-tokens \
 
         - `"error"`
 
+### Diagnostics
+
+- `diagnostics: object`
+
+  Request-level diagnostics: why the prompt cache could not fully reuse
+  the prefix of the request named by `diagnostics.previous_message_id`.
+
+  - `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+    Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+    - `cache_miss_model_changed: object`
+
+      - `type: "model_changed"`
+
+      - `cache_missed_input_tokens: number`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `cache_miss_system_changed: object`
+
+      - `type: "system_changed"`
+
+      - `cache_missed_input_tokens: number`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `cache_miss_tools_changed: object`
+
+      - `type: "tools_changed"`
+
+      - `cache_missed_input_tokens: number`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `cache_miss_messages_changed: object`
+
+      - `type: "messages_changed"`
+
+      - `cache_missed_input_tokens: number`
+
+        Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+    - `cache_miss_previous_message_not_found: object`
+
+      - `type: "previous_message_not_found"`
+
+    - `cache_miss_unavailable: object`
+
+      - `type: "unavailable"`
+
+### Diagnostics Param
+
+- `diagnostics_param: object`
+
+  Request-level diagnostics. Currently carries the previous response
+  id for prompt-cache divergence reporting.
+
+  - `previous_message_id: optional string`
+
+    The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
+    maxLength: 256
+
 ### Direct Caller
 
 - `direct_caller: object`
@@ -9276,6 +9501,55 @@ ant messages count-tokens \
       - `type: "container_upload"`
 
       - `file_id: string`
+
+  - `diagnostics: object`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
+    - `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+      Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+      - `cache_miss_model_changed: object`
+
+        - `type: "model_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_system_changed: object`
+
+        - `type: "system_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_tools_changed: object`
+
+        - `type: "tools_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_messages_changed: object`
+
+        - `type: "messages_changed"`
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `cache_miss_previous_message_not_found: object`
+
+        - `type: "previous_message_not_found"`
+
+      - `cache_miss_unavailable: object`
+
+        - `type: "unavailable"`
 
   - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
 
@@ -14772,6 +15046,55 @@ ant messages count-tokens \
 
         - `file_id: string`
 
+    - `diagnostics: object`
+
+      Request-level diagnostics: why the prompt cache could not fully reuse
+      the prefix of the request named by `diagnostics.previous_message_id`.
+
+      - `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+        Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+        - `cache_miss_model_changed: object`
+
+          - `type: "model_changed"`
+
+          - `cache_missed_input_tokens: number`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `cache_miss_system_changed: object`
+
+          - `type: "system_changed"`
+
+          - `cache_missed_input_tokens: number`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `cache_miss_tools_changed: object`
+
+          - `type: "tools_changed"`
+
+          - `cache_missed_input_tokens: number`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `cache_miss_messages_changed: object`
+
+          - `type: "messages_changed"`
+
+          - `cache_missed_input_tokens: number`
+
+            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+        - `cache_miss_previous_message_not_found: object`
+
+          - `type: "previous_message_not_found"`
+
+        - `cache_miss_unavailable: object`
+
+          - `type: "unavailable"`
+
     - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
 
       The model that will complete your prompt.
@@ -15730,6 +16053,55 @@ ant messages count-tokens \
           - `type: "container_upload"`
 
           - `file_id: string`
+
+      - `diagnostics: object`
+
+        Request-level diagnostics: why the prompt cache could not fully reuse
+        the prefix of the request named by `diagnostics.previous_message_id`.
+
+        - `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+          Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+          - `cache_miss_model_changed: object`
+
+            - `type: "model_changed"`
+
+            - `cache_missed_input_tokens: number`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `cache_miss_system_changed: object`
+
+            - `type: "system_changed"`
+
+            - `cache_missed_input_tokens: number`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `cache_miss_tools_changed: object`
+
+            - `type: "tools_changed"`
+
+            - `cache_missed_input_tokens: number`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `cache_miss_messages_changed: object`
+
+            - `type: "messages_changed"`
+
+            - `cache_missed_input_tokens: number`
+
+              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+          - `cache_miss_previous_message_not_found: object`
+
+            - `type: "previous_message_not_found"`
+
+          - `cache_miss_unavailable: object`
+
+            - `type: "unavailable"`
 
       - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
 
@@ -25295,6 +25667,55 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `type: "container_upload"`
 
             - `file_id: string`
+
+        - `diagnostics: object`
+
+          Request-level diagnostics: why the prompt cache could not fully reuse
+          the prefix of the request named by `diagnostics.previous_message_id`.
+
+          - `cache_miss_reason: CacheMissModelChanged or CacheMissSystemChanged or CacheMissToolsChanged or 3 more`
+
+            Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+            - `cache_miss_model_changed: object`
+
+              - `type: "model_changed"`
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `cache_miss_system_changed: object`
+
+              - `type: "system_changed"`
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `cache_miss_tools_changed: object`
+
+              - `type: "tools_changed"`
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `cache_miss_messages_changed: object`
+
+              - `type: "messages_changed"`
+
+              - `cache_missed_input_tokens: number`
+
+                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+            - `cache_miss_previous_message_not_found: object`
+
+              - `type: "previous_message_not_found"`
+
+            - `cache_miss_unavailable: object`
+
+              - `type: "unavailable"`
 
         - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
 

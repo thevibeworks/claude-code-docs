@@ -2103,6 +2103,50 @@ var_dump($betaMessageTokensCount);
 
   - `"previous_message_not_found" type`
 
+### Beta Cache Miss Reason
+
+- `class BetaCacheMissReason`
+
+  - `class BetaCacheMissModelChanged`
+
+    - `"model_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissSystemChanged`
+
+    - `"system_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissToolsChanged`
+
+    - `"tools_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissMessagesChanged`
+
+    - `"messages_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class BetaCacheMissPreviousMessageNotFound`
+
+    - `"previous_message_not_found" type`
+
+  - `class BetaCacheMissUnavailable`
+
+    - `"unavailable" type`
+
 ### Beta Cache Miss System Changed
 
 - `class BetaCacheMissSystemChanged`
@@ -3788,7 +3832,7 @@ var_dump($betaMessageTokensCount);
 
 - `class BetaDiagnostics`
 
-  - `?CacheMissReason cacheMissReason`
+  - `?BetaCacheMissReason cacheMissReason`
 
     Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 

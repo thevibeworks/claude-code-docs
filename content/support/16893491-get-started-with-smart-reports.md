@@ -14,7 +14,7 @@ First, a Primary Owner, Owner, Admin, or someone with a custom role with analyti
 
 Claude then reads a sample of transcripts in that scope, groups them into workstreams and types of outputs, attaches spend to each group, and writes up what it found. Every chart is interactive. Click a workstream to open the sessions inside it, ranked by cost, each with a one-paragraph summary, the product used, the date, and the output type. You can filter by subcategory and download the report as HTML with drilldowns intact.
 
-Personal conversations appear only in aggregate, with no summaries, individual sessions, or names. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
+Sessions that Claude identifies as involving restricted topics, including personal conversations, are used only for aggregate analysis and don’t include summaries (see **[Privacy guardrails](#h_7b22bb48c1)**). Personal conversations also don’t include individual sessions or names. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
 
 ## Information included in smart reports
 
@@ -24,13 +24,13 @@ Each report includes the following sections:
 
 Workstreams shows what the group used Claude for most, by sessions and by spend, side by side.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671030907/7b62b605189fe8e9474a20c1eaf2/image.png?expires=1790265600&amp;signature=3687254dfc3981a0790374b283a3f353cb0c7d8c5328b9ee30f1a9342e609898&amp;req=diYgF8l9nYhfXvMW1HO4zZse%2BmKeTQ0KVa%2FWhnGS4GnEkntHq3qiqIvuF%2FdA%0AKQ5lThAVOjHLEXI%2FzaI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671030907/7b62b605189fe8e9474a20c1eaf2/image.png?expires=1790424000&amp;signature=76b5adb84457efdf77f6b3225bd9cf4a1bc2c516de948b58637817e4070af785&amp;req=diYgF8l9nYhfXvMW3nq%2BgYjLrMqCQn42dDmueNPeNxzFWkjfdqnv4MmGO5Nc%0APOeBhGWmsqTWVakHGCqOBrVGiwQ%3D%0A)
 
 ### Deliverables produced
 
 Deliverables produced groups sessions by the type of output that was produced. For example, analysis, documentation, content drafts, and code.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671035220/2a582bc047a6ba46e7dbd6f05d9f/e17881ac-874c-4747-94ca-8679e0301455?expires=1790265600&amp;signature=f0b6b42fa88fc19318d06d3eb0bea5a7cf51307af259a62d5a13d213d17d9e95&amp;req=diYgF8l9mINdWfMW1HO4zelj06dZldj0YDEFlKbF9Y%2BgH41SPVDO%2BnbffNzg%0A53O24urw2v9R1iQfQ5A%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671035220/2a582bc047a6ba46e7dbd6f05d9f/e17881ac-874c-4747-94ca-8679e0301455?expires=1790424000&amp;signature=664a80a6073414d6bab19df98143f91d78088656c261ebdab499330ad10dcedd&amp;req=diYgF8l9mINdWfMW3nq%2BgarkVpAdy556sp7D4nw4%2FNU%2F9LJsVdNcuzITDKde%0Ag%2FF%2BAAeaokJJfcVVoinDR5gt3JA%3D%0A)
 
 ### Cost per session by type of output
 
@@ -44,17 +44,17 @@ Task outcomes  shows what each session produced.
 
 Most common frictions shows what got in the way, by category. For example, a connector that wasn’t set up, output that didn’t match the ask, approval or sign-in gating, tool failures, or rework loops.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671052365/b69f22b75729e5587563e7ab6830/b1647659-a7ea-403b-89fc-0b150ee97675?expires=1790265600&amp;signature=b97403623d2b6f7758ed11c0e6e7d57664d8337db572c492e2ee454c7403ee27&amp;req=diYgF8l7n4JZXPMW1HO4zdDitro3UthXjFK5P3Uf7RiTvW2Zfvymd1dIEJ%2Fp%0Avb%2FwlE8pAxTlbfXHolg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671052365/b69f22b75729e5587563e7ab6830/b1647659-a7ea-403b-89fc-0b150ee97675?expires=1790424000&amp;signature=a57d5ffb161b54a8fada1797ff7dbdf763176e99987b2cddc6a942dd68476c84&amp;req=diYgF8l7n4JZXPMW3nq%2BgelfR%2BcWV2Ly7MzUYunlzgRUaW5BdTYx7%2FkT5iHO%0Atg50O3wxOHwSVIU180XDuBzfxtI%3D%0A)
 
 Click into a category to see more information:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671053199/b68936dd5d590c5fbcbbc092b332/5ec247b2-cd67-4f3f-97b5-23479b87a5c6?expires=1790265600&amp;signature=11c048f9ba6659ecf6f3b4b4eacc07e32ca57d29eba0b416af86ccfa518bafb3&amp;req=diYgF8l7noBWUPMW1HO4zbuGO4sqILwaodOVMLl17PXEQhlIu7kVcZ6R%2Fwq7%0AZPK9rNvlA%2FRmvoLUe%2Fk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671053199/b68936dd5d590c5fbcbbc092b332/5ec247b2-cd67-4f3f-97b5-23479b87a5c6?expires=1790424000&amp;signature=b9a908c838ccc48826c7d4b946372e24014ba2e7a4684835c310165258003503&amp;req=diYgF8l7noBWUPMW3nq%2BgWyn0a4cxmOSfBDXzS32B3CyvGpVC%2FLmwz%2F2R%2FMv%0AnpIpzVAQ0jGYgflt2y37xLamEMI%3D%0A)
 
 ### Inefficiencies
 
 Inefficiencies counts sessions that produced nothing usable and sessions that were personal or off-topic, with their cost (shown only as an aggregate count and cost, with no summaries or drilldown).
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671036122/90dc848a7adf371a872bd89a2f5e/de86945b-ccfe-4e0f-892d-abacc475c5c4?expires=1790265600&amp;signature=107d80f9ee5af77798cf0b7230ccb149b4552f330481452746b7d097de5e3611&amp;req=diYgF8l9m4BdW%2FMW1HO4zcYfhg%2BUC%2FEcBas8rgXn%2Fb04yo6tc84CE6yH5E3b%0ACPNs2%2B%2FImCUaYSW78oQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671036122/90dc848a7adf371a872bd89a2f5e/de86945b-ccfe-4e0f-892d-abacc475c5c4?expires=1790424000&amp;signature=cdeadcd6ad3cd5c655b0bcfefaf76384133eedc7f122f6133bac78b9f8b44adb&amp;req=diYgF8l9m4BdW%2FMW3nq%2BgeoSslrzi4ZFEvdxx0rcKdEwZGSogwsczXlW0ydT%0AKLKHsitDaGRPiDLs%2FcOQVzV0BL4%3D%0A)
 
 ### Reusable skills and workflows to build
 
@@ -64,17 +64,17 @@ Reusable skills and workflows to build identifies repeated patterns that could b
 
 Most expensive sessions lists where spend concentrates.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671032083/2b075387a4a3473f884a8ba26436/image.png?expires=1790265600&amp;signature=4c00d79d4fc05c197c4285fe78fa4c52e79fbb2d4fa746d6f1318b44fba2fee2&amp;req=diYgF8l9n4FXWvMW1HO4zdLkIm%2Bn7EMvnUoxuhUXEhh8alyHGyvhGWZOE8vo%0AytJoDvKnnReaCecFYb0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671032083/2b075387a4a3473f884a8ba26436/image.png?expires=1790424000&amp;signature=69294a2fcd3efc19a6638a7444b2ec18bbc321b2aca3f7f9562d50290fad471c&amp;req=diYgF8l9n4FXWvMW3nq%2BgQL8lhi0YFsYgpeDH9GO2SdIwMdXPTInELpmxi%2Fi%0AdWh%2Fs6nmQcufrI7KHRRFSi0vVZE%3D%0A)
 
 ### Complex, autonomous work
 
 Complex, autonomous work shows  sessions scoring highest on task complexity, time saved, how long Claude worked on its own, and the expertise required.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671031695/3781b98c5cb9cdc069439aa3d9ab/image.png?expires=1790265600&amp;signature=58a7705f1b4bd9824930df47957c4a12e597bced01b5bb485db2b2864109a57a&amp;req=diYgF8l9nIdWXPMW1HO4zcPtgjLzDdrCtjDEKfEvx0MxTOkKPcBVkOSp9IjJ%0AuTYf3EpMDhEy%2FZTxcT0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2671031695/3781b98c5cb9cdc069439aa3d9ab/image.png?expires=1790424000&amp;signature=bf2d4f1083a84333985c507d02bda2b4ce448e0fa917f98af9e3b26418c37ed8&amp;req=diYgF8l9nIdWXPMW3nq%2BgWLYAa4d0m73QAyRMc0VtCR9vK14K1drKCSeMpd1%0A%2FTfrdPFXKkM97zwiGvcxnbySZHY%3D%0A)
 
 ### Answers to custom questions
 
-Before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them.
+Before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them. You can't ask questions about restricted topics (see **[Privacy guardrails](#h_7b22bb48c1)**).
 
 ## Before you begin
 
@@ -217,3 +217,27 @@ To delete a smart report:
 - **Share examples.** Point the rest of the team to sessions that produced a complete pipeline digest or a batch of account briefs so they can follow the same pattern.
 
 - **Bring evidence to renewals.** Walk into a budget conversation with a per-team view of adoption, cost, and output instead of a blended usage number.
+
+## Privacy guardrails
+
+Smart reports have two guardrails for restricted topics. Both are always on, and you can't turn them off:
+
+- **You can’t ask custom questions on restricted topics.** This applies to template questions you customize and to questions you write yourself.
+
+- **Sessions that Claude identifies as involving restricted topics are used only for aggregate analysis.** The report doesn't show a session summary for them.
+
+Restricted topics are:
+
+- **Protected characteristics:** race, ethnicity, national origin, religion, gender identity, age, disability, immigration status
+
+- **Health and medical:** physical or mental health, pregnancy, medical leave, medication, therapy, substance use
+
+- **Union activity:** organizing, collective bargaining, coworkers discussing pay or working conditions
+
+- **Harassment, whistleblower, or legal:** harassment or discrimination complaints, whistleblower reports, privileged legal content about the workplace
+
+- **Political or religious views**
+
+- **Personal life:** family, relationships, personal finances, personal legal troubles, other non-work life
+
+- **Sentiment about people:** feelings about a specific named person, or that person's morale

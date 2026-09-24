@@ -17,80 +17,351 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 ## Parameters
 
-- `type MessageCreateParams = MessageCreateParamsNonStreaming | MessageCreateParamsStreaming`
+- `params: MessageCreateParams`
 
-  - `interface MessageCreateParamsBase`
+  - `max_tokens: number`
 
-    - `max_tokens: number`
+    Body param: The maximum number of tokens to generate before stopping.
 
-      Body param: The maximum number of tokens to generate before stopping.
+    Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-      Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+    Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-      Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+    Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
-      Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+    minimum: 0
 
-      minimum: 0
+  - `messages: Array<MessageParam>`
 
-    - `messages: Array<MessageParam>`
+    Body param: Input messages.
 
-      Body param: Input messages.
+    Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
-      Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
+    Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-      Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
+    If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
 
-      If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
+    Example with a single `user` message:
 
-      Example with a single `user` message:
+    ```json
+    [{"role": "user", "content": "Hello, Claude"}]
+    ```
 
-      ```json
-      [{"role": "user", "content": "Hello, Claude"}]
-      ```
+    Example with multiple conversational turns:
 
-      Example with multiple conversational turns:
+    ```json
+    [
+      {"role": "user", "content": "Hello there."},
+      {"role": "assistant", "content": "Hi, I'm Claude. How can I help you?"},
+      {"role": "user", "content": "Can you explain LLMs in plain English?"},
+    ]
+    ```
 
-      ```json
-      [
-        {"role": "user", "content": "Hello there."},
-        {"role": "assistant", "content": "Hi, I'm Claude. How can I help you?"},
-        {"role": "user", "content": "Can you explain LLMs in plain English?"},
-      ]
-      ```
+    Example with a partially-filled response from Claude:
 
-      Example with a partially-filled response from Claude:
+    ```json
+    [
+      {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
+      {"role": "assistant", "content": "The best answer is ("},
+    ]
+    ```
 
-      ```json
-      [
-        {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-        {"role": "assistant", "content": "The best answer is ("},
-      ]
-      ```
+    Each input message `content` may be either a single `string` or an array of content blocks, where each block has a specific `type`. Using a `string` for `content` is shorthand for an array of one content block of type `"text"`. The following input messages are equivalent:
 
-      Each input message `content` may be either a single `string` or an array of content blocks, where each block has a specific `type`. Using a `string` for `content` is shorthand for an array of one content block of type `"text"`. The following input messages are equivalent:
+    ```json
+    {"role": "user", "content": "Hello, Claude"}
+    ```
 
-      ```json
-      {"role": "user", "content": "Hello, Claude"}
-      ```
+    ```json
+    {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
+    ```
 
-      ```json
-      {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
-      ```
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-      See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
-      Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    There is a limit of 100,000 messages in a single request.
 
-      There is a limit of 100,000 messages in a single request.
+    - `content: string | Array<ContentBlockParam>`
 
-      - `content: string | Array<ContentBlockParam>`
+      - `string`
 
-        - `string`
+      - `Array<ContentBlockParam>`
 
-        - `Array<ContentBlockParam>`
+        - `interface TextBlockParam`
 
-          - `interface TextBlockParam`
+          - `type: "text"`
+
+          - `text: string`
+
+            minLength: 1
+
+          - `cache_control?: CacheControlEphemeral | null`
+
+            Create a cache control breakpoint at this content block.
+
+            - `type: "ephemeral"`
+
+            - `ttl?: "5m" | "1h"`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+              - `"5m"`
+
+              - `"1h"`
+
+          - `citations?: Array<TextCitationParam> | null`
+
+            - `interface CitationCharLocationParam`
+
+              - `type: "char_location"`
+
+              - `cited_text: string`
+
+              - `document_index: number`
+
+                minimum: 0
+
+              - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
+
+              - `end_char_index: number`
+
+              - `start_char_index: number`
+
+                minimum: 0
+
+            - `interface CitationPageLocationParam`
+
+              - `type: "page_location"`
+
+              - `cited_text: string`
+
+              - `document_index: number`
+
+                minimum: 0
+
+              - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
+
+              - `end_page_number: number`
+
+              - `start_page_number: number`
+
+                minimum: 1
+
+            - `interface CitationContentBlockLocationParam`
+
+              - `type: "content_block_location"`
+
+              - `cited_text: string`
+
+                The full text of the cited block range, concatenated.
+
+                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+              - `document_index: number`
+
+                minimum: 0
+
+              - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
+
+              - `end_block_index: number`
+
+                Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+              - `start_block_index: number`
+
+                0-based index of the first cited block in the source's `content` array.
+
+                minimum: 0
+
+            - `interface CitationWebSearchResultLocationParam`
+
+              - `type: "web_search_result_location"`
+
+              - `cited_text: string`
+
+              - `encrypted_index: string`
+
+              - `title: string | null`
+
+                maxLength: 512, minLength: 1
+
+              - `url: string`
+
+                minLength: 1
+
+            - `interface CitationSearchResultLocationParam`
+
+              - `type: "search_result_location"`
+
+              - `cited_text: string`
+
+                The full text of the cited block range, concatenated.
+
+                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+              - `end_block_index: number`
+
+                Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+              - `search_result_index: number`
+
+                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+                Counted separately from `document_index`; server-side web search results are not included in this count.
+
+                minimum: 0
+
+              - `source: string`
+
+              - `start_block_index: number`
+
+                0-based index of the first cited block in the source's `content` array.
+
+                minimum: 0
+
+              - `title: string | null`
+
+        - `interface ImageBlockParam`
+
+          - `type: "image"`
+
+          - `source: Base64ImageSource | URLImageSource | FileImageSource`
+
+            - `interface Base64ImageSource`
+
+              - `type: "base64"`
+
+              - `data: string`
+
+                format: byte
+
+              - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
+
+                - `"image/jpeg"`
+
+                - `"image/png"`
+
+                - `"image/gif"`
+
+                - `"image/webp"`
+
+            - `interface URLImageSource`
+
+              - `type: "url"`
+
+              - `url: string`
+
+            - `interface FileImageSource`
+
+              - `type: "file"`
+
+              - `file_id: string`
+
+          - `cache_control?: CacheControlEphemeral | null`
+
+            Create a cache control breakpoint at this content block.
+
+          - `transformations?: ImageTransformationsParam | null`
+
+            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+            - `oversized_image?: "downsize" | "error"`
+
+              What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+              - `"downsize"`
+
+              - `"error"`
+
+        - `interface DocumentBlockParam`
+
+          - `type: "document"`
+
+          - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
+
+            - `interface Base64PDFSource`
+
+              - `type: "base64"`
+
+              - `data: string`
+
+                format: byte
+
+              - `media_type: "application/pdf"`
+
+            - `interface PlainTextSource`
+
+              - `type: "text"`
+
+              - `data: string`
+
+              - `media_type: "text/plain"`
+
+            - `interface ContentBlockSource`
+
+              - `type: "content"`
+
+              - `content: string | Array<ContentBlockSourceContent>`
+
+                - `string`
+
+                - `Array<ContentBlockSourceContent>`
+
+                  - `interface TextBlockParam`
+
+                  - `interface ImageBlockParam`
+
+            - `interface URLPDFSource`
+
+              - `type: "url"`
+
+              - `url: string`
+
+            - `interface FileDocumentSource`
+
+              - `type: "file"`
+
+              - `file_id: string`
+
+          - `cache_control?: CacheControlEphemeral | null`
+
+            Create a cache control breakpoint at this content block.
+
+          - `citations?: CitationsConfigParam | null`
+
+            - `enabled?: boolean`
+
+          - `context?: string | null`
+
+            minLength: 1
+
+          - `title?: string | null`
+
+            maxLength: 500, minLength: 1
+
+        - `interface SearchResultBlockParam`
+
+          - `type: "search_result"`
+
+          - `content: Array<TextBlockParam>`
 
             - `type: "text"`
 
@@ -102,3008 +373,2730 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
-              - `type: "ephemeral"`
-
-              - `ttl?: "5m" | "1h"`
-
-                The time-to-live for the cache control breakpoint.
-
-                This may be one the following values:
-
-                - `5m`: 5 minutes
-                - `1h`: 1 hour
-
-                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
-
-                - `"5m"`
-
-                - `"1h"`
-
             - `citations?: Array<TextCitationParam> | null`
 
-              - `interface CitationCharLocationParam`
+          - `source: string`
 
-                - `type: "char_location"`
+          - `title: string`
 
-                - `cited_text: string`
+          - `cache_control?: CacheControlEphemeral | null`
 
-                - `document_index: number`
+            Create a cache control breakpoint at this content block.
 
-                  minimum: 0
+          - `citations?: CitationsConfigParam`
 
-                - `document_title: string | null`
+        - `interface ThinkingBlockParam`
 
-                  maxLength: 500, minLength: 1
+          - `type: "thinking"`
 
-                - `end_char_index: number`
+          - `signature: string`
 
-                - `start_char_index: number`
+            The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
 
-                  minimum: 0
+            Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
 
-              - `interface CitationPageLocationParam`
+          - `thinking: string`
 
-                - `type: "page_location"`
+            The `thinking` text of this block as returned by the API.
 
-                - `cited_text: string`
+        - `interface RedactedThinkingBlockParam`
 
-                - `document_index: number`
+          - `type: "redacted_thinking"`
 
-                  minimum: 0
+          - `data: string`
 
-                - `document_title: string | null`
+            The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-                  maxLength: 500, minLength: 1
+        - `interface ToolUseBlockParam`
 
-                - `end_page_number: number`
+          - `type: "tool_use"`
 
-                - `start_page_number: number`
+          - `id: string`
 
-                  minimum: 1
+            pattern: ^[a-zA-Z0-9_-]+$
 
-              - `interface CitationContentBlockLocationParam`
+          - `input: Record<string, unknown>`
 
-                - `type: "content_block_location"`
+          - `name: string`
 
-                - `cited_text: string`
+            maxLength: 200, minLength: 1
 
-                  The full text of the cited block range, concatenated.
+          - `cache_control?: CacheControlEphemeral | null`
 
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+            Create a cache control breakpoint at this content block.
 
-                - `document_index: number`
+          - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
-                  minimum: 0
+            - `interface DirectCaller`
 
-                - `document_title: string | null`
+              Tool invocation directly from the model.
 
-                  maxLength: 500, minLength: 1
+              - `type: "direct"`
 
-                - `end_block_index: number`
+            - `interface ServerToolCaller`
 
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
+              Tool invocation generated by a server-side tool.
 
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+              - `type: "code_execution_20250825"`
 
-                - `start_block_index: number`
+              - `tool_id: string`
 
-                  0-based index of the first cited block in the source's `content` array.
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  minimum: 0
+            - `interface ServerToolCaller20260120`
 
-              - `interface CitationWebSearchResultLocationParam`
+              - `type: "code_execution_20260120"`
 
-                - `type: "web_search_result_location"`
+              - `tool_id: string`
 
-                - `cited_text: string`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `encrypted_index: string`
+          - `toolset_name?: string | null`
 
-                - `title: string | null`
+            For a toolset member tool_use, the toolset family this member belongs to.
 
-                  maxLength: 512, minLength: 1
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-                - `url: string`
+        - `interface ToolResultBlockParam`
 
-                  minLength: 1
+          - `type: "tool_result"`
 
-              - `interface CitationSearchResultLocationParam`
+          - `tool_use_id: string`
 
-                - `type: "search_result_location"`
+            pattern: ^[a-zA-Z0-9_-]+$
 
-                - `cited_text: string`
+          - `cache_control?: CacheControlEphemeral | null`
 
-                  The full text of the cited block range, concatenated.
+            Create a cache control breakpoint at this content block.
 
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+          - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
-                - `end_block_index: number`
+            - `string`
 
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
+            - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+              - `interface TextBlockParam`
 
-                - `search_result_index: number`
+              - `interface ImageBlockParam`
 
-                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+              - `interface SearchResultBlockParam`
 
-                  Counted separately from `document_index`; server-side web search results are not included in this count.
+              - `interface DocumentBlockParam`
 
-                  minimum: 0
+              - `interface ToolReferenceBlockParam`
 
-                - `source: string`
+                Tool reference block that can be included in tool_result content.
 
-                - `start_block_index: number`
+                - `type: "tool_reference"`
 
-                  0-based index of the first cited block in the source's `content` array.
+                - `tool_name: string`
 
-                  minimum: 0
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `title: string | null`
+                - `cache_control?: CacheControlEphemeral | null`
 
-          - `interface ImageBlockParam`
+                  Create a cache control breakpoint at this content block.
 
-            - `type: "image"`
+              - `interface BrowserStateBlockParam`
 
-            - `source: Base64ImageSource | URLImageSource | FileImageSource`
+                The caller's browser state after a browser toolset member call —
+                the full inventory of open tabs, which tab is active, and any side
+                effects (tabs opened, download state changes) the call produced.
 
-              - `interface Base64ImageSource`
+                At most one per `tool_result`, only on a non-error result answering a
+                browser toolset member `tool_use`. The server renders the
+                model-visible text from it; the model never sees the raw fields.
 
-                - `type: "base64"`
+                - `type: "browser_state"`
 
-                - `data: string`
+                - `tabs: Array<BrowserStateTabEntry>`
 
-                  format: byte
+                  All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
-                - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
+                  maxItems: 100
 
-                  - `"image/jpeg"`
+                  - `tab_id: string`
 
-                  - `"image/png"`
+                    The caller-assigned identifier for this tab, unique within the inventory.
 
-                  - `"image/gif"`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                  - `"image/webp"`
+                  - `title: string`
 
-              - `interface URLImageSource`
+                    The title of the page the tab is showing. May be empty.
 
-                - `type: "url"`
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `url: string`
+                  - `url: string`
 
-              - `interface FileImageSource`
+                    The URL of the page the tab is showing. May be empty.
 
-                - `type: "file"`
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `file_id: string`
+                  - `active?: boolean`
 
-            - `cache_control?: CacheControlEphemeral | null`
+                    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              Create a cache control breakpoint at this content block.
+                - `cache_control?: CacheControlEphemeral | null`
 
-            - `transformations?: ImageTransformationsParam | null`
+                  Create a cache control breakpoint at this content block.
 
-              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+                - `state_changes?: Array<BrowserStateChange> | null`
 
-              - `oversized_image?: "downsize" | "error"`
+                  Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+                  maxItems: 200, minItems: 1
 
-                - `"downsize"`
+                  - `interface BrowserStateChangeTabOpened`
 
-                - `"error"`
+                    A tab this call's execution opened that remains open at its end —
+                    the creation delta of the `tabs` inventory, not an event log.
 
-          - `interface DocumentBlockParam`
+                    Carries only the `tab_id`; the tab's `title` and `url` live on its
+                    `tabs` entry, which must include the same `tab_id`. A tab opened
+                    during a failed call gets no deferred `tab_opened`; it simply appears
+                    in the next result's `tabs` inventory.
 
-            - `type: "document"`
-
-            - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
-
-              - `interface Base64PDFSource`
-
-                - `type: "base64"`
-
-                - `data: string`
-
-                  format: byte
-
-                - `media_type: "application/pdf"`
-
-              - `interface PlainTextSource`
-
-                - `type: "text"`
-
-                - `data: string`
-
-                - `media_type: "text/plain"`
-
-              - `interface ContentBlockSource`
-
-                - `type: "content"`
-
-                - `content: string | Array<ContentBlockSourceContent>`
-
-                  - `string`
-
-                  - `Array<ContentBlockSourceContent>`
-
-                    - `interface TextBlockParam`
-
-                    - `interface ImageBlockParam`
-
-              - `interface URLPDFSource`
-
-                - `type: "url"`
-
-                - `url: string`
-
-              - `interface FileDocumentSource`
-
-                - `type: "file"`
-
-                - `file_id: string`
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-            - `citations?: CitationsConfigParam | null`
-
-              - `enabled?: boolean`
-
-            - `context?: string | null`
-
-              minLength: 1
-
-            - `title?: string | null`
-
-              maxLength: 500, minLength: 1
-
-          - `interface SearchResultBlockParam`
-
-            - `type: "search_result"`
-
-            - `content: Array<TextBlockParam>`
-
-              - `type: "text"`
-
-              - `text: string`
-
-                minLength: 1
-
-              - `cache_control?: CacheControlEphemeral | null`
-
-                Create a cache control breakpoint at this content block.
-
-              - `citations?: Array<TextCitationParam> | null`
-
-            - `source: string`
-
-            - `title: string`
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-            - `citations?: CitationsConfigParam`
-
-          - `interface ThinkingBlockParam`
-
-            - `type: "thinking"`
-
-            - `signature: string`
-
-              The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
-
-              Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
-
-            - `thinking: string`
-
-              The `thinking` text of this block as returned by the API.
-
-          - `interface RedactedThinkingBlockParam`
-
-            - `type: "redacted_thinking"`
-
-            - `data: string`
-
-              The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
-
-          - `interface ToolUseBlockParam`
-
-            - `type: "tool_use"`
-
-            - `id: string`
-
-              pattern: ^[a-zA-Z0-9_-]+$
-
-            - `input: Record<string, unknown>`
-
-            - `name: string`
-
-              maxLength: 200, minLength: 1
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-            - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              - `interface DirectCaller`
-
-                Tool invocation directly from the model.
-
-                - `type: "direct"`
-
-              - `interface ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-                - `type: "code_execution_20250825"`
-
-                - `tool_id: string`
-
-                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-              - `interface ServerToolCaller20260120`
-
-                - `type: "code_execution_20260120"`
-
-                - `tool_id: string`
-
-                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `toolset_name?: string | null`
-
-              For a toolset member tool_use, the toolset family this member belongs to.
-
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
-
-          - `interface ToolResultBlockParam`
-
-            - `type: "tool_result"`
-
-            - `tool_use_id: string`
-
-              pattern: ^[a-zA-Z0-9_-]+$
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-            - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
-
-              - `string`
-
-              - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
-
-                - `interface TextBlockParam`
-
-                - `interface ImageBlockParam`
-
-                - `interface SearchResultBlockParam`
-
-                - `interface DocumentBlockParam`
-
-                - `interface ToolReferenceBlockParam`
-
-                  Tool reference block that can be included in tool_result content.
-
-                  - `type: "tool_reference"`
-
-                  - `tool_name: string`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `cache_control?: CacheControlEphemeral | null`
-
-                    Create a cache control breakpoint at this content block.
-
-                - `interface BrowserStateBlockParam`
-
-                  The caller's browser state after a browser toolset member call —
-                  the full inventory of open tabs, which tab is active, and any side
-                  effects (tabs opened, download state changes) the call produced.
-
-                  At most one per `tool_result`, only on a non-error result answering a
-                  browser toolset member `tool_use`. The server renders the
-                  model-visible text from it; the model never sees the raw fields.
-
-                  - `type: "browser_state"`
-
-                  - `tabs: Array<BrowserStateTabEntry>`
-
-                    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
-
-                    maxItems: 100
+                    - `type: "tab_opened"`
 
                     - `tab_id: string`
 
-                      The caller-assigned identifier for this tab, unique within the inventory.
+                      The `tab_id` of the opened tab, present in `tabs`.
 
                       maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `title: string`
+                  - `interface BrowserStateChangeDownloadStarted`
 
-                      The title of the page the tab is showing. May be empty.
+                    A file download that started during this call.
 
-                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    - `type: "download_started"`
+
+                    - `download_id: string`
+
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `url: string`
 
-                      The URL of the page the tab is showing. May be empty.
+                      The final post-redirect URL the download was served from.
 
                       maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `active?: boolean`
+                  - `interface BrowserStateChangeDownloadCompleted`
 
-                      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+                    A file download that finished during this call, reported with the
+                    same `download_id` as its `download_started` — or without a prior
+                    `download_started`, when the download finished during the call that
+                    started it (at most one state change per `download_id` per result).
 
-                  - `cache_control?: CacheControlEphemeral | null`
+                    - `type: "download_completed"`
 
-                    Create a cache control breakpoint at this content block.
+                    - `download_id: string`
 
-                  - `state_changes?: Array<BrowserStateChange> | null`
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    maxItems: 200, minItems: 1
+                    - `url: string`
 
-                    - `interface BrowserStateChangeTabOpened`
+                      The final post-redirect URL the download was served from.
 
-                      A tab this call's execution opened that remains open at its end —
-                      the creation delta of the `tabs` inventory, not an event log.
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      Carries only the `tab_id`; the tab's `title` and `url` live on its
-                      `tabs` entry, which must include the same `tab_id`. A tab opened
-                      during a failed call gets no deferred `tab_opened`; it simply appears
-                      in the next result's `tabs` inventory.
+                    - `path?: string | null`
 
-                      - `type: "tab_opened"`
+                      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                      - `tab_id: string`
+                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
-                        The `tab_id` of the opened tab, present in `tabs`.
+                    - `size_bytes?: number | null`
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      The completed download's size.
 
-                    - `interface BrowserStateChangeDownloadStarted`
+                      minimum: 0
 
-                      A file download that started during this call.
+                  - `interface BrowserStateChangeDownloadFailed`
 
-                      - `type: "download_started"`
+                    A file download that failed — or was cancelled — during this call.
 
-                      - `download_id: string`
+                    - `type: "download_failed"`
 
-                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+                    - `download_id: string`
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      - `url: string`
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        The final post-redirect URL the download was served from.
+                    - `url: string`
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      The final post-redirect URL the download was served from.
 
-                    - `interface BrowserStateChangeDownloadCompleted`
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      A file download that finished during this call, reported with the
-                      same `download_id` as its `download_started` — or without a prior
-                      `download_started`, when the download finished during the call that
-                      started it (at most one state change per `download_id` per result).
+                    - `error?: string | null`
 
-                      - `type: "download_completed"`
+                      The failure or cancellation detail, when known.
 
-                      - `download_id: string`
+                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
-                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+          - `is_error?: boolean`
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+          - `toolset_name?: string | null`
 
-                      - `url: string`
+            For a toolset member tool_result, the toolset family of the paired tool_use.
 
-                        The final post-redirect URL the download was served from.
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        - `interface ServerToolUseBlockParam`
 
-                      - `path?: string | null`
+          - `type: "server_tool_use"`
 
-                        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+          - `id: string`
 
-                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                      - `size_bytes?: number | null`
+          - `input: Record<string, unknown>`
 
-                        The completed download's size.
+          - `name: "web_search" | "web_fetch" | "code_execution" | 4 more`
 
-                        minimum: 0
+            - `"web_search"`
 
-                    - `interface BrowserStateChangeDownloadFailed`
+            - `"web_fetch"`
 
-                      A file download that failed — or was cancelled — during this call.
+            - `"code_execution"`
 
-                      - `type: "download_failed"`
+            - `"bash_code_execution"`
 
-                      - `download_id: string`
+            - `"text_editor_code_execution"`
 
-                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+            - `"tool_search_tool_regex"`
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+            - `"tool_search_tool_bm25"`
 
-                      - `url: string`
+          - `cache_control?: CacheControlEphemeral | null`
 
-                        The final post-redirect URL the download was served from.
+            Create a cache control breakpoint at this content block.
 
-                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+          - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
-                      - `error?: string | null`
+            - `interface DirectCaller`
 
-                        The failure or cancellation detail, when known.
+              Tool invocation directly from the model.
 
-                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+            - `interface ServerToolCaller`
 
-            - `is_error?: boolean`
+              Tool invocation generated by a server-side tool.
 
-            - `toolset_name?: string | null`
+            - `interface ServerToolCaller20260120`
 
-              For a toolset member tool_result, the toolset family of the paired tool_use.
+        - `interface WebSearchToolResultBlockParam`
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          - `type: "web_search_tool_result"`
 
-          - `interface ServerToolUseBlockParam`
+          - `content: WebSearchToolResultBlockParamContent`
 
-            - `type: "server_tool_use"`
+            - `Array<WebSearchResultBlockParam>`
 
-            - `id: string`
+              - `type: "web_search_result"`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+              - `encrypted_content: string`
 
-            - `input: Record<string, unknown>`
+              - `title: string`
 
-            - `name: "web_search" | "web_fetch" | "code_execution" | 4 more`
+              - `url: string`
 
-              - `"web_search"`
+              - `page_age?: string | null`
 
-              - `"web_fetch"`
+            - `interface WebSearchToolRequestError`
 
-              - `"code_execution"`
+              - `type: "web_search_tool_result_error"`
 
-              - `"bash_code_execution"`
+              - `error_code: WebSearchToolResultErrorCode`
 
-              - `"text_editor_code_execution"`
+                - `"invalid_tool_input"`
 
-              - `"tool_search_tool_regex"`
+                - `"unavailable"`
 
-              - `"tool_search_tool_bm25"`
+                - `"max_uses_exceeded"`
 
-            - `cache_control?: CacheControlEphemeral | null`
+                - `"too_many_requests"`
 
-              Create a cache control breakpoint at this content block.
+                - `"query_too_long"`
 
-            - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+                - `"request_too_large"`
 
-              - `interface DirectCaller`
+          - `tool_use_id: string`
 
-                Tool invocation directly from the model.
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `interface ServerToolCaller`
+          - `cache_control?: CacheControlEphemeral | null`
 
-                Tool invocation generated by a server-side tool.
+            Create a cache control breakpoint at this content block.
 
-              - `interface ServerToolCaller20260120`
+          - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
-          - `interface WebSearchToolResultBlockParam`
+            - `interface DirectCaller`
 
-            - `type: "web_search_tool_result"`
+              Tool invocation directly from the model.
 
-            - `content: WebSearchToolResultBlockParamContent`
+            - `interface ServerToolCaller`
 
-              - `Array<WebSearchResultBlockParam>`
+              Tool invocation generated by a server-side tool.
 
-                - `type: "web_search_result"`
+            - `interface ServerToolCaller20260120`
 
-                - `encrypted_content: string`
+        - `interface WebFetchToolResultBlockParam`
 
-                - `title: string`
+          - `type: "web_fetch_tool_result"`
 
-                - `url: string`
+          - `content: WebFetchToolResultErrorBlockParam | WebFetchBlockParam`
 
-                - `page_age?: string | null`
+            - `interface WebFetchToolResultErrorBlockParam`
 
-              - `interface WebSearchToolRequestError`
+              - `type: "web_fetch_tool_result_error"`
 
-                - `type: "web_search_tool_result_error"`
+              - `error_code: WebFetchToolResultErrorCode`
 
-                - `error_code: WebSearchToolResultErrorCode`
+                - `"invalid_tool_input"`
 
-                  - `"invalid_tool_input"`
+                - `"url_too_long"`
 
-                  - `"unavailable"`
+                - `"url_not_allowed"`
 
-                  - `"max_uses_exceeded"`
+                - `"url_not_in_prior_context"`
 
-                  - `"too_many_requests"`
+                - `"url_not_accessible"`
 
-                  - `"query_too_long"`
+                - `"unsupported_content_type"`
 
-                  - `"request_too_large"`
+                - `"too_many_requests"`
 
-            - `tool_use_id: string`
+                - `"max_uses_exceeded"`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                - `"unavailable"`
 
-            - `cache_control?: CacheControlEphemeral | null`
+                - `"content_too_large"`
 
-              Create a cache control breakpoint at this content block.
+            - `interface WebFetchBlockParam`
 
-            - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+              - `type: "web_fetch_result"`
 
-              - `interface DirectCaller`
+              - `content: DocumentBlockParam`
 
-                Tool invocation directly from the model.
+              - `url: string`
 
-              - `interface ServerToolCaller`
+                Fetched content URL
 
-                Tool invocation generated by a server-side tool.
+              - `retrieved_at?: string | null`
 
-              - `interface ServerToolCaller20260120`
+                ISO 8601 timestamp when the content was retrieved
 
-          - `interface WebFetchToolResultBlockParam`
+          - `tool_use_id: string`
 
-            - `type: "web_fetch_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `content: WebFetchToolResultErrorBlockParam | WebFetchBlockParam`
+          - `cache_control?: CacheControlEphemeral | null`
 
-              - `interface WebFetchToolResultErrorBlockParam`
+            Create a cache control breakpoint at this content block.
 
-                - `type: "web_fetch_tool_result_error"`
+          - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
-                - `error_code: WebFetchToolResultErrorCode`
+            - `interface DirectCaller`
 
-                  - `"invalid_tool_input"`
+              Tool invocation directly from the model.
 
-                  - `"url_too_long"`
+            - `interface ServerToolCaller`
 
-                  - `"url_not_allowed"`
+              Tool invocation generated by a server-side tool.
 
-                  - `"url_not_in_prior_context"`
+            - `interface ServerToolCaller20260120`
 
-                  - `"url_not_accessible"`
+        - `interface CodeExecutionToolResultBlockParam`
 
-                  - `"unsupported_content_type"`
+          - `type: "code_execution_tool_result"`
 
-                  - `"too_many_requests"`
+          - `content: CodeExecutionToolResultBlockParamContent`
 
-                  - `"max_uses_exceeded"`
+            - `interface CodeExecutionToolResultErrorParam`
 
-                  - `"unavailable"`
+              - `type: "code_execution_tool_result_error"`
 
-                  - `"content_too_large"`
+              - `error_code: CodeExecutionToolResultErrorCode`
 
-              - `interface WebFetchBlockParam`
+                - `"invalid_tool_input"`
 
-                - `type: "web_fetch_result"`
+                - `"unavailable"`
 
-                - `content: DocumentBlockParam`
+                - `"too_many_requests"`
 
-                - `url: string`
+                - `"execution_time_exceeded"`
 
-                  Fetched content URL
+            - `interface CodeExecutionResultBlockParam`
 
-                - `retrieved_at?: string | null`
+              - `type: "code_execution_result"`
 
-                  ISO 8601 timestamp when the content was retrieved
+              - `content: Array<CodeExecutionOutputBlockParam>`
 
-            - `tool_use_id: string`
+                - `type: "code_execution_output"`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+                - `file_id: string`
 
-            - `cache_control?: CacheControlEphemeral | null`
+              - `return_code: number`
 
-              Create a cache control breakpoint at this content block.
+              - `stderr: string`
 
-            - `caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
+              - `stdout: string`
 
-              - `interface DirectCaller`
+            - `interface EncryptedCodeExecutionResultBlockParam`
 
-                Tool invocation directly from the model.
+              Code execution result with encrypted stdout for PFC + web_search results.
 
-              - `interface ServerToolCaller`
+              - `type: "encrypted_code_execution_result"`
 
-                Tool invocation generated by a server-side tool.
+              - `content: Array<CodeExecutionOutputBlockParam>`
 
-              - `interface ServerToolCaller20260120`
+                - `type: "code_execution_output"`
 
-          - `interface CodeExecutionToolResultBlockParam`
+                - `file_id: string`
 
-            - `type: "code_execution_tool_result"`
+              - `encrypted_stdout: string`
 
-            - `content: CodeExecutionToolResultBlockParamContent`
+              - `return_code: number`
 
-              - `interface CodeExecutionToolResultErrorParam`
+              - `stderr: string`
 
-                - `type: "code_execution_tool_result_error"`
+          - `tool_use_id: string`
 
-                - `error_code: CodeExecutionToolResultErrorCode`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"invalid_tool_input"`
+          - `cache_control?: CacheControlEphemeral | null`
 
-                  - `"unavailable"`
+            Create a cache control breakpoint at this content block.
 
-                  - `"too_many_requests"`
+        - `interface BashCodeExecutionToolResultBlockParam`
 
-                  - `"execution_time_exceeded"`
+          - `type: "bash_code_execution_tool_result"`
 
-              - `interface CodeExecutionResultBlockParam`
+          - `content: BashCodeExecutionToolResultErrorParam | BashCodeExecutionResultBlockParam`
 
-                - `type: "code_execution_result"`
+            - `interface BashCodeExecutionToolResultErrorParam`
 
-                - `content: Array<CodeExecutionOutputBlockParam>`
+              - `type: "bash_code_execution_tool_result_error"`
 
-                  - `type: "code_execution_output"`
+              - `error_code: BashCodeExecutionToolResultErrorCode`
 
-                  - `file_id: string`
+                - `"invalid_tool_input"`
 
-                - `return_code: number`
+                - `"unavailable"`
 
-                - `stderr: string`
+                - `"too_many_requests"`
 
-                - `stdout: string`
+                - `"execution_time_exceeded"`
 
-              - `interface EncryptedCodeExecutionResultBlockParam`
+                - `"output_file_too_large"`
 
-                Code execution result with encrypted stdout for PFC + web_search results.
+            - `interface BashCodeExecutionResultBlockParam`
 
-                - `type: "encrypted_code_execution_result"`
+              - `type: "bash_code_execution_result"`
 
-                - `content: Array<CodeExecutionOutputBlockParam>`
+              - `content: Array<BashCodeExecutionOutputBlockParam>`
 
-                  - `type: "code_execution_output"`
+                - `type: "bash_code_execution_output"`
 
-                  - `file_id: string`
+                - `file_id: string`
 
-                - `encrypted_stdout: string`
+              - `return_code: number`
 
-                - `return_code: number`
+              - `stderr: string`
 
-                - `stderr: string`
+              - `stdout: string`
 
-            - `tool_use_id: string`
+          - `tool_use_id: string`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `cache_control?: CacheControlEphemeral | null`
+          - `cache_control?: CacheControlEphemeral | null`
 
-              Create a cache control breakpoint at this content block.
+            Create a cache control breakpoint at this content block.
 
-          - `interface BashCodeExecutionToolResultBlockParam`
+        - `interface TextEditorCodeExecutionToolResultBlockParam`
 
-            - `type: "bash_code_execution_tool_result"`
+          - `type: "text_editor_code_execution_tool_result"`
 
-            - `content: BashCodeExecutionToolResultErrorParam | BashCodeExecutionResultBlockParam`
+          - `content: TextEditorCodeExecutionToolResultErrorParam | TextEditorCodeExecutionViewResultBlockParam | TextEditorCodeExecutionCreateResultBlockParam | TextEditorCodeExecutionStrReplaceResultBlockParam`
 
-              - `interface BashCodeExecutionToolResultErrorParam`
+            - `interface TextEditorCodeExecutionToolResultErrorParam`
 
-                - `type: "bash_code_execution_tool_result_error"`
+              - `type: "text_editor_code_execution_tool_result_error"`
 
-                - `error_code: BashCodeExecutionToolResultErrorCode`
+              - `error_code: TextEditorCodeExecutionToolResultErrorCode`
 
-                  - `"invalid_tool_input"`
+                - `"invalid_tool_input"`
 
-                  - `"unavailable"`
+                - `"unavailable"`
 
-                  - `"too_many_requests"`
+                - `"too_many_requests"`
 
-                  - `"execution_time_exceeded"`
+                - `"execution_time_exceeded"`
 
-                  - `"output_file_too_large"`
+                - `"file_not_found"`
 
-              - `interface BashCodeExecutionResultBlockParam`
+              - `error_message?: string | null`
 
-                - `type: "bash_code_execution_result"`
+            - `interface TextEditorCodeExecutionViewResultBlockParam`
 
-                - `content: Array<BashCodeExecutionOutputBlockParam>`
+              - `type: "text_editor_code_execution_view_result"`
 
-                  - `type: "bash_code_execution_output"`
+              - `content: string`
 
-                  - `file_id: string`
+              - `file_type: "text" | "image" | "pdf"`
 
-                - `return_code: number`
+                - `"text"`
 
-                - `stderr: string`
+                - `"image"`
 
-                - `stdout: string`
+                - `"pdf"`
 
-            - `tool_use_id: string`
+              - `num_lines?: number | null`
 
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+              - `start_line?: number | null`
 
-            - `cache_control?: CacheControlEphemeral | null`
+              - `total_lines?: number | null`
 
-              Create a cache control breakpoint at this content block.
+            - `interface TextEditorCodeExecutionCreateResultBlockParam`
 
-          - `interface TextEditorCodeExecutionToolResultBlockParam`
+              - `type: "text_editor_code_execution_create_result"`
 
-            - `type: "text_editor_code_execution_tool_result"`
+              - `is_file_update: boolean`
 
-            - `content: TextEditorCodeExecutionToolResultErrorParam | TextEditorCodeExecutionViewResultBlockParam | TextEditorCodeExecutionCreateResultBlockParam | TextEditorCodeExecutionStrReplaceResultBlockParam`
+            - `interface TextEditorCodeExecutionStrReplaceResultBlockParam`
 
-              - `interface TextEditorCodeExecutionToolResultErrorParam`
+              - `type: "text_editor_code_execution_str_replace_result"`
 
-                - `type: "text_editor_code_execution_tool_result_error"`
+              - `lines?: Array<string> | null`
 
-                - `error_code: TextEditorCodeExecutionToolResultErrorCode`
+              - `new_lines?: number | null`
 
-                  - `"invalid_tool_input"`
+              - `new_start?: number | null`
 
-                  - `"unavailable"`
+              - `old_lines?: number | null`
 
-                  - `"too_many_requests"`
+              - `old_start?: number | null`
 
-                  - `"execution_time_exceeded"`
+          - `tool_use_id: string`
 
-                  - `"file_not_found"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `error_message?: string | null`
+          - `cache_control?: CacheControlEphemeral | null`
 
-              - `interface TextEditorCodeExecutionViewResultBlockParam`
+            Create a cache control breakpoint at this content block.
 
-                - `type: "text_editor_code_execution_view_result"`
+        - `interface ToolSearchToolResultBlockParam`
 
-                - `content: string`
+          - `type: "tool_search_tool_result"`
 
-                - `file_type: "text" | "image" | "pdf"`
+          - `content: ToolSearchToolResultErrorParam | ToolSearchToolSearchResultBlockParam`
 
-                  - `"text"`
+            - `interface ToolSearchToolResultErrorParam`
 
-                  - `"image"`
+              - `type: "tool_search_tool_result_error"`
 
-                  - `"pdf"`
+              - `error_code: ToolSearchToolResultErrorCode`
 
-                - `num_lines?: number | null`
+                - `"invalid_tool_input"`
 
-                - `start_line?: number | null`
+                - `"unavailable"`
 
-                - `total_lines?: number | null`
+                - `"too_many_requests"`
 
-              - `interface TextEditorCodeExecutionCreateResultBlockParam`
+                - `"execution_time_exceeded"`
 
-                - `type: "text_editor_code_execution_create_result"`
+              - `error_message?: string | null`
 
-                - `is_file_update: boolean`
+            - `interface ToolSearchToolSearchResultBlockParam`
 
-              - `interface TextEditorCodeExecutionStrReplaceResultBlockParam`
+              - `type: "tool_search_tool_search_result"`
 
-                - `type: "text_editor_code_execution_str_replace_result"`
-
-                - `lines?: Array<string> | null`
-
-                - `new_lines?: number | null`
-
-                - `new_start?: number | null`
-
-                - `old_lines?: number | null`
-
-                - `old_start?: number | null`
-
-            - `tool_use_id: string`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-          - `interface ToolSearchToolResultBlockParam`
-
-            - `type: "tool_search_tool_result"`
-
-            - `content: ToolSearchToolResultErrorParam | ToolSearchToolSearchResultBlockParam`
-
-              - `interface ToolSearchToolResultErrorParam`
-
-                - `type: "tool_search_tool_result_error"`
-
-                - `error_code: ToolSearchToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                - `error_message?: string | null`
-
-              - `interface ToolSearchToolSearchResultBlockParam`
-
-                - `type: "tool_search_tool_search_result"`
-
-                - `tool_references: Array<ToolReferenceBlockParam>`
-
-                  - `type: "tool_reference"`
-
-                  - `tool_name: string`
-
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
-
-                  - `cache_control?: CacheControlEphemeral | null`
-
-                    Create a cache control breakpoint at this content block.
-
-            - `tool_use_id: string`
-
-              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-          - `interface ContainerUploadBlockParam`
-
-            A content block that represents a file to be uploaded to the container
-            Files uploaded via this block will be available in the container's input directory.
-
-            - `type: "container_upload"`
-
-            - `file_id: string`
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-      - `role: "user" | "assistant" | "system"`
-
-        - `"user"`
-
-        - `"assistant"`
-
-        - `"system"`
-
-    - `model: Model`
-
-      Body param: The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-      - `"claude-fable-5-1" | "claude-opus-5-5" | "claude-mythos-5-1" | 15 more`
-
-        - `"claude-fable-5-1"`
-
-          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-        - `"claude-opus-5-5"`
-
-          Powerful intelligence for coding, knowledge work, and long-running agents
-
-        - `"claude-mythos-5-1"`
-
-          Our most capable model for cybersecurity and biology research, available through trusted access programs
-
-        - `"claude-sonnet-5"`
-
-          High-performance model for coding and agents
-
-        - `"claude-fable-5"`
-
-          Next generation of intelligence for the hardest knowledge work and coding problems
-
-        - `"claude-mythos-5"`
-
-          Most capable model for cybersecurity and biology research
-
-        - `"claude-opus-5"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-8"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-7"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
-        - `"claude-opus-4-6"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-6"`
-
-          Best combination of speed and intelligence
-
-        - `"claude-haiku-4-5"`
-
-          Fastest model with near-frontier intelligence
-
-        - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
-
-        - `"claude-opus-4-5"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-5-20251101"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-5"`
-
-          High-performance model for agents and coding
-
-        - `"claude-sonnet-4-5-20250929"`
-
-          High-performance model for agents and coding
-
-      - `(string & {})`
-
-    - `cache_control?: CacheControlEphemeral | null`
-
-      Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
-
-    - `container?: MessageCreateParamsContainer | null`
-
-      Body param: Container identifier for reuse across requests.
-
-      - `interface ContainerParams`
-
-        Container parameters with skills to be loaded.
-
-        - `id?: string | null`
-
-          Container id
-
-        - `skills?: Array<SkillParams> | null`
-
-          List of skills to load in the container
-
-          maxItems: 20
-
-          - `type: "anthropic" | "custom"`
-
-            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-            - `"anthropic"`
-
-            - `"custom"`
-
-          - `skill_id: string`
-
-            Skill ID
-
-            maxLength: 64, minLength: 1
-
-          - `version?: string`
-
-            Skill version or 'latest' for most recent version
-
-            maxLength: 64, minLength: 1
-
-      - `string`
-
-    - `inference_geo?: string | null`
-
-      Body param: Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
-
-    - `metadata?: Metadata`
-
-      Body param: An object describing metadata about the request.
-
-      - `user_id?: string | null`
-
-        An external identifier for the user who is associated with the request.
-
-        This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
-
-        maxLength: 512
-
-    - `output_config?: OutputConfig`
-
-      Body param: Configuration options for the model's output, such as the output format.
-
-      - `effort?: "low" | "medium" | "high" | 2 more | null`
-
-        All possible effort levels.
-
-        - `"low"`
-
-        - `"medium"`
-
-        - `"high"`
-
-        - `"xhigh"`
-
-        - `"max"`
-
-      - `format?: JSONOutputFormat | null`
-
-        A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-        - `type: "json_schema"`
-
-        - `schema: Record<string, unknown>`
-
-          The JSON schema of the format
-
-    - `service_tier?: "auto" | "standard_only"`
-
-      Body param: Determines whether to use priority capacity (if available) or standard capacity for this request.
-
-      Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
-
-      - `"auto"`
-
-      - `"standard_only"`
-
-    - `stop_sequences?: Array<string>`
-
-      Body param: Custom text sequences that will cause the model to stop generating.
-
-      Our models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `"end_turn"`.
-
-      If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response `stop_sequence` value will contain the matched stop sequence.
-
-    - `stream?: false`
-
-      Body param: Whether to incrementally stream the response using server-sent events.
-
-      See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
-
-    - `system?: string | Array<TextBlockParam>`
-
-      Body param: System prompt.
-
-      A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
-
-      - `string`
-
-      - `Array<TextBlockParam>`
-
-        - `type: "text"`
-
-        - `text: string`
-
-          minLength: 1
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `citations?: Array<TextCitationParam> | null`
-
-    - `thinking?: ThinkingConfigParam`
-
-      Body param: Configuration for enabling Claude's extended thinking.
-
-      When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
-
-      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-      - `interface ThinkingConfigEnabled`
-
-        - `type: "enabled"`
-
-        - `budget_tokens: number`
-
-          Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
-
-          Must be ≥1024 and less than `max_tokens`.
-
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-          minimum: 1024
-
-        - `display?: "summarized" | "omitted" | null`
-
-          Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
-
-          - `"summarized"`
-
-          - `"omitted"`
-
-      - `interface ThinkingConfigDisabled`
-
-        - `type: "disabled"`
-
-      - `interface ThinkingConfigAdaptive`
-
-        - `type: "adaptive"`
-
-        - `display?: "summarized" | "omitted" | null`
-
-          Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
-
-          - `"summarized"`
-
-          - `"omitted"`
-
-    - `tool_choice?: ToolChoice`
-
-      Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
-
-      - `interface ToolChoiceAuto`
-
-        The model will automatically decide whether to use tools.
-
-        - `type: "auto"`
-
-        - `disable_parallel_tool_use?: boolean`
-
-          Whether to disable parallel tool use.
-
-          Defaults to `false`. If set to `true`, the model will output at most one tool use.
-
-      - `interface ToolChoiceAny`
-
-        The model will use any available tools.
-
-        - `type: "any"`
-
-        - `disable_parallel_tool_use?: boolean`
-
-          Whether to disable parallel tool use.
-
-          Defaults to `false`. If set to `true`, the model will output exactly one tool use.
-
-      - `interface ToolChoiceTool`
-
-        The model will use the specified tool with `tool_choice.name`.
-
-        - `type: "tool"`
-
-        - `name: string`
-
-          The name of the tool to use.
-
-        - `disable_parallel_tool_use?: boolean`
-
-          Whether to disable parallel tool use.
-
-          Defaults to `false`. If set to `true`, the model will output exactly one tool use.
-
-      - `interface ToolChoiceNone`
-
-        The model will not be allowed to use tools.
-
-        - `type: "none"`
-
-    - `tools?: Array<ToolUnion>`
-
-      Body param: Definitions of tools that the model may use.
-
-      If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
-
-      There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
-
-      Each tool definition includes:
-
-      * `name`: Name of the tool.
-      * `description`: Optional, but strongly-recommended description of the tool.
-      * `input_schema`: [JSON schema](https://json-schema.org/draft/2020-12) for the tool `input` shape that the model will produce in `tool_use` output content blocks.
-
-      For example, if you defined `tools` as:
-
-      ```json
-      [
-        {
-          "name": "get_stock_price",
-          "description": "Get the current stock price for a given ticker symbol.",
-          "input_schema": {
-            "type": "object",
-            "properties": {
-              "ticker": {
-                "type": "string",
-                "description": "The stock ticker symbol, e.g. AAPL for Apple Inc."
-              }
-            },
-            "required": ["ticker"]
-          }
-        }
-      ]
-      ```
-
-      And then asked the model "What's the S&P 500 at today?", the model might produce `tool_use` content blocks in the response like this:
-
-      ```json
-      [
-        {
-          "type": "tool_use",
-          "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
-          "name": "get_stock_price",
-          "input": { "ticker": "^GSPC" }
-        }
-      ]
-      ```
-
-      You might then run your `get_stock_price` tool with `{"ticker": "^GSPC"}` as an input, and return the following back to the model in a subsequent `user` message:
-
-      ```json
-      [
-        {
-          "type": "tool_result",
-          "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
-          "content": "259.75 USD"
-        }
-      ]
-      ```
-
-      Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
-
-      See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
-
-      - `interface Tool`
-
-        - `type?: "custom" | null`
-
-        - `input_schema: InputSchema`
-
-          [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
-
-          This defines the shape of the `input` that your tool accepts and that the model will produce.
-
-          - `type: "object"`
-
-          - `properties?: Record<string, unknown> | null`
-
-          - `required?: Array<string> | null`
-
-        - `name: string`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `description?: string`
-
-          Description of what this tool does.
-
-          Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
-
-        - `eager_input_streaming?: boolean | null`
-
-          Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
-
-        - `input_examples?: Array<Record<string, unknown>>`
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface ToolBash20250124`
-
-        - `type: "bash_20250124"`
-
-        - `name: "bash"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `input_examples?: Array<Record<string, unknown>>`
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface CodeExecutionTool20250522`
-
-        - `type: "code_execution_20250522"`
-
-        - `name: "code_execution"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface CodeExecutionTool20250825`
-
-        - `type: "code_execution_20250825"`
-
-        - `name: "code_execution"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface CodeExecutionTool20260120`
-
-        Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
-
-        - `type: "code_execution_20260120"`
-
-        - `name: "code_execution"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface CodeExecutionTool20260521`
-
-        Code execution tool with REPL state persistence.
-
-        - `type: "code_execution_20260521"`
-
-        - `name: "code_execution"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface BrowserToolset20260801`
-
-        The browser toolset: a single `tools[]` entry (carrying no
-        `name`) that declares the browser tool family. The model is served
-        the family's tool with any members disabled via `configs` removed
-        from its schema.
-
-        - `type: "browser_toolset_20260801"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `configs?: BrowserToolsetConfigs | null`
-
-          Per-member configuration for `browser_toolset_20260801`: one
-          optional field per member tool, keyed by the member name — the same
-          name the member's `tool_use` blocks carry. Every member is an
-          accepted key, and a member's defaults apply wherever its key is
-          absent. Unknown keys are rejected: the field set is this toolset
-          version's complete member set.
-
-          - `type?: BrowserTypeConfig | null`
-
-            `type`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `close_tab?: BrowserCloseTabConfig | null`
-
-            `close_tab`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `double_click?: BrowserDoubleClickConfig | null`
-
-            `double_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `file_upload?: BrowserFileUploadConfig | null`
-
-            `file_upload`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `find?: BrowserFindConfig | null`
-
-            `find`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `form_input?: BrowserFormInputConfig | null`
-
-            `form_input`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `get_page_text?: BrowserGetPageTextConfig | null`
-
-            `get_page_text`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `hold_key?: BrowserHoldKeyConfig | null`
-
-            `hold_key`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `hover?: BrowserHoverConfig | null`
-
-            `hover`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `javascript_exec?: BrowserJavascriptExecConfig | null`
-
-            `javascript_exec`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `key?: BrowserKeyConfig | null`
-
-            `key`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_click?: BrowserLeftClickConfig | null`
-
-            `left_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_click_drag?: BrowserLeftClickDragConfig | null`
-
-            `left_click_drag`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
-
-            `left_mouse_down`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
-
-            `left_mouse_up`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `list_tabs?: BrowserListTabsConfig | null`
-
-            `list_tabs`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `middle_click?: BrowserMiddleClickConfig | null`
-
-            `middle_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `mouse_move?: BrowserMouseMoveConfig | null`
-
-            `mouse_move`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `navigate?: BrowserNavigateConfig | null`
-
-            `navigate`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `new_tab?: BrowserNewTabConfig | null`
-
-            `new_tab`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `read_console?: BrowserReadConsoleConfig | null`
-
-            `read_console`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `read_network?: BrowserReadNetworkConfig | null`
-
-            `read_network`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `read_page?: BrowserReadPageConfig | null`
-
-            `read_page`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `right_click?: BrowserRightClickConfig | null`
-
-            `right_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `screenshot?: BrowserScreenshotConfig | null`
-
-            `screenshot`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `scroll?: BrowserScrollConfig | null`
-
-            `scroll`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `scroll_to?: BrowserScrollToConfig | null`
-
-            `scroll_to`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `switch_tab?: BrowserSwitchTabConfig | null`
-
-            `switch_tab`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `triple_click?: BrowserTripleClickConfig | null`
-
-            `triple_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `wait?: BrowserWaitConfig | null`
-
-            `wait`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `zoom?: BrowserZoomConfig | null`
-
-            `zoom`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-      - `interface MemoryTool20250818`
-
-        - `type: "memory_20250818"`
-
-        - `name: "memory"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `input_examples?: Array<Record<string, unknown>>`
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface ComputerToolset20260801`
-
-        The computer toolset: a single `tools[]` entry (carrying no
-        `name`) that declares the computer tool family. The model is
-        served the family's tool with any members disabled via `configs`
-        removed from its schema. Every member is enabled by default, zoom
-        included. The single-tool options `display_number` and
-        `enable_zoom` are not fields of a toolset entry — it carries only
-        `type`, `configs`, and `cache_control`; zoom is controlled
-        via `configs.zoom.enabled`.
-
-        - `type: "computer_toolset_20260801"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `configs?: ComputerToolsetConfigs | null`
-
-          Per-member configuration for `computer_toolset_20260801`: one
-          optional field per member tool, keyed by the member name — the same
-          name the member's `tool_use` blocks carry. Every member is an
-          accepted key, and a member's defaults apply wherever its key is
-          absent. Unknown keys are rejected: the field set is this toolset
-          version's complete member set.
-
-          - `type?: ComputerTypeConfig | null`
-
-            `type`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `cursor_position?: ComputerCursorPositionConfig | null`
-
-            `cursor_position`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `double_click?: ComputerDoubleClickConfig | null`
-
-            `double_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `hold_key?: ComputerHoldKeyConfig | null`
-
-            `hold_key`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `key?: ComputerKeyConfig | null`
-
-            `key`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_click?: ComputerLeftClickConfig | null`
-
-            `left_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_click_drag?: ComputerLeftClickDragConfig | null`
-
-            `left_click_drag`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
-
-            `left_mouse_down`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
-
-            `left_mouse_up`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `middle_click?: ComputerMiddleClickConfig | null`
-
-            `middle_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `mouse_move?: ComputerMouseMoveConfig | null`
-
-            `mouse_move`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `right_click?: ComputerRightClickConfig | null`
-
-            `right_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `screenshot?: ComputerScreenshotConfig | null`
-
-            `screenshot`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `scroll?: ComputerScrollConfig | null`
-
-            `scroll`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `triple_click?: ComputerTripleClickConfig | null`
-
-            `triple_click`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `wait?: ComputerWaitConfig | null`
-
-            `wait`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-          - `zoom?: ComputerZoomConfig | null`
-
-            `zoom`'s config overrides.
-
-            - `defer_loading?: boolean | null`
-
-              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-            - `enabled?: boolean | null`
-
-              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-      - `interface ToolTextEditor20250124`
-
-        - `type: "text_editor_20250124"`
-
-        - `name: "str_replace_editor"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `input_examples?: Array<Record<string, unknown>>`
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface ToolTextEditor20250429`
-
-        - `type: "text_editor_20250429"`
-
-        - `name: "str_replace_based_edit_tool"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `input_examples?: Array<Record<string, unknown>>`
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface ToolTextEditor20250728`
-
-        - `type: "text_editor_20250728"`
-
-        - `name: "str_replace_based_edit_tool"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `input_examples?: Array<Record<string, unknown>>`
-
-        - `max_characters?: number | null`
-
-          Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
-
-          minimum: 1
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-      - `interface WebSearchTool20250305`
-
-        - `type: "web_search_20250305"`
-
-        - `name: "web_search"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `allowed_domains?: Array<string> | null`
-
-          If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-        - `blocked_domains?: Array<string> | null`
-
-          If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `max_uses?: number | null`
-
-          Maximum number of times the tool can be used in the API request.
-
-          exclusiveMinimum: 0
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-        - `user_location?: UserLocation | null`
-
-          Parameters for the user's location. Used to provide more relevant search results.
-
-          - `type: "approximate"`
-
-          - `city?: string | null`
-
-            The city of the user.
-
-            maxLength: 255, minLength: 1
-
-          - `country?: string | null`
-
-            The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
-
-            maxLength: 2, minLength: 2
-
-          - `region?: string | null`
-
-            The region of the user.
-
-            maxLength: 255, minLength: 1
-
-          - `timezone?: string | null`
-
-            The [IANA timezone](https://nodatime.org/TimeZones) of the user.
-
-            maxLength: 255, minLength: 1
-
-      - `interface WebFetchTool20250910`
-
-        - `type: "web_fetch_20250910"`
-
-        - `name: "web_fetch"`
-
-          Name of the tool.
-
-          This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
-        - `allowed_domains?: Array<string> | null`
-
-          List of domains to allow fetching from
-
-        - `blocked_domains?: Array<string> | null`
-
-          List of domains to block fetching from
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-        - `citations?: CitationsConfigParam | null`
-
-          Citations configuration for fetched documents. Citations are disabled by default.
-
-        - `defer_loading?: boolean`
-
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-        - `max_content_tokens?: number | null`
-
-          Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-          exclusiveMinimum: 0
-
-        - `max_uses?: number | null`
-
-          Maximum number of times the tool can be used in the API request.
-
-          exclusiveMinimum: 0
-
-        - `strict?: boolean`
-
-          When true, guarantees schema validation on tool names and inputs
-
-        - `url_sources?: WebFetchURLSources | null`
-
-          Which sources contribute to the set of URLs web fetch may fetch.
-
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
-
-          - `client_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept`
-
-            Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
-
-            - `interface WebFetchURLSourceAll`
-
-              The `url_sources` variant under which a source contributes in
-              full: every result of the tool filter's source, or all user input.
-
-              - `type: "all"`
-
-            - `interface WebFetchURLSourceNone`
-
-              The `url_sources` variant under which a source contributes nothing:
-              no result of the tool filter's source, or no user input.
-
-              - `type: "none"`
-
-            - `interface WebFetchURLSourceOnly`
-
-              The tool filter variant under which only the named tools' results
-              contribute.
-
-              - `type: "only"`
-
-              - `tools: Array<WebFetchURLSourceToolReference>`
+              - `tool_references: Array<ToolReferenceBlockParam>`
 
                 - `type: "tool_reference"`
 
-                - `name: string`
+                - `tool_name: string`
 
-            - `interface WebFetchURLSourceExcept`
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              The tool filter variant under which every result but the named
-              tools' contributes.
+                - `cache_control?: CacheControlEphemeral | null`
 
-              - `type: "except"`
+                  Create a cache control breakpoint at this content block.
 
-              - `tools: Array<WebFetchURLSourceToolReference>`
+          - `tool_use_id: string`
 
-                - `type: "tool_reference"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `name: string`
+          - `cache_control?: CacheControlEphemeral | null`
 
-          - `server_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept`
+            Create a cache control breakpoint at this content block.
 
-            Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+        - `interface ContainerUploadBlockParam`
 
-            - `interface WebFetchURLSourceAll`
+          A content block that represents a file to be uploaded to the container
+          Files uploaded via this block will be available in the container's input directory.
 
-              The `url_sources` variant under which a source contributes in
-              full: every result of the tool filter's source, or all user input.
+          - `type: "container_upload"`
 
-            - `interface WebFetchURLSourceNone`
+          - `file_id: string`
 
-              The `url_sources` variant under which a source contributes nothing:
-              no result of the tool filter's source, or no user input.
+          - `cache_control?: CacheControlEphemeral | null`
 
-            - `interface WebFetchURLSourceOnly`
+            Create a cache control breakpoint at this content block.
 
-              The tool filter variant under which only the named tools' results
-              contribute.
+    - `role: "user" | "assistant" | "system"`
 
-            - `interface WebFetchURLSourceExcept`
+      - `"user"`
 
-              The tool filter variant under which every result but the named
-              tools' contributes.
+      - `"assistant"`
 
-          - `user_input?: WebFetchURLSourceAll | WebFetchURLSourceNone`
+      - `"system"`
 
-            Whether URLs in user messages are fetchable: "all" or "none".
+  - `model: Model`
 
-            - `interface WebFetchURLSourceAll`
+    Body param: The model that will complete your prompt.
 
-              The `url_sources` variant under which a source contributes in
-              full: every result of the tool filter's source, or all user input.
+    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `interface WebFetchURLSourceNone`
+    - `"claude-fable-5-1" | "claude-opus-5-5" | "claude-mythos-5-1" | 15 more`
 
-              The `url_sources` variant under which a source contributes nothing:
-              no result of the tool filter's source, or no user input.
+      - `"claude-fable-5-1"`
 
-      - `interface WebSearchTool20260209`
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-        - `type: "web_search_20260209"`
+      - `"claude-opus-5-5"`
 
-        - `name: "web_search"`
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
-          Name of the tool.
+      - `"claude-mythos-5-1"`
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+      - `"claude-sonnet-5"`
 
-          - `"direct"`
+        High-performance model for coding and agents
 
-          - `"code_execution_20250825"`
+      - `"claude-fable-5"`
 
-          - `"code_execution_20260120"`
+        Next generation of intelligence for the hardest knowledge work and coding problems
 
-          - `"code_execution_20260521"`
+      - `"claude-mythos-5"`
 
-        - `allowed_domains?: Array<string> | null`
+        Most capable model for cybersecurity and biology research
 
-          If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+      - `"claude-opus-5"`
 
-        - `blocked_domains?: Array<string> | null`
+        Powerful intelligence for long-running agents and coding
 
-          If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+      - `"claude-opus-4-8"`
 
-        - `cache_control?: CacheControlEphemeral | null`
+        Powerful intelligence for long-running agents and coding
 
-          Create a cache control breakpoint at this content block.
+      - `"claude-opus-4-7"`
 
-        - `defer_loading?: boolean`
+        Powerful intelligence for long-running agents and coding
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+      - `"claude-mythos-preview"`
 
-        - `max_uses?: number | null`
+        New class of intelligence, strongest in coding and cybersecurity
 
-          Maximum number of times the tool can be used in the API request.
+      - `"claude-opus-4-6"`
 
-          exclusiveMinimum: 0
+        Powerful intelligence for long-running agents and coding
 
-        - `strict?: boolean`
+      - `"claude-sonnet-4-6"`
 
-          When true, guarantees schema validation on tool names and inputs
+        Best combination of speed and intelligence
 
-        - `user_location?: UserLocation | null`
+      - `"claude-haiku-4-5"`
 
-          Parameters for the user's location. Used to provide more relevant search results.
+        Fastest model with near-frontier intelligence
 
-      - `interface WebFetchTool20260209`
+      - `"claude-haiku-4-5-20251001"`
 
-        - `type: "web_fetch_20260209"`
+        Fastest model with near-frontier intelligence
 
-        - `name: "web_fetch"`
+      - `"claude-opus-4-5"`
 
-          Name of the tool.
+        Powerful intelligence for long-running agents and coding
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+      - `"claude-opus-4-5-20251101"`
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+        Powerful intelligence for long-running agents and coding
 
-          - `"direct"`
+      - `"claude-sonnet-4-5"`
 
-          - `"code_execution_20250825"`
+        High-performance model for agents and coding
 
-          - `"code_execution_20260120"`
+      - `"claude-sonnet-4-5-20250929"`
 
-          - `"code_execution_20260521"`
+        High-performance model for agents and coding
 
-        - `allowed_domains?: Array<string> | null`
+    - `(string & {})`
 
-          List of domains to allow fetching from
+  - `cache_control?: CacheControlEphemeral | null`
 
-        - `blocked_domains?: Array<string> | null`
+    Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-          List of domains to block fetching from
+  - `container?: MessageCreateParamsContainer | null`
 
-        - `cache_control?: CacheControlEphemeral | null`
+    Body param: Container identifier for reuse across requests.
 
-          Create a cache control breakpoint at this content block.
+    - `interface ContainerParams`
 
-        - `citations?: CitationsConfigParam | null`
+      Container parameters with skills to be loaded.
 
-          Citations configuration for fetched documents. Citations are disabled by default.
+      - `id?: string | null`
 
-        - `defer_loading?: boolean`
+        Container id
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+      - `skills?: Array<SkillParams> | null`
 
-        - `max_content_tokens?: number | null`
+        List of skills to load in the container
 
-          Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+        maxItems: 20
 
-          exclusiveMinimum: 0
+        - `type: "anthropic" | "custom"`
 
-        - `max_uses?: number | null`
+          Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-          Maximum number of times the tool can be used in the API request.
+          - `"anthropic"`
 
-          exclusiveMinimum: 0
+          - `"custom"`
 
-        - `strict?: boolean`
+        - `skill_id: string`
 
-          When true, guarantees schema validation on tool names and inputs
+          Skill ID
 
-        - `url_sources?: WebFetchURLSources | null`
+          maxLength: 64, minLength: 1
 
-          Which sources contribute to the set of URLs web fetch may fetch.
+        - `version?: string`
 
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+          Skill version or 'latest' for most recent version
 
-      - `interface WebFetchTool20260309`
+          maxLength: 64, minLength: 1
 
-        Web fetch tool with use_cache parameter for bypassing cached content.
+    - `string`
 
-        - `type: "web_fetch_20260309"`
+  - `diagnostics?: DiagnosticsParam | null`
 
-        - `name: "web_fetch"`
+    Body param: Request-level diagnostics. Currently carries the previous response
+    id for prompt-cache divergence reporting.
 
-          Name of the tool.
+    - `previous_message_id?: string | null`
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+      The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+      maxLength: 256
 
-          - `"direct"`
+  - `inference_geo?: string | null`
 
-          - `"code_execution_20250825"`
+    Body param: Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
-          - `"code_execution_20260120"`
+  - `metadata?: Metadata`
 
-          - `"code_execution_20260521"`
+    Body param: An object describing metadata about the request.
 
-        - `allowed_domains?: Array<string> | null`
+    - `user_id?: string | null`
 
-          List of domains to allow fetching from
+      An external identifier for the user who is associated with the request.
 
-        - `blocked_domains?: Array<string> | null`
+      This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
-          List of domains to block fetching from
+      maxLength: 512
 
-        - `cache_control?: CacheControlEphemeral | null`
+  - `output_config?: OutputConfig`
 
-          Create a cache control breakpoint at this content block.
+    Body param: Configuration options for the model's output, such as the output format.
 
-        - `citations?: CitationsConfigParam | null`
+    - `effort?: "low" | "medium" | "high" | 2 more | null`
 
-          Citations configuration for fetched documents. Citations are disabled by default.
+      All possible effort levels.
 
-        - `defer_loading?: boolean`
+      - `"low"`
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+      - `"medium"`
 
-        - `max_content_tokens?: number | null`
+      - `"high"`
 
-          Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+      - `"xhigh"`
 
-          exclusiveMinimum: 0
+      - `"max"`
 
-        - `max_uses?: number | null`
+    - `format?: JSONOutputFormat | null`
 
-          Maximum number of times the tool can be used in the API request.
+      A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
-          exclusiveMinimum: 0
+      - `type: "json_schema"`
 
-        - `strict?: boolean`
+      - `schema: Record<string, unknown>`
 
-          When true, guarantees schema validation on tool names and inputs
+        The JSON schema of the format
 
-        - `url_sources?: WebFetchURLSources | null`
+  - `service_tier?: "auto" | "standard_only"`
 
-          Which sources contribute to the set of URLs web fetch may fetch.
+    Body param: Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+    Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
-        - `use_cache?: boolean`
+    - `"auto"`
 
-          Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+    - `"standard_only"`
 
-      - `interface WebSearchTool20260318`
+  - `stop_sequences?: Array<string>`
 
-        - `type: "web_search_20260318"`
+    Body param: Custom text sequences that will cause the model to stop generating.
 
-        - `name: "web_search"`
+    Our models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `"end_turn"`.
 
-          Name of the tool.
+    If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response `stop_sequence` value will contain the matched stop sequence.
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+  - `stream?: boolean`
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+    Body param: Whether to incrementally stream the response using server-sent events.
 
-          - `"direct"`
+    See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-          - `"code_execution_20250825"`
+  - `system?: string | Array<TextBlockParam>`
 
-          - `"code_execution_20260120"`
+    Body param: System prompt.
 
-          - `"code_execution_20260521"`
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
-        - `allowed_domains?: Array<string> | null`
+    - `string`
 
-          If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+    - `Array<TextBlockParam>`
 
-        - `blocked_domains?: Array<string> | null`
+      - `type: "text"`
 
-          If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+      - `text: string`
 
-        - `cache_control?: CacheControlEphemeral | null`
+        minLength: 1
 
-          Create a cache control breakpoint at this content block.
+      - `cache_control?: CacheControlEphemeral | null`
 
-        - `defer_loading?: boolean`
+        Create a cache control breakpoint at this content block.
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+      - `citations?: Array<TextCitationParam> | null`
 
-        - `max_uses?: number | null`
+  - `thinking?: ThinkingConfigParam`
 
-          Maximum number of times the tool can be used in the API request.
+    Body param: Configuration for enabling Claude's extended thinking.
 
-          exclusiveMinimum: 0
+    When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-        - `response_inclusion?: "full" | "excluded"`
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-          How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+    - `interface ThinkingConfigEnabled`
 
-          - `"full"`
+      - `type: "enabled"`
 
-          - `"excluded"`
+      - `budget_tokens: number`
 
-        - `strict?: boolean`
+        Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
 
-          When true, guarantees schema validation on tool names and inputs
+        Must be ≥1024 and less than `max_tokens`.
 
-        - `user_location?: UserLocation | null`
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-          Parameters for the user's location. Used to provide more relevant search results.
+        minimum: 1024
 
-      - `interface WebFetchTool20260318`
+      - `display?: "summarized" | "omitted" | null`
 
-        - `type: "web_fetch_20260318"`
+        Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
-        - `name: "web_fetch"`
+        - `"summarized"`
 
-          Name of the tool.
+        - `"omitted"`
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+    - `interface ThinkingConfigDisabled`
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+      - `type: "disabled"`
 
-          - `"direct"`
+    - `interface ThinkingConfigAdaptive`
 
-          - `"code_execution_20250825"`
+      - `type: "adaptive"`
 
-          - `"code_execution_20260120"`
+      - `display?: "summarized" | "omitted" | null`
 
-          - `"code_execution_20260521"`
+        Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
-        - `allowed_domains?: Array<string> | null`
+        - `"summarized"`
 
-          List of domains to allow fetching from
+        - `"omitted"`
 
-        - `blocked_domains?: Array<string> | null`
+  - `tool_choice?: ToolChoice`
 
-          List of domains to block fetching from
+    Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-        - `cache_control?: CacheControlEphemeral | null`
+    - `interface ToolChoiceAuto`
 
-          Create a cache control breakpoint at this content block.
+      The model will automatically decide whether to use tools.
 
-        - `citations?: CitationsConfigParam | null`
+      - `type: "auto"`
 
-          Citations configuration for fetched documents. Citations are disabled by default.
+      - `disable_parallel_tool_use?: boolean`
 
-        - `defer_loading?: boolean`
+        Whether to disable parallel tool use.
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+        Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-        - `max_content_tokens?: number | null`
+    - `interface ToolChoiceAny`
 
-          Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+      The model will use any available tools.
 
-          exclusiveMinimum: 0
+      - `type: "any"`
 
-        - `max_uses?: number | null`
+      - `disable_parallel_tool_use?: boolean`
 
-          Maximum number of times the tool can be used in the API request.
+        Whether to disable parallel tool use.
 
-          exclusiveMinimum: 0
+        Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `response_inclusion?: "full" | "excluded"`
+    - `interface ToolChoiceTool`
 
-          How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+      The model will use the specified tool with `tool_choice.name`.
 
-          - `"full"`
+      - `type: "tool"`
 
-          - `"excluded"`
+      - `name: string`
 
-        - `strict?: boolean`
+        The name of the tool to use.
 
-          When true, guarantees schema validation on tool names and inputs
+      - `disable_parallel_tool_use?: boolean`
 
-        - `url_sources?: WebFetchURLSources | null`
+        Whether to disable parallel tool use.
 
-          Which sources contribute to the set of URLs web fetch may fetch.
+        Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+    - `interface ToolChoiceNone`
 
-        - `use_cache?: boolean`
+      The model will not be allowed to use tools.
 
-          Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+      - `type: "none"`
 
-      - `interface ToolSearchToolBm25_20251119`
+  - `tools?: Array<ToolUnion>`
 
-        - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
+    Body param: Definitions of tools that the model may use.
 
-          - `"tool_search_tool_bm25_20251119"`
+    If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-          - `"tool_search_tool_bm25"`
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
-        - `name: "tool_search_tool_bm25"`
+    Each tool definition includes:
 
-          Name of the tool.
+    * `name`: Name of the tool.
+    * `description`: Optional, but strongly-recommended description of the tool.
+    * `input_schema`: [JSON schema](https://json-schema.org/draft/2020-12) for the tool `input` shape that the model will produce in `tool_use` output content blocks.
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+    For example, if you defined `tools` as:
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+    ```json
+    [
+      {
+        "name": "get_stock_price",
+        "description": "Get the current stock price for a given ticker symbol.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "The stock ticker symbol, e.g. AAPL for Apple Inc."
+            }
+          },
+          "required": ["ticker"]
+        }
+      }
+    ]
+    ```
 
-          - `"direct"`
+    And then asked the model "What's the S&P 500 at today?", the model might produce `tool_use` content blocks in the response like this:
 
-          - `"code_execution_20250825"`
+    ```json
+    [
+      {
+        "type": "tool_use",
+        "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
+        "name": "get_stock_price",
+        "input": { "ticker": "^GSPC" }
+      }
+    ]
+    ```
 
-          - `"code_execution_20260120"`
+    You might then run your `get_stock_price` tool with `{"ticker": "^GSPC"}` as an input, and return the following back to the model in a subsequent `user` message:
 
-          - `"code_execution_20260521"`
+    ```json
+    [
+      {
+        "type": "tool_result",
+        "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
+        "content": "259.75 USD"
+      }
+    ]
+    ```
 
-        - `cache_control?: CacheControlEphemeral | null`
+    Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-          Create a cache control breakpoint at this content block.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-        - `defer_loading?: boolean`
+    - `interface Tool`
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+      - `type?: "custom" | null`
 
-        - `strict?: boolean`
+      - `input_schema: InputSchema`
 
-          When true, guarantees schema validation on tool names and inputs
+        [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
-      - `interface ToolSearchToolRegex20251119`
+        This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-        - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
+        - `type: "object"`
 
-          - `"tool_search_tool_regex_20251119"`
+        - `properties?: Record<string, unknown> | null`
 
-          - `"tool_search_tool_regex"`
+        - `required?: Array<string> | null`
 
-        - `name: "tool_search_tool_regex"`
+      - `name: string`
 
-          Name of the tool.
+        Name of the tool.
 
-          This is how the tool will be called by the model and in `tool_use` blocks.
+        This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-          - `"direct"`
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
-          - `"code_execution_20250825"`
+        - `"direct"`
 
-          - `"code_execution_20260120"`
+        - `"code_execution_20250825"`
 
-          - `"code_execution_20260521"`
+        - `"code_execution_20260120"`
 
-        - `cache_control?: CacheControlEphemeral | null`
+        - `"code_execution_20260521"`
 
-          Create a cache control breakpoint at this content block.
+      - `cache_control?: CacheControlEphemeral | null`
 
-        - `defer_loading?: boolean`
+        Create a cache control breakpoint at this content block.
 
-          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+      - `defer_loading?: boolean`
 
-        - `strict?: boolean`
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          When true, guarantees schema validation on tool names and inputs
+      - `description?: string`
 
-    - `user_profile_id?: string`
+        Description of what this tool does.
 
-      Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+        Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-    - `workspace_id?: string`
+      - `eager_input_streaming?: boolean | null`
 
-      Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+        Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
-      Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+      - `input_examples?: Array<Record<string, unknown>>`
 
-    - `temperature?: number`
+      - `strict?: boolean`
 
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+        When true, guarantees schema validation on tool names and inputs
 
-      Body param: Amount of randomness injected into the response.
+    - `interface ToolBash20250124`
 
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+      - `type: "bash_20250124"`
 
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+      - `name: "bash"`
 
-      maximum: 1, minimum: 0
+        Name of the tool.
 
-    - `top_k?: number`
+        This is how the tool will be called by the model and in `tool_use` blocks.
 
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
-      Body param: Only sample from the top K options for each subsequent token.
+        - `"direct"`
 
-      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+        - `"code_execution_20250825"`
 
-      Recommended for advanced use cases only.
+        - `"code_execution_20260120"`
 
-      minimum: 0
+        - `"code_execution_20260521"`
 
-    - `top_p?: number`
+      - `cache_control?: CacheControlEphemeral | null`
 
-      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+        Create a cache control breakpoint at this content block.
 
-      Body param: Use nucleus sampling.
+      - `defer_loading?: boolean`
 
-      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-      Recommended for advanced use cases only.
+      - `input_examples?: Array<Record<string, unknown>>`
 
-      maximum: 1, minimum: 0
+      - `strict?: boolean`
 
-  - `interface MessageCreateParamsNonStreaming extends  MessageCreateParamsBase`
+        When true, guarantees schema validation on tool names and inputs
 
-    - `stream?: false`
+    - `interface CodeExecutionTool20250522`
 
-      Body param: Whether to incrementally stream the response using server-sent events.
+      - `type: "code_execution_20250522"`
 
-      See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+      - `name: "code_execution"`
 
-  - `interface MessageCreateParamsStreaming extends  MessageCreateParamsBase`
+        Name of the tool.
 
-    - `stream: true`
+        This is how the tool will be called by the model and in `tool_use` blocks.
 
-      Body param: Whether to incrementally stream the response using server-sent events.
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
-      See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface CodeExecutionTool20250825`
+
+      - `type: "code_execution_20250825"`
+
+      - `name: "code_execution"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface CodeExecutionTool20260120`
+
+      Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
+
+      - `type: "code_execution_20260120"`
+
+      - `name: "code_execution"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface CodeExecutionTool20260521`
+
+      Code execution tool with REPL state persistence.
+
+      - `type: "code_execution_20260521"`
+
+      - `name: "code_execution"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface BrowserToolset20260801`
+
+      The browser toolset: a single `tools[]` entry (carrying no
+      `name`) that declares the browser tool family. The model is served
+      the family's tool with any members disabled via `configs` removed
+      from its schema.
+
+      - `type: "browser_toolset_20260801"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `configs?: BrowserToolsetConfigs | null`
+
+        Per-member configuration for `browser_toolset_20260801`: one
+        optional field per member tool, keyed by the member name — the same
+        name the member's `tool_use` blocks carry. Every member is an
+        accepted key, and a member's defaults apply wherever its key is
+        absent. Unknown keys are rejected: the field set is this toolset
+        version's complete member set.
+
+        - `type?: BrowserTypeConfig | null`
+
+          `type`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `close_tab?: BrowserCloseTabConfig | null`
+
+          `close_tab`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `double_click?: BrowserDoubleClickConfig | null`
+
+          `double_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `file_upload?: BrowserFileUploadConfig | null`
+
+          `file_upload`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `find?: BrowserFindConfig | null`
+
+          `find`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `form_input?: BrowserFormInputConfig | null`
+
+          `form_input`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `get_page_text?: BrowserGetPageTextConfig | null`
+
+          `get_page_text`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `hold_key?: BrowserHoldKeyConfig | null`
+
+          `hold_key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `hover?: BrowserHoverConfig | null`
+
+          `hover`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+          `javascript_exec`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `key?: BrowserKeyConfig | null`
+
+          `key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click?: BrowserLeftClickConfig | null`
+
+          `left_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+          `left_click_drag`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+          `left_mouse_down`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+          `left_mouse_up`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `list_tabs?: BrowserListTabsConfig | null`
+
+          `list_tabs`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `middle_click?: BrowserMiddleClickConfig | null`
+
+          `middle_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `mouse_move?: BrowserMouseMoveConfig | null`
+
+          `mouse_move`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `navigate?: BrowserNavigateConfig | null`
+
+          `navigate`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `new_tab?: BrowserNewTabConfig | null`
+
+          `new_tab`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `read_console?: BrowserReadConsoleConfig | null`
+
+          `read_console`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `read_network?: BrowserReadNetworkConfig | null`
+
+          `read_network`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `read_page?: BrowserReadPageConfig | null`
+
+          `read_page`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `right_click?: BrowserRightClickConfig | null`
+
+          `right_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `screenshot?: BrowserScreenshotConfig | null`
+
+          `screenshot`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `scroll?: BrowserScrollConfig | null`
+
+          `scroll`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `scroll_to?: BrowserScrollToConfig | null`
+
+          `scroll_to`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `switch_tab?: BrowserSwitchTabConfig | null`
+
+          `switch_tab`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `triple_click?: BrowserTripleClickConfig | null`
+
+          `triple_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `wait?: BrowserWaitConfig | null`
+
+          `wait`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `zoom?: BrowserZoomConfig | null`
+
+          `zoom`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `interface MemoryTool20250818`
+
+      - `type: "memory_20250818"`
+
+      - `name: "memory"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `input_examples?: Array<Record<string, unknown>>`
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface ComputerToolset20260801`
+
+      The computer toolset: a single `tools[]` entry (carrying no
+      `name`) that declares the computer tool family. The model is
+      served the family's tool with any members disabled via `configs`
+      removed from its schema. Every member is enabled by default, zoom
+      included. The single-tool options `display_number` and
+      `enable_zoom` are not fields of a toolset entry — it carries only
+      `type`, `configs`, and `cache_control`; zoom is controlled
+      via `configs.zoom.enabled`.
+
+      - `type: "computer_toolset_20260801"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `configs?: ComputerToolsetConfigs | null`
+
+        Per-member configuration for `computer_toolset_20260801`: one
+        optional field per member tool, keyed by the member name — the same
+        name the member's `tool_use` blocks carry. Every member is an
+        accepted key, and a member's defaults apply wherever its key is
+        absent. Unknown keys are rejected: the field set is this toolset
+        version's complete member set.
+
+        - `type?: ComputerTypeConfig | null`
+
+          `type`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `cursor_position?: ComputerCursorPositionConfig | null`
+
+          `cursor_position`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `double_click?: ComputerDoubleClickConfig | null`
+
+          `double_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `hold_key?: ComputerHoldKeyConfig | null`
+
+          `hold_key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `key?: ComputerKeyConfig | null`
+
+          `key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click?: ComputerLeftClickConfig | null`
+
+          `left_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+          `left_click_drag`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+          `left_mouse_down`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+          `left_mouse_up`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `middle_click?: ComputerMiddleClickConfig | null`
+
+          `middle_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `mouse_move?: ComputerMouseMoveConfig | null`
+
+          `mouse_move`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `right_click?: ComputerRightClickConfig | null`
+
+          `right_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `screenshot?: ComputerScreenshotConfig | null`
+
+          `screenshot`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `scroll?: ComputerScrollConfig | null`
+
+          `scroll`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `triple_click?: ComputerTripleClickConfig | null`
+
+          `triple_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `wait?: ComputerWaitConfig | null`
+
+          `wait`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `zoom?: ComputerZoomConfig | null`
+
+          `zoom`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `interface ToolTextEditor20250124`
+
+      - `type: "text_editor_20250124"`
+
+      - `name: "str_replace_editor"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `input_examples?: Array<Record<string, unknown>>`
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface ToolTextEditor20250429`
+
+      - `type: "text_editor_20250429"`
+
+      - `name: "str_replace_based_edit_tool"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `input_examples?: Array<Record<string, unknown>>`
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface ToolTextEditor20250728`
+
+      - `type: "text_editor_20250728"`
+
+      - `name: "str_replace_based_edit_tool"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `input_examples?: Array<Record<string, unknown>>`
+
+      - `max_characters?: number | null`
+
+        Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
+
+        minimum: 1
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface WebSearchTool20250305`
+
+      - `type: "web_search_20250305"`
+
+      - `name: "web_search"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `blocked_domains?: Array<string> | null`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `user_location?: UserLocation | null`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+        - `type: "approximate"`
+
+        - `city?: string | null`
+
+          The city of the user.
+
+          maxLength: 255, minLength: 1
+
+        - `country?: string | null`
+
+          The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+          maxLength: 2, minLength: 2
+
+        - `region?: string | null`
+
+          The region of the user.
+
+          maxLength: 255, minLength: 1
+
+        - `timezone?: string | null`
+
+          The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+          maxLength: 255, minLength: 1
+
+    - `interface WebFetchTool20250910`
+
+      - `type: "web_fetch_20250910"`
+
+      - `name: "web_fetch"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        List of domains to allow fetching from
+
+      - `blocked_domains?: Array<string> | null`
+
+        List of domains to block fetching from
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `citations?: CitationsConfigParam | null`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_content_tokens?: number | null`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+        exclusiveMinimum: 0
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `url_sources?: WebFetchURLSources | null`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+        - `client_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept`
+
+          Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
+
+          - `interface WebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+            - `type: "all"`
+
+          - `interface WebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+            - `type: "none"`
+
+          - `interface WebFetchURLSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+            - `type: "only"`
+
+            - `tools: Array<WebFetchURLSourceToolReference>`
+
+              - `type: "tool_reference"`
+
+              - `name: string`
+
+          - `interface WebFetchURLSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+            - `type: "except"`
+
+            - `tools: Array<WebFetchURLSourceToolReference>`
+
+              - `type: "tool_reference"`
+
+              - `name: string`
+
+        - `server_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept`
+
+          Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
+
+          - `interface WebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `interface WebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+          - `interface WebFetchURLSourceOnly`
+
+            The tool filter variant under which only the named tools' results
+            contribute.
+
+          - `interface WebFetchURLSourceExcept`
+
+            The tool filter variant under which every result but the named
+            tools' contributes.
+
+        - `user_input?: WebFetchURLSourceAll | WebFetchURLSourceNone`
+
+          Whether URLs in user messages are fetchable: "all" or "none".
+
+          - `interface WebFetchURLSourceAll`
+
+            The `url_sources` variant under which a source contributes in
+            full: every result of the tool filter's source, or all user input.
+
+          - `interface WebFetchURLSourceNone`
+
+            The `url_sources` variant under which a source contributes nothing:
+            no result of the tool filter's source, or no user input.
+
+    - `interface WebSearchTool20260209`
+
+      - `type: "web_search_20260209"`
+
+      - `name: "web_search"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `blocked_domains?: Array<string> | null`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `user_location?: UserLocation | null`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `interface WebFetchTool20260209`
+
+      - `type: "web_fetch_20260209"`
+
+      - `name: "web_fetch"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        List of domains to allow fetching from
+
+      - `blocked_domains?: Array<string> | null`
+
+        List of domains to block fetching from
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `citations?: CitationsConfigParam | null`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_content_tokens?: number | null`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+        exclusiveMinimum: 0
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `url_sources?: WebFetchURLSources | null`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+    - `interface WebFetchTool20260309`
+
+      Web fetch tool with use_cache parameter for bypassing cached content.
+
+      - `type: "web_fetch_20260309"`
+
+      - `name: "web_fetch"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        List of domains to allow fetching from
+
+      - `blocked_domains?: Array<string> | null`
+
+        List of domains to block fetching from
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `citations?: CitationsConfigParam | null`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_content_tokens?: number | null`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+        exclusiveMinimum: 0
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `url_sources?: WebFetchURLSources | null`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+      - `use_cache?: boolean`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+    - `interface WebSearchTool20260318`
+
+      - `type: "web_search_20260318"`
+
+      - `name: "web_search"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `blocked_domains?: Array<string> | null`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `response_inclusion?: "full" | "excluded"`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `"full"`
+
+        - `"excluded"`
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `user_location?: UserLocation | null`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `interface WebFetchTool20260318`
+
+      - `type: "web_fetch_20260318"`
+
+      - `name: "web_fetch"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `allowed_domains?: Array<string> | null`
+
+        List of domains to allow fetching from
+
+      - `blocked_domains?: Array<string> | null`
+
+        List of domains to block fetching from
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `citations?: CitationsConfigParam | null`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `max_content_tokens?: number | null`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+        exclusiveMinimum: 0
+
+      - `max_uses?: number | null`
+
+        Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
+
+      - `response_inclusion?: "full" | "excluded"`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `"full"`
+
+        - `"excluded"`
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `url_sources?: WebFetchURLSources | null`
+
+        Which sources contribute to the set of URLs web fetch may fetch.
+
+        Each key is a tagged variant: `user_input` is `all` or `none`; the
+        two tool filters are `all`, `none`, `only` (only the named tools'
+        results) or `except` (every result but the named tools'). A named tool
+        must be declared in this request's `tools[]`.
+
+      - `use_cache?: boolean`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+    - `interface ToolSearchToolBm25_20251119`
+
+      - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
+
+        - `"tool_search_tool_bm25_20251119"`
+
+        - `"tool_search_tool_bm25"`
+
+      - `name: "tool_search_tool_bm25"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `interface ToolSearchToolRegex20251119`
+
+      - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
+
+        - `"tool_search_tool_regex_20251119"`
+
+        - `"tool_search_tool_regex"`
+
+      - `name: "tool_search_tool_regex"`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `defer_loading?: boolean`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `strict?: boolean`
+
+        When true, guarantees schema validation on tool names and inputs
+
+  - `user_profile_id?: string`
+
+    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+  - `workspace_id?: string`
+
+    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
+  - `temperature?: number`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+    Body param: Amount of randomness injected into the response.
+
+    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+    maximum: 1, minimum: 0
+
+  - `top_k?: number`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+    Body param: Only sample from the top K options for each subsequent token.
+
+    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+    Recommended for advanced use cases only.
+
+    minimum: 0
+
+  - `top_p?: number`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+    Body param: Use nucleus sampling.
+
+    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+    Recommended for advanced use cases only.
+
+    maximum: 1, minimum: 0
 
 ## Returns
 
@@ -3878,6 +3871,67 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `file_id: string`
 
+  - `diagnostics: Diagnostics | null`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
+    - `cache_miss_reason: CacheMissReason | null`
+
+      Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+      - `interface CacheMissModelChanged`
+
+        - `type: "model_changed"`
+
+          default: model_changed
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `interface CacheMissSystemChanged`
+
+        - `type: "system_changed"`
+
+          default: system_changed
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `interface CacheMissToolsChanged`
+
+        - `type: "tools_changed"`
+
+          default: tools_changed
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `interface CacheMissMessagesChanged`
+
+        - `type: "messages_changed"`
+
+          default: messages_changed
+
+        - `cache_missed_input_tokens: number`
+
+          Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+      - `interface CacheMissPreviousMessageNotFound`
+
+        - `type: "previous_message_not_found"`
+
+          default: previous_message_not_found
+
+      - `interface CacheMissUnavailable`
+
+        - `type: "unavailable"`
+
+          default: unavailable
+
   - `model: Model`
 
     The model that will complete your prompt.
@@ -4394,6 +4448,12 @@ console.log(message.id);
       "type": "text"
     }
   ],
+  "diagnostics": {
+    "cache_miss_reason": {
+      "cache_missed_input_tokens": 0,
+      "type": "model_changed"
+    }
+  },
   "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {

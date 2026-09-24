@@ -999,7 +999,7 @@ For `mcp_oauth` credentials, re-resolution also refreshes the access token if it
 
 ### Diagnose an OAuth refresh failure
 
-To diagnose why a refresh failed, call `POST /v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate` (or `client.beta.vaults.credentials.mcp_oauth_validate(...)` in the SDK). This lets you decide how to handle the failure; the right action depends on the error type.
+To diagnose why a refresh failed, call `POST /v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate` (or `client.beta.vaults.credentials.mcp_oauth_validate(...)` (typescript: `client.beta.vaults.credentials.mcpOAuthValidate(...)`; csharp: `client.Beta.Vaults.Credentials.McpOAuthValidate(...)`; go: `client.Beta.Vaults.Credentials.MCPOAuthValidate(...)`; java: `client.beta().vaults().credentials().mcpOAuthValidate(...)`; php: `$client->beta->vaults->credentials->mcpOAuthValidate(...)`) in the SDK). This lets you decide how to handle the failure; the right action depends on the error type.
 
 The top-level `status` tells you what to do next:
 

@@ -470,8 +470,7 @@ Each overridable field follows the same three rules:
   * Clearing `tools` returns a 400 error when the session's effective `skills` is non-empty, because skills require the `read` tool. Otherwise, `tools: null` and `tools: []` clear the field.
   * Clearing `mcp_servers` returns a 400 error when the session's effective `tools` still contains an `mcp_toolset` that references one of the agent's servers. Override `tools` in the same request to remove those `mcp_toolset` entries, then clear `mcp_servers`.
 
-* **Set the field to a value:** The value replaces the agent's value in full. Overrides never merge with the agent's configuration, so a `tools` override must list every tool the session should have. There is one exception:
-  * An `effort` level inside a per-session `model` override isn't applied, and because the override replaces the agent's `model` object in full, the agent's own `effort` isn't carried over either: a session created with a `model` override runs at the model's default effort level. To run at a specific effort level, set `effort` on the [agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#agent-configuration-fields) and don't override `model` for that session.
+* **Set the field to a value:** The value replaces the agent's value in full. Overrides never merge with the agent's configuration, so a `tools` override must list every tool the session should have. Likewise, a `model` override replaces the agent's `model` object in full, so the agent's own `effort` isn't carried over. To run the session at a specific effort level, set `effort` inside the override's `model` object. A level the model doesn't support returns a 400 error, and a `model` override without `effort` runs at that model's default effort level.
 
 Overrides apply only to the session you create. They do not modify the agent resource or create a new agent version, so other sessions that reference the same agent are unaffected.
 

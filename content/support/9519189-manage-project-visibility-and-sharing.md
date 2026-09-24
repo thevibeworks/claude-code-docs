@@ -117,7 +117,7 @@ Owners can turn off project sharing for your organization. On Enterprise plans, 
 
 - Projects that are already shared stay shared, and users who already have access keep it.
 
-- Public projects become private, and they stay private if your admin turns sharing back on.
+- Public projects become private, so people who only had access because a project was public lose it. They stay private if your admin turns sharing back on.
 
 Contact your admin if you need to share a project.
 

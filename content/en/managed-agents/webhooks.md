@@ -111,7 +111,7 @@ A webhook endpoint consists of:
 
 ## Verify the signature
 
-Every delivery carries the `webhook-id`, `webhook-timestamp`, and `webhook-signature` headers. Use the SDK's `unwrap()` helper to verify the signature and parse the event in one step. It throws if the signature is invalid or the payload is more than 5 minutes old.
+Every delivery carries the `webhook-id`, `webhook-timestamp`, and `webhook-signature` headers. Use the SDK's `unwrap()` (csharp, go: `Unwrap()`) helper to verify the signature and parse the event in one step. It throws if the signature is invalid or the payload is more than 5 minutes old.
 
 Set `ANTHROPIC_WEBHOOK_SIGNING_KEY` to the `whsec_`-prefixed secret shown at endpoint creation.
 

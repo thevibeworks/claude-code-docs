@@ -23,7 +23,7 @@ featureMetadata:
     Google Cloud: ga
     Microsoft Foundry: beta
   details:
-    - On the Claude API and Google Cloud, Claude Opus 5.5 supports computer use only through the `computer_toolset_20260801` toolset and returns an error for the earlier `computer_20251124` tool version. To move an existing integration, see [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124).
+    - On the Claude API and Google Cloud, Claude 5.5 and later models support computer use only through the `computer_toolset_20260801` toolset and return an error for the earlier `computer_20251124` tool version. To move an existing integration, see [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124).
     - On Amazon Bedrock, Claude Opus 5.5 accepts the earlier `computer_20251124` tool version as Claude Opus 5 does.
     - Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 4.6, and Claude Opus 4.5 support computer use only through the earlier `computer_20251124` tool version, which requires a beta header; see [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions).
     - Platforms other than the Claude API and Google Cloud currently offer only the [earlier beta tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions).
@@ -2115,7 +2115,7 @@ If clicks miss their targets, the cause is usually one of the following:
 
 ## Migrate from `computer_20251124`
 
-Upgrading from `computer_20251124` to the toolset is optional: the models listed for `computer_20251124` under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) keep accepting it with its beta header, so an existing integration keeps working until you change it. Claude Opus 5.5 is the exception on the Claude API and Google Cloud: there it accepts only the toolset, so upgrade an integration before moving it to that model. On Amazon Bedrock it keeps accepting `computer_20251124`. To upgrade, make the following changes together:
+Upgrading from `computer_20251124` to the toolset is optional: the models listed for `computer_20251124` under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) keep accepting it with its beta header, so an existing integration keeps working until you change it. Claude 5.5 and later models are the exception on the Claude API and Google Cloud: there they accept only the toolset. Upgrade an integration before you move it to one of them. On Amazon Bedrock, Claude Opus 5.5 keeps accepting `computer_20251124`. To upgrade, make the following changes together:
 
 1. **Remove the beta header.** Drop `anthropic-beta: computer-use-2025-11-24` from your requests. In the SDKs, remove the `betas` parameter and call the Messages API through the standard client rather than the beta namespace.
 2. **Change the `tools` entry.** Set `type` to `computer_toolset_20260801` and delete `name`, `display_width_px`, `display_height_px`, `display_number`, and `enable_zoom`. The toolset rejects each of these fields.

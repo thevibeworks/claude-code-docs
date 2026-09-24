@@ -109,7 +109,7 @@ Be as specific as the workload allows. Loosen `subject_prefix` to `repo:your-org
 
 ## Acquire and use a token
 
-Set the federation environment variables on the job and call the SDK normally. `Anthropic()` reads `ANTHROPIC_IDENTITY_TOKEN_FILE`, exchanges the JWT on the first request, and refreshes the access token automatically before it expires.
+Set the federation environment variables on the job and call the SDK normally. `Anthropic()` (typescript: `new Anthropic()`; csharp: `new AnthropicClient()`; go: `anthropic.NewClient()`; java: `AnthropicOkHttpClient.fromEnv()`; php: `new Client()`; ruby: `Anthropic::Client.new`) reads `ANTHROPIC_IDENTITY_TOKEN_FILE`, exchanges the JWT on the first request, and refreshes the access token automatically before it expires.
 
 <CodeGroup>
   ```yaml Workflow
