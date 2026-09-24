@@ -67,10 +67,6 @@ Future models and features will not be compatible with Text Completions. See our
 
   Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
 
-- `--beta: optional array of AnthropicBeta`
-
-  Header param: Optional header to specify the beta version(s) you want to use.
-
 - `--workspace-id: optional string`
 
   Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -112,6 +108,12 @@ Future models and features will not be compatible with Text Completions. See our
   Recommended for advanced use cases only.
 
   maximum: 1, minimum: 0
+
+- `--beta: optional array of AnthropicBeta`
+
+  **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
+
+  Header param: Optional header to specify the beta version(s) you want to use.
 
 ### Returns
 

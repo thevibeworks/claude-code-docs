@@ -15,7 +15,15 @@ Future models and features will not be compatible with Text Completions. See our
 
 ## Headers
 
+- `"anthropic-workspace-id": optional string`
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
 - `"anthropic-beta": optional array of AnthropicBeta`
+
+  **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -118,12 +126,6 @@ Future models and features will not be compatible with Text Completions. See our
     - `"inline-tools-2026-09-15"`
 
     - `"mcp-client-2026-09-15"`
-
-- `"anthropic-workspace-id": optional string`
-
-  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-  Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
 ## Body parameters
 

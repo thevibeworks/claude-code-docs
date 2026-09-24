@@ -6,6 +6,20 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.22.1">
+  * Fixed members whose browser sign-in is refused, for example because their account was deactivated, seeing an "Invalid redirect uri" error instead of the page that explains why they can't sign in.
+  * Changed web sign-in for tenant administrators and Primary Owners: the **Choose sign-in** page is gone, **Email me a sign-in link** is now under the form where you enter your work email, and **Continue** takes you straight to single sign-on when your tenant has it set up.
+  * Changed sign-in for Claude Desktop: signing in right after another app sign-in in the same browser now goes through your identity provider, and you may be asked which account to use.
+  * Changed the model picker in Claude Desktop: a model that needs a newer version of the app no longer appears until the app is updated.
+  * Updated the device sign-in approval page to name the application that asked to sign in and to warn when the request came from a different network address than your browser.
+  * Updated the **Require approval for each command** and **Require approval for each fetch** help text on the Config page: with these settings off, Chat and Cowork fetch pages and run shell commands without asking, which for Chat's shell commands is new since Claude Desktop 2.110.0.
+  * Improved what a browser sign-in shows when it expires or is not completed: a page that says what happened and where to sign in again, instead of a line of error text.
+  * Improved how the Admin Console handles brief faults: a page, or part of one, that can't load now says so and offers a way to try again.
+  * Added a confirmation step before revoking a SCIM token, deleting a connector or removing a group mapping in the Admin Console.
+  * Added the **Let members add their own connectors** setting under Config > Integrations at the tenant, organization, and group levels, off by default; turning it on lets members add connectors of their own in Claude Desktop.
+  * Added a **Copy user email addresses** button to the Users page: it opens a page where organization owners and tenant admins can copy the email addresses of everyone in an organization who has not been deactivated, separated by commas or, for Outlook, by semicolons.
+</Update>
+
 <Update label="2026.09.16.1">
   * Fixed members not being reactivated after they are re-enabled in your identity provider.
   * Changed SCIM provisioning to reject requests to deactivate an organization's primary owner or a tenant's last admin until ownership is transferred or another admin is added.

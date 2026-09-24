@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/messages
 
 ## Create a Message
 
-`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID, ?string workspaceID): Message`
+`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?DiagnosticsParam diagnostics, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID, ?string workspaceID): Message`
 
 **POST** `/v1/messages`
 
@@ -93,6 +93,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 - `container?:optional MessageCreateParamsContainer`
 
   Container identifier for reuse across requests.
+
+- `diagnostics?:optional DiagnosticsParam`
+
+  Request-level diagnostics. Currently carries the previous response
+  id for prompt-cache divergence reporting.
 
 - `inferenceGeo?:optional string`
 
@@ -297,6 +302,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     [{"type": "text", "text": "B)"}]
     ```
 
+  - `?Diagnostics diagnostics`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
+
   - `Model model`
 
     The model that will complete your prompt.
@@ -419,6 +429,7 @@ $message = $client->messages->create(
       ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
     ],
   ],
+  diagnostics: ['previousMessageID' => 'previous_message_id'],
   inferenceGeo: 'inference_geo',
   metadata: ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
   outputConfig: [
@@ -507,6 +518,12 @@ var_dump($message);
       "type": "text"
     }
   ],
+  "diagnostics": {
+    "cache_miss_reason": {
+      "cache_missed_input_tokens": 0,
+      "type": "model_changed"
+    }
+  },
   "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
@@ -1616,6 +1633,102 @@ var_dump($messageTokensCount);
   - `int ephemeral5mInputTokens`
 
     The number of input tokens used to create the 5 minute cache entry.
+
+### Cache Miss Messages Changed
+
+- `class CacheMissMessagesChanged`
+
+  - `"messages_changed" type`
+
+  - `int cacheMissedInputTokens`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Model Changed
+
+- `class CacheMissModelChanged`
+
+  - `"model_changed" type`
+
+  - `int cacheMissedInputTokens`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Previous Message Not Found
+
+- `class CacheMissPreviousMessageNotFound`
+
+  - `"previous_message_not_found" type`
+
+### Cache Miss Reason
+
+- `class CacheMissReason`
+
+  - `class CacheMissModelChanged`
+
+    - `"model_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class CacheMissSystemChanged`
+
+    - `"system_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class CacheMissToolsChanged`
+
+    - `"tools_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class CacheMissMessagesChanged`
+
+    - `"messages_changed" type`
+
+    - `int cacheMissedInputTokens`
+
+      Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+  - `class CacheMissPreviousMessageNotFound`
+
+    - `"previous_message_not_found" type`
+
+  - `class CacheMissUnavailable`
+
+    - `"unavailable" type`
+
+### Cache Miss System Changed
+
+- `class CacheMissSystemChanged`
+
+  - `"system_changed" type`
+
+  - `int cacheMissedInputTokens`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Tools Changed
+
+- `class CacheMissToolsChanged`
+
+  - `"tools_changed" type`
+
+  - `int cacheMissedInputTokens`
+
+    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
+
+### Cache Miss Unavailable
+
+- `class CacheMissUnavailable`
+
+  - `"unavailable" type`
 
 ### Citation Char Location
 
@@ -2870,6 +2983,22 @@ var_dump($messageTokensCount);
 
       Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
+### Diagnostics
+
+- `class Diagnostics`
+
+  - `?CacheMissReason cacheMissReason`
+
+    Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
+
+### Diagnostics Param
+
+- `class DiagnosticsParam`
+
+  - `?string previousMessageID`
+
+    The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
 ### Direct Caller
 
 - `class DirectCaller`
@@ -3072,6 +3201,11 @@ var_dump($messageTokensCount);
     ```json
     [{"type": "text", "text": "B)"}]
     ```
+
+  - `?Diagnostics diagnostics`
+
+    Request-level diagnostics: why the prompt cache could not fully reuse
+    the prefix of the request named by `diagnostics.previous_message_id`.
 
   - `Model model`
 
@@ -6814,6 +6948,7 @@ $messageBatch = $client->messages->batches->create(
             ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
           ],
         ],
+        'diagnostics' => ['previousMessageID' => 'previous_message_id'],
         'inferenceGeo' => 'inference_geo',
         'metadata' => ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
         'outputConfig' => [

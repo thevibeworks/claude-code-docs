@@ -403,7 +403,7 @@ Claude Fable 5.1 includes safety classifiers covering the same `stop_details` ca
 
 * **Refusals:** a declined request returns HTTP 200 with `stop_reason: "refusal"` and a [`stop_details`](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) object naming the policy area that fired.
 * **Fallback:** retry a refused request on another model with [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback), the [SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback), or your own retry. `fallbacks: "default"` (beta) retries a declined request on the model Anthropic recommends for that category. The permitted fallback targets for Claude Fable 5.1 are Claude Opus 4.8 and Claude Opus 5.
-* **Billing:** you aren't billed for a refusal that arrives before any output, and, for Claude Fable 5.1, [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) refunds the prompt-cache cost of switching models.
+* **Billing:** a refusal that arrives before any output is billed when it's in a category with low volumes of false positives, to disrupt attempts to circumvent Anthropic's safeguards at scale ([How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed)). Before September 24, 2026, these refusals weren't billed. A mid-stream refusal bills the input tokens and the output already streamed at normal rates. For Claude Fable 5.1, [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) refunds the prompt-cache cost of switching models.
 
 ## Pricing
 

@@ -1217,6 +1217,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `string`
 
+    - `diagnostics: optional DiagnosticsParam or null`
+
+      Request-level diagnostics. Currently carries the previous response
+      id for prompt-cache divergence reporting.
+
+      - `previous_message_id: optional string or null`
+
+        The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
+        maxLength: 256
+
     - `inference_geo: optional string or null`
 
       Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.

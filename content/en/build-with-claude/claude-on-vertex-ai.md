@@ -414,7 +414,7 @@ Regional and multi-region endpoints include a 10% pricing premium over global en
 
 **Using global endpoints (recommended):**
 
-Set the `region` parameter to `"global"` when initializing the client:
+Set the `region` (php: `location`) parameter to `"global"` when initializing the client:
 
 <CodeGroup>
   ```bash cURL
@@ -603,7 +603,7 @@ Set the `region` parameter to `"global"` when initializing the client:
 
 **Using multi-region endpoints:**
 
-Set the `region` parameter to a multi-region identifier: `"us"` for the United States or `"eu"` for the European Union. The SDK routes requests to the corresponding multi-region endpoint (`https://aiplatform.us.rep.googleapis.com` or `https://aiplatform.eu.rep.googleapis.com`), which dynamically balances traffic across regions within that geography.
+Set the `region` (php: `location`) parameter to a multi-region identifier: `"us"` for the United States or `"eu"` for the European Union. The SDK routes requests to the corresponding multi-region endpoint (`https://aiplatform.us.rep.googleapis.com` or `https://aiplatform.eu.rep.googleapis.com`), which dynamically balances traffic across regions within that geography.
 
 <CodeGroup>
   ```bash cURL

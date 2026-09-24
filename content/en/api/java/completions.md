@@ -21,7 +21,63 @@ Future models and features will not be compatible with Text Completions. See our
 
 - `CompletionCreateParams params`
 
+  - `Optional<String> workspaceId`
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
+  - `long maxTokensToSample`
+
+    The maximum number of tokens to generate before stopping.
+
+    Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+
+    minimum: 1
+
+  - `Model model`
+
+    The model that will complete your prompt.
+
+    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `String prompt`
+
+    The prompt that you want Claude to complete.
+
+    For proper response generation you will need to format your prompt using alternating `
+
+    Human:`and`
+
+    Assistant:` conversational turns. For example:
+
+    ```
+    "
+    
+    Human: {userQuestion}
+    
+    Assistant:"
+    ```
+
+    See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
+
+    minLength: 1
+
+  - `Optional<Metadata> metadata`
+
+    An object describing metadata about the request.
+
+  - `Optional<List<String>> stopSequences`
+
+    Sequences that will cause the model to stop generating.
+
+    Our models stop on `"
+
+    Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
+
   - `Optional<List<AnthropicBeta>> betas`
+
+    **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -120,60 +176,6 @@ Future models and features will not be compatible with Text Completions. See our
     - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
 
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
-
-  - `Optional<String> workspaceId`
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-  - `long maxTokensToSample`
-
-    The maximum number of tokens to generate before stopping.
-
-    Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
-
-    minimum: 1
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `String prompt`
-
-    The prompt that you want Claude to complete.
-
-    For proper response generation you will need to format your prompt using alternating `
-
-    Human:`and`
-
-    Assistant:` conversational turns. For example:
-
-    ```
-    "
-    
-    Human: {userQuestion}
-    
-    Assistant:"
-    ```
-
-    See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
-
-    minLength: 1
-
-  - `Optional<Metadata> metadata`
-
-    An object describing metadata about the request.
-
-  - `Optional<List<String>> stopSequences`
-
-    Sequences that will cause the model to stop generating.
-
-    Our models stop on `"
-
-    Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
 
   - `Optional<Double> temperature`
 

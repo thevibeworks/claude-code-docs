@@ -426,7 +426,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
       <Step title="Implement the webhook handler">
         `EnvironmentWorker` claims the work item, downloads skills, executes tool calls in the working directory, posts results back, and exits. Invoke it when `session.status_run_started` fires.
 
-        When you hand a claimed work item to `handle_item()` yourself, as this handler does, pass the work item's `secret` along as `work_secret` (`workSecret` in TypeScript, `WorkSecret` in Go) so the session can mount any [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores) attached to it. A handler like this one runs every claimed item in one process on one host, so two sessions that attach the same memory store cannot run through it at the same time (see [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host)); if your sessions share stores, launch [one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session) instead.
+        When you hand a claimed work item to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) yourself, as this handler does, pass the work item's `secret` along as `work_secret` (typescript: `workSecret`; go: `WorkSecret`) so the session can mount any [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores) attached to it. A handler like this one runs every claimed item in one process on one host, so two sessions that attach the same memory store cannot run through it at the same time (see [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host)); if your sessions share stores, launch [one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session) instead.
 
         <CodeGroup exclude="shell">
           ```python Python
@@ -689,20 +689,20 @@ The SDK provides three helpers at different levels of control. `EnvironmentWorke
 
 * **`EnvironmentWorker`:** the out-of-the-box worker. Handles polling, setup, and execution end to end.
 
-  * `.run()`: runs indefinitely, picking up sessions as they arrive.
-  * `.handle_item()`: handles a single claimed work item and exits. Pass the work, session, and environment identifiers explicitly, or let it read the `ANTHROPIC_*` variables that `ant beta:worker poll --on-work` sets for the process it spawns. To let the session mount its [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores), also pass the work item's `secret` as `work_secret` (`workSecret` in TypeScript, `WorkSecret` in Go) or set `ANTHROPIC_WORK_SECRET`; `ant beta:worker poll --on-work` does not set that variable, so read the secret from the work item JSON it writes to your script's standard input, as shown in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session).
-  * `memory_sync_interval` (`memorySyncIntervalMs` in TypeScript, `MemorySyncInterval` in Go) and `memory_sync_deletions` (`memorySyncDeletions`, `MemorySyncDeletions`): how often attached memory stores reconcile with the server while the session runs, and whether files the agent deletes locally are also deleted from the store. See [Configure sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#configure-sync) for units, defaults, and how to disable memory support.
+  * `.run()` (go: `.Run()`): runs indefinitely, picking up sessions as they arrive.
+  * `.handle_item()` (typescript: `.handleItem()`; go: `.HandleItem()`): handles a single claimed work item and exits. Pass the work, session, and environment identifiers explicitly, or let it read the `ANTHROPIC_*` variables that `ant beta:worker poll --on-work` sets for the process it spawns. To let the session mount its [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores), also pass the work item's `secret` as `work_secret` (typescript: `workSecret`; go: `WorkSecret`) or set `ANTHROPIC_WORK_SECRET`; `ant beta:worker poll --on-work` does not set that variable, so read the secret from the work item JSON it writes to your script's standard input, as shown in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session).
+  * `memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`) and `memory_sync_deletions` (typescript: `memorySyncDeletions`; go: `MemorySyncDeletions`): how often attached memory stores reconcile with the server while the session runs, and whether files the agent deletes locally are also deleted from the store. See [Configure sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#configure-sync) for units, defaults, and how to disable memory support.
 
-* **`work.poller()`:** polls the work queue on your behalf and gives you each claimed session. Use this when you want to decide what happens for each session, for example launching a sandbox rather than running tools in-process.
+* **`work.poller()` (go: `environments.NewWorkPoller()`):** polls the work queue on your behalf and gives you each claimed session. Use this when you want to decide what happens for each session, for example launching a sandbox rather than running tools in-process.
 
-  * `drain`: whether to stop polling once the queue is empty rather than waiting for new work.
-  * `block_ms`: how long to wait for work to arrive before returning, in milliseconds. Must be between 1 and 999 (per-poll wait; the helper re-polls automatically). Pass `null` (`None` in Python, `param.Null[int64]()` in Go) for a non-blocking check; omitting the parameter uses the default 999 ms long-poll.
-  * `reclaim_older_than_ms`: re-claim work items that were claimed but never acknowledged within this many milliseconds.
-  * `auto_stop` (`autoStop` in TypeScript, `AutoStop` in Go): whether to post a stop signal for each work item once your loop body finishes with it. Turn it off whenever whatever runs the work item posts the stop itself: `handle_item()` does, so set it to false when you hand claimed items to `handle_item()` as the webhook handlers on this page do, and so does a sandbox you launch that owns the stop call.
+  * `drain` (go: `Drain`): whether to stop polling once the queue is empty rather than waiting for new work.
+  * `block_ms` (python; typescript: `blockMs`; go: `BlockMs`): how long to wait for work to arrive before returning, in milliseconds. Must be between 1 and 999 (per-poll wait; the helper re-polls automatically). Pass `null` (typescript; python: `None`; go: `param.Null[int64]()`) for a non-blocking check; omitting the parameter uses the default 999 ms long-poll.
+  * `reclaim_older_than_ms` (typescript: `reclaimOlderThanMs`; go: `ReclaimOlderThanMs`): re-claim work items that were claimed but never acknowledged within this many milliseconds.
+  * `auto_stop` (typescript: `autoStop`; go: `AutoStop`): whether to post a stop signal for each work item once your loop body finishes with it. Turn it off whenever whatever runs the work item posts the stop itself: `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) does, so set it to false when you hand claimed items to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) as the webhook handlers on this page do, and so does a sandbox you launch that owns the stop call.
 
 * **`client.beta.sessions.events.tool_runner()`:** runs tool calls for a single session, given the session ID and a tool list. Use when you've already claimed the work and only need the execution layer.
 
-Use the work poller directly when you want to launch your own per-session process, for example spinning up a sandbox for each claimed session:
+Use `work.poller()` (typescript: `new WorkPoller()`; go: `environments.NewWorkPoller()`) directly when you want to launch your own per-session process, for example spinning up a sandbox for each claimed session:
 
 <CodeGroup>
   ```bash cURL
@@ -911,9 +911,9 @@ Use the work poller directly when you want to launch your own per-session proces
 
 Whatever launches the sandbox must forward the claimed work item's `secret` into it (for example as `ANTHROPIC_WORK_SECRET`) alongside the session, work, and environment identifiers, so the worker inside can mount the session's [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores); see [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session).
 
-**`AgentToolContext`** is the execution context for tool calls. It defines the working directory and path policy, and can download the session's skills. The file tools (`read`, `write`, `edit`, `glob`, `grep`) are confined to the working directory plus any directories listed in `allowed_roots` (`allowedRoots` in TypeScript, `AllowedRoots` in Go), and `write` and `edit` additionally refuse paths under `read_only_roots` (`readOnlyRoots`, `ReadOnlyRoots`). `EnvironmentWorker` adds the session's memory store directories to these lists itself. The confinement is a guardrail for the file tools only, not a sandbox; it does not constrain `bash`. **`beta_agent_toolset_20260401(env)`** takes an `AgentToolContext` and returns the standard tool implementations (`bash`, `read`, `write`, `edit`, `glob`, `grep`).
+**`AgentToolContext`** is the execution context for tool calls. It defines the working directory and path policy, and can download the session's skills. The file tools (`read`, `write`, `edit`, `glob`, `grep`) are confined to the working directory plus any directories listed in `allowed_roots` (typescript: `allowedRoots`; go: `AllowedRoots`), and `write` and `edit` additionally refuse paths under `read_only_roots` (typescript: `readOnlyRoots`; go: `ReadOnlyRoots`). `EnvironmentWorker` adds the session's memory store directories to these lists itself. The confinement is a guardrail for the file tools only, not a sandbox; it does not constrain `bash`. **`beta_agent_toolset_20260401(env)` (typescript: `betaAgentToolset20260401(ctx)`; go: `agenttoolset.BetaAgentToolset20260401(env)`)** takes an `AgentToolContext` and returns the standard tool implementations (`bash`, `read`, `write`, `edit`, `glob`, `grep`).
 
-**With `EnvironmentWorker`:** both are managed automatically. Pass a `tools` factory to customize the tool list:
+**With `EnvironmentWorker`:** both are managed automatically. Pass a `tools` (go: `ToolsFunc`) factory to customize the tool list:
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -960,7 +960,7 @@ Whatever launches the sandbox must forward the claimed work item's `secret` into
   ```
 </CodeGroup>
 
-**With `work.poller()` and `tool_runner()`:** pass a tool list as `tools` to `client.beta.sessions.events.tool_runner()`. To build that list, set up `AgentToolContext` yourself and call `beta_agent_toolset_20260401(env)`:
+**With `work.poller()` (typescript; go: `environments.NewWorkPoller()`) and `tool_runner()`:** pass a tool list as `tools` to `client.beta.sessions.events.tool_runner()`. To build that list, set up `AgentToolContext` yourself and call `beta_agent_toolset_20260401(env)` (typescript: `betaAgentToolset20260401(ctx)`; go: `agenttoolset.BetaAgentToolset20260401(env)`):
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -1131,7 +1131,7 @@ See [Self-hosted worker](https://platform.claude.com/docs/en/managed-agents/refe
 
 ## Use memory stores
 
-Sessions on a self-hosted environment attach [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) exactly as sessions on cloud environments do: list them in `resources` when you create the session, as shown in [Attach a memory store to a session](https://platform.claude.com/docs/en/managed-agents/memory#attach-a-memory-store-to-a-session). A session accepts up to 8 memory stores. On a self-hosted environment the SDK worker, rather than Anthropic's infrastructure, materializes each store for the agent, so memory stores there require `EnvironmentWorker` (or its `handle_item()` method) from the Python, TypeScript, or Go SDK.
+Sessions on a self-hosted environment attach [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) exactly as sessions on cloud environments do: list them in `resources` when you create the session, as shown in [Attach a memory store to a session](https://platform.claude.com/docs/en/managed-agents/memory#attach-a-memory-store-to-a-session). A session accepts up to 8 memory stores. On a self-hosted environment the SDK worker, rather than Anthropic's infrastructure, materializes each store for the agent, so memory stores there require `EnvironmentWorker` (or its `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) method) from the Python, TypeScript, or Go SDK.
 
 The `ant` CLI worker (`ant beta:worker poll` and `ant beta:worker run`) does not mount memory stores. To combine the CLI poller with memory stores, run the SDK worker inside a per-session sandbox as described in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session).
 
@@ -1167,9 +1167,9 @@ Do not create the per-store directories yourself. The worker creates each store'
 
 ### Run one sandbox per session
 
-The sandbox-per-session pattern in [Run a worker](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-a-worker) gives each session a fresh filesystem, which is what [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host) calls for when sessions attach the same store. Keep `ant beta:worker poll --on-work` (or the SDK's work poller) as the poller on the host.
+The sandbox-per-session pattern in [Run a worker](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-a-worker) gives each session a fresh filesystem, which is what [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host) calls for when sessions attach the same store. Keep `ant beta:worker poll --on-work` (or the SDK's `work.poller()` (go: `environments.NewWorkPoller()`)) as the poller on the host.
 
-The `ant beta:worker run` entrypoint shown there does not mount memory stores, so build the per-session image around the SDK worker instead: its entrypoint constructs `EnvironmentWorker` and calls `handle_item()` (`handleItem` in TypeScript, `HandleItem` in Go), which reads the session, work, and environment identifiers from the `ANTHROPIC_*` variables and the work item's per-session `secret` from `ANTHROPIC_WORK_SECRET`. You can also pass the secret explicitly as `work_secret` (`workSecret` in TypeScript, `WorkSecret` in Go).
+The `ant beta:worker run` entrypoint shown there does not mount memory stores, so build the per-session image around the SDK worker instead: its entrypoint constructs `EnvironmentWorker` and calls `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`), which reads the session, work, and environment identifiers from the `ANTHROPIC_*` variables and the work item's per-session `secret` from `ANTHROPIC_WORK_SECRET`. You can also pass the secret explicitly as `work_secret` (typescript: `workSecret`; go: `WorkSecret`).
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -1288,7 +1288,7 @@ exec docker run --rm \
   your-sdk-worker-image
 ```
 
-If you claim work with the SDK's work poller instead, pass each claimed item's `secret` into the sandbox you launch in the same way. Pass it only into the sandbox that serves that session, and never log it.
+If you claim work with the SDK's `work.poller()` (go: `environments.NewWorkPoller()`) instead, pass each claimed item's `secret` into the sandbox you launch in the same way. Pass it only into the sandbox that serves that session, and never log it.
 
 The sandbox image also needs a writable `/mnt/memory` (see [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host)). Because each sandbox serves one session and is discarded afterward, no leftover directories need cleanup, and the memory directories do not need to be bind-mounted to the host: the worker uploads their contents to the store before the sandbox exits. If you stop a container before its session ends, send a signal that the entrypoint turns into cancellation (see [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host)) rather than killing it, so that upload still runs. Give the container time to finish the upload as well: Docker follows the stop signal with SIGKILL after 10 seconds by default, so raise that limit to at least the 30 seconds that Prepare the host calls for, with `--stop-timeout` on `docker run` or your orchestrator's termination grace period.
 
@@ -1296,8 +1296,8 @@ The sandbox image also needs a writable `/mnt/memory` (see [Prepare the host](ht
 
 Two `EnvironmentWorker` options control memory behavior:
 
-* **`memory_sync_interval`** (Python, in seconds; `memorySyncIntervalMs` in TypeScript, in milliseconds; `MemorySyncInterval` in Go, a duration): how often attached stores reconcile with the server while the session runs. Defaults to 15 seconds; the minimum is 5 seconds. A shorter interval narrows the window in which another session sees stale memories, at the cost of more memory store requests. `None` in Python, `null` in TypeScript, or a negative duration in Go disables memory support entirely: the worker neither downloads nor syncs stores, and a session with memory stores attached runs without them even though its system prompt still describes them, so disable memory support only on workers whose sessions attach no memory stores. While memory support is enabled, a work item that arrives without a per-session `secret` for a session with attached stores fails rather than running without memory (see [Troubleshoot memory mounts](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#troubleshoot-memory-mounts)).
-* **`memory_sync_deletions`** (`memorySyncDeletions` in TypeScript, `MemorySyncDeletions` in Go): whether a file the agent deletes locally is also deleted from the store. The value is one of `"enabled"` (the default), `"log_only"`, or `"disabled"` in Python and TypeScript, and one of the constants `environments.MemorySyncDeletionsEnabled` (the zero value), `environments.MemorySyncDeletionsLogOnly`, or `environments.MemorySyncDeletionsDisabled` in Go. When enabled, the worker deletes the memory from the store once a later sync confirms the file is still gone; in log-only mode it runs the same checks but only logs what it would have deleted, which lets you watch what your workers would delete before you trust the enabled mode; when disabled, it never deletes from the store. Uploads and downloads are unaffected by this setting.
+* **`memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`)** (in seconds in Python, in milliseconds in TypeScript, a duration in Go): how often attached stores reconcile with the server while the session runs. Defaults to 15 seconds; the minimum is 5 seconds. A shorter interval narrows the window in which another session sees stale memories, at the cost of more memory store requests. `None` in Python, `null` in TypeScript, or a negative duration in Go disables memory support entirely: the worker neither downloads nor syncs stores, and a session with memory stores attached runs without them even though its system prompt still describes them, so disable memory support only on workers whose sessions attach no memory stores. While memory support is enabled, a work item that arrives without a per-session `secret` for a session with attached stores fails rather than running without memory (see [Troubleshoot memory mounts](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#troubleshoot-memory-mounts)).
+* **`memory_sync_deletions` (typescript: `memorySyncDeletions`; go: `MemorySyncDeletions`)**: whether a file the agent deletes locally is also deleted from the store. The value is one of `"enabled"` (the default), `"log_only"`, or `"disabled"` in Python and TypeScript, and one of the constants `environments.MemorySyncDeletionsEnabled` (the zero value), `environments.MemorySyncDeletionsLogOnly`, or `environments.MemorySyncDeletionsDisabled` in Go. When enabled, the worker deletes the memory from the store once a later sync confirms the file is still gone; in log-only mode it runs the same checks but only logs what it would have deleted, which lets you watch what your workers would delete before you trust the enabled mode; when disabled, it never deletes from the store. Uploads and downloads are unaffected by this setting.
 
 Set these options where you construct the worker, whether through the `EnvironmentWorker` constructor or, in Python and TypeScript, the `client.beta.environments.work.worker()` factory that the webhook handler uses.
 
@@ -1375,7 +1375,7 @@ The worker logs mount and background sync failures rather than reporting them to
 [Custom tools](https://platform.claude.com/docs/en/managed-agents/tools#custom-tools) are tools your own code executes: the agent emits an `agent.custom_tool_use` event and waits for a matching `user.custom_tool_result`. The worker can be that code, and because it runs inside your sandbox, the tool reaches the internal services, credentials, and network egress you configured for the sandbox, and nothing more. The environment key authorizes posting custom tool results, so your Claude API key stays off the worker host.
 
 <Note>
-  Serving custom tools requires the SDK worker: the `ant` CLI worker has no way to register a custom tool implementation. In the sandbox-per-session pattern, run `EnvironmentWorker` inside the sandbox with `handle_item()` (`handleItem` in TypeScript, `HandleItem` in Go) in place of `ant beta:worker run`.
+  Serving custom tools requires the SDK worker: the `ant` CLI worker has no way to register a custom tool implementation. In the sandbox-per-session pattern, run `EnvironmentWorker` inside the sandbox with `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) in place of `ant beta:worker run`.
 </Note>
 
 <Steps>
@@ -1399,7 +1399,7 @@ The worker logs mount and background sync failures rather than reporting them to
   </Step>
 
   <Step title="Register the implementation with the worker">
-    Pass the tool through the worker's `tools` factory (see [SDK helpers](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#sdk-helpers)), alongside the built-in toolset:
+    Pass the tool through the worker's `tools` (go: `ToolsFunc`) factory (see [SDK helpers](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#sdk-helpers)), alongside the built-in toolset:
 
     <CodeGroup exclude="shell">
       ```python Python
@@ -1562,7 +1562,7 @@ The [MCP connector](https://platform.claude.com/docs/en/managed-agents/mcp-conne
 2. The worker, inside your sandbox, forwards the call over its open MCP session to the server on your network.
 3. The worker posts the server's response as the `user.custom_tool_result`.
 
-The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) convert the server's tools into the runnable tools the worker accepts; install an MCP SDK alongside the Anthropic SDK (`pip install "anthropic[mcp]" "mcp>=1.24"`, `npm install @modelcontextprotocol/sdk`, `go get github.com/modelcontextprotocol/go-sdk`). The examples connect without authentication; to send credentials, configure the HTTP client or request options you hand to the MCP transport (`http_client` in Python, `requestInit` in TypeScript, `HTTPClient` in Go).
+The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) convert the server's tools into the runnable tools the worker accepts; install an MCP SDK alongside the Anthropic SDK (`pip install "anthropic[mcp]" "mcp>=1.24"`, `npm install @modelcontextprotocol/sdk`, `go get github.com/modelcontextprotocol/go-sdk`). The examples connect without authentication; to send credentials, configure the HTTP client or request options you hand to the MCP transport (`http_client` (typescript: `requestInit`; go: `HTTPClient`)).
 
 <Steps>
   <Step title="Declare the server's tools on the agent">
@@ -1781,7 +1781,7 @@ The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-a
   </Step>
 
   <Step title="Serve the tools from the worker">
-    Connect to the same MCP server at startup, convert its tools with the MCP helpers, and register them alongside the built-in toolset. Keep one MCP session open for the life of the worker.
+    Connect to the same MCP server at startup, convert its tools with `async_mcp_tool` (python; typescript: `mcpTools`; go: `mcp.NewBetaTools`), and register them alongside `beta_agent_toolset_20260401` (python; typescript: `betaAgentToolset20260401`; go: `agenttoolset.BetaAgentToolset20260401`). Keep one MCP session open for the life of the worker.
 
     <CodeGroup exclude="shell">
       ```python Python

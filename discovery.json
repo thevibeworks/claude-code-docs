@@ -148,6 +148,7 @@
       "anthropics/s5cmd",
       "anthropics/sandbox-runtime",
       "anthropics/scone-bench",
+      "anthropics/serde-saphyr",
       "anthropics/sse-starlette",
       "anthropics/swift-markdown",
       "anthropics/swift-markdown-ui",
