@@ -2,30 +2,50 @@
 > Fetch the complete documentation index at: https://claude.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Submitting to the Connectors Directory
+# Submit a connector to the directory
 
-> Submit your MCP connector to the Connectors Directory
+> Submit a remote MCP server or MCP App to the Connectors Directory through the developer portal: requirements, screenshot specs, and what each step asks for.
 
-The [Connectors Directory](/docs/connectors/directory) aims to be a collection of high-quality, vetted, and reviewed MCP servers that are helpful and harmless to users. Anyone is welcome to build MCP servers, but only servers meeting the review standards outlined on this page will be included in the directory.
+You submit a remote MCP server to the [Connectors Directory](/docs/connectors/directory) through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), where you choose **MCP connector**.
 
-## What you can submit
+This page is for connector authors who are ready to submit. It starts with a [checklist](#pre-submission-checklist-for-connectors), then covers [where to submit your connector](#choose-where-to-submit-your-connector), the [requirements every submission must meet](#meet-the-submission-requirements), and [what to have ready for each step of the portal](#submit-through-the-developer-portal). [Connector review criteria](/docs/connectors/building/review-criteria) explains what reviewers look for in your tools and server, so read it alongside the checklist.
 
-Developers can submit:
+<Note>
+  If you're submitting a plugin rather than a connector, see [Submit a plugin](/docs/plugins/submit) instead.
+</Note>
 
-* **Remote MCP servers** — internet-hosted servers that provide tools and data to Claude
-* **Desktop extensions** — local MCP servers packaged as [MCP Bundles (MCPB)](https://github.com/modelcontextprotocol/mcpb) for Claude Desktop
-* **[MCP Apps](/docs/connectors/building/mcp-apps/getting-started)** — MCP servers that surface interactive UI elements. These have the additional requirement of including screenshots for submission and listing in the directory.
+## Pre-submission checklist for connectors
 
-## Before you start
+Work through this list before you open the portal. Each item links to where it is explained, and the rest of this page covers the requirements and the portal steps in detail.
 
-Remote MCP server submissions happen inside Claude.ai, in the [submission portal](https://claude.ai/admin-settings/directory/submissions/new). The portal is part of your organization's settings, so you need:
+* **Your server is remote and reachable over HTTPS**: the portal asks for an `https://` URL. A local server can't be submitted on its own; include it in a [plugin](/docs/plugins/submit) instead
+* **Authentication works for Claude's client**: OAuth 2.0 if your tools act on a user's account, or no authentication for public data, as [Authentication for connectors](/docs/connectors/building/authentication) describes. You don't need Verified status or any separate approval for authentication to work
+* **Every tool has a `title` and a `readOnlyHint` or `destructiveHint` annotation**: the portal flags tools that are missing them, and [review criteria](/docs/connectors/building/review-criteria#design-tools-that-pass-review) explain how reviewers read tool names and descriptions
+* **You've tested it in Claude**: add the server as a [custom connector](/docs/connectors/building/testing#test-in-claude-as-a-custom-connector) and call each tool from a conversation; the portal's **Test & launch** step asks you to confirm this
+* **You have the listing materials**: documentation URL, privacy policy URL, support contact, an icon, and for an [MCP App](/docs/connectors/building/mcp-apps/getting-started) the [carousel screenshots](#carousel-screenshots-for-mcp-apps)
+* **You have a test account for reviewers**: credentials for a fully populated account, which you enter in the portal and which only reviewers see
+* **Your account can submit**: any paid Claude plan. See [who can submit](/docs/directory/publish#confirm-you-can-submit-to-the-directory)
+* **If a plugin of yours points at this server, submit the server anyway**: the connector listing gives your organization the server's details, authentication configuration, and dashboard, and lets you pair it with the plugin. See [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector)
 
-* **A Team or Enterprise organization.** Organization settings aren't available on individual plans.
-* **Directory management access.** By default, only organization Owners and Primary owners can submit and manage directory listings. On Enterprise, an Owner can delegate this to other members by creating a custom role in **Organization settings > Roles** with either the **Directory** permission (directory submissions only) or the **Libraries** permission (broader: it also covers managing the organization's plugins, connectors, and skills), and assigning that role. Team plans don't have custom roles, so on Team this stays with Owners.
+Then open the [developer portal](https://claude.ai/directory/manage), select **Submit new**, and choose **MCP connector**.
 
-Desktop extensions (MCPB) use a separate [submission form](https://clau.de/desktop-extention-submission) and don't require the portal.
+## Choose where to submit your connector
 
-## Directory terms & conditions
+A connector submission is an MCP server, and where you submit it depends on whether the server is remote or local:
+
+* **Remote MCP servers**: internet-hosted servers that provide tools and data to Claude. Submit them through the [developer portal](https://claude.ai/directory/manage) and choose **MCP connector**
+* **MCP Apps**: remote MCP servers that [surface interactive UI](/docs/connectors/building/mcp-apps/getting-started). Submit them through the portal as remote servers, and include [carousel screenshots](#carousel-screenshots-for-mcp-apps) for the directory listing
+* **Local MCP servers**: desktop extension listings in the directory are deprecated, and the directory no longer accepts local servers packaged as [MCP Bundles (MCPB)](/docs/connectors/building/mcpb). To distribute a local server through the directory, include it in a [plugin](/docs/plugins/submit)
+
+Skills aren't a standalone submission type. Bundle them in a [plugin](/docs/plugins/submit).
+
+Anyone on a paid Claude plan can submit through the portal. [Who can submit to the directory](/docs/directory/publish#confirm-you-can-submit-to-the-directory) has the plan, role, and organization requirements, which are the same for connectors and plugins.
+
+## Meet the submission requirements
+
+Every connector in the directory must comply with the directory terms and meet a fixed set of security, annotation, authentication, privacy, and documentation requirements. MCP Apps add screenshot requirements, and connectors that open external links can add an allowlist.
+
+### Directory terms
 
 All servers in the directory must comply with:
 
@@ -38,25 +58,25 @@ By submitting a connector, you also agree to:
 * Respond to security issues promptly
 * Provide accurate descriptions and documentation
 
-## Submission requirements
+### Requirements for every connector
 
-All MCP connectors submitted to the directory must meet:
+All MCP connectors submitted to the directory must meet these requirements:
 
-1. **Security**: Meet Anthropic's security standards
-2. **Tool annotations**: All tools must include a `title` and the applicable `readOnlyHint` or `destructiveHint`
-3. **Authentication**: Use OAuth 2.0 for authenticated services
-4. **Privacy Policy**: Local connectors must include privacy policies
-5. **Documentation**: Provide clear setup and usage instructions
+* **Security**: meet Anthropic's security standards
+* **Tool annotations**: every tool includes a `title` and the applicable `readOnlyHint` or `destructiveHint`
+* **Authentication**: use OAuth 2.0 for authenticated services
+* **Privacy policy**: local connectors must include privacy policies
+* **Documentation**: provide clear setup and usage instructions
 
 If your connector opens external links, also provide your [allowed link URIs](#allowed-link-uris) so users aren't prompted to confirm each one.
 
-## Privacy policy requirements
+### Privacy policy for local connectors
 
 Local connectors must include:
 
-1. "Privacy Policy" section in README.md
-2. `privacy_policies` array in manifest.json (manifest\_version 0.2+)
-3. HTTPS URLs to privacy policies
+* A "Privacy Policy" section in `README.md`
+* A `privacy_policies` array in `manifest.json`, for `manifest_version` 0.2 and later
+* HTTPS URLs to privacy policies
 
 The privacy policy must cover:
 
@@ -70,90 +90,72 @@ The privacy policy must cover:
   Missing or incomplete privacy policies result in immediate rejection.
 </Warning>
 
-## Allowed link URIs
+### Allowed link URIs
 
-If your connector uses the `ui/open-link` capability to open URLs in the user's browser or native apps, provide the list of link targets your server will request. Claude uses this list to suppress the "Open external link" confirmation prompt for destinations you've declared. Links to any other destination still work—users are simply asked to confirm before the link opens.
+If your connector uses the `ui/open-link` capability to open URLs in the user's browser or native apps, provide the list of link targets your server will request. Claude uses this list to suppress the **Open external link** confirmation prompt for destinations you've declared. Links to any other destination still work, but users are asked to confirm before the link opens.
 
-Provide each entry in one of two forms:
+The allowed link URIs list is optional. If you omit it, your connector functions normally, and users see a confirmation prompt each time it opens a link.
 
-* **HTTPS origin** — `https://example.com`. Only the scheme and hostname are matched; paths, ports, and query strings are ignored. Subdomains are not implied—list each one (`https://app.example.com`, `https://docs.example.com`).
-* **Custom URI scheme** — `myapp:` for deep links into a native app you own (for example, `spotify:` or `notion:`). Only the scheme is matched.
+Provide each entry in one of these forms:
 
-Every origin and scheme you list **must be owned by you** (the submitting organization). You may not list third-party domains or URI schemes registered to apps you don't publish. Entries you don't own will be removed during review.
+* **HTTPS origin**: `https://example.com`. Only the scheme and hostname are matched, and paths, ports, and query strings are ignored. Subdomains aren't implied, so list each one, such as `https://app.example.com` and `https://docs.example.com`
+* **Custom URI scheme**: `myapp:` for deep links into a native app you own. Only the scheme is matched
 
-<Note>
-  This field is optional. If omitted, your connector functions normally, but users are shown a confirmation prompt each time it opens a link.
-</Note>
+Every origin and scheme you list must be owned by you, the submitting organization. You may not list third-party domains or URI schemes registered to apps you don't publish. Entries you don't own are removed during review. [Open external links from MCP Apps](/docs/connectors/building/mcp-apps/external-links) explains how Claude matches entries and when the prompt still appears.
 
-## Asset specifications
+### Carousel screenshots for MCP Apps
 
-### Carousel screenshots (MCP Apps)
+An MCP App submission includes screenshots for its directory listing carousel. Prepare them to these specifications:
 
-* **Format:** PNG
-* **Width:** at least 1000px
-* **Count:** 3–5 images
-* **Crop:** to the app response only—**do not include the prompt** in the image
-* **Aspect ratio:** any
-* **Paired prompts:** provide the prompt text separately for each screenshot
-* **Mobile:** no separate mobile assets are required—one batch covers all surfaces
-* **Video/GIF:** not accepted
+* **Format**: PNG
+* **Width**: at least 1000px
+* **Count**: 3–5 images
+* **Crop**: to the app response only, without the prompt in the image
+* **Aspect ratio**: any
+* **Paired prompts**: provide the prompt text separately for each screenshot
+* **Mobile**: no separate mobile assets are required, and one batch covers all surfaces
+* **Video or GIF**: not accepted
 
 A carousel template is available in the [Anthropic MCP Apps Figma community file](https://www.figma.com/community/file/1597641111449594397/mcp-apps-for-claude).
 
 ### Detail card description
 
-You write the detail card description in the submission portal. It is not editable by Anthropic. The disclaimer text shown on connector cards is general and not customizable per partner.
+You write the detail card description in the submission portal, and Anthropic can't edit it. The disclaimer text shown on connector cards is general and not customizable per partner.
 
-## Review process
+## Submit through the developer portal
 
-Review times vary with queue volume. The submission portal is always open.
+The developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage) takes your submission in a series of steps. Before you open it, have these ready:
 
-After you submit, track your submission's status and read reviewer feedback in the [submissions dashboard](https://claude.ai/admin-settings/directory/submissions). See [Managing your listing](/docs/connectors/building/managing-your-listing) for what's available there, including server health and usage metrics after publication. Email `mcp-review@anthropic.com` for escalations.
+* Your documentation URL and privacy policy URL
+* Your connector's icon
+* Test account credentials for reviewers
+* Carousel screenshots, if you're submitting an MCP App, per the [screenshot specifications](#carousel-screenshots-for-mcp-apps)
 
-Run the [pre-submission checklist](/docs/connectors/building/review-criteria) and, for plugins, `claude plugin validate` before you submit.
-
-## Submit your connector
-
-Ready to submit? Use the path that matches your connector type:
-
-* **Remote MCP servers (including MCP Apps)**: submit through the [submission portal](https://claude.ai/admin-settings/directory/submissions/new) in your organization's settings on Claude.ai. See [Before you start](#before-you-start) for access requirements.
-* **Desktop extensions (MCPB)**: use the [desktop extension submission form](https://clau.de/desktop-extention-submission).
-
-Skills are not a standalone submission type—bundle them in a [plugin](/docs/plugins/submit).
-
-### What to expect in the portal
-
-Before you start, have your documentation URL, privacy policy URL, icon, and test account credentials ready, plus carousel screenshots if you're submitting an MCP App (see [asset specifications](#asset-specifications) above).
-
-The portal walks you through the following steps. Your progress saves automatically in your browser as you move between steps, so within a browser session you can jump back to earlier steps without losing work.
+Your progress saves automatically in your browser as you move between steps, so within a browser session you can return to earlier steps without losing work. Each step asks for the following:
 
 <Steps>
-  <Step title="Introduction">
-    Explains what a directory listing does and doesn't do: inclusion makes your connector discoverable but doesn't change the tools it exposes. The portal accepts remote MCP servers only. Local servers are distributed as [desktop extensions](https://clau.de/desktop-extention-submission) or [plugins](/docs/plugins/submit) instead.
-  </Step>
-
   <Step title="Connection">
-    Connect the server you're submitting. You confirm the server URL (must be `https://`), the transport (streamable HTTP or SSE), and how users reach your server: one **Universal URL** for everyone, a fixed list of **Multiple URLs**, or a **URL pattern** that each user's own URL must match. See [Servers with per-customer URLs](/docs/connectors/building/authentication#servers-with-per-customer-urls) for how this choice limits your authentication options.
+    Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**.
   </Step>
 
   <Step title="Tools">
-    Your server's tools, prompts, and resources sync automatically from the connected server, grouped by whether their annotations declare them read-only or write (tools without annotations are grouped separately). If any tools are flagged for missing titles or annotations, fix them on your server before submitting.
+    Your server's tools, prompts, and resources sync automatically from the connected server, grouped by whether their annotations declare them read-only or write. If any tools are flagged for missing titles or annotations, fix them on your server before submitting.
   </Step>
 
   <Step title="Listing">
-    The public-facing listing: server name (100 characters max), tagline (55 characters max), description (2,000 characters max), one to five categories, documentation URL, privacy policy URL, support contact, icon, and the URL slug for your listing page. The slug is permanent once published.
+    The public-facing listing: server name up to 100 characters, one-liner up to 200 characters, description up to 2,000 characters, one to five categories, documentation URL, privacy policy URL, support contact, icon, and the URL slug for your listing page. The slug is permanent once published.
   </Step>
 
   <Step title="Use cases">
-    Describe the primary use cases, what users need before they can connect (accounts, plans, or other setup), and whether the connector reads data, writes data, or both.
+    The primary use cases, what users need before they can connect, such as accounts, plans, or other setup, and whether the connector reads data, writes data, or both.
   </Step>
 
   <Step title="Company">
-    Company name and website, plus a primary contact for review updates. The contact name and email are pre-filled from your account.
+    Company name and website, plus a primary contact for review updates.
   </Step>
 
   <Step title="Authentication">
-    How users authenticate: OAuth (with dynamic client registration, client ID metadata documents, or Anthropic-held client credentials), a custom connection where users supply their own URL or credentials at connection time, or no authentication. See [authentication](/docs/connectors/building/authentication) for which modes are supported out of the box and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
+    How users authenticate: OAuth with dynamic client registration, client ID metadata documents, or Anthropic-held client credentials; a custom connection where users supply their own URL or credentials at connection time; or no authentication. [Authentication](/docs/connectors/building/authentication) covers which modes are supported directly and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
 
     If you chose **URL pattern** in the Connection step, Anthropic-held client credentials can't be used. If you chose **Multiple URLs**, a custom connection can't be used.
   </Step>
@@ -163,16 +165,28 @@ The portal walks you through the following steps. Your progress saves automatica
   </Step>
 
   <Step title="Test & launch">
-    Test-account setup and access instructions detailed enough for a reviewer to access your server end to end: every link, credential, and step, including credentials for a fully populated account where relevant. You also confirm you've run every tool yourself, either via MCP Inspector or as a custom connector in Claude.
+    Test-account setup and access instructions detailed enough for a reviewer to connect to your server and run its tools: every link, credential, and step, including credentials for a fully populated account where relevant. You also confirm you've run every tool yourself, either through MCP Inspector or as a custom connector in Claude.
   </Step>
 
   <Step title="Compliance">
     Seven policy acknowledgments covering the directory guidelines, first-party API usage, financial transactions, AI media generation, prompt injection, conversation data collection, and public documentation. All seven are required.
   </Step>
 
-  <Step title="Review">
-    A final read-through of everything you've entered. Any quality warnings (for example, very short answers) are shown here and shared with the review team alongside your submission. Submit when you're ready.
+  <Step title="Review and submit">
+    Everything you've entered, for a final check before you submit. Any quality warnings, such as very short answers, appear here and are shared with the review team alongside your submission.
   </Step>
 </Steps>
 
-After you submit, your submission's status and any reviewer feedback appear in the [submissions dashboard](https://claude.ai/admin-settings/directory/submissions). See [Managing your listing](/docs/connectors/building/managing-your-listing).
+## After you submit
+
+Anthropic scans your submission automatically for policy compliance and, by default, lists it as a Community connector with no action from you. Some submissions also get a review from a person, and those review times vary with queue volume. The portal is always open for new submissions. Your submission's status and any reviewer feedback appear in the portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), and [Track your directory submission](/docs/directory/submission-status#mcp-connector-statuses) explains what each status in the portal means. [Manage your directory listing](/docs/connectors/building/managing-your-listing) covers reviewer feedback, listing edits, and the server health and usage metrics you get after publication.
+
+For escalations, email `mcp-review@anthropic.com`.
+
+If a submission is stuck, [Contact Anthropic about a submission](/docs/directory/submission-status#contact-anthropic-about-a-submission) gives the channel for an MCP connector.
+
+## Next steps
+
+* [Manage your directory listing](/docs/connectors/building/managing-your-listing): track review status, respond to reviewer feedback, and edit your listing
+* [After publishing](/docs/connectors/building/after-publishing): release updates to your server, and delist
+* [Connector verification](/docs/connectors/verification#list-your-own-connector): see how a Community listing becomes Verified and what each label means to users

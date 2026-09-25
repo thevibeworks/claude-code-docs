@@ -261,6 +261,7 @@ The connector provides these read and search tools:
 | `outlook_email_search`                          | Search Outlook mail                                                                                 |
 | `outlook_calendar_search`                       | Search calendar events                                                                              |
 | `find_meeting_availability`                     | Find free meeting times                                                                             |
+| `outlook_find_available_time`                   | Find open time slots for a meeting between the user and specific participants                       |
 | `chat_message_search`                           | Search Teams chat (1:1 and group; channel messages need `ChannelMessage.Read.All`)                  |
 | `sharepoint_search`, `sharepoint_folder_search` | Search SharePoint and OneDrive                                                                      |
 | `read_resource`                                 | Fetch a specific item, such as a message, event, or file                                            |

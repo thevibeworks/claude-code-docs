@@ -10,13 +10,13 @@ Our unified directory brings skills, connectors, and plugins together in one pla
 
 2. Click “Customize” in the left sidebar.
 
-3. Click on the tab you want to view (Skills, Connectors, or Plugins), then the “+” button.
+3. Click on the tab you want to view: Skills, Connectors, or Plugins.
 
-4. Select “Browse [skills / connectors / plugins]” to open the unified directory.
+4. Open the **Discover** tab.
 
 ### Skills
 
-To open the Skills directory, go to **[Customize > Skills](https://claude.ai/customize/skills)**, click the “+” button, then “Browse skills.” Click the “Install” button on any skill to add it to your skills list. Once installed, the skill appears in **[Customize > Skills](https://claude.ai/customize/skills)** and is enabled by default, so Claude can use it automatically when relevant. You can toggle it off at any time, but the skill stays in the directory so you can re-enable it later.
+To open the Skills directory, go to **[Customize > Skills](https://claude.ai/customize/skills)**, click the “+” button, then “Browse skills.” Click the “Add” button on any skill to add it to your skills list. Once installed, the skill appears in **[Customize > Skills](https://claude.ai/customize/skills)** and is enabled by default, so Claude can use it automatically when relevant. You can toggle it off at any time, but the skill stays in the directory so you can re-enable it later.
 
 Skills you install from the directory are view-only. You can use them, but you can't edit their contents. If you want to change how a skill works, download a copy, modify it, and upload it as your own.
 
@@ -30,9 +30,9 @@ The connectors tab shows the same catalog of services you can connect Claude to,
 
 ### Plugins
 
-The plugins tab shows available plugins, including any your organization has distributed through a marketplace or published to its library. Plugins a colleague has shared with you directly aren't listed here; find them under **Shared with you** in **Customize > Plugins**.
+The **Discover** tab in **Customize > Plugins** shows available plugins, including any your organization has distributed through a marketplace. Plugins a colleague has shared with you directly are listed under **Shared with you** in **Customize > Plugins**.
 
-Click "Install" to add a plugin. Once installed, the skills from that plugin are available in chat (on the web and the Chat tab in Claude Desktop), in Cowork, and in Claude Code when you sign in with the same Claude account. For more on installing and customizing plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-)**.
+Select a plugin, then click "Add." The plugin is saved to your account. Its skills and commands are available in chat (on the web and the Chat tab in Claude Desktop), in Cowork, and in Claude Code sessions signed in with the same Claude account. To take a plugin off your account later, open it and select "Remove."
 
 ## For organization owners
 

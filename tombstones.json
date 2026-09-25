@@ -27,6 +27,22 @@
       "since": "2026-08-28",
       "reason": "moved -> https://claude.com/docs/claude-tag/admins/setup-overview"
     },
+    "https://claude.com/docs/connectors/building/mcp-apps/cross-compatibility": {
+      "since": "2026-09-25",
+      "reason": "moved -> https://claude.com/docs/connectors/building/mcp-apps/getting-started"
+    },
+    "https://claude.com/docs/connectors/custom/desktop-extensions": {
+      "since": "2026-09-25",
+      "reason": "moved -> https://claude.com/docs/connectors/custom/add-unlisted"
+    },
+    "https://claude.com/docs/connectors/custom/remote-mcp": {
+      "since": "2026-09-25",
+      "reason": "moved -> https://claude.com/docs/connectors/custom/add-unlisted"
+    },
+    "https://claude.com/docs/connectors/overview": {
+      "since": "2026-09-25",
+      "reason": "moved -> https://claude.com/docs/connectors/getting-started"
+    },
     "https://code.claude.com/docs/en/sdk/migration-guide": {
       "since": "2026-08-25",
       "reason": "soft-404 (HTML shell)"

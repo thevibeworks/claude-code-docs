@@ -104,7 +104,7 @@ That service-account identity is also how Claude appears wherever it acts. In Sl
 
 ### Personal connectors in a channel
 
-A channel session works with the channel's Access bundles, so the [connectors on your own claude.ai account](/docs/connectors/overview) are not part of it. Personal connectors in channels is available to a limited number of organizations. Where it is available and a task you hand Claude needs something only your connectors can reach, Claude can use your connector for that part of the work, and it asks you before it starts. The work runs with your permissions and is recorded under your name. Requests other people make to Claude in the task's thread run with the channel's own access, not with your connectors. Claude is designed to take direction from you, treating what other people post in the thread as information for the task rather than as instructions.
+A channel session works with the channel's Access bundles, so the [connectors on your own claude.ai account](/docs/connectors/getting-started) are not part of it. Personal connectors in channels is available to a limited number of organizations. Where it is available and a task you hand Claude needs something only your connectors can reach, Claude can use your connector for that part of the work, and it asks you before it starts. The work runs with your permissions and is recorded under your name. Requests other people make to Claude in the task's thread run with the channel's own access, not with your connectors. Claude is designed to take direction from you, treating what other people post in the thread as information for the task rather than as instructions.
 
 [Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) covers how you approve connector use, when Claude holds a result for your review before posting, what other people in the channel see, and how to stop a task.
 
@@ -127,7 +127,7 @@ The table lines up the two paths on the four dimensions that differ.
 
 Three of those differences are worth spelling out.
 
-* **Connectors.** The [connectors on your account](/docs/connectors/overview) are available, including MCP servers you've added.
+* **Connectors.** The [connectors on your account](/docs/connectors/getting-started) are available, including MCP servers you've added.
 * **Billing.** Usage bills to your seat rather than the organization's service key.
 * **Channel-side configuration.** It doesn't follow you in; the agent's connections and repository grants don't apply in DMs.
 

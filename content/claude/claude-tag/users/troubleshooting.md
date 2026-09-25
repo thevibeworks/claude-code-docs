@@ -496,7 +496,7 @@ For a DM, work through these in order:
 
 1. Check that your Claude account is connected. DM `@Claude` and it prompts you to connect if it isn't.
 2. Check that the connector shows as connected under **Customize > Connectors** on claude.ai.
-3. For a custom connector on a Team or Enterprise plan, an Owner adds it to the organization before you can connect it; see [third party connectors with remote MCP](/docs/connectors/custom/remote-mcp).
+3. For a custom connector on a Team or Enterprise plan, an Owner adds it to the organization before you can connect it; see [add a connector by URL](/docs/connectors/custom/add-unlisted#add-a-connector-by-url).
 4. After connecting or reconnecting the connector on claude.ai, send Claude a new top-level direct message. A session loads its connectors when it starts, so your existing DM threads keep the set they started with and don't pick up the change.
 
 ### Claude says it has no internet access or can't open a link

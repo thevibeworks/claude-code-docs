@@ -35,7 +35,7 @@ Five sections are [required](#required-sections). Every other section is [option
 * [`managed`](#managed): managed settings policies by IdP group
 * [`telemetry`](#telemetry): OTLP forwarding to your observability stack
 * [`access_control`, `limits`, `timeouts`, `rate_limits`](#http-tuning): IP allow/deny, request size caps, upstream time-to-first-byte, and per-IP sign-in limits
-* [`load_test_mode`](#load_test_mode): load test the gateway without calling a model provider
+* [`load_test_mode`](#load_test_mode): load testing the gateway without calling a model provider
 
 ## Secret expansion
 
@@ -960,9 +960,9 @@ Behind such a front end, set [`listen.trusted_proxies`](#listen) first so the ga
 
 The `load_test_mode` block lets you load test a gateway without calling a model provider. While it's on, the gateway builds and signs each provider request as usual, discards it instead of sending it, and streams a canned reply back through its normal response path. The reply is filler text that begins with a sentence saying it is canned.
 
-Requires v2.1.283 or later. Earlier versions refuse to start when the key is set, so upgrade every replica before you add the block and remove it before you roll back.
+Requires Claude Code v2.1.282 or later on the gateway server. An earlier gateway refuses to start when it finds the key. Upgrade every replica before you add the block, and remove the block before you roll back.
 
-The example below turns the mode on with the defaults, a reply of 750 output tokens streamed over about 10 seconds:
+The example below turns the mode on with the defaults, a reply of roughly 750 tokens of text streamed over about 10 seconds:
 
 ```yaml theme={null}
 load_test_mode:
@@ -979,7 +979,9 @@ load_test_mode:
 
 A load test in this mode covers the gateway, your Postgres, and everything in front of the gateway. It doesn't cover the provider's limits, speed, or network path.
 
-While the mode is on, a request can carry an `x-load-test-user` header holding a whole number of up to seven digits, and the gateway counts each number as a separate developer with the email and groups of the developer whose token came with the request. Give the load-test deployment its own empty database, because the gateway refuses to start with the mode on against a database in which any developer has already spent anything.
+While the mode is on, a request can carry an `x-load-test-user` header holding a whole number of up to seven digits. The gateway counts each number as a separate developer, with the email and groups of the developer whose token came with the request.
+
+Give the load-test deployment its own empty database, because the gateway refuses to start with the mode on against a database in which any developer has already spent anything.
 
 <Warning>
   Never turn this on for a gateway that developers use. Every request gets the canned reply and no model is called. The gateway logs a `load_test_mode is on` warning at boot and marks each `inference` [audit event](/docs/en/claude-apps-gateway-deploy#logs) with `load_test: true` while the mode is on.

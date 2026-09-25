@@ -14,7 +14,7 @@ You add plugins on the **Plugins** card and connectors on the **Connectors** car
 
 A connector gives Claude access to another service, such as a search tool your agency runs, and the **Connectors** card is the way to deliver a connector to members. A plugin is a package that changes how Claude works. It can add skills, slash commands, and sub-agents, and it can carry hooks, which are scripts a plugin author includes to run automatically at defined points during a session, such as when a session starts. For adding a connector, see [Connectors](/docs/government/connectors/overview). For what a plugin can contain across Claude products, see the [Plugins overview](/docs/plugins/overview); the Claude for Government differences are covered below.
 
-A plugin you upload on the **Plugins** card delivers its skills, slash commands, sub-agents, and hooks to members, and its hooks run on the member's machine. A plugin can also declare [MCP servers](/docs/connectors/overview) of its own, and [Plugins that run code](#plugins-that-run-code) describes how they behave. To deliver a connector to members, add it on the **Connectors** card.
+A plugin you upload on the **Plugins** card delivers its skills, slash commands, sub-agents, and hooks to members, and its hooks run on the member's machine. A plugin can also declare [MCP servers](/docs/connectors/getting-started) of its own, and [Plugins that run code](#plugins-that-run-code) describes how they behave. To deliver a connector to members, add it on the **Connectors** card.
 
 ## Plugin archive formats
 
@@ -42,7 +42,7 @@ A package is marked **Runs code** when it declares components that can run code 
 
 ## Plugins that run code
 
-The upload preview marks any plugin that declares components that can run code on the member's machine, for example hooks or an [MCP server](/docs/connectors/overview), and you confirm that you trust such a package before it is added. For a marketplace archive, one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps a **Runs code** marker, so you can see at a glance which of the plugins you have added contain these components.
+The upload preview marks any plugin that declares components that can run code on the member's machine, for example hooks or an [MCP server](/docs/connectors/getting-started), and you confirm that you trust such a package before it is added. For a marketplace archive, one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps a **Runs code** marker, so you can see at a glance which of the plugins you have added contain these components.
 
 The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one.
 

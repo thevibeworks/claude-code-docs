@@ -4,49 +4,55 @@
 
 # Design guidelines
 
-> Visual and interaction design guidelines for MCP Apps in Claude
+> Design MCP Apps that feel native to Claude: display modes, mobile layout, visual style, interaction patterns, and the host's style variables.
 
-## Overview
+MCP Apps are interactive interfaces that appear within Claude's conversational flow. These guidelines are for developers designing an MCP App's UI.
 
-MCP Apps are interactive interfaces that appear within Claude's conversational flow. Think of them as natural extensions of the conversation, not separate apps that happen to appear alongside it. Your app inherits conversational context and helps users accomplish meaningful tasks without breaking flow.
+<Note>
+  If you haven't built and connected an MCP App yet, see [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started).
+</Note>
 
-**Core principles:**
-
-* **Conversational.** Fit naturally into dialogue. Don't force users to learn new interaction patterns.
-* **Contextual.** Use conversation history to inform what you display and when.
-* **Integrated.** Inherit styling and conventions from the containing environment.
-* **Adaptive.** Handle variable sizing, mobile viewports, and diverse accessibility needs gracefully.
+Use the guidelines to [pick a display mode](#display-modes), [adapt to mobile](#mobile-guidelines), match Claude's [visual design](#visual-design) with the host's [style variables](#style-variables), and decide which [interactions](#interaction-patterns) belong in your app and which belong in chat.
 
 <Tip>
-  See our [Figma UI kit](https://www.figma.com/community/file/1597641111449594397/mcp-apps-for-claude) for components and patterns to help you get started.
+  The [Figma UI kit](https://www.figma.com/community/file/1597641111449594397/mcp-apps-for-claude) has components and patterns to start from.
 </Tip>
 
-## What makes a good MCP App
+## Design for the conversation
 
-**Good candidates:**
+Design your app as an extension of the conversation rather than a separate app that appears alongside it. Your app inherits conversational context and helps users accomplish meaningful tasks without breaking flow. These principles follow from that:
 
-* Tasks that fit naturally into conversation like data analysis, document review, or project coordination
-* Communication and collaboration context like message search results, conversation threads, or team member profiles
-* Tasks with a clear start and end like booking, ordering or scheduling
+* **Conversational**: fit naturally into dialogue, and don't force users to learn new interaction patterns
+* **Contextual**: use conversation history to inform what you display and when
+* **Integrated**: inherit styling and conventions from the containing environment
+* **Adaptive**: handle variable sizing, mobile viewports, and diverse accessibility needs gracefully
+
+## Choose what to build as an MCP App
+
+An MCP App works best for a task the user can finish inside the conversation. Good candidates include:
+
+* Tasks that fit naturally into conversation, like data analysis, document review, or project coordination
+* Communication and collaboration context, like message search results, conversation threads, or team member profiles
+* Tasks with a clear start and end, like booking, ordering, or scheduling
 * Information users can act on immediately
 * Functionality that extends Claude's capabilities meaningfully
 
-**Patterns to avoid:**
+Avoid these patterns:
 
 * Long-form or static content better suited for external viewing
 * Complex multi-step workflows that exceed the display mode's scope
-* Deep navigation (no drill-ins, breadcrumbs, or multiple views)
-* Nested scrolling (inline cards should auto-fit content height)
-* Menus and popovers (dropdowns, context menus, and popover panels can get clipped by container boundaries or create z-index conflicts with the host UI — prefer visible controls like segmented buttons, toggles, or inline options)
-* Chat inputs or conversational UI (don't replicate Claude's features)
+* Deep navigation such as drill-ins, breadcrumbs, or multiple views
+* Nested scrolling, because inline cards should auto-fit content height
+* Menus and popovers: dropdowns, context menus, and popover panels can get clipped by container boundaries or create z-index conflicts with the host UI, so prefer visible controls like segmented buttons, toggles, or inline options
+* Chat inputs or conversational UI that replicate Claude's own features
 
 ## Display modes
 
+An MCP App appears in the conversation as an inline card, an inline carousel, or a full screen view. Each mode suits different content and carries its own constraints on desktop and on mobile.
+
 ### Inline card
 
-Compact components embedded directly in conversation. Good for summaries, confirmations, and quick actions. Keep them focused.
-
-**When to use:**
+An inline card is a compact component embedded directly in the conversation. Keep it focused. Use an inline card for:
 
 * Status updates and confirmations
 * Simple data displays or selections
@@ -57,23 +63,21 @@ Compact components embedded directly in conversation. Good for summaries, confir
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-card-2.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=344f114b1012838b4805b48d496201c0" alt="Inline card example showing a data display" width="1999" height="1423" data-path="images/mcp-apps/inline-card-2.png" />
 
-**Constraints:**
+Inline cards have these constraints:
 
-* Height: auto-fits to content (no nested scrolling)
-* Max actions: 2, placed at the bottom of the card
-* Max data points: 4-5
+* Height auto-fits to content, with no nested scrolling
+* At most 2 actions, placed at the bottom of the card
+* At most 4-5 data points
 * No drill-ins, breadcrumbs, or multiple views
-* No menus or popovers — use visible controls instead
+* No menus or popovers, only visible controls
 
-**On mobile:** Inline cards render full-width within the conversation. Ensure all tap targets are at least 44pt. Content should adapt to narrower viewports without horizontal scrolling.
+On mobile, inline cards render full-width within the conversation. Make every tap target at least 44pt, and adapt content to narrower viewports without horizontal scrolling.
 
 <img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-card-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=3d2afa48da4f1d31cce9c0bb91a18807" alt="Inline card mobile examples" width="1999" height="838" data-path="images/mcp-apps/inline-card-mobile.png" />
 
 ### Inline carousel
 
-Side-by-side items for browsing options. Users swipe or scroll horizontally to explore.
-
-**When to use:**
+An inline carousel shows items side by side for browsing options. Users swipe or scroll horizontally to explore. Use an inline carousel for:
 
 * Product listings or search results
 * Location or venue options
@@ -82,23 +86,21 @@ Side-by-side items for browsing options. Users swipe or scroll horizontally to e
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-carousel-1.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=ef6b5615726ad25708ebdedf586226ae" alt="Inline carousel example showing browsable items" width="1999" height="1423" data-path="images/mcp-apps/inline-carousel-1.png" />
 
-**Constraints:**
+Inline carousels have these constraints:
 
 * 3-8 items for scannability
-* Each card: image + title + metadata (max 3 lines) + optional CTA
+* Each card has an image, a title, up to 3 lines of metadata, and an optional CTA
 * 1 optional CTA per card
-* Maintain consistent card dimensions within a carousel
-* Cards should have consistent visual hierarchy
+* Consistent card dimensions within a carousel
+* Consistent visual hierarchy across cards
 
-**On mobile:** Carousel cards are optimized for horizontal swipe. Design for thumb reach — keep primary actions in the lower portion of cards. Peek the next card to signal scrollability.
+On mobile, carousel cards are optimized for horizontal swipe. Design for thumb reach by keeping primary actions in the lower portion of cards, and let the next card peek into view to signal that the row scrolls.
 
 <img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-carousel-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=2bf64edd4fdefe8a37188ca4f2f32f4e" alt="Inline carousel mobile examples" width="1999" height="1022" data-path="images/mcp-apps/inline-carousel-mobile.png" />
 
 ### Full screen
 
-Immersive interfaces for complex interactions. The conversation composer remains available so users can continue talking to your app through Claude. Apps provide their own fullscreen button. A close button appears in the native header bar when in fullscreen mode. In fullscreen mode, avoid the use of floating panels. Use collapsible sidebars, tabs or pagination to disclose details.
-
-**When to use:**
+Full screen mode gives complex interactions an immersive interface. The conversation composer remains available, so users can continue talking to your app through Claude. Use full screen for:
 
 * Data visualizations and dashboards
 * Detailed analysis tools
@@ -110,44 +112,48 @@ Immersive interfaces for complex interactions. The conversation composer remains
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/fullscreen-2.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=8523c5ae46ab7492586044ff5fabea32" alt="Full screen mode with data visualization" width="1999" height="1423" data-path="images/mcp-apps/fullscreen-2.png" />
 
-**Constraints:**
+Full screen mode has these constraints:
 
-* Your app provides its own fullscreen button; a close button appears in the native header bar
-* The composer is always visible — design your UX to work with it
-* No floating panels — use collapsible sidebars, tabs, or pagination to disclose details
-* Chat sheet maintains conversational context
+* Your app provides its own fullscreen button, and a close button appears in the native header bar
+* The composer is always visible, so design your UX to work with it
+* No floating panels, so use collapsible sidebars, tabs, or pagination to disclose details
+* The chat sheet maintains conversational context
 
-**On mobile:** Your app fills the entire screen with the chat input and navigation bar overlaid on top, so keep critical UI within the safe area. Use the full viewport width and support both portrait and landscape where it makes sense.
+On mobile, your app fills the entire screen with the chat input and navigation bar overlaid on top, so keep critical UI within the safe area. Use the full viewport width, and support both portrait and landscape where it makes sense.
 
 <img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/fullscreen-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=d2802346090fd1a7af6a1bdc1d7c3263" alt="Full screen mobile examples" width="1999" height="716" data-path="images/mcp-apps/fullscreen-mobile.png" />
 
 ## Mobile guidelines
 
-MCP apps on mobile share the same principles as web, but the constrained viewport and touch-based interaction require specific adaptations.
-
-On mobile, Claude renders apps in a native WebView (WKWebView on iOS, WebView on Android) rather than a sandboxed iframe. Current mobile-only constraints: no camera/mic/location access, and connectors must be added via web or desktop before they appear on mobile.
+MCP Apps on mobile follow the same principles as on web, but the constrained viewport and touch-based interaction require specific adaptations. On mobile, Claude renders apps in a native WebView, `WKWebView` on iOS and `WebView` on Android, rather than a sandboxed iframe. Apps on mobile have no camera, microphone, or location access, and users must add a connector on web or desktop before it appears on mobile.
 
 ### Host context for layout
 
-The host passes layout hints via `hostContext`.
+The host passes layout hints to your app through `hostContext`. Apps always fill the container width, with no fixed breakpoints, so design responsively from 320px up to fullscreen using container queries and the `hostContext` CSS variables.
 
-**Safe areas.** The interactive portion of your app should be rendered inside of the safe area to ensure it's not obscured by the mobile navigation bar or chat input and respects the chat screen's content margins. The user won't be able to interact with anything rendered outside the safe area (e.g. buttons obscured by a mobile navigation bar). Read `hostContext.safeAreaInsets.{top, right, bottom, left}` (in pixels) and apply them as padding on your root container, or as `scroll-padding` on scroll-snap containers so items come to rest inside the visible region. Safe areas are not mobile-specific: on web and desktop the composer can overlay the bottom of an inline app, so avoid placing interactive controls flush against any edge.
+#### Safe areas
+
+Render the interactive portion of your app inside the safe area so the mobile navigation bar and chat input don't obscure it and it respects the chat screen's content margins. The user can't interact with anything rendered outside the safe area, such as a button under the mobile navigation bar.
+
+Read `hostContext.safeAreaInsets.{top, right, bottom, left}`, which are pixel values, and apply them as padding on your root container, or as `scroll-padding` on scroll-snap containers so items come to rest inside the visible region. Safe areas aren't mobile-specific: on web and desktop the composer can overlay the bottom of an inline app, so avoid placing interactive controls flush against any edge.
 
 <img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/safe-area-fullscreen.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=d789bcbba50a3bff53d677478421de30" alt="Safe area insets in full screen mode on web and mobile" width="1999" height="1153" data-path="images/mcp-apps/safe-area-fullscreen.png" />
 
-**Borderless inline.** Set `_meta.ui.prefersBorder` to true or false to explicitly determine whether your content should render with a border. If no value is specified, content will be rendered borderless on web and bordered on mobile. In borderless mode your content runs edge-to-edge with no host padding, so honoring `safeAreaInsets` becomes essential; the bordered card's built-in padding otherwise absorbs most of them. Borderless works well for carousels and other horizontally-scrolling content that should bleed to the screen edges while in motion: apply `safeAreaInsets.left` and `.right` as `scroll-padding-inline` on the scroll container so items at rest sit clear of the device edges, but can scroll underneath them.
+#### Borderless inline content
+
+Set `_meta.ui.prefersBorder` to `true` or `false` to control whether your content renders with a border. If you don't set it, content renders borderless on web and bordered on mobile.
+
+In borderless mode your content runs edge-to-edge with no host padding, so honoring `safeAreaInsets` becomes essential. The bordered card's built-in padding otherwise absorbs most of them. Borderless works well for carousels and other horizontally scrolling content that should bleed to the screen edges while in motion: apply `safeAreaInsets.left` and `.right` as `scroll-padding-inline` on the scroll container so items at rest sit clear of the device edges but can scroll underneath them.
 
 <img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/safe-area-borderless-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=9936d8064beb2fc37e39b10ab1e727a9" alt="Safe area insets for borderless inline apps on mobile" width="1999" height="1857" data-path="images/mcp-apps/safe-area-borderless-mobile.png" />
 
-Apps always fill the container width—there are no fixed breakpoints. Design responsively from 320px up to fullscreen using container queries and the hostContext CSS variables.
+### Declare supported display modes
 
-### Display modes
-
-Declare which modes your app supports via `appCapabilities.availableDisplayModes` in `ui/initialize`. The host responds with the modes it supports, and your app can request a switch with `ui/request-display-mode`. Modes are `inline`, `fullscreen`, and `pip`.
+Declare which modes your app supports through `appCapabilities.availableDisplayModes` in `ui/initialize`. The host responds with the modes it supports, and your app can request a switch with `ui/request-display-mode`. Modes are `inline`, `fullscreen`, and `pip`.
 
 ### Content security policy
 
-Declare external origins per `ui://` resource via `_meta.ui.csp`:
+All external origins are blocked by default. Declare the origins each `ui://` resource needs through `_meta.ui.csp`:
 
 ```json theme={null}
 {
@@ -163,99 +169,109 @@ Declare external origins per `ui://` resource via `_meta.ui.csp`:
 }
 ```
 
-By default, all external origins are blocked. `frameDomains` (embedding third-party iframes) is currently restricted in Claude pending security review.
+The `frameDomains` field, for embedding third-party iframes, is restricted in Claude pending security review.
 
 ### Viewport and layout
 
-* Design for variable widths (320pt minimum, up to tablet)
+* Design for variable widths, from a 320pt minimum up to tablet
 * Respect safe areas on notched devices
-* Full-width layouts — don't add side margins that waste mobile screen real estate
-* Content should reflow gracefully; avoid fixed-width layouts
+* Use full-width layouts, without side margins that waste mobile screen space
+* Let content reflow gracefully, and avoid fixed-width layouts
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-viewport-layout.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=d2244b6ff7e2d6c5e7b2c36fd2d901ed" alt="Viewport and layout do's and don'ts" width="1718" height="1238" data-path="images/mcp-apps/mobile-viewport-layout.png" />
 
 ### Touch targets
 
-* Minimum tap target: 44 x 44pt (per Apple HIG / Material guidelines)
-* Add sufficient spacing between interactive elements to prevent mis-taps
-* Prefer larger, thumb-friendly buttons over small text links
-* Place primary actions within natural thumb reach (lower portion of screen)
+* Minimum tap target of 44 x 44pt, per the Apple HIG and Material guidelines
+* Sufficient spacing between interactive elements to prevent mis-taps
+* Larger, thumb-friendly buttons rather than small text links
+* Primary actions within natural thumb reach, in the lower portion of the screen
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-touch-targets.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=95bd5b4393d85a67b74e894331d5f4b0" alt="Touch target do's and don'ts" width="1718" height="1238" data-path="images/mcp-apps/mobile-touch-targets.png" />
 
 ### Scrolling and gestures
 
-On mobile touch devices, the conversation view owns vertical scrolling. When your app is rendered inline, vertical pan gestures that start inside it are passed to the conversation scroll instead of to your content. This keeps a tall widget from trapping the user and is why inline apps should fit their content height rather than relying on an internal vertical scroll container—the host caps inline height and clips content that exceeds it.
+On mobile touch devices, the conversation view owns vertical scrolling. When your app is rendered inline, vertical pan gestures that start inside it go to the conversation scroll instead of to your content, so a tall widget can't trap the user. The host also caps inline height and clips content that exceeds it, so fit your inline app to its content height rather than relying on an internal vertical scroll container.
 
-Horizontal gestures (ex: carousels or panning a map) and taps work normally.
+Horizontal gestures, such as swiping a carousel or panning a map, and taps work normally.
 
-If your app genuinely needs its own vertically scrollable viewport, request fullscreen presentation with `ui/request-display-mode` instead of rendering inline (see [Full screen](#full-screen)).
+If your app needs its own vertically scrollable viewport, request fullscreen presentation with `ui/request-display-mode` instead of rendering inline, as described in [Full screen](#full-screen).
 
 ### Transitions
 
 * Inline cards expand to fullscreen with a smooth transition
-* Provide a clear visual affordance for expansion (fullscreen button or tap-to-expand)
-* Fullscreen close returns to the conversation at the same scroll position
+* Provide a clear visual affordance for expansion, such as a fullscreen button or tap-to-expand
+* Closing fullscreen returns to the conversation at the same scroll position
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-transitions.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=343fe75a1428c1874568c10e02de9aa8" alt="Transition from inline card to full screen" width="1718" height="1222" data-path="images/mcp-apps/mobile-transitions.png" />
 
 ### Dark mode
 
-All views must support both light and dark themes. Use the host's style tokens — they automatically adapt. Never hardcode colors. Test both modes.
+All views must support both light and dark themes. Use the host's style tokens, which adapt automatically, and never hardcode colors. Test both modes.
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-dark-mode.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=79df1abf42e75b052ad7c28ac71c4413" alt="Dark mode examples on mobile" width="1999" height="1315" data-path="images/mcp-apps/mobile-dark-mode.png" />
 
 ### Loading states
 
-Show skeleton screens while content loads. Match the layout structure of the final content so the transition feels seamless. Avoid spinners for inline content — skeletons feel more native.
+Show skeleton screens while content loads, and match the layout structure of the final content so the swap is smooth. Avoid spinners for inline content, because skeletons feel more native.
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-loading-states.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=9e7df0fa2294bbcbcc24bf079cbc5ff6" alt="Loading state examples on mobile" width="1718" height="1130" data-path="images/mcp-apps/mobile-loading-states.png" />
 
 ## Visual design
 
-MCP Apps should feel native to their environment while maintaining consistent visual hierarchy and accessibility standards. You can still express your brand through accent colors, custom controls and content.
+MCP Apps should feel native to their environment while maintaining consistent visual hierarchy and accessibility standards. You can still express your brand through accent colors, custom controls, and content.
 
-**Design guidance**
+### Color
 
-**Color.** Use host tokens for all structural elements: backgrounds, text, borders, icons. You can use your own brand colors for accents and identity, but the core UI should use the provided palette.
+Use host tokens for all structural elements: backgrounds, text, borders, and icons. You can use your own brand colors for accents and identity, but the core UI should use the provided palette.
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/color-tokens.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=173ce1948ae87b9e72b0854b5d27f4e1" alt="Color token examples for light and dark mode" width="1999" height="1863" data-path="images/mcp-apps/color-tokens.png" />
 
-**Typography.** Stick to the three-level size scale (heading, body, caption) and two weights (regular, emphasized). This creates clear hierarchy without visual noise.
+### Typography
+
+Stick to the three-level size scale of heading, body, and caption, and the two weights of regular and emphasized. This creates clear hierarchy without visual noise.
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/typography.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=51ce152aab3d975ae57c5e5792dc6097" alt="Typography scale examples" width="1999" height="936" data-path="images/mcp-apps/typography.png" />
 
 <Note>
-  The Figma Community File uses Anthropic Sans and Anthropic Serif. When your app runs inside Claude, the host client provides Anthropic Sans at runtime through style variables. [Download and install the fonts from here](https://brand.anthropic.com/typography) for local development.
+  The Figma Community File uses Anthropic Sans and Anthropic Serif. When your app runs inside Claude, the host client provides Anthropic Sans at runtime through style variables. For local development, [download and install the fonts](https://brand.anthropic.com/typography).
 </Note>
 
-**Borders.** Using a limited set of corner radii and thickness will keep your app feeling native to the surrounding UI.
+### Borders
+
+Use a limited set of corner radii and border thicknesses to keep your app feeling native to the surrounding UI.
 
 <img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/borders.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=1755cc995399c9d6bf25a1405ff139f4" alt="Border radius examples" width="1999" height="201" data-path="images/mcp-apps/borders.png" />
 
-**Icons.** Use monochromatic, outlined icons that match the host's icon color tokens. Icons should support understanding, not be essential to it.
+### Icons
+
+Use monochromatic, outlined icons that match the host's icon color tokens. Icons should support understanding rather than be essential to it.
 
 <img src="https://mintcdn.com/claude-ai/IXMfN0TT8kfXbN6T/images/mcp-apps/icons.png?fit=max&auto=format&n=IXMfN0TT8kfXbN6T&q=85&s=1454f1f3e5e13107cbe543e8d6d617df" alt="Icon style examples" width="1320" height="768" data-path="images/mcp-apps/icons.png" />
 
-**Spacing.** Maintain generous padding and logical groupings. Balance information density with readability, adapting to viewport constraints.
+### Spacing
+
+Maintain generous padding and logical groupings. Balance information density with readability, adapting to viewport constraints.
+
+### Accessibility
+
+Your app must be usable by everyone. Maintain high contrast at WCAG AA minimum, support keyboard navigation, and provide text alternatives for visual content. Test with assistive technologies.
 
 ## Interaction patterns
 
-### App vs. chat interactions
+Some interactions belong inside your app and others belong in Claude's chat input. Drawing that boundary correctly, revealing complexity progressively, and keeping controls visible make your app feel cohesive with the conversation.
 
-Understanding the boundary between your app's interactions and Claude's conversational interface helps you build something that feels cohesive.
+### Decide between app and chat interactions
 
-**Handle within your app:**
+Handle these within your app:
 
 * Direct manipulation like sliders, toggles, and selections
 * Filtering or sorting data you're already displaying
 * Expanding and collapsing content sections
-* Confirming or executing a prepared action ("Mark complete," "Send," "Save")
-* Interacting with visualizations like hover states or clicking data points
+* Confirming or executing a prepared action, such as "Mark complete," "Send," or "Save"
+* Interacting with visualizations, like hover states or clicking data points
 
-Prefer controls with visible options (segmented buttons, toggle chips, inline tabs) over menus and dropdowns, which can conflict with the host container.
-
-**Push to chat input:**
+Push these to the chat input:
 
 * Text entry and freeform input
 * Follow-up questions or requests for clarification
@@ -265,23 +281,21 @@ Prefer controls with visible options (segmented buttons, toggle chips, inline ta
 
 If the interaction requires language understanding or generates a response from Claude, it goes through chat. If it's a direct UI action on content your app already controls, handle it in the app.
 
-### Start simple
+### Reveal complexity progressively
 
-Reveal complexity only when users need it. The inline card might show a summary; fullscreen mode can offer the detailed view.
+Reveal complexity only when users need it. The inline card might show a summary, and fullscreen mode can offer the detailed view.
 
-### Visible controls over hidden menus
+### Prefer visible controls over hidden menus
 
-Prefer controls with visible options (segmented buttons, toggle chips, inline tabs) over menus and dropdowns. Menus conflict with the host container and are harder to use on mobile.
-
-## Accessibility
-
-Maintain high contrast standards (WCAG AA minimum). Support keyboard navigation and provide text alternatives for visual content. Test with assistive technologies. Your app must be usable by everyone.
+Prefer controls with visible options, such as segmented buttons, toggle chips, and inline tabs, over menus and dropdowns. Menus conflict with the host container and are harder to use on mobile.
 
 ## Style variables
 
-MCP Apps automatically receive style variables from the host client. Reference these CSS custom properties to create interfaces that feel native to Claude.
+MCP Apps automatically receive style variables from the host client. Reference these CSS custom properties to create interfaces that feel native to Claude. [Blend your MCP App with Claude's theme](/docs/connectors/building/mcp-apps/transparent-theming) shows how to apply them at runtime.
 
-**Color tokens** cover backgrounds, text, and borders. Semantic accent colors signal status. All tokens automatically adapt to light and dark mode.
+### Color tokens
+
+Color tokens cover backgrounds, text, and borders, and semantic accent colors signal status. All tokens automatically adapt to light and dark mode.
 
 |                              | Light mode      | Dark mode       |
 | :--------------------------- | :-------------- | :-------------- |
@@ -327,7 +341,9 @@ MCP Apps automatically receive style variables from the host client. Reference t
 | `color-ring-success`         | `#437426 (50%)` | `#599130 (50%)` |
 | `color-ring-warning`         | `#805C1F (50%)` | `#A87829 (50%)` |
 
-**Typography tokens** include the font family, sizes, weights and line heights.
+### Typography tokens
+
+Typography tokens include the font family, sizes, weights, and line heights.
 
 | Family                         |                                |
 | :----------------------------- | :----------------------------- |
@@ -363,7 +379,9 @@ MCP Apps automatically receive style variables from the host client. Reference t
 | `font-heading-2xl-line-height` | `1.1`                          |
 | `font-heading-3xl-line-height` | `1`                            |
 
-**Radius tokens** provide border radius values
+### Radius tokens
+
+Radius tokens provide border radius values.
 
 | Radius               |          |
 | :------------------- | :------- |
@@ -374,13 +392,17 @@ MCP Apps automatically receive style variables from the host client. Reference t
 | `border-radius-xl`   | `12px`   |
 | `border-radius-full` | `9999px` |
 
-**Border width tokens** provide width values
+### Border width tokens
+
+Border width tokens provide border width values.
 
 |                        |         |
 | :--------------------- | :------ |
 | `border-width-regular` | `0.5px` |
 
-**Shadow tokens** provide drop-shadow values
+### Shadow tokens
+
+Shadow tokens provide drop-shadow values.
 
 |                   |                                                                          |
 | :---------------- | :----------------------------------------------------------------------- |
@@ -390,6 +412,8 @@ MCP Apps automatically receive style variables from the host client. Reference t
 | `shadow-lg`       | `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)` |
 
 ### Example usage
+
+This CSS applies the host tokens to an app container, a card, and a button:
 
 ```css theme={null}
 .my-app {
@@ -413,3 +437,9 @@ MCP Apps automatically receive style variables from the host client. Reference t
   border-radius: var(--border-radius-md);
 }
 ```
+
+## Related resources
+
+* [Blend your MCP App with Claude's theme](/docs/connectors/building/mcp-apps/transparent-theming): apply the style variables and keep your background transparent
+* [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): compute the sandbox origin Claude expects for your app
+* [Submit a connector](/docs/connectors/building/submission#carousel-screenshots-for-mcp-apps): screenshot specifications for listing an MCP App in the directory

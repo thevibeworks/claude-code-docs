@@ -108,11 +108,33 @@ On **sales-assisted plans**, spend limits prevent usage from continuing past the
 
 You can track your organization's usage and spending in a few places:
 
-- **Organization** **settings > Usage:** View month-to-date spending for each member, current spend limit status, and credit balance (self-serve plans).
+### Organization settings > Usage
 
-- **Monthly invoices:** Detailed usage per user for the billing period (sales-assisted plans).
+View month-to-date spending for each member, current spend limit status, and credit balance (self-serve plans).
 
-- **Spend limit notifications:** Alerts when users or your organization approach configured spending thresholds.
+At the top of this page is a section called **Blocked by a spend limit** with a view of how often members reach their spend limits. **Blocked by a spend limit** is built for usage-based Enterprise plans. Orgs without usage-based seats only see how many members are blocked or near their limit right now.
+
+You'll see three metrics at the top:
+
+- **Blocked right now:** the number of users currently locked out because they've reached a spend limit. Click this to see who they are.
+
+- **Near their limit:** the number of users approaching their spend limit.
+
+- **Member-days lost this month:** total days of blocked usage across your organization this month, compared to the same day last month.
+
+Below this, a chart shows the time at limit per active seat this month, for all members and your power users (top 10% by spend), plotted against prior months with a forecast of where this month is headed. It also calls out which group or limit type accounts for the most time at limit, so you can quickly see where limits are working as intended and where your most engaged users may need more headroom.
+
+You can adjust limits from the same page, including raising a seat type's default or increasing the limits of the members who reached it.
+
+**Note:** If a user’s extra-usage spend limit is set to $0, extra usage is turned off for them entirely. They can appear in the "Blocked right now" count, but their time isn't counted as time lost to a spend limit. The member-days figure and the chart include only members whose limit is above $0 and who reached their limit.
+
+### Monthly invoices
+
+See detailed usage per user for the billing period (sales-assisted plans).
+
+### Spend limit notifications
+
+Get alerts when users or your organization approach configured spending thresholds.
 
 ---
 

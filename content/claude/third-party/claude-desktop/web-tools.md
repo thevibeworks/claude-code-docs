@@ -99,7 +99,7 @@ Your own server:
 }
 ```
 
-Set the per-entry `toolPolicy` to `"allow"` so users aren't prompted to approve each search. `headersHelper` is an executable that prints the auth header as a JSON object to stdout; it follows the same execution model as [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/credential-helper) (run with no arguments, exit 0, stdout read as JSON), but the output here is a flat header map, not the `{token, headers}` shape `inferenceCredentialHelper` uses.
+Set the per-entry `toolPolicy` to `"allow"` so users aren't prompted to approve each search. `headersHelper` is an executable that prints the auth header as a JSON object to stdout; it follows the same execution model as [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/credential-helper) (exit 0, stdout read as JSON) but always runs with no arguments, and the output here is a flat header map, not the `{token, headers}` shape `inferenceCredentialHelper` uses.
 
 | Provider | Header your script should output    |
 | -------- | ----------------------------------- |
@@ -109,6 +109,8 @@ Set the per-entry `toolPolicy` to `"allow"` so users aren't prompted to approve 
 | `custom` | Whatever your search server expects |
 
 You can use a static `headers` object instead if you don't need a secrets manager.
+
+With `provider: "custom"`, Claude Desktop sends each search as an HTTP `POST` to `customUrl` exactly as written (nothing is substituted into the URL), with `Content-Type: application/json`, any headers from `headers` and `headersHelper`, and the body `{"q": "<search terms>"}`. Your server must answer within 15 seconds with a 2xx status and a JSON body of the form `{"results": [{"title": "...", "url": "...", "snippet": "..."}]}`. Results without a `url` are dropped, at most 10 are used, and each `snippet` is truncated to 600 characters.
 
 #### Gateway-side search
 

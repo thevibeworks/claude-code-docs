@@ -20,7 +20,7 @@ Anthropic creates a Claude Enterprise organization for your deployment and invit
 
 On each device, the user signs in to Claude Desktop once. The app recognizes that the account belongs to a third-party deployment, downloads the configuration that applies to that user, and asks the user to restart. After the restart, the app runs in third-party mode. It sends model requests to your inference provider, as it does with MDM or bootstrap delivery.
 
-While the app runs, it re-checks the configuration on a timer. When you save a change, the app downloads it at the next check and asks the user to relaunch, as described under [Configuration updates](#configuration-updates). You don't push an MDM profile or run a bootstrap server.
+While the app runs, it re-checks the configuration on a timer. When you save a change, the app downloads it at the next check and, for most settings, asks the user to relaunch, as described under [Configuration updates](#configuration-updates). You don't push an MDM profile or run a bootstrap server.
 
 Users are provisioned a Claude account only to sign in to Claude Desktop and receive their settings. They sign in with their work email address, through your single sign-on if you connect it.
 
@@ -169,7 +169,9 @@ When you turn on the switch, a running app trims its copy at its next configurat
 
 ### Usage analytics
 
-Usage analytics lets your administrators see how much each user uses Chat, Cowork, and Code in Claude Desktop. Usage analytics is off by default. A member with the Owner or Primary Owner role can turn it on: open **Organization settings**, go to the **Telemetry & updates** page under **Desktop 3P**, and turn on the **Report desktop usage to this organization** switch. If your organization needs HIPAA compliance, don't turn on the switch.
+Usage analytics lets your administrators see how much each user uses Chat, Cowork, and Code in Claude Desktop. Usage analytics is off by default. A member with the Owner or Primary Owner role can turn it on: open **Organization settings**, go to the **Telemetry & updates** page under **Desktop 3P**, and turn on the **Report desktop usage to this organization** switch.
+
+As a beta feature, usage analytics hasn't yet been reviewed for HIPAA compliance. Anthropic will provide guidance on HIPAA compliance at general availability. For now, if your organization needs HIPAA compliance, don't turn on the switch.
 
 Claude Desktop 1.46388.1 and later report usage. While the switch is on, each user's app counts its Chat, Cowork, and Code activity. The app sends the counts to Anthropic every few minutes during use and when it quits. A running app starts or stops reporting at its next configuration check (every 10 minutes by default), without a relaunch. Anthropic stores the counts for your organization and ties each report to the user's Claude account.
 
@@ -245,7 +247,7 @@ To remove the choice, turn on **Require this organization in Claude Desktop** un
 
 ### Configuration updates
 
-From Claude Desktop 1.46388.1, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. When it finds a change, it shows a **Relaunch Claude Desktop** card in the sidebar and gives the user 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
+From Claude Desktop 1.46388.1, a running app checks for a changed configuration about every 10 minutes, and after the device wakes. Some settings, such as the token limit and the banner, apply to the running app without a relaunch. For any other change, the app shows a **Relaunch Claude Desktop** card in the sidebar and gives the user 24 hours to relaunch. When the window ends, the app requires a restart and restarts itself after 2 minutes of inactivity. Earlier releases check about every 30 minutes and allow 1 hour.
 
 To change the window, set **Configuration relaunch window** on the **Telemetry & updates** page. The window can be 0 to 336 hours, and 0 requires the restart as soon as the app sees the change. The setting applies to Claude Desktop 1.46388.1 and later. Earlier releases always allow 1 hour.
 

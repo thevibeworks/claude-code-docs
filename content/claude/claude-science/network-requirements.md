@@ -44,7 +44,7 @@ When Claude searches the scientific literature or retrieves full text, the app i
 
 ## Analysis sandbox domains
 
-When Claude runs code, its network access passes through a local filtering proxy that allows only the domains on the sandbox's built-in allowlist, grouped by purpose below. By default, each member manages the list on their own computer. Members can turn off any group except package management, during onboarding or under **Settings** > **Network**, and add allowed domains of their own in Settings. An administrator can also use the per-device configuration file, whose `[sandbox.network]` keys add allowed or denied domains, or disable sandbox networking entirely.
+When Claude runs code, its network access passes through a local filtering proxy that allows only the domains on the sandbox's built-in allowlist, grouped by purpose below. By default, each member manages the list on their own computer. Members can turn off any group except package management, during onboarding or under **Settings > Network**, and add allowed domains of their own in Settings, one at a time or by pasting a list. An administrator can also use the per-device configuration file, whose `[sandbox.network]` keys add allowed or denied domains, or disable sandbox networking entirely.
 
 An organization can instead manage the list for every member from **Organization settings** > **Claude Science**, with one switch per domain and custom domains of its own. Members then see their **Network** settings read-only, and the domains a member or a configuration file added are set aside while the organization manages the list. See [Network allowlist](/docs/claude-science/admin-controls#network-allowlist) for what the organization's list covers and how changes reach members.
 

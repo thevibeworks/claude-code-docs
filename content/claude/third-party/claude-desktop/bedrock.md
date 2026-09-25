@@ -52,7 +52,7 @@ These steps are performed once per AWS organization, regardless of which authent
     }
     ```
 
-    Set the permission set's **Session duration** to between 8 and 12 hours. This value controls how long a user can run Claude Desktop before needing to sign in to AWS again.
+    Set the permission set's **Session duration** to between 8 and 12 hours. This value sets how long each set of temporary AWS credentials lasts before the app requests a new set from IAM Identity Center. It does not control how often users sign in. Sign-in frequency follows the access portal session duration, described under [What users experience](#what-users-experience).
   </Step>
 
   <Step title="Federate Identity Center to your IdP (optional)">
@@ -91,7 +91,7 @@ When all four `inferenceBedrockSso*` keys are set, the app shows a **Sign in wit
 
 On success, the app stores the IAM Identity Center access token and refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows), dismisses the sign-in page, and shows Cowork.
 
-At the start of each Cowork session, the app exchanges the stored token with IAM Identity Center for short-lived AWS credentials scoped to the configured account and permission set, and passes them into the session sandbox as `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN`. This is the same credential shape that `aws sso login` produces, obtained without the AWS CLI.
+At the start of each Cowork or Code session, the app exchanges the stored token with IAM Identity Center for short-lived AWS credentials scoped to the configured account and permission set, and writes them to the session's AWS credentials files, described under [Transient credential files](/docs/third-party/claude-desktop/data-storage#transient-credential-files). The session reads them through `AWS_SHARED_CREDENTIALS_FILE` and `AWS_PROFILE`, so the secret values are never passed as environment variables. This is the same credential shape that `aws sso login` produces, obtained without the AWS CLI.
 
 If the stored token expires or is revoked, the app shows a **Sign in again** prompt; clicking it reopens the AWS access portal in the browser. If you deploy a different `inferenceBedrockSsoStartUrl`, the app finds no stored token for the new URL and shows the sign-in page on next launch.
 
@@ -106,10 +106,10 @@ These hosts are included automatically in the **Egress** section of the in-app c
 
 #### Notes and limitations
 
-* **All four keys required.** If only some of the `inferenceBedrockSso*` keys are set, the app logs a warning and ignores the partial configuration.
+* **All four keys required.** A partial set does not enable in-app sign-in. If `inferenceCredentialKind` is set to `interactive`, the app treats the configuration as invalid, logs an error that names the missing keys, and does not connect until they are supplied. If `inferenceCredentialKind` is not set, the app uses whichever other credential the configuration provides, or reports that no credential is configured.
 * **One account and role per deployment.** Every user in a given managed configuration signs in to the same AWS account and assumes the same permission set. To give different groups different Amazon Bedrock permissions, deploy distinct configuration profiles with different `inferenceBedrockSsoRoleName` values.
-* **Mid-session credential refresh.** The app checks the AWS credentials' expiry before each turn and silently mints new ones from the stored IAM Identity Center token when they are close to expiring. If the Identity Center token itself has expired or been revoked, the app shows a **Sign in again** prompt; click it to re-authenticate with AWS in your browser. The permission set's session duration controls how long the Identity Center token remains valid, so set it long enough to cover a working day.
-* **Connection probe.** The in-app **Test connection** button reports that the connection cannot be verified in this mode, because the app cannot sign Amazon Bedrock requests outside the sandbox. This matches the behavior of named-profile mode and does not indicate a problem.
+* **Mid-session credential refresh.** The app checks the AWS credentials' expiry before each turn and silently mints new ones from the stored IAM Identity Center token when they are close to expiring. If the Identity Center token itself has expired or been revoked, the app shows a **Sign in again** prompt; click it to re-authenticate with AWS in your browser. The access portal session duration in IAM Identity Center sets how long the Identity Center sign-in itself lasts, as described under [What users experience](#what-users-experience).
+* **Connection probe.** The in-app **Test connection** button completes the AWS sign-in if needed, then sends a short test request to a model from your **Models** list through the app's Claude Code runtime. Add at least one model first, because this credential type cannot discover models automatically. If the app has not yet finished downloading its Claude Code runtime, the test reports that it cannot run; wait a moment and try again. Named-profile mode behaves the same way.
 * **Configuration rotation.** If you change `inferenceBedrockSsoStartUrl` in the managed profile, existing users are automatically signed out and prompted to sign in again on next launch.
 
 ### Named profile

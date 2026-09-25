@@ -94,7 +94,7 @@ On Enterprise plans, this setting works alongside custom role grants, and the mo
 
 Plugins are included with Cowork and controlled by the same admin toggle—there's no separate setting to manage plugin access within Cowork.
 
-For details on what members can do with plugins, see **[Use plugins in Cowork](https://support.claude.com/en/articles/13837440-use-plugins-in-cowork)**.
+For details on what members can do with plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-cowork)**.
 
 ---
 
@@ -110,15 +110,15 @@ Projects are available wherever members use Cowork. Projects tied to a local fol
 
 Owners can create plugin marketplaces to distribute curated plugins across their organization. This gives you control over which plugins users see and use in chat, Cowork, and Claude Code (for users who sign in to Claude Code with their Claude account).
 
-- **Installed by default** — Automatically added for everyone in your organization. Members can uninstall if they choose.
+- **Installed by default** — Automatically added for everyone in your organization. Members can turn it off if they choose.
 
-- **Available** — Appears in the plugin catalog for members to install on their own.
+- **Available to install** — Appears on the **Discover** tab for members to add on their own.
 
-- **Required** — Automatically installed for all members. Members cannot uninstall it.
+- **Required** — Automatically installed for all members. Members can’t turn it off or remove it.
 
-- **Not available** — Hidden from the catalog. Useful for staging or deprecating plugins.
+- **Not available** — Hidden from members. Useful for staging or deprecating plugins.
 
-On Enterprise plans, admins can also override these preferences for specific groups—for example, auto-installing a plugin for one team while hiding it from everyone else. For details, see **[Manage Cowork plugins for your organization](https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization)**.
+On Enterprise plans, admins can also override these preferences for specific groups—for example, auto-installing a plugin for one team while hiding it from everyone else. For details, see **[Manage plugins for your organization](https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization)**.
 
 ---
 
