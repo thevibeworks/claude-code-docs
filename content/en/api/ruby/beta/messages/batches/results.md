@@ -169,7 +169,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `container: BetaContainer`
 
-          Information about the container used in the request (for the code execution tool)
+          Information about the container used in this request.
+
+          This will be non-null if a container tool (e.g. code execution) was used.
 
           - `id: String`
 
@@ -197,13 +199,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Skill ID
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
             - `version: String`
 
               The resolved version: a skill version ID for custom skills.
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
         - `content: Array[BetaContentBlock]`
 
@@ -364,8 +366,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: String`
 
-              minLength: 0
-
           - `class BetaThinkingBlock`
 
             - `type: :thinking`
@@ -438,7 +438,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaServerToolUseBlock`
 
@@ -878,7 +878,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: String`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `tool_use_id: String`
 
@@ -921,8 +921,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
                 - `text: String`
-
-                  minLength: 0
 
             - `is_error: bool`
 
@@ -1045,7 +1043,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                          minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1309,12 +1307,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: BetaBrowserToolsetConfigs`
 
-                          Per-member configuration for `browser_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: BetaBrowserTypeConfig`
 
@@ -1935,12 +1928,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: BetaComputerToolsetConfigs`
 
-                          Per-member configuration for `computer_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: BetaComputerTypeConfig`
 
@@ -2294,7 +2282,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -2310,25 +2298,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: String`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: String`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: String`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `class BetaWebFetchTool20250910`
 
@@ -2376,13 +2364,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -2390,12 +2378,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -2519,7 +2502,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -2573,13 +2556,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -2587,12 +2570,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `class BetaWebFetchTool20260309`
 
@@ -2640,13 +2618,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -2654,12 +2632,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `use_cache: bool`
 
@@ -2705,7 +2678,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: :full | :excluded`
 
@@ -2767,13 +2740,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: :full | :excluded`
 
@@ -2789,12 +2762,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `use_cache: bool`
 
@@ -2809,6 +2777,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                           The model that will complete your prompt.
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                          - `String = String`
 
                           - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -2852,10 +2822,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               Powerful intelligence for long-running agents and coding
 
-                            - `:"claude-mythos-preview"`
-
-                              New class of intelligence, strongest in coding and cybersecurity
-
                             - `:"claude-opus-4-6"`
 
                               Powerful intelligence for long-running agents and coding
@@ -2888,7 +2854,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               High-performance model for agents and coding
 
-                          - `String = String`
+                            - `:"claude-mythos-preview"`
+
+                              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                              New class of intelligence, strongest in coding and cybersecurity
 
                         - `name: :advisor`
 
@@ -2928,7 +2898,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -3019,7 +2989,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Name of the MCP server to configure tools for
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `cache_control: BetaCacheControlEphemeral`
 
@@ -3128,7 +3098,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-                The policy category that triggered a refusal.
+                The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
                 - `:cyber`
 
@@ -3217,8 +3187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `diagnostics: BetaDiagnostics`
 
-          Request-level diagnostics: why the prompt cache could not fully reuse
-          the prefix of the request named by `diagnostics.previous_message_id`.
+          Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
           - `cache_miss_reason: BetaCacheMissReason`
 
@@ -3278,13 +3247,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `stop_details: BetaRefusalStopDetails`
 
-          Structured information about a refusal.
+          Structured information about why model output stopped.
+
+          This is `null` when the `stop_reason` has no additional detail to report.
 
           - `type: :refusal`
 
           - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the refusal.
+
+            `null` when the refusal doesn't map to a named category.
 
             - `:cyber`
 
@@ -3442,6 +3415,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `fallback_credit: BetaFallbackCreditUsage`
 
             Outcome of the `fallback_credit_token` presented on this request.
+
+            Present on every response to a non-batch request that carried a
+            `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+            items accept and ignore the token and carry no outcome object).
 
             - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -3754,7 +3731,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `speed: :standard | :fast`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            The inference speed mode used for this request.
 
             - `:standard`
 

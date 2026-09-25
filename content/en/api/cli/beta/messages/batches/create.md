@@ -21,7 +21,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Body param: List of requests for prompt completion. Each is an individual request to create a Message.
 
-  maxItems: 100000, minItems: 1
+  minItems: 1, maxItems: 100000
 
 - `--beta: optional array of AnthropicBeta`
 

@@ -80,7 +80,11 @@ You choose with `thinking.block_binding.prefix_mismatch_behavior`:
 * **`"error"` (the default):** the API rejects the request with a 400 `invalid_request_error` that names the first failing block.
 * **`"drop_block"`:** the API drops each failing block and every thinking block after it, and the request succeeds. Dropped blocks aren't billed. The model answers that turn without using reasoning from dropped blocks, and the prompt cache restarts at the edit. The response lists each dropped block in `input_transformations` (on the `message_start` event when streaming) with `reason: "prefix_binding_mismatch"`.
 
-`"drop_block"` keeps requests succeeding but doesn't fix the edit. Count the responses in each session whose `input_transformations` has a `prefix_binding_mismatch` entry, and alert on them. In the Message Batches API, an item that leaves the field unset doesn't fail. Where the API enforces the check by default, it drops the failing blocks instead. Set `"error"` explicitly there if you want batch items to fail.
+<Warning>
+  `"drop_block"` hides the error but doesn't fix the edit that caused it. Dropped blocks aren't billed, but a session's token usage might still increase because Claude can sometimes think more to re-create the dropped thinking. The increase tends to be larger when more thinking blocks are dropped, or when blocks are dropped on more turns of a long session.
+</Warning>
+
+Count the responses in each session whose `input_transformations` has a `prefix_binding_mismatch` entry, alert on them, and replace each edit with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). In the Message Batches API, an item that leaves the field unset doesn't fail. Where the API enforces the check by default, it drops the failing blocks instead. Set `"error"` explicitly there if you want batch items to fail.
 
 Both the field and the `input_transformations` array require the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers). [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls) shows the request in each SDK.
 

@@ -19,7 +19,7 @@ Create a new environment with the specified configuration.
 
     Body param: Human-readable name for the environment
 
-    maxLength: 256, minLength: 1
+    minLength: 1, maxLength: 256
 
   - `config?: BetaCloudConfigParams | BetaSelfHostedConfigParams | null`
 
@@ -73,11 +73,7 @@ Create a new environment with the specified configuration.
 
       - `packages?: BetaPackagesParams | null`
 
-        Specify packages (and optionally their versions) available in this environment.
-
-        When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
-
-        Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
+        Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
         - `type?: "packages"`
 

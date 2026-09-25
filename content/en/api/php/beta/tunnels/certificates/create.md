@@ -45,15 +45,15 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was registered.
 
   - `?\Datetime expiresAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
   - `string fingerprint`
 

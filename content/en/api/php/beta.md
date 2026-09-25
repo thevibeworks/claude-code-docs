@@ -323,7 +323,7 @@ The Models API response can be used to determine which models are available for 
 
   - `?BetaModelCapabilities capabilities`
 
-    Model capability information.
+    Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
   - `\Datetime createdAt`
 
@@ -497,7 +497,7 @@ The Models API response can be used to determine information about a specific mo
 
   - `?BetaModelCapabilities capabilities`
 
-    Model capability information.
+    Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
   - `\Datetime createdAt`
 
@@ -705,14 +705,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `compaction?:optional BetaCompactionConfig`
 
-  Compact the whole conversation and return a signed `compaction` block,
-  alone, that a later request sends back first in `messages`, in place of
-  the messages it summarizes. There is no trigger and no pause flag: sending
-  the parameter compacts, and nothing is sampled after the block.
+  Compaction configuration.
 
-  The summarization prompt is the server's own unless `instructions` are
-  given, which then replace it for this request; a value that is empty or
-  only whitespace counts as absent.
+  When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
 - `container?:optional Container`
 
@@ -726,8 +721,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `diagnostics?:optional BetaDiagnosticsParam`
 
-  Request-level diagnostics. Currently carries the previous response
-  id for prompt-cache divergence reporting.
+  Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
 - `fallbackCreditToken?:optional FallbackCreditToken`
 
@@ -780,7 +774,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `speed?:optional Speed`
 
-  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
 - `stopSequences?:optional list<string>`
 
@@ -948,7 +942,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaContainer container`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
   - `list<BetaContentBlock> content`
 
@@ -987,8 +983,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaDiagnostics diagnostics`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
   - `Model model`
 
@@ -1004,7 +999,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaRefusalStopDetails stopDetails`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
   - `?BetaStopReason stopReason`
 
@@ -1448,14 +1445,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `compaction?:optional BetaCompactionConfig`
 
-  Compact the whole conversation and return a signed `compaction` block,
-  alone, that a later request sends back first in `messages`, in place of
-  the messages it summarizes. There is no trigger and no pause flag: sending
-  the parameter compacts, and nothing is sampled after the block.
+  Compaction configuration.
 
-  The summarization prompt is the server's own unless `instructions` are
-  given, which then replace it for this request; a value that is empty or
-  only whitespace counts as absent.
+  When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
 - `contextManagement?:optional BetaContextManagementConfig`
 
@@ -1473,7 +1465,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `speed?:optional Speed`
 
-  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
 - `system?:optional System`
 
@@ -2501,7 +2493,7 @@ Create Agent
 
 - `multiagent?:optional BetaManagedAgentsMultiagentParams`
 
-  A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+  Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
 
 - `skills?:optional list<BetaManagedAgentsSkillParams>`
 
@@ -2535,7 +2527,7 @@ Create Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -2553,7 +2545,7 @@ Create Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -2748,7 +2740,7 @@ List Agents
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -2766,7 +2758,7 @@ List Agents
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -2926,7 +2918,7 @@ Get Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -2944,7 +2936,7 @@ Get Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -3090,7 +3082,7 @@ Update Agent
 
 - `multiagent?:optional BetaManagedAgentsMultiagentParams`
 
-  A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+  Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
 - `name?:optional string`
 
@@ -3132,7 +3124,7 @@ Update Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -3150,7 +3142,7 @@ Update Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -3336,7 +3328,7 @@ Archive Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -3354,7 +3346,7 @@ Archive Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -3511,7 +3503,7 @@ List Agent Versions
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -3529,7 +3521,7 @@ List Agent Versions
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -5440,7 +5432,7 @@ Create Session
 
 - `budget?:optional BetaManagedAgentsBudgetLimit`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
 
 - `initialEvents?:optional list<InitialEvent>`
 
@@ -5486,11 +5478,11 @@ Create Session
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
   - `\Datetime createdAt`
 
@@ -5508,7 +5500,7 @@ Create Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
   - `Status status`
 
@@ -5522,7 +5514,7 @@ Create Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
   - `list<string> vaultIDs`
 
@@ -5851,11 +5843,11 @@ List Sessions
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
   - `\Datetime createdAt`
 
@@ -5873,7 +5865,7 @@ List Sessions
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
   - `Status status`
 
@@ -5887,7 +5879,7 @@ List Sessions
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
   - `list<string> vaultIDs`
 
@@ -6163,11 +6155,11 @@ Get Session
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
   - `\Datetime createdAt`
 
@@ -6185,7 +6177,7 @@ Get Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
   - `Status status`
 
@@ -6199,7 +6191,7 @@ Get Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
   - `list<string> vaultIDs`
 
@@ -6435,11 +6427,11 @@ Update Session
 
 - `agent?:optional BetaManagedAgentsSessionAgentUpdate`
 
-  Mid-session agent configuration update. Only `tools` and `mcp_servers` are updatable. Full replacement: the provided array becomes the new value. To preserve existing entries, GET the session, modify the array, and POST it back.
+  Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
 
 - `budget?:optional BetaManagedAgentsBudgetLimit`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
 
 - `metadata?:optional array<string,string>`
 
@@ -6477,11 +6469,11 @@ Update Session
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
   - `\Datetime createdAt`
 
@@ -6499,7 +6491,7 @@ Update Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
   - `Status status`
 
@@ -6513,7 +6505,7 @@ Update Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
   - `list<string> vaultIDs`
 
@@ -6860,11 +6852,11 @@ Archive Session
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
   - `\Datetime createdAt`
 
@@ -6882,7 +6874,7 @@ Archive Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
   - `Status status`
 
@@ -6896,7 +6888,7 @@ Archive Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
   - `list<string> vaultIDs`
 
@@ -7190,7 +7182,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -7202,7 +7194,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -7218,7 +7210,7 @@ List Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -7230,7 +7222,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -7258,7 +7250,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -7282,7 +7274,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -7302,7 +7294,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -7314,7 +7306,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -7338,15 +7330,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -7366,7 +7358,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -7394,15 +7386,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -7418,7 +7410,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -7450,7 +7442,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -7470,7 +7462,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -7490,7 +7482,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -7504,7 +7496,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -7516,7 +7508,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -7528,7 +7520,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -7540,7 +7532,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -7554,7 +7546,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -7570,7 +7562,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -7594,7 +7586,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -7622,7 +7614,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -7630,7 +7622,7 @@ List Events
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -7642,7 +7634,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -7662,11 +7654,11 @@ List Events
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -7686,7 +7678,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -7710,11 +7702,11 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -7726,7 +7718,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -7742,7 +7734,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -7762,7 +7754,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -7784,7 +7776,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -7812,7 +7804,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -7832,7 +7824,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -7848,15 +7840,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -7880,7 +7872,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -7892,15 +7884,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -8082,7 +8074,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -8094,7 +8086,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -8110,7 +8102,7 @@ Stream Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -8122,7 +8114,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -8150,7 +8142,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -8174,7 +8166,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -8194,7 +8186,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -8206,7 +8198,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -8230,15 +8222,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -8258,7 +8250,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -8286,15 +8278,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -8310,7 +8302,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -8342,7 +8334,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -8362,7 +8354,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -8382,7 +8374,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -8396,7 +8388,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -8408,7 +8400,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -8420,7 +8412,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -8432,7 +8424,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -8446,7 +8438,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -8462,7 +8454,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -8486,7 +8478,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -8514,7 +8506,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -8522,7 +8514,7 @@ Stream Events
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -8534,7 +8526,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -8554,11 +8546,11 @@ Stream Events
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -8578,7 +8570,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -8602,11 +8594,11 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -8618,7 +8610,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -8634,7 +8626,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -8654,7 +8646,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -8676,7 +8668,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -8704,7 +8696,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -8724,7 +8716,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -8740,15 +8732,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -8792,7 +8784,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -8804,15 +8796,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -9023,7 +9015,7 @@ List Session Resources
 
     - `?Access access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
     - `?string description`
 
@@ -9167,7 +9159,7 @@ Get Session Resource
 
     - `?Access access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
     - `?string description`
 
@@ -9301,7 +9293,7 @@ Update Session Resource
 
     - `?Access access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
     - `?string description`
 
@@ -9464,15 +9456,15 @@ List Session Threads
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
   - `?string parentThreadID`
 
@@ -9484,19 +9476,19 @@ List Session Threads
 
   - `?ManagedAgentsSessionThreadStats stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
   - `ManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
   - `?ManagedAgentsSessionThreadUsage usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
 #### Example
 
@@ -9648,15 +9640,15 @@ Get Session Thread
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
   - `?string parentThreadID`
 
@@ -9668,19 +9660,19 @@ Get Session Thread
 
   - `?ManagedAgentsSessionThreadStats stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
   - `ManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
   - `?ManagedAgentsSessionThreadUsage usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
 #### Example
 
@@ -9826,15 +9818,15 @@ Archive Session Thread
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
   - `?string parentThreadID`
 
@@ -9846,19 +9838,19 @@ Archive Session Thread
 
   - `?ManagedAgentsSessionThreadStats stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
   - `ManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
   - `?ManagedAgentsSessionThreadUsage usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
 #### Example
 
@@ -10016,7 +10008,7 @@ List Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -10028,7 +10020,7 @@ List Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -10044,7 +10036,7 @@ List Session Thread Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -10056,7 +10048,7 @@ List Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -10084,7 +10076,7 @@ List Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -10108,7 +10100,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -10128,7 +10120,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -10140,7 +10132,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -10164,15 +10156,15 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -10192,7 +10184,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -10220,15 +10212,15 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -10244,7 +10236,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -10276,7 +10268,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -10296,7 +10288,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -10316,7 +10308,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -10330,7 +10322,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -10342,7 +10334,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -10354,7 +10346,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -10366,7 +10358,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -10380,7 +10372,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -10396,7 +10388,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -10420,7 +10412,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -10448,7 +10440,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -10456,7 +10448,7 @@ List Session Thread Events
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -10468,7 +10460,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -10488,11 +10480,11 @@ List Session Thread Events
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -10512,7 +10504,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -10536,11 +10528,11 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -10552,7 +10544,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -10568,7 +10560,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -10588,7 +10580,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -10610,7 +10602,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -10638,7 +10630,7 @@ List Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -10658,7 +10650,7 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -10674,15 +10666,15 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -10706,7 +10698,7 @@ List Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -10718,15 +10710,15 @@ List Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -10816,7 +10808,7 @@ Stream Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -10828,7 +10820,7 @@ Stream Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -10844,7 +10836,7 @@ Stream Session Thread Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -10856,7 +10848,7 @@ Stream Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -10884,7 +10876,7 @@ Stream Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -10908,7 +10900,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -10928,7 +10920,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -10940,7 +10932,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -10964,15 +10956,15 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -10992,7 +10984,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -11020,15 +11012,15 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -11044,7 +11036,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -11076,7 +11068,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -11096,7 +11088,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -11116,7 +11108,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -11130,7 +11122,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -11142,7 +11134,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -11154,7 +11146,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -11166,7 +11158,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -11180,7 +11172,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -11196,7 +11188,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -11220,7 +11212,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -11248,7 +11240,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -11256,7 +11248,7 @@ Stream Session Thread Events
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -11268,7 +11260,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -11288,11 +11280,11 @@ Stream Session Thread Events
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -11312,7 +11304,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -11336,11 +11328,11 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -11352,7 +11344,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -11368,7 +11360,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -11388,7 +11380,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -11410,7 +11402,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -11438,7 +11430,7 @@ Stream Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -11458,7 +11450,7 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -11474,15 +11466,15 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -11526,7 +11518,7 @@ Stream Session Thread Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -11538,15 +11530,15 @@ Stream Session Thread Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -11619,7 +11611,7 @@ Create Deployment
 
 - `budget?:optional BetaManagedAgentsBudgetLimit`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
 - `description?:optional string`
 
@@ -11635,7 +11627,7 @@ Create Deployment
 
 - `schedule?:optional BetaManagedAgentsScheduleParams`
 
-  5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
+  Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
 
 - `vaultIDs?:optional list<string>`
 
@@ -11663,15 +11655,15 @@ Create Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -11695,7 +11687,7 @@ Create Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -11703,15 +11695,15 @@ Create Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -11719,7 +11711,7 @@ Create Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -11893,15 +11885,15 @@ List Deployments
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -11925,7 +11917,7 @@ List Deployments
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -11933,15 +11925,15 @@ List Deployments
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -11949,7 +11941,7 @@ List Deployments
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -12083,15 +12075,15 @@ Get Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -12115,7 +12107,7 @@ Get Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -12123,15 +12115,15 @@ Get Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -12139,7 +12131,7 @@ Get Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -12246,7 +12238,7 @@ Update Deployment
 
 - `budget?:optional BetaManagedAgentsBudgetLimit`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
 - `description?:optional string`
 
@@ -12274,7 +12266,7 @@ Update Deployment
 
 - `schedule?:optional BetaManagedAgentsScheduleParams`
 
-  5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
+  Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
 
 - `vaultIDs?:optional list<string>`
 
@@ -12302,15 +12294,15 @@ Update Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -12334,7 +12326,7 @@ Update Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -12342,15 +12334,15 @@ Update Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -12358,7 +12350,7 @@ Update Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -12509,15 +12501,15 @@ Archive Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -12541,7 +12533,7 @@ Archive Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -12549,15 +12541,15 @@ Archive Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -12565,7 +12557,7 @@ Archive Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -12688,11 +12680,11 @@ Run Deployment Now
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
   - `string deploymentID`
 
@@ -12700,7 +12692,7 @@ Run Deployment Now
 
   - `?Error error`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
   - `?string sessionID`
 
@@ -12708,7 +12700,7 @@ Run Deployment Now
 
   - `BetaManagedAgentsTriggerContext triggerContext`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
 #### Example
 
@@ -12789,15 +12781,15 @@ Pause Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -12821,7 +12813,7 @@ Pause Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -12829,15 +12821,15 @@ Pause Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -12845,7 +12837,7 @@ Pause Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -12968,15 +12960,15 @@ Unpause Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -13000,7 +12992,7 @@ Unpause Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -13008,15 +13000,15 @@ Unpause Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -13024,7 +13016,7 @@ Unpause Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 #### Example
 
@@ -13181,11 +13173,11 @@ List Deployment Runs
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
   - `string deploymentID`
 
@@ -13193,7 +13185,7 @@ List Deployment Runs
 
   - `?Error error`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
   - `?string sessionID`
 
@@ -13201,7 +13193,7 @@ List Deployment Runs
 
   - `BetaManagedAgentsTriggerContext triggerContext`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
 #### Example
 
@@ -13295,11 +13287,11 @@ Get Deployment Run
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
   - `string deploymentID`
 
@@ -13307,7 +13299,7 @@ Get Deployment Run
 
   - `?Error error`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
   - `?string sessionID`
 
@@ -13315,7 +13307,7 @@ Get Deployment Run
 
   - `BetaManagedAgentsTriggerContext triggerContext`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
 #### Example
 
@@ -13402,7 +13394,7 @@ Create Vault
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -13499,7 +13491,7 @@ List Vaults
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -13594,7 +13586,7 @@ Get Vault
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -13690,7 +13682,7 @@ Update Vault
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -13841,7 +13833,7 @@ Archive Vault
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -13911,7 +13903,7 @@ Create Credential
 
 - `auth: Auth`
 
-  Authentication details for creating a credential.
+  Authentication configuration for the credential.
 
 - `displayName?:optional string`
 
@@ -13943,11 +13935,11 @@ Create Credential
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
   - `\Datetime createdAt`
 
@@ -14063,11 +14055,11 @@ List Credentials
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
   - `\Datetime createdAt`
 
@@ -14176,11 +14168,11 @@ Get Credential
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
   - `\Datetime createdAt`
 
@@ -14262,7 +14254,7 @@ Update Credential
 
 - `auth?:optional Auth`
 
-  Updated authentication details for a credential.
+  Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
 - `displayName?:optional string`
 
@@ -14294,11 +14286,11 @@ Update Credential
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
   - `\Datetime createdAt`
 
@@ -14484,11 +14476,11 @@ Archive Credential
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
   - `\Datetime createdAt`
 
@@ -14594,19 +14586,19 @@ Validate Credential
 
   - `?ManagedAgentsMCPProbe mcpProbe`
 
-    The failing step of an MCP validation probe.
+    Details of the failing MCP probe step. Null when the probe succeeded.
 
   - `?ManagedAgentsRefreshObject refresh`
 
-    Outcome of a refresh-token exchange attempted during credential validation.
+    Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
   - `ManagedAgentsCredentialValidationStatus status`
 
-    Overall verdict of a credential validation probe.
+    Overall verdict of the validation probe.
 
   - `\Datetime validatedAt`
 
-    A timestamp in RFC 3339 format
+    When the validation probe was performed.
 
   - `string vaultID`
 
@@ -14712,7 +14704,7 @@ Create a memory store
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was created.
 
   - `string name`
 
@@ -14720,11 +14712,11 @@ Create a memory store
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
 
   - `?string description`
 
@@ -14823,7 +14815,7 @@ List memory stores
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was created.
 
   - `string name`
 
@@ -14831,11 +14823,11 @@ List memory stores
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
 
   - `?string description`
 
@@ -14925,7 +14917,7 @@ Retrieve a memory store
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was created.
 
   - `string name`
 
@@ -14933,11 +14925,11 @@ Retrieve a memory store
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
 
   - `?string description`
 
@@ -15030,7 +15022,7 @@ Update a memory store
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was created.
 
   - `string name`
 
@@ -15038,11 +15030,11 @@ Update a memory store
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
 
   - `?string description`
 
@@ -15187,7 +15179,7 @@ Archive a memory store
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was created.
 
   - `string name`
 
@@ -15195,11 +15187,11 @@ Archive a memory store
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
 
   - `?string description`
 
@@ -15302,7 +15294,7 @@ Create a memory
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this memory was created, in RFC 3339 format.
 
   - `string memoryStoreID`
 
@@ -15318,7 +15310,7 @@ Create a memory
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
   - `?string content`
 
@@ -15428,7 +15420,7 @@ List memories
 
     - `\Datetime createdAt`
 
-      A timestamp in RFC 3339 format
+      When this memory was created, in RFC 3339 format.
 
     - `string memoryStoreID`
 
@@ -15444,7 +15436,7 @@ List memories
 
     - `\Datetime updatedAt`
 
-      A timestamp in RFC 3339 format
+      When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
     - `?string content`
 
@@ -15555,7 +15547,7 @@ Retrieve a memory
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this memory was created, in RFC 3339 format.
 
   - `string memoryStoreID`
 
@@ -15571,7 +15563,7 @@ Retrieve a memory
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
   - `?string content`
 
@@ -15646,7 +15638,7 @@ Update a memory
 
 - `precondition?:optional ManagedAgentsPrecondition`
 
-  Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
+  Optional optimistic-concurrency precondition. When supplied, the update applies only if the memory's current state matches; on mismatch the request returns `memory_precondition_failed_error` (HTTP 409). When omitted, the update is unconditional.
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -15678,7 +15670,7 @@ Update a memory
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this memory was created, in RFC 3339 format.
 
   - `string memoryStoreID`
 
@@ -15694,7 +15686,7 @@ Update a memory
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
   - `?string content`
 
@@ -15895,7 +15887,7 @@ List memory versions
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this version was written, in RFC 3339 format.
 
   - `string memoryID`
 
@@ -15907,7 +15899,7 @@ List memory versions
 
   - `ManagedAgentsMemoryVersionOperation operation`
 
-    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
+    The kind of mutation this version records: `created`, `modified`, or `deleted`.
 
   - `?string content`
 
@@ -15923,7 +15915,7 @@ List memory versions
 
   - `?ManagedAgentsActor createdBy`
 
-    Identifies who performed an operation. Recorded when the operation happens and not updated afterwards, so the ID may refer to a user, service account, API key, or session that has since been deleted.
+    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `?string path`
 
@@ -15931,11 +15923,11 @@ List memory versions
 
   - `?\Datetime redactedAt`
 
-    A timestamp in RFC 3339 format
+    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](/docs/en/api/beta/memory_stores/memory_versions/redact).
 
   - `?ManagedAgentsActor redactedBy`
 
-    Identifies who performed an operation. Recorded when the operation happens and not updated afterwards, so the ID may refer to a user, service account, API key, or session that has since been deleted.
+    Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 
 #### Example
 
@@ -16040,7 +16032,7 @@ Retrieve a memory version
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this version was written, in RFC 3339 format.
 
   - `string memoryID`
 
@@ -16052,7 +16044,7 @@ Retrieve a memory version
 
   - `ManagedAgentsMemoryVersionOperation operation`
 
-    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
+    The kind of mutation this version records: `created`, `modified`, or `deleted`.
 
   - `?string content`
 
@@ -16068,7 +16060,7 @@ Retrieve a memory version
 
   - `?ManagedAgentsActor createdBy`
 
-    Identifies who performed an operation. Recorded when the operation happens and not updated afterwards, so the ID may refer to a user, service account, API key, or session that has since been deleted.
+    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `?string path`
 
@@ -16076,11 +16068,11 @@ Retrieve a memory version
 
   - `?\Datetime redactedAt`
 
-    A timestamp in RFC 3339 format
+    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](/docs/en/api/beta/memory_stores/memory_versions/redact).
 
   - `?ManagedAgentsActor redactedBy`
 
-    Identifies who performed an operation. Recorded when the operation happens and not updated afterwards, so the ID may refer to a user, service account, API key, or session that has since been deleted.
+    Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 
 #### Example
 
@@ -16172,7 +16164,7 @@ Redact a memory version
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this version was written, in RFC 3339 format.
 
   - `string memoryID`
 
@@ -16184,7 +16176,7 @@ Redact a memory version
 
   - `ManagedAgentsMemoryVersionOperation operation`
 
-    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
+    The kind of mutation this version records: `created`, `modified`, or `deleted`.
 
   - `?string content`
 
@@ -16200,7 +16192,7 @@ Redact a memory version
 
   - `?ManagedAgentsActor createdBy`
 
-    Identifies who performed an operation. Recorded when the operation happens and not updated afterwards, so the ID may refer to a user, service account, API key, or session that has since been deleted.
+    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](/docs/en/api/beta/sessions/retrieve).
 
   - `?string path`
 
@@ -16208,11 +16200,11 @@ Redact a memory version
 
   - `?\Datetime redactedAt`
 
-    A timestamp in RFC 3339 format
+    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](/docs/en/api/beta/memory_stores/memory_versions/redact).
 
   - `?ManagedAgentsActor redactedBy`
 
-    Identifies who performed an operation. Recorded when the operation happens and not updated afterwards, so the ID may refer to a user, service account, API key, or session that has since been deleted.
+    Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
 
 #### Example
 
@@ -17605,7 +17597,7 @@ Create User Profile
 
 - `accessType?:optional AccessType`
 
-  How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+  How the platform uses the API for this entity. `application` (default): the profile represents an individual end-user of the platform's product. `passthrough`: the profile identifies a company the platform resells Claude access to.
 
 - `externalID?:optional string`
 
@@ -17617,7 +17609,7 @@ Create User Profile
 
 - `externalUserOnboardedAt?:optional \Datetime`
 
-  A timestamp in RFC 3339 format
+  When the entity this profile represents opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future. Optional. Accepted under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` send `external_user_details.onboarded_at` instead.
 
 - `metadata?:optional array<string,string>`
 
@@ -17651,7 +17643,7 @@ Create User Profile
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was created, in RFC 3339 format.
 
   - `array<string,string> metadata`
 
@@ -17663,11 +17655,11 @@ Create User Profile
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
 
   - `?AccessType accessType`
 
-    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
 
   - `?string externalID`
 
@@ -17675,11 +17667,11 @@ Create User Profile
 
   - `?BetaUserProfileExternalUserDetails externalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
 
   - `?\Datetime externalUserOnboardedAt`
 
-    A timestamp in RFC 3339 format
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
 
   - `?string name`
 
@@ -17798,7 +17790,7 @@ List User Profiles
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was created, in RFC 3339 format.
 
   - `array<string,string> metadata`
 
@@ -17810,11 +17802,11 @@ List User Profiles
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
 
   - `?AccessType accessType`
 
-    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
 
   - `?string externalID`
 
@@ -17822,11 +17814,11 @@ List User Profiles
 
   - `?BetaUserProfileExternalUserDetails externalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
 
   - `?\Datetime externalUserOnboardedAt`
 
-    A timestamp in RFC 3339 format
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
 
   - `?string name`
 
@@ -17926,7 +17918,7 @@ Get User Profile
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was created, in RFC 3339 format.
 
   - `array<string,string> metadata`
 
@@ -17938,11 +17930,11 @@ Get User Profile
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
 
   - `?AccessType accessType`
 
-    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
 
   - `?string externalID`
 
@@ -17950,11 +17942,11 @@ Get User Profile
 
   - `?BetaUserProfileExternalUserDetails externalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
 
   - `?\Datetime externalUserOnboardedAt`
 
-    A timestamp in RFC 3339 format
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
 
   - `?string name`
 
@@ -18024,7 +18016,7 @@ Update User Profile
 
 - `accessType?:optional AccessType`
 
-  How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+  If present, replaces the stored access type. Omit to leave unchanged.
 
 - `externalID?:optional string`
 
@@ -18036,7 +18028,7 @@ Update User Profile
 
 - `externalUserOnboardedAt?:optional \Datetime`
 
-  A timestamp in RFC 3339 format
+  If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Accepted under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` send `external_user_details.onboarded_at` instead.
 
 - `metadata?:optional array<string,string>`
 
@@ -18070,7 +18062,7 @@ Update User Profile
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was created, in RFC 3339 format.
 
   - `array<string,string> metadata`
 
@@ -18082,11 +18074,11 @@ Update User Profile
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
 
   - `?AccessType accessType`
 
-    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
 
   - `?string externalID`
 
@@ -18094,11 +18086,11 @@ Update User Profile
 
   - `?BetaUserProfileExternalUserDetails externalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
 
   - `?\Datetime externalUserOnboardedAt`
 
-    A timestamp in RFC 3339 format
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
 
   - `?string name`
 
@@ -18200,7 +18192,7 @@ Create Enrollment URL
 
   - `\Datetime expiresAt`
 
-    A timestamp in RFC 3339 format
+    When this enrollment URL expires, in RFC 3339 format.
 
   - `string url`
 
@@ -18297,19 +18289,21 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was archived, in RFC 3339, or `null` if it hasn't been archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was created, in RFC 3339.
+
+    Lists of dreams are sorted by this time, newest first.
 
   - `?\Datetime endedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream reached `completed`, `failed`, or `canceled`, in RFC 3339, or `null` if it is still `pending` or `running`.
 
   - `?BetaDreamError error`
 
-    Failure detail for a Dream whose `status` is `failed`.
+    Why the dream failed, or `null` if `status` isn't `failed`.
 
   - `list<BetaDreamInput> inputs`
 
@@ -18327,7 +18321,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaOutputBehavior outputBehavior`
 
-    Which memory store a dream writes its result to. Defaults to `create_new` when left out of a create request.
+    Where the dream writes its result, as set in the request that created the dream. If that request left out `output_behavior`, the dream used the `create_new` behavior.
 
   - `list<BetaDreamOutput> outputs`
 
@@ -18355,11 +18349,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaDreamUsage usage`
 
-    The tokens that a dream has used so far.
-
-    The counts are zero while the dream is `pending` and update while it is `running`. They can keep changing after a cancel.
-
-    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#billing) for how dreams are billed. See the [prompt caching guide](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) for how the input token counts add up.
+    The dream's token counts, which stop changing once its `status` is `completed` or `failed`. After a cancel, they can keep changing.
 
 #### Example
 
@@ -18490,19 +18480,21 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was archived, in RFC 3339, or `null` if it hasn't been archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was created, in RFC 3339.
+
+    Lists of dreams are sorted by this time, newest first.
 
   - `?\Datetime endedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream reached `completed`, `failed`, or `canceled`, in RFC 3339, or `null` if it is still `pending` or `running`.
 
   - `?BetaDreamError error`
 
-    Failure detail for a Dream whose `status` is `failed`.
+    Why the dream failed, or `null` if `status` isn't `failed`.
 
   - `list<BetaDreamInput> inputs`
 
@@ -18520,7 +18512,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaOutputBehavior outputBehavior`
 
-    Which memory store a dream writes its result to. Defaults to `create_new` when left out of a create request.
+    Where the dream writes its result, as set in the request that created the dream. If that request left out `output_behavior`, the dream used the `create_new` behavior.
 
   - `list<BetaDreamOutput> outputs`
 
@@ -18548,11 +18540,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaDreamUsage usage`
 
-    The tokens that a dream has used so far.
-
-    The counts are zero while the dream is `pending` and update while it is `running`. They can keep changing after a cancel.
-
-    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#billing) for how dreams are billed. See the [prompt caching guide](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) for how the input token counts add up.
+    The dream's token counts, which stop changing once its `status` is `completed` or `failed`. After a cancel, they can keep changing.
 
 #### Example
 
@@ -18666,19 +18654,21 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was archived, in RFC 3339, or `null` if it hasn't been archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was created, in RFC 3339.
+
+    Lists of dreams are sorted by this time, newest first.
 
   - `?\Datetime endedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream reached `completed`, `failed`, or `canceled`, in RFC 3339, or `null` if it is still `pending` or `running`.
 
   - `?BetaDreamError error`
 
-    Failure detail for a Dream whose `status` is `failed`.
+    Why the dream failed, or `null` if `status` isn't `failed`.
 
   - `list<BetaDreamInput> inputs`
 
@@ -18696,7 +18686,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaOutputBehavior outputBehavior`
 
-    Which memory store a dream writes its result to. Defaults to `create_new` when left out of a create request.
+    Where the dream writes its result, as set in the request that created the dream. If that request left out `output_behavior`, the dream used the `create_new` behavior.
 
   - `list<BetaDreamOutput> outputs`
 
@@ -18724,11 +18714,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaDreamUsage usage`
 
-    The tokens that a dream has used so far.
-
-    The counts are zero while the dream is `pending` and update while it is `running`. They can keep changing after a cancel.
-
-    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#billing) for how dreams are billed. See the [prompt caching guide](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) for how the input token counts add up.
+    The dream's token counts, which stop changing once its `status` is `completed` or `failed`. After a cancel, they can keep changing.
 
 #### Example
 
@@ -18832,19 +18818,21 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was archived, in RFC 3339, or `null` if it hasn't been archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was created, in RFC 3339.
+
+    Lists of dreams are sorted by this time, newest first.
 
   - `?\Datetime endedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream reached `completed`, `failed`, or `canceled`, in RFC 3339, or `null` if it is still `pending` or `running`.
 
   - `?BetaDreamError error`
 
-    Failure detail for a Dream whose `status` is `failed`.
+    Why the dream failed, or `null` if `status` isn't `failed`.
 
   - `list<BetaDreamInput> inputs`
 
@@ -18862,7 +18850,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaOutputBehavior outputBehavior`
 
-    Which memory store a dream writes its result to. Defaults to `create_new` when left out of a create request.
+    Where the dream writes its result, as set in the request that created the dream. If that request left out `output_behavior`, the dream used the `create_new` behavior.
 
   - `list<BetaDreamOutput> outputs`
 
@@ -18890,11 +18878,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaDreamUsage usage`
 
-    The tokens that a dream has used so far.
-
-    The counts are zero while the dream is `pending` and update while it is `running`. They can keep changing after a cancel.
-
-    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#billing) for how dreams are billed. See the [prompt caching guide](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) for how the input token counts add up.
+    The dream's token counts, which stop changing once its `status` is `completed` or `failed`. After a cancel, they can keep changing.
 
 #### Example
 
@@ -18998,19 +18982,21 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was archived, in RFC 3339, or `null` if it hasn't been archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the dream was created, in RFC 3339.
+
+    Lists of dreams are sorted by this time, newest first.
 
   - `?\Datetime endedAt`
 
-    A timestamp in RFC 3339 format
+    When the dream reached `completed`, `failed`, or `canceled`, in RFC 3339, or `null` if it is still `pending` or `running`.
 
   - `?BetaDreamError error`
 
-    Failure detail for a Dream whose `status` is `failed`.
+    Why the dream failed, or `null` if `status` isn't `failed`.
 
   - `list<BetaDreamInput> inputs`
 
@@ -19028,7 +19014,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaOutputBehavior outputBehavior`
 
-    Which memory store a dream writes its result to. Defaults to `create_new` when left out of a create request.
+    Where the dream writes its result, as set in the request that created the dream. If that request left out `output_behavior`, the dream used the `create_new` behavior.
 
   - `list<BetaDreamOutput> outputs`
 
@@ -19056,11 +19042,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `BetaDreamUsage usage`
 
-    The tokens that a dream has used so far.
-
-    The counts are zero while the dream is `pending` and update while it is `running`. They can keep changing after a cancel.
-
-    See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams#billing) for how dreams are billed. See the [prompt caching guide](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) for how the input token counts add up.
+    The dream's token counts, which stop changing once its `status` is `completed` or `failed`. After a cancel, they can keep changing.
 
 #### Example
 
@@ -19164,11 +19146,11 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was created.
 
   - `?string displayName`
 
@@ -19247,11 +19229,11 @@ Fetches a tunnel by ID.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was created.
 
   - `?string displayName`
 
@@ -19338,11 +19320,11 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was created.
 
   - `?string displayName`
 
@@ -19428,11 +19410,11 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was archived. Null if it is not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the tunnel was created.
 
   - `?string displayName`
 
@@ -19658,15 +19640,15 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was registered.
 
   - `?\Datetime expiresAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
   - `string fingerprint`
 
@@ -19751,15 +19733,15 @@ Fetches a tunnel certificate by ID.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was registered.
 
   - `?\Datetime expiresAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
   - `string fingerprint`
 
@@ -19852,15 +19834,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was registered.
 
   - `?\Datetime expiresAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
   - `string fingerprint`
 
@@ -19952,15 +19934,15 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate was registered.
 
   - `?\Datetime expiresAt`
 
-    A timestamp in RFC 3339 format
+    RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
   - `string fingerprint`
 
@@ -21023,11 +21005,7 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `?BetaFederationIssuerPollStatus pollStatus`
 
-    Status of automatic JWKS polling for a federation issuer.
-
-    Anthropic periodically fetches the issuer's signing keys in the
-    background. These fields summarize the most recent fetches so the
-    health of the JWKS endpoint can be monitored.
+    Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
 
   - `\Datetime updatedAt`
 
@@ -21183,11 +21161,7 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `?BetaFederationIssuerPollStatus pollStatus`
 
-    Status of automatic JWKS polling for a federation issuer.
-
-    Anthropic periodically fetches the issuer's signing keys in the
-    background. These fields summarize the most recent fetches so the
-    health of the JWKS endpoint can be monitored.
+    Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
 
   - `\Datetime updatedAt`
 
@@ -21323,11 +21297,7 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
   - `?BetaFederationIssuerPollStatus pollStatus`
 
-    Status of automatic JWKS polling for a federation issuer.
-
-    Anthropic periodically fetches the issuer's signing keys in the
-    background. These fields summarize the most recent fetches so the
-    health of the JWKS endpoint can be monitored.
+    Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
 
   - `\Datetime updatedAt`
 
@@ -21491,11 +21461,7 @@ session.
 
   - `?BetaFederationIssuerPollStatus pollStatus`
 
-    Status of automatic JWKS polling for a federation issuer.
-
-    Anthropic periodically fetches the issuer's signing keys in the
-    background. These fields summarize the most recent fetches so the
-    health of the JWKS endpoint can be monitored.
+    Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
 
   - `\Datetime updatedAt`
 
@@ -21644,11 +21610,7 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `?BetaFederationIssuerPollStatus pollStatus`
 
-    Status of automatic JWKS polling for a federation issuer.
-
-    Anthropic periodically fetches the issuer's signing keys in the
-    background. These fields summarize the most recent fetches so the
-    health of the JWKS endpoint can be monitored.
+    Live state of Anthropic's JWKS polling for this issuer. Populated on both single-issuer retrieval and list responses, including archived issuers. Typically null for inline-key issuers (no polling), or when poll status is temporarily unavailable or polling has not started yet.
 
   - `\Datetime updatedAt`
 
@@ -22334,11 +22296,7 @@ Console session.
 
 - `match?:optional BetaFederationRuleMatch`
 
-  Does the incoming JWT qualify?
-
-  All populated fields must pass; omitted fields are skipped. At least one
-  of `subject_prefix` (other than a wildcard-only value like `*`), `claims`,
-  or `condition` is required; `audience` alone is not sufficient.
+  Replaces the entire match object. All populated matcher fields must pass.
 
 - `name?:optional string`
 
@@ -22350,7 +22308,7 @@ Console session.
 
 - `target?:optional BetaServiceAccountTarget`
 
-  Bind to a fixed service account by ID.
+  Replaces the entire target object. Currently always a `service_account` target.
 
 - `tokenLifetimeSeconds?:optional int`
 

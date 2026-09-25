@@ -21,7 +21,7 @@ Create a new environment with the specified configuration.
 
     Body param: Human-readable name for the environment
 
-    maxLength: 256, minLength: 1
+    minLength: 1, maxLength: 256
 
   - `Config? config`
 
@@ -75,11 +75,7 @@ Create a new environment with the specified configuration.
 
       - `BetaPackagesParams? Packages`
 
-        Specify packages (and optionally their versions) available in this environment.
-
-        When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
-
-        Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
+        Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
         - `Type Type`
 
@@ -450,7 +446,7 @@ List environments with pagination support.
 
     Query param: Maximum number of environments to return
 
-    maximum: 1000, minimum: 1
+    minimum: 1, maximum: 1000
 
   - `string? page`
 
@@ -1138,11 +1134,7 @@ Update an existing environment's configuration.
 
       - `BetaPackagesParams? Packages`
 
-        Specify packages (and optionally their versions) available in this environment.
-
-        When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
-
-        Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
+        Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
         - `Type Type`
 
@@ -1194,7 +1186,7 @@ Update an existing environment's configuration.
 
     Body param: Updated name for the environment
 
-    maxLength: 256, minLength: 1
+    minLength: 1, maxLength: 256
 
   - `Scope? scope`
 
@@ -2096,11 +2088,7 @@ Console.WriteLine(betaEnvironment);
 
   - `BetaPackagesParams? Packages`
 
-    Specify packages (and optionally their versions) available in this environment.
-
-    When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
-
-    Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
+    Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
     - `Type Type`
 
@@ -3630,7 +3618,7 @@ List work items in an environment.
 
     Query param: Maximum number of work items to return
 
-    maximum: 1000, minimum: 1
+    minimum: 1, maximum: 1000
 
   - `string? page`
 

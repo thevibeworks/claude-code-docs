@@ -94,8 +94,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `diagnostics?:optional DiagnosticsParam`
 
-  Request-level diagnostics. Currently carries the previous response
-  id for prompt-cache divergence reporting.
+  Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
 - `inferenceGeo?:optional string`
 
@@ -269,7 +268,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?Container container`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
   - `list<ContentBlock> content`
 
@@ -302,8 +303,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?Diagnostics diagnostics`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
   - `Model model`
 
@@ -319,7 +319,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?RefusalStopDetails stopDetails`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
   - `?StopReason stopReason`
 

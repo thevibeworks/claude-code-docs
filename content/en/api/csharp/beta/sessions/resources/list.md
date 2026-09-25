@@ -217,7 +217,7 @@ List Session Resources
 
     - `Access? Access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `ReadWrite("read_write")`
 

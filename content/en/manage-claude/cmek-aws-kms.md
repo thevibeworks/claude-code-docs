@@ -55,7 +55,7 @@ arn:aws:iam::915198916910:role/anthropic-cmek-client-us
     In the policy, replace `<AWS_ACCOUNT_ID>` with your AWS account ID and `<ORGANIZATION_UUID>` with your organization ID. The `StringEquals` condition on `kms:EncryptionContext:anthropic:org_uuid` binds the key to your Anthropic organization, and validation refuses a key without it. To share one key among several Anthropic organizations, list each organization ID in the condition value.
 
     <Note>
-      **Finding your organization ID:** Copy the **Organization ID** field under **Settings > Organization** in the Claude Console, or under **Organization settings > Organization** in claude.ai, or read the `id` field from the [Organization Info](https://platform.claude.com/docs/en/api/admin-api/organization/get-me) endpoint. Use the bare UUID, not the `org_`-prefixed ID.
+      **Finding your organization ID:** Copy the **Organization ID** field under **Settings > Organization** in the Claude Console, or under **Organization settings > Organization** in claude.ai, or read the `id` field from the [Organization Info](https://platform.claude.com/docs/en/api/beta/organization/retrieve) endpoint. Use the bare UUID, not the `org_`-prefixed ID.
     </Note>
 
     Save the policy as `key-policy.json`. To create the key in the AWS Console instead, paste the policy there, as described later in this step.
@@ -196,7 +196,7 @@ How you register the key depends on which product you use.
     </Note>
 
     <Note>
-      **Finding your compartment ID:** Each workspace has a compartment ID that scopes its CMEK data. To find it in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/admin-api/workspaces/get-workspace) endpoint.
+      **Finding your compartment ID:** Each workspace has a compartment ID that scopes its CMEK data. To find it in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/beta/organization/workspaces/retrieve) endpoint.
     </Note>
 
     You can set up the key in the Claude Console or through the Admin API, with the same result.
@@ -636,9 +636,9 @@ On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claud
 
 ### Create the KMS key
 
-The key policy has three statements: your account's root admin statement; a statement that lets the Claude Platform on AWS service principal encrypt, decrypt, and generate data keys; and a separate statement for `kms:DescribeKey`. Both service-principal statements carry a recommended `aws:SourceArn` condition: the service calls your key on behalf of a specific workspace and passes that [workspace's ARN](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#service-details) as the source ARN, so the pattern shown limits the grant to workspaces in your own AWS account. `DescribeKey` is granted separately because it has no `EncryptionContext` parameter, so an `EncryptionContext` condition on that action would always deny.
+The key policy has three statements: your account's root admin statement; a statement that lets the Claude Platform on AWS service principal encrypt, decrypt, and generate data keys; and a separate statement for `kms:DescribeKey`. The crypto statement carries an optional `EncryptionContext` condition that binds the key to the workspaces you list. `DescribeKey` is granted separately because it has no `EncryptionContext` parameter, so an `EncryptionContext` condition on that action would always deny.
 
-If you plan to use the optional `EncryptionContext` condition shown here, create the workspace first (without a key), copy its compartment ID, and substitute it for `<compartment-uuid>`. To find the ID in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read it from the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/admin-api/workspaces/get-workspace) endpoint. If you don't plan to use the condition, delete the `StringEquals` entry from that statement's `Condition` block and keep the `ArnLike` entry.
+If you plan to use the optional `EncryptionContext` condition shown here, create the workspace first (without a key), copy its compartment ID, and substitute it for `<compartment-uuid>`. To find the ID in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read it from the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/beta/organization/workspaces/retrieve) endpoint. If you don't plan to use the condition, delete the `Condition` block from that statement.
 
 ```bash
 export YOUR_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
@@ -664,9 +664,6 @@ aws kms create-key \
         \"Action\": [\"kms:Encrypt\", \"kms:Decrypt\", \"kms:GenerateDataKey\"],
         \"Resource\": \"*\",
         \"Condition\": {
-          \"ArnLike\": {
-            \"aws:SourceArn\": \"arn:aws:aws-external-anthropic:*:${YOUR_ACCOUNT}:workspace/*\"
-          },
           \"StringEquals\": {
             \"kms:EncryptionContext:anthropic:compartment_uuid\": [
               \"<compartment-uuid>\"
@@ -679,12 +676,7 @@ aws kms create-key \
         \"Effect\": \"Allow\",
         \"Principal\": {\"Service\": \"aws-external-anthropic.amazonaws.com\"},
         \"Action\": \"kms:DescribeKey\",
-        \"Resource\": \"*\",
-        \"Condition\": {
-          \"ArnLike\": {
-            \"aws:SourceArn\": \"arn:aws:aws-external-anthropic:*:${YOUR_ACCOUNT}:workspace/*\"
-          }
-        }
+        \"Resource\": \"*\"
       }
     ]
   }"
@@ -692,7 +684,9 @@ aws kms create-key \
 
 Capture `KeyMetadata.Arn` from the output. You need it when you register the key.
 
-Both conditions are optional hardening, and they compose. The `aws:SourceArn` condition can be written before any workspace exists; to pin the key to particular workspaces instead of your whole account, list their full workspace ARNs in place of the wildcard pattern, and to start without it, delete the `ArnLike` entry from both service-principal statements (removing a `Condition` block that this leaves empty). The `EncryptionContext` condition is also optional. Every encrypt, decrypt, and data-key call made for a workspace, including the attach-time check, carries that workspace's compartment ID as `anthropic:compartment_uuid`, so the condition lists the compartment ID of each workspace you attach the key to and needs no all-zeros entry. Adding it binds the key to the workspaces you list at the IAM layer as well. Because a compartment ID exists only once its workspace exists, the order is: create the workspace, put its compartment ID in the condition (at key creation, or later with `kms:PutKeyPolicy`), then attach the key. Before attaching the key to each additional workspace, add that workspace's compartment ID the same way. To start without it, delete the `StringEquals` entry from the `AllowClaudePlatformOnAWSCrypto` statement's `Condition` block; if you add it later, include the compartment ID of every workspace the key is already attached to.
+The `EncryptionContext` condition is optional. Every encrypt, decrypt, and data-key call made for a workspace, including the attach-time check, carries that workspace's compartment ID as `anthropic:compartment_uuid`, so the condition lists the compartment ID of each workspace you attach the key to and needs no all-zeros entry. Adding it binds the key to the workspaces you list at the IAM layer as well. Because a compartment ID exists only once its workspace exists, the order is: create the workspace, put its compartment ID in the condition (at key creation, or later with `kms:PutKeyPolicy`), then attach the key. Before attaching the key to each additional workspace, add that workspace's compartment ID the same way. To start without it, delete the `Condition` block from the `AllowClaudePlatformOnAWSCrypto` statement; if you add it later, include the compartment ID of every workspace the key is already attached to.
+
+You can further restrict both service-principal statements with an `aws:SourceArn` condition. The service passes the [workspace's ARN](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#service-details) (`arn:aws:aws-external-anthropic:<region>:<account-id>:workspace/<workspace-id>`) as the source ARN on every call it makes with your key, so `"ArnLike": {"aws:SourceArn": "arn:aws:aws-external-anthropic:*:<account-id>:workspace/*"}` limits the grant to workspaces in your own AWS account, and a list of full workspace ARNs limits it to those workspaces. This condition is not required; the `EncryptionContext` condition on its own binds the key to the workspaces you list.
 
 You can also create the key from the AWS Console: choose a symmetric key with the encrypt and decrypt key usage, a single-region key, and KMS key material origin, in the workspace's region. Leave key usage permissions empty in the Create-key wizard, then open the key's **Key policy** tab and replace the JSON with the policy shown here.
 
@@ -704,16 +698,16 @@ You can also create the key from the AWS Console: choose a symmetric key with th
   </Step>
 
   <Step title="Attach the key to a workspace">
-    Attach the key to a new workspace before you send any requests to that workspace. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works). In the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. Under **Encryption key**, select the key, click **Save**, and confirm. You can also select a key when you create a workspace in the Claude Console, but only if your key policy does not yet name specific workspaces (no `EncryptionContext` condition, and the account-wide `aws:SourceArn` pattern rather than individual workspace ARNs), because the workspace's ID and compartment ID are assigned at creation. Once attached, a workspace's key can't be changed.
+    Attach the key to a new workspace before you send any requests to that workspace. For a workspace that already receives requests, the key can take [up to a day to take effect](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works). In the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. Under **Encryption key**, select the key, click **Save**, and confirm. You can also select a key when you create a workspace in the Claude Console, but only if your key policy does not yet name specific workspaces (no `EncryptionContext` condition), because the workspace's compartment ID is assigned at creation. Once attached, a workspace's key can't be changed.
 
     This is when the key is validated: the attach call checks your principal's access to the key and performs an encrypt/decrypt round against it with the workspace's compartment ID as the encryption context, so a problem with either the key policy or your principal's permissions surfaces as an error on that call. If the attach fails with a KMS access error, check the following:
 
     * The key policy names the `aws-external-anthropic.amazonaws.com` service principal and grants `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`, plus `kms:DescribeKey` in a separate statement that has no `EncryptionContext` condition.
-    * The `aws:SourceArn` condition matches this workspace's ARN (your account ID, and the workspace if you listed specific ARNs), and any `EncryptionContext` condition includes this workspace's compartment ID.
+    * Any `EncryptionContext` condition includes this workspace's compartment ID, and any `aws:SourceArn` condition you added matches this workspace's ARN.
     * The key is enabled, single-region, and in the same AWS account and region as the workspace.
     * The principal you are signed in as has `kms:DescribeKey`, `kms:Encrypt`, and `kms:Decrypt` on the key.
     * No service control policy or resource control policy in your AWS organization prevents the service principal or your principal from using the key.
-    * If the policy looks right and the attach still fails, find the denied `kms:` event in CloudTrail in the key's account (it shows the calling principal and, for cryptographic calls, the encryption context), then retry with the `aws:SourceArn` condition temporarily removed to tell a source-ARN mismatch apart from an encryption-context mismatch. Once the key is attached, whether on that retry or after you correct the encryption context, restore the `ArnLike` entry on both service-principal statements with `kms:PutKeyPolicy`, using the account-wide `aws:SourceArn` pattern or the ARN of every workspace the key is attached to.
+    * If the policy looks right and the attach still fails, find the denied `kms:` event in CloudTrail in the key's account (it shows the calling principal and, for cryptographic calls, the encryption context), then correct the condition with `kms:PutKeyPolicy` and retry.
   </Step>
 </Steps>
 

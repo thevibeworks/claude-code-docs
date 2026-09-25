@@ -47,7 +47,7 @@ List Vaults
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
   - `\Datetime createdAt`
 

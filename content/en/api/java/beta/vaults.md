@@ -147,7 +147,7 @@ Create Vault
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 
@@ -357,7 +357,7 @@ List Vaults
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 
@@ -559,7 +559,7 @@ Get Vault
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 
@@ -766,7 +766,7 @@ Update Vault
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 
@@ -1127,7 +1127,7 @@ Archive Vault
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 
@@ -1216,7 +1216,7 @@ public final class Main {
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 
@@ -1366,7 +1366,7 @@ Create Credential
 
   - `Auth auth`
 
-    Authentication details for creating a credential.
+    Authentication configuration for the credential.
 
     - `class BetaManagedAgentsMcpOAuthCreateParams`
 
@@ -1394,7 +1394,7 @@ Create Credential
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshParams> refresh`
 
-        OAuth refresh token parameters for creating a credential with refresh support.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `String clientId`
 
@@ -1550,13 +1550,13 @@ Create Credential
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
@@ -1576,7 +1576,7 @@ Create Credential
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshResponse> refresh`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `String clientId`
 
@@ -1891,13 +1891,13 @@ List Credentials
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
@@ -1917,7 +1917,7 @@ List Credentials
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshResponse> refresh`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `String clientId`
 
@@ -2218,13 +2218,13 @@ Get Credential
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
@@ -2244,7 +2244,7 @@ Get Credential
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshResponse> refresh`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `String clientId`
 
@@ -2532,7 +2532,7 @@ Update Credential
 
   - `Optional<Auth> auth`
 
-    Updated authentication details for a credential.
+    Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
     - `class BetaManagedAgentsMcpOAuthUpdateParams`
 
@@ -2554,7 +2554,7 @@ Update Credential
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshUpdateParams> refresh`
 
-        Parameters for updating OAuth refresh token configuration.
+        Updated refresh token configuration.
 
         - `Optional<String> refreshToken`
 
@@ -2674,13 +2674,13 @@ Update Credential
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
@@ -2700,7 +2700,7 @@ Update Credential
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshResponse> refresh`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `String clientId`
 
@@ -3172,13 +3172,13 @@ Archive Credential
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
@@ -3198,7 +3198,7 @@ Archive Credential
 
       - `Optional<BetaManagedAgentsMcpOAuthRefreshResponse> refresh`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `String clientId`
 
@@ -3502,11 +3502,11 @@ Validate Credential
 
   - `Optional<BetaManagedAgentsMcpProbe> mcpProbe`
 
-    The failing step of an MCP validation probe.
+    Details of the failing MCP probe step. Null when the probe succeeded.
 
     - `Optional<BetaManagedAgentsRefreshHttpResponse> httpResponse`
 
-      An HTTP response captured during a credential validation probe.
+      The captured HTTP error response. Null when no HTTP response was received (timeout, DNS, TLS).
 
       - `String body`
 
@@ -3532,15 +3532,15 @@ Validate Credential
 
   - `Optional<BetaManagedAgentsRefreshObject> refresh`
 
-    Outcome of a refresh-token exchange attempted during credential validation.
+    Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
     - `Optional<BetaManagedAgentsRefreshHttpResponse> httpResponse`
 
-      An HTTP response captured during a credential validation probe.
+      The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 
     - `Status status`
 
-      Outcome of a refresh-token exchange attempted during credential validation.
+      Outcome of the refresh attempt.
 
       - `SUCCEEDED("succeeded")`
 
@@ -3560,7 +3560,7 @@ Validate Credential
 
   - `BetaManagedAgentsCredentialValidationStatus status`
 
-    Overall verdict of a credential validation probe.
+    Overall verdict of the validation probe.
 
     - `VALID("valid")`
 
@@ -3576,7 +3576,7 @@ Validate Credential
 
   - `LocalDateTime validatedAt`
 
-    A timestamp in RFC 3339 format
+    When the validation probe was performed.
 
     format: date-time
 

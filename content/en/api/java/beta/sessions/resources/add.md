@@ -125,7 +125,7 @@ Add Session Resource
 
   - `BetaManagedAgentsFileResourceParams betaManagedAgentsFileResourceParams`
 
-    Mount a file uploaded via the Files API into the session.
+    Request parameters for adding a resource to a session.
 
 ## Returns
 

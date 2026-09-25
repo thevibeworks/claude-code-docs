@@ -187,7 +187,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
-    maximum: 1, minimum: 0
+    minimum: 0, maximum: 1
 
   - `Optional<Long> topK`
 
@@ -211,7 +211,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     Recommended for advanced use cases only.
 
-    maximum: 1, minimum: 0
+    minimum: 0, maximum: 1
 
 ### Returns
 
@@ -275,10 +275,6 @@ Future models and features will not be compatible with Text Completions. See our
 
       Powerful intelligence for long-running agents and coding
 
-    - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
-
-      New class of intelligence, strongest in coding and cybersecurity
-
     - `CLAUDE_OPUS_4_6("claude-opus-4-6")`
 
       Powerful intelligence for long-running agents and coding
@@ -310,6 +306,12 @@ Future models and features will not be compatible with Text Completions. See our
     - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
 
       High-performance model for agents and coding
+
+    - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
+
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      New class of intelligence, strongest in coding and cybersecurity
 
   - `Optional<String> stopReason`
 
@@ -423,10 +425,6 @@ public final class Main {
 
       Powerful intelligence for long-running agents and coding
 
-    - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
-
-      New class of intelligence, strongest in coding and cybersecurity
-
     - `CLAUDE_OPUS_4_6("claude-opus-4-6")`
 
       Powerful intelligence for long-running agents and coding
@@ -458,6 +456,12 @@ public final class Main {
     - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
 
       High-performance model for agents and coding
+
+    - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
+
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      New class of intelligence, strongest in coding and cybersecurity
 
   - `Optional<String> stopReason`
 

@@ -23,7 +23,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Body param: List of requests for prompt completion. Each is an individual request to create a Message.
 
-  maxItems: 100000, minItems: 1
+  minItems: 1, maxItems: 100000
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -349,7 +349,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-  maximum: 1000, minimum: 1
+  minimum: 1, maximum: 1000
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -792,7 +792,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `container: object`
 
-          Information about the container used in the request (for the code execution tool)
+          Information about the container used in this request.
+
+          This will be non-null if a container tool (e.g. code execution) was used.
 
           - `id: string`
 
@@ -820,13 +822,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Skill ID
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
         - `content: array of BetaContentBlock`
 
@@ -987,8 +989,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: string`
 
-              minLength: 0
-
           - `beta_thinking_block: object`
 
             - `type: "thinking"`
@@ -1061,7 +1061,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `beta_server_tool_use_block: object`
 
@@ -1501,7 +1501,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: string`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `tool_use_id: string`
 
@@ -1544,8 +1544,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
                 - `text: string`
-
-                  minLength: 0
 
             - `is_error: boolean`
 
@@ -1668,7 +1666,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                          minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -2010,12 +2008,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: optional object`
 
-                          Per-member configuration for `browser_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: optional object`
 
@@ -2714,12 +2707,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: optional object`
 
-                          Per-member configuration for `computer_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: optional object`
 
@@ -3125,7 +3113,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -3141,25 +3129,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: optional string`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: optional string`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: optional string`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20250910: object`
 
@@ -3220,13 +3208,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -3234,12 +3222,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -3376,7 +3359,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -3392,25 +3375,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: optional string`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: optional string`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: optional string`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20260209: object`
 
@@ -3471,13 +3454,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -3485,12 +3468,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -3565,13 +3543,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -3579,12 +3557,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -3655,7 +3628,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: optional "full" or "excluded"`
 
@@ -3679,25 +3652,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: optional string`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: optional string`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: optional string`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20260318: object`
 
@@ -3758,13 +3731,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: optional "full" or "excluded"`
 
@@ -3780,12 +3753,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -3807,7 +3775,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `type: "advisor_20260301"`
 
-                        - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+                        - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                           The model that will complete your prompt.
 
@@ -3849,10 +3817,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             Powerful intelligence for long-running agents and coding
 
-                          - `"claude-mythos-preview"`
-
-                            New class of intelligence, strongest in coding and cybersecurity
-
                           - `"claude-opus-4-6"`
 
                             Powerful intelligence for long-running agents and coding
@@ -3884,6 +3848,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                           - `"claude-sonnet-4-5-20250929"`
 
                             High-performance model for agents and coding
+
+                          - `"claude-mythos-preview"`
+
+                            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                            New class of intelligence, strongest in coding and cybersecurity
 
                         - `name: "advisor"`
 
@@ -3949,7 +3919,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -4066,7 +4036,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Name of the MCP server to configure tools for
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `cache_control: optional object`
 
@@ -4170,7 +4140,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -4212,10 +4182,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -4248,11 +4214,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   High-performance model for agents and coding
 
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
+
             - `to: object`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -4266,7 +4238,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-                The policy category that triggered a refusal.
+                The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
                 - `"cyber"`
 
@@ -4355,8 +4327,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `diagnostics: object`
 
-          Request-level diagnostics: why the prompt cache could not fully reuse
-          the prefix of the request named by `diagnostics.previous_message_id`.
+          Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
           - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
 
@@ -4402,7 +4373,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "unavailable"`
 
-        - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+        - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
           The model that will complete your prompt.
 
@@ -4444,10 +4415,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -4480,6 +4447,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             High-performance model for agents and coding
 
+          - `"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
+
         - `role: "assistant"`
 
           Conversational role of the generated message.
@@ -4488,13 +4461,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `stop_details: object`
 
-          Structured information about a refusal.
+          Structured information about why model output stopped.
+
+          This is `null` when the `stop_reason` has no additional detail to report.
 
           - `type: "refusal"`
 
           - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the refusal.
+
+            `null` when the refusal doesn't map to a named category.
 
             - `"cyber"`
 
@@ -4653,6 +4630,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Outcome of the `fallback_credit_token` presented on this request.
 
+            Present on every response to a non-batch request that carried a
+            `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+            items accept and ignore the token and carry no outcome object).
+
             - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
 
               Whether the fallback-credit reprice was applied to this response's billing.
@@ -4781,7 +4762,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -4823,10 +4804,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -4858,6 +4835,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `"claude-sonnet-4-5-20250929"`
 
                   High-performance model for agents and coding
+
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
 
               - `output_tokens: number`
 
@@ -4955,7 +4938,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -4997,10 +4980,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -5032,6 +5011,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `"claude-sonnet-4-5-20250929"`
 
                   High-performance model for agents and coding
+
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
 
               - `output_tokens: number`
 
@@ -5088,7 +5073,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -5130,10 +5115,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -5165,6 +5146,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `"claude-sonnet-4-5-20250929"`
 
                   High-performance model for agents and coding
+
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
 
               - `output_tokens: number`
 
@@ -5228,7 +5215,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `speed: "standard" or "fast"`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            The inference speed mode used for this request.
 
             - `"standard"`
 
@@ -5640,7 +5627,9 @@ ant beta:messages:batches results \
 
         - `container: object`
 
-          Information about the container used in the request (for the code execution tool)
+          Information about the container used in this request.
+
+          This will be non-null if a container tool (e.g. code execution) was used.
 
           - `id: string`
 
@@ -5668,13 +5657,13 @@ ant beta:messages:batches results \
 
               Skill ID
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
         - `content: array of BetaContentBlock`
 
@@ -5835,8 +5824,6 @@ ant beta:messages:batches results \
 
             - `text: string`
 
-              minLength: 0
-
           - `beta_thinking_block: object`
 
             - `type: "thinking"`
@@ -5909,7 +5896,7 @@ ant beta:messages:batches results \
 
               For a toolset member tool_use, the toolset family.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `beta_server_tool_use_block: object`
 
@@ -6349,7 +6336,7 @@ ant beta:messages:batches results \
 
                   - `tool_name: string`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `tool_use_id: string`
 
@@ -6392,8 +6379,6 @@ ant beta:messages:batches results \
                   The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
                 - `text: string`
-
-                  minLength: 0
 
             - `is_error: boolean`
 
@@ -6516,7 +6501,7 @@ ant beta:messages:batches results \
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                          minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6858,12 +6843,7 @@ ant beta:messages:batches results \
 
                         - `configs: optional object`
 
-                          Per-member configuration for `browser_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: optional object`
 
@@ -7562,12 +7542,7 @@ ant beta:messages:batches results \
 
                         - `configs: optional object`
 
-                          Per-member configuration for `computer_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: optional object`
 
@@ -7973,7 +7948,7 @@ ant beta:messages:batches results \
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -7989,25 +7964,25 @@ ant beta:messages:batches results \
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: optional string`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: optional string`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: optional string`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20250910: object`
 
@@ -8068,13 +8043,13 @@ ant beta:messages:batches results \
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -8082,12 +8057,7 @@ ant beta:messages:batches results \
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -8224,7 +8194,7 @@ ant beta:messages:batches results \
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -8240,25 +8210,25 @@ ant beta:messages:batches results \
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: optional string`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: optional string`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: optional string`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20260209: object`
 
@@ -8319,13 +8289,13 @@ ant beta:messages:batches results \
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -8333,12 +8303,7 @@ ant beta:messages:batches results \
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -8413,13 +8378,13 @@ ant beta:messages:batches results \
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -8427,12 +8392,7 @@ ant beta:messages:batches results \
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -8503,7 +8463,7 @@ ant beta:messages:batches results \
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: optional "full" or "excluded"`
 
@@ -8527,25 +8487,25 @@ ant beta:messages:batches results \
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: optional string`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: optional string`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: optional string`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `beta_web_fetch_tool_20260318: object`
 
@@ -8606,13 +8566,13 @@ ant beta:messages:batches results \
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: optional number`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: optional "full" or "excluded"`
 
@@ -8628,12 +8588,7 @@ ant beta:messages:batches results \
 
                         - `url_sources: optional object`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -8655,7 +8610,7 @@ ant beta:messages:batches results \
 
                         - `type: "advisor_20260301"`
 
-                        - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+                        - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                           The model that will complete your prompt.
 
@@ -8697,10 +8652,6 @@ ant beta:messages:batches results \
 
                             Powerful intelligence for long-running agents and coding
 
-                          - `"claude-mythos-preview"`
-
-                            New class of intelligence, strongest in coding and cybersecurity
-
                           - `"claude-opus-4-6"`
 
                             Powerful intelligence for long-running agents and coding
@@ -8732,6 +8683,12 @@ ant beta:messages:batches results \
                           - `"claude-sonnet-4-5-20250929"`
 
                             High-performance model for agents and coding
+
+                          - `"claude-mythos-preview"`
+
+                            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                            New class of intelligence, strongest in coding and cybersecurity
 
                         - `name: "advisor"`
 
@@ -8797,7 +8754,7 @@ ant beta:messages:batches results \
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: optional boolean`
 
@@ -8914,7 +8871,7 @@ ant beta:messages:batches results \
 
                           Name of the MCP server to configure tools for
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `cache_control: optional object`
 
@@ -9018,7 +8975,7 @@ ant beta:messages:batches results \
 
               The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -9060,10 +9017,6 @@ ant beta:messages:batches results \
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -9096,11 +9049,17 @@ ant beta:messages:batches results \
 
                   High-performance model for agents and coding
 
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
+
             - `to: object`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -9114,7 +9073,7 @@ ant beta:messages:batches results \
 
               - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-                The policy category that triggered a refusal.
+                The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
                 - `"cyber"`
 
@@ -9203,8 +9162,7 @@ ant beta:messages:batches results \
 
         - `diagnostics: object`
 
-          Request-level diagnostics: why the prompt cache could not fully reuse
-          the prefix of the request named by `diagnostics.previous_message_id`.
+          Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
           - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
 
@@ -9250,7 +9208,7 @@ ant beta:messages:batches results \
 
               - `type: "unavailable"`
 
-        - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+        - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
           The model that will complete your prompt.
 
@@ -9292,10 +9250,6 @@ ant beta:messages:batches results \
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -9328,6 +9282,12 @@ ant beta:messages:batches results \
 
             High-performance model for agents and coding
 
+          - `"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
+
         - `role: "assistant"`
 
           Conversational role of the generated message.
@@ -9336,13 +9296,17 @@ ant beta:messages:batches results \
 
         - `stop_details: object`
 
-          Structured information about a refusal.
+          Structured information about why model output stopped.
+
+          This is `null` when the `stop_reason` has no additional detail to report.
 
           - `type: "refusal"`
 
           - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the refusal.
+
+            `null` when the refusal doesn't map to a named category.
 
             - `"cyber"`
 
@@ -9501,6 +9465,10 @@ ant beta:messages:batches results \
 
             Outcome of the `fallback_credit_token` presented on this request.
 
+            Present on every response to a non-batch request that carried a
+            `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+            items accept and ignore the token and carry no outcome object).
+
             - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
 
               Whether the fallback-credit reprice was applied to this response's billing.
@@ -9629,7 +9597,7 @@ ant beta:messages:batches results \
 
                 minimum: 0
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -9671,10 +9639,6 @@ ant beta:messages:batches results \
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -9706,6 +9670,12 @@ ant beta:messages:batches results \
                 - `"claude-sonnet-4-5-20250929"`
 
                   High-performance model for agents and coding
+
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
 
               - `output_tokens: number`
 
@@ -9803,7 +9773,7 @@ ant beta:messages:batches results \
 
                 minimum: 0
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -9845,10 +9815,6 @@ ant beta:messages:batches results \
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -9880,6 +9846,12 @@ ant beta:messages:batches results \
                 - `"claude-sonnet-4-5-20250929"`
 
                   High-performance model for agents and coding
+
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
 
               - `output_tokens: number`
 
@@ -9936,7 +9908,7 @@ ant beta:messages:batches results \
 
                 minimum: 0
 
-              - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+              - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                 The model that will complete your prompt.
 
@@ -9978,10 +9950,6 @@ ant beta:messages:batches results \
 
                   Powerful intelligence for long-running agents and coding
 
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
                 - `"claude-opus-4-6"`
 
                   Powerful intelligence for long-running agents and coding
@@ -10013,6 +9981,12 @@ ant beta:messages:batches results \
                 - `"claude-sonnet-4-5-20250929"`
 
                   High-performance model for agents and coding
+
+                - `"claude-mythos-preview"`
+
+                  **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  New class of intelligence, strongest in coding and cybersecurity
 
               - `output_tokens: number`
 
@@ -10076,7 +10050,7 @@ ant beta:messages:batches results \
 
           - `speed: "standard" or "fast"`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            The inference speed mode used for this request.
 
             - `"standard"`
 
@@ -10308,7 +10282,9 @@ ant beta:messages:batches results \
 
       - `container: object`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
         - `id: string`
 
@@ -10336,13 +10312,13 @@ ant beta:messages:batches results \
 
             Skill ID
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
           - `version: string`
 
             The resolved version: a skill version ID for custom skills.
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
       - `content: array of BetaContentBlock`
 
@@ -10503,8 +10479,6 @@ ant beta:messages:batches results \
 
           - `text: string`
 
-            minLength: 0
-
         - `beta_thinking_block: object`
 
           - `type: "thinking"`
@@ -10577,7 +10551,7 @@ ant beta:messages:batches results \
 
             For a toolset member tool_use, the toolset family.
 
-            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
         - `beta_server_tool_use_block: object`
 
@@ -11017,7 +10991,7 @@ ant beta:messages:batches results \
 
                 - `tool_name: string`
 
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `tool_use_id: string`
 
@@ -11060,8 +11034,6 @@ ant beta:messages:batches results \
                 The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `text: string`
-
-                minLength: 0
 
           - `is_error: boolean`
 
@@ -11184,7 +11156,7 @@ ant beta:messages:batches results \
 
                         This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                       - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -11526,12 +11498,7 @@ ant beta:messages:batches results \
 
                       - `configs: optional object`
 
-                        Per-member configuration for `browser_toolset_20260801`: one
-                        optional field per member tool, keyed by the member name — the same
-                        name the member's `tool_use` blocks carry. Every member is an
-                        accepted key, and a member's defaults apply wherever its key is
-                        absent. Unknown keys are rejected: the field set is this toolset
-                        version's complete member set.
+                        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                         - `type: optional object`
 
@@ -12230,12 +12197,7 @@ ant beta:messages:batches results \
 
                       - `configs: optional object`
 
-                        Per-member configuration for `computer_toolset_20260801`: one
-                        optional field per member tool, keyed by the member name — the same
-                        name the member's `tool_use` blocks carry. Every member is an
-                        accepted key, and a member's defaults apply wherever its key is
-                        absent. Unknown keys are rejected: the field set is this toolset
-                        version's complete member set.
+                        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                         - `type: optional object`
 
@@ -12641,7 +12603,7 @@ ant beta:messages:batches results \
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: optional boolean`
 
@@ -12657,25 +12619,25 @@ ant beta:messages:batches results \
 
                           The city of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `country: optional string`
 
                           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                          maxLength: 2, minLength: 2
+                          minLength: 2, maxLength: 2
 
                         - `region: optional string`
 
                           The region of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `timezone: optional string`
 
                           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                     - `beta_web_fetch_tool_20250910: object`
 
@@ -12736,13 +12698,13 @@ ant beta:messages:batches results \
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: optional number`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: optional boolean`
 
@@ -12750,12 +12712,7 @@ ant beta:messages:batches results \
 
                       - `url_sources: optional object`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -12892,7 +12849,7 @@ ant beta:messages:batches results \
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: optional boolean`
 
@@ -12908,25 +12865,25 @@ ant beta:messages:batches results \
 
                           The city of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `country: optional string`
 
                           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                          maxLength: 2, minLength: 2
+                          minLength: 2, maxLength: 2
 
                         - `region: optional string`
 
                           The region of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `timezone: optional string`
 
                           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                     - `beta_web_fetch_tool_20260209: object`
 
@@ -12987,13 +12944,13 @@ ant beta:messages:batches results \
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: optional number`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: optional boolean`
 
@@ -13001,12 +12958,7 @@ ant beta:messages:batches results \
 
                       - `url_sources: optional object`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -13081,13 +13033,13 @@ ant beta:messages:batches results \
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: optional number`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: optional boolean`
 
@@ -13095,12 +13047,7 @@ ant beta:messages:batches results \
 
                       - `url_sources: optional object`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -13171,7 +13118,7 @@ ant beta:messages:batches results \
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `response_inclusion: optional "full" or "excluded"`
 
@@ -13195,25 +13142,25 @@ ant beta:messages:batches results \
 
                           The city of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `country: optional string`
 
                           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                          maxLength: 2, minLength: 2
+                          minLength: 2, maxLength: 2
 
                         - `region: optional string`
 
                           The region of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `timezone: optional string`
 
                           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                     - `beta_web_fetch_tool_20260318: object`
 
@@ -13274,13 +13221,13 @@ ant beta:messages:batches results \
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: optional number`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `response_inclusion: optional "full" or "excluded"`
 
@@ -13296,12 +13243,7 @@ ant beta:messages:batches results \
 
                       - `url_sources: optional object`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -13323,7 +13265,7 @@ ant beta:messages:batches results \
 
                       - `type: "advisor_20260301"`
 
-                      - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+                      - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                         The model that will complete your prompt.
 
@@ -13365,10 +13307,6 @@ ant beta:messages:batches results \
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `"claude-mythos-preview"`
-
-                          New class of intelligence, strongest in coding and cybersecurity
-
                         - `"claude-opus-4-6"`
 
                           Powerful intelligence for long-running agents and coding
@@ -13400,6 +13338,12 @@ ant beta:messages:batches results \
                         - `"claude-sonnet-4-5-20250929"`
 
                           High-performance model for agents and coding
+
+                        - `"claude-mythos-preview"`
+
+                          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          New class of intelligence, strongest in coding and cybersecurity
 
                       - `name: "advisor"`
 
@@ -13465,7 +13409,7 @@ ant beta:messages:batches results \
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: optional boolean`
 
@@ -13582,7 +13526,7 @@ ant beta:messages:batches results \
 
                         Name of the MCP server to configure tools for
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `cache_control: optional object`
 
@@ -13686,7 +13630,7 @@ ant beta:messages:batches results \
 
             The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-            - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+            - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
               The model that will complete your prompt.
 
@@ -13728,10 +13672,6 @@ ant beta:messages:batches results \
 
                 Powerful intelligence for long-running agents and coding
 
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
               - `"claude-opus-4-6"`
 
                 Powerful intelligence for long-running agents and coding
@@ -13764,11 +13704,17 @@ ant beta:messages:batches results \
 
                 High-performance model for agents and coding
 
+              - `"claude-mythos-preview"`
+
+                **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                New class of intelligence, strongest in coding and cybersecurity
+
           - `to: object`
 
             The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-            - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+            - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
               The model that will complete your prompt.
 
@@ -13782,7 +13728,7 @@ ant beta:messages:batches results \
 
             - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-              The policy category that triggered a refusal.
+              The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
               - `"cyber"`
 
@@ -13871,8 +13817,7 @@ ant beta:messages:batches results \
 
       - `diagnostics: object`
 
-        Request-level diagnostics: why the prompt cache could not fully reuse
-        the prefix of the request named by `diagnostics.previous_message_id`.
+        Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
         - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
 
@@ -13918,7 +13863,7 @@ ant beta:messages:batches results \
 
             - `type: "unavailable"`
 
-      - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+      - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
         The model that will complete your prompt.
 
@@ -13960,10 +13905,6 @@ ant beta:messages:batches results \
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -13996,6 +13937,12 @@ ant beta:messages:batches results \
 
           High-performance model for agents and coding
 
+        - `"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
+
       - `role: "assistant"`
 
         Conversational role of the generated message.
@@ -14004,13 +13951,17 @@ ant beta:messages:batches results \
 
       - `stop_details: object`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
         - `type: "refusal"`
 
         - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-          The policy category that triggered a refusal.
+          The policy category that triggered the refusal.
+
+          `null` when the refusal doesn't map to a named category.
 
           - `"cyber"`
 
@@ -14169,6 +14120,10 @@ ant beta:messages:batches results \
 
           Outcome of the `fallback_credit_token` presented on this request.
 
+          Present on every response to a non-batch request that carried a
+          `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+          items accept and ignore the token and carry no outcome object).
+
           - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
 
             Whether the fallback-credit reprice was applied to this response's billing.
@@ -14297,7 +14252,7 @@ ant beta:messages:batches results \
 
               minimum: 0
 
-            - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+            - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
               The model that will complete your prompt.
 
@@ -14339,10 +14294,6 @@ ant beta:messages:batches results \
 
                 Powerful intelligence for long-running agents and coding
 
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
               - `"claude-opus-4-6"`
 
                 Powerful intelligence for long-running agents and coding
@@ -14374,6 +14325,12 @@ ant beta:messages:batches results \
               - `"claude-sonnet-4-5-20250929"`
 
                 High-performance model for agents and coding
+
+              - `"claude-mythos-preview"`
+
+                **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                New class of intelligence, strongest in coding and cybersecurity
 
             - `output_tokens: number`
 
@@ -14471,7 +14428,7 @@ ant beta:messages:batches results \
 
               minimum: 0
 
-            - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+            - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
               The model that will complete your prompt.
 
@@ -14513,10 +14470,6 @@ ant beta:messages:batches results \
 
                 Powerful intelligence for long-running agents and coding
 
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
               - `"claude-opus-4-6"`
 
                 Powerful intelligence for long-running agents and coding
@@ -14548,6 +14501,12 @@ ant beta:messages:batches results \
               - `"claude-sonnet-4-5-20250929"`
 
                 High-performance model for agents and coding
+
+              - `"claude-mythos-preview"`
+
+                **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                New class of intelligence, strongest in coding and cybersecurity
 
             - `output_tokens: number`
 
@@ -14604,7 +14563,7 @@ ant beta:messages:batches results \
 
               minimum: 0
 
-            - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+            - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
               The model that will complete your prompt.
 
@@ -14646,10 +14605,6 @@ ant beta:messages:batches results \
 
                 Powerful intelligence for long-running agents and coding
 
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
               - `"claude-opus-4-6"`
 
                 Powerful intelligence for long-running agents and coding
@@ -14681,6 +14636,12 @@ ant beta:messages:batches results \
               - `"claude-sonnet-4-5-20250929"`
 
                 High-performance model for agents and coding
+
+              - `"claude-mythos-preview"`
+
+                **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                New class of intelligence, strongest in coding and cybersecurity
 
             - `output_tokens: number`
 
@@ -14744,7 +14705,7 @@ ant beta:messages:batches results \
 
         - `speed: "standard" or "fast"`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          The inference speed mode used for this request.
 
           - `"standard"`
 
@@ -14938,7 +14899,9 @@ ant beta:messages:batches results \
 
     - `container: object`
 
-      Information about the container used in the request (for the code execution tool)
+      Information about the container used in this request.
+
+      This will be non-null if a container tool (e.g. code execution) was used.
 
       - `id: string`
 
@@ -14966,13 +14929,13 @@ ant beta:messages:batches results \
 
           Skill ID
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
         - `version: string`
 
           The resolved version: a skill version ID for custom skills.
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
     - `content: array of BetaContentBlock`
 
@@ -15133,8 +15096,6 @@ ant beta:messages:batches results \
 
         - `text: string`
 
-          minLength: 0
-
       - `beta_thinking_block: object`
 
         - `type: "thinking"`
@@ -15207,7 +15168,7 @@ ant beta:messages:batches results \
 
           For a toolset member tool_use, the toolset family.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `beta_server_tool_use_block: object`
 
@@ -15647,7 +15608,7 @@ ant beta:messages:batches results \
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `tool_use_id: string`
 
@@ -15690,8 +15651,6 @@ ant beta:messages:batches results \
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
             - `text: string`
-
-              minLength: 0
 
         - `is_error: boolean`
 
@@ -15814,7 +15773,7 @@ ant beta:messages:batches results \
 
                       This is how the tool will be called by the model and in `tool_use` blocks.
 
-                      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -16156,12 +16115,7 @@ ant beta:messages:batches results \
 
                     - `configs: optional object`
 
-                      Per-member configuration for `browser_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: optional object`
 
@@ -16860,12 +16814,7 @@ ant beta:messages:batches results \
 
                     - `configs: optional object`
 
-                      Per-member configuration for `computer_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: optional object`
 
@@ -17271,7 +17220,7 @@ ant beta:messages:batches results \
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: optional boolean`
 
@@ -17287,25 +17236,25 @@ ant beta:messages:batches results \
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: optional string`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: optional string`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: optional string`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `beta_web_fetch_tool_20250910: object`
 
@@ -17366,13 +17315,13 @@ ant beta:messages:batches results \
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: optional number`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: optional boolean`
 
@@ -17380,12 +17329,7 @@ ant beta:messages:batches results \
 
                     - `url_sources: optional object`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -17522,7 +17466,7 @@ ant beta:messages:batches results \
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: optional boolean`
 
@@ -17538,25 +17482,25 @@ ant beta:messages:batches results \
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: optional string`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: optional string`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: optional string`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `beta_web_fetch_tool_20260209: object`
 
@@ -17617,13 +17561,13 @@ ant beta:messages:batches results \
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: optional number`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: optional boolean`
 
@@ -17631,12 +17575,7 @@ ant beta:messages:batches results \
 
                     - `url_sources: optional object`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -17711,13 +17650,13 @@ ant beta:messages:batches results \
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: optional number`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: optional boolean`
 
@@ -17725,12 +17664,7 @@ ant beta:messages:batches results \
 
                     - `url_sources: optional object`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -17801,7 +17735,7 @@ ant beta:messages:batches results \
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: optional "full" or "excluded"`
 
@@ -17825,25 +17759,25 @@ ant beta:messages:batches results \
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: optional string`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: optional string`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: optional string`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `beta_web_fetch_tool_20260318: object`
 
@@ -17904,13 +17838,13 @@ ant beta:messages:batches results \
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: optional number`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: optional "full" or "excluded"`
 
@@ -17926,12 +17860,7 @@ ant beta:messages:batches results \
 
                     - `url_sources: optional object`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: optional BetaWebFetchURLSourceAll or BetaWebFetchURLSourceNone or BetaWebFetchURLSourceOnly or BetaWebFetchURLSourceExcept`
 
@@ -17953,7 +17882,7 @@ ant beta:messages:batches results \
 
                     - `type: "advisor_20260301"`
 
-                    - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+                    - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
                       The model that will complete your prompt.
 
@@ -17995,10 +17924,6 @@ ant beta:messages:batches results \
 
                         Powerful intelligence for long-running agents and coding
 
-                      - `"claude-mythos-preview"`
-
-                        New class of intelligence, strongest in coding and cybersecurity
-
                       - `"claude-opus-4-6"`
 
                         Powerful intelligence for long-running agents and coding
@@ -18030,6 +17955,12 @@ ant beta:messages:batches results \
                       - `"claude-sonnet-4-5-20250929"`
 
                         High-performance model for agents and coding
+
+                      - `"claude-mythos-preview"`
+
+                        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                        New class of intelligence, strongest in coding and cybersecurity
 
                     - `name: "advisor"`
 
@@ -18095,7 +18026,7 @@ ant beta:messages:batches results \
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: optional boolean`
 
@@ -18212,7 +18143,7 @@ ant beta:messages:batches results \
 
                       Name of the MCP server to configure tools for
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `cache_control: optional object`
 
@@ -18316,7 +18247,7 @@ ant beta:messages:batches results \
 
           The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-          - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+          - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
             The model that will complete your prompt.
 
@@ -18358,10 +18289,6 @@ ant beta:messages:batches results \
 
               Powerful intelligence for long-running agents and coding
 
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -18394,11 +18321,17 @@ ant beta:messages:batches results \
 
               High-performance model for agents and coding
 
+            - `"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
+
         - `to: object`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-          - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+          - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
             The model that will complete your prompt.
 
@@ -18412,7 +18345,7 @@ ant beta:messages:batches results \
 
           - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
             - `"cyber"`
 
@@ -18501,8 +18434,7 @@ ant beta:messages:batches results \
 
     - `diagnostics: object`
 
-      Request-level diagnostics: why the prompt cache could not fully reuse
-      the prefix of the request named by `diagnostics.previous_message_id`.
+      Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
       - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
 
@@ -18548,7 +18480,7 @@ ant beta:messages:batches results \
 
           - `type: "unavailable"`
 
-    - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+    - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
       The model that will complete your prompt.
 
@@ -18590,10 +18522,6 @@ ant beta:messages:batches results \
 
         Powerful intelligence for long-running agents and coding
 
-      - `"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -18626,6 +18554,12 @@ ant beta:messages:batches results \
 
         High-performance model for agents and coding
 
+      - `"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
+
     - `role: "assistant"`
 
       Conversational role of the generated message.
@@ -18634,13 +18568,17 @@ ant beta:messages:batches results \
 
     - `stop_details: object`
 
-      Structured information about a refusal.
+      Structured information about why model output stopped.
+
+      This is `null` when the `stop_reason` has no additional detail to report.
 
       - `type: "refusal"`
 
       - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
 
-        The policy category that triggered a refusal.
+        The policy category that triggered the refusal.
+
+        `null` when the refusal doesn't map to a named category.
 
         - `"cyber"`
 
@@ -18799,6 +18737,10 @@ ant beta:messages:batches results \
 
         Outcome of the `fallback_credit_token` presented on this request.
 
+        Present on every response to a non-batch request that carried a
+        `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+        items accept and ignore the token and carry no outcome object).
+
         - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
 
           Whether the fallback-credit reprice was applied to this response's billing.
@@ -18927,7 +18869,7 @@ ant beta:messages:batches results \
 
             minimum: 0
 
-          - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+          - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
             The model that will complete your prompt.
 
@@ -18969,10 +18911,6 @@ ant beta:messages:batches results \
 
               Powerful intelligence for long-running agents and coding
 
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -19004,6 +18942,12 @@ ant beta:messages:batches results \
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+            - `"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
 
           - `output_tokens: number`
 
@@ -19101,7 +19045,7 @@ ant beta:messages:batches results \
 
             minimum: 0
 
-          - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+          - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
             The model that will complete your prompt.
 
@@ -19143,10 +19087,6 @@ ant beta:messages:batches results \
 
               Powerful intelligence for long-running agents and coding
 
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -19178,6 +19118,12 @@ ant beta:messages:batches results \
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+            - `"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
 
           - `output_tokens: number`
 
@@ -19234,7 +19180,7 @@ ant beta:messages:batches results \
 
             minimum: 0
 
-          - `model: "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+          - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
             The model that will complete your prompt.
 
@@ -19276,10 +19222,6 @@ ant beta:messages:batches results \
 
               Powerful intelligence for long-running agents and coding
 
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -19311,6 +19253,12 @@ ant beta:messages:batches results \
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+            - `"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
 
           - `output_tokens: number`
 
@@ -19374,7 +19322,7 @@ ant beta:messages:batches results \
 
       - `speed: "standard" or "fast"`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        The inference speed mode used for this request.
 
         - `"standard"`
 

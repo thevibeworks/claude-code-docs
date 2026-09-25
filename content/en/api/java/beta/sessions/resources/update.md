@@ -215,7 +215,7 @@ Update Session Resource
 
     - `Optional<Access> access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `READ_WRITE("read_write")`
 

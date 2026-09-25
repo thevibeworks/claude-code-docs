@@ -19,7 +19,7 @@ Create Credential
 
 - `--auth: BetaManagedAgentsMCPOAuthCreateParams or BetaManagedAgentsStaticBearerCreateParams or BetaManagedAgentsEnvironmentVariableCreateParams`
 
-  Body param: Authentication details for creating a credential.
+  Body param: Authentication configuration for the credential.
 
 - `--display-name: optional string`
 
@@ -55,13 +55,13 @@ Create Credential
 
   - `archived_at: string`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse or BetaManagedAgentsStaticBearerAuthResponse or BetaManagedAgentsEnvironmentVariableAuthResponse`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `beta_managed_agents_mcp_oauth_auth_response: object`
 
@@ -81,7 +81,7 @@ Create Credential
 
       - `refresh: optional object`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `client_id: string`
 

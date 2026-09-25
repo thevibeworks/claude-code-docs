@@ -153,13 +153,13 @@ List Credentials
 
   - `required DateTimeOffset? ArchivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `required Auth Auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMcpOAuthAuthResponse`
 
@@ -179,7 +179,7 @@ List Credentials
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `required string ClientID`
 

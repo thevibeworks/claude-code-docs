@@ -115,7 +115,7 @@ Get Session Resource
 
     - `access: optional "read_write" or "read_only"`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `"read_write"`
 

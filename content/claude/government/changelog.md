@@ -6,6 +6,18 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.24.2">
+  * Fixed the keyboard focus outline on scrollable tables in the Admin Console being hard to see.
+  * Improved Plugins, Connectors, and Analytics in the Admin Console so that a failed load shows one consistent notice with a Try again button.
+  * Added the **Show the Claude for Government Web import banner** setting under Config > Appearance: for organizations linked to Claude for Government Web, Claude Desktop 2.9939.2 or later shows members a banner inviting them to bring over their chats and projects.
+</Update>
+
+<Update label="2026.09.24.1">
+  * Fixed the person search on the Compare config page so you can change or clear the person after picking one.
+  * Added **Role** and **Seat tier** filters to the Users page, so you can find an organization's Owners without paging through everyone.
+  * Added an email to a tenant's admins when Anthropic staff change the tenant's registered domains, listing the domains before and after the change.
+</Update>
+
 <Update label="2026.09.22.1">
   * Fixed members whose browser sign-in is refused, for example because their account was deactivated, seeing an "Invalid redirect uri" error instead of the page that explains why they can't sign in.
   * Changed web sign-in for tenant administrators and Primary Owners: the **Choose sign-in** page is gone, **Email me a sign-in link** is now under the form where you enter your work email, and **Continue** takes you straight to single sign-on when your tenant has it set up.

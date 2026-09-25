@@ -215,7 +215,7 @@ Get Session Resource
 
     - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadWrite BetaManagedAgentsMemoryStoreResourceAccess = "read_write"`
 

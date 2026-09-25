@@ -21,7 +21,7 @@ List environments with pagination support.
 
   Query param: Maximum number of environments to return
 
-  maximum: 1000, minimum: 1
+  minimum: 1, maximum: 1000
 
 - `--page: optional string`
 

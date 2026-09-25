@@ -19,7 +19,7 @@ Create Credential
 
 - `auth: Auth`
 
-  Authentication details for creating a credential.
+  Authentication configuration for the credential.
 
   - `class BetaManagedAgentsMCPOAuthCreateParams`
 
@@ -47,7 +47,7 @@ Create Credential
 
     - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshParams]`
 
-      OAuth refresh token parameters for creating a credential with refresh support.
+      Refresh token configuration, if the credential supports token refresh.
 
       - `client_id: str`
 
@@ -313,13 +313,13 @@ Create Credential
 
   - `archived_at: Optional[datetime]`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `auth: Auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMCPOAuthAuthResponse`
 
@@ -339,7 +339,7 @@ Create Credential
 
       - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshResponse]`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `client_id: str`
 

@@ -147,7 +147,7 @@ List Session Threads
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -239,7 +239,7 @@ List Session Threads
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -277,7 +277,7 @@ List Session Threads
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -681,13 +681,13 @@ List Session Threads
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
     format: date-time
 
   - `LocalDateTime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
     format: date-time
 
@@ -701,7 +701,7 @@ List Session Threads
 
   - `Optional<BetaManagedAgentsSessionThreadStats> stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -723,7 +723,7 @@ List Session Threads
 
   - `BetaManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
     - `RUNNING("running")`
 
@@ -735,13 +735,13 @@ List Session Threads
 
   - `LocalDateTime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsSessionThreadUsage> usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -751,7 +751,7 @@ List Session Threads
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -779,7 +779,7 @@ List Session Threads
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
       - `String amount`
 
@@ -797,7 +797,7 @@ List Session Threads
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
       - `Optional<Long> webFetchRequests`
 

@@ -5,7 +5,7 @@ description: List the sessions your users run in Claude apps and agents, such as
 ---
 
 <Note>
-  The endpoints on this page are available only to Claude Enterprise organizations. The local and remote session endpoints are stable for Cowork and Claude Code sessions; coverage of Claude Science, Claude for Microsoft 365, and Claude in Chrome sessions is in beta. The endpoints work with the same Compliance Access Key and `read:compliance_user_data` scope as the [chat, file, and project endpoints](https://platform.claude.com/docs/en/manage-claude/compliance-content-data); no new key, scope, setting, or client update is required. See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+  The endpoints on this page are available only to Claude Enterprise organizations. The local and remote session endpoints are stable for Cowork, Claude Code, and Claude for Microsoft 365 sessions; coverage of Claude Science and Claude in Chrome sessions is in beta. The endpoints work with the same Compliance Access Key and `read:compliance_user_data` scope as the [chat, file, and project endpoints](https://platform.claude.com/docs/en/manage-claude/compliance-content-data); no new key, scope, setting, or client update is required. See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 </Note>
 
 <Check>

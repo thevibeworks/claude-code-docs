@@ -141,7 +141,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: number`
 
@@ -161,7 +161,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: number`
 
@@ -185,7 +185,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: number`
 
@@ -209,7 +209,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `title: string or null`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: string`
 
@@ -365,7 +365,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `title: optional string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `SearchResultBlockParam object`
 
@@ -429,7 +429,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `name: string`
 
-          maxLength: 200, minLength: 1
+          minLength: 1, maxLength: 200
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -465,7 +465,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ToolResultBlockParam object`
 
@@ -501,7 +501,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -529,7 +529,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   The caller-assigned identifier for this tab, unique within the inventory.
 
-                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: string`
 
@@ -555,7 +555,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                maxItems: 200, minItems: 1
+                minItems: 1, maxItems: 200
 
                 - `BrowserStateChangeTabOpened object`
 
@@ -573,7 +573,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `BrowserStateChangeDownloadStarted object`
 
@@ -585,7 +585,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -606,7 +606,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -618,7 +618,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `size_bytes: optional number or null`
 
@@ -636,7 +636,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -648,7 +648,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The failure or cancellation detail, when known.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `is_error: optional boolean`
 
@@ -656,7 +656,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlockParam object`
 
@@ -1034,7 +1034,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -1074,6 +1074,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `string`
 
   - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
@@ -1117,10 +1119,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Powerful intelligence for long-running agents and coding
 
-    - `"claude-mythos-preview"`
-
-      New class of intelligence, strongest in coding and cybersecurity
-
     - `"claude-opus-4-6"`
 
       Powerful intelligence for long-running agents and coding
@@ -1153,7 +1151,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       High-performance model for agents and coding
 
-  - `string`
+    - `"claude-mythos-preview"`
+
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      New class of intelligence, strongest in coding and cybersecurity
 
 - `cache_control: optional CacheControlEphemeral or null`
 
@@ -1189,20 +1191,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: optional string`
 
         Skill version or 'latest' for most recent version
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `string`
 
 - `diagnostics: optional DiagnosticsParam or null`
 
-  Request-level diagnostics. Currently carries the previous response
-  id for prompt-cache divergence reporting.
+  Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
   - `previous_message_id: optional string or null`
 
@@ -1232,7 +1233,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
     - `"low"`
 
@@ -1482,7 +1485,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -1699,12 +1702,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `configs: optional BrowserToolsetConfigs or null`
 
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional BrowserTypeConfig or null`
 
@@ -2131,12 +2129,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `configs: optional ComputerToolsetConfigs or null`
 
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional ComputerTypeConfig or null`
 
@@ -2490,7 +2483,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -2506,25 +2499,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The city of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-        maxLength: 2, minLength: 2
+        minLength: 2, maxLength: 2
 
       - `region: optional string or null`
 
         The region of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
   - `WebFetchTool20250910 object`
 
@@ -2570,13 +2563,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -2584,12 +2577,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -2713,7 +2701,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -2767,13 +2755,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -2781,12 +2769,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
   - `WebFetchTool20260309 object`
 
@@ -2834,13 +2817,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -2848,12 +2831,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -2899,7 +2877,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -2961,13 +2939,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -2983,12 +2961,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -3076,7 +3049,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
-  maximum: 1, minimum: 0
+  minimum: 0, maximum: 1
 
 - `top_k: optional number`
 
@@ -3100,7 +3073,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Recommended for advanced use cases only.
 
-  maximum: 1, minimum: 0
+  minimum: 0, maximum: 1
 
 ### Returns
 
@@ -3122,7 +3095,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `container: Container or null`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
     - `id: string`
 
@@ -3150,13 +3125,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: string`
 
         The resolved version: a skill version ID for custom skills.
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `content: array of ContentBlock`
 
@@ -3329,8 +3304,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `text: string`
 
-        minLength: 0
-
     - `ThinkingBlock object`
 
       - `type: "thinking"`
@@ -3411,7 +3384,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock object`
 
@@ -3859,7 +3832,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `tool_name: string`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `tool_use_id: string`
 
@@ -3877,8 +3850,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `diagnostics: Diagnostics or null`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
     - `cache_miss_reason: CacheMissReason or null`
 
@@ -3942,6 +3914,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `string`
+
     - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
       The model that will complete your prompt.
@@ -3984,10 +3958,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Powerful intelligence for long-running agents and coding
 
-      - `"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -4020,7 +3990,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         High-performance model for agents and coding
 
-    - `string`
+      - `"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `role: "assistant"`
 
@@ -4032,7 +4006,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `stop_details: RefusalStopDetails or null`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
     - `type: "refusal"`
 
@@ -4040,7 +4016,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-      The policy category that triggered a refusal.
+      The policy category that triggered the refusal.
+
+      `null` when the refusal doesn't map to a named category.
 
       - `"cyber"`
 
@@ -4228,11 +4206,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `container: Container or null`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
       - `stop_details: RefusalStopDetails or null`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
       - `stop_reason: StopReason or null`
 
@@ -4642,7 +4624,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: number`
 
@@ -4662,7 +4644,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: number`
 
@@ -4686,7 +4668,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: number`
 
@@ -4710,7 +4692,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: string or null`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: string`
 
@@ -4866,7 +4848,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `title: optional string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `SearchResultBlockParam object`
 
@@ -4930,7 +4912,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `name: string`
 
-          maxLength: 200, minLength: 1
+          minLength: 1, maxLength: 200
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -4966,7 +4948,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ToolResultBlockParam object`
 
@@ -5002,7 +4984,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5030,7 +5012,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   The caller-assigned identifier for this tab, unique within the inventory.
 
-                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: string`
 
@@ -5056,7 +5038,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                maxItems: 200, minItems: 1
+                minItems: 1, maxItems: 200
 
                 - `BrowserStateChangeTabOpened object`
 
@@ -5074,7 +5056,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `BrowserStateChangeDownloadStarted object`
 
@@ -5086,7 +5068,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -5107,7 +5089,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -5119,7 +5101,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `size_bytes: optional number or null`
 
@@ -5137,7 +5119,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -5149,7 +5131,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The failure or cancellation detail, when known.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `is_error: optional boolean`
 
@@ -5157,7 +5139,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlockParam object`
 
@@ -5535,7 +5517,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5575,6 +5557,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `string`
 
   - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
@@ -5618,10 +5602,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Powerful intelligence for long-running agents and coding
 
-    - `"claude-mythos-preview"`
-
-      New class of intelligence, strongest in coding and cybersecurity
-
     - `"claude-opus-4-6"`
 
       Powerful intelligence for long-running agents and coding
@@ -5654,7 +5634,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       High-performance model for agents and coding
 
-  - `string`
+    - `"claude-mythos-preview"`
+
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      New class of intelligence, strongest in coding and cybersecurity
 
 - `cache_control: optional CacheControlEphemeral or null`
 
@@ -5666,7 +5650,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
     - `"low"`
 
@@ -5892,7 +5878,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -6109,12 +6095,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `configs: optional BrowserToolsetConfigs or null`
 
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional BrowserTypeConfig or null`
 
@@ -6541,12 +6522,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `configs: optional ComputerToolsetConfigs or null`
 
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional ComputerTypeConfig or null`
 
@@ -6900,7 +6876,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -6916,25 +6892,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The city of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-        maxLength: 2, minLength: 2
+        minLength: 2, maxLength: 2
 
       - `region: optional string or null`
 
         The region of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
   - `WebFetchTool20250910 object`
 
@@ -6980,13 +6956,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -6994,12 +6970,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -7123,7 +7094,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -7177,13 +7148,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -7191,12 +7162,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
   - `WebFetchTool20260309 object`
 
@@ -7244,13 +7210,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -7258,12 +7224,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -7309,7 +7270,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -7371,13 +7332,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -7393,12 +7354,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -8183,7 +8139,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The caller-assigned identifier for this tab, unique within the inventory.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `title: string`
 
@@ -8226,7 +8182,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-    maxItems: 200, minItems: 1
+    minItems: 1, maxItems: 200
 
     - `BrowserStateChangeTabOpened object`
 
@@ -8244,7 +8200,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The `tab_id` of the opened tab, present in `tabs`.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `BrowserStateChangeDownloadStarted object`
 
@@ -8256,7 +8212,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `url: string`
 
@@ -8277,7 +8233,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `url: string`
 
@@ -8289,7 +8245,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `size_bytes: optional number or null`
 
@@ -8307,7 +8263,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `url: string`
 
@@ -8319,7 +8275,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The failure or cancellation detail, when known.
 
-        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Browser State Change
 
@@ -8341,7 +8297,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The `tab_id` of the opened tab, present in `tabs`.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `BrowserStateChangeDownloadStarted object`
 
@@ -8353,7 +8309,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `url: string`
 
@@ -8374,7 +8330,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `url: string`
 
@@ -8386,7 +8342,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `size_bytes: optional number or null`
 
@@ -8404,7 +8360,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `url: string`
 
@@ -8416,7 +8372,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The failure or cancellation detail, when known.
 
-      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Browser State Change Download Completed
 
@@ -8433,7 +8389,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `url: string`
 
@@ -8445,7 +8401,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `size_bytes: optional number or null`
 
@@ -8465,7 +8421,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `url: string`
 
@@ -8477,7 +8433,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The failure or cancellation detail, when known.
 
-    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Browser State Change Download Started
 
@@ -8491,7 +8447,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `url: string`
 
@@ -8517,7 +8473,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The `tab_id` of the opened tab, present in `tabs`.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Browser State Tab Entry
 
@@ -8536,7 +8492,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The caller-assigned identifier for this tab, unique within the inventory.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `title: string`
 
@@ -8602,12 +8558,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `configs: optional BrowserToolsetConfigs or null`
 
-    Per-member configuration for `browser_toolset_20260801`: one
-    optional field per member tool, keyed by the member name — the same
-    name the member's `tool_use` blocks carry. Every member is an
-    accepted key, and a member's defaults apply wherever its key is
-    absent. Unknown keys are rejected: the field set is this toolset
-    version's complete member set.
+    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
     - `type: optional BrowserTypeConfig or null`
 
@@ -9615,7 +9566,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_title: string or null`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
   - `end_char_index: number`
 
@@ -9675,7 +9626,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_title: string or null`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
   - `end_block_index: number`
 
@@ -9727,7 +9678,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_title: string or null`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
   - `end_page_number: number`
 
@@ -9783,7 +9734,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `title: string or null`
 
-    maxLength: 512, minLength: 1
+    minLength: 1, maxLength: 512
 
   - `url: string`
 
@@ -10796,12 +10747,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `configs: optional ComputerToolsetConfigs or null`
 
-    Per-member configuration for `computer_toolset_20260801`: one
-    optional field per member tool, keyed by the member name — the same
-    name the member's `tool_use` blocks carry. Every member is an
-    accepted key, and a member's defaults apply wherever its key is
-    absent. Unknown keys are rejected: the field set is this toolset
-    version's complete member set.
+    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
     - `type: optional ComputerTypeConfig or null`
 
@@ -11310,13 +11256,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Skill ID
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
     - `version: string`
 
       The resolved version: a skill version ID for custom skills.
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
 ### Container Params
 
@@ -11346,13 +11292,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Skill ID
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
     - `version: optional string`
 
       Skill version or 'latest' for most recent version
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
 ### Container Skill
 
@@ -11372,13 +11318,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Skill ID
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
   - `version: string`
 
     The resolved version: a skill version ID for custom skills.
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
 ### Container Upload Block
 
@@ -11570,8 +11516,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `text: string`
 
-      minLength: 0
-
   - `ThinkingBlock object`
 
     - `type: "thinking"`
@@ -11652,7 +11596,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       For a toolset member tool_use, the toolset family.
 
-      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ServerToolUseBlock object`
 
@@ -12100,7 +12044,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `tool_name: string`
 
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `tool_use_id: string`
 
@@ -12163,7 +12107,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_char_index: number`
 
@@ -12183,7 +12127,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_page_number: number`
 
@@ -12207,7 +12151,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_block_index: number`
 
@@ -12231,7 +12175,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-          maxLength: 512, minLength: 1
+          minLength: 1, maxLength: 512
 
         - `url: string`
 
@@ -12387,7 +12331,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: optional string or null`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
   - `SearchResultBlockParam object`
 
@@ -12451,7 +12395,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `name: string`
 
-      maxLength: 200, minLength: 1
+      minLength: 1, maxLength: 200
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12487,7 +12431,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       For a toolset member tool_use, the toolset family this member belongs to.
 
-      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ToolResultBlockParam object`
 
@@ -12523,7 +12467,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `tool_name: string`
 
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -12551,7 +12495,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               The caller-assigned identifier for this tab, unique within the inventory.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `title: string`
 
@@ -12577,7 +12521,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-            maxItems: 200, minItems: 1
+            minItems: 1, maxItems: 200
 
             - `BrowserStateChangeTabOpened object`
 
@@ -12595,7 +12539,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 The `tab_id` of the opened tab, present in `tabs`.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `BrowserStateChangeDownloadStarted object`
 
@@ -12607,7 +12551,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `url: string`
 
@@ -12628,7 +12572,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `url: string`
 
@@ -12640,7 +12584,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `size_bytes: optional number or null`
 
@@ -12658,7 +12602,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `url: string`
 
@@ -12670,7 +12614,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 The failure or cancellation detail, when known.
 
-                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `is_error: optional boolean`
 
@@ -12678,7 +12622,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       For a toolset member tool_result, the toolset family of the paired tool_use.
 
-      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ServerToolUseBlockParam object`
 
@@ -13056,7 +13000,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `tool_name: string`
 
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `cache_control: optional CacheControlEphemeral or null`
 
@@ -13138,7 +13082,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: number`
 
@@ -13158,7 +13102,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: number`
 
@@ -13182,7 +13126,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: number`
 
@@ -13206,7 +13150,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: string`
 
@@ -13345,7 +13289,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_char_index: number`
 
@@ -13365,7 +13309,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_page_number: number`
 
@@ -13389,7 +13333,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_block_index: number`
 
@@ -13413,7 +13357,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-          maxLength: 512, minLength: 1
+          minLength: 1, maxLength: 512
 
         - `url: string`
 
@@ -13708,7 +13652,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `document_title: string or null`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_char_index: number`
 
@@ -13728,7 +13672,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `document_title: string or null`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_page_number: number`
 
@@ -13752,7 +13696,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `document_title: string or null`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_block_index: number`
 
@@ -13776,7 +13720,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `title: string or null`
 
-                  maxLength: 512, minLength: 1
+                  minLength: 1, maxLength: 512
 
                 - `url: string`
 
@@ -13894,7 +13838,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `title: optional string or null`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
 ### Encrypted Code Execution Result Block
 
@@ -14134,7 +14078,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `container: Container or null`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
     - `id: string`
 
@@ -14162,13 +14108,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: string`
 
         The resolved version: a skill version ID for custom skills.
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `content: array of ContentBlock`
 
@@ -14341,8 +14287,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `text: string`
 
-        minLength: 0
-
     - `ThinkingBlock object`
 
       - `type: "thinking"`
@@ -14423,7 +14367,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock object`
 
@@ -14871,7 +14815,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `tool_name: string`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `tool_use_id: string`
 
@@ -14889,8 +14833,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `diagnostics: Diagnostics or null`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
     - `cache_miss_reason: CacheMissReason or null`
 
@@ -14954,6 +14897,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `string`
+
     - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
       The model that will complete your prompt.
@@ -14996,10 +14941,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Powerful intelligence for long-running agents and coding
 
-      - `"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -15032,7 +14973,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         High-performance model for agents and coding
 
-    - `string`
+      - `"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `role: "assistant"`
 
@@ -15044,7 +14989,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `stop_details: RefusalStopDetails or null`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
     - `type: "refusal"`
 
@@ -15052,7 +14999,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-      The policy category that triggered a refusal.
+      The policy category that triggered the refusal.
+
+      `null` when the refusal doesn't map to a named category.
 
       - `"cyber"`
 
@@ -15246,7 +15195,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -15480,12 +15429,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `configs: optional BrowserToolsetConfigs or null`
 
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional BrowserTypeConfig or null`
 
@@ -15912,12 +15856,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `configs: optional ComputerToolsetConfigs or null`
 
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional ComputerTypeConfig or null`
 
@@ -16271,7 +16210,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -16287,25 +16226,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The city of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-        maxLength: 2, minLength: 2
+        minLength: 2, maxLength: 2
 
       - `region: optional string or null`
 
         The region of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
   - `WebFetchTool20250910 object`
 
@@ -16353,13 +16292,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -16367,12 +16306,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -16496,7 +16430,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -16550,13 +16484,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -16564,12 +16498,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
   - `WebFetchTool20260309 object`
 
@@ -16617,13 +16546,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -16631,12 +16560,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -16682,7 +16606,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -16744,13 +16668,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -16766,12 +16690,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -16881,13 +16800,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: optional string`
 
         Skill version or 'latest' for most recent version
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `string`
 
@@ -17008,7 +16927,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: number`
 
@@ -17028,7 +16947,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: number`
 
@@ -17052,7 +16971,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: number`
 
@@ -17076,7 +16995,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: string`
 
@@ -17232,7 +17151,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: optional string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `SearchResultBlockParam object`
 
@@ -17296,7 +17215,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `name: string`
 
-          maxLength: 200, minLength: 1
+          minLength: 1, maxLength: 200
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17332,7 +17251,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ToolResultBlockParam object`
 
@@ -17368,7 +17287,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17396,7 +17315,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   The caller-assigned identifier for this tab, unique within the inventory.
 
-                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: string`
 
@@ -17422,7 +17341,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                maxItems: 200, minItems: 1
+                minItems: 1, maxItems: 200
 
                 - `BrowserStateChangeTabOpened object`
 
@@ -17440,7 +17359,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `BrowserStateChangeDownloadStarted object`
 
@@ -17452,7 +17371,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -17473,7 +17392,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -17485,7 +17404,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `size_bytes: optional number or null`
 
@@ -17503,7 +17422,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: string`
 
@@ -17515,7 +17434,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     The failure or cancellation detail, when known.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `is_error: optional boolean`
 
@@ -17523,7 +17442,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlockParam object`
 
@@ -17901,7 +17820,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: optional CacheControlEphemeral or null`
 
@@ -17958,11 +17877,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Model
 
-- `Model = "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more or string`
+- `Model = string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `string`
 
   - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
@@ -18006,10 +17927,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Powerful intelligence for long-running agents and coding
 
-    - `"claude-mythos-preview"`
-
-      New class of intelligence, strongest in coding and cybersecurity
-
     - `"claude-opus-4-6"`
 
       Powerful intelligence for long-running agents and coding
@@ -18042,7 +17959,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       High-performance model for agents and coding
 
-  - `string`
+    - `"claude-mythos-preview"`
+
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      New class of intelligence, strongest in coding and cybersecurity
 
 ### Output Config
 
@@ -18050,7 +17971,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
     - `"low"`
 
@@ -18611,8 +18534,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `text: string`
 
-        minLength: 0
-
     - `ThinkingBlock object`
 
       - `type: "thinking"`
@@ -18693,7 +18614,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock object`
 
@@ -19141,7 +19062,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `tool_name: string`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `tool_use_id: string`
 
@@ -19181,7 +19102,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `container: Container or null`
 
-      Information about the container used in the request (for the code execution tool)
+      Information about the container used in this request.
+
+      This will be non-null if a container tool (e.g. code execution) was used.
 
       - `id: string`
 
@@ -19209,17 +19132,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Skill ID
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
         - `version: string`
 
           The resolved version: a skill version ID for custom skills.
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
     - `stop_details: RefusalStopDetails or null`
 
-      Structured information about a refusal.
+      Structured information about why model output stopped.
+
+      This is `null` when the `stop_reason` has no additional detail to report.
 
       - `type: "refusal"`
 
@@ -19227,7 +19152,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-        The policy category that triggered a refusal.
+        The policy category that triggered the refusal.
+
+        `null` when the refusal doesn't map to a named category.
 
         - `"cyber"`
 
@@ -19371,7 +19298,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `container: Container or null`
 
-      Information about the container used in the request (for the code execution tool)
+      Information about the container used in this request.
+
+      This will be non-null if a container tool (e.g. code execution) was used.
 
       - `id: string`
 
@@ -19399,13 +19328,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Skill ID
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
         - `version: string`
 
           The resolved version: a skill version ID for custom skills.
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
     - `content: array of ContentBlock`
 
@@ -19578,8 +19507,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `text: string`
 
-          minLength: 0
-
       - `ThinkingBlock object`
 
         - `type: "thinking"`
@@ -19660,7 +19587,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           For a toolset member tool_use, the toolset family.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlock object`
 
@@ -20108,7 +20035,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `tool_name: string`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `tool_use_id: string`
 
@@ -20126,8 +20053,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `diagnostics: Diagnostics or null`
 
-      Request-level diagnostics: why the prompt cache could not fully reuse
-      the prefix of the request named by `diagnostics.previous_message_id`.
+      Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
       - `cache_miss_reason: CacheMissReason or null`
 
@@ -20191,6 +20117,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `string`
+
       - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
         The model that will complete your prompt.
@@ -20233,10 +20161,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -20269,7 +20193,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           High-performance model for agents and coding
 
-      - `string`
+        - `"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
     - `role: "assistant"`
 
@@ -20281,7 +20209,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `stop_details: RefusalStopDetails or null`
 
-      Structured information about a refusal.
+      Structured information about why model output stopped.
+
+      This is `null` when the `stop_reason` has no additional detail to report.
 
       - `type: "refusal"`
 
@@ -20289,7 +20219,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-        The policy category that triggered a refusal.
+        The policy category that triggered the refusal.
+
+        `null` when the refusal doesn't map to a named category.
 
         - `"cyber"`
 
@@ -20493,7 +20425,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `container: Container or null`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
         - `id: string`
 
@@ -20521,13 +20455,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Skill ID
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
           - `version: string`
 
             The resolved version: a skill version ID for custom skills.
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
       - `content: array of ContentBlock`
 
@@ -20700,8 +20634,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `text: string`
 
-            minLength: 0
-
         - `ThinkingBlock object`
 
           - `type: "thinking"`
@@ -20782,7 +20714,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             For a toolset member tool_use, the toolset family.
 
-            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
         - `ServerToolUseBlock object`
 
@@ -21230,7 +21162,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `tool_name: string`
 
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `tool_use_id: string`
 
@@ -21248,8 +21180,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `diagnostics: Diagnostics or null`
 
-        Request-level diagnostics: why the prompt cache could not fully reuse
-        the prefix of the request named by `diagnostics.previous_message_id`.
+        Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
         - `cache_miss_reason: CacheMissReason or null`
 
@@ -21313,6 +21244,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `string`
+
         - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
           The model that will complete your prompt.
@@ -21355,10 +21288,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -21391,7 +21320,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             High-performance model for agents and coding
 
-        - `string`
+          - `"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
 
       - `role: "assistant"`
 
@@ -21403,7 +21336,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `stop_details: RefusalStopDetails or null`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
         - `type: "refusal"`
 
@@ -21411,7 +21346,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-          The policy category that triggered a refusal.
+          The policy category that triggered the refusal.
+
+          `null` when the refusal doesn't map to a named category.
 
           - `"cyber"`
 
@@ -21589,11 +21526,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `container: Container or null`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
       - `stop_details: RefusalStopDetails or null`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
       - `stop_reason: StopReason or null`
 
@@ -21798,7 +21739,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-    The policy category that triggered a refusal.
+    The policy category that triggered the refusal.
+
+    `null` when the refusal doesn't map to a named category.
 
     - `"cyber"`
 
@@ -21875,7 +21818,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_char_index: number`
 
@@ -21895,7 +21838,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_page_number: number`
 
@@ -21919,7 +21862,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_title: string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_block_index: number`
 
@@ -21943,7 +21886,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: string or null`
 
-          maxLength: 512, minLength: 1
+          minLength: 1, maxLength: 512
 
         - `url: string`
 
@@ -22196,13 +22139,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Skill ID
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
   - `version: optional string`
 
     Skill version or 'latest' for most recent version
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
 ### Stop Reason
 
@@ -22366,8 +22309,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `text: string`
 
-    minLength: 0
-
 ### Text Block Param
 
 - `TextBlockParam object`
@@ -22413,7 +22354,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_title: string or null`
 
-        maxLength: 500, minLength: 1
+        minLength: 1, maxLength: 500
 
       - `end_char_index: number`
 
@@ -22433,7 +22374,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_title: string or null`
 
-        maxLength: 500, minLength: 1
+        minLength: 1, maxLength: 500
 
       - `end_page_number: number`
 
@@ -22457,7 +22398,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_title: string or null`
 
-        maxLength: 500, minLength: 1
+        minLength: 1, maxLength: 500
 
       - `end_block_index: number`
 
@@ -22481,7 +22422,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `title: string or null`
 
-        maxLength: 512, minLength: 1
+        minLength: 1, maxLength: 512
 
       - `url: string`
 
@@ -22669,7 +22610,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_title: string or null`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
     - `end_char_index: number`
 
@@ -22689,7 +22630,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_title: string or null`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
     - `end_page_number: number`
 
@@ -22713,7 +22654,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_title: string or null`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
     - `end_block_index: number`
 
@@ -22737,7 +22678,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: string or null`
 
-      maxLength: 512, minLength: 1
+      minLength: 1, maxLength: 512
 
     - `url: string`
 
@@ -23276,7 +23217,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -23498,7 +23439,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `tool_name: string`
 
-    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Tool Reference Block Param
 
@@ -23510,7 +23451,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `tool_name: string`
 
-    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23596,7 +23537,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: number`
 
@@ -23616,7 +23557,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: number`
 
@@ -23640,7 +23581,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_title: string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: number`
 
@@ -23664,7 +23605,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `title: string or null`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: string`
 
@@ -23848,7 +23789,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: optional string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `ToolReferenceBlockParam object`
 
@@ -23858,7 +23799,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `tool_name: string`
 
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -23886,7 +23827,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             The caller-assigned identifier for this tab, unique within the inventory.
 
-            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+            minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `title: string`
 
@@ -23912,7 +23853,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-          maxItems: 200, minItems: 1
+          minItems: 1, maxItems: 200
 
           - `BrowserStateChangeTabOpened object`
 
@@ -23930,7 +23871,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               The `tab_id` of the opened tab, present in `tabs`.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `BrowserStateChangeDownloadStarted object`
 
@@ -23942,7 +23883,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `url: string`
 
@@ -23963,7 +23904,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `url: string`
 
@@ -23975,7 +23916,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `size_bytes: optional number or null`
 
@@ -23993,7 +23934,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `url: string`
 
@@ -24005,7 +23946,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               The failure or cancellation detail, when known.
 
-              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `is_error: optional boolean`
 
@@ -24013,7 +23954,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     For a toolset member tool_result, the toolset family of the paired tool_use.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Tool Search Tool Bm25 20251119
 
@@ -24167,7 +24108,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `tool_name: string`
 
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
   - `tool_use_id: string`
 
@@ -24207,7 +24148,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `tool_name: string`
 
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `cache_control: optional CacheControlEphemeral or null`
 
@@ -24304,7 +24245,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `tool_name: string`
 
-      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Tool Search Tool Search Result Block Param
 
@@ -24318,7 +24259,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `tool_name: string`
 
-      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -24532,7 +24473,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -24766,12 +24707,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `configs: optional BrowserToolsetConfigs or null`
 
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional BrowserTypeConfig or null`
 
@@ -25198,12 +25134,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `configs: optional ComputerToolsetConfigs or null`
 
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: optional ComputerTypeConfig or null`
 
@@ -25557,7 +25488,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -25573,25 +25504,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The city of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-        maxLength: 2, minLength: 2
+        minLength: 2, maxLength: 2
 
       - `region: optional string or null`
 
         The region of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
   - `WebFetchTool20250910 object`
 
@@ -25639,13 +25570,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -25653,12 +25584,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -25782,7 +25708,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -25836,13 +25762,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -25850,12 +25776,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
   - `WebFetchTool20260309 object`
 
@@ -25903,13 +25824,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: optional boolean`
 
@@ -25917,12 +25838,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -25968,7 +25884,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -26030,13 +25946,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -26052,12 +25968,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url_sources: optional WebFetchURLSources or null`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: optional boolean`
 
@@ -26185,7 +26096,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     For a toolset member tool_use, the toolset family.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Tool Use Block Param
 
@@ -26201,7 +26112,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `name: string`
 
-    maxLength: 200, minLength: 1
+    minLength: 1, maxLength: 200
 
   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -26254,7 +26165,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     For a toolset member tool_use, the toolset family this member belongs to.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
 ### URL Image Source
 
@@ -26378,25 +26289,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The city of the user.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
   - `country: optional string or null`
 
     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-    maxLength: 2, minLength: 2
+    minLength: 2, maxLength: 2
 
   - `region: optional string or null`
 
     The region of the user.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
   - `timezone: optional string or null`
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
 ### Web Fetch Block
 
@@ -26535,7 +26446,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `document_title: string or null`
 
-                    maxLength: 500, minLength: 1
+                    minLength: 1, maxLength: 500
 
                   - `end_char_index: number`
 
@@ -26555,7 +26466,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `document_title: string or null`
 
-                    maxLength: 500, minLength: 1
+                    minLength: 1, maxLength: 500
 
                   - `end_page_number: number`
 
@@ -26579,7 +26490,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `document_title: string or null`
 
-                    maxLength: 500, minLength: 1
+                    minLength: 1, maxLength: 500
 
                   - `end_block_index: number`
 
@@ -26603,7 +26514,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `title: string or null`
 
-                    maxLength: 512, minLength: 1
+                    minLength: 1, maxLength: 512
 
                   - `url: string`
 
@@ -26721,7 +26632,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `title: optional string or null`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
   - `url: string`
 
@@ -26796,13 +26707,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: optional boolean`
 
@@ -26810,12 +26721,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `url_sources: optional WebFetchURLSources or null`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -26964,13 +26870,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: optional boolean`
 
@@ -26978,12 +26884,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `url_sources: optional WebFetchURLSources or null`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -27134,13 +27035,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: optional boolean`
 
@@ -27148,12 +27049,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `url_sources: optional WebFetchURLSources or null`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -27306,13 +27202,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `response_inclusion: optional "full" or "excluded"`
 
@@ -27328,12 +27224,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `url_sources: optional WebFetchURLSources or null`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -27658,7 +27549,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `document_title: string or null`
 
-                        maxLength: 500, minLength: 1
+                        minLength: 1, maxLength: 500
 
                       - `end_char_index: number`
 
@@ -27678,7 +27569,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `document_title: string or null`
 
-                        maxLength: 500, minLength: 1
+                        minLength: 1, maxLength: 500
 
                       - `end_page_number: number`
 
@@ -27702,7 +27593,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `document_title: string or null`
 
-                        maxLength: 500, minLength: 1
+                        minLength: 1, maxLength: 500
 
                       - `end_block_index: number`
 
@@ -27726,7 +27617,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `title: string or null`
 
-                        maxLength: 512, minLength: 1
+                        minLength: 1, maxLength: 512
 
                       - `url: string`
 
@@ -27844,7 +27735,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `title: optional string or null`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `url: string`
 
@@ -28211,7 +28102,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: optional boolean`
 
@@ -28227,25 +28118,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The city of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `country: optional string or null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      maxLength: 2, minLength: 2
+      minLength: 2, maxLength: 2
 
     - `region: optional string or null`
 
       The region of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `timezone: optional string or null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
 ### Web Search Tool 20260209
 
@@ -28306,7 +28197,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: optional boolean`
 
@@ -28322,25 +28213,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The city of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `country: optional string or null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      maxLength: 2, minLength: 2
+      minLength: 2, maxLength: 2
 
     - `region: optional string or null`
 
       The region of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `timezone: optional string or null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
 ### Web Search Tool 20260318
 
@@ -28401,7 +28292,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `response_inclusion: optional "full" or "excluded"`
 
@@ -28425,25 +28316,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The city of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `country: optional string or null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      maxLength: 2, minLength: 2
+      minLength: 2, maxLength: 2
 
     - `region: optional string or null`
 
       The region of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `timezone: optional string or null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
 ### Web Search Tool Request Error
 
@@ -28770,7 +28661,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   List of requests for prompt completion. Each is an individual request to create a Message.
 
-  maxItems: 100000, minItems: 1
+  minItems: 1, maxItems: 100000
 
   - `custom_id: string`
 
@@ -28778,7 +28669,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Must be unique for each request within the Message Batch.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
   - `params: object`
 
@@ -28898,7 +28789,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_title: string or null`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_char_index: number`
 
@@ -28918,7 +28809,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_title: string or null`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_page_number: number`
 
@@ -28942,7 +28833,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_title: string or null`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_block_index: number`
 
@@ -28966,7 +28857,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string or null`
 
-                  maxLength: 512, minLength: 1
+                  minLength: 1, maxLength: 512
 
                 - `url: string`
 
@@ -29122,7 +29013,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `title: optional string or null`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
           - `SearchResultBlockParam object`
 
@@ -29186,7 +29077,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `name: string`
 
-              maxLength: 200, minLength: 1
+              minLength: 1, maxLength: 200
 
             - `cache_control: optional CacheControlEphemeral or null`
 
@@ -29222,7 +29113,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family this member belongs to.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ToolResultBlockParam object`
 
@@ -29258,7 +29149,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: string`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -29286,7 +29177,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       The caller-assigned identifier for this tab, unique within the inventory.
 
-                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `title: string`
 
@@ -29312,7 +29203,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                    maxItems: 200, minItems: 1
+                    minItems: 1, maxItems: 200
 
                     - `BrowserStateChangeTabOpened object`
 
@@ -29330,7 +29221,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The `tab_id` of the opened tab, present in `tabs`.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `BrowserStateChangeDownloadStarted object`
 
@@ -29342,7 +29233,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: string`
 
@@ -29363,7 +29254,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: string`
 
@@ -29375,7 +29266,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `size_bytes: optional number or null`
 
@@ -29393,7 +29284,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: string`
 
@@ -29405,7 +29296,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The failure or cancellation detail, when known.
 
-                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `is_error: optional boolean`
 
@@ -29413,7 +29304,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_result, the toolset family of the paired tool_use.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ServerToolUseBlockParam object`
 
@@ -29791,7 +29682,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: string`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `cache_control: optional CacheControlEphemeral or null`
 
@@ -29831,6 +29722,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `string`
 
       - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
@@ -29874,10 +29767,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -29910,7 +29799,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           High-performance model for agents and coding
 
-      - `string`
+        - `"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
     - `cache_control: optional CacheControlEphemeral or null`
 
@@ -29946,20 +29839,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skill ID
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
           - `version: optional string`
 
             Skill version or 'latest' for most recent version
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
       - `string`
 
     - `diagnostics: optional DiagnosticsParam or null`
 
-      Request-level diagnostics. Currently carries the previous response
-      id for prompt-cache divergence reporting.
+      Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
       - `previous_message_id: optional string or null`
 
@@ -29989,7 +29881,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
-        All possible effort levels.
+        How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+        Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
         - `"low"`
 
@@ -30239,7 +30133,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+          minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
         - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
@@ -30456,12 +30350,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `configs: optional BrowserToolsetConfigs or null`
 
-          Per-member configuration for `browser_toolset_20260801`: one
-          optional field per member tool, keyed by the member name — the same
-          name the member's `tool_use` blocks carry. Every member is an
-          accepted key, and a member's defaults apply wherever its key is
-          absent. Unknown keys are rejected: the field set is this toolset
-          version's complete member set.
+          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
           - `type: optional BrowserTypeConfig or null`
 
@@ -30888,12 +30777,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `configs: optional ComputerToolsetConfigs or null`
 
-          Per-member configuration for `computer_toolset_20260801`: one
-          optional field per member tool, keyed by the member name — the same
-          name the member's `tool_use` blocks carry. Every member is an
-          accepted key, and a member's defaults apply wherever its key is
-          absent. Unknown keys are rejected: the field set is this toolset
-          version's complete member set.
+          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
           - `type: optional ComputerTypeConfig or null`
 
@@ -31247,7 +31131,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `strict: optional boolean`
 
@@ -31263,25 +31147,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The city of the user.
 
-            maxLength: 255, minLength: 1
+            minLength: 1, maxLength: 255
 
           - `country: optional string or null`
 
             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-            maxLength: 2, minLength: 2
+            minLength: 2, maxLength: 2
 
           - `region: optional string or null`
 
             The region of the user.
 
-            maxLength: 255, minLength: 1
+            minLength: 1, maxLength: 255
 
           - `timezone: optional string or null`
 
             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-            maxLength: 255, minLength: 1
+            minLength: 1, maxLength: 255
 
       - `WebFetchTool20250910 object`
 
@@ -31327,13 +31211,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `strict: optional boolean`
 
@@ -31341,12 +31225,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `url_sources: optional WebFetchURLSources or null`
 
-          Which sources contribute to the set of URLs web fetch may fetch.
-
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
           - `client_tool_results: optional WebFetchURLSourceAll or WebFetchURLSourceNone or WebFetchURLSourceOnly or WebFetchURLSourceExcept`
 
@@ -31470,7 +31349,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `strict: optional boolean`
 
@@ -31524,13 +31403,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `strict: optional boolean`
 
@@ -31538,12 +31417,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `url_sources: optional WebFetchURLSources or null`
 
-          Which sources contribute to the set of URLs web fetch may fetch.
-
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `WebFetchTool20260309 object`
 
@@ -31591,13 +31465,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `strict: optional boolean`
 
@@ -31605,12 +31479,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `url_sources: optional WebFetchURLSources or null`
 
-          Which sources contribute to the set of URLs web fetch may fetch.
-
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `use_cache: optional boolean`
 
@@ -31656,7 +31525,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `response_inclusion: optional "full" or "excluded"`
 
@@ -31718,13 +31587,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
-          exclusiveMinimum: 0
+          minimum: 1
 
         - `response_inclusion: optional "full" or "excluded"`
 
@@ -31740,12 +31609,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `url_sources: optional WebFetchURLSources or null`
 
-          Which sources contribute to the set of URLs web fetch may fetch.
-
-          Each key is a tagged variant: `user_input` is `all` or `none`; the
-          two tool filters are `all`, `none`, `only` (only the named tools'
-          results) or `except` (every result but the named tools'). A named tool
-          must be declared in this request's `tools[]`.
+          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `use_cache: optional boolean`
 
@@ -31833,7 +31697,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
-      maximum: 1, minimum: 0
+      minimum: 0, maximum: 1
 
     - `top_k: optional number`
 
@@ -31857,7 +31721,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Recommended for advanced use cases only.
 
-      maximum: 1, minimum: 0
+      minimum: 0, maximum: 1
 
 #### Returns
 
@@ -32205,7 +32069,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-  default: 20, maximum: 1000, minimum: 1
+  default: 20, minimum: 1, maximum: 1000
 
 #### Headers
 
@@ -32665,7 +32529,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `container: Container or null`
 
-          Information about the container used in the request (for the code execution tool)
+          Information about the container used in this request.
+
+          This will be non-null if a container tool (e.g. code execution) was used.
 
           - `id: string`
 
@@ -32693,13 +32559,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Skill ID
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
         - `content: array of ContentBlock`
 
@@ -32872,8 +32738,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: string`
 
-              minLength: 0
-
           - `ThinkingBlock object`
 
             - `type: "thinking"`
@@ -32954,7 +32818,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ServerToolUseBlock object`
 
@@ -33402,7 +33266,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: string`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `tool_use_id: string`
 
@@ -33420,8 +33284,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `diagnostics: Diagnostics or null`
 
-          Request-level diagnostics: why the prompt cache could not fully reuse
-          the prefix of the request named by `diagnostics.previous_message_id`.
+          Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
           - `cache_miss_reason: CacheMissReason or null`
 
@@ -33485,6 +33348,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `string`
+
           - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
 
             The model that will complete your prompt.
@@ -33527,10 +33392,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Powerful intelligence for long-running agents and coding
 
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -33563,7 +33424,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               High-performance model for agents and coding
 
-          - `string`
+            - `"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
 
         - `role: "assistant"`
 
@@ -33575,7 +33440,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `stop_details: RefusalStopDetails or null`
 
-          Structured information about a refusal.
+          Structured information about why model output stopped.
+
+          This is `null` when the `stop_reason` has no additional detail to report.
 
           - `type: "refusal"`
 
@@ -33583,7 +33450,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the refusal.
+
+            `null` when the refusal doesn't map to a named category.
 
             - `"cyber"`
 

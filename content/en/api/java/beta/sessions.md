@@ -321,7 +321,7 @@ Create Session
 
           - `Optional<Speed> speed`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            Inference speed mode. Defaults to `standard`.
 
             - `STANDARD("standard")`
 
@@ -403,7 +403,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -439,7 +439,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -469,7 +469,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -499,7 +499,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -529,7 +529,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -559,7 +559,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -603,7 +603,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -641,7 +641,7 @@ Create Session
 
               - `Optional<PermissionPolicy> permissionPolicy`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -687,7 +687,7 @@ Create Session
 
           - `Optional<BetaManagedAgentsAgentToolsetDefaultConfigParams> defaultConfig`
 
-            Default configuration for all tools in a toolset.
+            Default configuration applied to all tools in this set.
 
             - `Optional<Boolean> enabled`
 
@@ -695,7 +695,7 @@ Create Session
 
             - `Optional<PermissionPolicy> permissionPolicy`
 
-              Permission policy for tool execution.
+              Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -737,7 +737,7 @@ Create Session
 
             - `Optional<PermissionPolicy> permissionPolicy`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Overrides the `default_config` setting.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -753,7 +753,7 @@ Create Session
 
           - `Optional<BetaManagedAgentsMcpToolsetDefaultConfigParams> defaultConfig`
 
-            Default configuration for all tools from an MCP server.
+            Default configuration for all tools from this server.
 
             - `Optional<Boolean> enabled`
 
@@ -761,7 +761,7 @@ Create Session
 
             - `Optional<PermissionPolicy> permissionPolicy`
 
-              Permission policy for tool execution.
+              Default permission policy for tools from this server.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -789,7 +789,7 @@ Create Session
 
           - `BetaManagedAgentsCustomToolInputSchema inputSchema`
 
-            JSON Schema for custom tool input parameters.
+            JSON Schema defining the expected input parameters for the tool.
 
             - `JsonValue type = "object"`
 
@@ -817,7 +817,7 @@ Create Session
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
 
   - `Optional<List<InitialEvent>> initialEvents`
 
@@ -853,7 +853,7 @@ Create Session
 
           - `Source source`
 
-            Union type for image source variants.
+            The source of the image data.
 
             - `class BetaManagedAgentsBase64ImageSource`
 
@@ -905,7 +905,7 @@ Create Session
 
           - `Source source`
 
-            Union type for document source variants.
+            The source of the document data.
 
             - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -991,7 +991,7 @@ Create Session
 
       - `Rubric rubric`
 
-        Rubric for grading the quality of an outcome.
+        How to grade the outcome. Text or file reference.
 
         - `class BetaManagedAgentsFileRubricParams`
 
@@ -1107,7 +1107,7 @@ Create Session
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to read_write. read_only mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -1229,7 +1229,7 @@ Create Session
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -1267,7 +1267,7 @@ Create Session
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -1275,7 +1275,7 @@ Create Session
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -1731,19 +1731,19 @@ Create Session
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -1771,7 +1771,7 @@ Create Session
 
     - `Optional<LocalDateTime> completedAt`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -1877,7 +1877,7 @@ Create Session
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -1903,7 +1903,7 @@ Create Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -1947,7 +1947,7 @@ Create Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -1957,7 +1957,7 @@ Create Session
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -1985,7 +1985,7 @@ Create Session
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `Optional<Long> outputTokens`
 
@@ -1995,7 +1995,7 @@ Create Session
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `Optional<Long> webFetchRequests`
 
@@ -2538,7 +2538,7 @@ List Sessions
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -2576,7 +2576,7 @@ List Sessions
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -2584,7 +2584,7 @@ List Sessions
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -3040,19 +3040,19 @@ List Sessions
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -3080,7 +3080,7 @@ List Sessions
 
     - `Optional<LocalDateTime> completedAt`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -3186,7 +3186,7 @@ List Sessions
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -3212,7 +3212,7 @@ List Sessions
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -3256,7 +3256,7 @@ List Sessions
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -3266,7 +3266,7 @@ List Sessions
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -3294,7 +3294,7 @@ List Sessions
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `Optional<Long> outputTokens`
 
@@ -3304,7 +3304,7 @@ List Sessions
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `Optional<Long> webFetchRequests`
 
@@ -3767,7 +3767,7 @@ Get Session
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -3805,7 +3805,7 @@ Get Session
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -3813,7 +3813,7 @@ Get Session
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -4269,19 +4269,19 @@ Get Session
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -4309,7 +4309,7 @@ Get Session
 
     - `Optional<LocalDateTime> completedAt`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -4415,7 +4415,7 @@ Get Session
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -4441,7 +4441,7 @@ Get Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -4485,7 +4485,7 @@ Get Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -4495,7 +4495,7 @@ Get Session
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -4523,7 +4523,7 @@ Get Session
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `Optional<Long> outputTokens`
 
@@ -4533,7 +4533,7 @@ Get Session
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `Optional<Long> webFetchRequests`
 
@@ -4892,11 +4892,11 @@ Update Session
 
   - `Optional<BetaManagedAgentsSessionAgentUpdate> agent`
 
-    Mid-session agent configuration update. Only `tools` and `mcp_servers` are updatable. Full replacement: the provided array becomes the new value. To preserve existing entries, GET the session, modify the array, and POST it back.
+    Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
 
   - `Optional<Metadata> metadata`
 
@@ -5012,7 +5012,7 @@ Update Session
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -5050,7 +5050,7 @@ Update Session
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -5058,7 +5058,7 @@ Update Session
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -5514,19 +5514,19 @@ Update Session
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -5554,7 +5554,7 @@ Update Session
 
     - `Optional<LocalDateTime> completedAt`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -5660,7 +5660,7 @@ Update Session
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -5686,7 +5686,7 @@ Update Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -5730,7 +5730,7 @@ Update Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -5740,7 +5740,7 @@ Update Session
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -5768,7 +5768,7 @@ Update Session
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `Optional<Long> outputTokens`
 
@@ -5778,7 +5778,7 @@ Update Session
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `Optional<Long> webFetchRequests`
 
@@ -6395,7 +6395,7 @@ Archive Session
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -6433,7 +6433,7 @@ Archive Session
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -6441,7 +6441,7 @@ Archive Session
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -6897,19 +6897,19 @@ Archive Session
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -6937,7 +6937,7 @@ Archive Session
 
     - `Optional<LocalDateTime> completedAt`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -7043,7 +7043,7 @@ Archive Session
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -7069,7 +7069,7 @@ Archive Session
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -7113,7 +7113,7 @@ Archive Session
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -7123,7 +7123,7 @@ Archive Session
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -7151,7 +7151,7 @@ Archive Session
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `Optional<Long> outputTokens`
 
@@ -7161,7 +7161,7 @@ Archive Session
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `Optional<Long> webFetchRequests`
 
@@ -7630,7 +7630,7 @@ public final class Main {
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. Defaults to `standard`.
 
         - `STANDARD("standard")`
 
@@ -7712,7 +7712,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7748,7 +7748,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7778,7 +7778,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7808,7 +7808,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7838,7 +7838,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7868,7 +7868,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7912,7 +7912,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7950,7 +7950,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -7996,7 +7996,7 @@ public final class Main {
 
       - `Optional<BetaManagedAgentsAgentToolsetDefaultConfigParams> defaultConfig`
 
-        Default configuration for all tools in a toolset.
+        Default configuration applied to all tools in this set.
 
         - `Optional<Boolean> enabled`
 
@@ -8004,7 +8004,7 @@ public final class Main {
 
         - `Optional<PermissionPolicy> permissionPolicy`
 
-          Permission policy for tool execution.
+          Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
           - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -8046,7 +8046,7 @@ public final class Main {
 
         - `Optional<PermissionPolicy> permissionPolicy`
 
-          Permission policy for tool execution.
+          Permission policy for this tool. Overrides the `default_config` setting.
 
           - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -8062,7 +8062,7 @@ public final class Main {
 
       - `Optional<BetaManagedAgentsMcpToolsetDefaultConfigParams> defaultConfig`
 
-        Default configuration for all tools from an MCP server.
+        Default configuration for all tools from this server.
 
         - `Optional<Boolean> enabled`
 
@@ -8070,7 +8070,7 @@ public final class Main {
 
         - `Optional<PermissionPolicy> permissionPolicy`
 
-          Permission policy for tool execution.
+          Default permission policy for tools from this server.
 
           - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -8098,7 +8098,7 @@ public final class Main {
 
       - `BetaManagedAgentsCustomToolInputSchema inputSchema`
 
-        JSON Schema for custom tool input parameters.
+        JSON Schema defining the expected input parameters for the tool.
 
         - `JsonValue type = "object"`
 
@@ -8140,7 +8140,7 @@ public final class Main {
 
   - `BetaMonetaryAmount maxListCost`
 
-    A monetary amount in a specific currency.
+    Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
     - `String amount`
 
@@ -8198,7 +8198,7 @@ public final class Main {
 
   - `BetaManagedAgentsTextBlock content`
 
-    Regular text content.
+    A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content.
 
     - `Type type`
 
@@ -8211,8 +8211,6 @@ public final class Main {
   - `Optional<Long> index`
 
     Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
-
-    format: uint32
 
 ### Beta Managed Agents Delta Event
 
@@ -8230,7 +8228,7 @@ public final class Main {
 
     - `BetaManagedAgentsTextBlock content`
 
-      Regular text content.
+      A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content.
 
       - `Type type`
 
@@ -8243,8 +8241,6 @@ public final class Main {
     - `Optional<Long> index`
 
       Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
-
-      format: uint32
 
   - `String eventId`
 
@@ -8344,7 +8340,7 @@ public final class Main {
 
   - `Optional<Access> access`
 
-    Access mode for an attached memory store.
+    Access mode for the mounted store. Defaults to read_write. read_only mounts the store as a read-only filesystem.
 
     - `READ_WRITE("read_write")`
 
@@ -8360,7 +8356,7 @@ public final class Main {
 
 - `class BetaManagedAgentsMultiagent`
 
-  Resolved coordinator topology with a concrete agent roster.
+  Resolved multiagent orchestration configuration as returned in API responses.
 
   - `Type type`
 
@@ -8394,7 +8390,7 @@ public final class Main {
 
 - `class BetaManagedAgentsMultiagentParams`
 
-  A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+  Multiagent orchestration configuration. Currently supports the `coordinator` topology.
 
   - `Type type`
 
@@ -8494,7 +8490,7 @@ public final class Main {
 
   - `Optional<LocalDateTime> completedAt`
 
-    A timestamp in RFC 3339 format
+    When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
     format: date-time
 
@@ -8638,7 +8634,7 @@ public final class Main {
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -8676,7 +8672,7 @@ public final class Main {
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -8684,7 +8680,7 @@ public final class Main {
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -9140,19 +9136,19 @@ public final class Main {
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -9180,7 +9176,7 @@ public final class Main {
 
     - `Optional<LocalDateTime> completedAt`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -9286,7 +9282,7 @@ public final class Main {
 
       - `Optional<Access> access`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `READ_WRITE("read_write")`
 
@@ -9312,7 +9308,7 @@ public final class Main {
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -9356,7 +9352,7 @@ public final class Main {
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `Optional<Double> activeSeconds`
 
@@ -9366,7 +9362,7 @@ public final class Main {
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -9394,7 +9390,7 @@ public final class Main {
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `Optional<Long> outputTokens`
 
@@ -9404,7 +9400,7 @@ public final class Main {
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `Optional<Long> webFetchRequests`
 
@@ -9518,7 +9514,7 @@ public final class Main {
 
     - `Optional<Effort> effort`
 
-      How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+      How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
       - `class BetaManagedAgentsEffortLow`
 
@@ -9556,7 +9552,7 @@ public final class Main {
 
     - `Optional<Speed> speed`
 
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
       - `STANDARD("standard")`
 
@@ -9564,7 +9560,7 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-    Resolved coordinator topology with full agent definitions for each roster member.
+    Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
     - `Type type`
 
@@ -10072,7 +10068,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10108,7 +10104,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10138,7 +10134,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10168,7 +10164,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10198,7 +10194,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10228,7 +10224,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10272,7 +10268,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10310,7 +10306,7 @@ public final class Main {
 
           - `Optional<PermissionPolicy> permissionPolicy`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10356,7 +10352,7 @@ public final class Main {
 
       - `Optional<BetaManagedAgentsAgentToolsetDefaultConfigParams> defaultConfig`
 
-        Default configuration for all tools in a toolset.
+        Default configuration applied to all tools in this set.
 
         - `Optional<Boolean> enabled`
 
@@ -10364,7 +10360,7 @@ public final class Main {
 
         - `Optional<PermissionPolicy> permissionPolicy`
 
-          Permission policy for tool execution.
+          Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
           - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10406,7 +10402,7 @@ public final class Main {
 
         - `Optional<PermissionPolicy> permissionPolicy`
 
-          Permission policy for tool execution.
+          Permission policy for this tool. Overrides the `default_config` setting.
 
           - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10422,7 +10418,7 @@ public final class Main {
 
       - `Optional<BetaManagedAgentsMcpToolsetDefaultConfigParams> defaultConfig`
 
-        Default configuration for all tools from an MCP server.
+        Default configuration for all tools from this server.
 
         - `Optional<Boolean> enabled`
 
@@ -10430,7 +10426,7 @@ public final class Main {
 
         - `Optional<PermissionPolicy> permissionPolicy`
 
-          Permission policy for tool execution.
+          Default permission policy for tools from this server.
 
           - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -10458,7 +10454,7 @@ public final class Main {
 
       - `BetaManagedAgentsCustomToolInputSchema inputSchema`
 
-        JSON Schema for custom tool input parameters.
+        JSON Schema defining the expected input parameters for the tool.
 
         - `JsonValue type = "object"`
 
@@ -10574,7 +10570,7 @@ public final class Main {
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -10612,7 +10608,7 @@ public final class Main {
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -11046,13 +11042,13 @@ public final class Main {
 
   - `LocalDateTime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the update was applied.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsSessionAgent> agent`
 
-    Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+    The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `Type type`
 
@@ -11140,7 +11136,7 @@ public final class Main {
 
       - `Optional<Effort> effort`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -11178,7 +11174,7 @@ public final class Main {
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `STANDARD("standard")`
 
@@ -11186,7 +11182,7 @@ public final class Main {
 
     - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `Type type`
 
@@ -11642,13 +11638,13 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `String amount`
 
@@ -11680,7 +11676,7 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-    Prompt-cache creation token usage broken down by cache lifetime.
+    Tokens used to create prompt cache entries, broken down by cache TTL.
 
     - `Optional<Long> ephemeral1hInputTokens`
 
@@ -11708,7 +11704,7 @@ public final class Main {
 
   - `Optional<BetaMonetaryAmount> listCost`
 
-    A monetary amount in a specific currency.
+    Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `String amount`
 
@@ -11726,7 +11722,7 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-    Cumulative count of server-executed tool invocations, broken down by tool.
+    Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
     - `Optional<Long> webFetchRequests`
 
@@ -11754,13 +11750,13 @@ public final class Main {
 
   - `LocalDateTime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the snapshot was taken.
 
     format: date-time
 
   - `BetaManagedAgentsSessionUsageSnapshot usage`
 
-    Point-in-time snapshot of a session's cumulative usage.
+    The session's cumulative usage at the snapshot time.
 
     - `Optional<Double> activeSeconds`
 
@@ -11770,7 +11766,7 @@ public final class Main {
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -11798,7 +11794,7 @@ public final class Main {
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates.
 
       - `String amount`
 
@@ -11816,7 +11812,7 @@ public final class Main {
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns.
 
       - `Optional<Long> webFetchRequests`
 
@@ -11832,13 +11828,13 @@ public final class Main {
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's configured budget at the snapshot time, or null when the session has no budget.
 
     - `Type type`
 
     - `BetaMonetaryAmount maxListCost`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
 ### Beta Managed Agents Start Event
 
@@ -11892,7 +11888,7 @@ public final class Main {
 
 - `class BetaManagedAgentsSystemContentBlock`
 
-  Regular text content.
+  Content block in a mid-conversation system message. Text-only.
 
   - `Type type`
 
@@ -11928,7 +11924,7 @@ public final class Main {
 
   - `Optional<LocalDateTime> processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this system message was processed.
 
     format: date-time
 
@@ -11972,7 +11968,7 @@ public final class Main {
 
       - `Source source`
 
-        Union type for image source variants.
+        The source of the image data.
 
         - `class BetaManagedAgentsBase64ImageSource`
 
@@ -12024,7 +12020,7 @@ public final class Main {
 
       - `Source source`
 
-        Union type for document source variants.
+        The source of the document data.
 
         - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -12100,7 +12096,7 @@ public final class Main {
 
       - `BetaManagedAgentsSearchResultCitations citations`
 
-        Citation settings for a search result.
+        Citation settings for this search result.
 
         - `boolean enabled`
 
@@ -12136,7 +12132,7 @@ public final class Main {
 
   - `Optional<LocalDateTime> processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this result was processed.
 
     format: date-time
 
@@ -12350,7 +12346,7 @@ List Events
 
         - `Source source`
 
-          Union type for image source variants.
+          The source of the image data.
 
           - `class BetaManagedAgentsBase64ImageSource`
 
@@ -12402,7 +12398,7 @@ List Events
 
         - `Source source`
 
-          Union type for document source variants.
+          The source of the document data.
 
           - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -12478,7 +12474,7 @@ List Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
       format: date-time
 
@@ -12494,7 +12490,7 @@ List Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
       format: date-time
 
@@ -12514,7 +12510,7 @@ List Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
       - `ALLOW("allow")`
 
@@ -12532,7 +12528,7 @@ List Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
       format: date-time
 
@@ -12578,7 +12574,7 @@ List Events
 
         - `BetaManagedAgentsSearchResultCitations citations`
 
-          Citation settings for a search result.
+          Citation settings for this search result.
 
           - `boolean enabled`
 
@@ -12614,7 +12610,7 @@ List Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -12642,7 +12638,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
       format: date-time
 
@@ -12674,7 +12670,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
       format: date-time
 
@@ -12690,7 +12686,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
       format: date-time
 
@@ -12718,13 +12714,13 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
       - `ALLOW("allow")`
 
@@ -12734,7 +12730,7 @@ List Events
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
       - `class BetaManagedAgentsAgentToolEvaluationAlwaysAllow`
 
@@ -12756,7 +12752,7 @@ List Events
 
         - `BetaManagedAgentsAgentAutoEvaluatedPermission evaluatedPermission`
 
-          The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
+          The server's judgement for this invocation.
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAllow`
 
@@ -12808,7 +12804,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -12856,17 +12852,17 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `Optional<String> sessionThreadId`
 
@@ -12884,7 +12880,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -12952,7 +12948,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
       format: date-time
 
@@ -12992,7 +12988,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
       format: date-time
 
@@ -13016,7 +13012,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
       format: date-time
 
@@ -13044,7 +13040,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13076,7 +13072,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13102,7 +13098,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13128,7 +13124,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13158,7 +13154,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13188,7 +13184,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13214,7 +13210,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13244,7 +13240,7 @@ List Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -13264,7 +13260,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
       format: date-time
 
@@ -13280,7 +13276,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -13296,7 +13292,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -13312,7 +13308,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -13358,7 +13354,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -13378,7 +13374,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
       format: date-time
 
@@ -13408,7 +13404,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
       format: date-time
 
@@ -13442,7 +13438,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
       format: date-time
 
@@ -13452,7 +13448,7 @@ List Events
 
     - `BetaManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
       - `long cacheCreationInputTokens`
 
@@ -13480,7 +13476,7 @@ List Events
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
         - `STANDARD("standard")`
 
@@ -13498,7 +13494,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
       format: date-time
 
@@ -13522,11 +13518,11 @@ List Events
 
     - `BetaManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
       format: date-time
 
@@ -13552,7 +13548,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
       format: date-time
 
@@ -13582,13 +13578,13 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
       format: date-time
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
       - `class BetaManagedAgentsFileRubric`
 
@@ -13622,7 +13618,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
       format: date-time
 
@@ -13642,7 +13638,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -13666,7 +13662,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -13708,7 +13704,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -13756,7 +13752,7 @@ List Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -13780,7 +13776,7 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -13800,13 +13796,13 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsSessionAgent> agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
       - `Type type`
 
@@ -13894,7 +13890,7 @@ List Events
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -13932,7 +13928,7 @@ List Events
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -13940,7 +13936,7 @@ List Events
 
       - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-        Resolved coordinator topology with full agent definitions for each roster member.
+        Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
         - `Type type`
 
@@ -14396,13 +14392,13 @@ List Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
       - `Type type`
 
       - `BetaMonetaryAmount maxListCost`
 
-        A monetary amount in a specific currency.
+        Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
         - `String amount`
 
@@ -14444,7 +14440,7 @@ List Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
       format: date-time
 
@@ -14460,13 +14456,13 @@ List Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
       format: date-time
 
     - `BetaManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
       - `Optional<Double> activeSeconds`
 
@@ -14476,7 +14472,7 @@ List Events
 
       - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-        Prompt-cache creation token usage broken down by cache lifetime.
+        Tokens used to create prompt cache entries, broken down by cache TTL.
 
         - `Optional<Long> ephemeral1hInputTokens`
 
@@ -14504,7 +14500,7 @@ List Events
 
       - `Optional<BetaMonetaryAmount> listCost`
 
-        A monetary amount in a specific currency.
+        Cumulative list cost of the session across all turns, priced at public list rates.
 
       - `Optional<Long> outputTokens`
 
@@ -14514,7 +14510,7 @@ List Events
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-        Cumulative count of server-executed tool invocations, broken down by tool.
+        Cumulative server-executed tool usage across all turns.
 
         - `Optional<Long> webFetchRequests`
 
@@ -14530,7 +14526,7 @@ List Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -14739,7 +14735,7 @@ Send Events
 
           - `Source source`
 
-            Union type for image source variants.
+            The source of the image data.
 
             - `class BetaManagedAgentsBase64ImageSource`
 
@@ -14791,7 +14787,7 @@ Send Events
 
           - `Source source`
 
-            Union type for document source variants.
+            The source of the document data.
 
             - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -14883,7 +14879,7 @@ Send Events
 
       - `Result result`
 
-        UserToolConfirmationResult enum
+        The confirmation result: 'allow' or 'deny'.
 
         - `ALLOW("allow")`
 
@@ -14937,7 +14933,7 @@ Send Events
 
           - `BetaManagedAgentsSearchResultCitations citations`
 
-            Citation settings for a search result.
+            Citation settings for this search result.
 
             - `boolean enabled`
 
@@ -14983,7 +14979,7 @@ Send Events
 
       - `Rubric rubric`
 
-        Rubric for grading the quality of an outcome.
+        How to grade the outcome. Text or file reference.
 
         - `class BetaManagedAgentsFileRubricParams`
 
@@ -15111,7 +15107,7 @@ Send Events
 
           - `Source source`
 
-            Union type for image source variants.
+            The source of the image data.
 
             - `class BetaManagedAgentsBase64ImageSource`
 
@@ -15163,7 +15159,7 @@ Send Events
 
           - `Source source`
 
-            Union type for document source variants.
+            The source of the document data.
 
             - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -15239,7 +15235,7 @@ Send Events
 
       - `Optional<LocalDateTime> processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when the agent finished processing this message.
 
         format: date-time
 
@@ -15255,7 +15251,7 @@ Send Events
 
       - `Optional<LocalDateTime> processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when the interrupt was processed.
 
         format: date-time
 
@@ -15275,7 +15271,7 @@ Send Events
 
       - `Result result`
 
-        UserToolConfirmationResult enum
+        The confirmation result: 'allow' or 'deny'.
 
         - `ALLOW("allow")`
 
@@ -15293,7 +15289,7 @@ Send Events
 
       - `Optional<LocalDateTime> processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when the confirmation was processed.
 
         format: date-time
 
@@ -15339,7 +15335,7 @@ Send Events
 
           - `BetaManagedAgentsSearchResultCitations citations`
 
-            Citation settings for a search result.
+            Citation settings for this search result.
 
             - `boolean enabled`
 
@@ -15375,7 +15371,7 @@ Send Events
 
       - `Optional<LocalDateTime> processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when this result was processed.
 
         format: date-time
 
@@ -15409,13 +15405,13 @@ Send Events
 
       - `LocalDateTime processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when the outcome was accepted.
 
         format: date-time
 
       - `Rubric rubric`
 
-        Rubric for grading the quality of an outcome.
+        How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
         - `class BetaManagedAgentsFileRubric`
 
@@ -15477,7 +15473,7 @@ Send Events
 
       - `Optional<LocalDateTime> processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when this result was processed.
 
         format: date-time
 
@@ -15509,7 +15505,7 @@ Send Events
 
       - `Optional<LocalDateTime> processedAt`
 
-        A timestamp in RFC 3339 format
+        Timestamp when this system message was processed.
 
         format: date-time
 
@@ -15732,7 +15728,7 @@ Stream Events
 
         - `Source source`
 
-          Union type for image source variants.
+          The source of the image data.
 
           - `class BetaManagedAgentsBase64ImageSource`
 
@@ -15784,7 +15780,7 @@ Stream Events
 
         - `Source source`
 
-          Union type for document source variants.
+          The source of the document data.
 
           - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -15860,7 +15856,7 @@ Stream Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
       format: date-time
 
@@ -15876,7 +15872,7 @@ Stream Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
       format: date-time
 
@@ -15896,7 +15892,7 @@ Stream Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
       - `ALLOW("allow")`
 
@@ -15914,7 +15910,7 @@ Stream Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
       format: date-time
 
@@ -15960,7 +15956,7 @@ Stream Events
 
         - `BetaManagedAgentsSearchResultCitations citations`
 
-          Citation settings for a search result.
+          Citation settings for this search result.
 
           - `boolean enabled`
 
@@ -15996,7 +15992,7 @@ Stream Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -16024,7 +16020,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
       format: date-time
 
@@ -16056,7 +16052,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
       format: date-time
 
@@ -16072,7 +16068,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
       format: date-time
 
@@ -16100,13 +16096,13 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
       - `ALLOW("allow")`
 
@@ -16116,7 +16112,7 @@ Stream Events
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
       - `class BetaManagedAgentsAgentToolEvaluationAlwaysAllow`
 
@@ -16138,7 +16134,7 @@ Stream Events
 
         - `BetaManagedAgentsAgentAutoEvaluatedPermission evaluatedPermission`
 
-          The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
+          The server's judgement for this invocation.
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAllow`
 
@@ -16190,7 +16186,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -16238,17 +16234,17 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `Optional<String> sessionThreadId`
 
@@ -16266,7 +16262,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -16334,7 +16330,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
       format: date-time
 
@@ -16374,7 +16370,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
       format: date-time
 
@@ -16398,7 +16394,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
       format: date-time
 
@@ -16426,7 +16422,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16458,7 +16454,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16484,7 +16480,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16510,7 +16506,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16540,7 +16536,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16570,7 +16566,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16596,7 +16592,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16626,7 +16622,7 @@ Stream Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -16646,7 +16642,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
       format: date-time
 
@@ -16662,7 +16658,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -16678,7 +16674,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -16694,7 +16690,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -16740,7 +16736,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -16760,7 +16756,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
       format: date-time
 
@@ -16790,7 +16786,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
       format: date-time
 
@@ -16824,7 +16820,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
       format: date-time
 
@@ -16834,7 +16830,7 @@ Stream Events
 
     - `BetaManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
       - `long cacheCreationInputTokens`
 
@@ -16862,7 +16858,7 @@ Stream Events
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
         - `STANDARD("standard")`
 
@@ -16880,7 +16876,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
       format: date-time
 
@@ -16904,11 +16900,11 @@ Stream Events
 
     - `BetaManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
       format: date-time
 
@@ -16934,7 +16930,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
       format: date-time
 
@@ -16964,13 +16960,13 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
       format: date-time
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
       - `class BetaManagedAgentsFileRubric`
 
@@ -17004,7 +17000,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
       format: date-time
 
@@ -17024,7 +17020,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -17048,7 +17044,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -17090,7 +17086,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -17138,7 +17134,7 @@ Stream Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -17162,7 +17158,7 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -17182,13 +17178,13 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsSessionAgent> agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
       - `Type type`
 
@@ -17276,7 +17272,7 @@ Stream Events
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -17314,7 +17310,7 @@ Stream Events
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -17322,7 +17318,7 @@ Stream Events
 
       - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-        Resolved coordinator topology with full agent definitions for each roster member.
+        Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
         - `Type type`
 
@@ -17778,13 +17774,13 @@ Stream Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
       - `Type type`
 
       - `BetaMonetaryAmount maxListCost`
 
-        A monetary amount in a specific currency.
+        Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
         - `String amount`
 
@@ -17842,13 +17838,11 @@ Stream Events
 
       - `BetaManagedAgentsTextBlock content`
 
-        Regular text content.
+        A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content.
 
       - `Optional<Long> index`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
-
-        format: uint32
 
     - `String eventId`
 
@@ -17878,7 +17872,7 @@ Stream Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
       format: date-time
 
@@ -17894,13 +17888,13 @@ Stream Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
       format: date-time
 
     - `BetaManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
       - `Optional<Double> activeSeconds`
 
@@ -17910,7 +17904,7 @@ Stream Events
 
       - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-        Prompt-cache creation token usage broken down by cache lifetime.
+        Tokens used to create prompt cache entries, broken down by cache TTL.
 
         - `Optional<Long> ephemeral1hInputTokens`
 
@@ -17938,7 +17932,7 @@ Stream Events
 
       - `Optional<BetaMonetaryAmount> listCost`
 
-        A monetary amount in a specific currency.
+        Cumulative list cost of the session across all turns, priced at public list rates.
 
       - `Optional<Long> outputTokens`
 
@@ -17948,7 +17942,7 @@ Stream Events
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-        Cumulative count of server-executed tool invocations, broken down by tool.
+        Cumulative server-executed tool usage across all turns.
 
         - `Optional<Long> webFetchRequests`
 
@@ -17964,7 +17958,7 @@ Stream Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -18128,7 +18122,7 @@ Add Session Resource
 
   - `BetaManagedAgentsFileResourceParams betaManagedAgentsFileResourceParams`
 
-    Mount a file uploaded via the Files API into the session.
+    Request parameters for adding a resource to a session.
 
 #### Returns
 
@@ -18408,7 +18402,7 @@ List Session Resources
 
     - `Optional<Access> access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `READ_WRITE("read_write")`
 
@@ -18689,7 +18683,7 @@ Get Session Resource
 
     - `Optional<Access> access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `READ_WRITE("read_write")`
 
@@ -18967,7 +18961,7 @@ Update Session Resource
 
     - `Optional<Access> access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `READ_WRITE("read_write")`
 
@@ -19346,7 +19340,7 @@ List Session Threads
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -19438,7 +19432,7 @@ List Session Threads
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -19476,7 +19470,7 @@ List Session Threads
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -19880,13 +19874,13 @@ List Session Threads
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
     format: date-time
 
   - `LocalDateTime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
     format: date-time
 
@@ -19900,7 +19894,7 @@ List Session Threads
 
   - `Optional<BetaManagedAgentsSessionThreadStats> stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -19922,7 +19916,7 @@ List Session Threads
 
   - `BetaManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
     - `RUNNING("running")`
 
@@ -19934,13 +19928,13 @@ List Session Threads
 
   - `LocalDateTime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsSessionThreadUsage> usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -19950,7 +19944,7 @@ List Session Threads
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -19978,7 +19972,7 @@ List Session Threads
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
       - `String amount`
 
@@ -19996,7 +19990,7 @@ List Session Threads
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
       - `Optional<Long> webFetchRequests`
 
@@ -20261,7 +20255,7 @@ Get Session Thread
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -20353,7 +20347,7 @@ Get Session Thread
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -20391,7 +20385,7 @@ Get Session Thread
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -20795,13 +20789,13 @@ Get Session Thread
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
     format: date-time
 
   - `LocalDateTime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
     format: date-time
 
@@ -20815,7 +20809,7 @@ Get Session Thread
 
   - `Optional<BetaManagedAgentsSessionThreadStats> stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -20837,7 +20831,7 @@ Get Session Thread
 
   - `BetaManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
     - `RUNNING("running")`
 
@@ -20849,13 +20843,13 @@ Get Session Thread
 
   - `LocalDateTime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsSessionThreadUsage> usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -20865,7 +20859,7 @@ Get Session Thread
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -20893,7 +20887,7 @@ Get Session Thread
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
       - `String amount`
 
@@ -20911,7 +20905,7 @@ Get Session Thread
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
       - `Optional<Long> webFetchRequests`
 
@@ -21175,7 +21169,7 @@ Archive Session Thread
 
   - `Agent agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -21267,7 +21261,7 @@ Archive Session Thread
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -21305,7 +21299,7 @@ Archive Session Thread
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -21709,13 +21703,13 @@ Archive Session Thread
 
   - `Optional<LocalDateTime> archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
     format: date-time
 
   - `LocalDateTime createdAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
     format: date-time
 
@@ -21729,7 +21723,7 @@ Archive Session Thread
 
   - `Optional<BetaManagedAgentsSessionThreadStats> stats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -21751,7 +21745,7 @@ Archive Session Thread
 
   - `BetaManagedAgentsSessionThreadStatus status`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
     - `RUNNING("running")`
 
@@ -21763,13 +21757,13 @@ Archive Session Thread
 
   - `LocalDateTime updatedAt`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
     format: date-time
 
   - `Optional<BetaManagedAgentsSessionThreadUsage> usage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
     - `Optional<Double> activeSeconds`
 
@@ -21779,7 +21773,7 @@ Archive Session Thread
 
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Optional<Long> ephemeral1hInputTokens`
 
@@ -21807,7 +21801,7 @@ Archive Session Thread
 
     - `Optional<BetaMonetaryAmount> listCost`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
       - `String amount`
 
@@ -21825,7 +21819,7 @@ Archive Session Thread
 
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
       - `Optional<Long> webFetchRequests`
 
@@ -22123,7 +22117,7 @@ List Session Thread Events
 
         - `Source source`
 
-          Union type for image source variants.
+          The source of the image data.
 
           - `class BetaManagedAgentsBase64ImageSource`
 
@@ -22175,7 +22169,7 @@ List Session Thread Events
 
         - `Source source`
 
-          Union type for document source variants.
+          The source of the document data.
 
           - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -22251,7 +22245,7 @@ List Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
       format: date-time
 
@@ -22267,7 +22261,7 @@ List Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
       format: date-time
 
@@ -22287,7 +22281,7 @@ List Session Thread Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
       - `ALLOW("allow")`
 
@@ -22305,7 +22299,7 @@ List Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
       format: date-time
 
@@ -22351,7 +22345,7 @@ List Session Thread Events
 
         - `BetaManagedAgentsSearchResultCitations citations`
 
-          Citation settings for a search result.
+          Citation settings for this search result.
 
           - `boolean enabled`
 
@@ -22387,7 +22381,7 @@ List Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -22415,7 +22409,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
       format: date-time
 
@@ -22447,7 +22441,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
       format: date-time
 
@@ -22463,7 +22457,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
       format: date-time
 
@@ -22491,13 +22485,13 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
       - `ALLOW("allow")`
 
@@ -22507,7 +22501,7 @@ List Session Thread Events
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
       - `class BetaManagedAgentsAgentToolEvaluationAlwaysAllow`
 
@@ -22529,7 +22523,7 @@ List Session Thread Events
 
         - `BetaManagedAgentsAgentAutoEvaluatedPermission evaluatedPermission`
 
-          The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
+          The server's judgement for this invocation.
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAllow`
 
@@ -22581,7 +22575,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -22629,17 +22623,17 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `Optional<String> sessionThreadId`
 
@@ -22657,7 +22651,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -22725,7 +22719,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
       format: date-time
 
@@ -22765,7 +22759,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
       format: date-time
 
@@ -22789,7 +22783,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
       format: date-time
 
@@ -22817,7 +22811,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -22849,7 +22843,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -22875,7 +22869,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -22901,7 +22895,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -22931,7 +22925,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -22961,7 +22955,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -22987,7 +22981,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -23017,7 +23011,7 @@ List Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -23037,7 +23031,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
       format: date-time
 
@@ -23053,7 +23047,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -23069,7 +23063,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -23085,7 +23079,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -23131,7 +23125,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -23151,7 +23145,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
       format: date-time
 
@@ -23181,7 +23175,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
       format: date-time
 
@@ -23215,7 +23209,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
       format: date-time
 
@@ -23225,7 +23219,7 @@ List Session Thread Events
 
     - `BetaManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
       - `long cacheCreationInputTokens`
 
@@ -23253,7 +23247,7 @@ List Session Thread Events
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
         - `STANDARD("standard")`
 
@@ -23271,7 +23265,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
       format: date-time
 
@@ -23295,11 +23289,11 @@ List Session Thread Events
 
     - `BetaManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
       format: date-time
 
@@ -23325,7 +23319,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
       format: date-time
 
@@ -23355,13 +23349,13 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
       format: date-time
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
       - `class BetaManagedAgentsFileRubric`
 
@@ -23395,7 +23389,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
       format: date-time
 
@@ -23415,7 +23409,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -23439,7 +23433,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -23481,7 +23475,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -23529,7 +23523,7 @@ List Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -23553,7 +23547,7 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -23573,13 +23567,13 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsSessionAgent> agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
       - `Type type`
 
@@ -23667,7 +23661,7 @@ List Session Thread Events
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -23705,7 +23699,7 @@ List Session Thread Events
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -23713,7 +23707,7 @@ List Session Thread Events
 
       - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-        Resolved coordinator topology with full agent definitions for each roster member.
+        Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
         - `Type type`
 
@@ -24169,13 +24163,13 @@ List Session Thread Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
       - `Type type`
 
       - `BetaMonetaryAmount maxListCost`
 
-        A monetary amount in a specific currency.
+        Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
         - `String amount`
 
@@ -24217,7 +24211,7 @@ List Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
       format: date-time
 
@@ -24233,13 +24227,13 @@ List Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
       format: date-time
 
     - `BetaManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
       - `Optional<Double> activeSeconds`
 
@@ -24249,7 +24243,7 @@ List Session Thread Events
 
       - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-        Prompt-cache creation token usage broken down by cache lifetime.
+        Tokens used to create prompt cache entries, broken down by cache TTL.
 
         - `Optional<Long> ephemeral1hInputTokens`
 
@@ -24277,7 +24271,7 @@ List Session Thread Events
 
       - `Optional<BetaMonetaryAmount> listCost`
 
-        A monetary amount in a specific currency.
+        Cumulative list cost of the session across all turns, priced at public list rates.
 
       - `Optional<Long> outputTokens`
 
@@ -24287,7 +24281,7 @@ List Session Thread Events
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-        Cumulative count of server-executed tool invocations, broken down by tool.
+        Cumulative server-executed tool usage across all turns.
 
         - `Optional<Long> webFetchRequests`
 
@@ -24303,7 +24297,7 @@ List Session Thread Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 
@@ -24521,7 +24515,7 @@ Stream Session Thread Events
 
         - `Source source`
 
-          Union type for image source variants.
+          The source of the image data.
 
           - `class BetaManagedAgentsBase64ImageSource`
 
@@ -24573,7 +24567,7 @@ Stream Session Thread Events
 
         - `Source source`
 
-          Union type for document source variants.
+          The source of the document data.
 
           - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -24649,7 +24643,7 @@ Stream Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
       format: date-time
 
@@ -24665,7 +24659,7 @@ Stream Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
       format: date-time
 
@@ -24685,7 +24679,7 @@ Stream Session Thread Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
       - `ALLOW("allow")`
 
@@ -24703,7 +24697,7 @@ Stream Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
       format: date-time
 
@@ -24749,7 +24743,7 @@ Stream Session Thread Events
 
         - `BetaManagedAgentsSearchResultCitations citations`
 
-          Citation settings for a search result.
+          Citation settings for this search result.
 
           - `boolean enabled`
 
@@ -24785,7 +24779,7 @@ Stream Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -24813,7 +24807,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
       format: date-time
 
@@ -24845,7 +24839,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
       format: date-time
 
@@ -24861,7 +24855,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
       format: date-time
 
@@ -24889,13 +24883,13 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
       - `ALLOW("allow")`
 
@@ -24905,7 +24899,7 @@ Stream Session Thread Events
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
       - `class BetaManagedAgentsAgentToolEvaluationAlwaysAllow`
 
@@ -24927,7 +24921,7 @@ Stream Session Thread Events
 
         - `BetaManagedAgentsAgentAutoEvaluatedPermission evaluatedPermission`
 
-          The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
+          The server's judgement for this invocation.
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionAllow`
 
@@ -24979,7 +24973,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -25027,17 +25021,17 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsAgentEvaluatedPermission> evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `Optional<BetaManagedAgentsAgentToolEvaluation> evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `Optional<String> sessionThreadId`
 
@@ -25055,7 +25049,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
       format: date-time
 
@@ -25123,7 +25117,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
       format: date-time
 
@@ -25163,7 +25157,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
       format: date-time
 
@@ -25187,7 +25181,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
       format: date-time
 
@@ -25215,7 +25209,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25247,7 +25241,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25273,7 +25267,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25299,7 +25293,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25329,7 +25323,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25359,7 +25353,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25385,7 +25379,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25415,7 +25409,7 @@ Stream Session Thread Events
 
         - `RetryStatus retryStatus`
 
-          What the client should do next in response to this error.
+          What the client should do next.
 
           - `class BetaManagedAgentsRetryStatusRetrying`
 
@@ -25435,7 +25429,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
       format: date-time
 
@@ -25451,7 +25445,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -25467,7 +25461,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -25483,7 +25477,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -25529,7 +25523,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
       format: date-time
 
@@ -25549,7 +25543,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
       format: date-time
 
@@ -25579,7 +25573,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
       format: date-time
 
@@ -25613,7 +25607,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
       format: date-time
 
@@ -25623,7 +25617,7 @@ Stream Session Thread Events
 
     - `BetaManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
       - `long cacheCreationInputTokens`
 
@@ -25651,7 +25645,7 @@ Stream Session Thread Events
 
       - `Optional<Speed> speed`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
         - `STANDARD("standard")`
 
@@ -25669,7 +25663,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
       format: date-time
 
@@ -25693,11 +25687,11 @@ Stream Session Thread Events
 
     - `BetaManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
       format: date-time
 
@@ -25723,7 +25717,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
       format: date-time
 
@@ -25753,13 +25747,13 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
       format: date-time
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
       - `class BetaManagedAgentsFileRubric`
 
@@ -25793,7 +25787,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
       format: date-time
 
@@ -25813,7 +25807,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -25837,7 +25831,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -25879,7 +25873,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -25927,7 +25921,7 @@ Stream Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
       format: date-time
 
@@ -25951,7 +25945,7 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
       format: date-time
 
@@ -25971,13 +25965,13 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
       format: date-time
 
     - `Optional<BetaManagedAgentsSessionAgent> agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
       - `Type type`
 
@@ -26065,7 +26059,7 @@ Stream Session Thread Events
 
         - `Optional<Effort> effort`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -26103,7 +26097,7 @@ Stream Session Thread Events
 
         - `Optional<Speed> speed`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `STANDARD("standard")`
 
@@ -26111,7 +26105,7 @@ Stream Session Thread Events
 
       - `Optional<BetaManagedAgentsSessionMultiagentCoordinator> multiagent`
 
-        Resolved coordinator topology with full agent definitions for each roster member.
+        Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
         - `Type type`
 
@@ -26567,13 +26561,13 @@ Stream Session Thread Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
       - `Type type`
 
       - `BetaMonetaryAmount maxListCost`
 
-        A monetary amount in a specific currency.
+        Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
         - `String amount`
 
@@ -26631,13 +26625,11 @@ Stream Session Thread Events
 
       - `BetaManagedAgentsTextBlock content`
 
-        Regular text content.
+        A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content.
 
       - `Optional<Long> index`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
-
-        format: uint32
 
     - `String eventId`
 
@@ -26667,7 +26659,7 @@ Stream Session Thread Events
 
     - `Optional<LocalDateTime> processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
       format: date-time
 
@@ -26683,13 +26675,13 @@ Stream Session Thread Events
 
     - `LocalDateTime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
       format: date-time
 
     - `BetaManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
       - `Optional<Double> activeSeconds`
 
@@ -26699,7 +26691,7 @@ Stream Session Thread Events
 
       - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
-        Prompt-cache creation token usage broken down by cache lifetime.
+        Tokens used to create prompt cache entries, broken down by cache TTL.
 
         - `Optional<Long> ephemeral1hInputTokens`
 
@@ -26727,7 +26719,7 @@ Stream Session Thread Events
 
       - `Optional<BetaMonetaryAmount> listCost`
 
-        A monetary amount in a specific currency.
+        Cumulative list cost of the session across all turns, priced at public list rates.
 
       - `Optional<Long> outputTokens`
 
@@ -26737,7 +26729,7 @@ Stream Session Thread Events
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
-        Cumulative count of server-executed tool invocations, broken down by tool.
+        Cumulative server-executed tool usage across all turns.
 
         - `Optional<Long> webFetchRequests`
 
@@ -26753,7 +26745,7 @@ Stream Session Thread Events
 
     - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 #### Example
 

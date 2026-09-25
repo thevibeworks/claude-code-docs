@@ -131,7 +131,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: Integer`
 
@@ -151,7 +151,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: Integer`
 
@@ -175,7 +175,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: Integer`
 
@@ -199,7 +199,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `title: String`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: String`
 
@@ -355,7 +355,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `class BetaSearchResultBlockParam`
 
@@ -419,7 +419,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `name: String`
 
-          maxLength: 200, minLength: 1
+          minLength: 1, maxLength: 200
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -455,7 +455,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaToolResultBlockParam`
 
@@ -491,7 +491,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -519,7 +519,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   The caller-assigned identifier for this tab, unique within the inventory.
 
-                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: String`
 
@@ -545,7 +545,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                maxItems: 200, minItems: 1
+                minItems: 1, maxItems: 200
 
                 - `class BetaBrowserStateChangeTabOpened`
 
@@ -563,7 +563,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -575,7 +575,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -596,7 +596,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -608,7 +608,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `size_bytes: Integer`
 
@@ -626,7 +626,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -638,7 +638,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The failure or cancellation detail, when known.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `is_error: bool`
 
@@ -646,7 +646,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam`
 
@@ -1078,7 +1078,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -1270,7 +1270,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       This is how the tool will be called by the model and in `tool_use` blocks.
 
-                      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1521,12 +1521,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `configs: BetaBrowserToolsetConfigs`
 
-                      Per-member configuration for `browser_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaBrowserTypeConfig`
 
@@ -2147,12 +2142,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `configs: BetaComputerToolsetConfigs`
 
-                      Per-member configuration for `computer_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaComputerTypeConfig`
 
@@ -2506,7 +2496,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -2522,25 +2512,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: String`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: String`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: String`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `class BetaWebFetchTool20250910`
 
@@ -2586,13 +2576,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -2600,12 +2590,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -2729,7 +2714,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -2783,13 +2768,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -2797,12 +2782,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `class BetaWebFetchTool20260309`
 
@@ -2850,13 +2830,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -2864,12 +2844,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -2915,7 +2890,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -2977,13 +2952,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -2999,12 +2974,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -3019,6 +2989,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `String = String`
 
                       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -3062,10 +3034,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `:"claude-mythos-preview"`
-
-                          New class of intelligence, strongest in coding and cybersecurity
-
                         - `:"claude-opus-4-6"`
 
                           Powerful intelligence for long-running agents and coding
@@ -3098,7 +3066,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                           High-performance model for agents and coding
 
-                      - `String = String`
+                        - `:"claude-mythos-preview"`
+
+                          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          New class of intelligence, strongest in coding and cybersecurity
 
                     - `name: :advisor`
 
@@ -3138,7 +3110,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -3229,7 +3201,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Name of the MCP server to configure tools for
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `cache_control: BetaCacheControlEphemeral`
 
@@ -3339,7 +3311,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The name of the MCP server this listing came from, as `mcp_servers` declares it.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `tools: Array[BetaMCPToolParam]`
 
@@ -3421,7 +3393,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `effort: :low | :medium | :high | 2 more`
 
-      All possible effort levels.
+      How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+      Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
       - `:low`
 
@@ -3445,14 +3419,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `compaction: BetaCompactionConfig`
 
-  Compact the whole conversation and return a signed `compaction` block,
-  alone, that a later request sends back first in `messages`, in place of
-  the messages it summarizes. There is no trigger and no pause flag: sending
-  the parameter compacts, and nothing is sampled after the block.
+  Compaction configuration.
 
-  The summarization prompt is the server's own unless `instructions` are
-  given, which then replace it for this request; a value that is empty or
-  only whitespace counts as absent.
+  When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
   - `type: :summarize`
 
@@ -3492,13 +3461,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: String`
 
         Skill version or 'latest' for most recent version
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `String = String`
 
@@ -3511,8 +3480,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `edits: Array[BetaClearToolUses20250919Edit | BetaClearThinking20251015Edit | BetaCompact20260112Edit]`
 
     List of context management edits to apply
-
-    minItems: 0
 
     - `class BetaClearToolUses20250919Edit`
 
@@ -3612,8 +3579,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `diagnostics: BetaDiagnosticsParam`
 
-  Request-level diagnostics. Currently carries the previous response
-  id for prompt-cache divergence reporting.
+  Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
   - `previous_message_id: String`
 
@@ -3660,7 +3626,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
 
-      maxLength: 2048, minLength: 1
+      minLength: 1, maxLength: 2048
 
     - `mode: :strict | :best_effort`
 
@@ -3688,7 +3654,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `effort: :low | :medium | :high | 2 more`
 
-        All possible effort levels.
+        How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+        Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
         - `:low`
 
@@ -3712,7 +3680,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `task_budget: BetaTokenTaskBudget`
 
-        User-configurable total token budget across contexts.
+        Configuration for token budget tracking across contexts.
 
         - `type: :tokens`
 
@@ -3756,17 +3724,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `block_binding: BetaThinkingBlockBinding`
 
-          Controls for block binding: what happens when a thinking block this
-          request sends back fails the conversation check. Every field is optional;
-          an empty object means every default.
+          Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
           - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-            What happens when a thinking block in `messages` fails the conversation
-            check: it was created in a different conversation, or the messages before
-            it have changed since. `"error"` (the default) fails the request with a
-            400 error. `"drop_block"` removes the failing blocks and the request
-            proceeds; the model no longer sees the dropped reasoning.
+            "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
             - `:error`
 
@@ -3792,9 +3754,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `block_binding: BetaThinkingBlockBinding`
 
-          Controls for block binding: what happens when a thinking block this
-          request sends back fails the conversation check. Every field is optional;
-          an empty object means every default.
+          Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
         - `display_: :summarized | :omitted | :updates`
 
@@ -3860,7 +3820,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `speed: :standard | :fast`
 
-  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
   - `:standard`
 
@@ -4243,7 +4203,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
-  maximum: 1, minimum: 0
+  minimum: 0, maximum: 1
 
 - `top_k: Integer`
 
@@ -4267,7 +4227,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Recommended for advanced use cases only.
 
-  maximum: 1, minimum: 0
+  minimum: 0, maximum: 1
 
 ### Returns
 
@@ -4287,7 +4247,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `container: BetaContainer`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
     - `id: String`
 
@@ -4315,13 +4277,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: String`
 
         The resolved version: a skill version ID for custom skills.
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `content: Array[BetaContentBlock]`
 
@@ -4482,8 +4444,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `text: String`
 
-        minLength: 0
-
     - `class BetaThinkingBlock`
 
       - `type: :thinking`
@@ -4556,7 +4516,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `class BetaServerToolUseBlock`
 
@@ -4996,7 +4956,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `tool_name: String`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `tool_use_id: String`
 
@@ -5039,8 +4999,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
           - `text: String`
-
-            minLength: 0
 
       - `is_error: bool`
 
@@ -5163,7 +5121,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     This is how the tool will be called by the model and in `tool_use` blocks.
 
-                    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -5427,12 +5385,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `configs: BetaBrowserToolsetConfigs`
 
-                    Per-member configuration for `browser_toolset_20260801`: one
-                    optional field per member tool, keyed by the member name — the same
-                    name the member's `tool_use` blocks carry. Every member is an
-                    accepted key, and a member's defaults apply wherever its key is
-                    absent. Unknown keys are rejected: the field set is this toolset
-                    version's complete member set.
+                    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                     - `type: BetaBrowserTypeConfig`
 
@@ -6053,12 +6006,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `configs: BetaComputerToolsetConfigs`
 
-                    Per-member configuration for `computer_toolset_20260801`: one
-                    optional field per member tool, keyed by the member name — the same
-                    name the member's `tool_use` blocks carry. Every member is an
-                    accepted key, and a member's defaults apply wherever its key is
-                    absent. Unknown keys are rejected: the field set is this toolset
-                    version's complete member set.
+                    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                     - `type: BetaComputerTypeConfig`
 
@@ -6412,7 +6360,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -6428,25 +6376,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       The city of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `country: String`
 
                       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                      maxLength: 2, minLength: 2
+                      minLength: 2, maxLength: 2
 
                     - `region: String`
 
                       The region of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `timezone: String`
 
                       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                 - `class BetaWebFetchTool20250910`
 
@@ -6494,13 +6442,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -6508,12 +6456,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -6637,7 +6580,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -6691,13 +6634,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -6705,12 +6648,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `class BetaWebFetchTool20260309`
 
@@ -6758,13 +6696,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -6772,12 +6710,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `use_cache: bool`
 
@@ -6823,7 +6756,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `response_inclusion: :full | :excluded`
 
@@ -6885,13 +6818,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `response_inclusion: :full | :excluded`
 
@@ -6907,12 +6840,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `use_cache: bool`
 
@@ -6927,6 +6855,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                     The model that will complete your prompt.
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                    - `String = String`
 
                     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -6970,10 +6900,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         Powerful intelligence for long-running agents and coding
 
-                      - `:"claude-mythos-preview"`
-
-                        New class of intelligence, strongest in coding and cybersecurity
-
                       - `:"claude-opus-4-6"`
 
                         Powerful intelligence for long-running agents and coding
@@ -7006,7 +6932,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         High-performance model for agents and coding
 
-                    - `String = String`
+                      - `:"claude-mythos-preview"`
+
+                        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                        New class of intelligence, strongest in coding and cybersecurity
 
                   - `name: :advisor`
 
@@ -7046,7 +6976,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -7137,7 +7067,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     Name of the MCP server to configure tools for
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -7246,7 +7176,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-          The policy category that triggered a refusal.
+          The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
           - `:cyber`
 
@@ -7335,8 +7265,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `diagnostics: BetaDiagnostics`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
     - `cache_miss_reason: BetaCacheMissReason`
 
@@ -7396,13 +7325,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `stop_details: BetaRefusalStopDetails`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
     - `type: :refusal`
 
     - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-      The policy category that triggered a refusal.
+      The policy category that triggered the refusal.
+
+      `null` when the refusal doesn't map to a named category.
 
       - `:cyber`
 
@@ -7560,6 +7493,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `fallback_credit: BetaFallbackCreditUsage`
 
       Outcome of the `fallback_credit_token` presented on this request.
+
+      Present on every response to a non-batch request that carried a
+      `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+      items accept and ignore the token and carry no outcome object).
 
       - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -7872,7 +7809,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `speed: :standard | :fast`
 
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+      The inference speed mode used for this request.
 
       - `:standard`
 
@@ -7990,11 +7927,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `container: BetaContainer`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
       - `stop_details: BetaRefusalStopDetails`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
       - `stop_reason: BetaStopReason`
 
@@ -8027,6 +7968,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `fallback_credit: BetaFallbackCreditUsage`
 
         Outcome of the `fallback_credit_token` presented on this request.
+
+        Present on every response to a non-batch request that carried a
+        `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+        items accept and ignore the token and carry no outcome object).
 
       - `input_tokens: Integer`
 
@@ -8476,7 +8421,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: Integer`
 
@@ -8496,7 +8441,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: Integer`
 
@@ -8520,7 +8465,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: Integer`
 
@@ -8544,7 +8489,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: String`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: String`
 
@@ -8700,7 +8645,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `class BetaSearchResultBlockParam`
 
@@ -8764,7 +8709,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `name: String`
 
-          maxLength: 200, minLength: 1
+          minLength: 1, maxLength: 200
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -8800,7 +8745,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaToolResultBlockParam`
 
@@ -8836,7 +8781,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -8864,7 +8809,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   The caller-assigned identifier for this tab, unique within the inventory.
 
-                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: String`
 
@@ -8890,7 +8835,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                maxItems: 200, minItems: 1
+                minItems: 1, maxItems: 200
 
                 - `class BetaBrowserStateChangeTabOpened`
 
@@ -8908,7 +8853,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -8920,7 +8865,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -8941,7 +8886,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -8953,7 +8898,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `size_bytes: Integer`
 
@@ -8971,7 +8916,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -8983,7 +8928,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The failure or cancellation detail, when known.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `is_error: bool`
 
@@ -8991,7 +8936,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam`
 
@@ -9423,7 +9368,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -9615,7 +9560,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       This is how the tool will be called by the model and in `tool_use` blocks.
 
-                      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -9866,12 +9811,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     - `configs: BetaBrowserToolsetConfigs`
 
-                      Per-member configuration for `browser_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaBrowserTypeConfig`
 
@@ -10492,12 +10432,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     - `configs: BetaComputerToolsetConfigs`
 
-                      Per-member configuration for `computer_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaComputerTypeConfig`
 
@@ -10851,7 +10786,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -10867,25 +10802,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: String`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: String`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: String`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `class BetaWebFetchTool20250910`
 
@@ -10931,13 +10866,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -10945,12 +10880,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -11074,7 +11004,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -11128,13 +11058,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -11142,12 +11072,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `class BetaWebFetchTool20260309`
 
@@ -11195,13 +11120,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -11209,12 +11134,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -11260,7 +11180,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -11322,13 +11242,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -11344,12 +11264,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -11364,6 +11279,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `String = String`
 
                       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -11407,10 +11324,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `:"claude-mythos-preview"`
-
-                          New class of intelligence, strongest in coding and cybersecurity
-
                         - `:"claude-opus-4-6"`
 
                           Powerful intelligence for long-running agents and coding
@@ -11443,7 +11356,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                           High-performance model for agents and coding
 
-                      - `String = String`
+                        - `:"claude-mythos-preview"`
+
+                          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          New class of intelligence, strongest in coding and cybersecurity
 
                     - `name: :advisor`
 
@@ -11483,7 +11400,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -11574,7 +11491,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       Name of the MCP server to configure tools for
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `cache_control: BetaCacheControlEphemeral`
 
@@ -11684,7 +11601,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           The name of the MCP server this listing came from, as `mcp_servers` declares it.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `tools: Array[BetaMCPToolParam]`
 
@@ -11766,7 +11683,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `effort: :low | :medium | :high | 2 more`
 
-      All possible effort levels.
+      How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+      Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
       - `:low`
 
@@ -11790,14 +11709,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `compaction: BetaCompactionConfig`
 
-  Compact the whole conversation and return a signed `compaction` block,
-  alone, that a later request sends back first in `messages`, in place of
-  the messages it summarizes. There is no trigger and no pause flag: sending
-  the parameter compacts, and nothing is sampled after the block.
+  Compaction configuration.
 
-  The summarization prompt is the server's own unless `instructions` are
-  given, which then replace it for this request; a value that is empty or
-  only whitespace counts as absent.
+  When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
   - `type: :summarize`
 
@@ -11816,8 +11730,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `edits: Array[BetaClearToolUses20250919Edit | BetaClearThinking20251015Edit | BetaCompact20260112Edit]`
 
     List of context management edits to apply
-
-    minItems: 0
 
     - `class BetaClearToolUses20250919Edit`
 
@@ -11941,7 +11853,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `effort: :low | :medium | :high | 2 more`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
     - `:low`
 
@@ -11965,7 +11879,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `task_budget: BetaTokenTaskBudget`
 
-    User-configurable total token budget across contexts.
+    Configuration for token budget tracking across contexts.
 
     - `type: :tokens`
 
@@ -11985,7 +11899,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `speed: :standard | :fast`
 
-  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
   - `:standard`
 
@@ -12037,17 +11951,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `block_binding: BetaThinkingBlockBinding`
 
-      Controls for block binding: what happens when a thinking block this
-      request sends back fails the conversation check. Every field is optional;
-      an empty object means every default.
+      Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
       - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-        What happens when a thinking block in `messages` fails the conversation
-        check: it was created in a different conversation, or the messages before
-        it have changed since. `"error"` (the default) fails the request with a
-        400 error. `"drop_block"` removes the failing blocks and the request
-        proceeds; the model no longer sees the dropped reasoning.
+        "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
         - `:error`
 
@@ -12073,9 +11981,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `block_binding: BetaThinkingBlockBinding`
 
-      Controls for block binding: what happens when a thinking block this
-      request sends back fails the conversation check. Every field is optional;
-      an empty object means every default.
+      Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
     - `display_: :summarized | :omitted | :updates`
 
@@ -12498,6 +12404,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -12540,10 +12448,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -12576,7 +12480,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `output_tokens: Integer`
 
@@ -12644,6 +12552,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -12686,10 +12596,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -12722,7 +12628,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `name: :advisor`
 
@@ -12779,7 +12689,7 @@ puts(beta_message_tokens_count)
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: bool`
 
@@ -13577,7 +13487,7 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this tab, unique within the inventory.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `title: String`
 
@@ -13620,7 +13530,7 @@ puts(beta_message_tokens_count)
 
     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-    maxItems: 200, minItems: 1
+    minItems: 1, maxItems: 200
 
     - `class BetaBrowserStateChangeTabOpened`
 
@@ -13638,7 +13548,7 @@ puts(beta_message_tokens_count)
 
         The `tab_id` of the opened tab, present in `tabs`.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -13650,7 +13560,7 @@ puts(beta_message_tokens_count)
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `url: String`
 
@@ -13671,7 +13581,7 @@ puts(beta_message_tokens_count)
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `url: String`
 
@@ -13683,7 +13593,7 @@ puts(beta_message_tokens_count)
 
         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `size_bytes: Integer`
 
@@ -13701,7 +13611,7 @@ puts(beta_message_tokens_count)
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
       - `url: String`
 
@@ -13713,7 +13623,7 @@ puts(beta_message_tokens_count)
 
         The failure or cancellation detail, when known.
 
-        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Beta Browser State Change
 
@@ -13735,7 +13645,7 @@ puts(beta_message_tokens_count)
 
       The `tab_id` of the opened tab, present in `tabs`.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -13747,7 +13657,7 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `url: String`
 
@@ -13768,7 +13678,7 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `url: String`
 
@@ -13780,7 +13690,7 @@ puts(beta_message_tokens_count)
 
       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `size_bytes: Integer`
 
@@ -13798,7 +13708,7 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `url: String`
 
@@ -13810,7 +13720,7 @@ puts(beta_message_tokens_count)
 
       The failure or cancellation detail, when known.
 
-      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Beta Browser State Change Download Completed
 
@@ -13827,7 +13737,7 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `url: String`
 
@@ -13839,7 +13749,7 @@ puts(beta_message_tokens_count)
 
     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `size_bytes: Integer`
 
@@ -13859,7 +13769,7 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `url: String`
 
@@ -13871,7 +13781,7 @@ puts(beta_message_tokens_count)
 
     The failure or cancellation detail, when known.
 
-    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Beta Browser State Change Download Started
 
@@ -13885,7 +13795,7 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `url: String`
 
@@ -13911,7 +13821,7 @@ puts(beta_message_tokens_count)
 
     The `tab_id` of the opened tab, present in `tabs`.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Beta Browser State Tab Entry
 
@@ -13930,7 +13840,7 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this tab, unique within the inventory.
 
-    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `title: String`
 
@@ -13996,12 +13906,7 @@ puts(beta_message_tokens_count)
 
   - `configs: BetaBrowserToolsetConfigs`
 
-    Per-member configuration for `browser_toolset_20260801`: one
-    optional field per member tool, keyed by the member name — the same
-    name the member's `tool_use` blocks carry. Every member is an
-    accepted key, and a member's defaults apply wherever its key is
-    absent. Unknown keys are rejected: the field set is this toolset
-    version's complete member set.
+    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
     - `type: BetaBrowserTypeConfig`
 
@@ -14983,7 +14888,7 @@ puts(beta_message_tokens_count)
 
   - `document_title: String`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
   - `end_char_index: Integer`
 
@@ -15047,7 +14952,7 @@ puts(beta_message_tokens_count)
 
   - `document_title: String`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
   - `end_block_index: Integer`
 
@@ -15097,7 +15002,7 @@ puts(beta_message_tokens_count)
 
   - `document_title: String`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
   - `end_page_number: Integer`
 
@@ -15189,7 +15094,7 @@ puts(beta_message_tokens_count)
 
   - `title: String`
 
-    maxLength: 512, minLength: 1
+    minLength: 1, maxLength: 512
 
   - `url: String`
 
@@ -16149,7 +16054,7 @@ puts(beta_message_tokens_count)
 
                 This is how the tool will be called by the model and in `tool_use` blocks.
 
-                maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
               - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -16413,12 +16318,7 @@ puts(beta_message_tokens_count)
 
               - `configs: BetaBrowserToolsetConfigs`
 
-                Per-member configuration for `browser_toolset_20260801`: one
-                optional field per member tool, keyed by the member name — the same
-                name the member's `tool_use` blocks carry. Every member is an
-                accepted key, and a member's defaults apply wherever its key is
-                absent. Unknown keys are rejected: the field set is this toolset
-                version's complete member set.
+                Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                 - `type: BetaBrowserTypeConfig`
 
@@ -17039,12 +16939,7 @@ puts(beta_message_tokens_count)
 
               - `configs: BetaComputerToolsetConfigs`
 
-                Per-member configuration for `computer_toolset_20260801`: one
-                optional field per member tool, keyed by the member name — the same
-                name the member's `tool_use` blocks carry. Every member is an
-                accepted key, and a member's defaults apply wherever its key is
-                absent. Unknown keys are rejected: the field set is this toolset
-                version's complete member set.
+                Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                 - `type: BetaComputerTypeConfig`
 
@@ -17398,7 +17293,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -17414,25 +17309,25 @@ puts(beta_message_tokens_count)
 
                   The city of the user.
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
                 - `country: String`
 
                   The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                  maxLength: 2, minLength: 2
+                  minLength: 2, maxLength: 2
 
                 - `region: String`
 
                   The region of the user.
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
                 - `timezone: String`
 
                   The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
             - `class BetaWebFetchTool20250910`
 
@@ -17480,13 +17375,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -17494,12 +17389,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -17623,7 +17513,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -17677,13 +17567,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -17691,12 +17581,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
             - `class BetaWebFetchTool20260309`
 
@@ -17744,13 +17629,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -17758,12 +17643,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
               - `use_cache: bool`
 
@@ -17809,7 +17689,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `response_inclusion: :full | :excluded`
 
@@ -17871,13 +17751,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `response_inclusion: :full | :excluded`
 
@@ -17893,12 +17773,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
               - `use_cache: bool`
 
@@ -17913,6 +17788,8 @@ puts(beta_message_tokens_count)
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `String = String`
 
                 - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -17956,10 +17833,6 @@ puts(beta_message_tokens_count)
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `:"claude-mythos-preview"`
-
-                    New class of intelligence, strongest in coding and cybersecurity
-
                   - `:"claude-opus-4-6"`
 
                     Powerful intelligence for long-running agents and coding
@@ -17992,7 +17865,11 @@ puts(beta_message_tokens_count)
 
                     High-performance model for agents and coding
 
-                - `String = String`
+                  - `:"claude-mythos-preview"`
+
+                    **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                    New class of intelligence, strongest in coding and cybersecurity
 
               - `name: :advisor`
 
@@ -18032,7 +17909,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -18123,7 +18000,7 @@ puts(beta_message_tokens_count)
 
                 Name of the MCP server to configure tools for
 
-                maxLength: 255, minLength: 1
+                minLength: 1, maxLength: 255
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -18326,7 +18203,7 @@ puts(beta_message_tokens_count)
 
                 This is how the tool will be called by the model and in `tool_use` blocks.
 
-                maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
               - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -18577,12 +18454,7 @@ puts(beta_message_tokens_count)
 
               - `configs: BetaBrowserToolsetConfigs`
 
-                Per-member configuration for `browser_toolset_20260801`: one
-                optional field per member tool, keyed by the member name — the same
-                name the member's `tool_use` blocks carry. Every member is an
-                accepted key, and a member's defaults apply wherever its key is
-                absent. Unknown keys are rejected: the field set is this toolset
-                version's complete member set.
+                Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                 - `type: BetaBrowserTypeConfig`
 
@@ -19203,12 +19075,7 @@ puts(beta_message_tokens_count)
 
               - `configs: BetaComputerToolsetConfigs`
 
-                Per-member configuration for `computer_toolset_20260801`: one
-                optional field per member tool, keyed by the member name — the same
-                name the member's `tool_use` blocks carry. Every member is an
-                accepted key, and a member's defaults apply wherever its key is
-                absent. Unknown keys are rejected: the field set is this toolset
-                version's complete member set.
+                Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                 - `type: BetaComputerTypeConfig`
 
@@ -19562,7 +19429,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -19578,25 +19445,25 @@ puts(beta_message_tokens_count)
 
                   The city of the user.
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
                 - `country: String`
 
                   The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                  maxLength: 2, minLength: 2
+                  minLength: 2, maxLength: 2
 
                 - `region: String`
 
                   The region of the user.
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
                 - `timezone: String`
 
                   The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
             - `class BetaWebFetchTool20250910`
 
@@ -19644,13 +19511,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -19658,12 +19525,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -19787,7 +19649,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -19841,13 +19703,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -19855,12 +19717,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
             - `class BetaWebFetchTool20260309`
 
@@ -19908,13 +19765,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -19922,12 +19779,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
               - `use_cache: bool`
 
@@ -19973,7 +19825,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `response_inclusion: :full | :excluded`
 
@@ -20035,13 +19887,13 @@ puts(beta_message_tokens_count)
 
                 Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `max_uses: Integer`
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `response_inclusion: :full | :excluded`
 
@@ -20057,12 +19909,7 @@ puts(beta_message_tokens_count)
 
               - `url_sources: BetaWebFetchURLSources`
 
-                Which sources contribute to the set of URLs web fetch may fetch.
-
-                Each key is a tagged variant: `user_input` is `all` or `none`; the
-                two tool filters are `all`, `none`, `only` (only the named tools'
-                results) or `except` (every result but the named tools'). A named tool
-                must be declared in this request's `tools[]`.
+                Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
               - `use_cache: bool`
 
@@ -20077,6 +19924,8 @@ puts(beta_message_tokens_count)
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `String = String`
 
                 - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -20120,10 +19969,6 @@ puts(beta_message_tokens_count)
 
                     Powerful intelligence for long-running agents and coding
 
-                  - `:"claude-mythos-preview"`
-
-                    New class of intelligence, strongest in coding and cybersecurity
-
                   - `:"claude-opus-4-6"`
 
                     Powerful intelligence for long-running agents and coding
@@ -20156,7 +20001,11 @@ puts(beta_message_tokens_count)
 
                     High-performance model for agents and coding
 
-                - `String = String`
+                  - `:"claude-mythos-preview"`
+
+                    **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                    New class of intelligence, strongest in coding and cybersecurity
 
               - `name: :advisor`
 
@@ -20196,7 +20045,7 @@ puts(beta_message_tokens_count)
 
                 Maximum number of times the tool can be used in the API request.
 
-                exclusiveMinimum: 0
+                minimum: 1
 
               - `strict: bool`
 
@@ -20287,7 +20136,7 @@ puts(beta_message_tokens_count)
 
                 Name of the MCP server to configure tools for
 
-                maxLength: 255, minLength: 1
+                minLength: 1, maxLength: 255
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -20667,12 +20516,7 @@ puts(beta_message_tokens_count)
 
   - `configs: BetaComputerToolsetConfigs`
 
-    Per-member configuration for `computer_toolset_20260801`: one
-    optional field per member tool, keyed by the member name — the same
-    name the member's `tool_use` blocks carry. Every member is an
-    accepted key, and a member's defaults apply wherever its key is
-    absent. Unknown keys are rejected: the field set is this toolset
-    version's complete member set.
+    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
     - `type: BetaComputerTypeConfig`
 
@@ -21181,13 +21025,13 @@ puts(beta_message_tokens_count)
 
       Skill ID
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
     - `version: String`
 
       The resolved version: a skill version ID for custom skills.
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
 ### Beta Container Params
 
@@ -21217,13 +21061,13 @@ puts(beta_message_tokens_count)
 
       Skill ID
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
     - `version: String`
 
       Skill version or 'latest' for most recent version
 
-      maxLength: 64, minLength: 1
+      minLength: 1, maxLength: 64
 
 ### Beta Container Skill
 
@@ -21243,13 +21087,13 @@ puts(beta_message_tokens_count)
 
     Skill ID
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
   - `version: String`
 
     The resolved version: a skill version ID for custom skills.
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
 ### Beta Container Upload Block
 
@@ -21427,8 +21271,6 @@ puts(beta_message_tokens_count)
 
     - `text: String`
 
-      minLength: 0
-
   - `class BetaThinkingBlock`
 
     - `type: :thinking`
@@ -21501,7 +21343,7 @@ puts(beta_message_tokens_count)
 
       For a toolset member tool_use, the toolset family.
 
-      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
   - `class BetaServerToolUseBlock`
 
@@ -21941,7 +21783,7 @@ puts(beta_message_tokens_count)
 
           - `tool_name: String`
 
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `tool_use_id: String`
 
@@ -21984,8 +21826,6 @@ puts(beta_message_tokens_count)
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
         - `text: String`
-
-          minLength: 0
 
     - `is_error: bool`
 
@@ -22108,7 +21948,7 @@ puts(beta_message_tokens_count)
 
                   This is how the tool will be called by the model and in `tool_use` blocks.
 
-                  maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                  minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                 - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -22372,12 +22212,7 @@ puts(beta_message_tokens_count)
 
                 - `configs: BetaBrowserToolsetConfigs`
 
-                  Per-member configuration for `browser_toolset_20260801`: one
-                  optional field per member tool, keyed by the member name — the same
-                  name the member's `tool_use` blocks carry. Every member is an
-                  accepted key, and a member's defaults apply wherever its key is
-                  absent. Unknown keys are rejected: the field set is this toolset
-                  version's complete member set.
+                  Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                   - `type: BetaBrowserTypeConfig`
 
@@ -22998,12 +22833,7 @@ puts(beta_message_tokens_count)
 
                 - `configs: BetaComputerToolsetConfigs`
 
-                  Per-member configuration for `computer_toolset_20260801`: one
-                  optional field per member tool, keyed by the member name — the same
-                  name the member's `tool_use` blocks carry. Every member is an
-                  accepted key, and a member's defaults apply wherever its key is
-                  absent. Unknown keys are rejected: the field set is this toolset
-                  version's complete member set.
+                  Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                   - `type: BetaComputerTypeConfig`
 
@@ -23357,7 +23187,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -23373,25 +23203,25 @@ puts(beta_message_tokens_count)
 
                     The city of the user.
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `country: String`
 
                     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                    maxLength: 2, minLength: 2
+                    minLength: 2, maxLength: 2
 
                   - `region: String`
 
                     The region of the user.
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `timezone: String`
 
                     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
               - `class BetaWebFetchTool20250910`
 
@@ -23439,13 +23269,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -23453,12 +23283,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -23582,7 +23407,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -23636,13 +23461,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -23650,12 +23475,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
               - `class BetaWebFetchTool20260309`
 
@@ -23703,13 +23523,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -23717,12 +23537,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `use_cache: bool`
 
@@ -23768,7 +23583,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `response_inclusion: :full | :excluded`
 
@@ -23830,13 +23645,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `response_inclusion: :full | :excluded`
 
@@ -23852,12 +23667,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `use_cache: bool`
 
@@ -23872,6 +23682,8 @@ puts(beta_message_tokens_count)
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `String = String`
 
                   - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -23915,10 +23727,6 @@ puts(beta_message_tokens_count)
 
                       Powerful intelligence for long-running agents and coding
 
-                    - `:"claude-mythos-preview"`
-
-                      New class of intelligence, strongest in coding and cybersecurity
-
                     - `:"claude-opus-4-6"`
 
                       Powerful intelligence for long-running agents and coding
@@ -23951,7 +23759,11 @@ puts(beta_message_tokens_count)
 
                       High-performance model for agents and coding
 
-                  - `String = String`
+                    - `:"claude-mythos-preview"`
+
+                      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                      New class of intelligence, strongest in coding and cybersecurity
 
                 - `name: :advisor`
 
@@ -23991,7 +23803,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -24082,7 +23894,7 @@ puts(beta_message_tokens_count)
 
                   Name of the MCP server to configure tools for
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
                 - `cache_control: BetaCacheControlEphemeral`
 
@@ -24191,7 +24003,7 @@ puts(beta_message_tokens_count)
 
       - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-        The policy category that triggered a refusal.
+        The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
         - `:cyber`
 
@@ -24279,7 +24091,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_char_index: Integer`
 
@@ -24299,7 +24111,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_page_number: Integer`
 
@@ -24323,7 +24135,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_block_index: Integer`
 
@@ -24347,7 +24159,7 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-          maxLength: 512, minLength: 1
+          minLength: 1, maxLength: 512
 
         - `url: String`
 
@@ -24503,7 +24315,7 @@ puts(beta_message_tokens_count)
 
     - `title: String`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
   - `class BetaSearchResultBlockParam`
 
@@ -24567,7 +24379,7 @@ puts(beta_message_tokens_count)
 
     - `name: String`
 
-      maxLength: 200, minLength: 1
+      minLength: 1, maxLength: 200
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -24603,7 +24415,7 @@ puts(beta_message_tokens_count)
 
       For a toolset member tool_use, the toolset family this member belongs to.
 
-      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
   - `class BetaToolResultBlockParam`
 
@@ -24639,7 +24451,7 @@ puts(beta_message_tokens_count)
 
           - `tool_name: String`
 
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `cache_control: BetaCacheControlEphemeral`
 
@@ -24667,7 +24479,7 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this tab, unique within the inventory.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `title: String`
 
@@ -24693,7 +24505,7 @@ puts(beta_message_tokens_count)
 
             Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-            maxItems: 200, minItems: 1
+            minItems: 1, maxItems: 200
 
             - `class BetaBrowserStateChangeTabOpened`
 
@@ -24711,7 +24523,7 @@ puts(beta_message_tokens_count)
 
                 The `tab_id` of the opened tab, present in `tabs`.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -24723,7 +24535,7 @@ puts(beta_message_tokens_count)
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `url: String`
 
@@ -24744,7 +24556,7 @@ puts(beta_message_tokens_count)
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `url: String`
 
@@ -24756,7 +24568,7 @@ puts(beta_message_tokens_count)
 
                 Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `size_bytes: Integer`
 
@@ -24774,7 +24586,7 @@ puts(beta_message_tokens_count)
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
               - `url: String`
 
@@ -24786,7 +24598,7 @@ puts(beta_message_tokens_count)
 
                 The failure or cancellation detail, when known.
 
-                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `is_error: bool`
 
@@ -24794,7 +24606,7 @@ puts(beta_message_tokens_count)
 
       For a toolset member tool_result, the toolset family of the paired tool_use.
 
-      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
   - `class BetaServerToolUseBlockParam`
 
@@ -25226,7 +25038,7 @@ puts(beta_message_tokens_count)
 
           - `tool_name: String`
 
-            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+            minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `cache_control: BetaCacheControlEphemeral`
 
@@ -25418,7 +25230,7 @@ puts(beta_message_tokens_count)
 
                   This is how the tool will be called by the model and in `tool_use` blocks.
 
-                  maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                  minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                 - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -25669,12 +25481,7 @@ puts(beta_message_tokens_count)
 
                 - `configs: BetaBrowserToolsetConfigs`
 
-                  Per-member configuration for `browser_toolset_20260801`: one
-                  optional field per member tool, keyed by the member name — the same
-                  name the member's `tool_use` blocks carry. Every member is an
-                  accepted key, and a member's defaults apply wherever its key is
-                  absent. Unknown keys are rejected: the field set is this toolset
-                  version's complete member set.
+                  Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                   - `type: BetaBrowserTypeConfig`
 
@@ -26295,12 +26102,7 @@ puts(beta_message_tokens_count)
 
                 - `configs: BetaComputerToolsetConfigs`
 
-                  Per-member configuration for `computer_toolset_20260801`: one
-                  optional field per member tool, keyed by the member name — the same
-                  name the member's `tool_use` blocks carry. Every member is an
-                  accepted key, and a member's defaults apply wherever its key is
-                  absent. Unknown keys are rejected: the field set is this toolset
-                  version's complete member set.
+                  Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                   - `type: BetaComputerTypeConfig`
 
@@ -26654,7 +26456,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -26670,25 +26472,25 @@ puts(beta_message_tokens_count)
 
                     The city of the user.
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `country: String`
 
                     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                    maxLength: 2, minLength: 2
+                    minLength: 2, maxLength: 2
 
                   - `region: String`
 
                     The region of the user.
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `timezone: String`
 
                     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
               - `class BetaWebFetchTool20250910`
 
@@ -26734,13 +26536,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -26748,12 +26550,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -26877,7 +26674,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -26931,13 +26728,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -26945,12 +26742,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
               - `class BetaWebFetchTool20260309`
 
@@ -26998,13 +26790,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -27012,12 +26804,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `use_cache: bool`
 
@@ -27063,7 +26850,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `response_inclusion: :full | :excluded`
 
@@ -27125,13 +26912,13 @@ puts(beta_message_tokens_count)
 
                   Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `max_uses: Integer`
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `response_inclusion: :full | :excluded`
 
@@ -27147,12 +26934,7 @@ puts(beta_message_tokens_count)
 
                 - `url_sources: BetaWebFetchURLSources`
 
-                  Which sources contribute to the set of URLs web fetch may fetch.
-
-                  Each key is a tagged variant: `user_input` is `all` or `none`; the
-                  two tool filters are `all`, `none`, `only` (only the named tools'
-                  results) or `except` (every result but the named tools'). A named tool
-                  must be declared in this request's `tools[]`.
+                  Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `use_cache: bool`
 
@@ -27167,6 +26949,8 @@ puts(beta_message_tokens_count)
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `String = String`
 
                   - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -27210,10 +26994,6 @@ puts(beta_message_tokens_count)
 
                       Powerful intelligence for long-running agents and coding
 
-                    - `:"claude-mythos-preview"`
-
-                      New class of intelligence, strongest in coding and cybersecurity
-
                     - `:"claude-opus-4-6"`
 
                       Powerful intelligence for long-running agents and coding
@@ -27246,7 +27026,11 @@ puts(beta_message_tokens_count)
 
                       High-performance model for agents and coding
 
-                  - `String = String`
+                    - `:"claude-mythos-preview"`
+
+                      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                      New class of intelligence, strongest in coding and cybersecurity
 
                 - `name: :advisor`
 
@@ -27286,7 +27070,7 @@ puts(beta_message_tokens_count)
 
                   Maximum number of times the tool can be used in the API request.
 
-                  exclusiveMinimum: 0
+                  minimum: 1
 
                 - `strict: bool`
 
@@ -27377,7 +27161,7 @@ puts(beta_message_tokens_count)
 
                   Name of the MCP server to configure tools for
 
-                  maxLength: 255, minLength: 1
+                  minLength: 1, maxLength: 255
 
                 - `cache_control: BetaCacheControlEphemeral`
 
@@ -27487,7 +27271,7 @@ puts(beta_message_tokens_count)
 
       The name of the MCP server this listing came from, as `mcp_servers` declares it.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `tools: Array[BetaMCPToolParam]`
 
@@ -27598,7 +27382,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: Integer`
 
@@ -27618,7 +27402,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: Integer`
 
@@ -27642,7 +27426,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: Integer`
 
@@ -27666,7 +27450,7 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: String`
 
@@ -27805,7 +27589,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_char_index: Integer`
 
@@ -27825,7 +27609,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_page_number: Integer`
 
@@ -27849,7 +27633,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_block_index: Integer`
 
@@ -27873,7 +27657,7 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-          maxLength: 512, minLength: 1
+          minLength: 1, maxLength: 512
 
         - `url: String`
 
@@ -27972,8 +27756,6 @@ puts(beta_message_tokens_count)
   - `edits: Array[BetaClearToolUses20250919Edit | BetaClearThinking20251015Edit | BetaCompact20260112Edit]`
 
     List of context management edits to apply
-
-    minItems: 0
 
     - `class BetaClearToolUses20250919Edit`
 
@@ -28299,6 +28081,8 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `String = String`
+
       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
         The model that will complete your prompt.
@@ -28341,10 +28125,6 @@ puts(beta_message_tokens_count)
 
           Powerful intelligence for long-running agents and coding
 
-        - `:"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `:"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -28377,7 +28157,11 @@ puts(beta_message_tokens_count)
 
           High-performance model for agents and coding
 
-      - `String = String`
+        - `:"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
   - `to: BetaFallbackInfo`
 
@@ -28391,7 +28175,7 @@ puts(beta_message_tokens_count)
 
     - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-      The policy category that triggered a refusal.
+      The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
       - `:cyber`
 
@@ -28443,6 +28227,8 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `String = String`
+
       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
         The model that will complete your prompt.
@@ -28485,10 +28271,6 @@ puts(beta_message_tokens_count)
 
           Powerful intelligence for long-running agents and coding
 
-        - `:"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `:"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -28521,7 +28303,11 @@ puts(beta_message_tokens_count)
 
           High-performance model for agents and coding
 
-      - `String = String`
+        - `:"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
   - `to: BetaFallbackInfoParam`
 
@@ -28606,7 +28392,7 @@ puts(beta_message_tokens_count)
 
     The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
 
-    maxLength: 2048, minLength: 1
+    minLength: 1, maxLength: 2048
 
   - `mode: :strict | :best_effort`
 
@@ -28698,6 +28484,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -28740,10 +28528,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -28776,7 +28560,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
 ### Beta Fallback Info Param
 
@@ -28790,6 +28578,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -28832,10 +28622,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -28868,7 +28654,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
 ### Beta Fallback Message Iteration Usage
 
@@ -28927,6 +28717,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -28969,10 +28761,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -29005,7 +28793,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `output_tokens: Integer`
 
@@ -29030,6 +28822,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -29072,10 +28866,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -29108,7 +28898,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `max_tokens: Integer`
 
@@ -29116,7 +28910,9 @@ puts(beta_message_tokens_count)
 
     - `effort: :low | :medium | :high | 2 more`
 
-      All possible effort levels.
+      How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+      Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
       - `:low`
 
@@ -29140,7 +28936,7 @@ puts(beta_message_tokens_count)
 
     - `task_budget: BetaTokenTaskBudget`
 
-      User-configurable total token budget across contexts.
+      Configuration for token budget tracking across contexts.
 
       - `type: :tokens`
 
@@ -29184,17 +28980,11 @@ puts(beta_message_tokens_count)
 
       - `block_binding: BetaThinkingBlockBinding`
 
-        Controls for block binding: what happens when a thinking block this
-        request sends back fails the conversation check. Every field is optional;
-        an empty object means every default.
+        Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
         - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-          What happens when a thinking block in `messages` fails the conversation
-          check: it was created in a different conversation, or the messages before
-          it have changed since. `"error"` (the default) fails the request with a
-          400 error. `"drop_block"` removes the failing blocks and the request
-          proceeds; the model no longer sees the dropped reasoning.
+          "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
           - `:error`
 
@@ -29220,9 +29010,7 @@ puts(beta_message_tokens_count)
 
       - `block_binding: BetaThinkingBlockBinding`
 
-        Controls for block binding: what happens when a thinking block this
-        request sends back fails the conversation check. Every field is optional;
-        an empty object means every default.
+        Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
       - `display_: :summarized | :omitted | :updates`
 
@@ -29244,7 +29032,7 @@ puts(beta_message_tokens_count)
 
   - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-    The policy category that triggered a refusal.
+    The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
     - `:cyber`
 
@@ -29279,6 +29067,8 @@ puts(beta_message_tokens_count)
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `String = String`
 
       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -29322,10 +29112,6 @@ puts(beta_message_tokens_count)
 
           Powerful intelligence for long-running agents and coding
 
-        - `:"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `:"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -29358,7 +29144,11 @@ puts(beta_message_tokens_count)
 
           High-performance model for agents and coding
 
-      - `String = String`
+        - `:"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
     - `max_tokens: Integer`
 
@@ -29366,7 +29156,9 @@ puts(beta_message_tokens_count)
 
       - `effort: :low | :medium | :high | 2 more`
 
-        All possible effort levels.
+        How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+        Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
         - `:low`
 
@@ -29390,7 +29182,7 @@ puts(beta_message_tokens_count)
 
       - `task_budget: BetaTokenTaskBudget`
 
-        User-configurable total token budget across contexts.
+        Configuration for token budget tracking across contexts.
 
         - `type: :tokens`
 
@@ -29434,17 +29226,11 @@ puts(beta_message_tokens_count)
 
         - `block_binding: BetaThinkingBlockBinding`
 
-          Controls for block binding: what happens when a thinking block this
-          request sends back fails the conversation check. Every field is optional;
-          an empty object means every default.
+          Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
           - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-            What happens when a thinking block in `messages` fails the conversation
-            check: it was created in a different conversation, or the messages before
-            it have changed since. `"error"` (the default) fails the request with a
-            400 error. `"drop_block"` removes the failing blocks and the request
-            proceeds; the model no longer sees the dropped reasoning.
+            "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
             - `:error`
 
@@ -29470,9 +29256,7 @@ puts(beta_message_tokens_count)
 
         - `block_binding: BetaThinkingBlockBinding`
 
-          Controls for block binding: what happens when a thinking block this
-          request sends back fails the conversation check. Every field is optional;
-          an empty object means every default.
+          Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
         - `display_: :summarized | :omitted | :updates`
 
@@ -29754,6 +29538,8 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `String = String`
+
       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
         The model that will complete your prompt.
@@ -29796,10 +29582,6 @@ puts(beta_message_tokens_count)
 
           Powerful intelligence for long-running agents and coding
 
-        - `:"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `:"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -29832,7 +29614,11 @@ puts(beta_message_tokens_count)
 
           High-performance model for agents and coding
 
-      - `String = String`
+        - `:"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
     - `output_tokens: Integer`
 
@@ -30046,7 +29832,7 @@ puts(beta_message_tokens_count)
 
     The name of the MCP server this listing came from, as `mcp_servers` declares it.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
   - `tools: Array[BetaMCPToolParam]`
 
@@ -30227,8 +30013,6 @@ puts(beta_message_tokens_count)
 
       - `text: String`
 
-        minLength: 0
-
   - `is_error: bool`
 
   - `tool_use_id: String`
@@ -30309,7 +30093,7 @@ puts(beta_message_tokens_count)
 
     Name of the MCP server to configure tools for
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -30437,7 +30221,7 @@ puts(beta_message_tokens_count)
 
       Optional line range for viewing specific lines
 
-      maxItems: 2, minItems: 2
+      minItems: 2, maxItems: 2
 
   - `class BetaMemoryTool20250818CreateCommand`
 
@@ -30617,7 +30401,7 @@ puts(beta_message_tokens_count)
 
     Optional line range for viewing specific lines
 
-    maxItems: 2, minItems: 2
+    minItems: 2, maxItems: 2
 
 ### Beta Message
 
@@ -30637,7 +30421,9 @@ puts(beta_message_tokens_count)
 
   - `container: BetaContainer`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
     - `id: String`
 
@@ -30665,13 +30451,13 @@ puts(beta_message_tokens_count)
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `version: String`
 
         The resolved version: a skill version ID for custom skills.
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `content: Array[BetaContentBlock]`
 
@@ -30832,8 +30618,6 @@ puts(beta_message_tokens_count)
 
       - `text: String`
 
-        minLength: 0
-
     - `class BetaThinkingBlock`
 
       - `type: :thinking`
@@ -30906,7 +30690,7 @@ puts(beta_message_tokens_count)
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `class BetaServerToolUseBlock`
 
@@ -31346,7 +31130,7 @@ puts(beta_message_tokens_count)
 
             - `tool_name: String`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `tool_use_id: String`
 
@@ -31389,8 +31173,6 @@ puts(beta_message_tokens_count)
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
           - `text: String`
-
-            minLength: 0
 
       - `is_error: bool`
 
@@ -31513,7 +31295,7 @@ puts(beta_message_tokens_count)
 
                     This is how the tool will be called by the model and in `tool_use` blocks.
 
-                    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31777,12 +31559,7 @@ puts(beta_message_tokens_count)
 
                   - `configs: BetaBrowserToolsetConfigs`
 
-                    Per-member configuration for `browser_toolset_20260801`: one
-                    optional field per member tool, keyed by the member name — the same
-                    name the member's `tool_use` blocks carry. Every member is an
-                    accepted key, and a member's defaults apply wherever its key is
-                    absent. Unknown keys are rejected: the field set is this toolset
-                    version's complete member set.
+                    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                     - `type: BetaBrowserTypeConfig`
 
@@ -32403,12 +32180,7 @@ puts(beta_message_tokens_count)
 
                   - `configs: BetaComputerToolsetConfigs`
 
-                    Per-member configuration for `computer_toolset_20260801`: one
-                    optional field per member tool, keyed by the member name — the same
-                    name the member's `tool_use` blocks carry. Every member is an
-                    accepted key, and a member's defaults apply wherever its key is
-                    absent. Unknown keys are rejected: the field set is this toolset
-                    version's complete member set.
+                    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                     - `type: BetaComputerTypeConfig`
 
@@ -32762,7 +32534,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -32778,25 +32550,25 @@ puts(beta_message_tokens_count)
 
                       The city of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `country: String`
 
                       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                      maxLength: 2, minLength: 2
+                      minLength: 2, maxLength: 2
 
                     - `region: String`
 
                       The region of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `timezone: String`
 
                       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                 - `class BetaWebFetchTool20250910`
 
@@ -32844,13 +32616,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -32858,12 +32630,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -32987,7 +32754,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -33041,13 +32808,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -33055,12 +32822,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `class BetaWebFetchTool20260309`
 
@@ -33108,13 +32870,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -33122,12 +32884,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `use_cache: bool`
 
@@ -33173,7 +32930,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `response_inclusion: :full | :excluded`
 
@@ -33235,13 +32992,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `response_inclusion: :full | :excluded`
 
@@ -33257,12 +33014,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `use_cache: bool`
 
@@ -33277,6 +33029,8 @@ puts(beta_message_tokens_count)
                     The model that will complete your prompt.
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                    - `String = String`
 
                     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -33320,10 +33074,6 @@ puts(beta_message_tokens_count)
 
                         Powerful intelligence for long-running agents and coding
 
-                      - `:"claude-mythos-preview"`
-
-                        New class of intelligence, strongest in coding and cybersecurity
-
                       - `:"claude-opus-4-6"`
 
                         Powerful intelligence for long-running agents and coding
@@ -33356,7 +33106,11 @@ puts(beta_message_tokens_count)
 
                         High-performance model for agents and coding
 
-                    - `String = String`
+                      - `:"claude-mythos-preview"`
+
+                        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                        New class of intelligence, strongest in coding and cybersecurity
 
                   - `name: :advisor`
 
@@ -33396,7 +33150,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -33487,7 +33241,7 @@ puts(beta_message_tokens_count)
 
                     Name of the MCP server to configure tools for
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -33596,7 +33350,7 @@ puts(beta_message_tokens_count)
 
         - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-          The policy category that triggered a refusal.
+          The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
           - `:cyber`
 
@@ -33685,8 +33439,7 @@ puts(beta_message_tokens_count)
 
   - `diagnostics: BetaDiagnostics`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
     - `cache_miss_reason: BetaCacheMissReason`
 
@@ -33746,13 +33499,17 @@ puts(beta_message_tokens_count)
 
   - `stop_details: BetaRefusalStopDetails`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
     - `type: :refusal`
 
     - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-      The policy category that triggered a refusal.
+      The policy category that triggered the refusal.
+
+      `null` when the refusal doesn't map to a named category.
 
       - `:cyber`
 
@@ -33910,6 +33667,10 @@ puts(beta_message_tokens_count)
     - `fallback_credit: BetaFallbackCreditUsage`
 
       Outcome of the `fallback_credit_token` presented on this request.
+
+      Present on every response to a non-batch request that carried a
+      `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+      items accept and ignore the token and carry no outcome object).
 
       - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -34222,7 +33983,7 @@ puts(beta_message_tokens_count)
 
     - `speed: :standard | :fast`
 
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+      The inference speed mode used for this request.
 
       - `:standard`
 
@@ -34339,6 +34100,10 @@ puts(beta_message_tokens_count)
   - `fallback_credit: BetaFallbackCreditUsage`
 
     Outcome of the `fallback_credit_token` presented on this request.
+
+    Present on every response to a non-batch request that carried a
+    `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+    items accept and ignore the token and carry no outcome object).
 
     - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -34470,6 +34235,8 @@ puts(beta_message_tokens_count)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `String = String`
+
         - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
           The model that will complete your prompt.
@@ -34512,10 +34279,6 @@ puts(beta_message_tokens_count)
 
             Powerful intelligence for long-running agents and coding
 
-          - `:"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `:"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -34548,7 +34311,11 @@ puts(beta_message_tokens_count)
 
             High-performance model for agents and coding
 
-        - `String = String`
+          - `:"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
 
       - `output_tokens: Integer`
 
@@ -34775,6 +34542,8 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `String = String`
+
     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
       The model that will complete your prompt.
@@ -34817,10 +34586,6 @@ puts(beta_message_tokens_count)
 
         Powerful intelligence for long-running agents and coding
 
-      - `:"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `:"claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -34853,7 +34618,11 @@ puts(beta_message_tokens_count)
 
         High-performance model for agents and coding
 
-    - `String = String`
+      - `:"claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `output_tokens: Integer`
 
@@ -34914,7 +34683,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: Integer`
 
@@ -34934,7 +34703,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: Integer`
 
@@ -34958,7 +34727,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: Integer`
 
@@ -34982,7 +34751,7 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: String`
 
@@ -35138,7 +34907,7 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `class BetaSearchResultBlockParam`
 
@@ -35202,7 +34971,7 @@ puts(beta_message_tokens_count)
 
         - `name: String`
 
-          maxLength: 200, minLength: 1
+          minLength: 1, maxLength: 200
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -35238,7 +35007,7 @@ puts(beta_message_tokens_count)
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaToolResultBlockParam`
 
@@ -35274,7 +35043,7 @@ puts(beta_message_tokens_count)
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -35302,7 +35071,7 @@ puts(beta_message_tokens_count)
 
                   The caller-assigned identifier for this tab, unique within the inventory.
 
-                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                  minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: String`
 
@@ -35328,7 +35097,7 @@ puts(beta_message_tokens_count)
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                maxItems: 200, minItems: 1
+                minItems: 1, maxItems: 200
 
                 - `class BetaBrowserStateChangeTabOpened`
 
@@ -35346,7 +35115,7 @@ puts(beta_message_tokens_count)
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -35358,7 +35127,7 @@ puts(beta_message_tokens_count)
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -35379,7 +35148,7 @@ puts(beta_message_tokens_count)
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -35391,7 +35160,7 @@ puts(beta_message_tokens_count)
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `size_bytes: Integer`
 
@@ -35409,7 +35178,7 @@ puts(beta_message_tokens_count)
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `url: String`
 
@@ -35421,7 +35190,7 @@ puts(beta_message_tokens_count)
 
                     The failure or cancellation detail, when known.
 
-                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `is_error: bool`
 
@@ -35429,7 +35198,7 @@ puts(beta_message_tokens_count)
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam`
 
@@ -35861,7 +35630,7 @@ puts(beta_message_tokens_count)
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -36053,7 +35822,7 @@ puts(beta_message_tokens_count)
 
                       This is how the tool will be called by the model and in `tool_use` blocks.
 
-                      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -36304,12 +36073,7 @@ puts(beta_message_tokens_count)
 
                     - `configs: BetaBrowserToolsetConfigs`
 
-                      Per-member configuration for `browser_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaBrowserTypeConfig`
 
@@ -36930,12 +36694,7 @@ puts(beta_message_tokens_count)
 
                     - `configs: BetaComputerToolsetConfigs`
 
-                      Per-member configuration for `computer_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaComputerTypeConfig`
 
@@ -37289,7 +37048,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -37305,25 +37064,25 @@ puts(beta_message_tokens_count)
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: String`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: String`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: String`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `class BetaWebFetchTool20250910`
 
@@ -37369,13 +37128,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -37383,12 +37142,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -37512,7 +37266,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -37566,13 +37320,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -37580,12 +37334,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `class BetaWebFetchTool20260309`
 
@@ -37633,13 +37382,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -37647,12 +37396,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -37698,7 +37442,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -37760,13 +37504,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -37782,12 +37526,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -37802,6 +37541,8 @@ puts(beta_message_tokens_count)
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `String = String`
 
                       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -37845,10 +37586,6 @@ puts(beta_message_tokens_count)
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `:"claude-mythos-preview"`
-
-                          New class of intelligence, strongest in coding and cybersecurity
-
                         - `:"claude-opus-4-6"`
 
                           Powerful intelligence for long-running agents and coding
@@ -37881,7 +37618,11 @@ puts(beta_message_tokens_count)
 
                           High-performance model for agents and coding
 
-                      - `String = String`
+                        - `:"claude-mythos-preview"`
+
+                          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          New class of intelligence, strongest in coding and cybersecurity
 
                     - `name: :advisor`
 
@@ -37921,7 +37662,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -38012,7 +37753,7 @@ puts(beta_message_tokens_count)
 
                       Name of the MCP server to configure tools for
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `cache_control: BetaCacheControlEphemeral`
 
@@ -38122,7 +37863,7 @@ puts(beta_message_tokens_count)
 
           The name of the MCP server this listing came from, as `mcp_servers` declares it.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `tools: Array[BetaMCPToolParam]`
 
@@ -38204,7 +37945,9 @@ puts(beta_message_tokens_count)
 
     - `effort: :low | :medium | :high | 2 more`
 
-      All possible effort levels.
+      How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+      Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
       - `:low`
 
@@ -38250,7 +37993,9 @@ puts(beta_message_tokens_count)
 
   - `effort: :low | :medium | :high | 2 more`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
     - `:low`
 
@@ -38274,7 +38019,7 @@ puts(beta_message_tokens_count)
 
   - `task_budget: BetaTokenTaskBudget`
 
-    User-configurable total token budget across contexts.
+    Configuration for token budget tracking across contexts.
 
     - `type: :tokens`
 
@@ -38803,8 +38548,6 @@ puts(beta_message_tokens_count)
 
       - `text: String`
 
-        minLength: 0
-
     - `class BetaThinkingBlock`
 
       - `type: :thinking`
@@ -38877,7 +38620,7 @@ puts(beta_message_tokens_count)
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `class BetaServerToolUseBlock`
 
@@ -39317,7 +39060,7 @@ puts(beta_message_tokens_count)
 
             - `tool_name: String`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `tool_use_id: String`
 
@@ -39360,8 +39103,6 @@ puts(beta_message_tokens_count)
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
           - `text: String`
-
-            minLength: 0
 
       - `is_error: bool`
 
@@ -39484,7 +39225,7 @@ puts(beta_message_tokens_count)
 
                     This is how the tool will be called by the model and in `tool_use` blocks.
 
-                    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39748,12 +39489,7 @@ puts(beta_message_tokens_count)
 
                   - `configs: BetaBrowserToolsetConfigs`
 
-                    Per-member configuration for `browser_toolset_20260801`: one
-                    optional field per member tool, keyed by the member name — the same
-                    name the member's `tool_use` blocks carry. Every member is an
-                    accepted key, and a member's defaults apply wherever its key is
-                    absent. Unknown keys are rejected: the field set is this toolset
-                    version's complete member set.
+                    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                     - `type: BetaBrowserTypeConfig`
 
@@ -40374,12 +40110,7 @@ puts(beta_message_tokens_count)
 
                   - `configs: BetaComputerToolsetConfigs`
 
-                    Per-member configuration for `computer_toolset_20260801`: one
-                    optional field per member tool, keyed by the member name — the same
-                    name the member's `tool_use` blocks carry. Every member is an
-                    accepted key, and a member's defaults apply wherever its key is
-                    absent. Unknown keys are rejected: the field set is this toolset
-                    version's complete member set.
+                    Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                     - `type: BetaComputerTypeConfig`
 
@@ -40733,7 +40464,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -40749,25 +40480,25 @@ puts(beta_message_tokens_count)
 
                       The city of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `country: String`
 
                       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                      maxLength: 2, minLength: 2
+                      minLength: 2, maxLength: 2
 
                     - `region: String`
 
                       The region of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `timezone: String`
 
                       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                 - `class BetaWebFetchTool20250910`
 
@@ -40815,13 +40546,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -40829,12 +40560,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -40958,7 +40684,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -41012,13 +40738,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -41026,12 +40752,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                 - `class BetaWebFetchTool20260309`
 
@@ -41079,13 +40800,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -41093,12 +40814,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `use_cache: bool`
 
@@ -41144,7 +40860,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `response_inclusion: :full | :excluded`
 
@@ -41206,13 +40922,13 @@ puts(beta_message_tokens_count)
 
                     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `max_uses: Integer`
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `response_inclusion: :full | :excluded`
 
@@ -41228,12 +40944,7 @@ puts(beta_message_tokens_count)
 
                   - `url_sources: BetaWebFetchURLSources`
 
-                    Which sources contribute to the set of URLs web fetch may fetch.
-
-                    Each key is a tagged variant: `user_input` is `all` or `none`; the
-                    two tool filters are `all`, `none`, `only` (only the named tools'
-                    results) or `except` (every result but the named tools'). A named tool
-                    must be declared in this request's `tools[]`.
+                    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `use_cache: bool`
 
@@ -41248,6 +40959,8 @@ puts(beta_message_tokens_count)
                     The model that will complete your prompt.
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                    - `String = String`
 
                     - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -41291,10 +41004,6 @@ puts(beta_message_tokens_count)
 
                         Powerful intelligence for long-running agents and coding
 
-                      - `:"claude-mythos-preview"`
-
-                        New class of intelligence, strongest in coding and cybersecurity
-
                       - `:"claude-opus-4-6"`
 
                         Powerful intelligence for long-running agents and coding
@@ -41327,7 +41036,11 @@ puts(beta_message_tokens_count)
 
                         High-performance model for agents and coding
 
-                    - `String = String`
+                      - `:"claude-mythos-preview"`
+
+                        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                        New class of intelligence, strongest in coding and cybersecurity
 
                   - `name: :advisor`
 
@@ -41367,7 +41080,7 @@ puts(beta_message_tokens_count)
 
                     Maximum number of times the tool can be used in the API request.
 
-                    exclusiveMinimum: 0
+                    minimum: 1
 
                   - `strict: bool`
 
@@ -41458,7 +41171,7 @@ puts(beta_message_tokens_count)
 
                     Name of the MCP server to configure tools for
 
-                    maxLength: 255, minLength: 1
+                    minLength: 1, maxLength: 255
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -41567,7 +41280,7 @@ puts(beta_message_tokens_count)
 
         - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-          The policy category that triggered a refusal.
+          The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
           - `:cyber`
 
@@ -41672,7 +41385,9 @@ puts(beta_message_tokens_count)
 
     - `container: BetaContainer`
 
-      Information about the container used in the request (for the code execution tool)
+      Information about the container used in this request.
+
+      This will be non-null if a container tool (e.g. code execution) was used.
 
       - `id: String`
 
@@ -41700,23 +41415,27 @@ puts(beta_message_tokens_count)
 
           Skill ID
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
         - `version: String`
 
           The resolved version: a skill version ID for custom skills.
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
     - `stop_details: BetaRefusalStopDetails`
 
-      Structured information about a refusal.
+      Structured information about why model output stopped.
+
+      This is `null` when the `stop_reason` has no additional detail to report.
 
       - `type: :refusal`
 
       - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-        The policy category that triggered a refusal.
+        The policy category that triggered the refusal.
+
+        `null` when the refusal doesn't map to a named category.
 
         - `:cyber`
 
@@ -41840,6 +41559,10 @@ puts(beta_message_tokens_count)
     - `fallback_credit: BetaFallbackCreditUsage`
 
       Outcome of the `fallback_credit_token` presented on this request.
+
+      Present on every response to a non-batch request that carried a
+      `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+      items accept and ignore the token and carry no outcome object).
 
       - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -41971,6 +41694,8 @@ puts(beta_message_tokens_count)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `String = String`
+
           - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
             The model that will complete your prompt.
@@ -42013,10 +41738,6 @@ puts(beta_message_tokens_count)
 
               Powerful intelligence for long-running agents and coding
 
-            - `:"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `:"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -42049,7 +41770,11 @@ puts(beta_message_tokens_count)
 
               High-performance model for agents and coding
 
-          - `String = String`
+            - `:"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
 
         - `output_tokens: Integer`
 
@@ -42340,7 +42065,9 @@ puts(beta_message_tokens_count)
 
     - `container: BetaContainer`
 
-      Information about the container used in the request (for the code execution tool)
+      Information about the container used in this request.
+
+      This will be non-null if a container tool (e.g. code execution) was used.
 
       - `id: String`
 
@@ -42368,13 +42095,13 @@ puts(beta_message_tokens_count)
 
           Skill ID
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
         - `version: String`
 
           The resolved version: a skill version ID for custom skills.
 
-          maxLength: 64, minLength: 1
+          minLength: 1, maxLength: 64
 
     - `content: Array[BetaContentBlock]`
 
@@ -42535,8 +42262,6 @@ puts(beta_message_tokens_count)
 
         - `text: String`
 
-          minLength: 0
-
       - `class BetaThinkingBlock`
 
         - `type: :thinking`
@@ -42609,7 +42334,7 @@ puts(beta_message_tokens_count)
 
           For a toolset member tool_use, the toolset family.
 
-          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlock`
 
@@ -43049,7 +42774,7 @@ puts(beta_message_tokens_count)
 
               - `tool_name: String`
 
-                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `tool_use_id: String`
 
@@ -43092,8 +42817,6 @@ puts(beta_message_tokens_count)
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
             - `text: String`
-
-              minLength: 0
 
         - `is_error: bool`
 
@@ -43216,7 +42939,7 @@ puts(beta_message_tokens_count)
 
                       This is how the tool will be called by the model and in `tool_use` blocks.
 
-                      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -43480,12 +43203,7 @@ puts(beta_message_tokens_count)
 
                     - `configs: BetaBrowserToolsetConfigs`
 
-                      Per-member configuration for `browser_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaBrowserTypeConfig`
 
@@ -44106,12 +43824,7 @@ puts(beta_message_tokens_count)
 
                     - `configs: BetaComputerToolsetConfigs`
 
-                      Per-member configuration for `computer_toolset_20260801`: one
-                      optional field per member tool, keyed by the member name — the same
-                      name the member's `tool_use` blocks carry. Every member is an
-                      accepted key, and a member's defaults apply wherever its key is
-                      absent. Unknown keys are rejected: the field set is this toolset
-                      version's complete member set.
+                      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                       - `type: BetaComputerTypeConfig`
 
@@ -44465,7 +44178,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -44481,25 +44194,25 @@ puts(beta_message_tokens_count)
 
                         The city of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `country: String`
 
                         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                        maxLength: 2, minLength: 2
+                        minLength: 2, maxLength: 2
 
                       - `region: String`
 
                         The region of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `timezone: String`
 
                         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                   - `class BetaWebFetchTool20250910`
 
@@ -44547,13 +44260,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -44561,12 +44274,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -44690,7 +44398,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -44744,13 +44452,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -44758,12 +44466,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                   - `class BetaWebFetchTool20260309`
 
@@ -44811,13 +44514,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -44825,12 +44528,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -44876,7 +44574,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -44938,13 +44636,13 @@ puts(beta_message_tokens_count)
 
                       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `max_uses: Integer`
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `response_inclusion: :full | :excluded`
 
@@ -44960,12 +44658,7 @@ puts(beta_message_tokens_count)
 
                     - `url_sources: BetaWebFetchURLSources`
 
-                      Which sources contribute to the set of URLs web fetch may fetch.
-
-                      Each key is a tagged variant: `user_input` is `all` or `none`; the
-                      two tool filters are `all`, `none`, `only` (only the named tools'
-                      results) or `except` (every result but the named tools'). A named tool
-                      must be declared in this request's `tools[]`.
+                      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `use_cache: bool`
 
@@ -44980,6 +44673,8 @@ puts(beta_message_tokens_count)
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `String = String`
 
                       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -45023,10 +44718,6 @@ puts(beta_message_tokens_count)
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `:"claude-mythos-preview"`
-
-                          New class of intelligence, strongest in coding and cybersecurity
-
                         - `:"claude-opus-4-6"`
 
                           Powerful intelligence for long-running agents and coding
@@ -45059,7 +44750,11 @@ puts(beta_message_tokens_count)
 
                           High-performance model for agents and coding
 
-                      - `String = String`
+                        - `:"claude-mythos-preview"`
+
+                          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          New class of intelligence, strongest in coding and cybersecurity
 
                     - `name: :advisor`
 
@@ -45099,7 +44794,7 @@ puts(beta_message_tokens_count)
 
                       Maximum number of times the tool can be used in the API request.
 
-                      exclusiveMinimum: 0
+                      minimum: 1
 
                     - `strict: bool`
 
@@ -45190,7 +44885,7 @@ puts(beta_message_tokens_count)
 
                       Name of the MCP server to configure tools for
 
-                      maxLength: 255, minLength: 1
+                      minLength: 1, maxLength: 255
 
                     - `cache_control: BetaCacheControlEphemeral`
 
@@ -45299,7 +44994,7 @@ puts(beta_message_tokens_count)
 
           - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
             - `:cyber`
 
@@ -45388,8 +45083,7 @@ puts(beta_message_tokens_count)
 
     - `diagnostics: BetaDiagnostics`
 
-      Request-level diagnostics: why the prompt cache could not fully reuse
-      the prefix of the request named by `diagnostics.previous_message_id`.
+      Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
       - `cache_miss_reason: BetaCacheMissReason`
 
@@ -45449,13 +45143,17 @@ puts(beta_message_tokens_count)
 
     - `stop_details: BetaRefusalStopDetails`
 
-      Structured information about a refusal.
+      Structured information about why model output stopped.
+
+      This is `null` when the `stop_reason` has no additional detail to report.
 
       - `type: :refusal`
 
       - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-        The policy category that triggered a refusal.
+        The policy category that triggered the refusal.
+
+        `null` when the refusal doesn't map to a named category.
 
         - `:cyber`
 
@@ -45613,6 +45311,10 @@ puts(beta_message_tokens_count)
       - `fallback_credit: BetaFallbackCreditUsage`
 
         Outcome of the `fallback_credit_token` presented on this request.
+
+        Present on every response to a non-batch request that carried a
+        `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+        items accept and ignore the token and carry no outcome object).
 
         - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -45925,7 +45627,7 @@ puts(beta_message_tokens_count)
 
       - `speed: :standard | :fast`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        The inference speed mode used for this request.
 
         - `:standard`
 
@@ -46053,7 +45755,9 @@ puts(beta_message_tokens_count)
 
       - `container: BetaContainer`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
         - `id: String`
 
@@ -46081,13 +45785,13 @@ puts(beta_message_tokens_count)
 
             Skill ID
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
           - `version: String`
 
             The resolved version: a skill version ID for custom skills.
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
       - `content: Array[BetaContentBlock]`
 
@@ -46248,8 +45952,6 @@ puts(beta_message_tokens_count)
 
           - `text: String`
 
-            minLength: 0
-
         - `class BetaThinkingBlock`
 
           - `type: :thinking`
@@ -46322,7 +46024,7 @@ puts(beta_message_tokens_count)
 
             For a toolset member tool_use, the toolset family.
 
-            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
         - `class BetaServerToolUseBlock`
 
@@ -46762,7 +46464,7 @@ puts(beta_message_tokens_count)
 
                 - `tool_name: String`
 
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `tool_use_id: String`
 
@@ -46805,8 +46507,6 @@ puts(beta_message_tokens_count)
                 The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
               - `text: String`
-
-                minLength: 0
 
           - `is_error: bool`
 
@@ -46929,7 +46629,7 @@ puts(beta_message_tokens_count)
 
                         This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                       - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -47193,12 +46893,7 @@ puts(beta_message_tokens_count)
 
                       - `configs: BetaBrowserToolsetConfigs`
 
-                        Per-member configuration for `browser_toolset_20260801`: one
-                        optional field per member tool, keyed by the member name — the same
-                        name the member's `tool_use` blocks carry. Every member is an
-                        accepted key, and a member's defaults apply wherever its key is
-                        absent. Unknown keys are rejected: the field set is this toolset
-                        version's complete member set.
+                        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                         - `type: BetaBrowserTypeConfig`
 
@@ -47819,12 +47514,7 @@ puts(beta_message_tokens_count)
 
                       - `configs: BetaComputerToolsetConfigs`
 
-                        Per-member configuration for `computer_toolset_20260801`: one
-                        optional field per member tool, keyed by the member name — the same
-                        name the member's `tool_use` blocks carry. Every member is an
-                        accepted key, and a member's defaults apply wherever its key is
-                        absent. Unknown keys are rejected: the field set is this toolset
-                        version's complete member set.
+                        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                         - `type: BetaComputerTypeConfig`
 
@@ -48178,7 +47868,7 @@ puts(beta_message_tokens_count)
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: bool`
 
@@ -48194,25 +47884,25 @@ puts(beta_message_tokens_count)
 
                           The city of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `country: String`
 
                           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                          maxLength: 2, minLength: 2
+                          minLength: 2, maxLength: 2
 
                         - `region: String`
 
                           The region of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `timezone: String`
 
                           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                     - `class BetaWebFetchTool20250910`
 
@@ -48260,13 +47950,13 @@ puts(beta_message_tokens_count)
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: Integer`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: bool`
 
@@ -48274,12 +47964,7 @@ puts(beta_message_tokens_count)
 
                       - `url_sources: BetaWebFetchURLSources`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -48403,7 +48088,7 @@ puts(beta_message_tokens_count)
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: bool`
 
@@ -48457,13 +48142,13 @@ puts(beta_message_tokens_count)
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: Integer`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: bool`
 
@@ -48471,12 +48156,7 @@ puts(beta_message_tokens_count)
 
                       - `url_sources: BetaWebFetchURLSources`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                     - `class BetaWebFetchTool20260309`
 
@@ -48524,13 +48204,13 @@ puts(beta_message_tokens_count)
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: Integer`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: bool`
 
@@ -48538,12 +48218,7 @@ puts(beta_message_tokens_count)
 
                       - `url_sources: BetaWebFetchURLSources`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `use_cache: bool`
 
@@ -48589,7 +48264,7 @@ puts(beta_message_tokens_count)
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `response_inclusion: :full | :excluded`
 
@@ -48651,13 +48326,13 @@ puts(beta_message_tokens_count)
 
                         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `max_uses: Integer`
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `response_inclusion: :full | :excluded`
 
@@ -48673,12 +48348,7 @@ puts(beta_message_tokens_count)
 
                       - `url_sources: BetaWebFetchURLSources`
 
-                        Which sources contribute to the set of URLs web fetch may fetch.
-
-                        Each key is a tagged variant: `user_input` is `all` or `none`; the
-                        two tool filters are `all`, `none`, `only` (only the named tools'
-                        results) or `except` (every result but the named tools'). A named tool
-                        must be declared in this request's `tools[]`.
+                        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `use_cache: bool`
 
@@ -48693,6 +48363,8 @@ puts(beta_message_tokens_count)
                         The model that will complete your prompt.
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                        - `String = String`
 
                         - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -48736,10 +48408,6 @@ puts(beta_message_tokens_count)
 
                             Powerful intelligence for long-running agents and coding
 
-                          - `:"claude-mythos-preview"`
-
-                            New class of intelligence, strongest in coding and cybersecurity
-
                           - `:"claude-opus-4-6"`
 
                             Powerful intelligence for long-running agents and coding
@@ -48772,7 +48440,11 @@ puts(beta_message_tokens_count)
 
                             High-performance model for agents and coding
 
-                        - `String = String`
+                          - `:"claude-mythos-preview"`
+
+                            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                            New class of intelligence, strongest in coding and cybersecurity
 
                       - `name: :advisor`
 
@@ -48812,7 +48484,7 @@ puts(beta_message_tokens_count)
 
                         Maximum number of times the tool can be used in the API request.
 
-                        exclusiveMinimum: 0
+                        minimum: 1
 
                       - `strict: bool`
 
@@ -48903,7 +48575,7 @@ puts(beta_message_tokens_count)
 
                         Name of the MCP server to configure tools for
 
-                        maxLength: 255, minLength: 1
+                        minLength: 1, maxLength: 255
 
                       - `cache_control: BetaCacheControlEphemeral`
 
@@ -49012,7 +48684,7 @@ puts(beta_message_tokens_count)
 
             - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-              The policy category that triggered a refusal.
+              The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
               - `:cyber`
 
@@ -49101,8 +48773,7 @@ puts(beta_message_tokens_count)
 
       - `diagnostics: BetaDiagnostics`
 
-        Request-level diagnostics: why the prompt cache could not fully reuse
-        the prefix of the request named by `diagnostics.previous_message_id`.
+        Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
         - `cache_miss_reason: BetaCacheMissReason`
 
@@ -49162,13 +48833,17 @@ puts(beta_message_tokens_count)
 
       - `stop_details: BetaRefusalStopDetails`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
         - `type: :refusal`
 
         - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-          The policy category that triggered a refusal.
+          The policy category that triggered the refusal.
+
+          `null` when the refusal doesn't map to a named category.
 
           - `:cyber`
 
@@ -49326,6 +49001,10 @@ puts(beta_message_tokens_count)
         - `fallback_credit: BetaFallbackCreditUsage`
 
           Outcome of the `fallback_credit_token` presented on this request.
+
+          Present on every response to a non-batch request that carried a
+          `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+          items accept and ignore the token and carry no outcome object).
 
           - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -49638,7 +49317,7 @@ puts(beta_message_tokens_count)
 
         - `speed: :standard | :fast`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          The inference speed mode used for this request.
 
           - `:standard`
 
@@ -49748,11 +49427,15 @@ puts(beta_message_tokens_count)
 
       - `container: BetaContainer`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
       - `stop_details: BetaRefusalStopDetails`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
       - `stop_reason: BetaStopReason`
 
@@ -49785,6 +49468,10 @@ puts(beta_message_tokens_count)
       - `fallback_credit: BetaFallbackCreditUsage`
 
         Outcome of the `fallback_credit_token` presented on this request.
+
+        Present on every response to a non-batch request that carried a
+        `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+        items accept and ignore the token and carry no outcome object).
 
       - `input_tokens: Integer`
 
@@ -50028,7 +49715,9 @@ puts(beta_message_tokens_count)
 
   - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-    The policy category that triggered a refusal.
+    The policy category that triggered the refusal.
+
+    `null` when the refusal doesn't map to a named category.
 
     - `:cyber`
 
@@ -50184,7 +49873,7 @@ puts(beta_message_tokens_count)
 
                 - `document_title: String`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_char_index: Integer`
 
@@ -50204,7 +49893,7 @@ puts(beta_message_tokens_count)
 
                 - `document_title: String`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_page_number: Integer`
 
@@ -50228,7 +49917,7 @@ puts(beta_message_tokens_count)
 
                 - `document_title: String`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_block_index: Integer`
 
@@ -50252,7 +49941,7 @@ puts(beta_message_tokens_count)
 
                 - `title: String`
 
-                  maxLength: 512, minLength: 1
+                  minLength: 1, maxLength: 512
 
                 - `url: String`
 
@@ -50370,7 +50059,7 @@ puts(beta_message_tokens_count)
 
   - `title: String`
 
-    maxLength: 500, minLength: 1
+    minLength: 1, maxLength: 500
 
 ### Beta Request MCP Server Tool Configuration
 
@@ -50459,7 +50148,7 @@ puts(beta_message_tokens_count)
 
           - `document_title: String`
 
-            maxLength: 500, minLength: 1
+            minLength: 1, maxLength: 500
 
           - `end_char_index: Integer`
 
@@ -50479,7 +50168,7 @@ puts(beta_message_tokens_count)
 
           - `document_title: String`
 
-            maxLength: 500, minLength: 1
+            minLength: 1, maxLength: 500
 
           - `end_page_number: Integer`
 
@@ -50503,7 +50192,7 @@ puts(beta_message_tokens_count)
 
           - `document_title: String`
 
-            maxLength: 500, minLength: 1
+            minLength: 1, maxLength: 500
 
           - `end_block_index: Integer`
 
@@ -50527,7 +50216,7 @@ puts(beta_message_tokens_count)
 
           - `title: String`
 
-            maxLength: 512, minLength: 1
+            minLength: 1, maxLength: 512
 
           - `url: String`
 
@@ -50652,7 +50341,7 @@ puts(beta_message_tokens_count)
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+            minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
           - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -50920,12 +50609,7 @@ puts(beta_message_tokens_count)
 
           - `configs: BetaBrowserToolsetConfigs`
 
-            Per-member configuration for `browser_toolset_20260801`: one
-            optional field per member tool, keyed by the member name — the same
-            name the member's `tool_use` blocks carry. Every member is an
-            accepted key, and a member's defaults apply wherever its key is
-            absent. Unknown keys are rejected: the field set is this toolset
-            version's complete member set.
+            Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
             - `type: BetaBrowserTypeConfig`
 
@@ -51546,12 +51230,7 @@ puts(beta_message_tokens_count)
 
           - `configs: BetaComputerToolsetConfigs`
 
-            Per-member configuration for `computer_toolset_20260801`: one
-            optional field per member tool, keyed by the member name — the same
-            name the member's `tool_use` blocks carry. Every member is an
-            accepted key, and a member's defaults apply wherever its key is
-            absent. Unknown keys are rejected: the field set is this toolset
-            version's complete member set.
+            Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
             - `type: BetaComputerTypeConfig`
 
@@ -51905,7 +51584,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -51921,25 +51600,25 @@ puts(beta_message_tokens_count)
 
               The city of the user.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
             - `country: String`
 
               The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-              maxLength: 2, minLength: 2
+              minLength: 2, maxLength: 2
 
             - `region: String`
 
               The region of the user.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
             - `timezone: String`
 
               The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
         - `class BetaWebFetchTool20250910`
 
@@ -51987,13 +51666,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -52001,12 +51680,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
             - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -52130,7 +51804,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -52184,13 +51858,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -52198,12 +51872,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `class BetaWebFetchTool20260309`
 
@@ -52251,13 +51920,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -52265,12 +51934,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
           - `use_cache: bool`
 
@@ -52316,7 +51980,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `response_inclusion: :full | :excluded`
 
@@ -52378,13 +52042,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `response_inclusion: :full | :excluded`
 
@@ -52400,12 +52064,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
           - `use_cache: bool`
 
@@ -52420,6 +52079,8 @@ puts(beta_message_tokens_count)
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `String = String`
 
             - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -52463,10 +52124,6 @@ puts(beta_message_tokens_count)
 
                 Powerful intelligence for long-running agents and coding
 
-              - `:"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
               - `:"claude-opus-4-6"`
 
                 Powerful intelligence for long-running agents and coding
@@ -52499,7 +52156,11 @@ puts(beta_message_tokens_count)
 
                 High-performance model for agents and coding
 
-            - `String = String`
+              - `:"claude-mythos-preview"`
+
+                **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                New class of intelligence, strongest in coding and cybersecurity
 
           - `name: :advisor`
 
@@ -52539,7 +52200,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -52630,7 +52291,7 @@ puts(beta_message_tokens_count)
 
             Name of the MCP server to configure tools for
 
-            maxLength: 255, minLength: 1
+            minLength: 1, maxLength: 255
 
           - `cache_control: BetaCacheControlEphemeral`
 
@@ -52768,7 +52429,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -52883,7 +52544,7 @@ puts(beta_message_tokens_count)
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+            minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
           - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -53147,12 +52808,7 @@ puts(beta_message_tokens_count)
 
           - `configs: BetaBrowserToolsetConfigs`
 
-            Per-member configuration for `browser_toolset_20260801`: one
-            optional field per member tool, keyed by the member name — the same
-            name the member's `tool_use` blocks carry. Every member is an
-            accepted key, and a member's defaults apply wherever its key is
-            absent. Unknown keys are rejected: the field set is this toolset
-            version's complete member set.
+            Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
             - `type: BetaBrowserTypeConfig`
 
@@ -53773,12 +53429,7 @@ puts(beta_message_tokens_count)
 
           - `configs: BetaComputerToolsetConfigs`
 
-            Per-member configuration for `computer_toolset_20260801`: one
-            optional field per member tool, keyed by the member name — the same
-            name the member's `tool_use` blocks carry. Every member is an
-            accepted key, and a member's defaults apply wherever its key is
-            absent. Unknown keys are rejected: the field set is this toolset
-            version's complete member set.
+            Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
             - `type: BetaComputerTypeConfig`
 
@@ -54132,7 +53783,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -54148,25 +53799,25 @@ puts(beta_message_tokens_count)
 
               The city of the user.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
             - `country: String`
 
               The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-              maxLength: 2, minLength: 2
+              minLength: 2, maxLength: 2
 
             - `region: String`
 
               The region of the user.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
             - `timezone: String`
 
               The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
         - `class BetaWebFetchTool20250910`
 
@@ -54214,13 +53865,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -54228,12 +53879,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
             - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -54357,7 +54003,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -54411,13 +54057,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -54425,12 +54071,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `class BetaWebFetchTool20260309`
 
@@ -54478,13 +54119,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -54492,12 +54133,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
           - `use_cache: bool`
 
@@ -54543,7 +54179,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `response_inclusion: :full | :excluded`
 
@@ -54605,13 +54241,13 @@ puts(beta_message_tokens_count)
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `max_uses: Integer`
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `response_inclusion: :full | :excluded`
 
@@ -54627,12 +54263,7 @@ puts(beta_message_tokens_count)
 
           - `url_sources: BetaWebFetchURLSources`
 
-            Which sources contribute to the set of URLs web fetch may fetch.
-
-            Each key is a tagged variant: `user_input` is `all` or `none`; the
-            two tool filters are `all`, `none`, `only` (only the named tools'
-            results) or `except` (every result but the named tools'). A named tool
-            must be declared in this request's `tools[]`.
+            Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
           - `use_cache: bool`
 
@@ -54647,6 +54278,8 @@ puts(beta_message_tokens_count)
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `String = String`
 
             - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -54690,10 +54323,6 @@ puts(beta_message_tokens_count)
 
                 Powerful intelligence for long-running agents and coding
 
-              - `:"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
               - `:"claude-opus-4-6"`
 
                 Powerful intelligence for long-running agents and coding
@@ -54726,7 +54355,11 @@ puts(beta_message_tokens_count)
 
                 High-performance model for agents and coding
 
-            - `String = String`
+              - `:"claude-mythos-preview"`
+
+                **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                New class of intelligence, strongest in coding and cybersecurity
 
           - `name: :advisor`
 
@@ -54766,7 +54399,7 @@ puts(beta_message_tokens_count)
 
             Maximum number of times the tool can be used in the API request.
 
-            exclusiveMinimum: 0
+            minimum: 1
 
           - `strict: bool`
 
@@ -54857,7 +54490,7 @@ puts(beta_message_tokens_count)
 
             Name of the MCP server to configure tools for
 
-            maxLength: 255, minLength: 1
+            minLength: 1, maxLength: 255
 
           - `cache_control: BetaCacheControlEphemeral`
 
@@ -55025,7 +54658,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -55289,12 +54922,7 @@ puts(beta_message_tokens_count)
 
     - `configs: BetaBrowserToolsetConfigs`
 
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: BetaBrowserTypeConfig`
 
@@ -55915,12 +55543,7 @@ puts(beta_message_tokens_count)
 
     - `configs: BetaComputerToolsetConfigs`
 
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: BetaComputerTypeConfig`
 
@@ -56274,7 +55897,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -56290,25 +55913,25 @@ puts(beta_message_tokens_count)
 
         The city of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `country: String`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-        maxLength: 2, minLength: 2
+        minLength: 2, maxLength: 2
 
       - `region: String`
 
         The region of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `timezone: String`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
   - `class BetaWebFetchTool20250910`
 
@@ -56356,13 +55979,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -56370,12 +55993,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -56499,7 +56117,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -56553,13 +56171,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -56567,12 +56185,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
   - `class BetaWebFetchTool20260309`
 
@@ -56620,13 +56233,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -56634,12 +56247,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: bool`
 
@@ -56685,7 +56293,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: :full | :excluded`
 
@@ -56747,13 +56355,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: :full | :excluded`
 
@@ -56769,12 +56377,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: bool`
 
@@ -56789,6 +56392,8 @@ puts(beta_message_tokens_count)
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `String = String`
 
       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -56832,10 +56437,6 @@ puts(beta_message_tokens_count)
 
           Powerful intelligence for long-running agents and coding
 
-        - `:"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `:"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -56868,7 +56469,11 @@ puts(beta_message_tokens_count)
 
           High-performance model for agents and coding
 
-      - `String = String`
+        - `:"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
     - `name: :advisor`
 
@@ -56908,7 +56513,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -56999,7 +56604,7 @@ puts(beta_message_tokens_count)
 
       Name of the MCP server to configure tools for
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -57088,7 +56693,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_char_index: Integer`
 
@@ -57108,7 +56713,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_page_number: Integer`
 
@@ -57132,7 +56737,7 @@ puts(beta_message_tokens_count)
 
         - `document_title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
         - `end_block_index: Integer`
 
@@ -57156,7 +56761,7 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-          maxLength: 512, minLength: 1
+          minLength: 1, maxLength: 512
 
         - `url: String`
 
@@ -57407,13 +57012,13 @@ puts(beta_message_tokens_count)
 
     Skill ID
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
   - `version: String`
 
     Skill version or 'latest' for most recent version
 
-    maxLength: 64, minLength: 1
+    minLength: 1, maxLength: 64
 
 ### Beta Stop Reason
 
@@ -57468,7 +57073,9 @@ puts(beta_message_tokens_count)
 
   - `effort: :low | :medium | :high | 2 more`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
     - `:low`
 
@@ -57612,8 +57219,6 @@ puts(beta_message_tokens_count)
 
   - `text: String`
 
-    minLength: 0
-
 ### Beta Text Block Param
 
 - `class BetaTextBlockParam`
@@ -57659,7 +57264,7 @@ puts(beta_message_tokens_count)
 
       - `document_title: String`
 
-        maxLength: 500, minLength: 1
+        minLength: 1, maxLength: 500
 
       - `end_char_index: Integer`
 
@@ -57679,7 +57284,7 @@ puts(beta_message_tokens_count)
 
       - `document_title: String`
 
-        maxLength: 500, minLength: 1
+        minLength: 1, maxLength: 500
 
       - `end_page_number: Integer`
 
@@ -57703,7 +57308,7 @@ puts(beta_message_tokens_count)
 
       - `document_title: String`
 
-        maxLength: 500, minLength: 1
+        minLength: 1, maxLength: 500
 
       - `end_block_index: Integer`
 
@@ -57727,7 +57332,7 @@ puts(beta_message_tokens_count)
 
       - `title: String`
 
-        maxLength: 512, minLength: 1
+        minLength: 1, maxLength: 512
 
       - `url: String`
 
@@ -57905,7 +57510,7 @@ puts(beta_message_tokens_count)
 
     - `document_title: String`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
     - `end_char_index: Integer`
 
@@ -57925,7 +57530,7 @@ puts(beta_message_tokens_count)
 
     - `document_title: String`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
     - `end_page_number: Integer`
 
@@ -57949,7 +57554,7 @@ puts(beta_message_tokens_count)
 
     - `document_title: String`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
     - `end_block_index: Integer`
 
@@ -57973,7 +57578,7 @@ puts(beta_message_tokens_count)
 
     - `title: String`
 
-      maxLength: 512, minLength: 1
+      minLength: 1, maxLength: 512
 
     - `url: String`
 
@@ -58342,11 +57947,7 @@ puts(beta_message_tokens_count)
 
   - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-    What happens when a thinking block in `messages` fails the conversation
-    check: it was created in a different conversation, or the messages before
-    it have changed since. `"error"` (the default) fails the request with a
-    400 error. `"drop_block"` removes the failing blocks and the request
-    proceeds; the model no longer sees the dropped reasoning.
+    "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
     - `:error`
 
@@ -58376,17 +57977,11 @@ puts(beta_message_tokens_count)
 
   - `block_binding: BetaThinkingBlockBinding`
 
-    Controls for block binding: what happens when a thinking block this
-    request sends back fails the conversation check. Every field is optional;
-    an empty object means every default.
+    Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
     - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-      What happens when a thinking block in `messages` fails the conversation
-      check: it was created in a different conversation, or the messages before
-      it have changed since. `"error"` (the default) fails the request with a
-      400 error. `"drop_block"` removes the failing blocks and the request
-      proceeds; the model no longer sees the dropped reasoning.
+      "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
       - `:error`
 
@@ -58426,17 +58021,11 @@ puts(beta_message_tokens_count)
 
   - `block_binding: BetaThinkingBlockBinding`
 
-    Controls for block binding: what happens when a thinking block this
-    request sends back fails the conversation check. Every field is optional;
-    an empty object means every default.
+    Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
     - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-      What happens when a thinking block in `messages` fails the conversation
-      check: it was created in a different conversation, or the messages before
-      it have changed since. `"error"` (the default) fails the request with a
-      400 error. `"drop_block"` removes the failing blocks and the request
-      proceeds; the model no longer sees the dropped reasoning.
+      "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
       - `:error`
 
@@ -58478,17 +58067,11 @@ puts(beta_message_tokens_count)
 
     - `block_binding: BetaThinkingBlockBinding`
 
-      Controls for block binding: what happens when a thinking block this
-      request sends back fails the conversation check. Every field is optional;
-      an empty object means every default.
+      Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
       - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-        What happens when a thinking block in `messages` fails the conversation
-        check: it was created in a different conversation, or the messages before
-        it have changed since. `"error"` (the default) fails the request with a
-        400 error. `"drop_block"` removes the failing blocks and the request
-        proceeds; the model no longer sees the dropped reasoning.
+        "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
         - `:error`
 
@@ -58514,9 +58097,7 @@ puts(beta_message_tokens_count)
 
     - `block_binding: BetaThinkingBlockBinding`
 
-      Controls for block binding: what happens when a thinking block this
-      request sends back fails the conversation check. Every field is optional;
-      an empty object means every default.
+      Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
     - `display_: :summarized | :omitted | :updates`
 
@@ -58684,7 +58265,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+    minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -58903,7 +58484,7 @@ puts(beta_message_tokens_count)
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -59167,12 +58748,7 @@ puts(beta_message_tokens_count)
 
       - `configs: BetaBrowserToolsetConfigs`
 
-        Per-member configuration for `browser_toolset_20260801`: one
-        optional field per member tool, keyed by the member name — the same
-        name the member's `tool_use` blocks carry. Every member is an
-        accepted key, and a member's defaults apply wherever its key is
-        absent. Unknown keys are rejected: the field set is this toolset
-        version's complete member set.
+        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
         - `type: BetaBrowserTypeConfig`
 
@@ -59793,12 +59369,7 @@ puts(beta_message_tokens_count)
 
       - `configs: BetaComputerToolsetConfigs`
 
-        Per-member configuration for `computer_toolset_20260801`: one
-        optional field per member tool, keyed by the member name — the same
-        name the member's `tool_use` blocks carry. Every member is an
-        accepted key, and a member's defaults apply wherever its key is
-        absent. Unknown keys are rejected: the field set is this toolset
-        version's complete member set.
+        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
         - `type: BetaComputerTypeConfig`
 
@@ -60152,7 +59723,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -60168,25 +59739,25 @@ puts(beta_message_tokens_count)
 
           The city of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `country: String`
 
           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-          maxLength: 2, minLength: 2
+          minLength: 2, maxLength: 2
 
         - `region: String`
 
           The region of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `timezone: String`
 
           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
     - `class BetaWebFetchTool20250910`
 
@@ -60234,13 +59805,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -60248,12 +59819,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -60377,7 +59943,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -60431,13 +59997,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -60445,12 +60011,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `class BetaWebFetchTool20260309`
 
@@ -60498,13 +60059,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -60512,12 +60073,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `use_cache: bool`
 
@@ -60563,7 +60119,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `response_inclusion: :full | :excluded`
 
@@ -60625,13 +60181,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `response_inclusion: :full | :excluded`
 
@@ -60647,12 +60203,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `use_cache: bool`
 
@@ -60667,6 +60218,8 @@ puts(beta_message_tokens_count)
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `String = String`
 
         - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -60710,10 +60263,6 @@ puts(beta_message_tokens_count)
 
             Powerful intelligence for long-running agents and coding
 
-          - `:"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `:"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -60746,7 +60295,11 @@ puts(beta_message_tokens_count)
 
             High-performance model for agents and coding
 
-        - `String = String`
+          - `:"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
 
       - `name: :advisor`
 
@@ -60786,7 +60339,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -60877,7 +60430,7 @@ puts(beta_message_tokens_count)
 
         Name of the MCP server to configure tools for
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `cache_control: BetaCacheControlEphemeral`
 
@@ -60951,7 +60504,7 @@ puts(beta_message_tokens_count)
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -61219,12 +60772,7 @@ puts(beta_message_tokens_count)
 
       - `configs: BetaBrowserToolsetConfigs`
 
-        Per-member configuration for `browser_toolset_20260801`: one
-        optional field per member tool, keyed by the member name — the same
-        name the member's `tool_use` blocks carry. Every member is an
-        accepted key, and a member's defaults apply wherever its key is
-        absent. Unknown keys are rejected: the field set is this toolset
-        version's complete member set.
+        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
         - `type: BetaBrowserTypeConfig`
 
@@ -61845,12 +61393,7 @@ puts(beta_message_tokens_count)
 
       - `configs: BetaComputerToolsetConfigs`
 
-        Per-member configuration for `computer_toolset_20260801`: one
-        optional field per member tool, keyed by the member name — the same
-        name the member's `tool_use` blocks carry. Every member is an
-        accepted key, and a member's defaults apply wherever its key is
-        absent. Unknown keys are rejected: the field set is this toolset
-        version's complete member set.
+        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
         - `type: BetaComputerTypeConfig`
 
@@ -62204,7 +61747,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -62220,25 +61763,25 @@ puts(beta_message_tokens_count)
 
           The city of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `country: String`
 
           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-          maxLength: 2, minLength: 2
+          minLength: 2, maxLength: 2
 
         - `region: String`
 
           The region of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `timezone: String`
 
           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
     - `class BetaWebFetchTool20250910`
 
@@ -62286,13 +61829,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -62300,12 +61843,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -62429,7 +61967,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -62483,13 +62021,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -62497,12 +62035,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `class BetaWebFetchTool20260309`
 
@@ -62550,13 +62083,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -62564,12 +62097,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `use_cache: bool`
 
@@ -62615,7 +62143,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `response_inclusion: :full | :excluded`
 
@@ -62677,13 +62205,13 @@ puts(beta_message_tokens_count)
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `max_uses: Integer`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `response_inclusion: :full | :excluded`
 
@@ -62699,12 +62227,7 @@ puts(beta_message_tokens_count)
 
       - `url_sources: BetaWebFetchURLSources`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `use_cache: bool`
 
@@ -62719,6 +62242,8 @@ puts(beta_message_tokens_count)
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `String = String`
 
         - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -62762,10 +62287,6 @@ puts(beta_message_tokens_count)
 
             Powerful intelligence for long-running agents and coding
 
-          - `:"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `:"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -62798,7 +62319,11 @@ puts(beta_message_tokens_count)
 
             High-performance model for agents and coding
 
-        - `String = String`
+          - `:"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
 
       - `name: :advisor`
 
@@ -62838,7 +62363,7 @@ puts(beta_message_tokens_count)
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `strict: bool`
 
@@ -62929,7 +62454,7 @@ puts(beta_message_tokens_count)
 
         Name of the MCP server to configure tools for
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `cache_control: BetaCacheControlEphemeral`
 
@@ -63316,7 +62841,7 @@ puts(beta_message_tokens_count)
 
   - `tool_name: String`
 
-    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Beta Tool Reference Block Param
 
@@ -63328,7 +62853,7 @@ puts(beta_message_tokens_count)
 
   - `tool_name: String`
 
-    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -63414,7 +62939,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_char_index: Integer`
 
@@ -63434,7 +62959,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_page_number: Integer`
 
@@ -63458,7 +62983,7 @@ puts(beta_message_tokens_count)
 
             - `document_title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
             - `end_block_index: Integer`
 
@@ -63482,7 +63007,7 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
-              maxLength: 512, minLength: 1
+              minLength: 1, maxLength: 512
 
             - `url: String`
 
@@ -63666,7 +63191,7 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `class BetaToolReferenceBlockParam`
 
@@ -63676,7 +63201,7 @@ puts(beta_message_tokens_count)
 
         - `tool_name: String`
 
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -63704,7 +63229,7 @@ puts(beta_message_tokens_count)
 
             The caller-assigned identifier for this tab, unique within the inventory.
 
-            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+            minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `title: String`
 
@@ -63730,7 +63255,7 @@ puts(beta_message_tokens_count)
 
           Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-          maxItems: 200, minItems: 1
+          minItems: 1, maxItems: 200
 
           - `class BetaBrowserStateChangeTabOpened`
 
@@ -63748,7 +63273,7 @@ puts(beta_message_tokens_count)
 
               The `tab_id` of the opened tab, present in `tabs`.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -63760,7 +63285,7 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `url: String`
 
@@ -63781,7 +63306,7 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `url: String`
 
@@ -63793,7 +63318,7 @@ puts(beta_message_tokens_count)
 
               Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `size_bytes: Integer`
 
@@ -63811,7 +63336,7 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+              minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `url: String`
 
@@ -63823,7 +63348,7 @@ puts(beta_message_tokens_count)
 
               The failure or cancellation detail, when known.
 
-              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `is_error: bool`
 
@@ -63831,7 +63356,7 @@ puts(beta_message_tokens_count)
 
     For a toolset member tool_result, the toolset family of the paired tool_use.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Beta Tool Search Tool Bm25 20251119
 
@@ -63977,7 +63502,7 @@ puts(beta_message_tokens_count)
 
         - `tool_name: String`
 
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
   - `tool_use_id: String`
 
@@ -64017,7 +63542,7 @@ puts(beta_message_tokens_count)
 
         - `tool_name: String`
 
-          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+          minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -64096,7 +63621,7 @@ puts(beta_message_tokens_count)
 
     - `tool_name: String`
 
-      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
 ### Beta Tool Search Tool Search Result Block Param
 
@@ -64110,7 +63635,7 @@ puts(beta_message_tokens_count)
 
     - `tool_name: String`
 
-      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+      minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -64377,7 +63902,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+      minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -64645,12 +64170,7 @@ puts(beta_message_tokens_count)
 
     - `configs: BetaBrowserToolsetConfigs`
 
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: BetaBrowserTypeConfig`
 
@@ -65271,12 +64791,7 @@ puts(beta_message_tokens_count)
 
     - `configs: BetaComputerToolsetConfigs`
 
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
+      Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
       - `type: BetaComputerTypeConfig`
 
@@ -65630,7 +65145,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -65646,25 +65161,25 @@ puts(beta_message_tokens_count)
 
         The city of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `country: String`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-        maxLength: 2, minLength: 2
+        minLength: 2, maxLength: 2
 
       - `region: String`
 
         The region of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
       - `timezone: String`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-        maxLength: 255, minLength: 1
+        minLength: 1, maxLength: 255
 
   - `class BetaWebFetchTool20250910`
 
@@ -65712,13 +65227,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -65726,12 +65241,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -65855,7 +65365,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -65909,13 +65419,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -65923,12 +65433,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
   - `class BetaWebFetchTool20260309`
 
@@ -65976,13 +65481,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -65990,12 +65495,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: bool`
 
@@ -66041,7 +65541,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: :full | :excluded`
 
@@ -66103,13 +65603,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `response_inclusion: :full | :excluded`
 
@@ -66125,12 +65625,7 @@ puts(beta_message_tokens_count)
 
     - `url_sources: BetaWebFetchURLSources`
 
-      Which sources contribute to the set of URLs web fetch may fetch.
-
-      Each key is a tagged variant: `user_input` is `all` or `none`; the
-      two tool filters are `all`, `none`, `only` (only the named tools'
-      results) or `except` (every result but the named tools'). A named tool
-      must be declared in this request's `tools[]`.
+      Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `use_cache: bool`
 
@@ -66145,6 +65640,8 @@ puts(beta_message_tokens_count)
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `String = String`
 
       - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -66188,10 +65685,6 @@ puts(beta_message_tokens_count)
 
           Powerful intelligence for long-running agents and coding
 
-        - `:"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
         - `:"claude-opus-4-6"`
 
           Powerful intelligence for long-running agents and coding
@@ -66224,7 +65717,11 @@ puts(beta_message_tokens_count)
 
           High-performance model for agents and coding
 
-      - `String = String`
+        - `:"claude-mythos-preview"`
+
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          New class of intelligence, strongest in coding and cybersecurity
 
     - `name: :advisor`
 
@@ -66264,7 +65761,7 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
-      exclusiveMinimum: 0
+      minimum: 1
 
     - `strict: bool`
 
@@ -66355,7 +65852,7 @@ puts(beta_message_tokens_count)
 
       Name of the MCP server to configure tools for
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -66441,7 +65938,7 @@ puts(beta_message_tokens_count)
 
     For a toolset member tool_use, the toolset family.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Beta Tool Use Block Param
 
@@ -66457,7 +65954,7 @@ puts(beta_message_tokens_count)
 
   - `name: String`
 
-    maxLength: 200, minLength: 1
+    minLength: 1, maxLength: 200
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -66510,7 +66007,7 @@ puts(beta_message_tokens_count)
 
     For a toolset member tool_use, the toolset family this member belongs to.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Beta Tool Uses Keep
 
@@ -66583,6 +66080,10 @@ puts(beta_message_tokens_count)
   - `fallback_credit: BetaFallbackCreditUsage`
 
     Outcome of the `fallback_credit_token` presented on this request.
+
+    Present on every response to a non-batch request that carried a
+    `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+    items accept and ignore the token and carry no outcome object).
 
     - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -66706,6 +66207,8 @@ puts(beta_message_tokens_count)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `String = String`
+
         - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
           The model that will complete your prompt.
@@ -66748,10 +66251,6 @@ puts(beta_message_tokens_count)
 
             Powerful intelligence for long-running agents and coding
 
-          - `:"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
           - `:"claude-opus-4-6"`
 
             Powerful intelligence for long-running agents and coding
@@ -66784,7 +66283,11 @@ puts(beta_message_tokens_count)
 
             High-performance model for agents and coding
 
-        - `String = String`
+          - `:"claude-mythos-preview"`
+
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            New class of intelligence, strongest in coding and cybersecurity
 
       - `output_tokens: Integer`
 
@@ -66975,7 +66478,7 @@ puts(beta_message_tokens_count)
 
   - `speed: :standard | :fast`
 
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+    The inference speed mode used for this request.
 
     - `:standard`
 
@@ -66991,25 +66494,25 @@ puts(beta_message_tokens_count)
 
     The city of the user.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
   - `country: String`
 
     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-    maxLength: 2, minLength: 2
+    minLength: 2, maxLength: 2
 
   - `region: String`
 
     The region of the user.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
   - `timezone: String`
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-    maxLength: 255, minLength: 1
+    minLength: 1, maxLength: 255
 
 ### Beta Web Fetch Block
 
@@ -67142,7 +66645,7 @@ puts(beta_message_tokens_count)
 
                   - `document_title: String`
 
-                    maxLength: 500, minLength: 1
+                    minLength: 1, maxLength: 500
 
                   - `end_char_index: Integer`
 
@@ -67162,7 +66665,7 @@ puts(beta_message_tokens_count)
 
                   - `document_title: String`
 
-                    maxLength: 500, minLength: 1
+                    minLength: 1, maxLength: 500
 
                   - `end_page_number: Integer`
 
@@ -67186,7 +66689,7 @@ puts(beta_message_tokens_count)
 
                   - `document_title: String`
 
-                    maxLength: 500, minLength: 1
+                    minLength: 1, maxLength: 500
 
                   - `end_block_index: Integer`
 
@@ -67210,7 +66713,7 @@ puts(beta_message_tokens_count)
 
                   - `title: String`
 
-                    maxLength: 512, minLength: 1
+                    minLength: 1, maxLength: 512
 
                   - `url: String`
 
@@ -67328,7 +66831,7 @@ puts(beta_message_tokens_count)
 
     - `title: String`
 
-      maxLength: 500, minLength: 1
+      minLength: 1, maxLength: 500
 
   - `url: String`
 
@@ -67403,13 +66906,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: bool`
 
@@ -67417,12 +66920,7 @@ puts(beta_message_tokens_count)
 
   - `url_sources: BetaWebFetchURLSources`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -67571,13 +67069,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: bool`
 
@@ -67585,12 +67083,7 @@ puts(beta_message_tokens_count)
 
   - `url_sources: BetaWebFetchURLSources`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -67741,13 +67234,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: bool`
 
@@ -67755,12 +67248,7 @@ puts(beta_message_tokens_count)
 
   - `url_sources: BetaWebFetchURLSources`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -67913,13 +67401,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `response_inclusion: :full | :excluded`
 
@@ -67935,12 +67423,7 @@ puts(beta_message_tokens_count)
 
   - `url_sources: BetaWebFetchURLSources`
 
-    Which sources contribute to the set of URLs web fetch may fetch.
-
-    Each key is a tagged variant: `user_input` is `all` or `none`; the
-    two tool filters are `all`, `none`, `only` (only the named tools'
-    results) or `except` (every result but the named tools'). A named tool
-    must be declared in this request's `tools[]`.
+    Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -68253,7 +67736,7 @@ puts(beta_message_tokens_count)
 
                       - `document_title: String`
 
-                        maxLength: 500, minLength: 1
+                        minLength: 1, maxLength: 500
 
                       - `end_char_index: Integer`
 
@@ -68273,7 +67756,7 @@ puts(beta_message_tokens_count)
 
                       - `document_title: String`
 
-                        maxLength: 500, minLength: 1
+                        minLength: 1, maxLength: 500
 
                       - `end_page_number: Integer`
 
@@ -68297,7 +67780,7 @@ puts(beta_message_tokens_count)
 
                       - `document_title: String`
 
-                        maxLength: 500, minLength: 1
+                        minLength: 1, maxLength: 500
 
                       - `end_block_index: Integer`
 
@@ -68321,7 +67804,7 @@ puts(beta_message_tokens_count)
 
                       - `title: String`
 
-                        maxLength: 512, minLength: 1
+                        minLength: 1, maxLength: 512
 
                       - `url: String`
 
@@ -68439,7 +67922,7 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-          maxLength: 500, minLength: 1
+          minLength: 1, maxLength: 500
 
       - `url: String`
 
@@ -68802,7 +68285,7 @@ puts(beta_message_tokens_count)
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: bool`
 
@@ -68818,25 +68301,25 @@ puts(beta_message_tokens_count)
 
       The city of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `country: String`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      maxLength: 2, minLength: 2
+      minLength: 2, maxLength: 2
 
     - `region: String`
 
       The region of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `timezone: String`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
 ### Beta Web Search Tool 20260209
 
@@ -68897,7 +68380,7 @@ puts(beta_message_tokens_count)
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `strict: bool`
 
@@ -68913,25 +68396,25 @@ puts(beta_message_tokens_count)
 
       The city of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `country: String`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      maxLength: 2, minLength: 2
+      minLength: 2, maxLength: 2
 
     - `region: String`
 
       The region of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `timezone: String`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
 ### Beta Web Search Tool 20260318
 
@@ -68992,7 +68475,7 @@ puts(beta_message_tokens_count)
 
     Maximum number of times the tool can be used in the API request.
 
-    exclusiveMinimum: 0
+    minimum: 1
 
   - `response_inclusion: :full | :excluded`
 
@@ -69016,25 +68499,25 @@ puts(beta_message_tokens_count)
 
       The city of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `country: String`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      maxLength: 2, minLength: 2
+      minLength: 2, maxLength: 2
 
     - `region: String`
 
       The region of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
     - `timezone: String`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-      maxLength: 255, minLength: 1
+      minLength: 1, maxLength: 255
 
 ### Beta Web Search Tool Request Error
 
@@ -69337,7 +68820,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   List of requests for prompt completion. Each is an individual request to create a Message.
 
-  maxItems: 100000, minItems: 1
+  minItems: 1, maxItems: 100000
 
   - `custom_id: String`
 
@@ -69345,7 +68828,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Must be unique for each request within the Message Batch.
 
-    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
+    minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
   - `params: Params`
 
@@ -69465,7 +68948,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_title: String`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_char_index: Integer`
 
@@ -69485,7 +68968,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_title: String`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_page_number: Integer`
 
@@ -69509,7 +68992,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_title: String`
 
-                  maxLength: 500, minLength: 1
+                  minLength: 1, maxLength: 500
 
                 - `end_block_index: Integer`
 
@@ -69533,7 +69016,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: String`
 
-                  maxLength: 512, minLength: 1
+                  minLength: 1, maxLength: 512
 
                 - `url: String`
 
@@ -69689,7 +69172,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `title: String`
 
-              maxLength: 500, minLength: 1
+              minLength: 1, maxLength: 500
 
           - `class BetaSearchResultBlockParam`
 
@@ -69753,7 +69236,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `name: String`
 
-              maxLength: 200, minLength: 1
+              minLength: 1, maxLength: 200
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -69789,7 +69272,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family this member belongs to.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaToolResultBlockParam`
 
@@ -69825,7 +69308,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: String`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -69853,7 +69336,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       The caller-assigned identifier for this tab, unique within the inventory.
 
-                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `title: String`
 
@@ -69879,7 +69362,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                    maxItems: 200, minItems: 1
+                    minItems: 1, maxItems: 200
 
                     - `class BetaBrowserStateChangeTabOpened`
 
@@ -69897,7 +69380,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The `tab_id` of the opened tab, present in `tabs`.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -69909,7 +69392,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: String`
 
@@ -69930,7 +69413,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: String`
 
@@ -69942,7 +69425,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `size_bytes: Integer`
 
@@ -69960,7 +69443,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                        minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `url: String`
 
@@ -69972,7 +69455,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The failure or cancellation detail, when known.
 
-                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `is_error: bool`
 
@@ -69980,7 +69463,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_result, the toolset family of the paired tool_use.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaServerToolUseBlockParam`
 
@@ -70412,7 +69895,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: String`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -70604,7 +70087,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                          minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -70855,12 +70338,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: BetaBrowserToolsetConfigs`
 
-                          Per-member configuration for `browser_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: BetaBrowserTypeConfig`
 
@@ -71481,12 +70959,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: BetaComputerToolsetConfigs`
 
-                          Per-member configuration for `computer_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: BetaComputerTypeConfig`
 
@@ -71840,7 +71313,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -71856,25 +71329,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: String`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: String`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: String`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `class BetaWebFetchTool20250910`
 
@@ -71920,13 +71393,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -71934,12 +71407,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -72063,7 +71531,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -72117,13 +71585,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -72131,12 +71599,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `class BetaWebFetchTool20260309`
 
@@ -72184,13 +71647,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -72198,12 +71661,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `use_cache: bool`
 
@@ -72249,7 +71707,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: :full | :excluded`
 
@@ -72311,13 +71769,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: :full | :excluded`
 
@@ -72333,12 +71791,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `use_cache: bool`
 
@@ -72353,6 +71806,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                           The model that will complete your prompt.
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                          - `String = String`
 
                           - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -72396,10 +71851,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               Powerful intelligence for long-running agents and coding
 
-                            - `:"claude-mythos-preview"`
-
-                              New class of intelligence, strongest in coding and cybersecurity
-
                             - `:"claude-opus-4-6"`
 
                               Powerful intelligence for long-running agents and coding
@@ -72432,7 +71883,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               High-performance model for agents and coding
 
-                          - `String = String`
+                            - `:"claude-mythos-preview"`
+
+                              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                              New class of intelligence, strongest in coding and cybersecurity
 
                         - `name: :advisor`
 
@@ -72472,7 +71927,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -72563,7 +72018,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Name of the MCP server to configure tools for
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `cache_control: BetaCacheControlEphemeral`
 
@@ -72673,7 +72128,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The name of the MCP server this listing came from, as `mcp_servers` declares it.
 
-              maxLength: 255, minLength: 1
+              minLength: 1, maxLength: 255
 
             - `tools: Array[BetaMCPToolParam]`
 
@@ -72755,7 +72210,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `effort: :low | :medium | :high | 2 more`
 
-          All possible effort levels.
+          How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+          Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
           - `:low`
 
@@ -72779,14 +72236,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `compaction: BetaCompactionConfig`
 
-      Compact the whole conversation and return a signed `compaction` block,
-      alone, that a later request sends back first in `messages`, in place of
-      the messages it summarizes. There is no trigger and no pause flag: sending
-      the parameter compacts, and nothing is sampled after the block.
+      Compaction configuration.
 
-      The summarization prompt is the server's own unless `instructions` are
-      given, which then replace it for this request; a value that is empty or
-      only whitespace counts as absent.
+      When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
       - `type: :summarize`
 
@@ -72826,13 +72278,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skill ID
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
           - `version: String`
 
             Skill version or 'latest' for most recent version
 
-            maxLength: 64, minLength: 1
+            minLength: 1, maxLength: 64
 
       - `String = String`
 
@@ -72845,8 +72297,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       - `edits: Array[BetaClearToolUses20250919Edit | BetaClearThinking20251015Edit | BetaCompact20260112Edit]`
 
         List of context management edits to apply
-
-        minItems: 0
 
         - `class BetaClearToolUses20250919Edit`
 
@@ -72946,8 +72396,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `diagnostics: BetaDiagnosticsParam`
 
-      Request-level diagnostics. Currently carries the previous response
-      id for prompt-cache divergence reporting.
+      Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
       - `previous_message_id: String`
 
@@ -72994,7 +72443,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
 
-          maxLength: 2048, minLength: 1
+          minLength: 1, maxLength: 2048
 
         - `mode: :strict | :best_effort`
 
@@ -73022,7 +72471,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `effort: :low | :medium | :high | 2 more`
 
-            All possible effort levels.
+            How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+            Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
 
             - `:low`
 
@@ -73046,7 +72497,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `task_budget: BetaTokenTaskBudget`
 
-            User-configurable total token budget across contexts.
+            Configuration for token budget tracking across contexts.
 
             - `type: :tokens`
 
@@ -73090,17 +72541,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `block_binding: BetaThinkingBlockBinding`
 
-              Controls for block binding: what happens when a thinking block this
-              request sends back fails the conversation check. Every field is optional;
-              an empty object means every default.
+              Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
               - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
 
-                What happens when a thinking block in `messages` fails the conversation
-                check: it was created in a different conversation, or the messages before
-                it have changed since. `"error"` (the default) fails the request with a
-                400 error. `"drop_block"` removes the failing blocks and the request
-                proceeds; the model no longer sees the dropped reasoning.
+                "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`.
 
                 - `:error`
 
@@ -73126,9 +72571,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `block_binding: BetaThinkingBlockBinding`
 
-              Controls for block binding: what happens when a thinking block this
-              request sends back fails the conversation check. Every field is optional;
-              an empty object means every default.
+              Controls for block binding: what happens when a thinking block this request sends back fails the conversation check. `null`, absent or an empty object means every default.
 
             - `display_: :summarized | :omitted | :updates`
 
@@ -73194,7 +72637,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `speed: :standard | :fast`
 
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+      The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
       - `:standard`
 
@@ -73463,7 +72906,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
-      maximum: 1, minimum: 0
+      minimum: 0, maximum: 1
 
     - `top_k: Integer`
 
@@ -73487,7 +72930,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Recommended for advanced use cases only.
 
-      maximum: 1, minimum: 0
+      minimum: 0, maximum: 1
 
 - `betas: Array[AnthropicBeta]`
 
@@ -74028,7 +73471,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-  maximum: 1000, minimum: 1
+  minimum: 1, maximum: 1000
 
 - `betas: Array[AnthropicBeta]`
 
@@ -74870,7 +74313,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `container: BetaContainer`
 
-          Information about the container used in the request (for the code execution tool)
+          Information about the container used in this request.
+
+          This will be non-null if a container tool (e.g. code execution) was used.
 
           - `id: String`
 
@@ -74898,13 +74343,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Skill ID
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
             - `version: String`
 
               The resolved version: a skill version ID for custom skills.
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
         - `content: Array[BetaContentBlock]`
 
@@ -75065,8 +74510,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: String`
 
-              minLength: 0
-
           - `class BetaThinkingBlock`
 
             - `type: :thinking`
@@ -75139,7 +74582,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class BetaServerToolUseBlock`
 
@@ -75579,7 +75022,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: String`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `tool_use_id: String`
 
@@ -75622,8 +75065,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
                 - `text: String`
-
-                  minLength: 0
 
             - `is_error: bool`
 
@@ -75746,7 +75187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+                          minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
                         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -76010,12 +75451,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: BetaBrowserToolsetConfigs`
 
-                          Per-member configuration for `browser_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: BetaBrowserTypeConfig`
 
@@ -76636,12 +76072,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `configs: BetaComputerToolsetConfigs`
 
-                          Per-member configuration for `computer_toolset_20260801`: one
-                          optional field per member tool, keyed by the member name — the same
-                          name the member's `tool_use` blocks carry. Every member is an
-                          accepted key, and a member's defaults apply wherever its key is
-                          absent. Unknown keys are rejected: the field set is this toolset
-                          version's complete member set.
+                          Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
                           - `type: BetaComputerTypeConfig`
 
@@ -76995,7 +76426,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -77011,25 +76442,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             The city of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `country: String`
 
                             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-                            maxLength: 2, minLength: 2
+                            minLength: 2, maxLength: 2
 
                           - `region: String`
 
                             The region of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                           - `timezone: String`
 
                             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-                            maxLength: 255, minLength: 1
+                            minLength: 1, maxLength: 255
 
                       - `class BetaWebFetchTool20250910`
 
@@ -77077,13 +76508,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -77091,12 +76522,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                           - `client_tool_results: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept`
 
@@ -77220,7 +76646,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -77274,13 +76700,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -77288,12 +76714,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                       - `class BetaWebFetchTool20260309`
 
@@ -77341,13 +76762,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -77355,12 +76776,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `use_cache: bool`
 
@@ -77406,7 +76822,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: :full | :excluded`
 
@@ -77468,13 +76884,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `max_uses: Integer`
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `response_inclusion: :full | :excluded`
 
@@ -77490,12 +76906,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `url_sources: BetaWebFetchURLSources`
 
-                          Which sources contribute to the set of URLs web fetch may fetch.
-
-                          Each key is a tagged variant: `user_input` is `all` or `none`; the
-                          two tool filters are `all`, `none`, `only` (only the named tools'
-                          results) or `except` (every result but the named tools'). A named tool
-                          must be declared in this request's `tools[]`.
+                          Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
                         - `use_cache: bool`
 
@@ -77510,6 +76921,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                           The model that will complete your prompt.
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                          - `String = String`
 
                           - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
 
@@ -77553,10 +76966,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               Powerful intelligence for long-running agents and coding
 
-                            - `:"claude-mythos-preview"`
-
-                              New class of intelligence, strongest in coding and cybersecurity
-
                             - `:"claude-opus-4-6"`
 
                               Powerful intelligence for long-running agents and coding
@@ -77589,7 +76998,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               High-performance model for agents and coding
 
-                          - `String = String`
+                            - `:"claude-mythos-preview"`
+
+                              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                              New class of intelligence, strongest in coding and cybersecurity
 
                         - `name: :advisor`
 
@@ -77629,7 +77042,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Maximum number of times the tool can be used in the API request.
 
-                          exclusiveMinimum: 0
+                          minimum: 1
 
                         - `strict: bool`
 
@@ -77720,7 +77133,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           Name of the MCP server to configure tools for
 
-                          maxLength: 255, minLength: 1
+                          minLength: 1, maxLength: 255
 
                         - `cache_control: BetaCacheControlEphemeral`
 
@@ -77829,7 +77242,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-                The policy category that triggered a refusal.
+                The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
 
                 - `:cyber`
 
@@ -77918,8 +77331,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `diagnostics: BetaDiagnostics`
 
-          Request-level diagnostics: why the prompt cache could not fully reuse
-          the prefix of the request named by `diagnostics.previous_message_id`.
+          Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
           - `cache_miss_reason: BetaCacheMissReason`
 
@@ -77979,13 +77391,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `stop_details: BetaRefusalStopDetails`
 
-          Structured information about a refusal.
+          Structured information about why model output stopped.
+
+          This is `null` when the `stop_reason` has no additional detail to report.
 
           - `type: :refusal`
 
           - `category: :cyber | :bio | :frontier_llm | 2 more`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the refusal.
+
+            `null` when the refusal doesn't map to a named category.
 
             - `:cyber`
 
@@ -78143,6 +77559,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `fallback_credit: BetaFallbackCreditUsage`
 
             Outcome of the `fallback_credit_token` presented on this request.
+
+            Present on every response to a non-batch request that carried a
+            `fallback_credit_token`, in either redemption mode; absent otherwise (batch
+            items accept and ignore the token and carry no outcome object).
 
             - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
 
@@ -78455,7 +77875,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `speed: :standard | :fast`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            The inference speed mode used for this request.
 
             - `:standard`
 

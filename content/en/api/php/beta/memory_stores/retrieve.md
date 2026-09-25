@@ -39,7 +39,7 @@ Retrieve a memory store
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was created.
 
   - `string name`
 
@@ -47,11 +47,11 @@ Retrieve a memory store
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
 
   - `?string description`
 

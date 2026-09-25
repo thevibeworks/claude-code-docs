@@ -75,7 +75,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -87,7 +87,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -103,7 +103,7 @@ List Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -115,7 +115,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -143,7 +143,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -167,7 +167,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -187,7 +187,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -199,7 +199,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -223,15 +223,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -251,7 +251,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -279,15 +279,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -303,7 +303,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -335,7 +335,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -355,7 +355,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -375,7 +375,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -389,7 +389,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -401,7 +401,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -413,7 +413,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -425,7 +425,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -439,7 +439,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -455,7 +455,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -479,7 +479,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -507,7 +507,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -515,7 +515,7 @@ List Events
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -527,7 +527,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -547,11 +547,11 @@ List Events
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -571,7 +571,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -595,11 +595,11 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -611,7 +611,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -627,7 +627,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -647,7 +647,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -669,7 +669,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -697,7 +697,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -717,7 +717,7 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -733,15 +733,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -765,7 +765,7 @@ List Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -777,15 +777,15 @@ List Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 ### Example
 
@@ -967,7 +967,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -979,7 +979,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -995,7 +995,7 @@ Stream Events
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -1007,7 +1007,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -1035,7 +1035,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -1059,7 +1059,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -1079,7 +1079,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -1091,7 +1091,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -1115,15 +1115,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -1143,7 +1143,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -1171,15 +1171,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -1195,7 +1195,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -1227,7 +1227,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -1247,7 +1247,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -1267,7 +1267,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -1281,7 +1281,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -1293,7 +1293,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -1305,7 +1305,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -1317,7 +1317,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -1331,7 +1331,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -1347,7 +1347,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -1371,7 +1371,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -1399,7 +1399,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -1407,7 +1407,7 @@ Stream Events
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -1419,7 +1419,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -1439,11 +1439,11 @@ Stream Events
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -1463,7 +1463,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -1487,11 +1487,11 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -1503,7 +1503,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -1519,7 +1519,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -1539,7 +1539,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -1561,7 +1561,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -1589,7 +1589,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -1609,7 +1609,7 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -1625,15 +1625,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -1677,7 +1677,7 @@ Stream Events
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -1689,15 +1689,15 @@ Stream Events
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 ### Example
 
@@ -1810,7 +1810,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this tool use was processed.
 
   - `?string sessionThreadID`
 
@@ -1842,7 +1842,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this event was processed.
 
   - `?list<Content> content`
 
@@ -1876,15 +1876,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this event was processed.
 
   - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-    AgentEvaluatedPermission enum
+    The evaluated permission policy for this tool invocation.
 
   - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-    Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+    Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
   - `?string sessionThreadID`
 
@@ -1906,7 +1906,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this response was generated.
 
 ### Beta Managed Agents Agent Thinking Event
 
@@ -1920,7 +1920,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this thinking was produced.
 
 ### Beta Managed Agents Agent Thread Context Compacted Event
 
@@ -1934,7 +1934,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when compaction was processed.
 
 ### Beta Managed Agents Agent Thread Message Received Event
 
@@ -1956,7 +1956,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the message was received.
 
   - `?string fromAgentName`
 
@@ -1978,7 +1978,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the message was sent.
 
   - `string toSessionThreadID`
 
@@ -2006,7 +2006,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `ManagedAgentsAgentAutoEvaluatedPermission evaluatedPermission`
 
-      The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
+      The server's judgement for this invocation.
 
 ### Beta Managed Agents Agent Tool Evaluation Always Allow
 
@@ -2028,7 +2028,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `ManagedAgentsAgentAutoEvaluatedPermission evaluatedPermission`
 
-    The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants.
+    The server's judgement for this invocation.
 
 ### Beta Managed Agents Agent Tool Result Event
 
@@ -2042,7 +2042,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this event was processed.
 
   - `string toolUseID`
 
@@ -2076,15 +2076,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this event was processed.
 
   - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-    AgentEvaluatedPermission enum
+    The evaluated permission policy for this tool invocation.
 
   - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-    Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+    Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
   - `?string sessionThreadID`
 
@@ -2130,7 +2130,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents Credential Host Unreachable Error
 
@@ -2148,7 +2148,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
   - `string vaultID`
 
@@ -2162,7 +2162,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Source source`
 
-    Union type for document source variants.
+    The source of the document data.
 
   - `?string context`
 
@@ -2198,7 +2198,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -2234,7 +2234,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. Text or file reference.
 
     - `?int maxIterations`
 
@@ -2312,7 +2312,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Source source`
 
-    Union type for image source variants.
+    The source of the image data.
 
 ### Beta Managed Agents MCP Authentication Failed Error
 
@@ -2330,7 +2330,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents MCP Connection Failed Error
 
@@ -2348,7 +2348,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents Model Overloaded Error
 
@@ -2362,7 +2362,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents Model Rate Limited Error
 
@@ -2376,7 +2376,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents Model Request Failed Error
 
@@ -2390,7 +2390,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents Plain Text Document Source
 
@@ -2438,7 +2438,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `ManagedAgentsSearchResultCitations citations`
 
-    Citation settings for a search result.
+    Citation settings for this search result.
 
   - `list<ManagedAgentsSearchResultContent> content`
 
@@ -2496,7 +2496,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the session was deleted.
 
 ### Beta Managed Agents Session End Turn
 
@@ -2518,7 +2518,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the error occurred.
 
 ### Beta Managed Agents Session Event
 
@@ -2538,7 +2538,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -2550,7 +2550,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -2566,7 +2566,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -2578,7 +2578,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -2606,7 +2606,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -2630,7 +2630,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -2650,7 +2650,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -2662,7 +2662,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -2686,15 +2686,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -2714,7 +2714,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -2742,15 +2742,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -2766,7 +2766,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -2798,7 +2798,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -2818,7 +2818,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -2838,7 +2838,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -2852,7 +2852,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -2864,7 +2864,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -2876,7 +2876,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -2888,7 +2888,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -2902,7 +2902,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -2918,7 +2918,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -2942,7 +2942,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -2970,7 +2970,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -2978,7 +2978,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -2990,7 +2990,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -3010,11 +3010,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -3034,7 +3034,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -3058,11 +3058,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -3074,7 +3074,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -3090,7 +3090,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -3110,7 +3110,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -3132,7 +3132,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -3160,7 +3160,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -3180,7 +3180,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -3196,15 +3196,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -3228,7 +3228,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -3240,15 +3240,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 ### Beta Managed Agents Session Requires Action
 
@@ -3278,7 +3278,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of status change.
 
   - `StopReason stopReason`
 
@@ -3294,7 +3294,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of status change.
 
 ### Beta Managed Agents Session Status Running Event
 
@@ -3308,7 +3308,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of status change.
 
 ### Beta Managed Agents Session Status Terminated Event
 
@@ -3322,7 +3322,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of status change.
 
 ### Beta Managed Agents Session Thread Created Event
 
@@ -3340,7 +3340,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the thread was created.
 
   - `string sessionThreadID`
 
@@ -3362,7 +3362,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of the status transition.
 
   - `string sessionThreadID`
 
@@ -3386,7 +3386,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of the status transition.
 
   - `string sessionThreadID`
 
@@ -3408,7 +3408,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of the status transition.
 
   - `string sessionThreadID`
 
@@ -3430,7 +3430,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp of the status transition.
 
   - `string sessionThreadID`
 
@@ -3446,7 +3446,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?BetaManagedAgentsCacheCreationUsage cacheCreation`
 
-    Prompt-cache creation token usage broken down by cache lifetime.
+    Tokens used to create prompt cache entries, broken down by cache TTL.
 
   - `?int cacheReadInputTokens`
 
@@ -3458,7 +3458,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?BetaMonetaryAmount listCost`
 
-    A monetary amount in a specific currency.
+    Cumulative list cost of the session across all turns, priced at public list rates.
 
   - `?int outputTokens`
 
@@ -3466,7 +3466,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?BetaManagedAgentsServerToolUsage serverToolUse`
 
-    Cumulative count of server-executed tool invocations, broken down by tool.
+    Cumulative server-executed tool usage across all turns.
 
 ### Beta Managed Agents Span Model Request End Event
 
@@ -3488,11 +3488,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `ManagedAgentsSpanModelUsage modelUsage`
 
-    Token usage for a single model request.
+    Token usage for this model request.
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the model request completed.
 
 ### Beta Managed Agents Span Model Request Start Event
 
@@ -3506,7 +3506,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the model request started.
 
 ### Beta Managed Agents Span Model Usage
 
@@ -3530,7 +3530,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?Speed speed`
 
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+    Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active.
 
 ### Beta Managed Agents Span Outcome Evaluation End Event
 
@@ -3560,7 +3560,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when outcome evaluation ended.
 
   - `string result`
 
@@ -3568,7 +3568,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `ManagedAgentsSpanModelUsage usage`
 
-    Token usage for a single model request.
+    Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
 ### Beta Managed Agents Span Outcome Evaluation Ongoing Event
 
@@ -3590,7 +3590,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this heartbeat was emitted.
 
 ### Beta Managed Agents Span Outcome Evaluation Start Event
 
@@ -3612,7 +3612,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when outcome evaluation started.
 
 ### Beta Managed Agents Stream Session Events
 
@@ -3632,7 +3632,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the agent finished processing this message.
 
   - `class ManagedAgentsUserInterruptEvent`
 
@@ -3644,7 +3644,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the interrupt was processed.
 
     - `?string sessionThreadID`
 
@@ -3660,7 +3660,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `Result result`
 
-      UserToolConfirmationResult enum
+      The confirmation result: 'allow' or 'deny'.
 
     - `string toolUseID`
 
@@ -3672,7 +3672,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the confirmation was processed.
 
     - `?string sessionThreadID`
 
@@ -3700,7 +3700,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -3724,7 +3724,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this tool use was processed.
 
     - `?string sessionThreadID`
 
@@ -3744,7 +3744,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this response was generated.
 
   - `class ManagedAgentsAgentThinkingEvent`
 
@@ -3756,7 +3756,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this thinking was produced.
 
   - `class ManagedAgentsAgentMCPToolUseEvent`
 
@@ -3780,15 +3780,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -3808,7 +3808,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?list<Content> content`
 
@@ -3836,15 +3836,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `?ManagedAgentsAgentEvaluatedPermission evaluatedPermission`
 
-      AgentEvaluatedPermission enum
+      The evaluated permission policy for this tool invocation.
 
     - `?ManagedAgentsAgentToolEvaluation evaluation`
 
-      Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants.
+      Which resolved permission_policy produced evaluated_permission: always_allow, always_ask, or auto (with the server's per-invocation judgement). Absent only when the server refused the call before any policy applied (for example, the named tool is not enabled in the session); such a refusal has evaluated_permission deny. An event recorded before this field existed reads as the arm its evaluated_permission implies (always_allow for allow, always_ask for ask).
 
     - `?string sessionThreadID`
 
@@ -3860,7 +3860,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this event was processed.
 
     - `string toolUseID`
 
@@ -3892,7 +3892,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was received.
 
     - `?string fromAgentName`
 
@@ -3912,7 +3912,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the message was sent.
 
     - `string toSessionThreadID`
 
@@ -3932,7 +3932,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when compaction was processed.
 
   - `class ManagedAgentsSessionErrorEvent`
 
@@ -3946,7 +3946,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the error occurred.
 
   - `class ManagedAgentsSessionStatusRescheduledEvent`
 
@@ -3958,7 +3958,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusRunningEvent`
 
@@ -3970,7 +3970,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionStatusIdleEvent`
 
@@ -3982,7 +3982,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
     - `StopReason stopReason`
 
@@ -3996,7 +3996,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of status change.
 
   - `class ManagedAgentsSessionThreadCreatedEvent`
 
@@ -4012,7 +4012,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the thread was created.
 
     - `string sessionThreadID`
 
@@ -4036,7 +4036,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation started.
 
   - `class ManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -4064,7 +4064,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when outcome evaluation ended.
 
     - `string result`
 
@@ -4072,7 +4072,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `ManagedAgentsSpanModelUsage usage`
 
-      Token usage for a single model request.
+      Aggregate token usage for this evaluation cycle. Sums across all grader model requests within the cycle.
 
   - `class ManagedAgentsSpanModelRequestStartEvent`
 
@@ -4084,7 +4084,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request started.
 
   - `class ManagedAgentsSpanModelRequestEndEvent`
 
@@ -4104,11 +4104,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `ManagedAgentsSpanModelUsage modelUsage`
 
-      Token usage for a single model request.
+      Token usage for this model request.
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the model request completed.
 
   - `class ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -4128,7 +4128,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this heartbeat was emitted.
 
   - `class ManagedAgentsUserDefineOutcomeEvent`
 
@@ -4152,11 +4152,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the outcome was accepted.
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
   - `class ManagedAgentsSessionDeletedEvent`
 
@@ -4168,7 +4168,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the session was deleted.
 
   - `class ManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -4184,7 +4184,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -4204,7 +4204,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -4226,7 +4226,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -4254,7 +4254,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this result was processed.
 
     - `?string sessionThreadID`
 
@@ -4274,7 +4274,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp of the status transition.
 
     - `string sessionThreadID`
 
@@ -4290,15 +4290,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the update was applied.
 
     - `?BetaManagedAgentsSessionAgent agent`
 
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+      The session's effective agent configuration after the update. Present only when the update changed `agent` (tools or mcp_servers); when present it is the full materialised snapshot, not a diff.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's budget after the update: the new budget when set or replaced, or null when the update removed it. Present only when the update changed the budget.
 
     - `?array<string,string> metadata`
 
@@ -4342,7 +4342,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `?\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when this system message was processed.
 
   - `class BetaManagedAgentsSessionUsageEvent`
 
@@ -4354,15 +4354,15 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `\Datetime processedAt`
 
-      A timestamp in RFC 3339 format
+      Timestamp when the snapshot was taken.
 
     - `ManagedAgentsSessionUsageSnapshot usage`
 
-      Point-in-time snapshot of a session's cumulative usage.
+      The session's cumulative usage at the snapshot time.
 
     - `?BetaManagedAgentsBudgetLimit budget`
 
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+      The session's configured budget at the snapshot time, or null when the session has no budget.
 
 ### Beta Managed Agents System Message Event Params
 
@@ -4416,7 +4416,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `RetryStatus retryStatus`
 
-    What the client should do next in response to this error.
+    What the client should do next.
 
 ### Beta Managed Agents URL Document Source
 
@@ -4462,7 +4462,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when this result was processed.
 
   - `?string sessionThreadID`
 
@@ -4510,11 +4510,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the outcome was accepted.
 
   - `Rubric rubric`
 
-    Rubric for grading the quality of an outcome.
+    How to grade the outcome. File rubrics are currently resolved to their text content; clients should handle both variants.
 
 ### Beta Managed Agents User Define Outcome Event Params
 
@@ -4528,7 +4528,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Rubric rubric`
 
-    Rubric for grading the quality of an outcome.
+    How to grade the outcome. Text or file reference.
 
   - `?int maxIterations`
 
@@ -4546,7 +4546,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the interrupt was processed.
 
   - `?string sessionThreadID`
 
@@ -4578,7 +4578,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the agent finished processing this message.
 
 ### Beta Managed Agents User Message Event Params
 
@@ -4602,7 +4602,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Result result`
 
-    UserToolConfirmationResult enum
+    The confirmation result: 'allow' or 'deny'.
 
   - `string toolUseID`
 
@@ -4614,7 +4614,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `?\Datetime processedAt`
 
-    A timestamp in RFC 3339 format
+    Timestamp when the confirmation was processed.
 
   - `?string sessionThreadID`
 
@@ -4628,7 +4628,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Result result`
 
-    UserToolConfirmationResult enum
+    The confirmation result: 'allow' or 'deny'.
 
   - `string toolUseID`
 

@@ -108,7 +108,7 @@ Context window: 1M tokens · Max output: 128K tokens · Input pricing: $10 / MTo
 ## Reference
 
 <CardGroup cols={3}>
-  <Card title="System prompt" icon="text" href="https://platform.claude.com/docs/en/release-notes/system-prompts#claude-fable-5">
+  <Card title="System prompt" icon="text" href="https://platform.claude.com/docs/en/release-notes/system-prompts/overview#claude-fable-5">
     The system prompt Claude Fable 5 uses on claude.ai and the Claude apps.
   </Card>
 

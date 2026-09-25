@@ -73,11 +73,13 @@ Create Session
 
         Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
 
-        - `type BetaManagedAgentsModel = "claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more | (string & {})`
+        - `type BetaManagedAgentsModel = (string & {}) | "claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `(string & {})`
 
           - `"claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
 
@@ -140,8 +142,6 @@ Create Session
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
-
-          - `(string & {})`
 
         - `interface BetaManagedAgentsModelConfigParams`
 
@@ -215,7 +215,7 @@ Create Session
 
           - `speed?: "standard" | "fast" | null`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            Inference speed mode. Defaults to `standard`.
 
             - `"standard"`
 
@@ -297,7 +297,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -333,7 +333,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -363,7 +363,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -393,7 +393,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -423,7 +423,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -453,7 +453,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -497,7 +497,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -535,7 +535,7 @@ Create Session
 
               - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-                Permission policy for tool execution.
+                Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
                 - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -581,7 +581,7 @@ Create Session
 
           - `default_config?: BetaManagedAgentsAgentToolsetDefaultConfigParams | null`
 
-            Default configuration for all tools in a toolset.
+            Default configuration applied to all tools in this set.
 
             - `enabled?: boolean | null`
 
@@ -589,7 +589,7 @@ Create Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -631,7 +631,7 @@ Create Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Overrides the `default_config` setting.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -647,7 +647,7 @@ Create Session
 
           - `default_config?: BetaManagedAgentsMCPToolsetDefaultConfigParams | null`
 
-            Default configuration for all tools from an MCP server.
+            Default configuration for all tools from this server.
 
             - `enabled?: boolean | null`
 
@@ -655,7 +655,7 @@ Create Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Default permission policy for tools from this server.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -683,7 +683,7 @@ Create Session
 
           - `input_schema: BetaManagedAgentsCustomToolInputSchema`
 
-            JSON Schema for custom tool input parameters.
+            JSON Schema defining the expected input parameters for the tool.
 
             - `type: "object"`
 
@@ -711,13 +711,13 @@ Create Session
 
   - `budget?: BetaManagedAgentsBudgetLimit`
 
-    Body param: A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Body param: Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
 
     - `type: "limit"`
 
     - `max_list_cost: BetaMonetaryAmount`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `amount: string`
 
@@ -761,7 +761,7 @@ Create Session
 
           - `source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource`
 
-            Union type for image source variants.
+            The source of the image data.
 
             - `interface BetaManagedAgentsBase64ImageSource`
 
@@ -813,7 +813,7 @@ Create Session
 
           - `source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource`
 
-            Union type for document source variants.
+            The source of the document data.
 
             - `interface BetaManagedAgentsBase64DocumentSource`
 
@@ -899,7 +899,7 @@ Create Session
 
       - `rubric: BetaManagedAgentsFileRubricParams | BetaManagedAgentsTextRubricParams`
 
-        Rubric for grading the quality of an outcome.
+        How to grade the outcome. Text or file reference.
 
         - `interface BetaManagedAgentsFileRubricParams`
 
@@ -1015,7 +1015,7 @@ Create Session
 
       - `access?: "read_write" | "read_only" | null`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to read_write. read_only mounts the store as a read-only filesystem.
 
         - `"read_write"`
 
@@ -1185,6 +1185,8 @@ Create Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `(string & {})`
+
         - `"claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
 
           - `"claude-opus-5-5"`
@@ -1247,11 +1249,9 @@ Create Session
 
             High-performance model for agents and coding
 
-        - `(string & {})`
-
       - `effort?: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `interface BetaManagedAgentsEffortLow`
 
@@ -1289,7 +1289,7 @@ Create Session
 
       - `speed?: "standard" | "fast"`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `"standard"`
 
@@ -1297,7 +1297,7 @@ Create Session
 
     - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator | null`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `type: "coordinator"`
 
@@ -1753,19 +1753,19 @@ Create Session
 
   - `archived_at: string | null`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `budget: BetaManagedAgentsBudgetLimit | null`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `type: "limit"`
 
     - `max_list_cost: BetaMonetaryAmount`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `amount: string`
 
@@ -1793,7 +1793,7 @@ Create Session
 
     - `completed_at: string | null`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -1899,7 +1899,7 @@ Create Session
 
       - `access?: "read_write" | "read_only" | null`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `"read_write"`
 
@@ -1925,7 +1925,7 @@ Create Session
 
   - `stats: BetaManagedAgentsSessionStats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `active_seconds?: number`
 
@@ -1942,11 +1942,6 @@ Create Session
   - `status: "rescheduling" | "running" | "idle" | "terminated"`
 
     SessionStatus enum
-
-    - `rescheduling` - Transient error occurred, retrying automatically.
-    - `running` - Agent is actively executing.
-    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
-    - `terminated` - Session has ended, either due to an error or completion.
 
     - `"rescheduling"`
 
@@ -1974,7 +1969,7 @@ Create Session
 
   - `usage: BetaManagedAgentsSessionUsage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `active_seconds?: number`
 
@@ -1984,7 +1979,7 @@ Create Session
 
     - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `ephemeral_1h_input_tokens?: number`
 
@@ -2012,7 +2007,7 @@ Create Session
 
     - `list_cost?: BetaMonetaryAmount | null`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `output_tokens?: number`
 
@@ -2022,7 +2017,7 @@ Create Session
 
     - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `web_fetch_requests?: number`
 

@@ -89,7 +89,7 @@ You need:
         }'
       ```
 
-      <MultiFileExample language="cli" label="CLI">
+      <CodeGroupItem>
         ```bash CLI
         ant apply environment.yaml
         ```
@@ -102,7 +102,7 @@ You need:
             type: self_hosted
           ```
         </File>
-      </MultiFileExample>
+      </CodeGroupItem>
 
       ```python Python
       client = anthropic.Anthropic()
