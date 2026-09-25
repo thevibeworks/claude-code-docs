@@ -204,19 +204,19 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
     **Refresh.** With `offline_access` the app renews the token silently and prompts a browser sign-in only when refresh fails. Google never returns an `id_token` on refresh, so a Google Workspace-backed gateway in `id_token` mode re-prompts about hourly; `access_token` mode is unaffected.
 
-    | Field                             | Type      | Default    | Description                                                                                                                                                  |
-    | --------------------------------- | --------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | `clientId`                        | `string`  | —          | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).                                                             |
-    | `issuer`                          | `string`  | —          | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.                                                                 |
-    | `authorizationUrl`                | `string`  | —          | HTTPS authorization endpoint. Used with the token URL when no issuer is set.                                                                                 |
-    | `tokenUrl`                        | `string`  | —          | HTTPS token endpoint. Used with the authorization URL when no issuer is set.                                                                                 |
-    | `bearerTokenType`                 | `enum`    | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`.   |
-    | `scopes`                          | `string`  | —          | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below.  |
-    | `appendOfflineAccess`             | `boolean` | `true`     | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.                                                        |
-    | `resource`                        | `string`  | —          | Absolute URL naming the gateway or proxy as the access-token audience. Sent as the RFC 8707 resource parameter when set; leave unset for Microsoft Entra ID. |
-    | `redirectPort`                    | `integer` | —          | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.                                                                      |
-    | `redirectHost`                    | `enum`    | —          | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`.                                                     |
-    | `additionalRedirectReferrerHosts` | `string`  | —          | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.           |
+    | Field                             | Type      | Default    | Description                                                                                                                                                 |
+    | --------------------------------- | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `clientId`                        | `string`  | —          | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).                                                            |
+    | `issuer`                          | `string`  | —          | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.                                                                |
+    | `authorizationUrl`                | `string`  | —          | HTTPS authorization endpoint. Used with the token URL when no issuer is set.                                                                                |
+    | `tokenUrl`                        | `string`  | —          | HTTPS token endpoint. Used with the authorization URL when no issuer is set.                                                                                |
+    | `bearerTokenType`                 | `enum`    | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`.  |
+    | `scopes`                          | `string`  | —          | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
+    | `appendOfflineAccess`             | `boolean` | `true`     | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.                                                       |
+    | `resource`                        | `string`  | —          | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID.  |
+    | `redirectPort`                    | `integer` | —          | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.                                                                     |
+    | `redirectHost`                    | `enum`    | —          | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`.                                                    |
+    | `additionalRedirectReferrerHosts` | `string`  | —          | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.          |
   </Accordion>
 
   <Accordion title="inferenceIdpAuthFlow details">
@@ -237,19 +237,19 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
     **Older names.** Gateway configurations written before this key use `inferenceGatewayOidc` / `inferenceGatewayOidcAuthFlow` with the `interactive` kind; they stay readable and mean the same sign-in.
 
-    | Field                             | Type      | Default    | Description                                                                                                                                                  |
-    | --------------------------------- | --------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | `clientId`                        | `string`  | —          | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).                                                             |
-    | `issuer`                          | `string`  | —          | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.                                                                 |
-    | `authorizationUrl`                | `string`  | —          | HTTPS authorization endpoint. Used with the token URL when no issuer is set.                                                                                 |
-    | `tokenUrl`                        | `string`  | —          | HTTPS token endpoint. Used with the authorization URL when no issuer is set.                                                                                 |
-    | `bearerTokenType`                 | `enum`    | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`.   |
-    | `scopes`                          | `string`  | —          | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below.  |
-    | `appendOfflineAccess`             | `boolean` | `true`     | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.                                                        |
-    | `resource`                        | `string`  | —          | Absolute URL naming the gateway or proxy as the access-token audience. Sent as the RFC 8707 resource parameter when set; leave unset for Microsoft Entra ID. |
-    | `redirectPort`                    | `integer` | —          | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.                                                                      |
-    | `redirectHost`                    | `enum`    | —          | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`.                                                     |
-    | `additionalRedirectReferrerHosts` | `string`  | —          | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.           |
+    | Field                             | Type      | Default    | Description                                                                                                                                                 |
+    | --------------------------------- | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `clientId`                        | `string`  | —          | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).                                                            |
+    | `issuer`                          | `string`  | —          | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.                                                                |
+    | `authorizationUrl`                | `string`  | —          | HTTPS authorization endpoint. Used with the token URL when no issuer is set.                                                                                |
+    | `tokenUrl`                        | `string`  | —          | HTTPS token endpoint. Used with the authorization URL when no issuer is set.                                                                                |
+    | `bearerTokenType`                 | `enum`    | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`.  |
+    | `scopes`                          | `string`  | —          | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
+    | `appendOfflineAccess`             | `boolean` | `true`     | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh.                                                       |
+    | `resource`                        | `string`  | —          | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID.  |
+    | `redirectPort`                    | `integer` | —          | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.                                                                     |
+    | `redirectHost`                    | `enum`    | —          | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`.                                                    |
+    | `additionalRedirectReferrerHosts` | `string`  | —          | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host.          |
   </Accordion>
 </AccordionGroup>
 

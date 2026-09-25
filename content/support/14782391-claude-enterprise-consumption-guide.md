@@ -52,7 +52,7 @@ Once groups are configured:
 
 - Review group consumption weekly during initial rollout, monthly thereafter.
 
-- When a group consistently approaches its limit (see Time at limit on the Usage page), investigate before automatically raising it. A smart report scoped to that group shows what the spend is producing. The right response might be model guidance, such as using Sonnet instead of Opus, rather than more budget.
+- When a group consistently approaches its limit (see Time at limit on the Usage page), investigate before automatically raising it. A smart report scoped to that group shows what the spend is producing, or you can send that group a short survey to ask directly. The right response might be a lower effort cap or clearer model guidance. If the report shows high-value work, raise the limit, because members at their limit are often your top adopters.
 
 - Consider assigning a "group owner" in each department who is responsible for reviewing usage and fielding questions from their team. This distributes the admin burden and puts someone with business context in the loop. You don't need to make these people Owners or Admins: create a custom role that grants the Analytics (Can view) admin permission—and optionally Billing (Can view) so they can see the Usage page—and assign it to a small 'usage reviewers' group. Admin permissions only apply to members whose role is set to Custom, and Analytics view access is organization-wide rather than limited to their group.
 
@@ -66,7 +66,7 @@ Before worrying about token-level limits, make sure the right people have access
 
 ## Set spend limits
 
-Spend limits are your primary tool for controlling consumption. Claude Enterprise lets admins set limits at three levels: the organization level, the group level (with RBAC), and the individual user level. **Our recommended approach is to start with RBAC group-level limits and per-user limits**—these give you precise, targeted control without the risk of cutting off your entire org if a limit is hit.
+Spend limits are your primary tool for controlling consumption. Claude Enterprise lets admins set limits at three levels: the organization level, the group level (with RBAC), and the individual user level, plus optional pooled budgets that give a group one shared monthly amount. **Our recommended approach is to start with RBAC group-level limits and per-user limits**—these give you precise, targeted control without the risk of cutting off your entire org if a limit is hit.
 
 ### Org-level spend limits
 
@@ -86,7 +86,17 @@ Note the following precedence rules:
 
 - **No limit anywhere = no limit.** If a member has no individual limit and none of their groups have a limit, their spend isn't capped.
 
-**How to configure:** Organization settings → Usage → By group. Set limits to either a specific dollar amount or "Unlimited."
+**How to configure:** Organization settings → Usage → By group/tier. Set limits to either a specific dollar amount or "Unlimited."
+
+### Pooled group budgets (beta)
+
+A group spend cap gives each member the same individual limit. A pooled budget gives the whole group one shared monthly amount that every member draws from. Use it when a team has a fixed budget but uneven usage across members.
+
+Every request counts against both the member's own monthly limit and the group's pool. The member stops at whichever runs out first. Usage can go slightly over a limit before it pauses. Set the per-member limit as a guardrail, not an equal share of the pool. **When the pool runs out, usage pauses for every member of the group** until an admin raises it or it resets the next month. Billing admins get email alerts at 50%, 75%, 95%, and 100% of the pool.
+
+If a member belongs to more than one pooled group, the largest pool is used first. You can set a custom order under **Pooled budget priority**.
+
+**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, Admins, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
 
 ### User-level spend caps
 
@@ -112,12 +122,12 @@ Effort level is a second consumption lever. Users can choose how much thinking C
 
 ### The right model for the right task
 
-| **Model**     | **Best for**                                      | **Token intensity** | **Recommended use**                                                                                         |
-| ------------- | ------------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Claude Fable  | Days-long agentic coding work and reasoning tasks | Very High           | Reserve for your highest-value, most complex agentic work. Premium pricing and faster usage draw than Opus. |
-| Claude Opus   | Complex reasoning, research, multi-step tasks     | High                | Reserve for power users or specific workflows only                                                          |
-| Claude Sonnet | Everyday tasks, writing, analysis, Q&A            | Moderate            | Default model for all users—set as your org-wide default (see below)                                        |
-| Claude Haiku  | Simple lookups, summaries, fast responses         | Low                 | High-volume, lightweight automation tasks                                                                   |
+| **Model**     | **Best for**                                                                                 | **Token intensity** | **Recommended use**                                                                                |
+| ------------- | -------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------- |
+| Claude Fable  | The hardest, open-ended work: deep research, complex analysis, and long-running agentic work | Very High           | Our most advanced generally available model, for your hardest and highest-value work.              |
+| Claude Opus   | Complex reasoning, research, writing, analysis, coding, and multi-step tasks                 | High                | A strong default for most roles, and for complex, multi-step work                                  |
+| Claude Sonnet | Everyday tasks, writing, analysis, Q&A                                                       | Moderate            | A fast option for lighter everyday tasks, or a default for groups doing high-volume, simpler work. |
+| Claude Haiku  | Simple lookups, summaries, fast responses                                                    | Low                 | High-volume, lightweight automation tasks                                                          |
 
 ### Set your organization's default model
 
@@ -127,15 +137,17 @@ You have two options:
 
 - **Anthropic recommended** — automatically updates as new models ship, so your org always starts on our current recommended general-purpose model with no manual upkeep.
 
-- **Choose your own** — sets a specific model as the org default and holds it there until you change it. Use this when you want to standardize on a known model for consumption predictability (for example, defaulting to Sonnet rather than Opus).
+- **Choose your own** — sets a specific model as the org default and holds it there until you change it. Use this when you want to standardize on a known model for consumption predictability (for example, defaulting to Opus and giving Fable to the roles that do the hardest work).
 
 This setting applies to new conversations in chat, Claude Cowork, Claude Code (CLI 2.1.199 or later), and Claude for Microsoft 365. If the selected model isn't available in a product, Anthropic's recommended default is used. If you also pin a model for Claude Code through managed settings, that setting takes precedence for the CLI and IDE. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-You can also set model defaults by role through Custom Roles, so different groups can start on different models—for example, defaulting your engineering group to one model and the rest of the org to another. This pairs naturally with the RBAC groups you've already configured (see **Role-based access controls** above).
+**Sticky defaults - always start with the default model and effort level (beta).** By default, the model picker is sticky: new conversations start on whatever model a member last used. To change that, turn on **Always start with the default model and effort level** in **Organization settings > Models**. Every new conversation then starts on the org's default model and default effort level. Members can still change both within a conversation.
 
-**How to configure:** Organization settings → Models.
+Sticky defaults upgrade automatically. When a launch changes the default model, the sticky model moves to the new default, so no one is left on an older model. Roles that set their own default model have the same switch in the role editor. It works in chat, Claude Cowork, Claude Code, Claude for Microsoft 365, Claude Design, and Claude Science. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-**Note:** Users' current model selection for new conversations may be cleared, so they'll pick up the org default on their next conversation.
+To follow the recommended configuration above, set defaults by role through Custom Roles. For example, you might make Claude Opus the org default and Claude Fable the default for your research and analysis roles. This builds on the RBAC groups you've already set up (see **Role-based access controls** above).
+
+**How to configure:** **Organization settings > Models** for the org default. For role defaults, go to **Organization settings > Roles > select a role > Models tab**.
 
 ### Manage model access for your organization
 
@@ -153,15 +165,11 @@ Beyond restricting which models a role can use, you can cap the **maximum effort
 
 You can also set a **default effort level** for a role's default model, so new conversations start at the level you choose, either Anthropic's recommended default or a specific level. The default can't be higher than the effort cap for that model. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization?utm_source=it&utm_medium=email&utm_campaign=2026_Q3_PMM_MKTG_EntAdmin_Newsletter_Sept16&utm_term=ent_admins&utm_content=inline_link&campaign=19893371#h_d5373c4106)** to learn more.
 
-**Admin tip: Pair model + effort restrictions**
-
-If model guidance (the "Sonnet is your default" messaging) isn't landing and you're still seeing heavy Opus consumption, restricting Opus access to specific roles—or capping effort to Medium/High instead of Max for non-power-user roles—is the next lever. Reserve full access for the roles where deep reasoning actually pays off.
-
 **Where this applies**
 
 Model access and effort restrictions are enforced across most Claude products, including chat (web, desktop, mobile), Claude Cowork, and Claude Code (CLI 2.1.199 or later—earlier versions still show restricted options but requests using them are rejected). Claude in Chrome and Claude Security don't support this yet. For the current list of supported products, see **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
-**How to configure:** Organization settings → Roles → select a role → Models tab. Set model access, an optional effort cap per model, an optional role-level default model, and default effort level. To manage configuration across the org, go to **Organization settings → Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
+**How to configure:** **Organization settings > Roles > select a role > Models tab**. Set model access, an optional effort cap per model, an optional role-level default model, default effort level, and the **Always start with the default model and effort level** switch. To manage configuration across the org, go to **Organization settings > Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
 ### Admin configuration recommendations
 
@@ -237,11 +245,11 @@ This is useful for the same per-skill ROI questions above, just broken down by i
 
 ### Admin API
 
-For organizations managing limits across many groups, the **[Admin API](https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide)** moves cost-control workflows into scripts — automating increase-request reviews, flagging members near their limits, and surfacing rapidly changing usage at scale. The API reads every member's effective limit and month-to-date spend and sets or clears per-user overrides. Group, seat-type, and org-level limits are still configured in Organization settings. The Admin API's user-management endpoints (currently in beta for Enterprise organizations) also let you create groups, add or remove members, and read your custom roles programmatically. See **[User management](https://platform.claude.com/docs/en/manage-claude/user-management)**.
+For organizations managing limits across many groups, the **[Admin API](https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide)** moves cost-control workflows into scripts — automating increase-request reviews, flagging members near their limits, and surfacing rapidly changing usage at scale. The API reads every member's effective limit and month-to-date spend and sets or clears per-user overrides. Group, seat-type, org-level limits, and pooled group budgets are still configured in Organization settings. The Admin API's user-management endpoints (currently in beta for Enterprise organizations) also let you create groups, add or remove members, and read your custom roles programmatically. See **[User management](https://platform.claude.com/docs/en/manage-claude/user-management)**.
 
 ### Spend-threshold alerts
 
-Spend-threshold alerts notify admins at 75% and 90% of an org-level spend limit, giving you time to raise the cap before anyone is blocked mid-task.
+Spend-threshold alerts notify admins at 75% and 90% of an org-level spend limit, giving you time to raise the cap before anyone is blocked mid-task. Pooled group budgets send their own alerts to billing admins at 50%, 75%, 95%, and 100% of the pool.
 
 ### In-product surveys
 
@@ -269,6 +277,22 @@ For consumption management, focus on these sections:
 
 Smart reports are designed to help you understand adoption and plan investment, not to evaluate individual performance. For availability, setup, and how to create and share reports, see **[Get started with smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports)**.
 
+### Surveys (beta)
+
+You can run a short survey inside Claude to learn what people use Claude for, what it's worth to them, and where they're stuck. Then compare their answers with your spend data.
+
+Surveys show up as a card between tasks in Claude Cowork, or after a reply in chat, and never interrupt a running task. You can send one to all members or to specific groups, pick Cowork, chat or both, and set start and end dates. Each user sees a survey only once. Results update while the survey is live: response rate, bar charts for multiple-choice questions, and a feed of written answers you can filter by group. You can also export them to CSV.
+
+For consumption management, surveys are useful for:
+
+- **Checking value behind high spend.** When a group is often at its limit, ask what it's using Claude for before you raise or lower the cap.
+
+- **Filling in your ROI numbers.** Ask how much time Claude saves on key workflows, and use the answers as your value-per-run estimates in the Skills ROI analysis.
+
+- **Finding friction.** Ask where Claude isn't helping. Answers often point to a connector, skill, or model setting to change.
+
+**How to configure:** **Analytics > Surveys > New survey**. Primary Owners, Owners, Admins, and custom roles with Analytics view access can create surveys and see results. Responses go to your org's admins, and Anthropic accesses them only as needed to run the service. Don't put regulated data such as PHI in responses. Responses aren't anonymous: the export includes each respondent's email. Surveys aren't available yet for organizations using customer-managed encryption keys (CMEK). See **[Create surveys for your organization](https://support.claude.com/en/articles/16764057-create-surveys-for-your-organization)**.
+
 ---
 
 ## End user education
@@ -291,11 +315,11 @@ When you onboard users, share the following:
 
 - Sonnet is the default and handles most tasks well. Use Opus only when Sonnet isn't getting you where you need to go.
 
-- Your org has a default model set for new conversations; you can still switch models mid-conversation when a task needs it.
+- Your org has a default model set for new conversations; you can still pick a different model. Choose it at the start of a task.
 
 - The model selector is visible in the interface—remind users to check it, especially if they're running complex tasks.
 
-- The model selector is sticky, so make it a practice to check that it's the model you want to use.
+- Unless your admin has turned on Always start with the default model, the model selector remembers your last choice, so check it before you start a task.
 
 - The effort level appears next to the model name. Higher effort means more thorough responses but higher token consumption, so match it to the task.
 
@@ -304,6 +328,8 @@ When you onboard users, share the following:
 - Users are notified in-product as they approach their spend limit and, once they hit it, can click "Request more usage" to send an increase request to admins without leaving Claude. Tell users who their approver is and your expected turnaround.
 
 - Nothing they've already produced is lost. The request that's already in flight completes, but further requests are blocked, so a multi-step Claude Code or Claude Cowork task may pause before it finishes. They can pick the work back up as soon as an admin raises the limit, or when limits reset at 00:00 UTC on the 1st of the month.
+
+- If your group uses a pooled budget, usage can pause for the whole group when the shared pool runs out, even if you haven't reached your own limit.
 
 **Resources to share with users**
 
