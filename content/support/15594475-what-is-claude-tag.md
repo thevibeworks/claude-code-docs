@@ -70,9 +70,9 @@ Channels that include Slack guests have a separate **Allow Claude to respond to 
 
 ## Review memory and activity for Claude Tag
 
-Claude Tag keeps context per channel and per workspace. Admins can view, edit, and delete that memory.
+Claude Tag keeps context per channel and per workspace. Owners can view, edit, and delete that memory.
 
-An Audit view in **Organization settings > Claude Tag > Audit** lists every scheduled and one-time task across your organization in addition to all network calls made using Agent Identity. Each action is also traceable in the tool where it happened: posts come from the Claude app in Slack, and commits and pull requests show the Claude GitHub App as the author with a link back to the Slack thread that started them. In any channel, you can ask "@Claude what triggers do you have set up here?" to see and turn off standing work.
+An Activity page in **Organization settings > Claude Tag > Activity** lists every scheduled and one-time task across your organization in addition to all network calls made using Agent Identity. Only Owners can open this page. Each action is also traceable in the tool where it happened: posts come from the Claude app in Slack, and commits and pull requests show the Claude GitHub App as the author with a link back to the Slack thread that started them. In any channel, you can ask "@Claude what triggers do you have set up here?" to see and turn off standing work.
 
 ---
 

@@ -8,6 +8,13 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.9939.2" description="2026-09-24">
+  **Changed:**
+
+  * `autoModeEnabled` no longer defaults to `false`. Left unset, the Code tab offers Auto mode and new Code tab sessions start in it where the model supports it; `true` does the same and also offers it in Cowork (Cowork sessions still start by asking before each action); `false` removes it from both tabs. Earlier releases treat an unset key as `false`, so Auto mode stays off on devices that have not updated.
+  * `inferenceIdpOidc` and `inferenceGatewayOidc`: `resource` accepts, besides a web address, an identifier with a scheme of its own that is not a web address, such as an AD FS relying-party identifier (`urn:…`), which is sent to the identity provider exactly as written; a value with no scheme is still sent as `https://<value>`. Earlier releases accept only a web address here and ignore the whole sign-in object, not just `resource`, when it carries such an identifier, so deploy one only once every device has updated.
+</Update>
+
 <Update label="v2.7032.0" description="2026-09-22">
   <div className="cfg-keys">
     | MDM key                                                                                                                  | Type      | Description                           |
