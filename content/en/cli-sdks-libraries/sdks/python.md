@@ -218,7 +218,8 @@ You can also count tokens before making a request:
 
 ```python
 count = client.messages.count_tokens(
-    model="claude-opus-5-5", messages=[{"role": "user", "content": "Hello, world"}]
+    model="claude-opus-5-5",
+    messages=[{"role": "user", "content": "Hello, world"}],
 )
 print(count.input_tokens)  # 10
 ```

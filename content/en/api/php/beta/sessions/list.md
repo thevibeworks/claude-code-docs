@@ -89,11 +89,11 @@ List Sessions
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
   - `\Datetime createdAt`
 
@@ -111,7 +111,7 @@ List Sessions
 
   - `BetaManagedAgentsSessionStats stats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
   - `Status status`
 
@@ -125,7 +125,7 @@ List Sessions
 
   - `BetaManagedAgentsSessionUsage usage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
   - `list<string> vaultIDs`
 

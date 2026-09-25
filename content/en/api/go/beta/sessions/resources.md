@@ -21,7 +21,7 @@ Add Session Resource
 
   - `BetaManagedAgentsFileResourceParams param.Field[BetaManagedAgentsFileResourceParamsResp]`
 
-    Body param: Mount a file uploaded via the Files API into the session.
+    Body param: Request parameters for adding a resource to a session.
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -420,7 +420,7 @@ List Session Resources
 
     - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadWrite BetaManagedAgentsMemoryStoreResourceAccess = "read_write"`
 
@@ -715,7 +715,7 @@ Get Session Resource
 
     - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadWrite BetaManagedAgentsMemoryStoreResourceAccess = "read_write"`
 
@@ -1005,7 +1005,7 @@ Update Session Resource
 
     - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadWrite BetaManagedAgentsMemoryStoreResourceAccess = "read_write"`
 
@@ -1352,7 +1352,7 @@ func main() {
 
   - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
-    Access mode for an attached memory store.
+    Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
     - `const BetaManagedAgentsMemoryStoreResourceAccessReadWrite BetaManagedAgentsMemoryStoreResourceAccess = "read_write"`
 
@@ -1458,7 +1458,7 @@ func main() {
 
     - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadWrite BetaManagedAgentsMemoryStoreResourceAccess = "read_write"`
 

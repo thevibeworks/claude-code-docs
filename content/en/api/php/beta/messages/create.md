@@ -90,14 +90,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `compaction?:optional BetaCompactionConfig`
 
-  Compact the whole conversation and return a signed `compaction` block,
-  alone, that a later request sends back first in `messages`, in place of
-  the messages it summarizes. There is no trigger and no pause flag: sending
-  the parameter compacts, and nothing is sampled after the block.
+  Compaction configuration.
 
-  The summarization prompt is the server's own unless `instructions` are
-  given, which then replace it for this request; a value that is empty or
-  only whitespace counts as absent.
+  When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
 - `container?:optional Container`
 
@@ -111,8 +106,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `diagnostics?:optional BetaDiagnosticsParam`
 
-  Request-level diagnostics. Currently carries the previous response
-  id for prompt-cache divergence reporting.
+  Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
 - `fallbackCreditToken?:optional FallbackCreditToken`
 
@@ -165,7 +159,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `speed?:optional Speed`
 
-  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
 - `stopSequences?:optional list<string>`
 
@@ -333,7 +327,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaContainer container`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
   - `list<BetaContentBlock> content`
 
@@ -372,8 +368,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaDiagnostics diagnostics`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
   - `Model model`
 
@@ -389,7 +384,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `?BetaRefusalStopDetails stopDetails`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
   - `?BetaStopReason stopReason`
 

@@ -93,7 +93,7 @@ Context window: 1M tokens · Max output: 128K tokens · Input pricing: $3 / MTok
 ## Reference
 
 <CardGroup cols={3}>
-  <Card title="System prompt" icon="text" href="https://platform.claude.com/docs/en/release-notes/system-prompts#claude-sonnet-4-6">
+  <Card title="System prompt" icon="text" href="https://platform.claude.com/docs/en/release-notes/system-prompts/overview#claude-sonnet-4-6">
     The system prompt Claude Sonnet 4.6 uses on claude.ai and the Claude apps.
   </Card>
 

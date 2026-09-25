@@ -23,7 +23,7 @@ Update Credential
 
 - `auth?:optional Auth`
 
-  Updated authentication details for a credential.
+  Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
 - `displayName?:optional string`
 
@@ -55,11 +55,11 @@ Update Credential
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
   - `Auth auth`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
   - `\Datetime createdAt`
 

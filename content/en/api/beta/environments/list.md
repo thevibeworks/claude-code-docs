@@ -21,7 +21,7 @@ List environments with pagination support.
 
   Maximum number of environments to return
 
-  default: 20, maximum: 1000, minimum: 1
+  default: 20, minimum: 1, maximum: 1000
 
 - `page: optional string`
 

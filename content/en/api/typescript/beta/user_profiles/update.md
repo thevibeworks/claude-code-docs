@@ -21,10 +21,7 @@ Update User Profile
 
   - `access_type?: "application" | "passthrough" | null`
 
-    Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
-
-    - `application` - The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
-    - `passthrough` - The user profile represents a company that the platform resells Claude access to.
+    Body param: If present, replaces the stored access type. Omit to leave unchanged.
 
     - `"application"`
 
@@ -46,11 +43,7 @@ Update User Profile
 
     - `account_status?: "active" | "suspended" | "blocked" | null`
 
-      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
-
-      - `active` - The platform has neither restricted nor barred the account of the entity that the user profile represents.
-      - `suspended` - The platform has restricted the account of the entity that the user profile represents and may restore it.
-      - `blocked` - The platform has barred the account of the entity that the user profile represents.
+      The status of the entity's account on the platform: `active`, `suspended` or `blocked`.
 
       - `"active"`
 
@@ -76,7 +69,7 @@ Update User Profile
 
     - `entity_type?: "individual" | "business" | "non_profit" | "government" | null`
 
-      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+      What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`.
 
       - `"individual"`
 
@@ -94,7 +87,7 @@ Update User Profile
 
     - `onboarded_at?: string`
 
-      A timestamp in RFC 3339 format
+      When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future.
 
       format: date-time
 
@@ -106,7 +99,7 @@ Update User Profile
 
   - `external_user_onboarded_at?: string`
 
-    Body param: A timestamp in RFC 3339 format
+    Body param: If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Accepted under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` send `external_user_details.onboarded_at` instead.
 
     format: date-time
 
@@ -248,7 +241,7 @@ Update User Profile
 
   - `created_at: string`
 
-    A timestamp in RFC 3339 format
+    When this user profile was created, in RFC 3339 format.
 
     format: date-time
 
@@ -272,16 +265,13 @@ Update User Profile
 
   - `updated_at: string`
 
-    A timestamp in RFC 3339 format
+    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
 
     format: date-time
 
   - `access_type?: "application" | "passthrough"`
 
-    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
-
-    - `application` - The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
-    - `passthrough` - The user profile represents a company that the platform resells Claude access to.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
 
     - `"application"`
 
@@ -297,15 +287,11 @@ Update User Profile
 
   - `external_user_details?: BetaUserProfileExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Anthropic does not verify them. Every field is present, `null` until the platform supplies a value.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
 
     - `account_status: "active" | "suspended" | "blocked" | null`
 
-      The status of the entity's account on the platform, as the platform states it: `active`; `suspended`, when the platform has restricted the account and may restore it; or `blocked`, when the platform has barred it. It records the platform's decision only; the statuses in `trust_grants` are Anthropic's and do not follow it.
-
-      - `active` - The platform has neither restricted nor barred the account of the entity that the user profile represents.
-      - `suspended` - The platform has restricted the account of the entity that the user profile represents and may restore it.
-      - `blocked` - The platform has barred the account of the entity that the user profile represents.
+      The status of the entity's account on the platform: `active`, `suspended` or `blocked`. `null` until the platform supplies one.
 
       - `"active"`
 
@@ -329,7 +315,7 @@ Update User Profile
 
     - `entity_type: "individual" | "business" | "non_profit" | "government" | null`
 
-      What kind of entity the profile represents, as the platform states it: `individual`, `business`, `non_profit` or `government`.
+      What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`. `null` until the platform supplies one.
 
       - `"individual"`
 
@@ -345,7 +331,7 @@ Update User Profile
 
     - `onboarded_at: string | null`
 
-      A timestamp in RFC 3339 format
+      When the entity opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one.
 
       format: date-time
 
@@ -355,7 +341,7 @@ Update User Profile
 
   - `external_user_onboarded_at?: string | null`
 
-    A timestamp in RFC 3339 format
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
 
     format: date-time
 

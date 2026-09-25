@@ -37,7 +37,7 @@ Create Agent
 
 - `multiagent?:optional BetaManagedAgentsMultiagentParams`
 
-  A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+  Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
 
 - `skills?:optional list<BetaManagedAgentsSkillParams>`
 
@@ -71,7 +71,7 @@ Create Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -89,7 +89,7 @@ Create Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -284,7 +284,7 @@ List Agents
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -302,7 +302,7 @@ List Agents
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -462,7 +462,7 @@ Get Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -480,7 +480,7 @@ Get Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -626,7 +626,7 @@ Update Agent
 
 - `multiagent?:optional BetaManagedAgentsMultiagentParams`
 
-  A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+  Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
 - `name?:optional string`
 
@@ -668,7 +668,7 @@ Update Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -686,7 +686,7 @@ Update Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -872,7 +872,7 @@ Archive Agent
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -890,7 +890,7 @@ Archive Agent
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -1025,7 +1025,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -1043,7 +1043,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 
@@ -1203,7 +1203,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsEditToolConfigParams`
 
@@ -1219,7 +1219,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsReadToolConfigParams`
 
@@ -1235,7 +1235,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsWriteToolConfigParams`
 
@@ -1251,7 +1251,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsGlobToolConfigParams`
 
@@ -1267,7 +1267,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsGrepToolConfigParams`
 
@@ -1283,7 +1283,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsWebFetchToolConfigParams`
 
@@ -1311,7 +1311,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `class BetaManagedAgentsWebSearchToolConfigParams`
 
@@ -1335,7 +1335,7 @@ var_dump($betaManagedAgentsAgent);
 
     - `?PermissionPolicy permissionPolicy`
 
-      Permission policy for tool execution.
+      Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
     - `?BetaManagedAgentsUserLocation userLocation`
 
@@ -1361,7 +1361,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents Agent Toolset20260401
 
@@ -1455,7 +1455,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?BetaManagedAgentsAgentToolsetDefaultConfigParams defaultConfig`
 
-    Default configuration for all tools in a toolset.
+    Default configuration applied to all tools in this set.
 
 ### Beta Managed Agents Agent Toolset20260401 Read Input
 
@@ -1555,7 +1555,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents Custom Skill
 
@@ -1617,7 +1617,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `BetaManagedAgentsCustomToolInputSchema inputSchema`
 
-    JSON Schema for custom tool input parameters.
+    JSON Schema defining the expected input parameters for the tool.
 
   - `string name`
 
@@ -1653,7 +1653,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents Effort High
 
@@ -1715,7 +1715,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents Grep Tool Config
 
@@ -1747,7 +1747,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents MCP Server URL Definition
 
@@ -1785,7 +1785,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Overrides the `default_config` setting.
 
 ### Beta Managed Agents MCP Toolset
 
@@ -1821,7 +1821,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Default permission policy for tools from this server.
 
 ### Beta Managed Agents MCP Toolset Params
 
@@ -1839,7 +1839,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?BetaManagedAgentsMCPToolsetDefaultConfigParams defaultConfig`
 
-    Default configuration for all tools from an MCP server.
+    Default configuration for all tools from this server.
 
 ### Beta Managed Agents Model
 
@@ -1917,7 +1917,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?Effort effort`
 
-    How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+    How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
   - `?string inferenceGeo`
 
@@ -1925,7 +1925,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?Speed speed`
 
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
 ### Beta Managed Agents Model Config Params
 
@@ -1947,7 +1947,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?Speed speed`
 
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+    Inference speed mode. Defaults to `standard`.
 
 ### Beta Managed Agents Multiagent Coordinator
 
@@ -2005,7 +2005,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents Session Thread Agent
 
@@ -2147,7 +2147,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ### Beta Managed Agents Web Search Tool Config
 
@@ -2195,7 +2195,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
   - `?BetaManagedAgentsUserLocation userLocation`
 
@@ -2231,7 +2231,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `?PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+    Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
 ## Agents › Versions
 
@@ -2277,7 +2277,7 @@ List Agent Versions
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
@@ -2295,7 +2295,7 @@ List Agent Versions
 
   - `?BetaManagedAgentsMultiagent multiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
   - `string name`
 

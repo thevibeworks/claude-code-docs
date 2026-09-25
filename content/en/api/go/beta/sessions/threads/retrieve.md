@@ -145,7 +145,7 @@ Get Session Thread
 
   - `Agent BetaManagedAgentsSessionThreadAgentUnion`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
     - `type BetaManagedAgentsSessionThreadAgent`
 
@@ -174,6 +174,8 @@ Get Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `string`
 
           - `type BetaManagedAgentsModel string`
 
@@ -241,11 +243,9 @@ Get Session Thread
 
               High-performance model for agents and coding
 
-          - `string`
-
         - `Effort BetaManagedAgentsModelConfigEffortUnion Optional`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `type BetaManagedAgentsEffortLow`
 
@@ -283,7 +283,7 @@ Get Session Thread
 
         - `Speed BetaManagedAgentsModelConfigSpeed Optional`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `const BetaManagedAgentsModelConfigSpeedStandard BetaManagedAgentsModelConfigSpeed = "standard"`
 
@@ -687,13 +687,13 @@ Get Session Thread
 
   - `ArchivedAt Time`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
     format: date-time
 
   - `CreatedAt Time`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
     format: date-time
 
@@ -707,7 +707,7 @@ Get Session Thread
 
   - `Stats BetaManagedAgentsSessionThreadStats`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
     - `ActiveSeconds float64 Optional`
 
@@ -729,7 +729,7 @@ Get Session Thread
 
   - `Status BetaManagedAgentsSessionThreadStatus`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
     - `const BetaManagedAgentsSessionThreadStatusRunning BetaManagedAgentsSessionThreadStatus = "running"`
 
@@ -741,13 +741,13 @@ Get Session Thread
 
   - `UpdatedAt Time`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
     format: date-time
 
   - `Usage BetaManagedAgentsSessionThreadUsage`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
     - `ActiveSeconds float64 Optional`
 
@@ -757,7 +757,7 @@ Get Session Thread
 
     - `CacheCreation BetaManagedAgentsCacheCreationUsage Optional`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `Ephemeral1hInputTokens int64 Optional`
 
@@ -785,7 +785,7 @@ Get Session Thread
 
     - `ListCost BetaMonetaryAmount Optional`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
       - `Amount string`
 
@@ -803,7 +803,7 @@ Get Session Thread
 
     - `ServerToolUse BetaManagedAgentsServerToolUsage Optional`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
       - `WebFetchRequests int64 Optional`
 

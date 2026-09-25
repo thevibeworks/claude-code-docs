@@ -17,7 +17,7 @@ Create a new environment with the specified configuration.
 
   Body param: Human-readable name for the environment
 
-  maxLength: 256, minLength: 1
+  minLength: 1, maxLength: 256
 
 - `--config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
 

@@ -33,7 +33,7 @@ Create Deployment
 
 - `budget?:optional BetaManagedAgentsBudgetLimit`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
 - `description?:optional string`
 
@@ -49,7 +49,7 @@ Create Deployment
 
 - `schedule?:optional BetaManagedAgentsScheduleParams`
 
-  5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
+  Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
 
 - `vaultIDs?:optional list<string>`
 
@@ -77,15 +77,15 @@ Create Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -109,7 +109,7 @@ Create Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -117,15 +117,15 @@ Create Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -133,7 +133,7 @@ Create Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -307,15 +307,15 @@ List Deployments
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -339,7 +339,7 @@ List Deployments
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -347,15 +347,15 @@ List Deployments
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -363,7 +363,7 @@ List Deployments
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -497,15 +497,15 @@ Get Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -529,7 +529,7 @@ Get Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -537,15 +537,15 @@ Get Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -553,7 +553,7 @@ Get Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -660,7 +660,7 @@ Update Deployment
 
 - `budget?:optional BetaManagedAgentsBudgetLimit`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
 - `description?:optional string`
 
@@ -688,7 +688,7 @@ Update Deployment
 
 - `schedule?:optional BetaManagedAgentsScheduleParams`
 
-  5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
+  Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
 
 - `vaultIDs?:optional list<string>`
 
@@ -716,15 +716,15 @@ Update Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -748,7 +748,7 @@ Update Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -756,15 +756,15 @@ Update Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -772,7 +772,7 @@ Update Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -923,15 +923,15 @@ Archive Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -955,7 +955,7 @@ Archive Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -963,15 +963,15 @@ Archive Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -979,7 +979,7 @@ Archive Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -1102,11 +1102,11 @@ Run Deployment Now
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
   - `string deploymentID`
 
@@ -1114,7 +1114,7 @@ Run Deployment Now
 
   - `?Error error`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
   - `?string sessionID`
 
@@ -1122,7 +1122,7 @@ Run Deployment Now
 
   - `BetaManagedAgentsTriggerContext triggerContext`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
 ### Example
 
@@ -1203,15 +1203,15 @@ Pause Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -1235,7 +1235,7 @@ Pause Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -1243,15 +1243,15 @@ Pause Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -1259,7 +1259,7 @@ Pause Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -1382,15 +1382,15 @@ Unpause Deployment
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -1414,7 +1414,7 @@ Unpause Deployment
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -1422,15 +1422,15 @@ Unpause Deployment
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -1438,7 +1438,7 @@ Unpause Deployment
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Example
 
@@ -1549,7 +1549,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `?\Datetime lastRunAt`
 
-    A timestamp in RFC 3339 format
+    Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this.
 
   - `?list<\Datetime> upcomingRunsAt`
 
@@ -1581,15 +1581,15 @@ var_dump($betaManagedAgentsDeployment);
 
   - `BetaManagedAgentsAgentReference agent`
 
-    A resolved agent reference with a concrete version.
+    Reference to the agent this deployment runs, resolved to a concrete version.
 
   - `?\Datetime archivedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was archived. Null if not archived.
 
   - `\Datetime createdAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was created.
 
   - `?string description`
 
@@ -1613,7 +1613,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
 
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
+    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
 
   - `list<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -1621,15 +1621,15 @@ var_dump($betaManagedAgentsDeployment);
 
   - `?BetaManagedAgentsSchedule schedule`
 
-    5-field POSIX cron schedule with computed runtime timestamps.
+    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Lifecycle status of a deployment.
+    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
 
   - `\Datetime updatedAt`
 
-    A timestamp in RFC 3339 format
+    Time the deployment was last updated.
 
   - `list<string> vaultIDs`
 
@@ -1637,7 +1637,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `?BetaManagedAgentsBudgetLimit budget`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
 
 ### Beta Managed Agents Deployment Initial Event
 
@@ -1661,7 +1661,7 @@ var_dump($betaManagedAgentsDeployment);
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. Text or file reference.
 
     - `?int maxIterations`
 
@@ -1697,7 +1697,7 @@ var_dump($betaManagedAgentsDeployment);
 
     - `Rubric rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. Text or file reference.
 
     - `?int maxIterations`
 
@@ -1725,7 +1725,7 @@ var_dump($betaManagedAgentsDeployment);
 
     - `BetaManagedAgentsDeploymentPausedReasonError error`
 
-      The error that triggered an auto-pause. Matches the failed run's `error.type`.
+      The failed run's error.
 
 ### Beta Managed Agents Deployment Paused Reason Error
 
@@ -1821,7 +1821,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `Rubric rubric`
 
-    Rubric for grading the quality of an outcome.
+    How to grade the outcome. Text or file reference.
 
   - `?int maxIterations`
 
@@ -1857,7 +1857,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `BetaManagedAgentsDeploymentPausedReasonError error`
 
-    The error that triggered an auto-pause. Matches the failed run's `error.type`.
+    The failed run's error.
 
 ### Beta Managed Agents File Not Found Deployment Paused Reason Error
 
@@ -1927,7 +1927,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `?Access access`
 
-    Access mode for an attached memory store.
+    Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
   - `?string instructions`
 
@@ -1955,7 +1955,7 @@ var_dump($betaManagedAgentsDeployment);
 
   - `?\Datetime lastRunAt`
 
-    A timestamp in RFC 3339 format
+    Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this.
 
   - `?list<\Datetime> upcomingRunsAt`
 
@@ -2023,7 +2023,7 @@ var_dump($betaManagedAgentsDeployment);
 
     - `?Access access`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
     - `?string instructions`
 

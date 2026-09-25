@@ -147,11 +147,11 @@ Validate Credential
 
   - `required BetaManagedAgentsMcpProbe? McpProbe`
 
-    The failing step of an MCP validation probe.
+    Details of the failing MCP probe step. Null when the probe succeeded.
 
     - `required BetaManagedAgentsRefreshHttpResponse? HttpResponse`
 
-      An HTTP response captured during a credential validation probe.
+      The captured HTTP error response. Null when no HTTP response was received (timeout, DNS, TLS).
 
       - `required string Body`
 
@@ -177,15 +177,15 @@ Validate Credential
 
   - `required BetaManagedAgentsRefreshObject? Refresh`
 
-    Outcome of a refresh-token exchange attempted during credential validation.
+    Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
     - `required BetaManagedAgentsRefreshHttpResponse? HttpResponse`
 
-      An HTTP response captured during a credential validation probe.
+      The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 
     - `required Status Status`
 
-      Outcome of a refresh-token exchange attempted during credential validation.
+      Outcome of the refresh attempt.
 
       - `Succeeded("succeeded")`
 
@@ -205,7 +205,7 @@ Validate Credential
 
   - `required BetaManagedAgentsCredentialValidationStatus Status`
 
-    Overall verdict of a credential validation probe.
+    Overall verdict of the validation probe.
 
     - `Valid("valid")`
 
@@ -221,7 +221,7 @@ Validate Credential
 
   - `required DateTimeOffset ValidatedAt`
 
-    A timestamp in RFC 3339 format
+    When the validation probe was performed.
 
     format: date-time
 

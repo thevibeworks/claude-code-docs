@@ -19,7 +19,7 @@ Update Session
 
   - `agent?: BetaManagedAgentsSessionAgentUpdate`
 
-    Body param: Mid-session agent configuration update. Only `tools` and `mcp_servers` are updatable. Full replacement: the provided array becomes the new value. To preserve existing entries, GET the session, modify the array, and POST it back.
+    Body param: Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
 
     - `mcp_servers?: Array<BetaManagedAgentsURLMCPServerParams>`
 
@@ -69,7 +69,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -105,7 +105,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -135,7 +135,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -165,7 +165,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -195,7 +195,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -225,7 +225,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -269,7 +269,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -307,7 +307,7 @@ Update Session
 
             - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -353,7 +353,7 @@ Update Session
 
         - `default_config?: BetaManagedAgentsAgentToolsetDefaultConfigParams | null`
 
-          Default configuration for all tools in a toolset.
+          Default configuration applied to all tools in this set.
 
           - `enabled?: boolean | null`
 
@@ -361,7 +361,7 @@ Update Session
 
           - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-            Permission policy for tool execution.
+            Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
             - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -403,7 +403,7 @@ Update Session
 
           - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Overrides the `default_config` setting.
 
             - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -419,7 +419,7 @@ Update Session
 
         - `default_config?: BetaManagedAgentsMCPToolsetDefaultConfigParams | null`
 
-          Default configuration for all tools from an MCP server.
+          Default configuration for all tools from this server.
 
           - `enabled?: boolean | null`
 
@@ -427,7 +427,7 @@ Update Session
 
           - `permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null`
 
-            Permission policy for tool execution.
+            Default permission policy for tools from this server.
 
             - `interface BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -455,7 +455,7 @@ Update Session
 
         - `input_schema: BetaManagedAgentsCustomToolInputSchema`
 
-          JSON Schema for custom tool input parameters.
+          JSON Schema defining the expected input parameters for the tool.
 
           - `type: "object"`
 
@@ -471,13 +471,13 @@ Update Session
 
   - `budget?: BetaManagedAgentsBudgetLimit | null`
 
-    Body param: A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    Body param: Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
 
     - `type: "limit"`
 
     - `max_list_cost: BetaMonetaryAmount`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `amount: string`
 
@@ -649,6 +649,8 @@ Update Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `(string & {})`
+
         - `"claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
 
           - `"claude-opus-5-5"`
@@ -711,11 +713,9 @@ Update Session
 
             High-performance model for agents and coding
 
-        - `(string & {})`
-
       - `effort?: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `interface BetaManagedAgentsEffortLow`
 
@@ -753,7 +753,7 @@ Update Session
 
       - `speed?: "standard" | "fast"`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `"standard"`
 
@@ -761,7 +761,7 @@ Update Session
 
     - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator | null`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `type: "coordinator"`
 
@@ -1217,19 +1217,19 @@ Update Session
 
   - `archived_at: string | null`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `budget: BetaManagedAgentsBudgetLimit | null`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `type: "limit"`
 
     - `max_list_cost: BetaMonetaryAmount`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `amount: string`
 
@@ -1257,7 +1257,7 @@ Update Session
 
     - `completed_at: string | null`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -1363,7 +1363,7 @@ Update Session
 
       - `access?: "read_write" | "read_only" | null`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `"read_write"`
 
@@ -1389,7 +1389,7 @@ Update Session
 
   - `stats: BetaManagedAgentsSessionStats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `active_seconds?: number`
 
@@ -1406,11 +1406,6 @@ Update Session
   - `status: "rescheduling" | "running" | "idle" | "terminated"`
 
     SessionStatus enum
-
-    - `rescheduling` - Transient error occurred, retrying automatically.
-    - `running` - Agent is actively executing.
-    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
-    - `terminated` - Session has ended, either due to an error or completion.
 
     - `"rescheduling"`
 
@@ -1438,7 +1433,7 @@ Update Session
 
   - `usage: BetaManagedAgentsSessionUsage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `active_seconds?: number`
 
@@ -1448,7 +1443,7 @@ Update Session
 
     - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `ephemeral_1h_input_tokens?: number`
 
@@ -1476,7 +1471,7 @@ Update Session
 
     - `list_cost?: BetaMonetaryAmount | null`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `output_tokens?: number`
 
@@ -1486,7 +1481,7 @@ Update Session
 
     - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `web_fetch_requests?: number`
 

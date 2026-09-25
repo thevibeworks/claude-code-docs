@@ -29,7 +29,7 @@ The Models API response can be used to determine which models are available for 
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-  maximum: 1000, minimum: 1
+  minimum: 1, maximum: 1000
 
 - `workspace_id: String`
 
@@ -159,7 +159,7 @@ The Models API response can be used to determine which models are available for 
 
   - `capabilities: ModelCapabilities`
 
-    Model capability information.
+    Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
     - `batch: CapabilitySupport`
 
@@ -183,15 +183,15 @@ The Models API response can be used to determine which models are available for 
 
       - `clear_thinking_20251015: CapabilitySupport`
 
-        Indicates whether a capability is supported.
+        Whether the clear_thinking_20251015 strategy is supported.
 
       - `clear_tool_uses_20250919: CapabilitySupport`
 
-        Indicates whether a capability is supported.
+        Whether the clear_tool_uses_20250919 strategy is supported.
 
       - `compact_20260112: CapabilitySupport`
 
-        Indicates whether a capability is supported.
+        Whether the compact_20260112 strategy is supported.
 
       - `supported: bool`
 
@@ -223,7 +223,7 @@ The Models API response can be used to determine which models are available for 
 
       - `xhigh: CapabilitySupport`
 
-        Indicates whether a capability is supported.
+        Whether the model supports xhigh effort level.
 
     - `image_input: CapabilitySupport`
 

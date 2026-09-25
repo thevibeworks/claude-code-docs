@@ -35,7 +35,7 @@ Update an existing environment's configuration.
 
   Body param: Updated name for the environment
 
-  maxLength: 256, minLength: 1
+  minLength: 1, maxLength: 256
 
 - `--scope: optional "organization" or "account"`
 

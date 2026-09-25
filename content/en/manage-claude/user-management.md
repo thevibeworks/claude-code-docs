@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/manage-claude/user-management
 description: "Manage the people in your Claude Enterprise organization with the Admin API: list members and change roles, send and withdraw invites, manage groups, and read custom roles."
 ---
 
-This page covers managing the people in your **Claude Enterprise** (claude.ai) organization programmatically, using the [Admin API](https://platform.claude.com/docs/en/api/admin): list members and look them up by email address, change a member's role, remove members, send and withdraw invites, manage your enterprise's groups and their membership, and read your organization's custom roles. For Claude Console (Claude Platform) organizations, see the [Admin API guide for Claude Console](https://platform.claude.com/docs/en/manage-claude/admin-api).
+This page covers managing the people in your **Claude Enterprise** (claude.ai) organization programmatically, using the [Admin API](https://platform.claude.com/docs/en/api/beta/organization): list members and look them up by email address, change a member's role, remove members, send and withdraw invites, manage your enterprise's groups and their membership, and read your organization's custom roles. For Claude Console (Claude Platform) organizations, see the [Admin API guide for Claude Console](https://platform.claude.com/docs/en/manage-claude/admin-api).
 
 <Note>
   Group and custom-role requests don't require the `anthropic-beta: ce-user-management-2026-07-13` [beta header](https://platform.claude.com/docs/en/api/beta-headers). Requests that still send it are accepted and behave identically.
@@ -121,7 +121,7 @@ Error responses follow the standard shape documented in [Errors](https://platfor
 
 `GET /v1/organizations/users` returns the organization's members, most recently added first. Filter by `email` to look up a specific member; the match is case-insensitive and tolerates common variants of the same address (for example, `jane+hiring@example.com` matches `jane@example.com`). Requires the `read:members` scope.
 
-For complete parameter details and response schemas, see [List users](https://platform.claude.com/docs/en/api/admin/users/list) in the API reference.
+For complete parameter details and response schemas, see [List users](https://platform.claude.com/docs/en/api/beta/organization/users/list) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/users?email=jane@example.com" \
@@ -133,7 +133,7 @@ curl "https://api.anthropic.com/v1/organizations/users?email=jane@example.com" \
 
 `GET /v1/organizations/users/{user_id}` returns one member by ID. Requires the `read:members` scope.
 
-For complete parameter details and response schemas, see [Get user](https://platform.claude.com/docs/en/api/admin/users/retrieve) in the API reference.
+For complete parameter details and response schemas, see [Get user](https://platform.claude.com/docs/en/api/beta/organization/users/retrieve) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
@@ -145,7 +145,7 @@ curl "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQr
 
 `POST /v1/organizations/users/{user_id}` sets the member's role to `user` or `managed`. Members holding an administrative role (`owner`, `membership_admin`, or `primary_owner`) cannot be changed through this endpoint, and administrative roles cannot be assigned; both return 400 and are managed in claude.ai organization settings. If your organization's identity provider manages roles (advanced SSO or advanced SCIM provisioning), role updates return 400. Requires the `write:members` scope.
 
-For complete parameter details and response schemas, see [Update user](https://platform.claude.com/docs/en/api/admin/users/update) in the API reference.
+For complete parameter details and response schemas, see [Update user](https://platform.claude.com/docs/en/api/beta/organization/users/update) in the API reference.
 
 ```bash cURL
 curl -X POST "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
@@ -159,7 +159,7 @@ curl -X POST "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIj
 
 `DELETE /v1/organizations/users/{user_id}` removes the member from the organization, returning any purchased seat they occupied to the organization's pool. Members holding an administrative role cannot be removed through this endpoint, and if your identity provider manages membership (SCIM), removals return 400. Requires the `write:members` scope.
 
-For complete parameter details and response schemas, see [Remove user](https://platform.claude.com/docs/en/api/admin/users/delete) in the API reference.
+For complete parameter details and response schemas, see [Remove user](https://platform.claude.com/docs/en/api/beta/organization/users/remove) in the API reference.
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
@@ -184,7 +184,7 @@ On plans that draw members from a finite seat pool, the invite automatically tak
 
 The optional `rbac_group_ids` field lists groups (by `rbac_group_`-prefixed ID) to assign to the member when they accept. Passing a non-empty `rbac_group_ids` additionally requires the key to carry the `write:rbac_groups` scope, because group assignment can grant the permissions attached to the group's roles.
 
-For complete parameter details and response schemas, see [Create invite](https://platform.claude.com/docs/en/api/admin/invites/create) in the API reference.
+For complete parameter details and response schemas, see [Create invite](https://platform.claude.com/docs/en/api/beta/organization/invites/create) in the API reference.
 
 ```bash cURL
 curl -X POST "https://api.anthropic.com/v1/organizations/invites" \
@@ -216,7 +216,7 @@ curl -X POST "https://api.anthropic.com/v1/organizations/invites" \
 
 `GET /v1/organizations/invites` returns the organization's invites, most recent first, across the `pending`, `accepted`, and `expired` states; there is no status filter. Requires the `read:members` scope.
 
-For complete parameter details and response schemas, see [List invites](https://platform.claude.com/docs/en/api/admin/invites/list) in the API reference.
+For complete parameter details and response schemas, see [List invites](https://platform.claude.com/docs/en/api/beta/organization/invites/list) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/invites?limit=20" \
@@ -228,7 +228,7 @@ curl "https://api.anthropic.com/v1/organizations/invites?limit=20" \
 
 `GET /v1/organizations/invites/{invite_id}` returns one invite by ID. Requires the `read:members` scope.
 
-For complete parameter details and response schemas, see [Get invite](https://platform.claude.com/docs/en/api/admin/invites/retrieve) in the API reference.
+For complete parameter details and response schemas, see [Get invite](https://platform.claude.com/docs/en/api/beta/organization/invites/retrieve) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCdEfGhIj" \
@@ -240,7 +240,7 @@ curl "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCd
 
 `DELETE /v1/organizations/invites/{invite_id}` withdraws a `pending` invite, deactivating the link in the invitation email. Withdrawing an `accepted` invite returns 400 (remove the member instead); withdrawing an `expired` invite returns 400. Requires the `write:members` scope.
 
-For complete parameter details and response schemas, see [Delete invite](https://platform.claude.com/docs/en/api/admin/invites/delete) in the API reference.
+For complete parameter details and response schemas, see [Delete invite](https://platform.claude.com/docs/en/api/beta/organization/invites/delete) in the API reference.
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCdEfGhIj" \
@@ -256,7 +256,7 @@ Groups your enterprise creates directly, in [claude.ai organization settings](ht
 
 `GET /v1/organizations/rbac_groups` returns your enterprise's groups, including identity-provider-managed (`scim`) groups. Requires the `read:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [List groups](https://platform.claude.com/docs/en/api/admin/rbac_groups/list) in the API reference.
+For complete parameter details and response schemas, see [List groups](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/list) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
@@ -287,7 +287,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
 
 `GET /v1/organizations/rbac_groups/{rbac_group_id}` returns one group by ID. Requires the `read:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [Get group](https://platform.claude.com/docs/en/api/admin/rbac_groups/retrieve) in the API reference.
+For complete parameter details and response schemas, see [Get group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/retrieve) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
@@ -299,7 +299,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYz
 
 `POST /v1/organizations/rbac_groups` creates a group with the given `name` (1–255 characters) and no roles or members. Requires the `write:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [Create group](https://platform.claude.com/docs/en/api/admin/rbac_groups/create) in the API reference.
+For complete parameter details and response schemas, see [Create group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/create) in the API reference.
 
 ```bash cURL
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
@@ -326,7 +326,7 @@ curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
 
 `POST /v1/organizations/rbac_groups/{rbac_group_id}` updates the group. `name` is the only field this endpoint can change. Requires the `write:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [Update group](https://platform.claude.com/docs/en/api/admin/rbac_groups/update) in the API reference.
+For complete parameter details and response schemas, see [Update group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/update) in the API reference.
 
 ```bash cURL
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
@@ -340,7 +340,7 @@ curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_
 
 `DELETE /v1/organizations/rbac_groups/{rbac_group_id}` deletes the group. Its members remain members of their organizations, but they lose the permissions of its attached roles, and a group [spend limit](https://platform.claude.com/docs/en/manage-claude/spend-limits-api), if one existed, stops applying to them. Requires the `write:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [Delete group](https://platform.claude.com/docs/en/api/admin/rbac_groups/delete) in the API reference.
+For complete parameter details and response schemas, see [Delete group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/delete) in the API reference.
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
@@ -359,7 +359,7 @@ curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_grou
 
 `GET /v1/organizations/rbac_groups/{rbac_group_id}/members` returns the group's members (each with their `user_id` and email), oldest first. Only current members of your enterprise's organizations are returned, so a page might contain fewer than `limit` entries while `has_more` is `true`. Requires the `read:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [List group members](https://platform.claude.com/docs/en/api/admin/rbac_groups/members/list) in the API reference.
+For complete parameter details and response schemas, see [List group members](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members?limit=100" \
@@ -388,7 +388,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYz
 
 `POST /v1/organizations/rbac_groups/{rbac_group_id}/members` adds an organization member to the group by `user_id`. The user must already be a member of one of your enterprise's organizations (the request returns 404 otherwise), and adding someone who is already in the group returns 400. For `scim` groups, membership is managed in your identity provider and this request returns 400. To assign groups to a person who has not joined yet, use `rbac_group_ids` on [invite creation](https://platform.claude.com/docs/en/manage-claude/user-management#create-an-invite) instead. Requires the `write:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [Add group member](https://platform.claude.com/docs/en/api/admin/rbac_groups/members/create) in the API reference.
+For complete parameter details and response schemas, see [Add group member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/create) in the API reference.
 
 ```bash cURL
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members" \
@@ -413,7 +413,7 @@ curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_
 
 `DELETE /v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}` removes the member from the group; they remain a member of their organization. The request returns 404 if the user is not a member of the group, and 400 for `scim` groups, whose membership is managed in your identity provider. Requires the `write:rbac_groups` scope.
 
-For complete parameter details and response schemas, see [Remove group member](https://platform.claude.com/docs/en/api/admin/rbac_groups/members/delete) in the API reference.
+For complete parameter details and response schemas, see [Remove group member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/delete) in the API reference.
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members/user_01AbCdEfGhIjKlMnOpQrSt" \
@@ -438,7 +438,7 @@ Custom roles are read-only through the API: these endpoints catalog your organiz
 
 `GET /v1/organizations/rbac_roles` returns your organization's custom roles. Requires the `read:members` scope.
 
-For complete parameter details and response schemas, see [List roles](https://platform.claude.com/docs/en/api/admin/rbac_roles/list) in the API reference.
+For complete parameter details and response schemas, see [List roles](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
@@ -466,7 +466,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
 
 `GET /v1/organizations/rbac_roles/{rbac_role_id}` returns one role by ID. Requires the `read:members` scope.
 
-For complete parameter details and response schemas, see [Get role](https://platform.claude.com/docs/en/api/admin/rbac_roles/retrieve) in the API reference.
+For complete parameter details and response schemas, see [Get role](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/retrieve) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv" \
@@ -480,7 +480,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIj
 
 Two `action` values need special care: an `organization` permission whose action is `capability_access_all` (every product feature) or `capability_access_all_ga` (every stable product feature, that is, every feature not labeled beta or research preview) is a blanket grant (one that covers neither model access nor the `permission_`-prefixed admin-panel permissions) and is listed as that single row rather than expanded. When you tally what a role grants, treat a blanket row as covering everything its variant describes, not just the features named in other rows.
 
-For complete parameter details and response schemas, see [List role permissions](https://platform.claude.com/docs/en/api/admin/rbac_roles/permissions/list) in the API reference.
+For complete parameter details and response schemas, see [List role permissions](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/permissions/list) in the API reference.
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv/permissions?limit=20" \

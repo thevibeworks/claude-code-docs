@@ -87,7 +87,7 @@ List Deployment Runs
 
     - `agent: object`
 
-      A resolved agent reference with a concrete version.
+      Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
       - `type: "agent"`
 
@@ -99,7 +99,7 @@ List Deployment Runs
 
     - `created_at: string`
 
-      A timestamp in RFC 3339 format
+      Time this run record was persisted.
 
       format: date-time
 
@@ -109,7 +109,7 @@ List Deployment Runs
 
     - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more`
 
-      Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+      Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
       - `beta_managed_agents_environment_archived_run_error: object`
 
@@ -277,7 +277,7 @@ List Deployment Runs
 
     - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 
-      Describes what triggered a deployment run, with trigger-specific metadata.
+      What triggered this run and trigger-specific metadata.
 
       - `beta_managed_agents_schedule_trigger_context: object`
 
@@ -287,7 +287,7 @@ List Deployment Runs
 
         - `scheduled_at: string`
 
-          A timestamp in RFC 3339 format
+          The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
           format: date-time
 

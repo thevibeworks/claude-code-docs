@@ -129,7 +129,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `DocumentTitle string`
 
-                maxLength: 500, minLength: 1
+                minLength: 1, maxLength: 500
 
               - `EndCharIndex int64`
 
@@ -149,7 +149,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `DocumentTitle string`
 
-                maxLength: 500, minLength: 1
+                minLength: 1, maxLength: 500
 
               - `EndPageNumber int64`
 
@@ -173,7 +173,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `DocumentTitle string`
 
-                maxLength: 500, minLength: 1
+                minLength: 1, maxLength: 500
 
               - `EndBlockIndex int64`
 
@@ -197,7 +197,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `Title string`
 
-                maxLength: 512, minLength: 1
+                minLength: 1, maxLength: 512
 
               - `URL string`
 
@@ -353,7 +353,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Title string Optional`
 
-            maxLength: 500, minLength: 1
+            minLength: 1, maxLength: 500
 
         - `type SearchResultBlockParamResp`
 
@@ -417,7 +417,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `Name string`
 
-            maxLength: 200, minLength: 1
+            minLength: 1, maxLength: 200
 
           - `CacheControl CacheControlEphemeral Optional`
 
@@ -453,7 +453,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             For a toolset member tool_use, the toolset family this member belongs to.
 
-            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
         - `type ToolResultBlockParamResp`
 
@@ -487,7 +487,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `ToolName string`
 
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                 - `CacheControl CacheControlEphemeral Optional`
 
@@ -515,7 +515,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this tab, unique within the inventory.
 
-                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                    minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `Title string`
 
@@ -541,7 +541,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-                  maxItems: 200, minItems: 1
+                  minItems: 1, maxItems: 200
 
                   - `type BrowserStateChangeTabOpened`
 
@@ -559,7 +559,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       The `tab_id` of the opened tab, present in `tabs`.
 
-                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `type BrowserStateChangeDownloadStarted`
 
@@ -571,7 +571,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `URL string`
 
@@ -592,7 +592,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `URL string`
 
@@ -604,7 +604,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
-                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `SizeBytes int64 Optional`
 
@@ -622,7 +622,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+                      minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `URL string`
 
@@ -634,7 +634,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       The failure or cancellation detail, when known.
 
-                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `IsError bool Optional`
 
@@ -642,7 +642,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             For a toolset member tool_result, the toolset family of the paired tool_use.
 
-            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+            minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
         - `type ServerToolUseBlockParamResp`
 
@@ -1020,7 +1020,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `ToolName string`
 
-                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                  minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                 - `CacheControl CacheControlEphemeral Optional`
 
@@ -1071,8 +1071,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `Diagnostics param.Field[DiagnosticsParamResp] Optional`
 
-    Body param: Request-level diagnostics. Currently carries the previous response
-    id for prompt-cache divergence reporting.
+    Body param: Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
   - `InferenceGeo param.Field[string] Optional`
 
@@ -1222,7 +1221,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+        minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `AllowedCallers []string Optional`
 
@@ -1439,12 +1438,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Configs BrowserToolsetConfigs Optional`
 
-        Per-member configuration for `browser_toolset_20260801`: one
-        optional field per member tool, keyed by the member name — the same
-        name the member's `tool_use` blocks carry. Every member is an
-        accepted key, and a member's defaults apply wherever its key is
-        absent. Unknown keys are rejected: the field set is this toolset
-        version's complete member set.
+        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
         - `Type BrowserTypeConfig Optional`
 
@@ -1871,12 +1865,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Configs ComputerToolsetConfigs Optional`
 
-        Per-member configuration for `computer_toolset_20260801`: one
-        optional field per member tool, keyed by the member name — the same
-        name the member's `tool_use` blocks carry. Every member is an
-        accepted key, and a member's defaults apply wherever its key is
-        absent. Unknown keys are rejected: the field set is this toolset
-        version's complete member set.
+        Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
         - `Type ComputerTypeConfig Optional`
 
@@ -2230,7 +2219,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `Strict bool Optional`
 
@@ -2246,25 +2235,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The city of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `Country string Optional`
 
           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-          maxLength: 2, minLength: 2
+          minLength: 2, maxLength: 2
 
         - `Region string Optional`
 
           The region of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
         - `Timezone string Optional`
 
           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-          maxLength: 255, minLength: 1
+          minLength: 1, maxLength: 255
 
     - `type WebFetchTool20250910`
 
@@ -2310,13 +2299,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `MaxUses int64 Optional`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `Strict bool Optional`
 
@@ -2324,12 +2313,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `URLSources WebFetchURLSources Optional`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
         - `ClientToolResults WebFetchURLSourcesClientToolResultsUnion Optional`
 
@@ -2453,7 +2437,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `Strict bool Optional`
 
@@ -2507,13 +2491,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `MaxUses int64 Optional`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `Strict bool Optional`
 
@@ -2521,12 +2505,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `URLSources WebFetchURLSources Optional`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
     - `type WebFetchTool20260309`
 
@@ -2574,13 +2553,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `MaxUses int64 Optional`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `Strict bool Optional`
 
@@ -2588,12 +2567,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `URLSources WebFetchURLSources Optional`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `UseCache bool Optional`
 
@@ -2639,7 +2613,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `ResponseInclusion WebSearchTool20260318ResponseInclusion Optional`
 
@@ -2701,13 +2675,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `MaxUses int64 Optional`
 
         Maximum number of times the tool can be used in the API request.
 
-        exclusiveMinimum: 0
+        minimum: 1
 
       - `ResponseInclusion WebFetchTool20260318ResponseInclusion Optional`
 
@@ -2723,12 +2697,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `URLSources WebFetchURLSources Optional`
 
-        Which sources contribute to the set of URLs web fetch may fetch.
-
-        Each key is a tagged variant: `user_input` is `all` or `none`; the
-        two tool filters are `all`, `none`, `only` (only the named tools'
-        results) or `except` (every result but the named tools'). A named tool
-        must be declared in this request's `tools[]`.
+        Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
       - `UseCache bool Optional`
 
@@ -2826,7 +2795,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
-    maximum: 1, minimum: 0
+    minimum: 0, maximum: 1
 
   - `TopK param.Field[int64] Optional`
 
@@ -2850,7 +2819,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Recommended for advanced use cases only.
 
-    maximum: 1, minimum: 0
+    minimum: 0, maximum: 1
 
 ## Returns
 
@@ -2872,7 +2841,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `Container Container`
 
-    Information about the container used in the request (for the code execution tool)
+    Information about the container used in this request.
+
+    This will be non-null if a container tool (e.g. code execution) was used.
 
     - `ID string`
 
@@ -2900,13 +2871,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Skill ID
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
       - `Version string`
 
         The resolved version: a skill version ID for custom skills.
 
-        maxLength: 64, minLength: 1
+        minLength: 1, maxLength: 64
 
   - `Content []ContentBlockUnion`
 
@@ -3079,8 +3050,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Text string`
 
-        minLength: 0
-
     - `type ThinkingBlock`
 
       - `Type Thinking`
@@ -3161,7 +3130,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         For a toolset member tool_use, the toolset family.
 
-        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+        minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
     - `type ServerToolUseBlock`
 
@@ -3609,7 +3578,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `ToolName string`
 
-              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+              minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
       - `ToolUseID string`
 
@@ -3627,8 +3596,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `Diagnostics Diagnostics`
 
-    Request-level diagnostics: why the prompt cache could not fully reuse
-    the prefix of the request named by `diagnostics.previous_message_id`.
+    Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
     - `CacheMissReason CacheMissReasonUnion`
 
@@ -3692,6 +3660,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `string`
+
     - `type Model string`
 
       The model that will complete your prompt.
@@ -3734,10 +3704,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Powerful intelligence for long-running agents and coding
 
-      - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
       - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
         Powerful intelligence for long-running agents and coding
@@ -3770,7 +3736,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         High-performance model for agents and coding
 
-    - `string`
+      - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
+
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        New class of intelligence, strongest in coding and cybersecurity
 
   - `Role Assistant`
 
@@ -3782,7 +3752,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `StopDetails RefusalStopDetails`
 
-    Structured information about a refusal.
+    Structured information about why model output stopped.
+
+    This is `null` when the `stop_reason` has no additional detail to report.
 
     - `Type Refusal`
 
@@ -3790,7 +3762,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `Category RefusalStopDetailsCategory`
 
-      The policy category that triggered a refusal.
+      The policy category that triggered the refusal.
+
+      `null` when the refusal doesn't map to a named category.
 
       - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
@@ -3978,11 +3952,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Container Container`
 
-        Information about the container used in the request (for the code execution tool)
+        Information about the container used in this request.
+
+        This will be non-null if a container tool (e.g. code execution) was used.
 
       - `StopDetails RefusalStopDetails`
 
-        Structured information about a refusal.
+        Structured information about why model output stopped.
+
+        This is `null` when the `stop_reason` has no additional detail to report.
 
       - `StopReason StopReason`
 

@@ -29,6 +29,8 @@ Create Agent
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `string`
+
         - `type BetaManagedAgentsModel string`
 
           The model that will power your agent.
@@ -95,8 +97,6 @@ Create Agent
 
             High-performance model for agents and coding
 
-        - `string`
-
       - `Effort BetaManagedAgentsModelConfigParamsEffortUnionResp Optional`
 
         How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
@@ -159,7 +159,7 @@ Create Agent
 
       - `Speed BetaManagedAgentsModelConfigParamsSpeed Optional`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. Defaults to `standard`.
 
         - `const BetaManagedAgentsModelConfigParamsSpeedStandard BetaManagedAgentsModelConfigParamsSpeed = "standard"`
 
@@ -201,7 +201,7 @@ Create Agent
 
   - `Multiagent param.Field[BetaManagedAgentsMultiagentParamsResp] Optional`
 
-    Body param: A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
+    Body param: Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
 
   - `Skills param.Field[[]BetaManagedAgentsSkillParamsUnionResp] Optional`
 
@@ -279,7 +279,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsBashToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -315,7 +315,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsEditToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -345,7 +345,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsReadToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -375,7 +375,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsWriteToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -405,7 +405,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsGlobToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -435,7 +435,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsGrepToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -479,7 +479,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -517,7 +517,7 @@ Create Agent
 
           - `PermissionPolicy BetaManagedAgentsWebSearchToolConfigParamsPermissionPolicyUnionResp Optional`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
             - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -563,7 +563,7 @@ Create Agent
 
       - `DefaultConfig BetaManagedAgentsAgentToolsetDefaultConfigParamsResp Optional`
 
-        Default configuration for all tools in a toolset.
+        Default configuration applied to all tools in this set.
 
         - `Enabled bool Optional`
 
@@ -571,7 +571,7 @@ Create Agent
 
         - `PermissionPolicy BetaManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnionResp Optional`
 
-          Permission policy for tool execution.
+          Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
           - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -613,7 +613,7 @@ Create Agent
 
         - `PermissionPolicy BetaManagedAgentsMCPToolConfigParamsPermissionPolicyUnionResp Optional`
 
-          Permission policy for tool execution.
+          Permission policy for this tool. Overrides the `default_config` setting.
 
           - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -629,7 +629,7 @@ Create Agent
 
       - `DefaultConfig BetaManagedAgentsMCPToolsetDefaultConfigParamsResp Optional`
 
-        Default configuration for all tools from an MCP server.
+        Default configuration for all tools from this server.
 
         - `Enabled bool Optional`
 
@@ -637,7 +637,7 @@ Create Agent
 
         - `PermissionPolicy BetaManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnionResp Optional`
 
-          Permission policy for tool execution.
+          Default permission policy for tools from this server.
 
           - `type BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -665,7 +665,7 @@ Create Agent
 
       - `InputSchema BetaManagedAgentsCustomToolInputSchema`
 
-        JSON Schema for custom tool input parameters.
+        JSON Schema defining the expected input parameters for the tool.
 
         - `Type Object`
 
@@ -801,7 +801,7 @@ Create Agent
 
   - `ArchivedAt Time`
 
-    A timestamp in RFC 3339 format
+    When the agent was archived. Null if not archived.
 
     format: date-time
 
@@ -832,6 +832,8 @@ Create Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `string`
 
       - `type BetaManagedAgentsModel string`
 
@@ -899,11 +901,9 @@ Create Agent
 
           High-performance model for agents and coding
 
-      - `string`
-
     - `Effort BetaManagedAgentsModelConfigEffortUnion Optional`
 
-      How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+      How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
       - `type BetaManagedAgentsEffortLow`
 
@@ -941,7 +941,7 @@ Create Agent
 
     - `Speed BetaManagedAgentsModelConfigSpeed Optional`
 
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
       - `const BetaManagedAgentsModelConfigSpeedStandard BetaManagedAgentsModelConfigSpeed = "standard"`
 
@@ -949,7 +949,7 @@ Create Agent
 
   - `Multiagent BetaManagedAgentsMultiagent`
 
-    Resolved coordinator topology with a concrete agent roster.
+    Multiagent orchestration configuration. Null when the agent is single-threaded.
 
     - `Type BetaManagedAgentsMultiagentType`
 

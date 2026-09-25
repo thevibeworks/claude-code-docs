@@ -155,13 +155,13 @@ List Credentials
 
   - `archived_at: Time`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse | BetaManagedAgentsStaticBearerAuthResponse | BetaManagedAgentsEnvironmentVariableAuthResponse`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `class BetaManagedAgentsMCPOAuthAuthResponse`
 
@@ -181,7 +181,7 @@ List Credentials
 
       - `refresh: BetaManagedAgentsMCPOAuthRefreshResponse`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `client_id: String`
 

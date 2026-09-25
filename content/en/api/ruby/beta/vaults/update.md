@@ -151,7 +151,7 @@ Update Vault
 
   - `archived_at: Time`
 
-    A timestamp in RFC 3339 format
+    When the vault was archived. Null if not archived.
 
     format: date-time
 

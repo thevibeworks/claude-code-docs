@@ -69,7 +69,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `container: Optional[Container]`
 
-          Information about the container used in the request (for the code execution tool)
+          Information about the container used in this request.
+
+          This will be non-null if a container tool (e.g. code execution) was used.
 
           - `id: str`
 
@@ -97,13 +99,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Skill ID
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
             - `version: str`
 
               The resolved version: a skill version ID for custom skills.
 
-              maxLength: 64, minLength: 1
+              minLength: 1, maxLength: 64
 
         - `content: List[ContentBlock]`
 
@@ -276,8 +278,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: str`
 
-              minLength: 0
-
           - `class ThinkingBlock`
 
             - `type: Literal["thinking"]`
@@ -358,7 +358,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family.
 
-              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+              minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class ServerToolUseBlock`
 
@@ -806,7 +806,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: str`
 
-                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+                    minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `tool_use_id: str`
 
@@ -824,8 +824,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `diagnostics: Optional[Diagnostics]`
 
-          Request-level diagnostics: why the prompt cache could not fully reuse
-          the prefix of the request named by `diagnostics.previous_message_id`.
+          Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
           - `cache_miss_reason: Optional[CacheMissReason]`
 
@@ -889,30 +888,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `str`
+
           - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
-            - `claude-mythos-5-1` - Our most capable model for cybersecurity and biology research, available through trusted access programs
-            - `claude-sonnet-5` - High-performance model for coding and agents
-            - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-            - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-            - `claude-opus-5` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
-            - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
-            - `claude-sonnet-4-6` - Best combination of speed and intelligence
-            - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
-            - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-            - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
-            - `claude-sonnet-4-5` - High-performance model for agents and coding
-            - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
 
             - `"claude-fable-5-1"`
 
@@ -950,10 +932,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Powerful intelligence for long-running agents and coding
 
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
             - `"claude-opus-4-6"`
 
               Powerful intelligence for long-running agents and coding
@@ -986,7 +964,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               High-performance model for agents and coding
 
-          - `str`
+            - `"claude-mythos-preview"`
+
+              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              New class of intelligence, strongest in coding and cybersecurity
 
         - `role: Literal["assistant"]`
 
@@ -998,7 +980,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `stop_details: Optional[RefusalStopDetails]`
 
-          Structured information about a refusal.
+          Structured information about why model output stopped.
+
+          This is `null` when the `stop_reason` has no additional detail to report.
 
           - `type: Literal["refusal"]`
 
@@ -1006,13 +990,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
-            The policy category that triggered a refusal.
+            The policy category that triggered the refusal.
 
-            - `cyber` - The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-            - `bio` - The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-            - `frontier_llm` - The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-            - `reasoning_extraction` - The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-            - `general_harms` - The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
+            `null` when the refusal doesn't map to a named category.
 
             - `"cyber"`
 

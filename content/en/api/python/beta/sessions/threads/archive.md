@@ -141,7 +141,7 @@ Archive Session Thread
 
   - `agent: Agent`
 
-    The resolved agent a `session_thread` runs.
+    Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
     - `class BetaManagedAgentsSessionThreadAgent`
 
@@ -171,27 +171,13 @@ Archive Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `str`
+
           - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
-            - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-            - `claude-sonnet-5` - High-performance model for coding and agents
-            - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-            - `claude-opus-5` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
-            - `claude-sonnet-4-6` - Best combination of speed and intelligence
-            - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
-            - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-            - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
-            - `claude-sonnet-4-5` - High-performance model for agents and coding
-            - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
 
             - `"claude-opus-5-5"`
 
@@ -253,11 +239,9 @@ Archive Session Thread
 
               High-performance model for agents and coding
 
-          - `str`
-
         - `effort: Optional[Effort]`
 
-          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
           - `class BetaManagedAgentsEffortLow`
 
@@ -295,7 +279,7 @@ Archive Session Thread
 
         - `speed: Optional[Literal["standard", "fast"]]`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
           - `"standard"`
 
@@ -699,13 +683,13 @@ Archive Session Thread
 
   - `archived_at: Optional[datetime]`
 
-    A timestamp in RFC 3339 format
+    When the thread was archived. Null if not archived.
 
     format: date-time
 
   - `created_at: datetime`
 
-    A timestamp in RFC 3339 format
+    When the thread was created.
 
     format: date-time
 
@@ -719,7 +703,7 @@ Archive Session Thread
 
   - `stats: Optional[BetaManagedAgentsSessionThreadStats]`
 
-    Timing statistics for a session thread.
+    Timing statistics for this thread. Null until the thread's first status transition.
 
     - `active_seconds: Optional[float]`
 
@@ -741,7 +725,7 @@ Archive Session Thread
 
   - `status: BetaManagedAgentsSessionThreadStatus`
 
-    SessionThreadStatus enum
+    Current execution status of the thread.
 
     - `"running"`
 
@@ -753,13 +737,13 @@ Archive Session Thread
 
   - `updated_at: datetime`
 
-    A timestamp in RFC 3339 format
+    When the thread was last updated.
 
     format: date-time
 
   - `usage: Optional[BetaManagedAgentsSessionThreadUsage]`
 
-    Cumulative token usage for a session thread across all turns.
+    Cumulative token usage for this thread. Null until the thread's first idle transition.
 
     - `active_seconds: Optional[float]`
 
@@ -769,7 +753,7 @@ Archive Session Thread
 
     - `cache_creation: Optional[BetaManagedAgentsCacheCreationUsage]`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `ephemeral_1h_input_tokens: Optional[int]`
 
@@ -797,7 +781,7 @@ Archive Session Thread
 
     - `list_cost: Optional[BetaMonetaryAmount]`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against.
 
       - `amount: str`
 
@@ -815,7 +799,7 @@ Archive Session Thread
 
     - `server_tool_use: Optional[BetaManagedAgentsServerToolUsage]`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread.
 
       - `web_fetch_requests: Optional[int]`
 

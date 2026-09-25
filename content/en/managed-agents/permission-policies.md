@@ -53,7 +53,7 @@ When creating an agent, you can apply a policy to every tool in `agent_toolset_2
     }')
   ```
 
-  <MultiFileExample language="cli" label="CLI">
+  <CodeGroupItem>
     ```bash CLI
     ant apply agent.md
     ```
@@ -71,7 +71,7 @@ When creating an agent, you can apply a policy to every tool in `agent_toolset_2
       ---
       ```
     </File>
-  </MultiFileExample>
+  </CodeGroupItem>
 
   ```python Python
   agent = client.beta.agents.create(
@@ -245,7 +245,7 @@ This example connects a GitHub MCP server and allows its tools to run without co
     }')
   ```
 
-  <MultiFileExample language="cli" label="CLI">
+  <CodeGroupItem>
     ```bash CLI
     ant apply agent.md
     ```
@@ -269,7 +269,7 @@ This example connects a GitHub MCP server and allows its tools to run without co
       ---
       ```
     </File>
-  </MultiFileExample>
+  </CodeGroupItem>
 
   ```python Python
   agent = client.beta.agents.create(
@@ -495,7 +495,7 @@ Use the `configs` array to override the default for individual tools. The `name`
   ]'
   ```
 
-  <MultiFileExample language="cli" label="CLI">
+  <CodeGroupItem>
     ```bash CLI
     ant apply agent.md
     ```
@@ -517,7 +517,7 @@ Use the `configs` array to override the default for individual tools. The `name`
       ---
       ```
     </File>
-  </MultiFileExample>
+  </CodeGroupItem>
 
   ```python Python
   tools = [
@@ -721,7 +721,7 @@ The following example sets `auto` as the default for the agent toolset and for t
     }')
   ```
 
-  <MultiFileExample language="cli" label="CLI">
+  <CodeGroupItem>
     ```bash CLI
     ant apply agent.md
     ```
@@ -752,7 +752,7 @@ The following example sets `auto` as the default for the agent toolset and for t
       ---
       ```
     </File>
-  </MultiFileExample>
+  </CodeGroupItem>
 
   ```python Python
   agent = client.beta.agents.create(

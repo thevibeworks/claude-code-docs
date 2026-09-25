@@ -149,7 +149,7 @@ The Models API response can be used to determine information about a specific mo
 
   - `capabilities: Optional[ModelCapabilities]`
 
-    Model capability information.
+    Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
     - `batch: CapabilitySupport`
 
@@ -173,15 +173,15 @@ The Models API response can be used to determine information about a specific mo
 
       - `clear_thinking_20251015: Optional[CapabilitySupport]`
 
-        Indicates whether a capability is supported.
+        Whether the clear_thinking_20251015 strategy is supported.
 
       - `clear_tool_uses_20250919: Optional[CapabilitySupport]`
 
-        Indicates whether a capability is supported.
+        Whether the clear_tool_uses_20250919 strategy is supported.
 
       - `compact_20260112: Optional[CapabilitySupport]`
 
-        Indicates whether a capability is supported.
+        Whether the compact_20260112 strategy is supported.
 
       - `supported: bool`
 
@@ -213,7 +213,7 @@ The Models API response can be used to determine information about a specific mo
 
       - `xhigh: Optional[CapabilitySupport]`
 
-        Indicates whether a capability is supported.
+        Whether the model supports xhigh effort level.
 
     - `image_input: CapabilitySupport`
 

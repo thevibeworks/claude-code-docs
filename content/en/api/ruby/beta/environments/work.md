@@ -1189,7 +1189,7 @@ List work items in an environment.
 
   Maximum number of work items to return
 
-  maximum: 1000, minimum: 1
+  minimum: 1, maximum: 1000
 
 - `page: String`
 

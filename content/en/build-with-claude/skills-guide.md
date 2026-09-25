@@ -2175,7 +2175,7 @@ Files are identified by the filename you attach (the `;filename=` suffix in the 
     -F "files[]=@financial_skill/analyze.py;filename=financial_skill/analyze.py"
   ```
 
-  <MultiFileExample language="cli" label="CLI">
+  <CodeGroupItem>
     ```bash CLI
     ant apply financial_skill
     ```
@@ -2194,7 +2194,7 @@ Files are identified by the filename you attach (the `;filename=` suffix in the 
       print("financial analysis helper")
       ```
     </File>
-  </MultiFileExample>
+  </CodeGroupItem>
 
   ```python Python
   from anthropic.lib import files_from_dir

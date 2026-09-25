@@ -65,7 +65,7 @@ Track Claude Code usage, productivity metrics, and developer activity across you
 * **Cursor-based pagination:** Handle large datasets with stable pagination using opaque cursors
 * **Data freshness:** Metrics are available with up to 1-hour delay for consistency
 
-For complete parameter details and response schemas, see the [Claude Code Analytics API reference](https://platform.claude.com/docs/en/api/admin/usage_report/retrieve_claude_code).
+For complete parameter details and response schemas, see the [Claude Code Analytics API reference](https://platform.claude.com/docs/en/api/beta/organization/usage_report/retrieve_claude_code).
 
 ### Basic examples
 
@@ -271,7 +271,7 @@ All dates are in UTC. The `starting_at` parameter should be in YYYY-MM-DD format
 The Claude Code Analytics API helps you understand and optimize your team's development workflow. Learn more about related features:
 
 * [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)
-* [Admin API reference](https://platform.claude.com/docs/en/api/admin)
+* [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization)
 * [Claude Code Analytics dashboard](https://platform.claude.com/claude-code)
 * [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) - Track API usage across all Anthropic services
 * [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) - Retrieve audit and activity data

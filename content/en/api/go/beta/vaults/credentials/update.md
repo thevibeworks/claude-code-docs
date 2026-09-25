@@ -25,7 +25,7 @@ Update Credential
 
   - `Auth param.Field[BetaVaultCredentialUpdateParamsAuthUnion] Optional`
 
-    Body param: Updated authentication details for a credential.
+    Body param: Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
     - `type BetaManagedAgentsMCPOAuthUpdateParamsResp`
 
@@ -47,7 +47,7 @@ Update Credential
 
       - `Refresh BetaManagedAgentsMCPOAuthRefreshUpdateParamsResp Optional`
 
-        Parameters for updating OAuth refresh token configuration.
+        Updated refresh token configuration.
 
         - `RefreshToken string Optional`
 
@@ -277,13 +277,13 @@ Update Credential
 
   - `ArchivedAt Time`
 
-    A timestamp in RFC 3339 format
+    When the credential was archived. Null if not archived.
 
     format: date-time
 
   - `Auth BetaManagedAgentsCredentialAuthUnion`
 
-    Authentication details for a credential.
+    Authentication configuration for this credential.
 
     - `type BetaManagedAgentsMCPOAuthAuthResponse`
 
@@ -303,7 +303,7 @@ Update Credential
 
       - `Refresh BetaManagedAgentsMCPOAuthRefreshResponse Optional`
 
-        OAuth refresh token configuration returned in credential responses.
+        Refresh token configuration, if the credential supports token refresh.
 
         - `ClientID string`
 

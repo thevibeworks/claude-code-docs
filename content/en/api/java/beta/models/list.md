@@ -31,7 +31,7 @@ The Models API response can be used to determine which models are available for 
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-    maximum: 1000, minimum: 1
+    minimum: 1, maximum: 1000
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -159,7 +159,7 @@ The Models API response can be used to determine which models are available for 
 
   - `Optional<BetaModelCapabilities> capabilities`
 
-    Model capability information.
+    Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
     - `BetaCapabilitySupport batch`
 
@@ -179,9 +179,7 @@ The Models API response can be used to determine which models are available for 
 
     - `Optional<BetaCompactionCapability> compaction`
 
-      Compaction capability details: whether the model accepts the top-level
-      `compaction` request parameter, with one entry per supported
-      `compaction.type` value.
+      Server-side compaction support (the top-level `compaction` parameter) and the accepted `compaction.type` values.
 
       - `BetaCapabilitySupport summarize`
 
@@ -197,15 +195,15 @@ The Models API response can be used to determine which models are available for 
 
       - `Optional<BetaCapabilitySupport> clearThinking20251015`
 
-        Indicates whether a capability is supported.
+        Whether the clear_thinking_20251015 strategy is supported.
 
       - `Optional<BetaCapabilitySupport> clearToolUses20250919`
 
-        Indicates whether a capability is supported.
+        Whether the clear_tool_uses_20250919 strategy is supported.
 
       - `Optional<BetaCapabilitySupport> compact20260112`
 
-        Indicates whether a capability is supported.
+        Whether the compact_20260112 strategy is supported.
 
       - `boolean supported`
 
@@ -237,7 +235,7 @@ The Models API response can be used to determine which models are available for 
 
       - `Optional<BetaCapabilitySupport> xhigh`
 
-        Indicates whether a capability is supported.
+        Whether the model supports xhigh effort level.
 
     - `BetaCapabilitySupport imageInput`
 

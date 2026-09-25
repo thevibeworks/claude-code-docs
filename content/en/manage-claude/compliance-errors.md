@@ -315,7 +315,7 @@ No project document found with the provided id, or it has already been deleted.
 
 **Cause:** The project document ID does not exist or has been deleted. The document content and metadata endpoints return the first body; `DELETE /v1/compliance/apps/projects/documents/{document_id}` returns the second. This error applies to text project documents (`claude_proj_doc_...`), not to project files.
 
-**Fix:** Use `GET /v1/compliance/apps/projects/{project_id}/attachments` to list current attachments. If the document is missing, it was deleted; retrieve it through a `claude_project_document_uploaded` activity record if you only need the metadata.
+**Fix:** Use `GET /v1/compliance/apps/projects/{project_id}/attachments` to list current attachments. If the document is missing, it was deleted; retrieve it through a `claude_project_document_uploaded` activity record if you only need the metadata. The activity record shows who uploaded the document, when, and to which project, but not its name.
 
 ### Local session not found
 

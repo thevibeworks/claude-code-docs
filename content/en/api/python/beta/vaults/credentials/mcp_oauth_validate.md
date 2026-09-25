@@ -149,11 +149,11 @@ Validate Credential
 
   - `mcp_probe: Optional[BetaManagedAgentsMCPProbe]`
 
-    The failing step of an MCP validation probe.
+    Details of the failing MCP probe step. Null when the probe succeeded.
 
     - `http_response: Optional[BetaManagedAgentsRefreshHTTPResponse]`
 
-      An HTTP response captured during a credential validation probe.
+      The captured HTTP error response. Null when no HTTP response was received (timeout, DNS, TLS).
 
       - `body: str`
 
@@ -179,20 +179,15 @@ Validate Credential
 
   - `refresh: Optional[BetaManagedAgentsRefreshObject]`
 
-    Outcome of a refresh-token exchange attempted during credential validation.
+    Details of the refresh-token exchange attempted on a 401. Null when no refresh was attempted.
 
     - `http_response: Optional[BetaManagedAgentsRefreshHTTPResponse]`
 
-      An HTTP response captured during a credential validation probe.
+      The captured HTTP error response from the token endpoint. Populated only when `status` is `failed`.
 
     - `status: Literal["succeeded", "failed", "connect_error", "no_refresh_token"]`
 
-      Outcome of a refresh-token exchange attempted during credential validation.
-
-      - `succeeded` - The token endpoint returned a new access token.
-      - `failed` - The token endpoint returned an error response. See `http_response` for detail.
-      - `connect_error` - The token endpoint could not be reached (DNS, TLS, or connection error).
-      - `no_refresh_token` - No refresh token is stored for the credential, so no exchange was attempted.
+      Outcome of the refresh attempt.
 
       - `"succeeded"`
 
@@ -212,7 +207,7 @@ Validate Credential
 
   - `status: BetaManagedAgentsCredentialValidationStatus`
 
-    Overall verdict of a credential validation probe.
+    Overall verdict of the validation probe.
 
     - `"valid"`
 
@@ -228,7 +223,7 @@ Validate Credential
 
   - `validated_at: datetime`
 
-    A timestamp in RFC 3339 format
+    When the validation probe was performed.
 
     format: date-time
 

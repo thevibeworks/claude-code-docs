@@ -61,19 +61,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `archived_at: string`
 
-      A timestamp in RFC 3339 format
+      RFC 3339 datetime string indicating when the certificate was archived. Null if it is still in the trusted set.
 
       format: date-time
 
     - `created_at: string`
 
-      A timestamp in RFC 3339 format
+      RFC 3339 datetime string indicating when the certificate was registered.
 
       format: date-time
 
     - `expires_at: string`
 
-      A timestamp in RFC 3339 format
+      RFC 3339 datetime string indicating when the certificate expires, or `null` if it does not expire.
 
       format: date-time
 

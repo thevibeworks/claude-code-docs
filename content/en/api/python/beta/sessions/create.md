@@ -71,29 +71,15 @@ Create Session
 
       Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
 
-      - `Union[Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more], str]`
+      - `Union[str, Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]]`
+
+        - `str`
 
         - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
-          - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-          - `claude-sonnet-5` - High-performance model for coding and agents
-          - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-          - `claude-opus-5` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
-          - `claude-sonnet-4-6` - Best combination of speed and intelligence
-          - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
-          - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-          - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
-          - `claude-sonnet-4-5` - High-performance model for agents and coding
-          - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
 
           - `"claude-opus-5-5"`
 
@@ -155,8 +141,6 @@ Create Session
 
             High-performance model for agents and coding
 
-        - `str`
-
       - `class BetaManagedAgentsModelConfigParams`
 
         An object that defines additional configuration control over model use
@@ -167,29 +151,13 @@ Create Session
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `str`
+
           - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
-            - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-            - `claude-sonnet-5` - High-performance model for coding and agents
-            - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-            - `claude-opus-5` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
-            - `claude-sonnet-4-6` - Best combination of speed and intelligence
-            - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
-            - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-            - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
-            - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
-            - `claude-sonnet-4-5` - High-performance model for agents and coding
-            - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-
-          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -198,12 +166,6 @@ Create Session
           - `Literal["low", "medium", "high", 2 more]`
 
             How hard Claude works on each turn. Higher levels favor reasoning depth over latency. Not all models accept every level; invalid combinations are rejected at create time.
-
-            - `low` - Low effort. Favors latency over reasoning depth.
-            - `medium` - Medium effort. Balances latency and reasoning depth.
-            - `high` - High effort. Favors reasoning depth.
-            - `xhigh` - Extra-high effort. Not all models accept this level.
-            - `max` - Maximum effort. Favors reasoning depth over latency.
 
             - `"low"`
 
@@ -261,7 +223,7 @@ Create Session
 
         - `speed: Optional[Literal["standard", "fast"]]`
 
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+          Inference speed mode. Defaults to `standard`.
 
           - `"standard"`
 
@@ -343,7 +305,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -379,7 +341,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -409,7 +371,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -439,7 +401,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -469,7 +431,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -499,7 +461,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -543,7 +505,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -581,7 +543,7 @@ Create Session
 
             - `permission_policy: Optional[PermissionPolicy]`
 
-              Permission policy for tool execution.
+              Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
               - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -627,7 +589,7 @@ Create Session
 
         - `default_config: Optional[BetaManagedAgentsAgentToolsetDefaultConfigParams]`
 
-          Default configuration for all tools in a toolset.
+          Default configuration applied to all tools in this set.
 
           - `enabled: Optional[bool]`
 
@@ -635,7 +597,7 @@ Create Session
 
           - `permission_policy: Optional[PermissionPolicy]`
 
-            Permission policy for tool execution.
+            Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -677,7 +639,7 @@ Create Session
 
           - `permission_policy: Optional[PermissionPolicy]`
 
-            Permission policy for tool execution.
+            Permission policy for this tool. Overrides the `default_config` setting.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -693,7 +655,7 @@ Create Session
 
         - `default_config: Optional[BetaManagedAgentsMCPToolsetDefaultConfigParams]`
 
-          Default configuration for all tools from an MCP server.
+          Default configuration for all tools from this server.
 
           - `enabled: Optional[bool]`
 
@@ -701,7 +663,7 @@ Create Session
 
           - `permission_policy: Optional[PermissionPolicy]`
 
-            Permission policy for tool execution.
+            Default permission policy for tools from this server.
 
             - `class BetaManagedAgentsAlwaysAllowPolicy`
 
@@ -729,7 +691,7 @@ Create Session
 
         - `input_schema: BetaManagedAgentsCustomToolInputSchema`
 
-          JSON Schema for custom tool input parameters.
+          JSON Schema defining the expected input parameters for the tool.
 
           - `type: Literal["object"]`
 
@@ -757,13 +719,13 @@ Create Session
 
 - `budget: Optional[BetaManagedAgentsBudgetLimitParam]`
 
-  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+  Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
 
   - `type: Literal["limit"]`
 
   - `max_list_cost: BetaMonetaryAmount`
 
-    A monetary amount in a specific currency.
+    Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
     - `amount: str`
 
@@ -807,7 +769,7 @@ Create Session
 
         - `source: Source`
 
-          Union type for image source variants.
+          The source of the image data.
 
           - `class BetaManagedAgentsBase64ImageSource`
 
@@ -859,7 +821,7 @@ Create Session
 
         - `source: Source`
 
-          Union type for document source variants.
+          The source of the document data.
 
           - `class BetaManagedAgentsBase64DocumentSource`
 
@@ -945,7 +907,7 @@ Create Session
 
     - `rubric: Rubric`
 
-      Rubric for grading the quality of an outcome.
+      How to grade the outcome. Text or file reference.
 
       - `class BetaManagedAgentsFileRubricParams`
 
@@ -1061,7 +1023,7 @@ Create Session
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
-      Access mode for an attached memory store.
+      Access mode for the mounted store. Defaults to read_write. read_only mounts the store as a read-only filesystem.
 
       - `"read_write"`
 
@@ -1231,27 +1193,13 @@ Create Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `str`
+
         - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `claude-opus-5-5` - Powerful intelligence for coding, knowledge work, and long-running agents
-          - `claude-fable-5-1` - Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-          - `claude-sonnet-5` - High-performance model for coding and agents
-          - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-          - `claude-opus-5` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
-          - `claude-sonnet-4-6` - Best combination of speed and intelligence
-          - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
-          - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-          - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
-          - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
-          - `claude-sonnet-4-5` - High-performance model for agents and coding
-          - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
 
           - `"claude-opus-5-5"`
 
@@ -1313,11 +1261,9 @@ Create Session
 
             High-performance model for agents and coding
 
-        - `str`
-
       - `effort: Optional[Effort]`
 
-        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
 
         - `class BetaManagedAgentsEffortLow`
 
@@ -1355,7 +1301,7 @@ Create Session
 
       - `speed: Optional[Literal["standard", "fast"]]`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
         - `"standard"`
 
@@ -1363,7 +1309,7 @@ Create Session
 
     - `multiagent: Optional[BetaManagedAgentsSessionMultiagentCoordinator]`
 
-      Resolved coordinator topology with full agent definitions for each roster member.
+      Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
       - `type: Literal["coordinator"]`
 
@@ -1819,19 +1765,19 @@ Create Session
 
   - `archived_at: Optional[datetime]`
 
-    A timestamp in RFC 3339 format
+    When the session was archived. Null if not archived.
 
     format: date-time
 
   - `budget: Optional[BetaManagedAgentsBudgetLimit]`
 
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+    The session's enforced spend ceiling, or null when no budget is set.
 
     - `type: Literal["limit"]`
 
     - `max_list_cost: BetaMonetaryAmount`
 
-      A monetary amount in a specific currency.
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
       - `amount: str`
 
@@ -1859,7 +1805,7 @@ Create Session
 
     - `completed_at: Optional[datetime]`
 
-      A timestamp in RFC 3339 format
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
 
       format: date-time
 
@@ -1965,7 +1911,7 @@ Create Session
 
       - `access: Optional[Literal["read_write", "read_only"]]`
 
-        Access mode for an attached memory store.
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
 
         - `"read_write"`
 
@@ -1991,7 +1937,7 @@ Create Session
 
   - `stats: BetaManagedAgentsSessionStats`
 
-    Timing statistics for a session.
+    Timing statistics for the session.
 
     - `active_seconds: Optional[float]`
 
@@ -2008,11 +1954,6 @@ Create Session
   - `status: Literal["rescheduling", "running", "idle", "terminated"]`
 
     SessionStatus enum
-
-    - `rescheduling` - Transient error occurred, retrying automatically.
-    - `running` - Agent is actively executing.
-    - `idle` - Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
-    - `terminated` - Session has ended, either due to an error or completion.
 
     - `"rescheduling"`
 
@@ -2040,7 +1981,7 @@ Create Session
 
   - `usage: BetaManagedAgentsSessionUsage`
 
-    Cumulative token usage for a session across all turns.
+    Cumulative token usage for the session.
 
     - `active_seconds: Optional[float]`
 
@@ -2050,7 +1991,7 @@ Create Session
 
     - `cache_creation: Optional[BetaManagedAgentsCacheCreationUsage]`
 
-      Prompt-cache creation token usage broken down by cache lifetime.
+      Tokens used to create prompt cache entries, broken down by cache TTL.
 
       - `ephemeral_1h_input_tokens: Optional[int]`
 
@@ -2078,7 +2019,7 @@ Create Session
 
     - `list_cost: Optional[BetaMonetaryAmount]`
 
-      A monetary amount in a specific currency.
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
 
     - `output_tokens: Optional[int]`
 
@@ -2088,7 +2029,7 @@ Create Session
 
     - `server_tool_use: Optional[BetaManagedAgentsServerToolUsage]`
 
-      Cumulative count of server-executed tool invocations, broken down by tool.
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
 
       - `web_fetch_requests: Optional[int]`
 

@@ -8,7 +8,7 @@ description: Manage organization members, workspaces, invites, and API keys prog
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization in **Console → Settings → Organization**.
 </Tip>
 
-The [Admin API](https://platform.claude.com/docs/en/api/admin) lets you manage your organization's members, workspaces, invites, and API keys programmatically instead of by hand in the [Claude Console](https://platform.claude.com/).
+The [Admin API](https://platform.claude.com/docs/en/api/beta/organization) lets you manage your organization's members, workspaces, invites, and API keys programmatically instead of by hand in the [Claude Console](https://platform.claude.com/).
 
 <Check>
   **The Admin API requires special access**
@@ -32,7 +32,7 @@ The [Admin API](https://platform.claude.com/docs/en/api/admin) lets you manage y
 
 Authenticate with any of the three credentials. An Admin API key covers most endpoints. The service-account, federation-issuer, and federation-rule endpoints accept only an `org:admin` OAuth token. Send a personal key or service account key in the `x-api-key` header, as you would an Admin API key. The following examples call the [organization info endpoint](https://platform.claude.com/docs/en/manage-claude/admin-api#accessing-organization-info) with an OAuth token and with an Admin API key.
 
-The Python, TypeScript, C#, Go, Java, PHP, and Ruby SDKs expose the Admin API under `client.beta.organization`, and the `ant` CLI under `ant beta:organization`. The examples on this page use the default client, which reads an Admin API key from `ANTHROPIC_API_KEY` or an OAuth bearer token from `ANTHROPIC_AUTH_TOKEN`. SDK list methods in Python, TypeScript, C#, Go, and Java return an iterator that fetches more pages on demand, so `limit` sets the page size, not the total. The PHP, Ruby, and curl examples return one page. In the CLI, `--limit` caps the results on the member, invite, workspace, workspace-member, and API-key lists. For each endpoint's parameters and responses, see the [Admin API reference](https://platform.claude.com/docs/en/api/admin).
+The Python, TypeScript, C#, Go, Java, PHP, and Ruby SDKs expose the Admin API under `client.beta.organization`, and the `ant` CLI under `ant beta:organization`. The examples on this page use the default client, which reads an Admin API key from `ANTHROPIC_API_KEY` or an OAuth bearer token from `ANTHROPIC_AUTH_TOKEN`. SDK list methods in Python, TypeScript, C#, Go, and Java return an iterator that fetches more pages on demand, so `limit` sets the page size, not the total. The PHP, Ruby, and curl examples return one page. In the CLI, `--limit` caps the results on the member, invite, workspace, workspace-member, and API-key lists. For each endpoint's parameters and responses, see the [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization).
 
 ### OAuth bearer token
 
@@ -243,7 +243,7 @@ Organization owners and primary owners have all admin permissions and can also m
 
 ### Organization members
 
-List [organization members](https://platform.claude.com/docs/en/api/admin-api/users/get-user), update their roles, and remove them.
+List [organization members](https://platform.claude.com/docs/en/api/beta/organization/users/retrieve), update their roles, and remove them.
 
 List the members of your organization:
 
@@ -539,7 +539,7 @@ Remove a member from the organization:
 
 ### Organization invites
 
-Invite users to your organization and manage pending [invites](https://platform.claude.com/docs/en/api/admin-api/invites/get-invite).
+Invite users to your organization and manage pending [invites](https://platform.claude.com/docs/en/api/beta/organization/invites/retrieve).
 
 Invite a user to your organization:
 
@@ -856,7 +856,7 @@ See [Workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces) f
 
 ### Workspace members
 
-Manage [user access to specific workspaces](https://platform.claude.com/docs/en/api/admin-api/workspace_members/get-workspace-member):
+Manage [user access to specific workspaces](https://platform.claude.com/docs/en/api/beta/organization/workspaces/members/retrieve):
 
 Add a member to a workspace:
 
@@ -1350,7 +1350,7 @@ Remove a member from a workspace:
 
 ### API keys
 
-Monitor and manage [API keys](https://platform.claude.com/docs/en/api/admin/api_keys/list). Each key in the response includes its `expires_at` timestamp (`null` for keys without an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration)) and `principal`, the identity it acts as (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)). For a personal key, `principal` is `{"type": "user_actor", "user_id": "user_..."}`; for a service account key, `{"type": "service_account_actor", "service_account_id": "svac_..."}`; and for a workspace key, `null`. Each key also has a `scope` object: `{"type": "workspace", "workspace_id": "wrkspc_..."}` for a key bound to one workspace, or `{"type": "organization"}` for a key that can work across any workspace the account has access to. The top-level `workspace_id` field is deprecated and is `null` both for keys bound to the Default Workspace and for keys without a workspace scope; use `scope` to tell them apart. Filtering the list by `workspace_id` with the Default Workspace's ID returns only keys bound to the Default Workspace; keys without a workspace scope aren't returned under any `workspace_id` filter.
+Monitor and manage [API keys](https://platform.claude.com/docs/en/api/beta/organization/api_keys/list). Each key in the response includes its `expires_at` timestamp (`null` for keys without an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration)) and `principal`, the identity it acts as (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)). For a personal key, `principal` is `{"type": "user_actor", "user_id": "user_..."}`; for a service account key, `{"type": "service_account_actor", "service_account_id": "svac_..."}`; and for a workspace key, `null`. Each key also has a `scope` object: `{"type": "workspace", "workspace_id": "wrkspc_..."}` for a key bound to one workspace, or `{"type": "organization"}` for a key that can work across any workspace the account has access to. The top-level `workspace_id` field is deprecated and is `null` both for keys bound to the Default Workspace and for keys without a workspace scope; use `scope` to tell them apart. Filtering the list by `workspace_id` with the Default Workspace's ID returns only keys bound to the Default Workspace; keys without a workspace scope aren't returned under any `workspace_id` filter.
 
 List the active API keys in a workspace:
 
@@ -1723,7 +1723,7 @@ The `/v1/organizations/me` endpoint returns the organization that your credentia
 }
 ```
 
-For parameter details and response schemas, see the [Organization Info API reference](https://platform.claude.com/docs/en/api/admin-api/organization/get-me).
+For parameter details and response schemas, see the [Organization Info API reference](https://platform.claude.com/docs/en/api/beta/organization/retrieve).
 
 ## Usage and cost reports
 

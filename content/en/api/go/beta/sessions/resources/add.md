@@ -19,7 +19,7 @@ Add Session Resource
 
   - `BetaManagedAgentsFileResourceParams param.Field[BetaManagedAgentsFileResourceParamsResp]`
 
-    Body param: Mount a file uploaded via the Files API into the session.
+    Body param: Request parameters for adding a resource to a session.
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 

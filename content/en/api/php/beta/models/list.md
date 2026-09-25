@@ -61,7 +61,7 @@ The Models API response can be used to determine which models are available for 
 
   - `?BetaModelCapabilities capabilities`
 
-    Model capability information.
+    Object mapping capability names to their support details. Keys are always present for all known capabilities.
 
   - `\Datetime createdAt`
 

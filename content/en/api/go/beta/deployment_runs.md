@@ -187,7 +187,7 @@ List Deployment Runs
 
   - `Agent BetaManagedAgentsAgentReference`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
     - `Type BetaManagedAgentsAgentReferenceType`
 
@@ -199,7 +199,7 @@ List Deployment Runs
 
   - `CreatedAt Time`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
     format: date-time
 
@@ -209,7 +209,7 @@ List Deployment Runs
 
   - `Error BetaManagedAgentsDeploymentRunErrorUnion`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
     - `type BetaManagedAgentsEnvironmentArchivedRunError`
 
@@ -377,7 +377,7 @@ List Deployment Runs
 
   - `TriggerContext BetaManagedAgentsTriggerContextUnion`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
     - `type BetaManagedAgentsScheduleTriggerContext`
 
@@ -387,7 +387,7 @@ List Deployment Runs
 
       - `ScheduledAt Time`
 
-        A timestamp in RFC 3339 format
+        The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
         format: date-time
 
@@ -592,7 +592,7 @@ Get Deployment Run
 
   - `Agent BetaManagedAgentsAgentReference`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
     - `Type BetaManagedAgentsAgentReferenceType`
 
@@ -604,7 +604,7 @@ Get Deployment Run
 
   - `CreatedAt Time`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
     format: date-time
 
@@ -614,7 +614,7 @@ Get Deployment Run
 
   - `Error BetaManagedAgentsDeploymentRunErrorUnion`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
     - `type BetaManagedAgentsEnvironmentArchivedRunError`
 
@@ -782,7 +782,7 @@ Get Deployment Run
 
   - `TriggerContext BetaManagedAgentsTriggerContextUnion`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
     - `type BetaManagedAgentsScheduleTriggerContext`
 
@@ -792,7 +792,7 @@ Get Deployment Run
 
       - `ScheduledAt Time`
 
-        A timestamp in RFC 3339 format
+        The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
         format: date-time
 
@@ -884,7 +884,7 @@ func main() {
 
   - `Agent BetaManagedAgentsAgentReference`
 
-    A resolved agent reference with a concrete version.
+    Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
 
     - `Type BetaManagedAgentsAgentReferenceType`
 
@@ -896,7 +896,7 @@ func main() {
 
   - `CreatedAt Time`
 
-    A timestamp in RFC 3339 format
+    Time this run record was persisted.
 
     format: date-time
 
@@ -906,7 +906,7 @@ func main() {
 
   - `Error BetaManagedAgentsDeploymentRunErrorUnion`
 
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
+    Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
     - `type BetaManagedAgentsEnvironmentArchivedRunError`
 
@@ -1074,7 +1074,7 @@ func main() {
 
   - `TriggerContext BetaManagedAgentsTriggerContextUnion`
 
-    Describes what triggered a deployment run, with trigger-specific metadata.
+    What triggered this run and trigger-specific metadata.
 
     - `type BetaManagedAgentsScheduleTriggerContext`
 
@@ -1084,7 +1084,7 @@ func main() {
 
       - `ScheduledAt Time`
 
-        A timestamp in RFC 3339 format
+        The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
         format: date-time
 
@@ -1184,7 +1184,7 @@ func main() {
 
   - `ScheduledAt Time`
 
-    A timestamp in RFC 3339 format
+    The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
     format: date-time
 
@@ -1262,7 +1262,7 @@ func main() {
 
     - `ScheduledAt Time`
 
-      A timestamp in RFC 3339 format
+      The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
       format: date-time
 
