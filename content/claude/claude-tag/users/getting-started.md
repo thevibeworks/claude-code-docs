@@ -18,7 +18,7 @@ Where you tag Claude decides whose tools it uses and who sees the result.
 
 * **Channel** for shared team work. The work happens in the open, so anything Claude does in the thread, including its checklist and results, is visible to everyone in the channel, and anyone can reply to steer the work. An admin sets what Claude can reach in each channel, and everyone who asks there gets the same access. By default you don't need a Claude account to tag Claude in a channel; the work bills to the organization. An admin can [restrict who can invoke Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude).
   * Example: `@Claude where are we on the launch checklist? Pull what's still open from this channel and #design-review.`
-* **DM** for personal tasks. A DM runs on your own claude.ai account with [your own connectors](/docs/connectors/overview). Every DM message reaches Claude without an @-mention. You can also DM Claude questions about getting started, like how to word a task or what to try first. DMs are one-to-one only; group DMs aren't supported.
+* **DM** for personal tasks. A DM runs on your own claude.ai account with [your own connectors](/docs/connectors/getting-started). Every DM message reaches Claude without an @-mention. You can also DM Claude questions about getting started, like how to word a task or what to try first. DMs are one-to-one only; group DMs aren't supported.
   * Example: `Pull my afternoon meetings from my calendar and draft a one-line prep note for each.`
 
 See [team channels and personal DMs](/docs/claude-tag/concepts/how-it-works#team-channels-and-personal-dms) for the full comparison.

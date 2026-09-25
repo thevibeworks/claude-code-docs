@@ -6,6 +6,16 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.53" description="September 24, 2026">
+  * Paste a list of domains in **Settings > Network** to allow them all at once
+  * In Markdown files, editing table cells in place now works in files with up to 2,500 table cells, however long their text
+  * **Settings > Connectors**: a Featured connector that was turned off during setup now shows as off, and turning it back on lets Claude use it again
+  * Hover over a tab in the right pane to see the file's full name
+  * Mac: fixed a case where code cells didn't run because Claude wrote the folder's name in a different letter case or accent form than on disk
+  * Mac: security hardening of the analysis sandbox
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.52" description="September 22, 2026">
   * Clicking a figure in Claude's answer now opens it beside the chat; Ctrl/Cmd-click or the new "Open fullscreen" button opens it full screen
   * Opening or closing the right pane now keeps your place in a long answer

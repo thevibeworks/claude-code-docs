@@ -30,7 +30,7 @@ Claude uses your connectors only while working on a request you made yourself.
 * **Claude starts work on its own.** [Routines](/docs/claude-tag/users/proactivity) and other work Claude starts on its own in a channel use the channel's connections, never your connectors.
 * **You ask in a direct message (DM).** Your connectors apply on their own, because a DM runs on [your own claude.ai account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
 
-To add or remove connectors on your account, open the **Customize > Connectors** page on claude.ai; see [connectors on claude.ai](/docs/connectors/overview) for setup.
+To add or remove connectors on your account, open the **Customize > Connectors** page on claude.ai; see [connectors on claude.ai](/docs/connectors/getting-started) for setup.
 
 ## Control connector use
 
@@ -88,5 +88,5 @@ Results stay visible in the channel. What Claude posts back to a channel thread 
 ## Related resources
 
 * [How agent identity works](/docs/claude-tag/concepts/agent-identity): whose identity and access Claude uses in channels and DMs
-* [Connectors](/docs/connectors/overview): set up and manage connectors on your claude.ai account
+* [Connectors](/docs/connectors/getting-started): set up and manage connectors on your claude.ai account
 * [Get started](/docs/claude-tag/users/getting-started): hand Claude your first task in a channel

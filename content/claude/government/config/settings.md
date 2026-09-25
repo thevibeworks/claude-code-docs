@@ -178,6 +178,14 @@ Write each entry as an absolute path. A path can start with `~`, which stands fo
 
 If your agency redirects Desktop and Documents to OneDrive or another sync client, consider listing a local folder that is not synced, such as `~/ClaudeWork`, for Code sessions and other work that creates many files or scripts. Keep synced folders for documents and finished work. A member can start a Code session in any folder the list permits, synced or not. One list applies to Cowork and Code sessions alike, so ask members to choose the local folder when they start a Code session. To point at the synced Documents folder on Windows, use `%OneDriveCommercial%` or `%OneDrive%`, for example `%OneDriveCommercial%\Documents\ClaudeOutput`, because `~/Documents` refers to the local Documents folder in the user profile, not the redirected one. What the sync client uploads, including whether it skips particular file types, is controlled by your sync client's policies rather than by Claude for Government.
 
+### Block reads outside workspace folders
+
+Turn this on to stop Claude's file tools in Claude Desktop Code sessions from reading files outside the session's project folder and any folders listed in [**Allowed workspace folders**](#allowed-workspace-folders). The setting is off by default and sets Claude Desktop's [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) key. Its effect on the shell commands Claude runs differs by operating system, and that key's entry describes it.
+
+<Note>
+  **Block reads outside workspace folders** needs Claude Desktop 1.46388.1 or later. Earlier versions ignore it.
+</Note>
+
 ## Tool and connector cards
 
 Alongside the settings list, the Config page shows cards for the built-in tools (Web search, Web fetch, and Shell commands), the built-in connector (Microsoft 365), a **Connectors** card for the ones you add yourself, and a **Plugins** card for plugin packages you upload. A connector is an integration that lets Claude reach an external service on a user's behalf.

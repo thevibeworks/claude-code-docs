@@ -57,7 +57,7 @@ On the Enterprise plan, an Owner can name [channel managers](/docs/claude-tag/ad
 
 Connectors you add to your own claude.ai account, under **Customize > Connectors**, apply in DMs with Claude, because [a DM runs on your own account](/docs/claude-tag/concepts/agent-identity#direct-message-channels). A channel session uses the connections an admin attached to it. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use your personal connectors there for your own tasks, after you allow it. Slack has no connector settings of its own.
 
-See [connectors on claude.ai](/docs/connectors/overview) for setting one up, and [the troubleshooting entry](/docs/claude-tag/users/troubleshooting#a-connector-works-on-claude-ai-but-not-in-slack) if a connector you use on claude.ai is missing in Slack.
+See [connectors on claude.ai](/docs/connectors/getting-started) for setting one up, and [the troubleshooting entry](/docs/claude-tag/users/troubleshooting#a-connector-works-on-claude-ai-but-not-in-slack) if a connector you use on claude.ai is missing in Slack.
 
 ## Claude Tag versus Claude Managed Agents
 

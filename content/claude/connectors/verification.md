@@ -4,49 +4,61 @@
 
 # Connector verification
 
-> How Anthropic reviews connectors, and what Verified, Community, and Custom mean
+> How Anthropic reviews connectors in the directory, what the Verified, Community, and Custom labels mean, and how to stay safe with third-party connectors.
 
-The [Connectors Directory](/docs/connectors/directory) includes connectors built by Anthropic and by third-party developers. Each connector shows how much Anthropic has reviewed it, so you can decide what to connect to.
+The [Connectors Directory](/docs/connectors/directory) lists connectors from Anthropic and from third-party developers, and each one shows how much Anthropic has reviewed it. Use this page to understand what those labels mean before you connect one.
 
-## Verified
+<Note>
+  If you build connectors and want yours listed, see [List your own connector](#list-your-own-connector).
+</Note>
 
-Anthropic has tested this connector's tools for quality and compatibility and it has met our [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) requirements at the time of review. Verified connectors show a checkmark next to their name. Verification means Anthropic has reviewed the connector more closely than a Community connector, but it is not a security audit or a guarantee of how the connector will perform. The developer operates the connector and controls its tools, which can change after review.
+## Connector labels
 
-## Community
+A connector's label reflects the level of review it received. The label affects how the connector is displayed and discovered in the directory, not how the connector itself functions: once connected, a Community connector has the same capabilities and access as any connector you grant.
 
-A third-party developer built this connector. Anthropic screens community connectors before listing, but has not reviewed this connector in depth. We do not control the tools the Community developer makes available and cannot guarantee they will work as intended or will not change, so only connect developers you trust.
+### Verified
 
-Community connectors show a "Community" label in the directory and in [Customize > Connectors](https://claude.ai/customize/connectors). Before you connect one, Claude shows a reminder that it has not been reviewed in depth.
+Anthropic has tested a Verified connector's tools for quality and compatibility, and it met the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) requirements at the time of review. Verified connectors show a checkmark next to their name.
 
-The label reflects the level of review each connector received. It affects how the connector is displayed and discovered in the directory, not how the connector itself functions: once connected, a community connector has the same capabilities and access as any connector you grant.
+Verification means Anthropic has reviewed the connector more closely than a Community connector. It isn't a security audit or a guarantee of how the connector will perform. The developer operates the connector and controls its tools, which can change after review.
 
-## Custom
+### Community
 
-You added this connector yourself. Anthropic has not reviewed it.
+A third-party developer built a Community connector. Anthropic screens Community connectors before listing them but hasn't reviewed them in depth. Anthropic doesn't control the tools a Community developer makes available and can't guarantee they will work as intended or won't change, so only connect to developers you trust.
 
-See [custom connectors](/docs/connectors/custom/remote-mcp) to learn how to add one.
+Community connectors show a **Community** label in the directory and in [**Customize > Connectors**](https://claude.ai/customize/connectors). Before you connect one, Claude shows a reminder that it hasn't been reviewed in depth.
 
-## The directory is optional
+### Custom
 
-The directory is a catalog, not a separate kind of connector. Connectors in the directory and custom connectors you add yourself use the same technology.
+You added a Custom connector yourself, and Anthropic hasn't reviewed it. [Custom connectors](/docs/connectors/custom/add-unlisted#add-a-connector-by-url) explains how to add one.
 
-If you have a connector's URL, it can be added as a custom connector. A connector does not need to be in the directory for you to use it.
+## Directory listing versus custom connectors
 
-Listing a connector in the directory makes it discoverable by other people and gives it a review label (a checkmark if Anthropic has verified it, or "Community" if Anthropic has screened but not reviewed it in depth). It does not change the tools the connector exposes. See [directory vs custom](/docs/connectors/building/directory-vs-custom) for a detailed comparison.
+The directory is a catalog of connectors, and listing is optional. Connectors in the directory and custom connectors you add yourself use the same technology, so if you have a connector's URL, you can add it as a custom connector whether or not it's in the directory.
 
-## Advice for all third-party connectors
+Listing a connector in the directory makes it discoverable by other people and gives it a review label: a checkmark if Anthropic has verified it, or **Community** if Anthropic has screened it but not reviewed it in depth. Listing doesn't change the tools the connector exposes. [Directory vs custom](/docs/connectors/building/directory-vs-custom) has a detailed comparison.
+
+## Stay safe with third-party connectors
 
 Whatever the label, this advice applies to any connector built by someone other than Anthropic:
 
-* Only connect to servers from developers and organizations you trust.
-* A connector's developer controls which tools it exposes and can change them at any time.
-* Anthropic does not run a third-party connector's servers and does not control how it handles your data.
-* Carefully review requested permission scopes during authentication.
-* Be aware of prompt injection risks; Claude has built-in protections.
-* Monitor for unexpected changes in tool behavior.
+* Only connect to servers from developers and organizations you trust
+* A connector's developer controls which tools it exposes and can change them at any time
+* Anthropic doesn't run a third-party connector's servers and doesn't control how it handles your data
+* Carefully review requested permission scopes during authentication
+* Stay aware of prompt injection risks, even though Claude has built-in protections
+* Monitor for unexpected changes in tool behavior
 
-For more, see [security and privacy](/docs/connectors/custom/remote-mcp#security-and-privacy).
+For more, see [security and privacy](/docs/connectors/custom/add-unlisted#security-and-privacy) for custom connectors.
 
 ## List your own connector
 
-If you build connectors and want yours in the directory, start with the [review criteria](/docs/connectors/building/review-criteria) and the [submission guidelines](/docs/connectors/building/submission).
+If you build connectors and want yours in the directory, start with the [connector pre-submission checklist](/docs/connectors/building/review-criteria) and then [submit your connector](/docs/connectors/building/submission).
+
+When you submit a server, Anthropic scans it automatically for policy compliance and, by default, lists it in the directory as a Community connector. Anthropic may then escalate listings flagged as highly useful to Claude users to Verified review, which is higher touch and slower, and in which reviewers run a functional test of each tool. That escalation is assessed automatically. There's no separate application for the **Verified** label, and you don't need to take any action.
+
+## Related resources
+
+* [Connectors Directory](/docs/connectors/directory): browse and connect Verified and Community connectors
+* [Custom connectors](/docs/connectors/custom/add-unlisted#add-a-connector-by-url): add a connector by URL, and the security and privacy guidance that applies
+* [Publish to the directory](/docs/directory/publish): the developer's overview of submitting a connector or plugin

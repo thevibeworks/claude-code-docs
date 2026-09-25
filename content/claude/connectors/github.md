@@ -4,78 +4,113 @@
 
 # GitHub integration
 
-> Connect your code repositories to Claude
+> Add files and folders from your GitHub repositories to a conversation or project so Claude can read your code
 
-Connect GitHub repositories directly to Claude to provide comprehensive context for software development tasks. Claude can understand your codebase and assist with development questions.
+The GitHub integration lets you add files and folders from your GitHub repositories to a conversation or a project, so Claude can read your code and answer development questions with that context. It's available on every plan, including Free, and works with public repositories and with private repositories you grant access to.
 
-<Note>
-  Available on all plans including Free.
-</Note>
-
-## Adding GitHub repositories
-
-### In chats
-
-1. Click the "+" button in the lower left corner of the chat interface
-2. Select "Add from GitHub" from the dropdown menu
-3. Use the file browser to select specific files and folders
-4. When sending your message, Claude accesses and processes the selected content
-
-### In projects
-
-1. Click the "+" button in your project knowledge section
-2. Select "GitHub" from the dropdown
-3. Search accessible repositories or paste a repository URL
-4. Use the file browser to select specific files and folders
-5. Your selected content is added to project knowledge
-
-**Keeping content current:**
-
-* Use the "Sync" icon to ensure you're working with the latest codebase
-* Use the "Configure files" icon to modify which files Claude analyzes
+By the end of this page you have added repository content to a chat or a project and asked Claude about it. Claude reads file names and contents only: it doesn't see commit history, pull requests, or issues.
 
 <Note>
-  If you're not authenticated with GitHub, you'll be redirected to authenticate before using the integration.
+  If you want Claude to edit code, run commands, and open pull requests in your repository, see [Claude Code](https://code.claude.com/docs).
 </Note>
 
-## Connecting to private repositories
+## Add repository content
 
-If you see a warning after entering a valid URL, you're likely attempting to connect to a private repository.
+You can add repository content to a single conversation, or to a [project](https://support.claude.com/en/articles/9517075-what-are-projects), a workspace in Claude where a set of chats share the same background documents. Choose the tab below for where you want the content available. If you haven't signed in to GitHub from Claude yet, Claude sends you to GitHub to sign in before you continue.
 
-Follow the link to the GitHub App where you can:
+<Tabs>
+  <Tab title="In a chat">
+    <Steps>
+      <Step title="Open the add menu">
+        In the conversation, select **+** at the lower left of the message box.
+      </Step>
 
-* **Grant access yourself**: Choose between allowing Claude access to all repos or specific ones
-* **Request access**: GitHub organization administrators receive an email notification. Once approved, you can sync and access the repository
+      <Step title="Choose GitHub">
+        Select **Add from GitHub**.
+      </Step>
 
-## Best practices
+      <Step title="Select files and folders">
+        Use the file browser to select the files and folders you want Claude to read.
+      </Step>
 
-1. **Start small**: Begin with a small codebase subset to understand how Claude interprets your code
-2. **Iterate and refine**: Ask follow-up questions if initial responses need clarification
-3. **Combine with human expertise**: Use Claude's insights as a starting point for team discussion
-4. **Thoughtful file selection**: Include key files central to your task while staying within token limits
-5. **Regular updates**: Refresh GitHub sync periodically, especially before new analysis or major repo changes
+      <Step title="Send your message">
+        Write your question and send it. Claude reads and processes the selected content when you send the message.
+      </Step>
+    </Steps>
+  </Tab>
 
-## What information is retrieved
+  <Tab title="In a project">
+    You can add repository content only to a private project, one you haven't shared with other people. In a shared project, the **GitHub** option is dimmed and shows **Only accessible from private projects**.
 
-| Retrieved      | Not Retrieved       |
+    <Steps>
+      <Step title="Open project knowledge">
+        Open the project and, in its project knowledge section, select **+**.
+      </Step>
+
+      <Step title="Choose GitHub">
+        Select **GitHub**.
+      </Step>
+
+      <Step title="Pick a repository">
+        Search the repositories you have access to, or paste a repository URL.
+      </Step>
+
+      <Step title="Select files and folders">
+        Use the file browser to select the files and folders you want Claude to read.
+      </Step>
+    </Steps>
+
+    The selected content is added to the project's knowledge.
+  </Tab>
+</Tabs>
+
+## Connect a private repository
+
+If a warning appears after you enter a valid repository URL, the repository is most likely private and Claude doesn't have access to it yet. Follow the link in the warning to the Claude GitHub App, where you have two options:
+
+* **Grant access yourself**: allow Claude access to all of your repositories or only to specific ones
+* **Request access**: your GitHub organization's administrators receive an email notification. Once they approve, you can sync and add the repository
+
+## Try the connector
+
+After you add repository content, ask Claude something that depends on the code you selected. For example, ask Claude:
+
+* Explain how request authentication works in these files
+* Where is the retry logic, and what happens when it gives up?
+
+Claude answers from the names and contents of the files you selected on the branch you chose. It doesn't see commit history, pull requests, issues, or repository metadata; [Review what Claude retrieves from GitHub](#review-what-claude-retrieves-from-github) has the full list.
+
+## Keep repository content current
+
+After you add a repository, use these controls in your project knowledge to keep its content current and scoped to what you need:
+
+* **Sync**: select **Sync now** on the repository in your project knowledge to fetch the latest changes, especially before a new analysis or after major changes to the repository
+* **Change the selection**: select **Configure files** to change which files and folders Claude reads
+* **Multiple repositories**: you can add several repositories for broader context, as long as the selected content fits within Claude's context window
+* **Lost access**: if you lose access to a repository, you can no longer view its contents in projects where it was added. The repository preview is removed, but your conversation history remains
+
+## Review what Claude retrieves from GitHub
+
+The table lists what the integration reads from a repository and what it leaves out.
+
+| Retrieved      | Not retrieved       |
 | -------------- | ------------------- |
 | File names     | Commit history      |
 | File contents  | Pull requests       |
 | Branch content | Issues              |
 |                | Repository metadata |
 
-## Frequently asked questions
+## Best practices
 
-<AccordionGroup>
-  <Accordion title="What if my repository updates after adding it?">
-    Click "Sync now" to fetch the latest changes from your repository.
-  </Accordion>
+These habits help Claude give useful answers about a codebase:
 
-  <Accordion title="Can I add multiple repositories?">
-    Yes, add multiple repositories to provide comprehensive context, provided they fit within Claude's context window.
-  </Accordion>
+* **Start small**: begin with a small subset of the codebase to see how Claude interprets your code
+* **Select files thoughtfully**: include the files central to your task while staying within token limits
+* **Iterate and refine**: ask follow-up questions when an initial response needs clarification
+* **Combine with human expertise**: treat Claude's analysis as a starting point for team discussion
+* **Sync regularly**: refresh the GitHub sync periodically, especially before a new analysis or after major repository changes
 
-  <Accordion title="What happens if I lose repository access?">
-    You won't be able to view its contents in projects where it was previously added. The repository preview is removed, but conversation history remains.
-  </Accordion>
-</AccordionGroup>
+## Next steps
+
+* [Get started with connectors](/docs/connectors/getting-started): set up another connector and use it in conversations
+* [Connectors directory](/docs/connectors/directory): browse verified and community integrations

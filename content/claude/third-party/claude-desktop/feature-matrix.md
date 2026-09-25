@@ -67,20 +67,20 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 ## Admin features
 
-| Feature                                                                                       | Claude Enterprise | Claude Desktop on 3P |
-| --------------------------------------------------------------------------------------------- | :---------------: | :------------------: |
-| Endpoint / gateway configuration                                                              |         —         |           ✓          |
-| Skills, hooks, and plugins distribution                                                       |         ✓         |           ✓          |
-| MCP server allowlist                                                                          |         ✓         |           ✓          |
-| Feature toggles (web search, local MCP, etc.)                                                 |         ✓         |           ✓          |
-| Auto-updates                                                                                  |         ✓         |           ✓          |
-| Per-user usage caps                                                                           |         ✓         |           ✓          |
-| [Data retention policies](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) |         ✓         |           ✓          |
-| Compliance API                                                                                |         ✓         |          — ‡         |
-| Analytics API                                                                                 |         ✓         |          — ‡         |
-| OpenTelemetry export                                                                          |         ✓         |           ✓          |
-| User management via UI                                                                        |         ✓         |          ✓ ◊         |
-| RBAC                                                                                          |         ✓         |          ✓ ◊         |
+| Feature                                                                                                 | Claude Enterprise | Claude Desktop on 3P |
+| ------------------------------------------------------------------------------------------------------- | :---------------: | :------------------: |
+| Endpoint / gateway configuration                                                                        |         —         |           ✓          |
+| Skills, hooks, and plugins distribution                                                                 |         ✓         |           ✓          |
+| MCP server allowlist                                                                                    |         ✓         |           ✓          |
+| Feature toggles (web search, local MCP, etc.)                                                           |         ✓         |           ✓          |
+| Auto-updates                                                                                            |         ✓         |           ✓          |
+| Per-user usage caps                                                                                     |         ✓         |           ✓          |
+| [Data retention policies](/docs/third-party/claude-desktop/data-storage#automatic-deletion-of-idle-sessions) |         ✓         |           ✓          |
+| Compliance API                                                                                          |         ✓         |          — ‡         |
+| Analytics API                                                                                           |         ✓         |          — ‡         |
+| OpenTelemetry export                                                                                    |         ✓         |           ✓          |
+| User management via UI                                                                                  |         ✓         |          ✓ ◊         |
+| RBAC                                                                                                    |         ✓         |          ✓ ◊         |
 
 ‡ Many of these capabilities can be achieved via OpenTelemetry export to your own collector. See [Monitoring](/docs/cowork/monitoring).
 

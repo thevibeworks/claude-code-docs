@@ -39,13 +39,21 @@ If the user has not yet signed in, or the fetch fails with no cached response fr
 
 ### Availability
 
-The cached response is held **in memory only**; there is no on-disk fallback to a previous session's response. If your bootstrap server is unreachable when Claude Desktop launches, the user stays in the degraded sign-in state until the server recovers. A failed refetch *during* a running session keeps the in-memory response and retries, so an outage that starts mid-session does not disrupt active users until they relaunch.
+The full response is held **in memory only**. If your bootstrap server is unreachable when Claude Desktop launches, the user stays in the degraded sign-in state until the server recovers. A failed refetch *during* a running session keeps the in-memory response and retries, so an outage that starts mid-session does not disrupt active users until they relaunch.
+
+Each device also keeps a small record from the last response it applied, and applies the settings in that record at the next launch until your server answers. Signing out of Claude Desktop deletes the record. It holds only these values, when the response sets them:
+
+* `deploymentOrganizationUuid` and `deploymentDisplayName`
+* `disableEssentialTelemetry`, `disableNonessentialTelemetry`, `disableDeploymentModeChooser`, `microsoftAuthBroker`, and `modelCatalogUrl`
+* Any restriction the response turns on, such as `isLocalDevMcpEnabled` set to `false`
+
+The record holds no credentials, inference provider settings, MCP servers, or other lists.
 
 Run the endpoint across multiple replicas or regions behind a load balancer. Do not rely on response caching for availability: responses are per-user and carry credentials (see the `Cache-Control: no-store` guidance under [Server responsibilities](#server-responsibilities)). If your configuration data lives in a database, a read replica of that store improves availability without caching responses.
 
-A refetch that returns different values does **not** change the running session. The app keeps the configuration it launched with (inference credentials, egress allowlist, MCP servers, and renderer state such as the model picker all stay on the boot-time values), prompts the user to restart, and applies the new response when it relaunches.
+When a refetch returns different values, a few settings apply to the running app without a restart, such as the banner, the display name, and the token limit, as do the two lifecycle keys described below. Every other setting, including inference credentials, the egress allowlist, MCP servers, and the model list, stays on the values the app launched with. For those, the app prompts the user to restart and applies the new response when it relaunches.
 
-Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a changed response, the user can keep working for [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) (24 hours by default, at most 336 hours, or `0` to require the restart at once; releases before 1.46388.1 default to 1 hour). After that window the app blocks further use until it restarts, and it relaunches on its own once it has been idle for two minutes (no Claude task running and no keyboard or pointer input).
+Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a changed response that needs a restart, the user can keep working for [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) (24 hours by default, at most 336 hours, or `0` to require the restart at once; releases before 1.46388.1 default to 1 hour). After that window the app blocks further use until it restarts, and it relaunches on its own once it has been idle for two minutes (no Claude task running and no keyboard or pointer input).
 
 Return `relaunchEnforcementHours` in the bootstrap response to change the window, and `configRecheckIntervalMinutes` to change how often running apps check for a new response. The app reads both keys from the newest response, so changing them does not itself require a restart. In the nested response format ([`bootstrap-config-v2`](#response-schema)) both keys sit under `lifecycle`, as `lifecycle.relaunchEnforcementHours` and `lifecycle.configRecheckIntervalMinutes`. Releases before 1.46388.1 read the window from `bootstrap.relaunchEnforcementHours` and do not read the `lifecycle` path, so move the value when your fleet updates (the flat-format key name is unchanged). On a device where `bootstrapUrl` came from an imported file rather than MDM, a device-management profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence), such as the update keys, supplies these two keys as well, so set them in that profile or the defaults apply there.
 

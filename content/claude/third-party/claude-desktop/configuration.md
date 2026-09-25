@@ -22,7 +22,7 @@ The easiest way to author a configuration is the in-app configuration window (**
 
 The local location is a directory: `_meta.json` records which saved configuration is applied, and each configuration is a `<id>.json` file alongside it. The in-app configuration window writes here.
 
-When a managed source is present, it wins and locally written values are ignored. The exception is a managed source that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) (the update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, and `updateViaUpdatesHost`, the lifecycle keys `relaunchEnforcementHours` and `configRecheckIntervalMinutes`, or the [network proxy keys](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration)): those keys are enforced from the managed source, but the rest of the configuration stays local and user-editable. Configuration takes effect **at launch**, so fully quit and reopen the app after any change. From version 1.46388.1 a running app also notices a changed managed configuration at its next re-check ([`configRecheckIntervalMinutes`](#configrecheckintervalminutes), 10 minutes by default), prompts the user to restart, and requires the restart after [`relaunchEnforcementHours`](#relaunchenforcementhours) (24 hours by default). On Windows, the two policy hives are not merged: when machine policy is present under `HKLM\SOFTWARE\Policies\Claude`, the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely; [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) has the exact rule. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) for the full precedence rules.
+When a managed source is present, it wins and locally written values are ignored. The exception is a managed source that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) (the update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, and `updateViaUpdatesHost`, the lifecycle keys `relaunchEnforcementHours` and `configRecheckIntervalMinutes`, or the [network proxy keys](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration)): those keys are enforced from the managed source, but the rest of the configuration stays local and user-editable. Configuration takes effect **at launch**, so fully quit and reopen the app after any change. From version 1.46388.1 a running app also notices a changed managed configuration at its next re-check ([`configRecheckIntervalMinutes`](#configrecheckintervalminutes), 10 minutes by default) and, for most settings, prompts the user to restart and requires the restart after [`relaunchEnforcementHours`](#relaunchenforcementhours) (24 hours by default). On Windows, the two policy hives are not merged: when machine policy is present under `HKLM\SOFTWARE\Policies\Claude`, the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely; [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) has the exact rule. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) for the full precedence rules.
 
 <Note>
   Claude Desktop on 3P reads the same managed-configuration sources as standard Claude Desktop but ignores keys scoped to standard deployments. Keys such as `forceLoginOrgUUID` have no effect in a 3P deployment.
@@ -1203,6 +1203,7 @@ The profiles below are illustrative examples rather than built-in presets, and t
     | [`isLocalDevMcpEnabled`](#islocaldevmcpenabled)                 | `false`                           |
     | [`isDesktopExtensionEnabled`](#isdesktopextensionenabled)       | `false`                           |
     | [`skillCreationEnabled`](#skillcreationenabled)                 | `false`                           |
+    | [`scheduledTasksEnabled`](#scheduledtasksenabled)               | `false`                           |
     | [`disabledBuiltinTools`](#disabledbuiltintools)                 | `["WebSearch","WebFetch"]`        |
     | [`coworkEgressAllowedHosts`](#coworkegressallowedhosts)         | `[]`                              |
     | [`allowedWorkspaceFolders`](#allowedworkspacefolders)           | `[{"path":"~/Documents/Claude"}]` |
@@ -1219,3 +1220,25 @@ Each [`managedMcpServers`](#managedmcpservers) entry can carry a `toolPolicy` th
 * `"blocked"` — the tool is removed from Claude's session; connector settings show it as blocked by your organization.
 
 Tools with no policy entry stay user-controlled (built-in connectors apply default policies to some tools — see the reference above): the user is prompted and can approve once, approve for the rest of the task (offered for tools that can modify data), or grant a standing approval unless [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `false`. Full prompt options require version 1.22209.0 or later; earlier third-party builds offered only per-call approval. The reference above also lists an `"ask-session"` value, which behaves exactly as `"ask"` and is accepted until October 7, 2026. After that date the app rejects an entry that uses it, so write `"ask"`. Managed policies take precedence over user grants, and enforcement happens in the desktop host process, not only in the prompt UI. A deny-by-default posture — `"*": "blocked"` plus exact `"allow"` entries for approved tools — is supported, including in Code sessions (where an allowed tool still gets Claude Code's own approval prompt). See the [`managedMcpServers` reference](#managedmcpservers) for wildcard matching, precedence rules, and built-in connector defaults.
+
+On a scheduled Cowork task, the prompt can also offer an **Allow for all scheduled runs** option. See [Tool approvals on scheduled tasks](#tool-approvals-on-scheduled-tasks).
+
+### Tool approvals on scheduled tasks
+
+On a scheduled task, the approval prompt for an MCP tool that has no [`toolPolicy`](#tool-permissions-for-managed-mcp-servers) entry can offer a standing approval: **Allow for all scheduled runs** in Cowork, **Always allow** in the Code tab. Later runs of the task then use the tool without asking.
+
+To make these approvals expire, set [`mcpScheduledTaskApprovalLifetimeDays`](#mcpscheduledtaskapprovallifetimedays) to a whole number of days from `1` to `3650`. With a value of `30`, the option reads **Allow for 30 days**, the approval lasts 30 days from the moment the user chooses it, and after that the task asks again. Set the value comfortably longer than the time between a task's runs. The key requires Claude Desktop 2.7032.0 or later. Add it after your devices run that release.
+
+The key's values:
+
+* **Unset (default):** approvals never expire. In Cowork, the prompt offers the option, and stored approvals are used, only while [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `true`.
+* **`1` to `3650`:** each approval lasts that many days. In Cowork, the prompt offers the option even while `mcpPersistentAlwaysAllowEnabled` is `false`.
+* **`0`:** the prompt doesn't offer the option, and stored approvals aren't used. A value that isn't a whole number from `0` to `3650` is treated as `0`. An empty value is treated as unset.
+
+In the Code tab, `mcpPersistentAlwaysAllowEnabled` has no effect on this option.
+
+The time limit doesn't cover:
+
+* **Folder, browser, and built-in tool approvals:** these approvals never expire.
+* **Account-wide grants in Cowork:** the account-wide **Always allow** and **Allow for all tasks** grants never expire. Of the two keys, only `mcpPersistentAlwaysAllowEnabled` affects them.
+* **Claude Code allow rules in the Code tab:** an allow rule in Claude Code's own settings files, such as one saved when a user chose **Always allow** before the key was set, keeps allowing the tool, even with a value of `0`, until someone removes it. For a scheduled task, look in the project's `.claude/settings.local.json` file.

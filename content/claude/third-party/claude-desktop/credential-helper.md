@@ -48,6 +48,10 @@ An entry cannot be empty and cannot contain a double quote (`"`), a percent sign
 
 Keep secrets out of the arguments. The arguments appear in the diagnostic report and are visible to other processes on the device, so have the helper fetch any secret itself.
 
+## Use a different helper path on Windows
+
+When one configuration serves both Windows devices and macOS or Linux devices, set `inferenceCredentialHelper` to the macOS and Linux path and [`inferenceCredentialHelperWindows`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows) to the Windows path, for example `C:\Program Files\Corp\cred-helper.exe`. Windows devices run that executable with the same arguments, timeout, cache time, and environment variables as the main helper, and macOS and Linux devices ignore the key. A [bootstrap server](/docs/third-party/claude-desktop/bootstrap) can deliver it under the same [user-consent rule](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent) as the helper path; in the nested response format, set `commandWindows` next to `command` in `inference.credential`.
+
 ## When the helper runs
 
 Claude Desktop sets the `CLAUDE_HELPER_CONTEXT` environment variable on every invocation so the script can decide whether interactive authentication (opening a browser, prompting for a device code) is appropriate.

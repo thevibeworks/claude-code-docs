@@ -6,7 +6,7 @@ The Model Context Protocol (MCP) is an open protocol that enables seamless integ
 
 Desktop extensions provide a streamlined way to install and manage local MCP servers through single-click installable packages. Instead of manually configuring JSON files and managing dependencies, you can now install local MCP servers on your computer as easily as browser extensions.
 
-**Note:** We’re building a directory of desktop extensions – if you’re a developer hoping to add an extension you built to the directory, complete our [desktop extensions interest form](https://docs.google.com/forms/d/14_Dmcig4z8NeRMB_e7TOyrKzuZ88-BLYdLvS6LPhiZU/viewform?edit_requested=true) to share more information with us.
+**Note:** If you’re a developer who wants to list a desktop extension (a local MCP server for Claude Desktop) in the directory, submit it through the **[desktop extension submission form](https://clau.de/desktop-extention-submission)**. To submit a plugin or a remote connector instead, use the **[developer portal](https://claude.ai/directory/manage)**. See **[Submitting your plugin](https://claude.com/docs/plugins/submit)** for what each route accepts.
 
 ## Installing desktop extensions from the directory
 
@@ -48,7 +48,7 @@ for specific instructions.
 
 Custom desktop extensions uploads allow Team and Enterprise plans to leverage organization-specific workflows that aren’t available in the public directory. After creating a custom desktop extension, Owners and Primary Owners can navigate to Settings > Extensions within Claude Desktop and click “Advanced settings” to access the **Extension Developer** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1790352000&amp;signature=5b2d92c385b870189c3f7915a74f6c682aa90887f4f08c006b4f3125b1bd86d4&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxUB8Mj8yHn9K2IaIG2IR43sauKdF4wz0Jfsq%0AU5IalpD0%2BJtQH3jr8t0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1790424000&amp;signature=d1103d3bb68ae8e768b8f9e088a6b70348f1e956e87769fd548fbf3f8f3a4f4c&amp;req=dSYvF89%2BmodfXvMW3nq%2BgXMWSvTBIwYkWUgJZkgz4cO%2BymwtW923WmZXiIpw%0AfwWwwYINR9cWqqJAoLCQmd4oX4Q%3D%0A)
 
 Click “Install Extension…” and select the .mcpb file. Follow the prompts to install and configure your custom desktop extension. For more in-depth information, please refer to our [desktop extension developer documentation](https://github.com/anthropics/mcpb).
 

@@ -14,7 +14,7 @@ An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session
 
 ## How a remote session works
 
-1. **Connect.** The user picks an SSH host from the environment picker in Code, or adds one by entering its address, port, and an identity file. Claude Desktop connects with its built-in SSH client, applies the host's entry from the device's `~/.ssh/config` (see [SSH configuration on the device](#ssh-configuration-on-the-device)), and prompts in the app if the host asks for a password or a one-time code.
+1. **Connect.** The user picks an SSH host from the environment picker in Code, or adds one by entering its address, port, and an identity file. Claude Desktop connects through the device's OpenSSH client on macOS and Linux, or its built-in SSH client on Windows (see [Host requirements](#host-requirements) to change either default), applies the host's entry from the device's `~/.ssh/config` (see [SSH configuration on the device](#ssh-configuration-on-the-device)), and prompts in the app if the host asks for a password or a one-time code.
 2. **Deploy.** Claude Desktop places a remote server and the Claude Code engine under `~/.claude/remote/` in the SSH user's home directory on the host ([Host requirements](#host-requirements) lists every path) and reuses them on later connections.
 3. **Run.** The remote server starts the engine on the host with the inference credential and policy from your managed configuration. Every file read, edit, shell command, and git operation runs on the host, in the working directory the user chose there. Claude Desktop connects to [managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin) from the device and exposes them to the engine as tools.
 4. **Stream.** Claude's responses and tool output stream back to Claude Desktop. Permission prompts appear in Claude Desktop, and the engine waits on the host until the user answers.
@@ -117,7 +117,7 @@ The host needs the following.
 
 The Claude Code engine is a standalone executable with no runtime dependencies. The device needs the OpenSSH client (`ssh` and `ssh-keygen`). Claude Desktop runs the first `ssh` on the user's `PATH`; to pin a specific OpenSSH installation instead, set [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) (beta, Claude Desktop 1.46388.1 or later) to the program's absolute path, and `ssh-keygen` is then taken from the same directory when present. If the pinned program is missing or cannot be run, SSH connections fail with an error that shows the configured path, rather than falling back to another `ssh`.
 
-By default, Claude Desktop makes the SSH connection with its built-in client and runs the device's OpenSSH tools only to evaluate the user's SSH configuration, look up host keys, and run the session's terminal. To have the device's OpenSSH client carry the connection itself, set [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) to `system-openssh` (beta, Claude Desktop 1.52386.0 or later). Your own OpenSSH build's Kerberos (GSSAPI), certificate, and `ssh_config` support then handles authentication. The program is the one `sshClientPath` names, or else the first `ssh` on the user's `PATH`, and it must be OpenSSH 7.6 or newer (on Windows, Win32-OpenSSH 9.4 or newer). On a Windows device with no usable OpenSSH client and no `sshClientPath`, the built-in client is used instead. `builtin` selects the built-in client explicitly. A change applies to new connections, and sessions that are already connected keep their client.
+On macOS and Linux, Claude Desktop makes the SSH connection by running the device's OpenSSH client, so your own OpenSSH build's Kerberos (GSSAPI), certificate, and `ssh_config` support handles authentication. The program is the one `sshClientPath` names, or else the first `ssh` on the user's `PATH`, and it must be OpenSSH 7.6 or newer. On Windows, the app's built-in SSH client makes the connection by default, and the app runs the device's OpenSSH tools to evaluate the user's SSH configuration, look up host keys, and run the session's terminal. To have the device's OpenSSH client carry the connection on Windows too, set [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) (beta) to `system-openssh`; the client must be Win32-OpenSSH 9.4 or newer. On a Windows device with no usable OpenSSH client and no `sshClientPath`, the built-in client is used regardless. Set `sshTransport` to `builtin` to use the built-in client on every platform. A change applies to new connections, and sessions that are already connected keep their client.
 
 Claude Desktop writes the following into the SSH user's home directory on the host. Each user who connects gets their own copy.
 
@@ -137,12 +137,13 @@ Each side of a remote session needs its own network access.
 
 ### SSH configuration on the device
 
-Claude Desktop applies the host's entry in the user's `~/.ssh/config`: hostname, port, user, identity file, SSH agent, and `ProxyCommand`.
+Claude Desktop applies the host's entry in the user's `~/.ssh/config`. With the device's OpenSSH client (the default on macOS and Linux), the whole entry applies as it would in a terminal, including `ProxyJump`, certificate host keys, and GSSAPI, and the app still connects only to the resolved hostname that passed `sshHostAllowlist`. The built-in client (the default on Windows) applies the hostname, port, user, identity file, SSH agent, and `ProxyCommand`.
 
-* For hosts behind a bastion, configure a `ProxyCommand`. `ProxyJump` is not supported.
-* The host's key must already be in the device's `~/.ssh/known_hosts` as a plain entry; the app does not prompt to accept a new key and does not evaluate `@cert-authority` entries. Have users connect once from a terminal before adding the host in the app.
-* An identity file protected by a passphrase is skipped, not prompted for. Load it into the SSH agent, or use an unencrypted key.
-* For a host reached through a `ProxyCommand`, the app skips host key verification and relies on the command to authenticate the host.
+* For hosts behind a bastion, configure a `ProxyJump` or `ProxyCommand`. `ProxyJump` works only when the device's OpenSSH client carries the connection (the default on macOS and Linux); the built-in client refuses it with a message suggesting `ProxyCommand`.
+* With the device's OpenSSH client, OpenSSH's own host key checking applies. For a host that is not yet in `~/.ssh/known_hosts`, the app shows the key's fingerprint, asks the user whether to trust it, and records a trusted key in the user's `known_hosts` file, unless the user's own SSH configuration accepts new keys without asking. `@cert-authority` entries are honored, and a changed host key is always refused.
+* With the built-in client, the host's key must already be in the device's `~/.ssh/known_hosts` as a plain entry. The app does not prompt to accept a new key and does not evaluate `@cert-authority` entries, so have users connect once from a terminal before adding the host in the app.
+* With the built-in client, an identity file protected by a passphrase is skipped, not prompted for. Load it into the SSH agent, or use an unencrypted key. With the device's OpenSSH client, the app asks for the passphrase once the host's key is verified, and skips the key if the user cancels.
+* With the built-in client, a host reached through a `ProxyCommand` skips host key verification and relies on the command to authenticate the host.
 * The connection times out after 30 seconds. A larger `ConnectTimeout` in the host entry extends it.
 
 ## Troubleshoot
@@ -161,7 +162,7 @@ The configured inference credential is one of the kinds listed as refused under 
 
 ### SSH host key verification failed
 
-The host's key is not in the device's `~/.ssh/known_hosts`, or it has changed. Connect to the host from a terminal on the device to record the current key, then retry.
+The host's key has changed, or it is not in the device's `~/.ssh/known_hosts` and was not trusted in the app (the built-in client never asks). Connect to the host from a terminal on the device to check and record the current key, then retry.
 
 ## Related
 

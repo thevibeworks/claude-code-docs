@@ -24,7 +24,7 @@ Desktop extensions run locally and are only available in Claude Desktop and Clau
 
 ## Plugins work with both
 
-A plugin can bundle either remote or local MCP servers (or both). Installing a plugin that references a remote MCP makes it available everywhere; one that references a local MCP works in Desktop and Claude Code.
+A plugin can bundle either remote or local MCP servers (or both). Adding a plugin that references a remote MCP makes it available everywhere. One that references a local MCP works in Cowork and Claude Code, not in chat.
 
 ## Quick guide
 

@@ -40,7 +40,7 @@ To choose your installation preference:
 
 2. Find **Salesforce Marketplace**.
 
-3. Choose an installation preference for the groups you want to use it: installed by default, available for install, or required. Learn more about **[controlling plugin distribution](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization#h_cef6a5f497)**.
+3. Choose an installation preference for the groups you want to use it: "Installed by default," "Available to install," or "Required." Learn more about **[controlling plugin distribution](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization#h_cef6a5f497)**.
 
 To activate and configure the Salesforce MCP Connector:
 

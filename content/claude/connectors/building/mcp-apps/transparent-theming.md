@@ -4,15 +4,15 @@
 
 # Blend your MCP App with Claude's theme
 
-> Make your widget background transparent and style it with Claude's style variables
+> Make your MCP App's background transparent and style it with Claude's host style variables so it blends into the conversation in light and dark mode.
 
-Claude renders MCP Apps inside a sandboxed iframe, and every frame between your widget and the chat surface already has a transparent background, so the conversation can show through. When you leave your own background transparent and style text and borders with the host's [style variables](/docs/connectors/building/mcp-apps/design-guidelines#style-variables), your app looks like part of the conversation rather than an embedded box, and it follows the user's light or dark mode automatically.
+Claude renders MCP Apps inside a sandboxed iframe, and every frame between your widget and the chat surface already has a transparent background so the conversation can show through. If you leave your own background transparent and style text and borders with the host's [style variables](/docs/connectors/building/mcp-apps/design-guidelines#style-variables), your app looks like part of the conversation rather than an embedded box. It also follows the user's light or dark mode automatically.
 
-The snippets on this page assume you have registered a UI resource and created an `App` instance from `@modelcontextprotocol/ext-apps`. See the [SDK Quickstart](https://modelcontextprotocol.github.io/ext-apps/api/documents/Quickstart.html) if you haven't.
+This page is for developers who already have an MCP App rendering in Claude and want it to match the host theme. The snippets assume you have registered a UI resource and created an `App` instance from `@modelcontextprotocol/ext-apps`. If you haven't, start with the [SDK Quickstart](https://modelcontextprotocol.github.io/ext-apps/api/documents/Quickstart.html). To match the host theme, [let the host background show through](#let-the-host-background-show-through), then [apply the host style variables](#apply-the-host-style-variables) at runtime.
 
 ## Let the host background show through
 
-Three settings on your side keep the transparency intact.
+Every frame Claude places between your widget and the chat surface is already transparent, so transparency holds as long as your own document doesn't paint over it. Leave the body background unpainted, declare `color-scheme`, and request a borderless frame.
 
 ### Don't paint a body background
 
@@ -28,7 +28,7 @@ body {
 
 ### Declare `color-scheme` in your document head
 
-Browsers give iframe documents an opaque canvas backdrop (white in light mode, near-black in dark mode) when the iframe's [`color-scheme`](https://developer.mozilla.org/docs/Web/CSS/color-scheme) differs from the embedding page. Declaring both schemes opts your document into whichever mode the host is in, so the browser drops the backdrop and makes the CSS [`light-dark()`](https://developer.mozilla.org/docs/Web/CSS/color_value/light-dark) values in Claude's tokens resolve correctly:
+Browsers give iframe documents an opaque canvas backdrop, white in light mode and near-black in dark mode, when the iframe's [`color-scheme`](https://developer.mozilla.org/docs/Web/CSS/color-scheme) differs from the embedding page. Declaring both schemes opts your document into whichever mode the host is in, so the browser drops the backdrop and makes the CSS [`light-dark()`](https://developer.mozilla.org/docs/Web/CSS/color_value/light-dark) values in Claude's tokens resolve correctly:
 
 ```html theme={null}
 <meta name="color-scheme" content="light dark" />
@@ -62,7 +62,7 @@ registerAppResource(server, "My Widget", "ui://my-app/widget.html", {}, async ()
 }));
 ```
 
-## Apply the host's style variables
+## Apply the host style variables
 
 Claude passes a [`hostContext`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiHostContext.html) object to your widget during the [`connect()`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#connect) handshake. The fields relevant to theming are:
 
@@ -76,17 +76,19 @@ The [Style variables](/docs/connectors/building/mcp-apps/design-guidelines#style
 
 ### Read `hostContext` and listen for changes
 
-The [`App`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html) class exposes the initial context via [`getHostContext()`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#gethostcontext) once `connect()` resolves, and delivers subsequent updates (such as the user toggling dark mode) through the [`hostcontextchanged`](https://modelcontextprotocol.github.io/ext-apps/api/types/app.AppEventMap.html) event. Register the listener before you connect so you don't miss an early update.
+The [`App`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html) class exposes the initial context via [`getHostContext()`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#gethostcontext) once `connect()` resolves, and delivers subsequent updates, such as the user toggling dark mode, through the [`hostcontextchanged`](https://modelcontextprotocol.github.io/ext-apps/api/types/app.AppEventMap.html) event. Register the listener before you connect so you don't miss an early update.
 
-The SDK provides three helpers that do the DOM work for you, plus React hooks that wrap them:
+The SDK provides helpers that do the DOM work for you, and React hooks that wrap them:
 
-* [`applyDocumentTheme(theme)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/app.applyDocumentTheme.html) sets `<html data-theme>` and the root `color-scheme`, so `[data-theme="dark"]` selectors and `light-dark()` values resolve correctly.
-* [`applyHostStyleVariables(variables)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/app.applyHostStyleVariables.html) writes every entry in `styles.variables` onto `:root` as a CSS custom property.
-* [`applyHostFonts(fontCss)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/app.applyHostFonts.html) injects the host's `@font-face` rules once.
-* [`useApp(options)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/_modelcontextprotocol_ext-apps_react.useApp.html) creates and connects the `App` instance for you in React.
-* [`useHostStyles(app, hostContext)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/_modelcontextprotocol_ext-apps_react.useHostStyles.html) applies all of the above and re-applies on `hostcontextchanged`.
+* [`applyDocumentTheme(theme)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/app.applyDocumentTheme.html) sets `<html data-theme>` and the root `color-scheme`, so `[data-theme="dark"]` selectors and `light-dark()` values resolve correctly
+* [`applyHostStyleVariables(variables)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/app.applyHostStyleVariables.html) writes every entry in `styles.variables` onto `:root` as a CSS custom property
+* [`applyHostFonts(fontCss)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/app.applyHostFonts.html) injects the host's `@font-face` rules once
+* [`useApp(options)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/_modelcontextprotocol_ext-apps_react.useApp.html) creates and connects the `App` instance for you in React
+* [`useHostStyles(app, hostContext)`](https://modelcontextprotocol.github.io/ext-apps/api/functions/_modelcontextprotocol_ext-apps_react.useHostStyles.html) applies the theme, variables, and fonts and re-applies on `hostcontextchanged`
 
-Keep the `<meta name="color-scheme">` tag from the previous section even though `applyDocumentTheme` also sets `color-scheme` at runtime. The tag covers the first paint before your script runs and prevents an opaque-backdrop flash.
+Keep the `<meta name="color-scheme">` tag in your document head even though `applyDocumentTheme` also sets `color-scheme` at runtime. The tag covers the first paint before your script runs and prevents an opaque-backdrop flash.
+
+This example applies the theme, variables, and fonts on connect and again on every host context change:
 
 <CodeGroup>
   ```ts TypeScript theme={null}
@@ -150,9 +152,11 @@ body {
 
 ### Allow the host font origin in your CSP
 
-For `applyHostFonts` to load the `@font-face` files, your resource's [`_meta.ui.csp`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceMeta.html#csp) allowlist must include `https://assets.claude.ai` in [`resourceDomains`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceCsp.html#resourcedomains) (shown in the [`registerAppResource` snippet above](#request-a-borderless-frame)). `resourceDomains` also adds the listed origins to `script-src` and `style-src`, so keep it to origins you trust to serve executable code; prefer bundling third-party fonts into your widget rather than allowlisting public CDNs.
+For `applyHostFonts` to load the `@font-face` files, your resource's [`_meta.ui.csp`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceMeta.html#csp) allowlist must include `https://assets.claude.ai` in [`resourceDomains`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceCsp.html#resourcedomains), as the [`registerAppResource` snippet](#request-a-borderless-frame) shows. `resourceDomains` also adds the listed origins to `script-src` and `style-src`, so keep it to origins you trust to serve executable code. Prefer bundling third-party fonts into your widget rather than allowlisting public CDNs.
 
-## Related topics
+## Next steps
 
-* [Design guidelines: Style variables](/docs/connectors/building/mcp-apps/design-guidelines#style-variables) and [Visual design](/docs/connectors/building/mcp-apps/design-guidelines#visual-design) for the full variable palette and usage guidance.
-* [SDK API reference](https://modelcontextprotocol.github.io/ext-apps/api/index.html) for `App`, `McpUiHostContext`, and `McpUiResourceMeta`.
+* [Style variables](/docs/connectors/building/mcp-apps/design-guidelines#style-variables): the full variable palette in the design guidelines
+* [Visual design](/docs/connectors/building/mcp-apps/design-guidelines#visual-design): usage guidance for color, typography, and spacing in the design guidelines
+* [Supersede older widget instances](/docs/connectors/building/mcp-apps/instance-supersession): keep only the newest copy of your widget active in a conversation
+* [SDK API reference](https://modelcontextprotocol.github.io/ext-apps/api/index.html): `App`, `McpUiHostContext`, and `McpUiResourceMeta`

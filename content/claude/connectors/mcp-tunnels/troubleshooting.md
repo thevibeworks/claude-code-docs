@@ -4,7 +4,7 @@
 
 # Troubleshoot MCP tunnels
 
-> Fix MCP tunnel problems: cloudflared won't connect, connector added but tools don't appear, no route for host, IP validation failed, TLS handshake failed, expired certificate, OAuth sign-in redirects to a tunnel.anthropic.com URL, token exchange fails, and setup or Helm hook errors.
+> Fix MCP tunnel problems: cloudflared won't connect, tools don't appear, routing and IP validation errors, TLS and certificate failures, and OAuth errors.
 
 <Note>
   MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
@@ -30,11 +30,14 @@ For proxy configuration fields and certificate rules referenced below, see the [
 
 ### The tunnel stack starts but cloudflared never connects
 
-cloudflared logs four `Registered tunnel connection` lines when it reaches the tunnel edge. If they never appear, the cause is almost always one of two things. Either `TUNNEL_TOKEN` is missing, truncated, or from a token that has since been rotated, or a firewall is blocking outbound TCP and UDP on port 7844 to the edge ranges `198.41.192.0/19` and `2606:4700:a0::/44`. On Docker Compose, confirm the variable is exported in the shell that ran `docker compose up`. After a token rotation, restart cloudflared on every host with the new value.
+cloudflared logs four `Registered tunnel connection` lines when it reaches the tunnel edge. If they never appear, the cause is almost always one of these:
+
+* **The tunnel token**: `TUNNEL_TOKEN` is missing, truncated, or from a token that has since been rotated. On Docker Compose, confirm the variable is exported in the shell that ran `docker compose up`. After a token rotation, restart cloudflared on every host with the new value
+* **A firewall**: a firewall is blocking outbound TCP and UDP on port 7844 to the edge ranges `198.41.192.0/19` and `2606:4700:a0::/44`
 
 ### cloudflared logs `failed to sufficiently increase receive buffer size`
 
-This is a QUIC tuning hint, not an error, and the tunnel works without addressing it. To remove the warning, raise the host's UDP buffer limits as described in the [quic-go UDP buffer documentation](https://github.com/quic-go/quic-go/wiki/UDP-Buffer-Sizes).
+The `failed to sufficiently increase receive buffer size` message is a QUIC tuning hint, not an error, and the tunnel works without addressing it. To remove the warning, raise the host's UDP buffer limits as described in the [quic-go UDP buffer documentation](https://github.com/quic-go/quic-go/wiki/UDP-Buffer-Sizes).
 
 ### The setup component fails with an authentication or permission error
 
@@ -56,7 +59,7 @@ kubectl -n mcp-tunnel delete job mcp-tunnel-setup
 
 ### A tunnel hostname does not respond to curl or a browser
 
-This is expected. Hostnames under `tunnel.anthropic.com` accept connections only from Claude, so you can't test them from your own network or the internet. Verify the tunnel by connecting the custom connector in Claude and calling one of the server's tools while you watch the proxy logs.
+A tunnel hostname that doesn't respond to curl or a browser is expected. Hostnames under `tunnel.anthropic.com` accept connections only from Claude, so you can't test them from your own network or the internet. Verify the tunnel by connecting the custom connector in Claude and calling one of the server's tools while you watch the proxy logs.
 
 ## Routes and certificates
 
@@ -101,14 +104,27 @@ Anthropic rejected the certificate the proxy presented. Check that the server ce
 
 ## Connectors and tools
 
-### Adding the connector fails, or it connects but no tools appear
+### Adding the connector fails, or the connector connects but no tools appear
 
 Work through these checks in order.
 
-1. Confirm the stack is connected, using the log checks in [Verify the connection](/docs/connectors/mcp-tunnels/setup#verify-the-connection).
-2. Confirm the tunnel was created with a Tunnels API key from the same claude.ai organization where you are adding the connector. A tunnel created from another organization, including a Claude Console organization, is refused before any traffic reaches your network, and your proxy logs show nothing.
-3. Confirm the connector URL includes the path your MCP server serves, such as `/mcp`. A request to the bare hostname reaches the proxy but the server may answer `404`.
-4. Watch the proxy logs while you retry. `no route for host` and `IP validation failed` point to the sections above. An upstream connection error means the proxy can't reach the MCP server from where it runs.
+<Steps>
+  <Step title="Confirm the stack is connected">
+    Confirm the stack is connected, using the log checks in [Verify the connection](/docs/connectors/mcp-tunnels/setup#verify-the-connection).
+  </Step>
+
+  <Step title="Confirm the tunnel's organization">
+    Confirm the tunnel was created with a Tunnels API key from the same claude.ai organization where you are adding the connector. A tunnel created from another organization, including a Claude Console organization, is refused before any traffic reaches your network, and your proxy logs show nothing.
+  </Step>
+
+  <Step title="Confirm the connector URL's path">
+    Confirm the connector URL includes the path your MCP server serves, such as `/mcp`. A request to the bare hostname reaches the proxy but the server may answer `404`.
+  </Step>
+
+  <Step title="Watch the proxy logs">
+    Watch the proxy logs while you retry. `no route for host` and `IP validation failed` point to the sections above. An upstream connection error means the proxy can't reach the MCP server from where it runs.
+  </Step>
+</Steps>
 
 ## OAuth sign-in
 
@@ -133,3 +149,9 @@ Anthropic enables the option for each organization in the research preview on re
 ## Get help
 
 If these steps don't resolve the problem, contact your Anthropic account team with the tunnel domain, the time of a failed request, and the relevant cloudflared and proxy log lines.
+
+## Related resources
+
+* [Set up an MCP tunnel](/docs/connectors/mcp-tunnels/setup): the deployment, verification, and credential rotation steps
+* [Authenticate to MCP servers behind a tunnel](/docs/connectors/mcp-tunnels/oauth): the Tunnel OAuth configuration fields and the split-metadata alternative
+* [MCP tunnels reference](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference): proxy configuration fields, certificate requirements, and the setup component

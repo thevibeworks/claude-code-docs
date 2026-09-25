@@ -45,7 +45,7 @@ Within the application-data directory:
 | `cowork_plugins/`                                            | User-installed and [org-provisioned](/docs/third-party/claude-desktop/extensions#organization-plugins-admin) plugins. Created on first plugin install.                                                                                                                                                                    |
 | `IndexedDB/`, `Local Storage/`, `Session Storage/`           | Renderer-side UI state (window layout, recent folders, preferences).                                                                                                                                                                                                                                                 |
 
-Files in this directory are written with owner-only permissions so other OS accounts on the same machine cannot read them.
+Files in this directory are written with owner-only permissions so other OS accounts on the same machine cannot read them. The app encrypts stored sign-in tokens and similar secrets with the operating system's secure storage (see [Credentials](#credentials)), but not conversations, settings, or locally applied configuration, including an API key saved from the in-app configuration window. Protection at rest for those files depends on the device's full-disk encryption, such as FileVault or BitLocker.
 
 The logs directory contains `main.log` (application and configuration-validation events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
