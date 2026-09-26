@@ -40,7 +40,9 @@ The form asks for the same fields in all three.
 | Claude's application key | The Application key from Datadog. Optional in the form; add it so Claude can read metrics, monitors, and dashboards |
 | Allowed websites         | Prefilled by the preset; override for other sites (see below)                                                       |
 
-Datadog has a separate API host per site, and a key only works against its own. If your account is on a site without a picker entry, pick any Datadog entry and override Allowed websites with your site's API host: `api.us3.datadoghq.com`, `api.ap1.datadoghq.com`, or `api.ddog-gov.com`. To change the host later, open the **⋮** menu on this connection in the bundle's Credentials tab and choose **Edit**.
+Datadog has a separate API host per site, and a key only works against its own. If your account is on a site without a picker entry, pick any Datadog entry and override the **Allowed websites** field with your site's API host: `api.us3.datadoghq.com`, `api.ap1.datadoghq.com`, or `api.ddog-gov.com`. To change the host later, open the **⋮** menu on this connection in the bundle's Credentials tab and choose **Edit**.
+
+If you override the **Allowed websites** field, replace the prefilled host with your site's API host rather than adding yours alongside it, so that **Test connection** checks your host instead of the prefilled one. You can save the connection even if the test fails, and the credential is sent only to the hosts in **Allowed websites**.
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

@@ -55,7 +55,8 @@ What a routine can reach is determined by the repositories you select, the [envi
 When the routine's schedule or **Run now** starts a run, Claude republishes an existing artifact without asking only when all of these hold:
 
 * You can edit the artifact and it belongs to your own organization
-* The artifact isn't shared publicly, and isn't shared with specific people or your organization with the latest version chosen as the version viewers see
+* The artifact isn't shared publicly
+* If the artifact is shared with specific people or your organization, its viewers don't automatically see each new version
 * The publish carries only the page, with no supporting files or anything else added, and doesn't force over a newer version
 * The page holds no grant that reaches beyond the page, such as [connector calls](/docs/en/artifacts#pull-live-data-with-mcp-connectors)
 
@@ -97,7 +98,7 @@ Routines belong to your individual claude.ai account. They are not shared with t
 
     <Tabs>
       <Tab title="Schedule">
-        Pick a preset frequency for a recurring run, or schedule a single one-off run at a specific timestamp. See [Add a schedule trigger](#add-a-schedule-trigger) for timezone handling, stagger, custom cron intervals, and one-off runs.
+        Pick a preset frequency for a recurring run, or schedule a single one-off run at a specific timestamp. See [Add a schedule trigger](#add-a-schedule-trigger) for timezone handling, late starts, custom cron intervals, and one-off runs.
       </Tab>
 
       <Tab title="GitHub event">
@@ -139,7 +140,7 @@ A routine starts when one of its triggers matches. You can attach any combinatio
 
 A schedule trigger runs the routine on a recurring cadence, or once at a specific future time. Pick a preset frequency in the **Select a trigger** section: hourly, daily, weekdays, or weekly. Times are entered in your local zone and converted automatically, so the routine runs at that wall-clock time regardless of where the cloud infrastructure is located.
 
-Runs may start a few minutes after the scheduled time due to stagger. The offset is consistent for each routine.
+If you schedule a run exactly on the hour, such as 9:00, it can start several minutes late. To start close to the scheduled time, pick a few minutes past the hour, for example 9:07.
 
 For a custom interval such as every two hours or the first of each month, pick the closest preset in the form, then run `/schedule update` in the CLI to set a specific cron expression. The minimum interval is one hour; expressions that run more frequently are rejected.
 

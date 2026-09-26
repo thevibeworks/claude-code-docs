@@ -92,7 +92,7 @@ Internal APIs are behind https://gateway.example.com. Call GET /list-services th
 
 The sample gateway serves `GET /list-services` for this; an OpenAPI document named in the instructions works as well.
 
-New threads pick up the connection on their own. In a thread already running, ask Claude to use the gateway and include its address. If Claude still can't see the gateway, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) at the channel's top level to start a fresh session with your organization's current configuration.
+New threads pick up the connection on their own. In a thread already running, ask Claude to use the gateway and include its address. If Claude still can't see the gateway, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread. Claude then continues from a fresh session with your organization's current configuration.
 
 ## Verify the connection
 

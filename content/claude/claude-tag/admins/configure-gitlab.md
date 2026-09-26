@@ -55,7 +55,7 @@ Set an expiry that matches your rotation policy, and store the token somewhere y
   </Step>
 
   <Step title="Connect GitLab">
-    Click **Connect** next to **GitLab** and paste the token into **Personal access token**.
+    Click **Connect** next to **GitLab** and paste the token into **Claude’s personal access token**.
   </Step>
 
   <Step title="Attach the GitLab plugin">

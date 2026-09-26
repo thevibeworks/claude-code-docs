@@ -41,7 +41,12 @@ Channel spend is attributed to at most one Slack user at a time, by these rules:
 * **Work someone asked for goes to the person who asked.** Spend for each of Claude's replies goes to the member whose message Claude was responding to, so when several people address Claude in one thread, the spend is split across them.
 * **Work Claude picks up on its own goes to a person in the thread where it did the work.** That person is the member whose message Claude acted on, if there is one. Otherwise it is whoever mentioned Claude into the thread, or, if no one did, the person who started the thread.
 * **Scheduled routines go to the person who set the routine up.**
-* **The null row collects spend with no attributable person.** Examples are work Claude started on its own in a thread that another app or bot posted, and a routine whose creator can't be identified. Monitoring, meaning Claude reading a channel it was asked to watch, is never attributed to a user. Per-user rows therefore sum to less than your total channel spend.
+* **The null row collects spend with no attributable person.** Examples are:
+  * the [channel session's](/docs/claude-tag/concepts/how-it-works#lifecycle-of-a-request) own work
+  * work Claude started on its own in a thread started by Claude, another app, or a bot
+  * a routine whose creator can't be identified
+
+Per-user rows therefore sum to less than your total channel spend.
 
 Per-user attribution doesn't change billing. Channel work still bills to your organization's usage balance, not to any user's seat. See [Set a spend limit](/docs/claude-tag/admins/set-spend-limit) for the billing split.
 

@@ -156,7 +156,7 @@ Checkpoints are separate from git and remain available when you resume a convers
 
 Choose a permission mode to set what Claude can do without asking you. Press `Shift+Tab` to cycle through the permission modes:
 
-* **Auto**: a classifier reviews most actions in the background and blocks the risky ones instead of asking you. On Pro, Max, and Team plans, it's the [built-in starting permission mode](/docs/en/permission-modes#which-mode-a-session-starts-in) for interactive terminal and VS Code sessions
+* **Auto**: a classifier reviews most actions in the background and blocks the risky ones instead of asking you. With Claude Code v2.1.283 or later, it's the [built-in starting permission mode](/docs/en/permission-modes#which-mode-a-session-starts-in) for interactive terminal and VS Code sessions, and on earlier versions only on Pro, Max, and Team plans
 * **Manual**: Claude asks before file edits and shell commands
 * **Accept edits**: Claude edits files and runs common filesystem commands like `mkdir` and `mv` without asking, still asks for other commands
 * **Plan**: Claude explores and proposes a plan without editing your source files
@@ -201,7 +201,7 @@ When the first attempt isn't right, you don't start over. You iterate.
 You can redirect Claude at any point without starting over. Do either of these:
 
 * **Press `Esc`** to stop Claude immediately. The running tool call is canceled and Claude waits for your next instruction. If you have messages queued, Claude Code [sends them next](/docs/en/interactive-mode#queue-messages-while-claude-works).
-* **Type a correction and press `Enter`** without stopping Claude. The message shows as queued above the input box. If Claude is running tool calls, it reads the message as soon as those calls finish, within the same turn, and adjusts before its next step. [Queue messages while Claude works](/docs/en/interactive-mode#queue-messages-while-claude-works) covers when other queued entries are sent.
+* **Type a correction and press `Enter`** without stopping Claude. The message shows as queued in the conversation. If Claude is running tool calls, it reads the message as soon as those calls finish, within the same turn, and adjusts before its next step. [Queue messages while Claude works](/docs/en/interactive-mode#queue-messages-while-claude-works) covers when other queued entries are sent.
 
 ### Delegate, don't dictate
 

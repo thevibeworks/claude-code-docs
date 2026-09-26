@@ -42,7 +42,7 @@ To have Claude answer more kinds of untagged messages in a channel, tell it whic
 
 The **Respond automatically** setting controls whether Claude replies to a channel's messages without an @-mention. When it's on, Claude may reply to a message it judges warrants one, as [What Claude does with a channel message](#what-claude-does-with-a-channel-message) describes. When it's off, Claude replies in that channel only when someone @-mentions it.
 
-The setting is on by default, so a channel Claude was just added to replies without @-mentions from the start.
+The setting is on by default.
 
 Each channel has its own copy of the setting, and there is no workspace- or organization-wide version. To make Claude mention-only across many channels, turn it off in each one.
 
@@ -53,6 +53,8 @@ All three places below change the same setting, so a change you make in one appe
 | In Slack                                | Ask Claude in the channel, for example "@Claude only respond in this channel when someone @-mentions you" or "@Claude respond to messages here even when nobody mentions you." Claude confirms the change.                               |
 | The channel's Configure page            | Open the **Configure** link in the footer of any Claude reply in the channel and switch the **Respond automatically** toggle. See [Configure Claude for a channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel).        |
 | The Claude Tag admin page (admins only) | At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, open the channel's scope and switch **Respond automatically** in its **Advanced** settings. |
+
+When the scope's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**, Claude declines to change **Respond automatically** when anyone asks in Slack, and channel members can't switch the toggle on the channel's Configure page. An admin can still change the setting on the Claude Tag admin page, and a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can still switch the toggle on the Configure page of a channel assigned to them.
 
 The setting covers the channel's messages, not DMs. To quiet a single thread instead of the whole channel, [ask Claude in that thread](#quiet-one-conversation).
 
@@ -93,7 +95,7 @@ Turn the channel's [**Respond automatically**](#turn-automatic-replies-on-or-off
 @Claude only respond in this channel when someone @-mentions you directly.
 ```
 
-Claude confirms the change, which is channel-wide, not just for you. You can make the same change with the toggle on the channel's Configure page, and an admin can make it from the Claude Tag admin page.
+Claude confirms the change, which is channel-wide, not just for you. You can make the same change with the toggle on the channel's Configure page, and an admin can make it from the Claude Tag admin page. If Claude declines because an admin has locked the channel's settings, ask an admin to make the change from the Claude Tag admin page, as [Turn automatic replies on or off](#turn-automatic-replies-on-or-off) describes.
 
 Threads Claude already joined keep forwarding replies, so quiet those individually with the in-thread line above. The [`!mute` command](/docs/claude-tag/users/commands#mute-or-unmute-a-thread) quiets one thread at a time and does nothing at a channel's top level.
 
@@ -113,7 +115,7 @@ Claude counts the messages posted in a channel since it last posted there itself
 
 To start Claude reading again, mention `@Claude` in the channel. A mention from a person reaches Claude even while Claude isn't reading the channel, and once Claude posts its reply, it reads the channel's messages again.
 
-If unprompted replies don't come back after Claude answers a mention, the channel's [**Respond automatically**](#turn-automatic-replies-on-or-off) setting is off. Answering a mention doesn't turn the setting on, and Claude changes the setting only when a channel member asks it to, so turn it back on in any of the three places listed in that section.
+If unprompted replies don't come back after Claude answers a mention, the channel's [**Respond automatically**](#turn-automatic-replies-on-or-off) setting is off. Answering a mention doesn't turn the setting on, and Claude changes the setting only when a channel member asks it to, so turn it back on in one of the three places listed in that section.
 
 ## Messages that never get a reply
 

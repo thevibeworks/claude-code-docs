@@ -41,7 +41,7 @@ Every thread Claude takes part in runs a session of its own, holding that one co
 Where you run `!restart` picks which session gets replaced:
 
 * **In a thread**, `!restart` replaces that thread's session. The fresh session rereads the thread, so it keeps what's in the messages and drops everything else the old one was carrying.
-* **At a channel's top level**, `!restart` replaces the channel's session. The fresh session picks up from where the old one left off.
+* **At a channel's top level**, `!restart` replaces the channel's session. The fresh session picks up from where the old one left off. In a channel without a session of its own, Claude restarts nothing and tells you so in a note only you can see.
 
 Claude confirms once the replacement session is ready. If the restart can't complete, Claude tells you and you can run `!restart` again.
 

@@ -1,8 +1,10 @@
 # Use Google Workspace connectors
 
-Connect your Gmail, Google Calendar, and Google Drive to Claude so you can search and send emails, manage your calendar, work with documents, and save files—all without leaving the conversation.
+Connect your Gmail, Google Calendar, and Google Drive to Claude so you can search and send emails, manage your calendar, work with documents, and save files, all without leaving the conversation.
 
 Google Workspace connectors (Gmail, Google Calendar, and Google Drive) are available for all users on Claude and Claude Desktop.
+
+**Beta:** Claude can edit Google Docs, Sheets, and Slides live in a pane beside the chat, on Claude on the web and Claude Desktop. You and Claude can edit the same file at the same time. Because this is a beta, some features are limited or may not work reliably. See **[Current limitations](#h_cbd94d5da5)**.
 
 For Team and Enterprise plans, an Owner or Primary Owner must enable these connectors at the organization level before individual users can authenticate. For setup instructions, read **[Use connectors to extend Claude's capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities#h_17dd443beb)**.
 
@@ -54,7 +56,17 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 - **Save Claude-generated files** directly to your Drive (requires **[code execution and file creation](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)** to be enabled).
 
-**Note:** Claude extracts text content only from Google Drive files. Images embedded in documents are not processed.
+**Note:** When Claude reads a Google Drive file, it extracts text content only. Images embedded in documents are not processed.
+
+### Google Docs, Sheets, and Slides (beta)
+
+- **Edit files live in a pane beside the chat.** You and Claude can work in the same file at the same time.
+
+- **Create new Google Docs, Sheets, and Slides files.**
+
+- **Read and work with comments and suggestions** in Google Docs.
+
+These are separate connectors from Google Drive. Google Drive still handles searching, uploading, and sharing files.
 
 ---
 
@@ -92,9 +104,27 @@ The Google Drive connector is only available when adding to **Files** in private
 
 Google Docs added to chats and projects sync directly from Google Drive, so you're always working with the latest version.
 
+### Edit Google Docs, Sheets, and Slides live (beta)
+
+1. Turn on the Docs, Sheets, and Slides connectors. Click the plus sign in the chat, hover over "Connectors," and toggle them on. If the connector isn't turned on when you ask Claude to edit a Google file, Claude prompts you to connect it, then continues with your request.
+
+2. Paste a Google Docs, Sheets, or Slides link into the chat, or ask Claude to create one by name (for example, "make a Google Slides deck from these notes"). Asking for a generic "doc" or "deck" without naming Google creates a local file instead.
+
+3. The file opens in a pane next to the conversation, and you can keep working in it while Claude edits.
+
+  1. The pane works on Claude on the web in Chrome, and on Claude Desktop when the **[built-in browser](https://support.claude.com/en/articles/16607400)** is turned on. On Enterprise plans, the built-in browser is off by default. If the pane isn't available, select “Open in Google” on the file card to open the file in your regular browser.
+
+4. Use the pane header to copy the file's Google link or open it directly in Google.
+
+Claude can only open and change files your Google account has access to. Your existing Google sharing permissions apply.
+
+Each file Claude creates or edits shows as a card in the chat. Select the card to open the file in the pane, or select “Open in Google” to open it in Google. In the pane, you can copy the file's Google link or use the share dialog.
+
+Sign in to Google in the pane: The pane needs a Google session to show your file. On Claude on the web, it uses the Google account already signed in to your browser. On Claude Desktop, Claude asks you to sign in to Google in the pane. If the account in the pane is different from the one you connected to Claude, Claude tells you and offers to switch.
+
 ### Manage individual connectors
 
-You can enable or disable specific connectors from below the chat interface:
+Live editing uses separate Google Docs, Google Sheets, and Google Slides connectors alongside Gmail, Google Calendar, and Google Drive. You can enable or disable specific connectors from below the chat interface:
 
 1. Click the plus sign in the chat interface.
 
@@ -131,6 +161,10 @@ During authentication, Google's OAuth screen mentions email sending permissions.
 ---
 
 ## Current limitations
+
+- Claude can't add charts to Google Slides, and Slides edits may not appear live in the pane.
+
+- Live editing in the pane works on Claude on the web in Chrome and on Claude Desktop with the built-in browser turned on. In other cases, use “Open in Google” on the file card.
 
 - Attachment content is not directly accessible through Gmail (metadata only).
 
@@ -176,6 +210,8 @@ If your organization uses Google Workspace and the connectors aren't working (yo
 
 5. Wait approximately 15 minutes for Google's policy to propagate, then try connecting again.
 
+Live editing for Docs, Sheets, and Slides uses the same Claude for Google Drive app. Admins approve it once, and no separate approval is needed for each file type.
+
 ---
 
 ## Frequently asked questions
@@ -194,7 +230,19 @@ You won't be able to view its contents in conversations where it was previously 
 
 ### Does Claude have access to images, comments, or suggestions in Google Docs?
 
-No. Claude extracts the main text content only and cannot see images, comments, or suggestions.
+Claude can see comments and suggestions in Google Docs, but it can't see images.
+
+### How do I get Claude to create a Google file instead of a local file?
+
+Ask for a Google doc, Google sheet, or Google Slides deck by name, or paste a link to an existing Google file. If you ask for a document without mentioning Google, Claude creates a file you can download instead.
+
+### Can I edit the file while Claude is editing it?
+
+Yes. You and Claude can work in the same file at the same time. Claude re-reads the current content before each change, but in a busy file, check the result.
+
+### Why does Claude ask me to sign in to Google in the pane?
+
+The connector lets Claude change your file, and the pane needs its own Google session to show it. Sign in with the same Google account you connected to Claude.
 
 ### Can Claude send emails on my behalf?
 

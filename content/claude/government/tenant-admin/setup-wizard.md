@@ -46,7 +46,7 @@ Once single sign-on is connected, people sign in from Claude Desktop or the web 
 
 ## Step 4: Provisioning (optional)
 
-This step is optional. If your identity provider supports SCIM, which is a standard way for directory systems to push users and group memberships into other applications, you can connect it here so that accounts are created automatically rather than at first sign-in.
+This step is optional. If your identity provider supports SCIM, which is a standard way for directory systems to push users and group memberships into other applications, you can connect it here so that accounts are created automatically.
 
 Like single sign-on, this step is unavailable until you have verified at least one domain on Step 2.
 

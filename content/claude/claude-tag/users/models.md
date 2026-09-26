@@ -36,7 +36,7 @@ To change what new threads in a channel start on, ask for the channel, not just 
 @Claude use Sonnet for this thread, and make it the default model for this channel.
 ```
 
-Claude sets the channel's default model, which applies to new threads in that channel. Threads already underway keep the model they started with until someone in them asks Claude to switch. If an admin has set the scope's **Channel member edits** setting to **Block**, Claude declines to set the channel default; ask for the thread alone instead.
+Claude sets the channel's default model. New threads in the channel start on it. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an admin has set the scope's **Channel member edits** setting to **Block**, Claude declines to set the channel default; ask for the thread alone instead.
 
 Admins set the same default from claude.ai, per workspace or channel; see [choose the model for a scope](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope).
 
@@ -48,7 +48,7 @@ The selector doesn't change a conversation already underway. To change one of th
 
 ## Which models you can use
 
-Anthropic manages the list of models on offer, and your organization's settings narrow it. The options include Opus and Sonnet models, drawn from what's available to your organization. Every list you see in Slack, the direct message selector and the models Claude offers to switch to, is already filtered to that set.
+Anthropic manages the list of models on offer, and your organization's settings narrow it. The options include Opus and Sonnet models, drawn from the models your organization allows, and in channels that list applies regardless of your own account's model access. Every list you see in Slack, the direct message selector and the models Claude offers to switch to, is already filtered to that set.
 
 To see the current list, ask in the thread.
 

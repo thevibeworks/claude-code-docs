@@ -34,7 +34,7 @@ Work through these in order. Each step says what success looks like and where to
 2. **Is Claude in this channel?** Type `/invite @Claude` in the channel's message box, not in a thread reply. Slack rejects `/invite` inside threads ("/invite is not supported in threads. Sorry!"). **Works**: Slack posts "Claude was added to #channel" (or "is already in this channel"). Mention it again. **Fails**: Slack says you can't add apps to this channel (a Slack Connect or guest-restricted channel); try an internal channel instead. If Slack says "You don't have permission to invite people to this channel", the channel or workspace limits who can add people. In Slack, open **Channel details** → **Agents & apps** (called **Integrations** in some Slack versions), select **Add**, and pick **Claude**. Or ask someone who can add people to the channel to add Claude.
 3. **Is Claude Tag turned on for this channel?** Mention it again now that it's invited. **Works**: it reacts and replies. **Fails**: it replies "Claude is disabled in this channel" (Claude Tag is turned off for the channel, its workspace, or the organization), or it replies but behaves like the earlier Claude in Slack, with no channel memory and pull requests opening under your name rather than Claude's (the channel is set to **Legacy**). Either way this needs your admin (send them [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/restrict-access#migrate-from-the-earlier-claude-in-slack)).
 
-If `@Claude` still gets no reaction and no reply after all three, send your admin [the admin entries for a silent workspace](/docs/claude-tag/admins/troubleshooting#nothing-responds). If the silence covers every channel across an Enterprise Grid, the fix needs a Slack organization admin rather than your Claude admin, so send the link to them.
+If `@Claude` still gets no reaction and no reply after all three, send the [admin entries for a silent workspace](/docs/claude-tag/admins/troubleshooting#nothing-responds) to an admin. For silence in one channel, send them to your Claude admin. For silence across a whole workspace or a whole Enterprise Grid, send them to whoever administers Slack for you, because the fix usually needs a Slack admin.
 
 ### Claude replies to me but not to a teammate
 
@@ -200,6 +200,34 @@ Once Claude is mentioned in a thread, it follows the whole conversation there an
 
 Reply in the thread with an instruction such as "only respond when I @-mention you"; Claude follows that instruction for the rest of the thread.
 
+### Claude replies in a channel without an @-mention
+
+**What you see**
+
+Someone posts a top-level message in the channel without mentioning Claude, and Claude replies to it in a thread.
+
+**What it means**
+
+The channel's [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) setting is on. The setting is on by default.
+
+In a channel where someone has [told Claude which kinds of untagged messages to answer](/docs/claude-tag/users/when-claude-responds#what-claude-does-with-a-channel-message), it answers those kinds as well.
+
+**How to resolve**
+
+Turn the **Respond automatically** setting off in the channel where the replies are appearing.
+
+Post `@Claude only respond in this channel when someone @-mentions you` at the channel's top level, not in a thread. Claude confirms the change, which applies to the whole channel rather than to you alone.
+
+If Claude doesn't confirm the change, turn the setting off on the channel's Configure page:
+
+1. Open the **Configure** link in the footer of any Claude reply in the channel.
+2. Turn off the **Respond automatically** toggle.
+3. Click **Save**.
+
+If the Configure page says an admin has locked the channel's settings, ask an admin to [turn automatic replies off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) for the channel.
+
+The **Respond automatically** setting doesn't quiet a thread Claude has already posted in. To quiet one of those threads, reply in it with an instruction such as "only respond when I @-mention you".
+
 ### I want to take back something I sent
 
 **What you see**
@@ -208,11 +236,31 @@ You edited or deleted a message, and Claude still acts on the original.
 
 **What it means**
 
-Claude has already read the original. An edit reaches it as a new update in the thread, so it may or may not act on the change, and it never undoes work already in progress. A deleted reply doesn't reach Claude at all.
+Claude has already read the original. An edit reaches it as a new update in the thread, so it may or may not act on the change, and it never undoes work already in progress. A deleted reply doesn't reach Claude at all. If you delete the thread's first message instead, Claude stops working in that thread and the session closes.
 
 **How to resolve**
 
 Say so in a new reply ("ignore that, do X instead"), or start a fresh thread for a clean session.
+
+### I want Claude to remove a message it posted
+
+**What you see**
+
+Claude posted a message in a conversation you're in, and you want it removed.
+
+**What it means**
+
+Claude can delete only messages that the conversation's current [session](/docs/claude-tag/concepts/glossary#session) posted, so it can't delete your messages, anyone else's, or a message it posted before that session started.
+
+**How to resolve**
+
+Ask in the thread where Claude posted the message ("`@Claude` delete that reply"). Claude deletes a message only when someone in the conversation explicitly asks it to.
+
+Deleting a message this way has the following effects:
+
+* The deletion is permanent.
+* When the deleted message started a thread that has replies, Slack keeps the replies.
+* Deleting the message from Slack doesn't remove it from the session's transcript. See [What Anthropic stores](/docs/claude-tag/concepts/data-lifecycle#what-anthropic-stores).
 
 ### This conversation is too long for me to process
 
@@ -484,13 +532,13 @@ A connector you use on claude.ai is missing when you work with Claude in Slack, 
 
 **What it means**
 
-Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use your personal connectors there for your own tasks, after you allow it. A DM runs on your own claude.ai account and uses that account's connectors.
+Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. Claude can also [use your personal connectors there](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. A DM runs on your own claude.ai account and uses that account's connectors.
 
 You set up and authenticate connectors on claude.ai under **Customize > Connectors**; Slack has no connector settings of its own. The [settings map](/docs/claude-tag/concepts/settings-map) covers every settings surface.
 
 **How to resolve**
 
-For a channel, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections) for the service. If [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available to your organization, Claude can also use your personal connectors for your own tasks, after you allow it.
+For a channel, ask your admin to [add a connection](/docs/claude-tag/admins/add-connections) for the service. Claude can also use your [personal connectors](/docs/claude-tag/concepts/personal-connectors) for your own tasks in the channel, after you allow it.
 
 For a DM, work through these in order:
 
@@ -531,19 +579,38 @@ If the service exposes an HTTP API, ask your admin to [add a connection](/docs/c
 
 **What you see**
 
-Claude posts in the thread:
+Claude posts one of these messages in the thread.
+
+**Claude Tag spend limit**
 
 > You've reached a Claude Tag spend limit. A Claude.ai organization owner can raise it in Claude.ai admin settings. Once the limit is raised, mention me to retry.
 
-You may also see a heads-up before you hit the limit. It starts "Heads up — your organization has used *N%* of its monthly Claude Tag spend limit." for the organization limit, or "Heads up — this channel has used *N%* of its monthly Claude Tag spend limit." for a channel limit.
+Before you hit the limit, Claude can post a heads-up that starts "Heads up — your organization has used *N%* of its monthly Claude Tag spend limit." for the organization limit, or "Heads up — this channel has used *N%* of its monthly Claude Tag spend limit." for a channel limit.
+
+**Your individual extra usage limit**
+
+In a DM, usage is billed to your seat. When your own extra usage limit is the cap, Claude posts:
+
+> You've reached your individual extra usage limit, so I couldn't finish this turn. A Claude.ai organization owner can raise your limit in Claude.ai admin settings (Usage), or it resets when your next usage period starts. Once either happens, mention me to retry.
+
+**Organization extra usage limit**
+
+In a DM or a channel, when your organization's extra usage limit is the cap rather than a Claude Tag spend limit, Claude posts:
+
+> Your organization has reached its extra usage spend limit, so I couldn't finish this turn. A Claude.ai organization owner can raise it in Claude.ai admin settings (Usage), or it resets when the next usage period starts. Once either happens, mention me to retry.
 
 **What it means**
 
-Usage hit a cap an admin set, either for the whole organization or for this channel. A rate limit looks similar but is a different problem, and raising the spend limit doesn't clear it. If your message says "Hit the session rate limit — try again in a few seconds." (or "in about Ns" when Claude knows the wait), too many sessions started at once. Wait a moment, then mention Claude again.
+Usage hit a cap. For the **Claude Tag spend limit** message, the cap is a spend limit an admin set, either for the whole organization or [for this channel](/docs/claude-tag/admins/restrict-access#set-spend-limits), and the message reads the same for both.
+
+A rate limit looks similar but is a different problem, and raising the spend limit doesn't clear it. If your message instead says "That message didn't get through to Claude." or begins "Rate-limited delivering that message", requests arrived faster than Claude accepts them at that moment. Wait a few seconds, then send your message again.
 
 **How to resolve**
 
-Ask your admin to raise the limit; they do so at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag). Your admin here is whoever manages your organization's Claude account at claude.ai, not necessarily your Slack administrator. Once the limit is raised, mention Claude in the same thread to retry.
+* For the **Claude Tag spend limit** message, ask your admin to raise the limit; they do so at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag). Your admin here is whoever manages your organization's Claude account at claude.ai, not necessarily your Slack administrator.
+* For the **Your individual extra usage limit** and **Organization extra usage limit** messages, ask a claude.ai organization owner to raise the limit in the claude.ai admin settings under **Usage**, or wait for it to reset when the next usage period starts.
+
+Once the limit is raised or the period resets, mention Claude in the same thread to retry.
 
 ## DMs aren't working
 
@@ -620,5 +687,6 @@ Start a private channel with the same members instead.
 
 ## Related resources
 
+* [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds): what makes Claude reply without an @-mention, and the controls that turn those replies off
 * [How Claude Tag works](/docs/claude-tag/concepts/how-it-works): why behavior differs by channel and thread
 * [Give feedback](https://support.claude.com): report a bug from the thread where it happened

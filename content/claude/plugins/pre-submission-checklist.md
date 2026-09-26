@@ -174,7 +174,7 @@ The component checks confirm that Claude Code can load each hook, skill, command
 
 The security scan looks for behavior that a plugin doesn't disclose, such as sending data elsewhere, running hidden code, or changing Claude's permission settings.
 
-A first submission that fails the security scan is rejected, and a later version that fails can't go live. A new version that the scan flags is held for a reviewer. The **Versions** tab on the plugin's page in the developer portal shows **Didn’t pass the security scan**, or the category of the finding, such as **Sends data to an undisclosed destination**. [Submit your plugin](/docs/plugins/submit#fix-a-failed-version) explains what to do when a version doesn't pass.
+A first submission that fails the security scan is rejected, and a later version that fails can't go live. A new version that the scan flags can be held for a reviewer. The **Versions** tab on the plugin's page in the developer portal shows **Didn’t pass the security scan**, or the category of the finding, such as **Sends data to an undisclosed destination**. [Submit your plugin](/docs/plugins/submit#fix-a-failed-version) explains what to do when a version doesn't pass.
 
 To prepare, make the plugin's behavior visible in its README and its source:
 

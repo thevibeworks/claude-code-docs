@@ -4,13 +4,17 @@
 
 # Set a spend limit
 
-> Claude Tag draws from your organization's usage balance, not individual seats. See whether you need to fund usage, how to set the spend limit, and what happens when it's reached.
+> Claude Tag channel work bills to your organization's usage balance, and DMs to the sender's seat. Set the spend limit and see what happens when it's reached.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
 <BetaNote />
 
 Work Claude does in channels bills to your **organization's usage balance**, not to individual seats. The **spend limit** is a cap you set on how much of that balance Claude Tag can use each month.
+
+## How Claude Tag usage is billed
+
+Slack users can work with Claude in channels [without holding a Claude seat](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude).
 
 | Work                                                                                                                                                                             | Bills to                          | Capped by                                                                                             |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------------- |

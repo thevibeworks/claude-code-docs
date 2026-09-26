@@ -104,7 +104,7 @@ The internal orders API is at https://api.example.com; see GET /openapi.json for
 
 The exchange happens in Agent Proxy, outside Claude's sandbox, so neither the identity token nor your access token is visible to Claude, and Claude can't perform the exchange itself.
 
-New threads pick up the connection on their own. In a thread already running, ask Claude to use the API and name its host. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) at the channel's top level (not inside a thread) to start a fresh session with your organization's current configuration.
+New threads pick up the connection on their own. In a thread already running, ask Claude to use the API and name its host. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread. Claude then continues from a fresh session with your organization's current configuration.
 
 ## Verify the connection
 

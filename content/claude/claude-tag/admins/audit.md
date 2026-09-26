@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Use this page to review what Claude Tag is doing across your organization: which routines are scheduled, what memory it has saved, and where to find a record of each action it took.
 
-<Note>The Audit page opens for Owners in your Claude organization; the other trails on this page are visible to anyone with access to the underlying surface.</Note>
+The Audit page opens for Owners in your Claude organization. The other trails on this page are visible to anyone with access to the underlying surface.
 
 Claude Tag activity is auditable in four places:
 
@@ -25,11 +25,11 @@ Claude Tag activity is auditable in four places:
 
 The Audit page, labeled **Activity** in the admin console's left nav and page heading, at [`claude.ai/admin-settings/claude-tag/audit`](https://claude.ai/admin-settings/claude-tag/audit) has these tabs:
 
-| Tab                | What it shows                                                                                                                                                     |
-| :----------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Scheduled work** | Every routine across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete)                                     |
-| **Memory**         | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there.                  |
-| **Network events** | An hourly JSON export of outbound calls Claude made through Agent Proxy. Git and MCP traffic are not included in this export. Select a date and hour to download. |
+| Tab                | What it shows                                                                                                                                                                                                |
+| :----------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Scheduled work** | Every routine across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete)                                                                                |
+| **Memory**         | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there.                                                             |
+| **Network events** | An hourly JSON export of the outbound requests Claude made through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy). Git and MCP traffic are not included. Select a date and hour to download. |
 
 Each routine on the **Scheduled work** tab shows **Created by** (the member who set it up) in its **View details** dialog. There is no per-action log of every task and who asked; for that, use the trails below.
 

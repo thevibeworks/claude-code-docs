@@ -101,7 +101,7 @@ For more ideas on what you can do with Claude Code, see [Common workflows](/docs
 
 The prompt box supports several features:
 
-* **Permission modes**: click the mode indicator at the bottom of the prompt box to switch permission modes. On Pro, Max, and Team plans, Auto is the built-in starting permission mode. See [how the extension chooses the starting permission mode](/docs/en/permission-modes#switch-permission-modes) for what changes that, and every permission mode the indicator offers.
+* **Permission modes**: click the mode indicator at the bottom of the prompt box to switch permission modes. With Claude Code v2.1.283 or later, Auto is the built-in starting permission mode, and on earlier versions only on Pro, Max, and Team plans. See [how the extension chooses the starting permission mode](/docs/en/permission-modes#switch-permission-modes) for what changes that, and every permission mode the indicator offers.
   * **Auto**: a classifier reviews most actions instead of asking you. See [auto mode](/docs/en/permission-modes#eliminate-prompts-with-auto-mode) for what it reviews and blocks.
   * **Manual**: Claude asks permission before file edits and most shell commands.
   * **Plan**: Claude describes what it will do and waits for approval before making changes. VS Code automatically opens the plan as a full Markdown document where you can add inline comments to give feedback before Claude begins.
@@ -226,13 +226,19 @@ If you run [cloud sessions](/docs/en/claude-code-on-the-web), you can resume the
   </Step>
 
   <Step title="Select a session to resume">
-    Browse or search your cloud sessions. Click any session to download it and continue the conversation locally.
+    Browse or search the sessions. Click one to continue the conversation locally.
   </Step>
 </Steps>
 
 <Note>
-  Only cloud sessions started with a GitHub repository appear in the Web tab. Resuming loads the conversation history locally; changes are not synced back to claude.ai.
+  When the folder you have open is a GitHub repository, the Web tab shows only sessions from that repository.
+
+  When you resume a cloud session, the extension downloads a copy of the conversation history; changes don't sync back to claude.ai.
 </Note>
+
+The Web tab also lists your [Remote Control](/docs/en/remote-control) sessions. If you click one that ran in the folder you have open, the extension opens that local conversation instead of downloading a copy, and focuses the tab already showing it if there is one. If the extension can't rule out that another Claude process has the conversation open, you get a downloaded copy instead.
+
+If any part of a conversation fails to download, an error appears and no copy is saved. Select the session again to retry. If you select a session that has no conversation to download yet, an error tells you where to continue it instead.
 
 ### Check account and usage
 
@@ -462,7 +468,7 @@ The extension also handles `vscode://anthropic.claude-code/install-plugin`, whic
 The extension has two types of settings:
 
 * **Extension settings** in VS Code: control the extension's behavior within VS Code. Open with `Cmd+,` (Mac) or `Ctrl+,` (Windows/Linux), then go to Extensions → Claude Code. You can also type `/` and select **General config…** to open settings.
-* **Claude Code settings** in `~/.claude/settings.json`: shared between the extension and CLI. Use it for allowed commands, environment variables, hooks, and MCP servers. On Pro, Max, and Team plans, it's also one input to the permission mode conversations start in. [Switch permission modes](/docs/en/permission-modes#switch-permission-modes) lists the order. See [Settings](/docs/en/settings) for details.
+* **Claude Code settings** in `~/.claude/settings.json`: shared between the extension and CLI. Use it for allowed commands, environment variables, hooks, and MCP servers. With Claude Code v2.1.283 or later, it's also one input to the permission mode conversations start in, and on earlier versions only on Pro, Max, and Team plans. [Switch permission modes](/docs/en/permission-modes#switch-permission-modes) lists the order. See [Settings](/docs/en/settings) for details.
 
 <Tip>
   Add `"$schema": "https://json.schemastore.org/claude-code-settings.json"` to your `settings.json` to get autocomplete and inline validation for all available settings directly in VS Code.
@@ -647,6 +653,8 @@ When the extension is active, it runs a local MCP server that the CLI connects t
 The server is named `ide` and is hidden from `/mcp` because there's nothing to configure. If your organization uses a `PreToolUse` hook to allowlist MCP tools, though, you'll need to know it exists.
 
 **Selection and open-file context.** While connected, the CLI includes your current editor selection and the path of the active file as context on each prompt you send. The transcript shows a `⧉ Selected N lines from <file>` line when this happens.
+
+If you [queue a message while Claude works](/docs/en/interactive-mode#queue-messages-while-claude-works), it keeps the selection you had when you pressed `Enter`, whatever you select afterward.
 
 To exclude a sensitive file such as `.env`, add a [`Read` deny rule](/docs/en/permissions#read-and-edit) for its path. A matching deny rule prevents both the selected text and the open-file notice for that file from reaching Claude.
 

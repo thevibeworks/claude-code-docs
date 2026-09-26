@@ -16,14 +16,15 @@ You're approving the Claude app install for someone who's setting up Claude Tag.
 
 Claude reads and posts only in channels it has been added to, and in direct messages. Any workspace member who opens a direct message with Claude receives its welcome message, whether or not they've linked a Claude account. Installing the app does not add it to any channel.
 
-A member can add Claude to a channel in one of two ways:
+A member can add Claude to a channel in any of these ways:
 
 * Invite it with `/invite @Claude` in the channel
 * Select **Add to channel** on a channel Claude suggests in a direct message. Claude's welcome message, the introduction it posts when a member first opens a direct message with it, suggests public channels this way.
+* Select **Approve and post** on a message Claude drafts in a direct message for a public channel it isn't a member of. When the member approves, Claude posts the message and joins that channel. [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works#what-claude-can-do-in-other-channels) covers the flow.
 
 A Claude organization admin can also set [auto-join channel patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), so Claude joins a public channel whose name matches when the channel is created or renamed.
 
-When a member selects **Add to channel** or an auto-join pattern matches, Claude adds itself to that channel using its `channels:join` scope. Slack's audit log records the join as the Claude app, with no inviter shown; neither the member's selection nor the matched pattern is visible in Slack's log. If you see a join in the audit log that no one can explain, a member selected one of these buttons or an auto-join pattern matched. Outside those two paths, Claude does not join channels on its own.
+When a member selects **Add to channel** or **Approve and post**, or an auto-join pattern matches, Claude adds itself to that channel using its `channels:join` scope. Slack's audit log records the join as the Claude app, with no inviter shown; neither the member's selection nor the matched pattern is visible in Slack's log. If you see a join in the audit log that no one can explain, a member selected one of these buttons or an auto-join pattern matched. Outside these paths, Claude does not join channels on its own.
 
 Reading a channel's full history requires being added there. Workspace search can surface public-channel content, the same as any app with the search scope.
 
@@ -35,7 +36,7 @@ The app requests bot scopes for reading and posting in channels it's a member of
 
 Two scopes a Slack admin commonly asks about:
 
-* `channels:join` lets Claude add itself to a public channel when a member selects one of its suggested-channel buttons, or when the channel's name matches an [auto-join channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) an admin set. It cannot join private channels this way.
+* `channels:join` lets Claude add itself to a public channel when a member selects one of its suggested-channel buttons, when a member approves a message it drafted in a direct message for that channel, or when the channel's name matches an [auto-join channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) an admin set. It cannot join private channels this way.
 * `users:read.email` lets Claude read a member's profile email. Claude uses it for checks such as the email domain when a member connects their Claude account. It does not connect accounts; a member still runs the Connect step in Slack.
 
 ## What installing does not grant

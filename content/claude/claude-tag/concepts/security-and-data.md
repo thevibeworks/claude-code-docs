@@ -71,7 +71,7 @@ A connection belongs to that agent identity and is shared by everyone the bundle
 
 DMs with `@Claude` run on the user's own claude.ai account instead, with that user's personal connectors, and work there is attributed to them, except pull requests, which the Claude GitHub App authors from DMs as well. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
-Personal connectors in channels is available to a limited number of organizations. Where it is available, Claude uses a user's personal connectors in a channel only for that user's own tasks, after the user allows it. The work runs with that user's permissions and is recorded under their name. Requests other people make to Claude in the task's thread run with the channel's own access, not with that user's connectors. Claude is designed to take direction from the connector's owner, treating what other people post in the thread as information for the task rather than as instructions, and the owner can tell Claude in the task's thread to stop. See [Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors).
+Claude uses a user's [personal connectors in a channel](/docs/claude-tag/concepts/personal-connectors) only for that user's own tasks, after the user allows it. The work runs with that user's permissions and is recorded under their name. Requests other people make to Claude in the task's thread run with the channel's own access, not with that user's connectors. Claude is designed to take direction from the connector's owner, treating what other people post in the thread as information for the task rather than as instructions, and the owner can tell Claude in the task's thread to stop. See [Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors).
 
 ### Isolate credentials between channels
 
@@ -93,11 +93,15 @@ Confine a credential to one channel in three steps:
 
 Claude doesn't work in a channel shared with another company through [Slack Connect](/docs/claude-tag/admins/restrict-access#slack-connect-channels), so no access bundle's credentials reach one.
 
-Isolating a credential doesn't isolate what Claude knows. What it learns in a public channel becomes [workspace memory](/docs/claude-tag/users/memory) that sessions in the workspace's other channels can read, and it can [search public channels by keyword](/docs/claude-tag/admins/restrict-access#controls-that-aren%E2%80%99t-available) without being added to them, the same way any workspace member can.
+When you ask Claude in one channel to post into another, Claude works with the access bundles and instructions of the channel you asked in, not the target channel's. From a private channel, Claude doesn't post anywhere else, and nothing asked elsewhere makes Claude post into a private channel. [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works#what-claude-can-do-in-other-channels) covers where Claude can post from each place you ask.
+
+Isolating a credential doesn't isolate what Claude knows. The [workspace notes](/docs/claude-tag/users/memory) it saves from a public channel are read by sessions in every channel of the workspace, and it can [search public channels by keyword](/docs/claude-tag/admins/restrict-access#controls-that-aren%E2%80%99t-available) without being added to them, the same way any workspace member can.
 
 ## Artifact visibility
 
-A session can publish an artifact, a web page hosted on claude.ai with the link posted in the thread, and the page stays available after the sandbox is released. Anyone with access to the source Slack channel can open it, which in a public channel covers everyone in the workspace. Someone who opens the link without that access sees a request-access prompt rather than the page. There is no share setting for anyone to change. Updates go through Claude: ask in the Slack thread, or [send Claude a comment on the page](/docs/claude-tag/users/use-cases/create-artifacts#comment-on-the-page-to-ask-for-changes), which anyone who can post in the channel can do.
+A session can publish an artifact, a web page hosted on claude.ai with the link posted in the thread, and the page stays available after the sandbox is released. Anyone with access to the source Slack channel can open it, which in a public channel covers everyone in the workspace. Someone who opens the link without that access can't see the page and has no option to request access. There is no share setting for anyone to change. Updates go through Claude: ask in the Slack thread, or [send Claude a comment on the page](/docs/claude-tag/users/use-cases/create-artifacts#comment-on-the-page-to-ask-for-changes), which anyone who can post in the channel can do.
+
+While a Slack guest is in a channel set to [**Channel only**](/docs/claude-tag/admins/restrict-access#how-channel-only-works), Claude doesn't publish artifacts there.
 
 Artifacts you publish from your own Claude Code sessions work differently: they belong to you, and you control who can open them, with sharing options that depend on your plan and organization settings. See the [Claude Code artifacts documentation](https://code.claude.com/docs/en/artifacts).
 

@@ -4,7 +4,7 @@
 
 # Set up routines
 
-> Claude Tag runs routines you set up from the channel. See scheduled jobs, channel watching, pull request subscriptions, paste-ready routine recipes, and how to list or pause standing work.
+> Claude Tag runs routines you set up from a channel. See scheduled jobs, channel watching, pull request subscriptions, where results post, and how to pause them.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -96,13 +96,21 @@ Claude answers, deduplicates, and routes requests as they arrive. This recipe is
 
 Pair it with a weekly rollup so untagged posts are still swept; [Triage requests](/docs/claude-tag/users/use-cases/triage-requests) has both messages.
 
+## Where a routine posts its results
+
+A routine you set up from inside a thread usually reports back in that thread each time it runs, for as long as the thread's [session](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies) lasts. To keep the results in the thread, ask Claude to report back there when you set the routine up. If you send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in the thread, the routine moves to the thread's new session and keeps reporting there.
+
+If the thread's session [gets stuck](/docs/claude-tag/users/troubleshooting#claude-reacted-or-started-thinking-then-never-replied), the routine doesn't move to the session that replaces it, and its later runs usually post at the channel's top level instead. To bring the results back into a thread, disable the routine and set it up again from that thread.
+
+For a routine you set up at the channel's top level, Claude usually announces each run in a short top-level message and does the work in the thread under it. To follow up on any routine post, mention `@Claude` in a reply under it.
+
 ## Manage standing work
 
-Anyone in the channel can list, edit, or disable its standing work:
+Anyone in the channel can manage its standing work:
 
 * **List.** Ask "what routines do you have set up in this channel?", or send [`@Claude !routines`](/docs/claude-tag/users/commands#list-the-routines-in-a-channel). Add a channel mention or its ID, as in `@Claude !routines #other-channel`, to list another channel's routines; pick the channel from Slack's autocomplete so it lands as a real mention, since a typed name on its own isn't accepted.
-* **Edit.** Describe the change and it updates the job
-* **Disable.** Name the job to stop, as in "disable the Friday rollup"
+* **Reschedule, pause, or stop a routine.** Name the routine and the change, as in "disable the Friday rollup" or "move the standup summary to 10am Pacific"
+* **Change what a routine does.** Ask Claude to stop the routine, then set up a replacement from the channel where the results should post.
 
 Standing work is visible to the channel: jobs post into the channel they belong to, or into another public channel you name that Claude has been added to. A channel's routines keep running if their creator leaves the channel, is removed from your Claude organization, or has their Slack account deactivated, and anyone still in the channel can disable them. Routines a person set up in a direct message with Claude belong to that person's account and are turned off when the person is removed from your Claude organization.
 
@@ -110,7 +118,7 @@ A few boundaries apply:
 
 * A job runs with the channel's connections, the same as an interactive request.
 * Claude can post a job's output into another public channel in the same workspace only if the job's own channel is public and Claude has been added to the target channel. It labels the message with the channel it came from.
-* Claude doesn't post job output to private channels, DMs, group DMs, or externally shared channels, and doesn't message people directly. The one exception is the completion or failure notice it sends to whoever set up the routine, and only when that person's Slack account is connected to their Claude account.
+* Claude doesn't post a job's output into a different channel that's private or externally shared, or into a DM or group DM, and doesn't message people directly. Claude does send a completion or failure notice to whoever set up the routine, when that person's Slack account is connected to their Claude account.
 * Schedules run in UTC. Name the timezone when you set a schedule, as in "every weekday at 9am Pacific". With no timezone in your message, Claude uses the one on your Slack profile. To confirm the time Claude set, send [`@Claude !routines`](/docs/claude-tag/users/commands#list-the-routines-in-a-channel), which lists schedules in UTC.
 * A routine runs at a fixed UTC time, so each daylight saving change shifts its local time by an hour, in the same direction the clocks move. A routine running at 9am Pacific moves to 10am after the clocks go forward, or to 8am after they go back. Ask Claude to reschedule the routine to the local time you want.
 * A scheduled job that touches a github.com repository uses the same GitHub connection your admin set up for interactive work. See [Configure GitHub access](/docs/claude-tag/admins/configure-github#scheduled-work-uses-the-same-connection).

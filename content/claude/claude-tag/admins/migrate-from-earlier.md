@@ -54,19 +54,19 @@ On Enterprise Grid, an earlier install can lose its connection and stop respondi
 
 The earlier app linked each user's own claude.ai account, so it answered as that person and used their connectors. Claude Tag has one identity for the team, provisioned by an admin who also sets what it can reach in each channel.
 
-|                | Legacy (the earlier Claude in Slack)        | New (Claude Tag)                                           |
-| :------------- | :------------------------------------------ | :--------------------------------------------------------- |
-| Identity       | Each user links their own claude.ai account | One agent identity with org-level service credentials      |
-| Sessions       | Spawned per request                         | One persistent session per thread, shared with the channel |
-| Memory         | None                                        | Shared workspace memory plus private-channel memory        |
-| Standing work  | None                                        | Routines and channel watching                              |
-| Who sets it up | Each user, individually                     | An Owner, once                                             |
+|                | Legacy (the earlier Claude in Slack)        | New (Claude Tag)                                                     |
+| :------------- | :------------------------------------------ | :------------------------------------------------------------------- |
+| Identity       | Each user links their own claude.ai account | One agent identity with org-level service credentials                |
+| Sessions       | Spawned per request                         | One persistent session per thread, shared with the channel           |
+| Memory         | None                                        | Per-channel memory, plus workspace notes shared from public channels |
+| Standing work  | None                                        | Routines and channel watching                                        |
+| Who sets it up | Each user, individually                     | An Owner, once                                                       |
 
-The **Claude Tag version** setting on each scope chooses whether the New or Legacy version answers there, or neither. Access bundles only apply where the New version answers. See [Set the version for a scope](/docs/claude-tag/admins/workspaces#set-the-version-for-a-scope) for the four values and where to set them.
+The **Claude Tag version** setting on each scope chooses whether the New or Legacy version answers there, and the scope's **Enable Claude Tag** switch turns both off. Access bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for both controls and where to set them.
 
 ## Two versions of the same Slack app
 
-The earlier Claude in Slack and Claude Tag are two versions of the same `@Claude` Slack app, not two apps, so there is nothing to uninstall. You choose which version answers per scope with the **Claude Tag version** setting (**Off**, **Legacy**, **New**, or **Inherit**), so one workspace can run both during a phased switch. Setting a scope to **Off** turns off both versions there; to keep the earlier behavior in a scope, set it to **Legacy**.
+The earlier Claude in Slack and Claude Tag are two versions of the same `@Claude` Slack app, not two apps, so there is nothing to uninstall. You choose which version answers per scope with the **Claude Tag version** setting (**New**, **Legacy**, or **Inherit**), so one workspace can run both during a phased switch. Turning a scope's **Enable Claude Tag** switch off silences both versions there; to keep the earlier behavior in a scope, set its **Claude Tag version** to **Legacy**.
 
 To tell which version answered in a channel, look at who authored the work. The New version authors code as the Claude GitHub App and keeps work in the channel's thread; if `@Claude` still opens pull requests under the asker's name, that channel is answering with the Legacy version.
 

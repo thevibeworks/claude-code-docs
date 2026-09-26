@@ -54,6 +54,10 @@ Set this up as a routine to get both: a scheduled check against the last known s
 @Claude every two hours, check the alerting dashboard against its last state. For anything new, post when it started, what changed around then, and what to look at first.
 ```
 
+## Keep known false alarms out of Claude's checks
+
+Open the channel's [**Configure** page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). In the **Channel instructions** field, list the alerts your team already treats as false alarms, so Claude skips them.
+
 ## Related resources
 
 <CardGroup cols={2}>

@@ -123,7 +123,7 @@ Use the Cloud Storage JSON API at storage.googleapis.com to read the bucket exam
 
 [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) exchanges the token and attaches the resulting Google credential to each request at the network boundary, so the sandbox never holds it.
 
-New threads pick up the connection on their own. In a thread already running, ask Claude to use Google Cloud. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) at the channel's top level (not inside a thread) to start a fresh session with your organization's current configuration.
+New threads pick up the connection on their own. In a thread already running, ask Claude to use Google Cloud. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread. Claude then continues from a fresh session with your organization's current configuration.
 
 ## Verify the connection
 
