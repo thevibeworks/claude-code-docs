@@ -34,7 +34,7 @@ If you're in [setup](/docs/claude-tag/admins/setup-overview), you add these conn
 
 You can also create an unattached bundle by clicking **Create** on the **Access bundles** page in the left navigation, then attach it to scopes afterward. A bundle created there is named **Untitled access bundle** until you rename it.
 
-Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply in DMs. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use a member's own connectors in a channel for that member's own tasks, after the member allows it.
+Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply in DMs. Claude can also [use a member's own connectors in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
 
 Name a bundle after what it grants, since the name is what you'll read when deciding which bundles to bind to a channel: `data-readonly`, `github-write`, `monitoring`, `gtm-tools`. A capability name stays meaningful when the same bundle serves several teams; a team name (`devprod-team`) works when one team's full access is the unit you'll reuse.
 
@@ -169,17 +169,17 @@ On the bundle's **Credentials** tab, click **Connect** next to a listed service,
 
 For a custom connection, choose the credential type:
 
-| Credential type                             | Use for                                                                                                                                                                           |
-| :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bearer                                      | API keys and OAuth bearer tokens. Most SaaS REST APIs.                                                                                                                            |
-| Basic                                       | HTTP Basic authentication.                                                                                                                                                        |
-| Body parameter                              | A token the API expects in the request body or query string instead of a header.                                                                                                  |
-| AWS SigV4                                   | Signed requests to AWS service endpoints with an access key pair.                                                                                                                 |
-| GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google). |
-| GCP IAP (with Service Account Key)          | Google Cloud services behind Identity-Aware Proxy.                                                                                                                                |
-| OAuth 2.0 JWT bearer                        | Server-to-server OAuth.                                                                                                                                                           |
-| OAuth 2.0 client credentials                | Server-to-server OAuth. Salesforce uses this.                                                                                                                                     |
-| MCP Connector                               | Sign in once as an admin; the agent acts as that account.                                                                                                                         |
+| Credential type                             | Use for                                                                                                                                                                                                                                                        |
+| :------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bearer                                      | API keys and OAuth bearer tokens. Most SaaS REST APIs.                                                                                                                                                                                                         |
+| Basic                                       | HTTP Basic authentication.                                                                                                                                                                                                                                     |
+| Body parameter                              | A token the API expects in the request body or query string instead of a header.                                                                                                                                                                               |
+| AWS SigV4                                   | Signed requests to AWS service endpoints with an access key pair.                                                                                                                                                                                              |
+| GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google).                                                                              |
+| GCP IAP (with Service Account Key)          | Google Cloud services behind Identity-Aware Proxy.                                                                                                                                                                                                             |
+| OAuth 2.0 JWT bearer                        | Server-to-server OAuth.                                                                                                                                                                                                                                        |
+| OAuth 2.0 client credentials                | Server-to-server OAuth. Salesforce uses this.                                                                                                                                                                                                                  |
+| MCP Connector                               | Sign in once as an admin; the agent acts as that account. The picker offers a fixed set of providers plus the [remote MCP connectors](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Other OAuth APIs can't be connected this way. |
 
 For GitHub repositories, use the GitHub connection at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
 
@@ -197,9 +197,13 @@ Setup links are available for services that use the Bearer or Basic credential t
 
 List the hosts a connection's credential may be sent to. A wildcard works only as the leftmost label, like `*.example.com`; it covers subdomains at any depth but not `example.com` itself. You can't enter `*` alone here; a credential is always limited to specific hosts. To let Claude reach any host without a credential, see [Allow all hosts](#allow-all-hosts).
 
+<Note>You can't save a connection whose **Allowed websites** include an `anthropic.com`, `claude.ai`, or `claude.com` host, such as `api.anthropic.com`.</Note>
+
 To change a connection's name or allowed websites after saving, open the **⋮** menu on that connection's row in the bundle's **Credentials** tab and choose **Edit**; the **Edit connection** dialog labels the field **Allowed hosts**. The same menu has **Rotate secret** (where the credential type supports it) and **Delete**.
 
 Check the host against your account's region before saving. Some presets fill a default host that may not match your account's region; a Datadog key, for example, only works against your account's Datadog site, like `api.datadoghq.com` or `api.datadoghq.eu`.
+
+Where the connection form has a **Test connection** button, the test can check the preset's default host rather than the one you entered, so a key for a regional or self-hosted instance can fail the test and still work. Replace the prefilled host with your service's API host rather than adding yours alongside it. You can save the connection even if the test fails, and the credential is sent only to the hosts you listed.
 
 ### Restrict by path or method
 

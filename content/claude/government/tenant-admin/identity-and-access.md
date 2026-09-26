@@ -22,7 +22,7 @@ Three banners can appear at the top of the page:
 
 ## Domains
 
-Claude for Government routes users to your tenant by the domain of their email address, so at least one domain must be registered before anyone can sign in. The **Domains** section lists every domain registered to your tenant, along with whether it is verified and whether it was registered by Anthropic or by you.
+Claude for Government routes users to your tenant by the domain of their email address, so at least one domain must be registered before anyone can sign in. The **Domains** section lists every domain registered to your tenant, along with whether it is verified and whether it was registered by Anthropic or by you. Your tenant can have more than one domain. However many domains are registered here, your tenant has one set of [admin portals](/docs/government/tenant-admin/overview#tenants-and-organizations), and the [routing rules](#routing-rules) decide which organization each person joins.
 
 Domains that Anthropic registered on your behalf during onboarding are already verified. To add one yourself, enter the domain in the **Claim a domain** field and click **Claim**. You will be shown a DNS TXT record to publish on that domain; once the record is live, click **Verify now** and the domain becomes active.
 
@@ -30,7 +30,9 @@ Until at least one domain is verified, the Single sign-on section's Connect butt
 
 ## Single sign-on
 
-Every user signs in through your agency's identity provider (for example, Microsoft Entra, Okta, or ADFS). You register Claude for Government as an application in your identity provider, then enter your provider's connection details here. Once connected, sign-ins are redirected to your provider. A second sign-in from the same browser within a few minutes, such as connecting Claude Desktop right after signing in on the web, may not be redirected again.
+Every user signs in through your agency's identity provider (for example, Microsoft Entra, Okta, or ADFS). Your identity provider needs to support SAML 2.0 or OpenID Connect (OIDC).
+
+You register Claude for Government as an application in your identity provider, then enter your provider's connection details here. Once connected, sign-ins are redirected to your provider. A second sign-in from the same browser within a few minutes, such as connecting Claude Desktop right after signing in on the web, may not be redirected again.
 
 <Note>
   You need at least one verified domain before you can connect single sign-on. Until then, the Connect button is unavailable and a banner prompts you to verify a domain first. If single sign-on was already connected before your last domain was removed, the existing connection stays editable.
@@ -77,7 +79,9 @@ Both the OIDC and SAML sections include an **Attribute mapping** panel that's co
 
 ## SCIM provisioning
 
-SCIM is the standard protocol identity providers use to push users and groups to a connected service automatically, so that accounts are created, updated, and deactivated in step with your agency's directory. Connecting SCIM is optional; without it, users are created the first time they sign in.
+SCIM is the standard protocol identity providers use to push users and groups to a connected service automatically, so that accounts are created, updated, and deactivated in step with your agency's directory. Connecting SCIM is optional; without it, users are created the first time they sign in. With SCIM connected, a person your directory has never sent still gets an account the first time they sign in, if a [sign-in rule](#sign-in-rules) covers them.
+
+[Provisioning rules](#provisioning-rules-scim), [group mappings](/docs/government/org-admin/provisioning), and [group-specific settings](/docs/government/config/overview#group-specific-settings) need SCIM, because they act on the [directory groups](#directory-groups) your identity provider pushes. Model access and usage limits come from each person's [seat tier](/docs/government/org-admin/seat-tiers), which an organization owner can assign on the [Users](/docs/government/org-admin/users) page without SCIM.
 
 <Note>
   You need at least one verified domain before you can generate a SCIM token. Until then, **Generate token** is unavailable and a banner prompts you to verify a domain first.

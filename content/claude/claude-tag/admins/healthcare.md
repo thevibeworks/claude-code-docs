@@ -30,10 +30,9 @@ For how Claude's work in each thread is isolated, how connection credentials are
 
 ## Plan and organization requirements
 
-Keeping PHI out of Claude's reach needs two things beyond the [general prerequisites for Claude Tag](/docs/claude-tag/admins/setup-overview):
+Limiting Claude to approved channels needs an [Enterprise plan](https://claude.com/pricing), in addition to the [general prerequisites for Claude Tag](/docs/claude-tag/admins/setup-overview). Only the Enterprise plan has a [setting that turns Claude on or off for an individual channel](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
 
-* **An Enterprise plan.** Limiting Claude to a list of approved channels uses the **Claude Tag version** setting, which you set separately for the whole workspace and for each channel. Each of those is a [scope](/docs/claude-tag/admins/attach-to-scope). Per-scope version settings are available on the Enterprise plan.
-* **A Claude organization without Zero Data Retention (ZDR) or customer-managed encryption keys.** Claude Tag stores session transcripts and channel memory, so it [isn't available to an organization with either policy](/docs/claude-tag/concepts/security-and-data). If your organization needs ZDR or customer-managed keys for other Claude products, ask your account team about creating a separate Claude organization without those policies and connecting your Slack workspace to that organization instead.
+If your Claude organization has Zero Data Retention (ZDR) or customer-managed encryption keys, Claude Tag [isn't available in that organization](/docs/claude-tag/concepts/security-and-data). Ask your account team about creating a separate Claude organization without those policies and connecting your Slack workspace to the separate organization instead.
 
 ## Limit Claude to PHI-free channels
 
@@ -41,15 +40,15 @@ An Owner turns Claude off everywhere by default, turns it on only in channels ap
 
 <Steps>
   <Step title="Turn Claude off by default">
-    Go to **Claude Tag's access** → **Slack** → **Default Slack** → **Advanced** → **Claude Tag version** and set it to **Off**. [Limit Claude Tag to specific channels](/docs/claude-tag/admins/restrict-access#limit-claude-tag-to-specific-channels) has the full procedure.
+    Go to **Claude Tag's access** → **Slack** → **Default Slack** and turn off the **Enable Claude Tag in Slack** switch at the top of the panel. [Limit Claude Tag to specific channels](/docs/claude-tag/admins/restrict-access#limit-claude-tag-to-specific-channels) has the full procedure.
   </Step>
 
-  <Step title="Reset workspace and channel entries that override Off">
-    A workspace or channel entry's own **Claude Tag version** setting takes precedence over **Default Slack**, so an entry left on **New** or **Legacy** from an earlier pilot keeps Claude active there. Under **Claude Tag's access** → **Slack**, open each workspace and channel entry whose **Claude Tag version** is **New** or **Legacy** and set it to **Inherit**.
+  <Step title="Reset workspace and channel entries that have their own setting">
+    A workspace or channel entry's own **Enable Claude Tag** setting takes precedence over **Default Slack**, so an entry switched on during an earlier pilot keeps Claude active there. Under **Claude Tag's access** → **Slack**, open each workspace and channel entry that has its own setting and click **Use inherited setting** under the switch.
   </Step>
 
   <Step title="Turn Claude on in each approved channel">
-    Go to **Claude Tag's access** → **Slack**, select the entry for the approved channel, then go to **Advanced** → **Claude Tag version** and set it to **New**. **New** turns Claude on in that channel. If the channel isn't listed under **Slack**, [add the channel with **Add channel**](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) first.
+    Go to **Claude Tag's access** → **Slack**, select the entry for the approved channel, and turn on its **Enable Claude Tag in this channel** switch. If the channel isn't listed under **Slack**, [add the channel with **Add channel**](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) first.
   </Step>
 
   <Step title="Turn off direct messages">
@@ -72,7 +71,11 @@ In a channel, Claude signs in to tools outside Slack only through the connection
 * Treat email and calendar as PHI-bearing unless your compliance team has confirmed otherwise, and leave them unconnected until then
 * Attach each bundle to the approved channels that need it, not to **Default Slack** (the entry whose settings apply to every channel in every connected workspace), so a connection never reaches a channel it wasn't reviewed for
 
-Members' own claude.ai connectors, such as their email or calendar, are a separate path to tools outside Slack. In a direct message, Claude works on the member's own Claude account and can use those connectors, so keep the **Allow direct messages** toggle off as described in [Limit Claude to PHI-free channels](#limit-claude-to-phi-free-channels). In channels, [personal connector use](/docs/claude-tag/concepts/personal-connectors) is available to a limited number of organizations. Ask your account team whether it is enabled for yours before you turn Claude on, and if it is, include members' claude.ai connectors in the tools that must stay PHI-free.
+Members' own claude.ai connectors, such as their email or calendar, are a separate path to tools outside Slack. In a direct message, Claude works on the member's own Claude account and can use those connectors, so keep the **Allow direct messages** toggle off as described in [Limit Claude to PHI-free channels](#limit-claude-to-phi-free-channels). In channels, Claude can [use a member's own connectors for that member's requests](/docs/claude-tag/concepts/personal-connectors) after the member allows it, and no organization setting turns off personal connectors in channels entirely. These controls apply:
+
+* **Block a connector for everyone.** A connector you restrict for your organization on the [**Connectors** admin page](https://claude.ai/admin-settings/connectors) stays restricted when Claude uses a member's connectors in a channel.
+* **Require human review.** On the Enterprise plan, turn on **Require human review of every message** in the **Personal connectors** section at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), so a member reviews every result before it posts to the channel.
+* **Treat the rest as PHI-bearing.** Include members' remaining claude.ai connectors in the tools that must stay PHI-free.
 
 ## Train your workspace and monitor approved channels
 
@@ -82,7 +85,7 @@ Settings keep Claude out of unapproved channels and tools. They don't stop a per
 
 Anthropic stores two things for the conversations Claude works in. The first is a transcript of each conversation, which includes everything Claude read while working. The second is the memory notes Claude keeps for each channel.
 
-Memory from public channels goes into one store for the whole workspace, so something Claude noted in one public channel can inform its replies in another channel. Memory from a private channel stays in that channel's own store and isn't read anywhere else.
+Claude keeps separate notes for each channel. From a public channel it can also save workspace notes, and those inform its replies in every channel in the workspace. Notes from a private channel stay in that channel's own store and aren't read anywhere else.
 
 Anyone in a channel can ask Claude what it remembers there and tell it to correct or delete a note. An Owner can view, edit, and delete the memory notes of a channel or of the workspace at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the channel's or workspace's entry → options menu → **View memory files**.
 
@@ -97,10 +100,10 @@ Anthropic keeps a transcript of each conversation Claude works in, including the
 1. Report it to your organization's HIPAA privacy officer and follow your incident process.
 2. Delete the message in Slack.
 3. If the message was posted in a channel where Claude is turned on, have an Owner delete that channel's transcripts and memory immediately by [removing the channel's entry](/docs/claude-tag/concepts/data-lifecycle#delete-data-or-request-deletion) under **Claude Tag's access** → **Slack**.
-4. If that channel is public, have an Owner also check workspace memory, because notes Claude saved from a public channel are stored with the workspace and aren't deleted with the channel's entry. Go to **Claude Tag's access** → **Slack** → your workspace's entry → options menu → **View memory files**, and delete any note that contains the information. Deleting a note removes it from what Claude reads in every channel right away.
+4. If that channel is public, have an Owner also check the workspace's memory, because workspace notes Claude saved from that channel are stored with the workspace and aren't deleted with the channel's entry. Go to **Claude Tag's access** → **Slack** → your workspace's entry → options menu → **View memory files**, and delete any note that contains the information. Deleting a note removes it from what Claude reads in every channel right away.
 5. Email [privacy@anthropic.com](mailto:privacy@anthropic.com) to request deletion of the data Claude Tag retained that the admin controls in steps 3 and 4 don't delete, including the workspace's stored memory and any transcript in another channel whose session found the message through search. Include the workspace, the channel, and the time of the message.
 
-Removing a channel's entry also turns Claude off in that channel, because the channel then inherits the **Off** you set on **Default Slack**. To turn Claude back on later, add the channel again under **Claude Tag's access** → **Slack** and set its **Claude Tag version** to **New**.
+Removing a channel's entry also turns Claude off in that channel, because the channel then inherits the setting from **Default Slack**, where you turned Claude off. To turn Claude back on later, add the channel again under **Claude Tag's access** → **Slack** and turn on its **Enable Claude Tag in this channel** switch.
 
 ## Related resources
 

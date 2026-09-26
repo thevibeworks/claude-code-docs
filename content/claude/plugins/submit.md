@@ -93,7 +93,7 @@ An organization can create up to 10 submissions in any 24-hour period, and saved
 
 Your organization can have one submission for each repository and folder. To continue an existing submission, open it from **Submissions** in the developer portal instead of creating a second one.
 
-If another organization has already submitted the same repository and folder, the portal refuses **Submit for review** with **Already submitted by another organization**. If your organization owns the repository, email `directory@anthropic.com`.
+If another organization has already submitted the same repository and folder, the portal refuses **Submit for review** with **Already submitted by another organization**. If your organization owns the repository, email `directory@anthropic.com`. If the earlier submission is one you made through the Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish#move-an-earlier-submission-to-the-developer-portal).
 
 ### Connect your GitHub account
 
@@ -149,7 +149,8 @@ A version that passes every check isn't live until it's published. When the vers
 The **Auto-publish** row on the plugin's **Overview** tab says which publish setting Anthropic has applied to your plugin. The settings include:
 
 * **An Anthropic reviewer publishes each version**: the default. For every version that passes, you select **Publish** and a reviewer publishes it
-* **The reviewer publishes only the first version**: you select **Publish** for the first version and a reviewer publishes it. Later versions that pass go live by themselves unless you turn auto-publish off or the security scan flags a version, which holds later versions for a reviewer
+* **The reviewer publishes only the first version**: you select **Publish** for the first version and a reviewer publishes it. Later versions that pass go live by themselves unless you turn auto-publish off or the plugin is waiting for a reviewer
+* **You publish the first version**: an Anthropic reviewer can apply this setting when they approve the plugin. You select **Publish** for the first version and it goes live. Later versions that pass go live by themselves unless you turn auto-publish off or the plugin is waiting for a reviewer
 
 You set auto-publish with the **Auto-publish passing versions** toggle on the **Review and submit** step. After you submit, change it with the **Publish new versions automatically** toggle on the plugin's **Settings** tab. Auto-publish doesn't apply while a reviewer publishes each version.
 
@@ -166,7 +167,7 @@ The directory checks the tracked branch for new commits on a schedule. If you se
 
 The repository doesn't have to be dedicated to the plugin. If the plugin is one folder in a larger repository, give that folder as the plugin path when you submit; the directory reads and scans only that folder.
 
-A new version that passes is published according to the plugin's [publish setting](#publish-a-passing-version). The listing keeps serving the last published version until a new version is published, including when a new version doesn't pass or is held for a reviewer. If the security scan flags or fails a new version, later versions also wait until an Anthropic reviewer clears the plugin.
+A new version that passes is published according to the plugin's [publish setting](#publish-a-passing-version). The listing keeps serving the last published version until a new version is published, including when a new version doesn't pass or is held for a reviewer. If the security scan fails a new version, later versions also wait until an Anthropic reviewer clears the plugin.
 
 If your `plugin.json` sets `version`, raise it with every release.
 

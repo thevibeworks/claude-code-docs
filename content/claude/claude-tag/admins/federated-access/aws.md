@@ -113,7 +113,7 @@ Use the AWS CLI to read the S3 bucket example-reports in us-west-2. AWS access i
 
 Claude calls AWS with `curl`, an AWS SDK, or the AWS CLI, as with an [AWS SigV4 credential](/docs/claude-tag/admins/connections/custom#aws-sigv4). [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) signs each request at the network boundary with the role's temporary credentials, so the sandbox never holds them.
 
-New threads pick up the connection on their own. In a thread already running, ask Claude to use AWS. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) at the channel's top level (not inside a thread) to start a fresh session with your organization's current configuration.
+New threads pick up the connection on their own. In a thread already running, ask Claude to use AWS. If Claude still can't, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread. Claude then continues from a fresh session with your organization's current configuration.
 
 ## Verify the connection
 

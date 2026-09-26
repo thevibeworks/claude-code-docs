@@ -17,7 +17,7 @@ This page covers what goes wrong after you connect a gateway, AWS role, Google C
 First confirm two things that have nothing to do with federation:
 
 * The connection is in an [Access bundle attached to the channel's scope](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle). For a gateway, the scope's custom instructions also [name the gateway's address](/docs/claude-tag/admins/federated-access/connect-a-gateway#let-agents-reach-the-gateway), so Claude knows the gateway exists.
-* You tested in a new thread. A thread already running isn't told about a connection added after it started; ask Claude for the service by name, or send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) at the channel's top level.
+* You tested in a new thread. A thread already running isn't told about a connection added after it started; ask Claude for the service by name, or send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in that thread.
 
 If Claude reports that a host isn't allowed before any request is sent, see [Claude says a host isn't allowed](/docs/claude-tag/admins/troubleshooting#claude-says-a-host-isn%E2%80%99t-allowed-or-it-can%E2%80%99t-reach-the-internet).
 
@@ -79,7 +79,7 @@ To reconnect, click **Connect a gateway** in the **Gateways** section and enter 
 
 ## Errors Claude reports in the thread
 
-When a request can't be sent with a federated credential, it fails with an HTTP status and a one-line reason, which Claude usually quotes. Reasons with HTTP 403 and 502 end with the connection's name in parentheses, for example `("gateway.example.com")`. The two 503 reasons don't name the connection.
+When a request can't be sent with a federated credential, it fails with an HTTP status and a one-line reason, which Claude usually quotes. Reasons with HTTP 403 and 502 name the connection in parentheses, for example `("gateway.example.com")`. The two 503 reasons don't name the connection.
 
 Messages that begin "request blocked" come with HTTP 403. The request was refused on purpose, and retrying won't help. A 503 is temporary. A 502 usually means AWS, Google Cloud, or your authorization server refused the token exchange. A response from your gateway or from the cloud API itself reaches Claude as is, so those show as whatever status the other side returned.
 
@@ -185,7 +185,7 @@ Ask Claude to retry. If one connection keeps failing this way, check that your a
 
 **What you see**
 
-Claude's request got HTTP 502 with the reason `injection failed ("<connection name>")`.
+Claude's request got HTTP 502 with a reason that begins `injection failed ("<connection name>")`. For an AWS connection whose reason continues past the connection name, see [An AWS request fails after a successful sign-in](#an-aws-request-fails-after-a-successful-sign-in) instead.
 
 **What it means**
 
@@ -207,13 +207,13 @@ Allow for log delivery delay before concluding there was no attempt. For an AWS 
 
 **What you see**
 
-Claude's request to an AWS service got HTTP 502 with the reason `injection failed ("<connection name>")`. CloudTrail shows that the role's `AssumeRoleWithWebIdentity` event succeeded, or shows no new event because Claude was reusing credentials from an earlier sign-in. Other kinds of request with the same connection may still work. The failure repeats for one kind of request, for example every call to one host or every upload to S3.
+Claude's request to an AWS service got HTTP 502 with a reason that begins `injection failed ("<connection name>")`. CloudTrail shows that the role's `AssumeRoleWithWebIdentity` event succeeded, or shows no new event because Claude was reusing credentials from an earlier sign-in. Other kinds of request with the same connection may still work. The failure repeats for one kind of request, for example every call to one host or every upload to S3.
 
 **What it means**
 
-The sign-in worked, but [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) couldn't sign the request with the role's credentials, so it never left for AWS. Claude's reply doesn't say which of these applies:
+The sign-in worked, but [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) couldn't sign the request with the role's credentials, so it never left for AWS. The reason text after the connection name says which of these applies:
 
-* **A hostname with no usable region.** Agent Proxy reads the AWS service and signing region from the hostname, so the region must be the last label before `amazonaws.com`, as in `service.region.amazonaws.com`, `my-bucket.s3.us-east-1.amazonaws.com`, or `api.ecr.us-east-1.amazonaws.com`. Agent Proxy refuses a hostname with no region, such as `ec2.amazonaws.com`, unless the service is IAM, STS, S3, Route 53, CloudFront, Organizations, or Global Accelerator, which it signs for `us-east-1`. It also refuses a hostname that puts the region before the service name, such as an OpenSearch domain endpoint (`my-domain.us-east-1.es.amazonaws.com`).
+* **A hostname with no usable region.** Agent Proxy reads the AWS service and signing region from the hostname, so the region must be the last label before `amazonaws.com`, as in `service.region.amazonaws.com`, `my-bucket.s3.us-east-1.amazonaws.com`, or `api.ecr.us-east-1.amazonaws.com`. The [AWS SigV4 credential](/docs/claude-tag/admins/connections/custom#aws-sigv4) section lists the hostname forms Agent Proxy signs, including the services it signs with no region.
 * **A large request to a service other than S3 with no content hash.** When a request has no `x-amz-content-sha256` header, Agent Proxy hashes the body before signing and refuses a body over 1 MB (1,048,576 bytes). The AWS CLI and SDKs add that header for S3 but usually not for other services.
 * **An S3 upload sent in chunks.** The AWS CLI (2.23.0 and later) and the AWS SDKs that compute upload checksums by default can send S3 uploads in chunks with a checksum trailer. Agent Proxy can't sign a request in that format. The fix is to have the AWS CLI or SDK send the body in one piece.
 
@@ -229,15 +229,21 @@ The sign-in worked, but [Agent Proxy](/docs/claude-tag/concepts/agent-identity#a
 
 **What you see**
 
-Claude reports a 403 from an AWS or Google Cloud API, with the provider's own error body rather than a reason beginning "request blocked".
+Claude reports a 403 from an AWS or Google API, with the provider's own error body rather than a reason beginning "request blocked".
 
 **What it means**
 
-The token exchange worked and Claude called the API with the exchanged credential, but the role or identity lacks permission for that action. For Google Cloud, the exchange always requests the `cloud-platform` scope, so IAM alone decides what the credential can do.
+The token exchange worked and Claude called the API with the exchanged credential, but the API refused the call for one of these reasons:
+
+* **A missing permission.** The role or identity lacks permission for that action.
+* **A Google API that needs an OAuth scope of its own.** For Google Cloud, the exchange always requests the `https://www.googleapis.com/auth/cloud-platform` scope, and there's no setting to change it. Google Cloud APIs accept that scope, and IAM decides what the credential can do on those APIs. APIs that need an OAuth scope of their own, such as the Google Drive, Calendar, and Gmail APIs, answer 403 for insufficient scopes whatever IAM allows.
+
+If the 403 comes from a Google Cloud API, such as Cloud Storage, the OAuth scope isn't the cause, so check the permission. If the 403 comes from an API that needs an OAuth scope of its own, such as the Google Drive, Calendar, or Gmail API, the cause is the OAuth scope.
 
 **How to resolve**
 
-Grant the IAM permission to the AWS role, the Google Cloud service account, or the federated identity when no service account is named. For AWS, a 403 also makes Claude assume the role again on the next request, so a fix takes effect on the next try.
+* **A missing permission.** Grant the IAM permission to the AWS role, the Google Cloud service account, or the federated identity when no service account is named. For AWS, a 403 also makes Claude assume the role again on the next request, so a fix takes effect on the next try.
+* **A Google API that needs an OAuth scope of its own.** A federated connection can't reach that API. To connect Google Drive, Calendar, or Gmail another way, see [Choose OAuth or a service account](/docs/claude-tag/admins/connections/google#choose-oauth-or-a-service-account). If a channel gets both that connection and the federated connection, keep the two from covering the same host; see [Which credential wins](/docs/claude-tag/admins/attach-to-scope#which-credential-wins).
 
 ## Rejections in your own logs
 

@@ -38,17 +38,17 @@ After saving, where the credential has an allow rule, you can narrow it by HTTP 
 
 ### Credential types
 
-| Type                                            | Use for                                                                                                     |
-| :---------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| **Bearer**                                      | An API key or token sent as `Authorization: Bearer <token>`. Most SaaS REST APIs.                           |
-| **Basic**                                       | HTTP Basic authentication (`Authorization: Basic <base64(user:password)>`)                                  |
-| **Body parameter**                              | A token the API expects in the request body or query string instead of a header                             |
-| **AWS SigV4**                                   | AWS service APIs on `amazonaws.com` endpoints that require Signature Version 4 signing                      |
-| **GCP access token (with Service Account Key)** | Google Cloud APIs; the proxy exchanges the SA key for an access token                                       |
-| **GCP IAP (with Service Account Key)**          | Google Cloud services behind Identity-Aware Proxy                                                           |
-| **OAuth 2.0 JWT bearer**                        | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example) |
-| **OAuth 2.0 client credentials**                | Machine-to-machine OAuth with a client ID and secret                                                        |
-| **MCP Connector**                               | OAuth sign-in. Sign in once as an admin; the agent acts as that account.                                    |
+| Type                                            | Use for                                                                                                                                                                                                                                                               |
+| :---------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bearer**                                      | An API key or token sent as `Authorization: Bearer <token>`. Most SaaS REST APIs.                                                                                                                                                                                     |
+| **Basic**                                       | HTTP Basic authentication (`Authorization: Basic <base64(user:password)>`)                                                                                                                                                                                            |
+| **Body parameter**                              | A token the API expects in the request body or query string instead of a header                                                                                                                                                                                       |
+| **AWS SigV4**                                   | AWS service APIs on `amazonaws.com` endpoints that require Signature Version 4 signing                                                                                                                                                                                |
+| **GCP access token (with Service Account Key)** | Google Cloud APIs; the proxy exchanges the SA key for an access token                                                                                                                                                                                                 |
+| **GCP IAP (with Service Account Key)**          | Google Cloud services behind Identity-Aware Proxy                                                                                                                                                                                                                     |
+| **OAuth 2.0 JWT bearer**                        | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example)                                                                                                                                                           |
+| **OAuth 2.0 client credentials**                | Machine-to-machine OAuth with a client ID and secret                                                                                                                                                                                                                  |
+| **MCP Connector**                               | OAuth sign-in to one of the providers in the picker or to a [remote MCP connector](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Sign in once as an admin; the agent acts as that account. Other OAuth APIs can't be connected this way. |
 
 <Note>The **MCP Connector** type signs in to a connector from your organization's connector library. If you register a new connector from this form with **Add custom connector…**, that connector is added to the library on the **Connectors** page at [`claude.ai/admin-settings/connectors`](https://claude.ai/admin-settings/connectors), not only to the bundle. Removing the connection from the bundle later leaves the library entry in place.</Note>
 
@@ -65,7 +65,7 @@ Agent Proxy signs requests to hostnames in these forms:
 * `service.region.amazonaws.com`
 * S3 virtual-hosted-style endpoints, for example `my-bucket.s3.us-east-1.amazonaws.com`
 * Service hostnames with extra parts before the service name, as long as the region is the last part before `amazonaws.com`, for example the Amazon ECR API host `api.ecr.us-east-1.amazonaws.com` or the host of an API Gateway invoke URL, `abc123.execute-api.us-east-1.amazonaws.com`
-* The regionless hosts of IAM, STS, S3, Route 53, CloudFront, Organizations, and Global Accelerator, for example `iam.amazonaws.com`, which Agent Proxy signs for `us-east-1`
+* Hosts with no region for S3 and for a fixed set of services that includes IAM, STS, Route 53, CloudFront, and Organizations, for example `iam.amazonaws.com` or `sts.amazonaws.com`
 
 Requests to other hostnames fail before reaching AWS. Agent Proxy can't sign a request to a hostname with no region for any other service, such as `ec2.amazonaws.com`, or to a hostname with the region before the service name, such as an OpenSearch domain endpoint (`my-domain.us-east-1.es.amazonaws.com`). It also can't sign requests to an API Gateway custom domain or to a non-AWS API that uses Signature Version 4.
 
@@ -78,7 +78,7 @@ Requests to other hostnames fail before reaching AWS. Agent Proxy can't sign a r
 
 Use long-lived credentials from a dedicated IAM user where you can. Temporary STS credentials work but expire on their own schedule, and the connection stops working when they do; you re-enter all three values to rotate.
 
-Claude can call the endpoint with `curl`, an AWS SDK, or the AWS CLI. The sandbox holds no real AWS credentials, so a CLI or SDK signs the request with placeholder values; Agent Proxy strips that signature and re-signs with the stored credential before the request leaves for AWS. Agent Proxy can't sign an S3 upload sent in chunks with a checksum trailer, which the AWS CLI and the AWS SDKs send when they compute upload checksums by default. That upload fails with HTTP 502 and the reason `injection failed ("<connection name>")`. Have Claude add `request_checksum_calculation = WHEN_REQUIRED` to the profile in `~/.aws/config` and retry. The federated-access troubleshooting entry [An AWS request fails after a successful sign-in](/docs/claude-tag/admins/federated-access/troubleshooting#an-aws-request-fails-after-a-successful-sign-in) gives the same fix, the environment-variable form, and how to apply the setting in every thread.
+Claude can call the endpoint with `curl`, an AWS SDK, or the AWS CLI. The sandbox holds no real AWS credentials, so a CLI or SDK signs the request with placeholder values; Agent Proxy strips that signature and re-signs with the stored credential before the request leaves for AWS. Agent Proxy can't sign an S3 upload sent in chunks with a checksum trailer, which the AWS CLI and the AWS SDKs send when they compute upload checksums by default. That upload fails with HTTP 502 and a reason that begins `injection failed ("<connection name>")`. Have Claude add `request_checksum_calculation = WHEN_REQUIRED` to the profile in `~/.aws/config` and retry. The federated-access troubleshooting entry [An AWS request fails after a successful sign-in](/docs/claude-tag/admins/federated-access/troubleshooting#an-aws-request-fails-after-a-successful-sign-in) gives the same fix, the environment-variable form, and how to apply the setting in every thread.
 
 #### When AWS returns `SignatureDoesNotMatch`
 

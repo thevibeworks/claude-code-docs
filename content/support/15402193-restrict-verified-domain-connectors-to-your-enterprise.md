@@ -42,6 +42,8 @@ This setting applies to the following connectors:
 
 - Smartsheet
 
+- Tableau
+
 You can also view the current list in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**. Contact **[our support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** to request additional connectors.
 
 For example, someone has two Claude accounts: a personal account using their personal email, and a work account using their work email. The work email is on a domain your Enterprise organization has verified.

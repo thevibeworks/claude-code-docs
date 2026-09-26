@@ -4,36 +4,36 @@
 
 # What Claude Tag remembers
 
-> Claude Tag memory belongs to the channel, not to you. See how public channels share workspace memory, why private channels stay isolated, and how to check or correct it.
+> Claude Tag memory belongs to the channel, not to you. See what each channel keeps, which notes are shared across the workspace, and how to check or correct them.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
 <BetaNote />
 
-Claude keeps memory by channel. Memory from public channels is shared across the workspace. What it learns working in a private channel is saved to that channel's own store, and channel memory isn't organized by person. In a direct message, Claude keeps separate notes for its conversation with you; see [Workspace memory](#workspace-memory).
+Claude keeps memory by channel. Each channel, public or private, has its own notes, and channel memory isn't organized by person. From a public channel Claude can also save workspace notes, which it reads in every channel in the workspace. In a direct message, Claude keeps separate notes for its conversation with you; see [Channel and workspace memory](#channel-and-workspace-memory).
 
 Memory accumulates three ways:
 
-* **You tell Claude.** Say "remember for this channel: reports go out as tables" and it saves the instruction.
+* **You tell Claude.** Say "remember for this channel: reports go out as tables" and it saves the instruction. To save details from a document, [attach the file](/docs/claude-tag/users/getting-started#files-you-attach) and name what to remember. Claude saves those details, not the file.
 * **Claude saves facts on its own.** While working it keeps notes like decisions the channel made.
 * **Claude can read past sessions.** Ask it to look back and it lists earlier sessions in the channel and reads their transcripts; it can't full-text search across them, so name a timeframe or topic.
 
-## Workspace memory
+## Channel and workspace memory
 
-Memory generated in public channels is shared across the workspace automatically. A decision recorded in #data-eng is available when you ask in #analytics. You can still point it at a specific channel, like "check what #data-eng knows about this."
+Claude keeps two kinds of notes in a workspace. Channel notes hold what applies to one channel, such as its conventions, who owns what, and decisions made there, and Claude reads them while working in that channel. Workspace notes hold what applies across the workspace, such as organization-wide conventions. Claude can add to the workspace notes from any public channel, and it reads them in every channel in the workspace, private channels included.
+
+A convention Claude saved as a workspace note while working in #data-eng is available when you ask in #analytics. A note it kept for #data-eng itself stays in #data-eng's channel notes.
 
 Reading and saving follow different rules depending on where Claude is working:
 
-| Where Claude is working | Reads from                                               | Saves to                                                                  |
-| :---------------------- | :------------------------------------------------------- | :------------------------------------------------------------------------ |
-| Public channel          | Workspace memory                                         | This channel's notes or workspace-shared, both inside the workspace store |
-| Private channel         | That channel's memory, plus workspace memory (read-only) | That channel's own store                                                  |
+| Where Claude is working | Reads from                                                 | Saves to                                                                                     |
+| :---------------------- | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
+| Public channel          | That channel's notes and the workspace notes               | That channel's notes, or the workspace notes for something that applies across the workspace |
+| Private channel         | That channel's notes, plus the workspace notes (read-only) | That channel's notes only                                                                    |
 
 Other workspaces stay separate. Direct messages stay separate too. Claude keeps notes for each direct-message conversation, stored with the workspace rather than with your Claude account. Those notes are deleted when an Owner [disconnects the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing), not when you disconnect your own Claude account in Slack.
 
-If a private channel is later made public, its accumulated memory does not move with it: new sessions there read and write the workspace store, and the memory it saved while private is no longer read by new sessions.
-
-If a public channel is later made private, what Claude saved to workspace memory while the channel was public stays in workspace memory, where sessions in the workspace's other channels can still read it, and new sessions in the now-private channel save to the channel's own store. If those earlier entries shouldn't stay shared, ask an Owner to delete them from the workspace scope's memory files.
+If a channel switches between public and private, its channel notes stay with the channel, and Claude keeps reading and adding to them there. Workspace notes Claude saved from the channel while it was public stay in the workspace notes. If those shouldn't stay shared, ask an Owner to delete them from the workspace scope's memory files.
 
 ## Manage what Claude Tag remembers
 

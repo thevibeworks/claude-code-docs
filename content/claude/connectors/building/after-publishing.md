@@ -34,7 +34,7 @@ A version that doesn't pass, or that is held for a reviewer, doesn't take your l
 
 For a connector, edit your description, categories, icon, and other listing details from the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage). See [Manage your directory listing](/docs/connectors/building/managing-your-listing) for what you can edit directly and which changes require review.
 
-A plugin listing's name and short description come from `plugin.json` and the README of the version that's live. To change them, edit those files and publish a new version, as [Plugin changes](#plugin-changes) describes. If an Anthropic reviewer edited either field during review, the listing keeps the reviewer's text. From the plugin's **Settings** tab in the developer portal, you can change which surfaces the plugin is listed on, your contact email, and your data handling answers.
+A plugin listing's name and short description come from `plugin.json` and the README of the version that's live. To change them, edit those files and publish a new version, as [Plugin changes](#plugin-changes) describes. If an Anthropic reviewer edited either field during review, the listing keeps the reviewer's text. From the plugin's **Settings** tab in the developer portal, you can change which surfaces the plugin is listed on, your contact email, and your answer on whether the plugin collects or transmits user data.
 
 ## Track published plugin usage
 

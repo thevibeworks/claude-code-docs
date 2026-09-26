@@ -58,6 +58,26 @@ Then confirm a query runs against a dataset you granted:
 @Claude how many rows are in <dataset>.<table>?
 ```
 
+## Allow the connection through a VPC Service Controls perimeter
+
+If the Google Cloud project that holds your BigQuery data is inside a [VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/overview) perimeter, Claude's queries fail with `Request is prohibited by organization's policy` and a `vpcServiceControlsUniqueIdentifier` in the error details. To let them through, add an ingress rule that admits the [service account you created for Claude](#create-the-credential-in-google-cloud).
+
+If you allowlist [Anthropic's published egress IP range](/docs/claude-tag/admins/network-requirements) in an access level, Claude's queries still fail, because they reach your perimeter from inside Google Cloud rather than from that range. The source your perimeter sees is a Google Cloud project that Anthropic owns and can change without notice, so don't admit that project by its number.
+
+Add an [ingress rule](https://cloud.google.com/vpc-service-controls/docs/ingress-egress-rules) to the perimeter with these settings:
+
+* For the identity, admit the service account you created for Claude.
+* For the source, allow any source (an access level of `*`).
+* For the target, allow the BigQuery API (`bigquery.googleapis.com`) on the project inside the perimeter.
+
+To confirm the rule works, ask Claude to run the query that failed. The query returns results.
+
+### What the VPC Service Controls ingress rule allows
+
+The ingress rule lets requests authenticated as the service account you created for Claude cross the perimeter, and only to reach BigQuery in the project the rule names. It doesn't give the service account access to any data. The [dataset roles you granted](#grant-access-to-specific-datasets) still decide which datasets Claude can read, so keep those grants narrow.
+
+Once the connection works, delete the key file that Google Cloud downloaded to your machine when you created the key. With this rule in place, the perimeter doesn't stop a leaked key for this service account, because a request authenticated with any of the account's valid keys passes the rule from any source. [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) holds the key you uploaded and Claude never sees it. To limit that risk further, don't create more keys for the service account.
+
 ## Related resources
 
 * [What this connection adds](/docs/claude-tag/users/use-cases/answer-data-questions): warehouse questions answered with charts in the thread

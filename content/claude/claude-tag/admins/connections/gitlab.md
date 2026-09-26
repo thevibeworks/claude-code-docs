@@ -32,10 +32,10 @@ If your plugin marketplace includes a GitLab plugin, pair it with this connectio
 
 **You'll see:** GitLab listed in the bundle's connections, and `@Claude what can you access from this channel?` returns it in a new thread under the bundle's scope. New threads pick up the connection on their own; in an existing thread, ask Claude to use the service by name.
 
-| Field                 | Value                                                                                                                                                   |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Personal access token | The token from GitLab, starting with `glpat-`. Project and group access tokens work here too; the label is the field name, not a token-type constraint. |
-| Allowed websites      | `gitlab.com` (preset). For self-managed GitLab, open the **Advanced** tab and add your instance's hostname here.                                        |
+| Field                          | Value                                                                                                            |
+| :----------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| Claude’s personal access token | The token from GitLab, starting with `glpat-`. Project and group access tokens work here too.                    |
+| Allowed websites               | `gitlab.com` (preset). For self-managed GitLab, open the **Advanced** tab and add your instance's hostname here. |
 
 GitLab's own guide for creating tokens is at [docs.gitlab.com](https://docs.gitlab.com/api/rest/authentication/).
 

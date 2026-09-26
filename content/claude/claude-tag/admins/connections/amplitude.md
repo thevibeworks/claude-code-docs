@@ -16,7 +16,7 @@ Connecting Amplitude lets Claude answer product-analytics questions, such as fun
 
 You can connect with a project API key and secret key, which you can limit to read requests, or by signing in as an Amplitude user, which gives Claude Amplitude's MCP tools for creating and editing content as well as reading it.
 
-For the API key route, pair the connection with a plugin that covers Amplitude so Claude knows how to call the REST API; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). A member's own Amplitude connector on claude.ai is separate from this connection and applies in DMs. In organizations where [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) is available, Claude can also use that connector in a channel for that member's own tasks, after the member allows it.
+For the API key route, pair the connection with a plugin that covers Amplitude so Claude knows how to call the REST API; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). A member's own Amplitude connector on claude.ai is separate from this connection and applies in DMs. Claude can also [use that connector in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
 
 ## Choose an API key or Amplitude sign-in
 

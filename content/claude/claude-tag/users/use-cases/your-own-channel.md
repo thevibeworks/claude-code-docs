@@ -22,7 +22,7 @@ Pick a DM for personal tasks on your own connections, or for data that shouldn't
 
 ## Set up the channel
 
-1. Create a Slack channel and add Claude with `/invite @Claude`. Make the channel public unless the work needs to be private, since [memory](/docs/claude-tag/users/memory) from a public channel is shared across the workspace and teammates can find and join the work. A private channel works too, and keeps its memory in its own store.
+1. Create a Slack channel and add Claude with `/invite @Claude`. Make the channel public unless the work needs to be private, so teammates can find and join the work. Either way, the channel keeps its own [memory](/docs/claude-tag/users/memory).
 2. Ask `@Claude what can you access from this channel?`. None of the prompts below require a connection, and an admin can [add a connection](/docs/claude-tag/admins/add-connections) your work needs, like the issue tracker or GitHub.
 3. Tell Claude how the channel should behave and ask it to remember, as in `@Claude remember for this channel: keep replies short, and format digests as tables`. Later sessions in the channel start from what you saved.
 

@@ -70,7 +70,12 @@ A listing you submitted before the developer portal existed stays as it is. Move
 * A status for each submission
 * Usage figures for a published plugin
 
-The earlier Claude Console form for plugin submissions is no longer supported. To move a submission you made through it, submit it again at [claude.ai/directory/manage](https://claude.ai/directory/manage) from a claude.ai account.
+The earlier Claude Console form for plugin submissions is no longer supported. To move a submission you made through it, open [**Plugin submissions**](https://platform.claude.com/plugins/submissions) in the Claude Console:
+
+* **A submission with a Withdraw button**: select **Withdraw**. Then submit the plugin again at [claude.ai/directory/manage](https://claude.ai/directory/manage) from a claude.ai account
+* **A submission with no Withdraw button**: email `directory@anthropic.com` to have it moved to the developer portal instead of starting a new submission there. If you already saved a draft in the developer portal for the same repository and folder, [delete the draft](/docs/plugins/submit#withdraw-or-delist-a-plugin) first
+
+Until the Console submission is withdrawn or moved, the portal can refuse **Submit for review** for the same repository and folder with **Already submitted by another organization**.
 
 ### Prepare for review
 

@@ -28,6 +28,14 @@ Claude is most useful when the work is somewhere the team can see, steer, and bu
 
 Claude can't add anyone to a channel, and it doesn't decide whether a mentioned person is notified. Slack's prompt to invite or notify someone who isn't in the channel appears only for messages you type yourself; it never applies to messages Claude posts. Slack delivers Claude's mention the way it delivers any app-posted message. In a public channel, the person is notified in their Activity view even though they haven't joined. In a private channel, they aren't notified and can't see the message until someone invites them. If you want someone to follow a thread Claude is working in, invite them yourself.
 
+### Mentioning a user group
+
+Ask Claude to notify a user group, such as an on-call rotation. Claude mentions the group, and Slack notifies its members. If Claude writes the group's @handle as plain text instead of mentioning the group, Slack notifies no one, so ask Claude to notify the group rather than to include its handle.
+
+If Claude replies with re-approval guidance instead of mentioning the group, your workspace's Claude app predates a Slack permission that group mentions need. Ask a Slack admin to re-approve the app, and send them [Slack app permissions](/docs/claude-tag/admins/troubleshooting#slack-app-permissions).
+
+Claude never pings @channel, @here, or @everyone.
+
 ## Write tasks that close
 
 The phrasing of a task determines whether it has a verifiable end state, what form the result takes, and how Claude responds while working on it.
@@ -122,6 +130,8 @@ Each thread runs its own session, and the session carries the whole conversation
 
 Start a new thread for each new task. The fresh session begins with full room for the work, picks up any configuration changes made since the old thread began, and keeps each piece of work reviewable on its own. A thread that accumulates many tasks eventually [grows past what one session can hold](/docs/claude-tag/users/troubleshooting#this-conversation-is-too-long-for-me-to-process).
 
+To start several independent tasks from inside an existing thread, [ask Claude to open a thread for each](/docs/claude-tag/users/prompt-library#fan-out-work-across-threads). To continue the current discussion in a fresh thread, run [`!fork`](/docs/claude-tag/users/commands#fork-a-thread).
+
 ### Pick the right surface
 
 Channel access belongs to the channel, and DM access belongs to you. A channel can also be yours alone. Create one with just you and Claude in it, and it works the same way a team channel does. The table compares the three surfaces.
@@ -140,9 +150,11 @@ A DM can still answer questions about a public channel when the answer should st
 
 Reading a public channel's full history, rather than what search finds, needs Claude to be a member of that channel. If it says it can't read a public channel, `/invite @Claude` from inside that channel adds it.
 
+Claude can also post into other public channels, and the rules depend on where you ask. See [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works#what-claude-can-do-in-other-channels).
+
 A private channel is readable only from inside it. Inviting Claude lets it work in that channel, but Claude can't read the private channel's messages from any other channel or DM. To ask about a private channel, ask in that channel.
 
-Channels in a different workspace stay out of reach. Claude also doesn't answer in a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company.
+Claude can't post into a channel in a different workspace, and it doesn't answer in a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company.
 
 When more than one surface would work, prefer a channel. Work that happens there compounds, because Claude can draw on it in later threads and teammates can find it, redirect it, or build on it.
 
@@ -152,13 +164,13 @@ If Claude says it can't reach something in a channel, the channel likely wasn't 
 
 When Claude gets something wrong, or learns something worth keeping, where you put the fix decides who else benefits and whether you can do it yourself.
 
-| You want Claude to know                                                                   | Put it in                                                                                                                      | Who can write it                                                                                                                   | Reaches                                               |
-| :---------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
-| How this channel should behave: format, tone, when to respond                             | [**Channel memory**](/docs/claude-tag/users/memory) (say it and ask Claude to remember)                                             | Anyone in the channel                                                                                                              | This channel (or workspace, from a public channel)    |
-| Conventions and setup for one repository: file layout, PR labels, dependencies to install | **`CLAUDE.md`** at the repo root ([loaded when the repo is](/docs/claude-tag/admins/configure-github#what-loads-from-a-repository)) | Anyone with repo write                                                                                                             | Any session that works in that repo, from any channel |
-| Standing rules for this channel that outrank memory                                       | The [**Configure** page](#configure-claude-for-a-channel), in the **Channel instructions** field                               | Channel members, unless an admin has [restricted it](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) | This channel                                          |
-| How to use a tool correctly, or follow a specific process, org-wide                       | [**A skill**](/docs/claude-tag/admins/skills-repo) in your org's plugin marketplace                                                 | An organization Owner adds it; anyone can ask Claude to open a PR proposing the change                                             | Every channel under the scope it's attached to        |
-| Standing rules across many channels                                                       | [**Custom instructions**](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) on a workspace or organization scope     | An organization Owner, in the console                                                                                              | Every session in that scope                           |
+| You want Claude to know                                                                   | Put it in                                                                                                                      | Who can write it                                                                                                                   | Reaches                                                                                             |
+| :---------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| How this channel should behave: format, tone, when to respond                             | [**Channel memory**](/docs/claude-tag/users/memory) (say it and ask Claude to remember)                                             | Anyone in the channel                                                                                                              | This channel; the whole workspace only if Claude saves it as a workspace note from a public channel |
+| Conventions and setup for one repository: file layout, PR labels, dependencies to install | **`CLAUDE.md`** at the repo root ([loaded when the repo is](/docs/claude-tag/admins/configure-github#what-loads-from-a-repository)) | Anyone with repo write                                                                                                             | Any session that works in that repo, from any channel                                               |
+| Standing rules for this channel that outrank memory                                       | The [**Configure** page](#configure-claude-for-a-channel), in the **Channel instructions** field                               | Channel members, unless an admin has [restricted it](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) | This channel                                                                                        |
+| How to use a tool correctly, or follow a specific process, org-wide                       | [**A skill**](/docs/claude-tag/admins/skills-repo) in your org's plugin marketplace                                                 | An organization Owner adds it; anyone can ask Claude to open a PR proposing the change                                             | Every channel under the scope it's attached to                                                      |
+| Standing rules across many channels                                                       | [**Custom instructions**](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) on a workspace or organization scope     | An organization Owner, in the console                                                                                              | Every session in that scope                                                                         |
 
 The first three are yours to write. Skills and wider-scope custom instructions are attached by an Owner, but you can still ask Claude to draft a skill change as a pull request for an admin to review:
 

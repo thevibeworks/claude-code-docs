@@ -2,6 +2,12 @@
 
 ## September 2026
 
+### September 25, 2026
+
+**Build plugins for Claude**
+
+You can now submit plugins to the Claude directory through a new developer portal, track them through review, and see usage analytics once they’re live. For more information, see our blog post: **[Build plugins for Claude](https://claude.com/blog/build-plugins-for-claude)**.
+
 ### September 22, 2026
 
 **Claude Opus 5.5 launch**

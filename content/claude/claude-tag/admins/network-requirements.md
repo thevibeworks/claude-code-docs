@@ -24,6 +24,8 @@ The authoritative list is [Anthropic's published IP addresses](https://platform.
 
 The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) are what scope which of *your* systems Claude can call.
 
+<Note>If your Google Cloud project uses VPC Service Controls, an IP-based access level doesn't admit Claude's queries through the [BigQuery connection](/docs/claude-tag/admins/connections/bigquery). See [Allow the connection through a VPC Service Controls perimeter](/docs/claude-tag/admins/connections/bigquery#allow-the-connection-through-a-vpc-service-controls-perimeter) on the BigQuery page.</Note>
+
 Allowlist changes on enterprise systems can take days to take effect, which is why the [prerequisites for setup](/docs/claude-tag/admins/setup-overview) send you here before you start setup.
 
 ## Internet reachability
