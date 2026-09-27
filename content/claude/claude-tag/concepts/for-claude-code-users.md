@@ -49,7 +49,7 @@ The table shows what takes the place of each setting from your machine. Where a 
 | A setup script for your workspace        | An admin sets a setup script on the [environment the channel's sessions run on](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope), and what it installs is in place when each session in the channel starts. For setup that belongs to one repository, use `CLAUDE.md` [install steps](/docs/claude-tag/admins/configure-github#install-project-dependencies) instead. |
 | Permission prompts                       | Sessions run in auto mode, where Claude's permission checker reviews each action and can stop it. An admin pre-approves routine actions with [auto mode allow rules](/docs/claude-tag/admins/customize#auto-mode-allow-rules) instead of you approving in the moment.                                                                                                                    |
 
-To change what a session can reach, ask an admin to [add a connection](/docs/claude-tag/admins/add-connections). The change applies to every session in the channel.
+To change what a session can reach for everyone, ask an admin to [add a connection](/docs/claude-tag/admins/add-connections). The change applies to every session in the channel.
 
 ## How Slack threads map to sessions
 
@@ -63,7 +63,7 @@ Claude Code acts with your credentials. What a session acts with depends on whet
 
 ### In a channel
 
-In a channel, Claude acts with credentials of its own, service accounts that [an admin provisions](/docs/claude-tag/concepts/agent-identity#channel-sessions). A pull request comes from the Claude GitHub App rather than from you, and a query against a connected service runs with the channel's credentials no matter who asked. Access is set per channel, not per person.
+In a channel, Claude acts with credentials of its own, service accounts that [an admin provisions](/docs/claude-tag/concepts/agent-identity#channel-sessions). A pull request comes from the Claude GitHub App rather than from you, and a query against a connected service runs with the channel's credentials no matter who asked. For your own requests, Claude can also [use the connectors on your claude.ai account](/docs/claude-tag/concepts/personal-connectors) in the channel, after you allow it.
 
 ### In a direct message
 

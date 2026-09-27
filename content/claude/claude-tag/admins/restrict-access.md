@@ -144,6 +144,8 @@ A pattern is written in lowercase, like Slack channel names, plus two wildcards:
 
 A channel that matches a blocked pattern stays off-limits even when it also matches an auto-join pattern. Patterns on **Default Slack access** apply in every connected workspace. A workspace scope can add its own patterns but can't remove the organization's.
 
+About once a week, Claude sends the person who connected the workspace a direct message suggesting public channels to add it to. To stop those messages, select **Stop these suggestions** in any of them.
+
 ### Restrict guest channels
 
 By default, Claude is disabled in any channel that includes a Slack guest. You can change this default per scope with the **How should Claude work in channels with guests** setting, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → the collapsed **Advanced** section. The setting has three values:

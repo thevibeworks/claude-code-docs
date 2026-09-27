@@ -614,7 +614,7 @@ Once the limit is raised or the period resets, mention Claude in the same thread
 
 ## DMs aren't working
 
-DMs run on your own Claude account rather than the organization's agent. They need a seat that includes Claude Code, and they use your personal connectors rather than the channel connections. If channels work but DMs don't, first check that your Claude account is connected; DM `@Claude` and it prompts you to connect if it isn't.
+DMs run on your own Claude account rather than the organization's agent. They need a qualifying seat (a seat that includes Claude Code, or on the Enterprise plan a **Standard** or **Usage-Based Chat** seat when the member also has Cowork), and they use your personal connectors rather than the channel connections. If channels work but DMs don't, first check that your Claude account is connected; DM `@Claude` and it prompts you to connect if it isn't.
 
 ### I get an environment error in a DM
 
@@ -647,7 +647,7 @@ The Claude app's **Messages** tab and Slack's assistant panel both count as DMs 
 
 **What it means**
 
-Your seat type doesn't include the Claude Code engine that powers DMs. Mentioning `@Claude` in a real channel doesn't depend on your seat type and keeps working.
+Your seat doesn't qualify for DMs. A seat that includes Claude Code always qualifies; on the Enterprise plan, a **Standard** or **Usage-Based Chat** seat also qualifies when you have Cowork. Mentioning `@Claude` in a real channel doesn't depend on your seat type and keeps working.
 
 **How to resolve**
 
