@@ -14,7 +14,7 @@ We're working on making these safeguards more precise to help block only genuine
 
 ## What requests may fall back
 
-**Claude Fable 5 and Fable 5.1 runs automated safety checks, or classifiers, on every user request. These checks are intended to visibly fall back from Fable 5 and Fable 5.1 to Opus models when users submit requests in:**
+**Claude Fable 5 and Fable 5.1 run automated safety checks, or classifiers, on every user request. These checks are intended to visibly fall back from Fable 5 and Fable 5.1 to Opus models when users submit requests in:**
 
 - Offensive cybersecurity techniques, such as building exploits, malware, or attack tooling. Claude Fable 5 and Fable 5.1 can assist with routine cybersecurity tasks, but users should expect high fallback rates. The safeguards are designed to block access to Mythos-level capabilities.
 

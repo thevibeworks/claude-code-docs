@@ -31,7 +31,7 @@ The steps in this section build a plugin named `expense-reports` for a fictional
   <Step title="Write the manifest">
     Create a folder named `expense-reports`, and create `.claude-plugin/plugin.json` inside it. Put only the manifest inside `.claude-plugin/`. Everything else goes at the plugin's top level.
 
-    The directory requires the manifest, and the example has the fields that every surface and the directory read:
+    The example has the fields that every surface and the directory read:
 
     ```json theme={null}
     {

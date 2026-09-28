@@ -19,8 +19,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'SKILL.md'
     }],
-    href: '/skills/how-to#create-a-skillmd-file',
-    linkText: 'Go to Create a SKILL.md file'
+    href: 'https://agentskills.io/specification',
+    linkText: 'Go to the Agent Skills specification'
   }, {
     id: 'references',
     name: 'Reference file',
@@ -34,8 +34,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'voice-and-tone.md'
     }],
-    href: '/skills/how-to#add-resources',
-    linkText: 'Go to Add resources'
+    href: 'https://agentskills.io/specification',
+    linkText: 'Go to the Agent Skills specification'
   }, {
     id: 'assets',
     name: 'Asset',
@@ -49,8 +49,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'slide-template.md'
     }],
-    href: '/skills/how-to#add-resources',
-    linkText: 'Go to Add resources'
+    href: 'https://agentskills.io/specification',
+    linkText: 'Go to the Agent Skills specification'
   }, {
     id: 'scripts',
     name: 'Script',
@@ -64,8 +64,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'check_contrast.py'
     }],
-    href: '/skills/how-to#add-scripts',
-    linkText: 'Go to Add scripts'
+    href: 'https://code.claude.com/docs/en/skills',
+    linkText: 'Go to Skills in Claude Code'
   }];
   const PLUGIN_PIECES = [{
     id: 'manifest',
@@ -453,7 +453,18 @@ A skill is a folder named after the skill. The only required file is `SKILL.md`;
   </Piece>
 </PluginExplorer>
 
-The directory name must match the `name` field in your `SKILL.md`.
+As a plain tree, the same skill looks like this. The directory name must match the `name` field in your `SKILL.md`, and everything except `SKILL.md` is optional:
+
+```text theme={null}
+brand-guidelines/
+├── SKILL.md              # required: frontmatter and instructions
+├── references/           # optional: documentation Claude reads when a step calls for it
+│   └── voice-and-tone.md
+├── assets/               # optional: templates and files Claude copies or fills in
+│   └── slide-template.md
+└── scripts/              # optional: code Claude runs while following the skill
+    └── check_contrast.py
+```
 
 ## Create a `SKILL.md` file
 
